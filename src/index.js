@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import './styles/css/main.css';
+import {store} from 'store';
+import {Provider} from 'react-redux';
+import {AppHolder} from './app_holder';
+import {Router} from 'react-router-dom';
+import {history} from 'router/history';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Lägg till google analytics här?
+// history.listen(location => analyticsService.track(location.pathname))
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+/**
+ * Application starting point.
+ * Wrapping App_holder in router to control url paths.
+ */
+const app =
+    <Provider store={store}>
+        <Router history={history}>
+            <AppHolder />
+        </Router>
+    </Provider>;
+
+ReactDOM.render(app, document.querySelector('#root'));

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,qBAAqB;EACnB,KAAK,EAAE,OAAO;EACd,WAAW,EAAE,iBAAiB;EAC9B,SAAS,EAAE,IAAI;;AAEjB,gBAAgB;EACd,WAAW,EAAE,iBAAiB;EAC9B,SAAS,EAAE,IAAI;EACf,KAAK,EAAE,OAAO;EACd,MAAM,EAAE,IAAI;;ACTd,CAAC;EACC,KAAK,EAAE,IAAI;;ACDb,IAAI;EACF,KAAK,EAAE,GAAG",
+"sources": ["../_tables.sass","../_text_general.sass","../_prospect.sass"],
+"names": [],
+"file": "main.css"
+}

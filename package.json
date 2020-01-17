@@ -3,19 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.8.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "ag-grid-community": "^22.1.1",
+    "ag-grid-react": "^22.1.1",
+    "axios": "^0.19.0",
+    "history": "^4.10.1",
+    "moment": "^2.24.0",
+    "nls": "git+ssh://git@gitlab.com:bilprospekt/bilp-shared/bilprospekt-nls.git",
+    "ramda": "^0.26.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react-redux": "^7.1.3",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.0",
+    "redux": "^4.0.4",
+    "shared_helpers": "git+ssh://git@gitlab.com:bilprospekt/bilp-shared/bilprospekt-shared-helpers.git",
+    "typescript": "3.7.2",
+    "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.13.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=5000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sass": "sass --watch src/styles:src/styles/css",
+    "create-links": "npm link src/components && npm link src/helpers && npm link src/router && npm link src/store"
   },
+  "proxy": "http://localhost:3000",
   "eslintConfig": {
     "extends": "react-app"
   },
