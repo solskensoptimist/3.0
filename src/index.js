@@ -5,7 +5,8 @@ import {store} from 'store';
 import {Provider} from 'react-redux';
 import {AppHolder} from './app_holder';
 import {Router} from 'react-router-dom';
-import {history} from 'router/history';
+import {createBrowserHistory} from 'history';
+const history = createBrowserHistory();
 
 // Lägg till google analytics här?
 // history.listen(location => analyticsService.track(location.pathname))
@@ -15,10 +16,10 @@ import {history} from 'router/history';
  * Wrapping App_holder in router to control url paths.
  */
 const app =
-    <Provider store={store}>
-        <Router history={history}>
-            <AppHolder />
-        </Router>
-    </Provider>;
+        <Provider store={store}>
+            <Router history={history}>
+                <AppHolder />
+            </Router>
+        </Provider>;
 
 ReactDOM.render(app, document.querySelector('#root'));
