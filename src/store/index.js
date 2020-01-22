@@ -1,10 +1,12 @@
 import {createStore, combineReducers} from 'redux';
 import {groupsReducer} from 'store/groups/reducer';
+import {prospectReducer} from 'store/prospect/reducer';
 import {userReducer} from 'store/user/reducer';
 
 // All reducers combined.
 const reducer = combineReducers({
     groups: groupsReducer,
+    prospect: prospectReducer,
     user: userReducer,
 });
 

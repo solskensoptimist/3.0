@@ -1,7 +1,7 @@
 import React from 'react';
-import {ProspectSubComponent} from './subcomponents/prospect_sub_component';
+import {ProspectCarComponent} from './subcomponents/prospect_car_component';
 import {connect} from 'react-redux';
-import {BreadcrumbsComponent} from 'components/breadcrumbs';
+import BreadcrumbsComponent from 'components/breadcrumbs';
 import {Link as RouterLink} from 'react-router-dom';
 
 // Data grid
@@ -28,31 +28,28 @@ import {Link as RouterLink} from 'react-router-dom';
 //     rowData: rows
 // };
 
-const ProspectComponent = (state, dispatch) =>  {
+const ProspectComponent = (state) =>  {
     console.log('state i prospektera', state);
-    const name = state.user.data.name ? <p>Inloggad som: {state.user.data.name}</p> : null;
+    // const name = state.user.data.name ? <p>Inloggad som: {state.user.data.name}</p> : null;
     return (
         <div>
             <BreadcrumbsComponent />
             <div>
-                {name}
                 <RouterLink to='/prospektera/resultat'>Gör prospektering</RouterLink>
             </div>
-            <ProspectSubComponent />
+            <ProspectCarComponent />
         </div>
     );
 };
 
 const MapStateToProps = (state) => {
-    return state;
-};
-
-const MapDispatchToProps = (dispatch) => {
-    return {};
-
+    return {
+        prospect: state.prospect,
+        // Ange alltid den data vi behöver som property. Vi kommer behöva utöka detta. I.E. skicka ej in objekt som:
+        // return state.prospect;
+    };
 };
 
 export default connect(
     MapStateToProps,
-    MapDispatchToProps
 )(ProspectComponent);

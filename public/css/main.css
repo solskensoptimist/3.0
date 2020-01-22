@@ -9,8 +9,11 @@
   color: #bd4b7b;
   height: 100%; }
 
+div {
+  color: red; }
+
 p {
-  color: pink; }
+  color: purple; }
 
 .hej {
   color: red; }

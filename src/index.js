@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/css/main.css';
 import {store} from 'store';
 import {Provider} from 'react-redux';
 import {AppHolder} from './app_holder';
 import {Router} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
+import * as serviceWorker from './service_worker';
 const history = createBrowserHistory();
 
 // Lägg till google analytics här?
@@ -23,3 +23,4 @@ const app =
         </Provider>;
 
 ReactDOM.render(app, document.querySelector('#root'));
+serviceWorker.register();

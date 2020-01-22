@@ -1,9 +1,3 @@
-/*
-Här ska jag ha alla metoder som hanterar grupper... se hurdetta ser ut idag (det ligger uppdelat i flera stores)
-
- */
-
-
 // import {fetchProductsPending, fetchProductsSuccess, fetchProductsError} from 'actions';
 //
 // function fetchProducts() {

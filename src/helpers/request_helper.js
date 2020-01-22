@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'underscore';
 
 /**
- * Helper to make  requests.
+ * Helper to make requests.
  *
  * @param payload
  */
@@ -25,11 +25,11 @@ export const request = (payload) => {
         }
 
         axios(params)
-            .then((res) => {
-                resolve(res.data);
-            })
-            .catch((err) => {
-                reject(err);
-            })
+        .then((res) => {
+            resolve(res.data);
+        })
+        .catch((err) => {
+            reject(err);
+        })
     });
 };

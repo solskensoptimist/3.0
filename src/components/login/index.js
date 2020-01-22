@@ -1,29 +1,19 @@
 import React from 'react';
 import {userLogin} from 'store/user/tasks';
 
-class LoginComponent extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    async handleSubmit() {
+export const LoginComponent = () =>  {
+    const handleSubmit = async () => {
         await userLogin({
             email: 'peter.persson@bilvision.se',
             password: 'ninja',
         });
-    }
+    };
 
-    render() {
-        return (
-            <div>
-                <div onClick={this.handleSubmit}>
-                    Klicka här för att logga in.
-                </div>
+    return (
+        <div>
+            <div onClick={handleSubmit}>
+                Klicka här för att logga in.
             </div>
-        );
-    }
-}
-
-export {LoginComponent};
+        </div>
+    );
+};

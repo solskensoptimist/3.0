@@ -28,17 +28,11 @@ class GroupsComponent extends React.Component {
 }
 
 const MapStateToProps = (state) => {
-    return state.groups;
-};
-
-const MapDispatchToProps = (dispatch) => {
     return {
-        getGroups: (type) => { dispatch({ type: groupsActionTypes.GET_GROUPS, payload: type }) },
+        groups: state.groups,
     };
-
 };
 
 export default connect(
     MapStateToProps,
-    MapDispatchToProps
 )(GroupsComponent);

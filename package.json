@@ -31,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "sass --watch src/styles:src/styles/css",
+    "sass": "sass --watch src/styles:public/css",
     "create-links": "npm link src/components && npm link src/helpers && npm link src/router && npm link src/store"
   },
   "proxy": "http://localhost:3000",
