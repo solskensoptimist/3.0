@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ProspectSubComponent2 = () => {
+export const ProspectSub = () => {
     return (
         <div>
             Prospektera sub-komponent 2.

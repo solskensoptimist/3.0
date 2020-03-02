@@ -1,4 +1,4 @@
 export const groupsActionTypes = {
-    GET_GROUPS: 'GET_GROUPS',
     REMOVE_GROUP: 'REMOVE_GROUP',
+    SET_GROUPS: 'SET_GROUPS',
 };

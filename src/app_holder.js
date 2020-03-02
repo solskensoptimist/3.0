@@ -1,7 +1,7 @@
 import React from 'react';
-import {Router} from 'router';
-import {NavigationComponent} from 'components/navigation';
-import BreadcrumbsComponent from 'components/breadcrumbs';
+import Router from 'router';
+import Navigation from 'components/navigation';
+import Breadcrumbs from 'components/breadcrumbs';
 
 /**
  * Root component which holds all other subcomponents.
@@ -9,8 +9,8 @@ import BreadcrumbsComponent from 'components/breadcrumbs';
 export const AppHolder = () => {
     return (
         <div>
-            <BreadcrumbsComponent />
-            <NavigationComponent />
+            <Breadcrumbs />
+            <Navigation />
             <div className='page-holder'>
                 <Router />
             </div>

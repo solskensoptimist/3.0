@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const GroupsSubComponent = () => {
+export const GroupsSub = () => {
     return (
         <div>
             Groups sub-komponent

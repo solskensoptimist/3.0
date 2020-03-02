@@ -21,6 +21,8 @@ We shouldn't need to import redux dispatcher to components (via mapDispatchToPro
 
 We should map redux state to components wherever we need it, we should try and limit the use of props as much as we can. This way we can reuse components in different places. Try and keep them clean and not dependent of other components (disregarding subcomponents of course). I.E. we should be able to import GroupsComponent everywhere on the site.
 
+Since we use redux store everywhere we should try and keep the use of local state in components to a minimal. It should of course be used where a component need to store a state that we should not have in redux. But we should not retrieve state from store and save it in a local component state.
+
 When we retrieve store state from a component (via mapStateToProps), we should always import it with a property name. I.E. do this:
 `const MapStateToProps = (state) => {
     return {
