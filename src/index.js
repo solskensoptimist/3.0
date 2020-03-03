@@ -4,9 +4,8 @@ import {store} from 'store';
 import {Provider} from 'react-redux';
 import {AppHolder} from './app_holder';
 import {Router} from 'react-router-dom';
-import {createBrowserHistory} from 'history';
 import * as serviceWorker from './service_worker';
-const history = createBrowserHistory();
+import history from './router_history';
 
 // Lägg till google analytics här?
 // history.listen(location => analyticsService.track(location.pathname))

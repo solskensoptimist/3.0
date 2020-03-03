@@ -1,9 +1,11 @@
 import {settingsActionTypes} from './actions';
 
-const initialState = {
-    data: {},
-    searchTerm: null,
-    settings: null,
+interface SettingsState {
+    email: boolean | null,
+}
+
+const initialState: SettingsState = {
+    email: null,
 };
 
 export const settingsReducer = (state = initialState, action) => {
@@ -11,8 +13,7 @@ export const settingsReducer = (state = initialState, action) => {
         case settingsActionTypes.SET_SETTINGS: {
             return {
                 ...state,
-                data: action.payload.data,
-                settings: action.payload.settings
+                email: action.payload.email,
             }
         }
         default: {

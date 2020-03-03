@@ -17,7 +17,7 @@ npm start
 
 #### Application structure brainstorm
 
-We shouldn't need to import redux dispatcher to components (via mapDispatchToProps). Instead put all functions that touch store state (and use dispatcher) from store/subdomain/tasks.js. tasks.js should handle all tasks that affect that domain of the store state. I.E. store/user/tasks.js handles everything that affects state.user.
+We shouldn't need to import redux dispatcher to components (via mapDispatchToProps). Instead put all functions that touch store state (and use dispatcher) from store/subdomain/tasks.ts. tasks.ts should handle all tasks that affect that domain of the store state. I.E. store/user/tasks.ts handles everything that affects state.user.
 
 We should map redux state to components wherever we need it, we should try and limit the use of props as much as we can. This way we can reuse components in different places. Try and keep them clean and not dependent of other components (disregarding subcomponents of course). I.E. we should be able to import GroupsComponent everywhere on the site.
 

@@ -2,7 +2,14 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import {Link as RouterLink, Route} from 'react-router-dom';
-import routes from 'router/routes';
+
+const routes = {
+    grupper: 'Grupper',
+    inloggning: 'Inloggning',
+    prospektera: 'Prospektera',
+    installningar: 'Inställningar',
+    resultat: 'Resultat',
+};
 
 export default () => {
     return (
