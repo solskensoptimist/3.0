@@ -1,0 +1,25 @@
+.navigation
+  border: 1px solid red
+  display: flex
+  align-items: center
+  height: 46px
+  &:after
+    content: ''
+    clear: both
+    display: block
+  &__menu
+    display: flex
+    justify-content: center
+    width: calc(100% - 42px)
+    float: left
+  &__settingsBtn
+    float: right
+    width: 22px
+    margin-right: 20px
+  &__settings
+    border: 1px solid purple
+    position: absolute
+    top: 128px
+    right: 20px
+    padding: $padding-reg
+

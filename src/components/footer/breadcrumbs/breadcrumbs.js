@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import {Link as RouterLink, Route} from 'react-router-dom';
+import {connect} from "react-redux";
 
 // We only show breadcrumbs for logged in routes.
 const routes = {
@@ -12,8 +13,12 @@ const routes = {
     resultat: 'Resultat',
 };
 
-export default () => {
-    return (
+const BreadCrumbs = (state) => {
+    const loggedIn = () => {
+        return !!(state && state.user && state.user.data && state.user.data.id);
+    };
+
+    return (loggedIn() ?
         <Route>
             {({ location }) => {
                 const pathnames = location.pathname.split('/').filter(x => x);
@@ -36,6 +41,17 @@ export default () => {
                     </Breadcrumbs>
                 );
             }}
-        </Route>
+        </Route> :
+            null
     );
 };
+
+const MapStateToProps = (state) => {
+    return {
+        user: state.user,
+    };
+};
+
+export default connect(
+    MapStateToProps,
+)(BreadCrumbs);

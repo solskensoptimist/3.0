@@ -47,21 +47,9 @@ const loadFromLocalStorage = () => {
     }
 };
 
-/**
- * If CLEAR_STATE action is fired - clear state & storage.
- */
-const rootReducer = (state, action) => {
-    if (action.type === "CLEAR_STATE") {
-        localStorage.clear();
-        state = undefined
-    }
-
-    return reducer(state, action)
-};
-
 
 // Creating redux store.
-const store = createStore(rootReducer, loadFromLocalStorage());
+const store = createStore(reducer, loadFromLocalStorage());
 
 // Subscriptions.
 store.subscribe(() => saveToLocalStorage(store.getState()));

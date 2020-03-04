@@ -4,7 +4,7 @@ import Tab from '@material-ui/core/Tab';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {Route, Link, BrowserRouter} from "react-router-dom";
 import history from '../../../router_history';
-import Settings from 'components/header/settings';
+import Settings from './settings';
 import {connect} from "react-redux";
 
 /**
@@ -14,11 +14,7 @@ const Navigation = (state) =>  {
     const [showSettings, setShowSettings] = useState(false);
 
     const _handleChange = (event, value) => {
-        if (value === '/') {
-            history.push('home');
-        } else {
-            history.push(value);
-        }
+        history.push(value);
     };
 
     const loggedIn = () => {
@@ -26,24 +22,33 @@ const Navigation = (state) =>  {
     };
 
     return ( loggedIn() ?
-        <div>
-            <BrowserRouter>
-                <div>
-                    <Route path='/' render={({ location }) => (
-                        <Fragment>
-                            <Tabs value={location.pathname} onChange={_handleChange}>
-                                <Tab label='Bearbeta' value='/bearbeta' component={Link} to={'/bearbeta'} />
-                                <Tab label='Prospektera' value='/prospektera' component={Link} to={'/prospektera'} />
-                                <Tab label='Aktivitet' value='/aktivitet' component={Link} to={'/aktivitet'} />
-                            </Tabs>
-                        </Fragment>
-                    )} />
-                </div>
-            </BrowserRouter>
+        <div className='navigation'>
+            <div className='navigation__menu'>
+                <BrowserRouter>
+                    <div>
+                        <Route path='/' render={({ location }) => (
+                            <Fragment>
+                                <Tabs value={location.pathname} onChange={_handleChange}>
+                                    <Tab label='Bearbeta' value='/bearbeta' component={Link} to={'/bearbeta'} />
+                                    <Tab label='Prospektera' value='/prospektera' component={Link} to={'/prospektera'} />
+                                    <Tab label='Aktivitet' value='/aktivitet' component={Link} to={'/aktivitet'} />
+                                </Tabs>
+                            </Fragment>
+                        )} />
+                    </div>
+                </BrowserRouter>
+            </div>
+            <div className='navigation__settingsBtn'>
                 <SettingsIcon onClick={() => setShowSettings(!showSettings)} />
-                {showSettings && <Settings />}
+            </div>
+            {showSettings &&
+                <div className='navigation__settings'>
+                    <Settings/>
+                </div>
+            }
         </div> :
-            <div>
+        <div className='navigation'>
+            <div className='navigation__menu'>
                 <BrowserRouter>
                     <div>
                         <Route path='/' render={({ location }) => (
@@ -51,6 +56,7 @@ const Navigation = (state) =>  {
                                 <Tabs value={location.pathname} onChange={_handleChange}>
                                     <Tab label='Vår tjänst' value='/' component={Link} to={'/'} />
                                     <Tab label='Team' value='/team' component={Link} to={'/team'} />
+                                    <Tab label='Priser' value='/priser' component={Link} to={'/priser'} />
                                     <Tab label='Inloggning' value='/inloggning' component={Link} to={'/inloggning'} />
                                 </Tabs>
                             </Fragment>
@@ -58,6 +64,7 @@ const Navigation = (state) =>  {
                     </div>
                 </BrowserRouter>
             </div>
+        </div>
     );
 };
 

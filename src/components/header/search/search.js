@@ -4,7 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 export default () => {
     return (
-        <div>
+        <div className='search'>
             <div>
                 <SearchIcon />
             </div>

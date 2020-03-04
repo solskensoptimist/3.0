@@ -1,3 +1,6 @@
+.header .search {
+  height: 80px; }
+
 .sk-fading-circle {
   margin: 100px auto;
   width: 40px;
@@ -131,5 +134,33 @@
     opacity: 0; }
   40% {
     opacity: 1; } }
+.navigation {
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  height: 46px; }
+  .navigation:after {
+    content: "";
+    clear: both;
+    display: block; }
+  .navigation__menu {
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 42px);
+    float: left; }
+  .navigation__settingsBtn {
+    float: right;
+    width: 22px;
+    margin-right: 20px; }
+  .navigation__settings {
+    border: 1px solid purple;
+    position: absolute;
+    top: 128px;
+    right: 20px;
+    padding: 20px; }
+
+* {
+  margin: 0;
+  padding: 0; }
 
 /*# sourceMappingURL=main.css.map */
