@@ -11,6 +11,7 @@
     "axios": "^0.19.0",
     "dayjs": "^1.8.19",
     "history": "^4.10.1",
+    "link-module-alias": "^1.2.0",
     "nls": "git+ssh://git@gitlab.com:bilprospekt/bilp-shared/bilprospekt-nls.git",
     "ramda": "^0.26.1",
     "react": "^16.12.0",
@@ -32,7 +33,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "sass": "sass --watch src/styles:public/css",
-    "create-links": "npm link src/components && npm link src/helpers && npm link src/store"
+    "postinstall": "link-module-alias"
+  },
+  "_moduleAliases": {
+    "components": "src/components",
+    "helpers": "src/helpers",
+    "store": "src/store"
   },
   "proxy": "http://localhost:3000",
   "eslintConfig": {
