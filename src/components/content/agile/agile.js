@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {GroupsSub} from './subcomponents/groups_sub';
+import {AgileSub} from './subcomponents/agile_sub';
 
-const Groups = () => {
+const Agile = (state) => {
     return (
         <div>
             <div>
-                Groups huvud-komponent
+                Bearbeta huvud-komponent
             </div>
-            <GroupsSub />
+            <AgileSub />
         </div>
     );
 };
@@ -21,4 +21,4 @@ const MapStateToProps = (state) => {
 
 export default connect(
     MapStateToProps,
-)(Groups);
+)(Agile);

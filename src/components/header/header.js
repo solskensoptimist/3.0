@@ -6,8 +6,8 @@ import Search from './search';
 export default () => {
     return (
         <div className='header-wrapper'>
-            <Breadcrumbs />
             <Search />
+            <Breadcrumbs />
             <Navigation />
         </div>
     );

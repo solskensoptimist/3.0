@@ -3,11 +3,12 @@ import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import {Link as RouterLink, Route} from 'react-router-dom';
 
+// We only show breadcrumbs for logged in routes.
 const routes = {
-    grupper: 'Grupper',
-    inloggning: 'Inloggning',
+    aktivitet: 'Aktivitet',
+    bearbeta: 'Bearbeta',
+    listor: 'Listor',
     prospektera: 'Prospektera',
-    installningar: 'Inställningar',
     resultat: 'Resultat',
 };
 

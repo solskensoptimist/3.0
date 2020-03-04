@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const GroupsSub = () => {
+export const AgileSub = () => {
     return (
         <div>
-            Groups sub-komponent
+            Bearbeta sub-komponent
         </div>
     );
 };

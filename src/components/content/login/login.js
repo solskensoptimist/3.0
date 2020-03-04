@@ -1,12 +1,13 @@
 import React from 'react';
 import {userLogin} from 'store/user/tasks';
 
-export default () => {
+export default () =>  {
     const handleSubmit = async () => {
         await userLogin({
             email: 'peter.persson@bilvision.se',
             password: 'ninja',
         });
+        window.location.href = '/bearbeta';
     };
 
     return (
