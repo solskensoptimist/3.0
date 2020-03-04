@@ -23,6 +23,8 @@ We should map redux state to components wherever we need it, we should try and l
 
 Since we use redux store everywhere we should try and keep the use of local state in components to a minimal. It should of course be used where a component need to store a state that we should not have in redux. But we should not retrieve state from store and save it in a local component state.
 
+We use typescript and interfaces in our store.
+
 When we retrieve store state from a component (via mapStateToProps), we should always import it with a property name. I.E. do this:
 `const MapStateToProps = (state) => {
     return {

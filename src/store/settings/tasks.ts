@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request} from 'helpers/request_helper';
+import {request} from 'helpers';
 import {settingsActionTypes} from "store/settings/actions";
 import SettingsHelper from 'shared_helpers/settings_helper';
 

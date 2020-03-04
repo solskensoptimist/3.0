@@ -1,4 +1,6 @@
 import React from 'react';
+import Content from 'components/content';
+import Footer from 'components/footer';
 import Header from 'components/header';
 
 /**
@@ -8,8 +10,8 @@ export const AppHolder = () => {
     return (
         <div>
             <Header />
-            <div className='page-holder'>
-            </div>
+            <Content />
+            <Footer />
         </div>
     );
 };

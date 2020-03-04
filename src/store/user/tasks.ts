@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request} from 'helpers/request_helper';
+import {request} from 'helpers';
 import {userActionTypes} from "store/user/actions";
 /**
  * Send login request, set user data to store state.
