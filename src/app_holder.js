@@ -8,7 +8,7 @@ import Header from 'components/header';
  */
 export const AppHolder = () => {
     return (
-        <div>
+        <div id='root'>
             <Header />
             <Content />
             <Footer />

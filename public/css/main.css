@@ -135,10 +135,12 @@
   40% {
     opacity: 1; } }
 .navigation {
-  border: 1px solid red;
+  background: linear-gradient(#00bcd4, #00acc1);
+  border: 1px solid #00acc1;
   display: flex;
   align-items: center;
-  height: 46px; }
+  height: 46px;
+  color: white; }
   .navigation:after {
     content: "";
     clear: both;
@@ -154,6 +156,7 @@
     margin-right: 20px; }
   .navigation__settings {
     border: 1px solid purple;
+    background: #d2d2d2;
     position: absolute;
     top: 128px;
     right: 20px;
