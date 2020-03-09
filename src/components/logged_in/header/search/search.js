@@ -5,10 +5,12 @@ import SearchIcon from '@material-ui/icons/Search';
 export default () => {
     return (
         <div className='search'>
-            <div>
+            <div className='search__icon'>
                 <SearchIcon />
             </div>
-            <InputBase placeholder="Sök…" />
+            <div className='search__input'>
+                <InputBase placeholder="Sök…" />
+            </div>
         </div>
     );
 };

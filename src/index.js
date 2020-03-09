@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {store} from 'store';
 import {Provider} from 'react-redux';
-import {AppHolder} from './app_holder';
+import AppHolder from './app_holder';
 import {Router} from 'react-router-dom';
 import * as serviceWorker from './service_worker';
 import history from './router_history';

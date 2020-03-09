@@ -1,5 +1,25 @@
-.header .search {
-  height: 80px; }
+.header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 47px 47px;
+  grid-column-gap: 40px;
+  grid-row-gap: 20px;
+  padding-top: 20px; }
+  .header__logotype {
+    padding-left: 20px;
+    grid-column-start: 1;
+    grid-column-end: 2; }
+  .header__search {
+    grid-column-start: 2;
+    grid-column-end: 3; }
+  .header__user {
+    padding-right: 20px;
+    grid-column-start: 3;
+    grid-column-end: 4; }
+  .header__navigation {
+    background: red;
+    grid-column-start: 1;
+    grid-column-end: 4; }
 
 .sk-fading-circle {
   margin: 100px auto;
@@ -135,12 +155,9 @@
   40% {
     opacity: 1; } }
 .navigation {
-  background: linear-gradient(#00bcd4, #00acc1);
-  border: 1px solid #00acc1;
-  display: flex;
-  align-items: center;
-  height: 46px;
-  color: white; }
+  background: linear-gradient(#4db6ac, #26a69a);
+  color: white;
+  height: 100%; }
   .navigation:after {
     content: "";
     clear: both;
@@ -148,22 +165,41 @@
   .navigation__menu {
     display: flex;
     justify-content: center;
-    width: calc(100% - 42px);
-    float: left; }
-  .navigation__settingsBtn {
-    float: right;
-    width: 22px;
-    margin-right: 20px; }
-  .navigation__settings {
-    border: 1px solid purple;
-    background: #d2d2d2;
-    position: absolute;
-    top: 128px;
-    right: 20px;
-    padding: 20px; }
+    height: 100%; }
+    .navigation__menu__item {
+      padding: 0 60px;
+      background: yellow; }
 
+.search {
+  display: flex; }
+
+.user {
+  display: grid;
+  grid-template-columns: 40px auto 22px;
+  grid-column-gap: 10px;
+  height: 100%;
+  align-items: center; }
+  .user__icon {
+    grid-column-start: 1;
+    grid-column-end: 2; }
+    .user__icon i {
+      color: #d7ccc8;
+      font-size: 44px; }
+  .user__name {
+    grid-column-start: 2;
+    grid-column-end: 3; }
+  .user__settingsButton {
+    grid-column-start: 3;
+    grid-column-end: 4; }
+
+@media (max-width: 700px) {
+  .header {
+    display: flex;
+    flex-direction: column; } }
 * {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  font-size: 13px;
+  font-family: "PT Sans", sans-serif; }
 
 /*# sourceMappingURL=main.css.map */

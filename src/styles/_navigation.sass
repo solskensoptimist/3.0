@@ -1,10 +1,7 @@
 .navigation
-  background: linear-gradient($cyan-500, $cyan-600)
-  border: 1px solid $cyan-600
-  display: flex
-  align-items: center
-  height: 46px
+  background: linear-gradient($teal-300, $teal-400)
   color: white
+  height: 100%
   &:after
     content: ''
     clear: both
@@ -12,17 +9,11 @@
   &__menu
     display: flex
     justify-content: center
-    width: calc(100% - 42px)
-    float: left
-  &__settingsBtn
-    float: right
-    width: 22px
-    margin-right: 20px
-  &__settings
-    border: 1px solid purple
-    background: #d2d2d2
-    position: absolute
-    top: 128px
-    right: 20px
-    padding: $padding-reg
+    height: 100%
+    &__item
+      padding: 0 ($padding-regular * 3)
+      background: yellow
+    //.MuiTab-wrapper
+    //  font-size: 13px
+    //  font-weight: 700
 

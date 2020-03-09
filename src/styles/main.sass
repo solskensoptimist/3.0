@@ -1,4 +1,3 @@
-
 // General rules
 @import 'colors'
 @import 'links'
@@ -11,7 +10,15 @@
 @import 'loading'
 @import 'navigation'
 @import 'prospect'
+@import 'search'
+@import 'user'
+
+// Media queries (place last to override rules with same specificity)
+@import 'media/_breakpoints'
+@import 'media/_header'
 
 *
   margin: 0
   padding: 0
+  font-size: 13px
+  font-family: 'PT Sans', sans-serif

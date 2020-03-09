@@ -1,17 +1,32 @@
 import React from 'react';
-import Content from 'components/content';
-import Footer from 'components/footer';
-import Header from 'components/header';
+import LoggedIn from 'components/logged_in';
+import LoggedOut from 'components/logged_out';
+import Footer from 'components/common/footer';
+import {connect} from "react-redux";
 
 /**
  * Root component which holds all other subcomponents.
  */
-export const AppHolder = () => {
+const AppHolder = (state) => {
+    const loggedIn = () => {
+        return !!(state && state.user && state.user.data && state.user.data.id);
+    };
+
     return (
-        <div id='root'>
-            <Header />
-            <Content />
+        <div>
+            { loggedIn() ? <LoggedIn /> : <LoggedOut /> }
             <Footer />
         </div>
     );
 };
+
+const MapStateToProps = (state) => {
+    return {
+        user: state.user,
+    };
+};
+
+export default connect(
+    MapStateToProps,
+)(AppHolder);
+
