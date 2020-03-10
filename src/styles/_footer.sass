@@ -1,0 +1,54 @@
+.footer
+  background: linear-gradient($teal-200, $teal-300)
+  padding: $padding-regular * 1.5
+  color: white
+  display: flex
+  justify-content: space-between
+  align-items: center
+  &__breadcrumbsWrapper
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    width: 100%
+    .breadcrumbs
+      display: flex
+      align-items: center
+      a, span
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: 0 $padding-regular
+        color: white
+        height: 30px
+        text-decoration: none
+      a, span
+        position: relative
+        background: $teal-400
+        &:after, &:before
+          left: 100%
+          top: 50%
+          border: solid transparent
+          content: ''
+          height: 0
+          width: 0
+          position: absolute
+          pointer-events: none
+        &:after
+          border-left-color: $teal-400
+          border-width: 15px
+          margin-top: -15px
+      a
+        z-index: 2
+      span
+        z-index: 1
+        background: $teal-200
+        &:after
+          border-left-color: $teal-200
+  &__companyInfoWrapper
+    display: flex
+    justify-content: flex-end
+    width: 100%
+  &__companyInfoWrapper
+    display: flex
+    justify-content: flex-end
+    width: 100%

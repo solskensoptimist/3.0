@@ -6,17 +6,19 @@ import User from './user';
 
 export default () => {
     return (
-        <div className='header'>
-            <div className='header__logotype'>
-                <Logotype />
+        <div className='headerWrapper'>
+            <div className='header'>
+                <div className='header__item1'>
+                    <Logotype />
+                </div>
+                <div className='header__item2'>
+                    <Search />
+                </div>
+                <div className='header__item3'>
+                    <User />
+                </div>
             </div>
-            <div className='header__search'>
-                <Search />
-            </div>
-            <div className='header__user'>
-                <User />
-            </div>
-            <div className='header__navigation'>
+            <div className='navigationWrapper'>
                 <Navigation />
             </div>
         </div>

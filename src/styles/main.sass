@@ -6,11 +6,19 @@
 @import 'text_general'
 
 // Domains
+@import 'content'
+@import 'footer'
 @import 'header'
+
+@import 'activity'
+@import 'agile'
+@import 'lists'
 @import 'loading'
+@import 'logotype'
 @import 'navigation'
 @import 'prospect'
 @import 'search'
+@import 'settings'
 @import 'user'
 
 // Media queries (place last to override rules with same specificity)
@@ -20,5 +28,13 @@
 *
   margin: 0
   padding: 0
+  box-sizing: border-box
   font-size: 13px
-  font-family: 'PT Sans', sans-serif
+  font-family: 'Source sans pro', sans-serif
+
+body
+  background: $grey-100
+  color: $grey-700
+
+.appHolder
+  margin: 0 $padding-site

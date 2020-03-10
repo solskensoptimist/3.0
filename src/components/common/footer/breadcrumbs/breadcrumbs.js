@@ -1,35 +1,44 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import routes from '../../../../routes.js';
-import {Link as RouterLink, Route} from 'react-router-dom';
+import {NavLink, Route} from 'react-router-dom';
+import {addRouteToHistory, routes} from 'routing';
 
 export default (state) => {
     return (
-        <div className='breadcrumbs'>
-            <Route>
-                {({ location }) => {
-                    const pathnames = location.pathname.split('/').filter(x => x);
-                    return (
-                        <Breadcrumbs aria-label='Breadcrumb'>
-                            {pathnames.map((value, index) => {
-                                const last = index === pathnames.length - 1;
-                                const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+        <div>
+            <h3>Här är du</h3>
+            <div className='breadcrumbs'>
+                <Route>
+                    {({ location }) => {
+                        const pathnames = location.pathname.split('/').filter(x => x);
+                        return (
+                            <div className='breadcrumbs'>
 
-                                return last ? (
-                                    <Typography color='textPrimary' key={to}>
-                                        {routes[value]}
-                                    </Typography>
-                                ) : (
-                                    <RouterLink color='inherit' to={to} key={to}>
-                                        {routes[value]}
-                                    </RouterLink>
-                                );
-                            })}
-                        </Breadcrumbs>
-                    );
-                }}
-            </Route>
+                                {pathnames.map((value, index) => {
+                                    const last = index === pathnames.length - 1;
+                                    const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+
+                                    return last ? (
+                                        <span key={to}>
+                                            {routes[value]}
+                                        </span>
+                                    ) : (
+                                        <NavLink onClick={() => {addRouteToHistory(to)}} to={to} key={to}>
+                                            {routes[value]}
+                                        </NavLink>
+                                    );
+                                })}
+
+                                {/*When pathnames is empty we're on the home page*/}
+                                {(pathnames.length === 0) &&
+                                    <span key='hem'>
+                                        {routes['hem']}
+                                    </span>
+                                }
+                            </div>
+                        );
+                    }}
+                </Route>
+            </div>
         </div>
     );
 };

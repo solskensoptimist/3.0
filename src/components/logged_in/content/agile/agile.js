@@ -4,7 +4,7 @@ import {AgileSub} from './subcomponents/agile_sub';
 
 const Agile = (state) => {
     return (
-        <div>
+        <div className='agileWrapper'>
             <div>
                 Bearbeta huvud-komponent
             </div>

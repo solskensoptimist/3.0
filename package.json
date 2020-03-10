@@ -38,6 +38,7 @@
   "_moduleAliases": {
     "components": "src/components",
     "helpers": "src/helpers",
+    "routing": "src/routing",
     "store": "src/store"
   },
   "proxy": "http://localhost:3000",

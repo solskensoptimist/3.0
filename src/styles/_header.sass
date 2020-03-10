@@ -1,22 +1,14 @@
-.header
-  display: grid
-  grid-template-columns: 1fr 2fr 1fr
-  grid-template-rows: ($height-header / 2) ($height-header / 2)
-  grid-column-gap: $padding-grid-header
-  grid-row-gap: $padding-regular
-  padding-top: $padding-regular
-  &__logotype
-    padding-left: $padding-regular
-    grid-column-start: 1
-    grid-column-end: 2
-  &__search
-    grid-column-start: 2
-    grid-column-end: 3
-  &__user
-    padding-right: $padding-regular
-    grid-column-start: 3
-    grid-column-end: 4
-  &__navigation
-    background: red
-    grid-column-start: 1
-    grid-column-end: 4
+.headerWrapper
+  .header
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: $padding-regular * 1.5
+    background-color: white
+    &__item1
+      flex-grow: 1
+    &__item2
+      flex-grow: 6
+      margin: 0 ($padding-regular * 3)
+    &__item3
+      flex-grow: 3

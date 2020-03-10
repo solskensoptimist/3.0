@@ -1,19 +1,30 @@
-.navigation
-  background: linear-gradient($teal-300, $teal-400)
-  color: white
-  height: 100%
-  &:after
-    content: ''
-    clear: both
-    display: block
-  &__menu
+.navigationWrapper
+  .navigation
+    background: linear-gradient($teal-200, $teal-300)
     display: flex
     justify-content: center
-    height: 100%
-    &__item
-      padding: 0 ($padding-regular * 3)
-      background: yellow
-    //.MuiTab-wrapper
-    //  font-size: 13px
-    //  font-weight: 700
+    color: white
+    height: $height-nav
+    width: 100%
+    &__menu
+      display: flex
+      justify-content: center
+      height: 100%
+      align-items: center
+      a
+        padding: 0 ($padding-regular * 3)
+        height: 100%
+        display: flex
+        align-items: center
+        opacity: 0.8
+        text-decoration: none
+        color: white
+        text-transform: uppercase
+        font-weight: 600
+        &:hover
+          background: rgba(255,255,255,0.2)
+          opacity: 1
+        &.active
+          background: rgba(255,255,255,0.2)
+          opacity: 1
 

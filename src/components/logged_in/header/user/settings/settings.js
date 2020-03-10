@@ -28,12 +28,20 @@ const Settings = (state) =>  {
     };
 
     return _stateCheck() ? (
-        <div>
-            <div>Få epost-notifikationer:</div>
-            <div onClick={_toggleEmail}>
-                {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+        <div className='settingsBox'>
+            <div className='settingsBox__item'>
+                <h4>Epost-notifikationer:</h4>
+                <div onClick={_toggleEmail}>
+                    {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                </div>
             </div>
-            <div onClick={userLogout}>Logga ut</div>
+            <div className='settingsBox__item'>
+                <h4>Byt lösenord:</h4>
+                <div onClick={_toggleEmail}>
+                    {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                </div>
+            </div>
+            <div className='settingsBox__item settingsBox__logout' onClick={userLogout}>Logga ut</div>
         </div>
     ) : (
         <Loading />

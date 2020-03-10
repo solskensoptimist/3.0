@@ -1,4 +1,36 @@
 .search
   display: flex
   &__icon
+    flex-grow: 1
+    display: flex
+    align-items: center
+    justify-content: center
+    color: $grey-200
+    border-radius: 4px
+    grid-column-start: 1
+    grid-column-end: 2
+    padding: $padding-regular / 2
+    i
+      font-size: 26px
   &__input
+    flex-grow: 10
+    grid-column-start: 2
+    grid-column-end: 3
+    input
+      color: $grey-600
+      padding: $padding-regular / 1.5
+      background: $grey-50
+      border: 1px solid $grey-100
+      width: 100%
+      font-size: 16px
+      border-radius: 4px
+      &::placeholder
+        color: $grey-400
+        font-size: 13px
+      &:-ms-input-placeholder
+        color: $grey-400
+        font-size: 13px
+      &::-ms-input-placeholder
+        color: $grey-400
+        font-size: 13px
+

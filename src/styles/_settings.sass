@@ -1,0 +1,46 @@
+.settingsBoxWrapper
+  position: absolute
+  right: $padding-site
+  margin-top: $padding-regular
+  -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
+  -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
+  box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
+  border: 1px solid $grey-200
+  width: $width-settings
+  color: $grey-500
+  z-index: 3
+  .settingsBox
+    display: flex
+    flex-direction: column
+    background: white
+    padding: $padding-regular
+    &__item
+      background: $grey-100
+      justify-content: flex-start
+      align-items: center
+      display: flex
+      margin-bottom: ($padding-regular / 2)
+      padding: ($padding-regular / 3) ($padding-regular / 2)
+      &:last-of-type
+        margin-bottom: 0
+      .MuiSvgIcon-root
+        font-size: 32px
+        color: $teal-400
+        opacity: 0.8
+        cursor: pointer
+        &:hover
+          opacity: 1
+      h4
+        margin: 0 ($padding-regular / 2) 0 0
+    &__logout
+      background: linear-gradient($teal-300, $teal-400)
+      color: white
+      padding: ($padding-regular / 2)
+      border-radius: 2px
+      justify-content: center
+      cursor: pointer
+      opacity: 0.8
+      &:hover
+        opacity: 1
+
+

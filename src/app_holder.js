@@ -13,7 +13,7 @@ const AppHolder = (state) => {
     };
 
     return (
-        <div>
+        <div className='appHolder'>
             { loggedIn() ? <LoggedIn /> : <LoggedOut /> }
             <Footer />
         </div>

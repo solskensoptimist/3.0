@@ -1,37 +1,22 @@
-import React, {Fragment}  from 'react';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import {Route, Link, BrowserRouter} from "react-router-dom";
-import history from '../../../../router_history';
+import React from 'react';
+import {NavLink} from "react-router-dom";
+import {addRouteToHistory, history} from 'routing';
 
 /**
  * Navigation component.
  */
 export default () =>  {
-    const _handleChange = (event, value) => {
-        if (value === '/') {
-            value = '/hem';
-        }
-        history.push(value);
-    };
+    console.log('history', history);
+
+
 
     return (
         <div className='navigation'>
             <div className='navigation__menu'>
-                <BrowserRouter>
-                    <div>
-                        <Route path='/' render={({ location }) => (
-                            <Fragment>
-                                <Tabs value={location.pathname} onChange={_handleChange}>
-                                    <Tab label='Vår tjänst' value='/' component={Link} to={'/'} />
-                                    <Tab label='Team' value='/team' component={Link} to={'/team'} />
-                                    <Tab label='Priser' value='/priser' component={Link} to={'/priser'} />
-                                    <Tab label='Inloggning' value='/inloggning' component={Link} to={'/inloggning'} />
-                                </Tabs>
-                            </Fragment>
-                        )} />
-                    </div>
-                </BrowserRouter>
+                <NavLink exact onClick={() => {addRouteToHistory('hem')}} to={'/'} key='hem'>Vår tjänst</NavLink>
+                <NavLink exact onClick={() => {addRouteToHistory('priser')}} to={'/priser'} key='priser'>Priser</NavLink>
+                <NavLink exact onClick={() => {addRouteToHistory('team')}} to={'/team'} key='team'>Team</NavLink>
+                <NavLink v onClick={() => {addRouteToHistory('inloggning')}} to={'/inloggning'} key='inloggning'>Inloggning</NavLink>
             </div>
         </div>
     );
