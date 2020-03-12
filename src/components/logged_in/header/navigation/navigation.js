@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {NavLink} from "react-router-dom";
 import {addRouteToHistory} from 'routing';
 
@@ -16,4 +16,4 @@ export default () =>  {
             </div>
         </div>
     );
-};
+}

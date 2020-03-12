@@ -1,54 +1,64 @@
 .footer
-  background: linear-gradient($teal-200, $teal-300)
+  background: linear-gradient($grey-900, $grey-800)
   padding: $padding-regular * 1.5
   color: white
   display: flex
   justify-content: space-between
-  align-items: center
-  &__breadcrumbsWrapper
+  align-items: flex-start
+  h3
+    border-bottom: 1px solid $grey-600
+    flex-grow: 1
+  &__item
     display: flex
     justify-content: flex-start
     align-items: center
-    width: 100%
+    flex-grow: 1
+    margin-right: $padding-regular * 2
+    &:last-of-type
+      margin-right: 0
+  &__breadcrumbsWrapper
+    background: red
     .breadcrumbs
-      display: flex
-      align-items: center
-      a, span
-        display: flex
-        align-items: center
-        justify-content: center
-        padding: 0 $padding-regular
-        color: white
-        height: 30px
-        text-decoration: none
-      a, span
-        position: relative
-        background: $teal-400
-        &:after, &:before
-          left: 100%
-          top: 50%
-          border: solid transparent
-          content: ''
-          height: 0
-          width: 0
-          position: absolute
-          pointer-events: none
-        &:after
-          border-left-color: $teal-400
-          border-width: 15px
-          margin-top: -15px
-      a
-        z-index: 2
-      span
-        z-index: 1
-        background: $teal-200
-        &:after
-          border-left-color: $teal-200
+      &__content
+        flex-grow: 1
+        background: orange
+        border: 1px solid
+        a, span
+          display: flex
+          align-items: center
+          justify-content: center
+          padding: 0 $padding-regular
+          color: white
+          height: 30px
+          text-decoration: none
+        a, span
+          position: relative
+          background: $grey-600
+          &:after, &:before
+            left: 100%
+            top: 50%
+            border: solid transparent
+            content: ''
+            height: 0
+            width: 0
+            position: absolute
+            pointer-events: none
+          &:after
+            border-left-color: $grey-600
+            border-width: 15px
+            margin-top: -15px
+        a
+          z-index: 2
+        span
+          z-index: 1
+          background: $grey-700
+          &:after
+            border-left-color: $grey-700
+  &__contactWrapper
+    background: yellow
+    .contact
+      flex-grow: 1
   &__companyInfoWrapper
-    display: flex
     justify-content: flex-end
-    width: 100%
-  &__companyInfoWrapper
-    display: flex
-    justify-content: flex-end
-    width: 100%
+    .companyInfo
+      flex-grow: 1

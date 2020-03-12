@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import Logotype from 'components/common/logotype';
 import Navigation from './navigation';
 import Search from './search';
@@ -23,4 +23,4 @@ export default () => {
             </div>
         </div>
     );
-};
+}

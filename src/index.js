@@ -12,7 +12,9 @@ import history from './router_history';
 
 /**
  * Application starting point.
- * Wrapping App_holder in router to control url paths.
+ *
+ * Provider gives access to redux store.
+ * Router controls url paths.
  */
 const app =
         <Provider store={store}>

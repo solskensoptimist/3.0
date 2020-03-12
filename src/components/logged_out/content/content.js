@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {Switch, Route} from "react-router-dom";
 import Login from './login/';
 import Home from './home/';
@@ -8,7 +8,7 @@ import Prices from './prices';
 /**
  * Content component.js
  */
-export default (state) => {
+export default () => {
     return (
         <div className='content'>
             <Switch>
@@ -19,5 +19,5 @@ export default (state) => {
             </Switch>
         </div>
     );
-};
+}
 

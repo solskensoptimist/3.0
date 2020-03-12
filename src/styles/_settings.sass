@@ -1,46 +1,100 @@
 .settingsBoxWrapper
+  @extend .shadowRegular
   position: absolute
   right: $padding-site
   margin-top: $padding-regular
-  -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
-  -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
-  box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
-  border: 1px solid $grey-200
   width: $width-settings
   color: $grey-500
   z-index: 3
   .settingsBox
-    display: flex
-    flex-direction: column
-    background: white
+    background: $grey-50
+    border: 1px solid $grey-100
     padding: $padding-regular
+    &__arrow
+      z-index: 4
+      background: $grey-50
+      -ms-transform: rotate(45deg)
+      -webkit-transform: rotate(45deg)
+      transform: rotate(45deg)
+      width: 20px
+      height: 18px
+      position: relative
+      top: -$padding-regular * 1.5
+      left: 354px
+      border-top: solid 2px rgba($grey-900, .06)
+      border-right: 0
+      border-bottom: 0
+      border-left: 1px solid $grey-100
     &__item
-      background: $grey-100
-      justify-content: flex-start
-      align-items: center
       display: flex
-      margin-bottom: ($padding-regular / 2)
-      padding: ($padding-regular / 3) ($padding-regular / 2)
       &:last-of-type
         margin-bottom: 0
+      h4
+        color: $grey-600
+        margin: 0 $padding-medium 0 0
+      &__button
+        background: linear-gradient($amber-600, $amber-700)
+        color: white
+        padding: $padding-medium
+        border-radius: 2px
+        justify-content: center
+        cursor: pointer
+        opacity: 0.8
+        width: 100%
+        &:hover
+          opacity: 1
+      input
+        background: white
+        border: 1px solid $grey-400
+        padding: $padding-medium
+        margin-bottom: 4px
+        font-size: 12px
+        width: 100%
+        &::placeholder
+          color: $grey-400
+          font-size: 12px
+        &:-ms-input-placeholder
+          color: $grey-400
+          font-size: 12px
+        &::-ms-input-placeholder
+          color: $grey-400
+          font-size: 12px
       .MuiSvgIcon-root
-        font-size: 32px
+        font-size: 30px
         color: $teal-400
         opacity: 0.8
         cursor: pointer
         &:hover
           opacity: 1
-      h4
-        margin: 0 ($padding-regular / 2) 0 0
-    &__logout
-      background: linear-gradient($teal-300, $teal-400)
-      color: white
-      padding: ($padding-regular / 2)
-      border-radius: 2px
-      justify-content: center
-      cursor: pointer
-      opacity: 0.8
-      &:hover
-        opacity: 1
+      &__hint
+        font-size: 12px
+        color: $teal-500
+        margin: $padding-medium
+      &__full
+        background: $grey-200
+        margin-bottom: $padding-medium
+        padding: $padding-regular
+        display: flex
+        justify-content: flex-start
+        flex-direction: column
+        align-items: flex-start
+        width: 100%
+        &__label
+          width: 100%
+          margin-bottom: $padding-small
+        &__content
+          width: 100%
+      &__small
+        background: $grey-200
+        margin: 0 $padding-regular $padding-regular 0
+        padding: $padding-regular
+        display: flex
+        width: 100%
+        &:last-of-type
+          margin-right: 0
+        &__label
+          align-self: center
+        &__content
+          align-self: center
 
 

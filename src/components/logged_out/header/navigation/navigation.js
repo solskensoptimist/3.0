@@ -5,7 +5,7 @@ import {addRouteToHistory, history} from 'routing';
 /**
  * Navigation component.
  */
-export default () =>  {
+export default () => {
     console.log('history', history);
 
 
@@ -20,4 +20,4 @@ export default () =>  {
             </div>
         </div>
     );
-};
+}

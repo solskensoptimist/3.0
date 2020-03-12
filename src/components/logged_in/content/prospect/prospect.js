@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {ProspectCar} from './subcomponents/prospect_car';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom'

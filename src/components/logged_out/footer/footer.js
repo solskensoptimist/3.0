@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 
 /**
  * Footer component.
@@ -9,4 +9,4 @@ export default () => {
             Sidfot utloggad
         </div>
     );
-};
+}

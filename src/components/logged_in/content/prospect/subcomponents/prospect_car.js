@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {ProspectSub} from './prospect_sub';
 
 export const ProspectCar = () => {

@@ -2,11 +2,11 @@ import React from 'react';
 import {NavLink, Route} from 'react-router-dom';
 import {addRouteToHistory, routes} from 'routing';
 
-export default (state) => {
+export default () => {
     return (
-        <div>
+        <div className='breadcrumbs'>
             <h3>Här är du</h3>
-            <div className='breadcrumbs'>
+            <div className='breadcrumbs__content'>
                 <Route>
                     {({ location }) => {
                         const pathnames = location.pathname.split('/').filter(x => x);
@@ -41,4 +41,4 @@ export default (state) => {
             </div>
         </div>
     );
-};
+}

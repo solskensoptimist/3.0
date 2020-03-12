@@ -27,6 +27,23 @@ export const getSettings = async () => {
 };
 
 /**
+ * Save new password.
+ */
+export const savePassword = async (payload) => {
+    request({
+        data: { password: payload.password },
+        method: 'put',
+        url: 'settings/password',
+    })
+    .then(() => {
+        return true;
+    })
+    .catch((err) => {
+        return console.error('Error in savePassword:', err);
+    });
+};
+
+/**
  * Save new settings.
  */
 export const saveSettings = async (payload) => {
@@ -41,6 +58,6 @@ export const saveSettings = async (payload) => {
         return getSettings();
     })
     .catch((err) => {
-        return console.error('Error in newSettings:', err);
+        return console.error('Error in saveSettings:', err);
     });
 };

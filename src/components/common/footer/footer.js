@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import Breadcrumbs from './breadcrumbs';
 import CompanyInfo from './company_info';
 import Contact from './contact';
@@ -9,15 +9,15 @@ import Contact from './contact';
 export default () => {
     return (
         <div className='footer'>
-            <div className='footer__breadcrumbsWrapper'>
+            <div className='footer__item footer__breadcrumbsWrapper'>
                 <Breadcrumbs />
             </div>
-            <div className='footer__contactWrapper'>
+            <div className='footer__item footer__contactWrapper'>
                 <Contact />
             </div>
-            <div className='footer__companyInfoWrapper'>
+            <div className='footer__item footer__companyInfoWrapper'>
                 <CompanyInfo />
             </div>
         </div>
     );
-};
+}
