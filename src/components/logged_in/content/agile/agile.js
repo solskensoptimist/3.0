@@ -1,12 +1,13 @@
 import React  from 'react';
 import {connect} from 'react-redux';
 import {AgileSub} from './subcomponents/agile_sub';
+import tc from 'text_content';
 
 const Agile = (state) => {
     return (
         <div className='agileWrapper'>
             <div>
-                Bearbeta huvud-komponent
+                {tc.agile}
             </div>
             <AgileSub />
         </div>

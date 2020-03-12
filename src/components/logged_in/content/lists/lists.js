@@ -1,9 +1,10 @@
 import React from 'react';
+import tc from 'text_content';
 
 export default () => {
     return (
         <div className='listsWrapper'>
-            Listor
+            {tc.lists}
         </div>
     );
 }

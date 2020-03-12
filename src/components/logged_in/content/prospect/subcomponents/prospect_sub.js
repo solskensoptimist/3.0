@@ -1,9 +1,10 @@
 import React  from 'react';
+import tc from 'text_content';
 
 export const ProspectSub = () => {
     return (
         <div>
-            Prospektera sub-komponent 2.
+            {tc.prospect} subkomponent
         </div>
     );
 };

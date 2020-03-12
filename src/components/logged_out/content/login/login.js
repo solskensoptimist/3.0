@@ -1,5 +1,6 @@
 import React from 'react';
 import {userLogin} from 'store/user/tasks';
+import tc from 'text_content';
 
 export default () =>  {
     const handleSubmit = async () => {
@@ -13,7 +14,7 @@ export default () =>  {
     return (
         <div>
             <div onClick={handleSubmit}>
-                Klicka här för att logga in.
+                {tc.logon}
             </div>
         </div>
     );

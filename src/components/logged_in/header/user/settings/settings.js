@@ -5,6 +5,7 @@ import {userLogout} from 'store/user/tasks';
 import Loading from 'components/common/loading';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
+import tc from 'text_content';
 
 const Settings = (state) =>  {
     useEffect(() => {
@@ -24,10 +25,10 @@ const Settings = (state) =>  {
 
         if (passwordRef1.current.value === '' || passwordRef2.current.value === '') {
             // Check if is empty.
-            return setPasswordHint('Lösenord kan ej vara tomma');
+            return setPasswordHint(tc.settingsPasswordHintEmpty);
         } else if (passwordRef1.current.value !== passwordRef2.current.value) {
             // Check if match.
-            return setPasswordHint('Lösenorden överensstämmer ej');
+            return setPasswordHint(tc.settingsPasswordHintNotMatching);
         }
 
         // Save.
@@ -35,7 +36,7 @@ const Settings = (state) =>  {
         passwordRef1.current.value = '';
         passwordRef2.current.value = '';
         await savePassword(payload);
-        return setPasswordHint('Nytt lösenord sparat');
+        return setPasswordHint(tc.settingsPasswordHintSaved);
     };
 
     /**
@@ -60,7 +61,7 @@ const Settings = (state) =>  {
             <div className='settingsBox__item'>
                 <div className='settingsBox__item__small'>
                     <div className='settingsBox__item__small__label'>
-                        <h4>Epost-notifikationer</h4>
+                        <h4>{tc.emailNotifications}</h4>
                     </div>
                     <div className='settingsBox__item__small__content'>
                         <div onClick={_toggleEmail}>
@@ -82,23 +83,20 @@ const Settings = (state) =>  {
             <div className='settingsBox__item'>
                 <div className='settingsBox__item__full'>
                     <div className='settingsBox__item__full__label'>
-                        <h4>Skapa nytt lösenord</h4>
+                        <h4>{tc.createNewPassword}</h4>
                     </div>
                     <div className='settingsBox__item__full__content'>
                         <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
                         <input type='password' placeholder='Återupprepa lösenord' ref={passwordRef2} />
                         {showPasswordHint && <div className='settingsBox__item__hint'>{passwordHint}</div>}
-                        <div className='settingsBox__item__button' onClick={_savePassword}>Spara lösenord</div>
+                        <div className='settingsBox__item__button' onClick={_savePassword}>{tc.savePassword}</div>
                     </div>
                 </div>
             </div>
             <div className='settingsBox__item'>
                 <div className='settingsBox__item__full'>
-                    <div className='settingsBox__item__full__label'>
-                        <h4>Logga ut</h4>
-                    </div>
                     <div className='settingsBox__item__full__content'>
-                        <div className='settingsBox__item__button' onClick={userLogout}>Logga ut</div>
+                        <div className='settingsBox__item__button logout' onClick={userLogout}>{tc.logout}</div>
                     </div>
                 </div>
             </div>
