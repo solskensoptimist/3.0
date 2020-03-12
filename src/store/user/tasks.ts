@@ -11,7 +11,7 @@ export const userLogin = async (credentials) => {
     await request({
         data: credentials,
         method: 'post',
-        url: 'login',
+        url: '/login',
     })
     .then((data) => {
         return store.dispatch({ type: userActionTypes.USER_LOGIN, payload: data });
@@ -24,7 +24,7 @@ export const userLogin = async (credentials) => {
 export const userLogout = async () => {
     await request({
         method: 'get',
-        url: 'logout',
+        url: '/logout',
     })
     .then((data) => {
         window.location.href = '/';

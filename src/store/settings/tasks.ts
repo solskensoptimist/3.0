@@ -9,7 +9,7 @@ import SettingsHelper from 'shared_helpers/settings_helper';
 export const getSettings = async () => {
     request({
         method: 'get',
-        url: 'settings',
+        url: '/settings',
     })
     .then((data) => {
         // Backend holds a lot of info we dont use in 3.0, only set email setting for now.
@@ -33,7 +33,7 @@ export const savePassword = async (payload) => {
     request({
         data: { password: payload.password },
         method: 'put',
-        url: 'settings/password',
+        url: '/settings/password',
     })
     .then(() => {
         return true;
@@ -52,7 +52,7 @@ export const saveSettings = async (payload) => {
     request({
         data: { settings: settingBit },
         method: 'put',
-        url: 'settings',
+        url: '/settings',
     })
     .then(() => {
         return getSettings();

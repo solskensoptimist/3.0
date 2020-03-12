@@ -8,7 +8,7 @@ export default () =>  {
             email: 'peter.persson@bilvision.se',
             password: 'ninja',
         });
-        window.location.href = '/bearbeta';
+        window.location.href = '/';
     };
 
     return (

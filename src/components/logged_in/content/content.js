@@ -2,6 +2,7 @@ import React  from 'react';
 import {Switch, Route} from "react-router-dom";
 import Agile from './agile/';
 import Activity from './activity/';
+import Home from './home/';
 import Lists from './lists/';
 import Prospect from './prospect/';
 import ProspectResult from './prospect/result';
@@ -18,6 +19,7 @@ export default () => {
                 <Route exact path='/listor' component={Lists} />
                 <Route exact path='/prospektera' component={Prospect} />
                 <Route exact path='/prospektera/resultat' component={ProspectResult} />
+                <Route component={Home} />
             </Switch>
         </div>
     );

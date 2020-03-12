@@ -4,10 +4,12 @@ import _ from 'underscore';
 /**
  * Helper to make requests.
  *
- * @param payload
+ * @param payload.url
+ * @param payload.method
  */
 export const request = (payload) => {
     return new Promise((resolve, reject) => {
+        // Note that url have to start with "/" for proxy to work.
         let params = {
             url: payload.url,
             method: payload.method,

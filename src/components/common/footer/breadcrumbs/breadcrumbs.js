@@ -1,8 +1,9 @@
 import React from 'react';
 import {NavLink, Route} from 'react-router-dom';
 import {addRouteToHistory, routes} from 'routing';
+import {connect} from 'react-redux';
 
-export default () => {
+const Breadcrumbs = (state) => {
     return (
         <div className='breadcrumbs'>
             <h3>Här är du</h3>
@@ -27,12 +28,9 @@ export default () => {
                                     );
                                 })}
 
-                                {/*When pathnames is empty we're on the home page*/}
-                                {(pathnames.length === 0) &&
-                                    <span key='hem'>
-                                        {routes['hem']}
-                                    </span>
-                                }
+                                {/* For index routes, logged in and logged out. */}
+                                {(pathnames.length === 0 && state.user && state.user.data && state.user.data.email) && <span key='hem'>{routes['hem']}</span>}
+                                {(pathnames.length === 0 && (!state.user || !state.user.data || !state.user.data.email)) && <span key='varTjanst'>{routes['varTjanst']}</span>}
                             </div>
                         );
                     }}
@@ -41,3 +39,13 @@ export default () => {
         </div>
     );
 }
+
+const MapStateToProps = (state) => {
+    return {
+        user: state.user,
+    };
+};
+
+export default connect(
+    MapStateToProps,
+)(Breadcrumbs);

@@ -7,6 +7,7 @@ export default {
     contactInfo: 'Kontaktinformation',
     createNewPassword: 'Skapa nytt lösenord',
     emailNotifications: 'E-post notifikationer',
+    home: 'Hem',
     lists: 'Listor',
     login: 'Inloggning',
     logon: 'Logga in',

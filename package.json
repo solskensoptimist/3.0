@@ -42,7 +42,7 @@
     "store": "src/store",
     "text_content": "src/text_content"
   },
-  "proxy": "http://localhost:3000",
+  "proxy": "http://localhost:3000/",
   "eslintConfig": {
     "extends": "react-app"
   },

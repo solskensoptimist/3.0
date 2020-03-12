@@ -1,7 +1,7 @@
 import React  from 'react';
 import {Switch, Route} from "react-router-dom";
 import Login from './login/';
-import Home from './home/';
+import Service from './service/';
 import Team from './team/';
 import Prices from './prices';
 
@@ -15,7 +15,7 @@ export default () => {
                 <Route exact path='/team' component={Team} />
                 <Route exact path='/priser' component={Prices} />
                 <Route exact path='/inloggning' component={Login} />
-                <Route component={Home} />
+                <Route component={Service} />
             </Switch>
         </div>
     );

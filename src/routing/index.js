@@ -10,12 +10,13 @@ export const addRouteToHistory = (value) => {
 export const routes = {
     aktivitet: 'Aktivitet',
     bearbeta: 'Bearbeta',
-    hem: 'Vår tjänst',
+    hem: 'Hem',
     inloggning: 'Inloggning',
     listor: 'Listor',
     priser: 'Priser',
     prospektera: 'Prospektera',
     resultat: 'Resultat',
     team: 'Team',
+    varTjanst: 'Vår tjänst',
 };
 
