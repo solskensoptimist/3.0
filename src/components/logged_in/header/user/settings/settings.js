@@ -9,7 +9,7 @@ import tc from 'text_content';
 
 const Settings = (state) =>  {
     useEffect(() => {
-        getSettings(); // Get settings.
+        getSettings();
     }, []);
 
     const [passwordHint, setPasswordHint] = useState('');

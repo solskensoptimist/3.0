@@ -1,27 +1,28 @@
 // General rules
-@import 'colors'
-@import 'general'
-@import 'links'
-@import 'mixins'
-@import 'sizes'
-@import 'tables'
-@import 'text_general'
+@import '_colors'
+@import '_general'
+@import '_links'
+@import '_mixins'
+@import '_sizes'
+@import '_text_general'
 
 // Domains
-@import 'content'
-@import 'footer'
-@import 'header'
+@import 'content/_content'
+@import 'footer/_footer'
+@import 'header/_header'
 
-@import 'activity'
-@import 'agile'
-@import 'lists'
+@import 'content/_activity'
+@import 'content/_agile'
+@import 'content/_home'
+@import 'content/_lists'
+@import 'content/_prospect'
+@import 'content/_tables'
+@import 'header/_logotype'
+@import 'header/_navigation'
+@import 'header/_search'
+@import 'header/_settings'
+@import 'header/_user'
 @import 'loading'
-@import 'logotype'
-@import 'navigation'
-@import 'prospect'
-@import 'search'
-@import 'settings'
-@import 'user'
 
 // Media queries (place last to override rules with same specificity)
 @import 'media/_breakpoints'
@@ -35,7 +36,6 @@
   font-family: 'Source sans pro', sans-serif
 
 body
-  background: $grey-100
   color: $grey-700
 
 .appHolder

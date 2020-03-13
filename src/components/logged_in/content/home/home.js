@@ -1,10 +1,12 @@
 import React from 'react';
-import tc from 'text_content';
+import Calendar from './calendar';
+import News from './news';
 
 export default () => {
     return (
         <div className='homeWrapper'>
-            {tc.home}
+            <News />
+            <Calendar />
         </div>
     );
 }
