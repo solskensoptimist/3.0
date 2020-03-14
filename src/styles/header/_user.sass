@@ -1,29 +1,26 @@
 .user
-  display: grid
-  grid-template-columns: 40px auto 22px
-  grid-column-gap: ($padding-medium / 2)
+  display: flex
   height: 100%
   align-items: center
-  color: $grey-500
+  justify-content: space-between
   text-transform: uppercase
   i.user
-    color: $grey-200
-    font-size: 26px
+    font-size: 24px
+    margin-top: 1px
   i.settings
     cursor: pointer
     font-size: 16px
+    color: $colorSite
   &__icon
-    grid-column-start: 1
-    grid-column-end: 2
+    flex-grow: 0
   &__name
-    grid-column-start: 2
-    grid-column-end: 3
+    flex-grow: 1
+    margin: 0 ($padding-regular * 2) 0 $padding-medium
     &__name
       font-weight: 600
-      font-size: 11px
+      font-size: 10px
     &__dealer
-      font-size: 11px
+      font-size: 10px
+      text-transform: none
   &__settingsButton
-    color: $red-500
-    grid-column-start: 3
-    grid-column-end: 4
+    flex-grow: 0

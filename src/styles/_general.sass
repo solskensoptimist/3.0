@@ -1,4 +1,21 @@
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  font-size: 13px
+  font-family: 'Source sans pro', sans-serif
+  font-weight: 400
+
+body
+  color: $colorMainText
+  a
+    color: $colorSite
+
 .shadowRegular
   -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
   -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
   box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
+
+$backgroundMain: linear-gradient(to right, $colorMainBackground, $colorMainBackgroundLight)
+$backgroundSiteColors: linear-gradient($colorSite, $colorSiteDark)
+$backgroundComplementaryColors: linear-gradient($colorComplementary, $colorComplementaryDark)

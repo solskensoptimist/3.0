@@ -28,6 +28,8 @@ export const getSettings = async () => {
 
 /**
  * Save new password.
+ *
+ * @param payload.password
  */
 export const savePassword = async (payload) => {
     request({
@@ -60,4 +62,13 @@ export const saveSettings = async (payload) => {
     .catch((err) => {
         return console.error('Error in saveSettings:', err);
     });
+};
+
+/**
+ * Set show settings.
+ *
+ * @param payload.showSettings
+ */
+export const setShowSettings = (payload) => {
+    return store.dispatch({ type: settingsActionTypes.SET_SHOW_SETTINGS, payload: payload });
 };

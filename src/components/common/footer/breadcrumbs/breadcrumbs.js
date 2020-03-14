@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 const Breadcrumbs = (state) => {
     return (
         <div className='breadcrumbs'>
-            <h3>Här är du</h3>
+            <h4>Här är du</h4>
             <div className='breadcrumbs__content'>
                 <Route>
                     {({ location }) => {

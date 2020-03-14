@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {connect} from 'react-redux';
-import {getSettings, savePassword, saveSettings} from 'store/settings/tasks';
+import {getSettings, savePassword, saveSettings, setShowsettings} from 'store/settings/tasks';
 import {userLogout} from 'store/user/tasks';
 import Loading from 'components/common/loading';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
@@ -16,6 +16,10 @@ const Settings = (state) =>  {
     const [showPasswordHint, setShowPasswordHint] = useState(false);
     const passwordRef1 = useRef(null);
     const passwordRef2 = useRef(null);
+
+    const _handleClick = (e) => {
+        e.stopPropagation(); // Prevent settings to close when clicking inside.
+    };
 
     /**
      * Save password.
@@ -40,63 +44,67 @@ const Settings = (state) =>  {
     };
 
     /**
-     * Toggle email notifications setting.
-     */
-    const _toggleEmail = () => {
-        let payload = state.settings;
-        payload.email = !state.settings.email;
-        saveSettings(payload);
-    };
-
-    /**
      * Settings retrieved?
      */
     const _stateCheck = () => {
         return !!state && state.settings && state.settings.email !== null;
     };
 
+    /**
+     * Toggle email notifications setting.
+     */
+    const _toggleEmail = () => {
+        let payload = state.settings;
+        payload.email = !state.settings.email;
+        saveSettings(payload);
+    }
+
     return _stateCheck() ? (
-        <div className='settingsBox'>
-            <div className='settingsBox__arrow' />
-            <div className='settingsBox__item'>
-                <div className='settingsBox__item__small'>
-                    <div className='settingsBox__item__small__label'>
-                        <h4>{tc.emailNotifications}</h4>
+        <div className='settings' onClick={_handleClick}>
+            <div className='settings__header'>
+                <div className='settings__header__title'><h3>{tc.settings}</h3></div>
+            </div>
+            <div className='settings__content'>
+                <div className='settings__content__item'>
+                    <div className='settings__content__item__small'>
+                        <div className='settings__content__item__small__label'>
+                            <h5>{tc.emailNotifications}</h5>
+                        </div>
+                        <div className='settings__content__item__small__content'>
+                            <div onClick={_toggleEmail}>
+                                {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                            </div>
+                        </div>
                     </div>
-                    <div className='settingsBox__item__small__content'>
-                        <div onClick={_toggleEmail}>
-                            {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                    <div className='settings__content__item__small'>
+                        <div className='settings__content__item__small__label'>
+                            <h5>{tc.emailNotifications}</h5>
+                        </div>
+                        <div className='settings__content__item__small__content'>
+                            <div onClick={_toggleEmail}>
+                                {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className='settingsBox__item__small'>
-                    <div className='settingsBox__item__small__label'>
-                        <h4>Annat</h4>
-                    </div>
-                    <div className='settingsBox__item__small__content'>
-                        <div onClick={_toggleEmail}>
-                            {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                <div className='settings__content__item'>
+                    <div className='settings__content__item__full'>
+                        <div className='settings__content__item__full__label'>
+                            <h5>{tc.createNewPassword}</h5>
+                        </div>
+                        <div className='settings__content__item__full__content'>
+                            <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
+                            <input type='password' placeholder='Återupprepa lösenord' ref={passwordRef2} />
+                            {showPasswordHint && <div className='settings__content__item__hint'>{passwordHint}</div>}
+                            <div className='settings__content__item__button' onClick={_savePassword}>{tc.savePassword}</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className='settingsBox__item'>
-                <div className='settingsBox__item__full'>
-                    <div className='settingsBox__item__full__label'>
-                        <h4>{tc.createNewPassword}</h4>
-                    </div>
-                    <div className='settingsBox__item__full__content'>
-                        <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
-                        <input type='password' placeholder='Återupprepa lösenord' ref={passwordRef2} />
-                        {showPasswordHint && <div className='settingsBox__item__hint'>{passwordHint}</div>}
-                        <div className='settingsBox__item__button' onClick={_savePassword}>{tc.savePassword}</div>
-                    </div>
-                </div>
-            </div>
-            <div className='settingsBox__item'>
-                <div className='settingsBox__item__full'>
-                    <div className='settingsBox__item__full__content'>
-                        <div className='settingsBox__item__button logout' onClick={userLogout}>{tc.logout}</div>
+                <div className='settings__content__item'>
+                    <div className='settings__content__item__full'>
+                        <div className='settings__content__item__full__content'>
+                            <div className='settings__content__item__button logout' onClick={userLogout}>{tc.logout}</div>
+                        </div>
                     </div>
                 </div>
             </div>

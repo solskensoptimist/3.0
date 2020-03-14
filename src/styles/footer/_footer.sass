@@ -1,12 +1,14 @@
 .footer
-  background: linear-gradient($red-400, $red-500)
+  background: $backgroundMain
+  color: $grey-300
   padding: ($padding-regular * 2)
-  color: white
   display: flex
   justify-content: space-between
   align-items: flex-start
-  h3
-    border-bottom: 1px solid $red-200
+  h4
+    border-bottom: 1px solid $blue-grey-700
+    padding-bottom: $padding-small
+    margin-bottom: $padding-regular
     flex-grow: 1
   &__item
     display: flex
@@ -23,11 +25,11 @@
         margin-top: $padding-regular * 1.5
         a, span
           padding: $padding-small $padding-regular
-          color: white
           text-decoration: none
         a, span
           position: relative
-          background: $red-700
+          background: $blue-grey-600
+          color: $blue-grey-300
           &:after, &:before
             left: 100%
             top: 50%
@@ -38,16 +40,16 @@
             position: absolute
             pointer-events: none
           &:after
-            border-left-color: $red-700
+            border-left-color: $blue-grey-600
             border-width: 15px
             margin-top: -15px
         a
           z-index: 2
         span
           z-index: 1
-          background: $red-600
+          background: $blue-grey-700
           &:after
-            border-left-color: $red-600
+            border-left-color: $blue-grey-700
   &__contactWrapper
     .contact
       flex-grow: 1

@@ -1,102 +1,106 @@
-.settingsBoxWrapper
-  @extend .shadowRegular
-  position: absolute
-  right: $padding-site
-  margin-top: $padding-regular
-  width: $width-settings
-  color: $grey-500
+.settingsWrapper
+  position: fixed
+  background: rgba(0, 0, 0, 0.6)
+  width: 100%
+  height: 100%
   z-index: 3
-  .settingsBox
+  .settings
+    z-index: 4
+    position: absolute
+    top: 10%
+    left: 50%
+    max-height: 80%
+    margin-left: -($width-settings / 2)
+    width: $width-settings
     background: $grey-50
-    border: 1px solid $grey-100
-    padding: $padding-regular
-    &__arrow
-      z-index: 4
-      background: $grey-50
-      -ms-transform: rotate(45deg)
-      -webkit-transform: rotate(45deg)
-      transform: rotate(45deg)
-      width: 20px
-      height: 18px
-      position: relative
-      top: -$padding-regular * 1.5
-      left: 354px
-      border-top: solid 2px rgba($grey-900, .06)
-      border-right: 0
-      border-bottom: 0
-      border-left: 1px solid $grey-100
-    &__item
-      display: flex
-      &:last-of-type
-        margin-bottom: 0
-      h4
-        color: $grey-600
-        margin: 0 $padding-medium 0 0
-      &__button
-        background: linear-gradient($grey-700, $grey-800)
-        color: white
-        padding: $padding-medium
-        border-radius: 2px
-        justify-content: center
-        cursor: pointer
-        opacity: 0.8
-        width: 100%
-        &:hover
-          opacity: 1
-      .logout
-        background: linear-gradient($red-400, $red-500)
-      input
-        background: white
-        border: 1px solid $grey-400
-        padding: $padding-medium
-        margin-bottom: 4px
-        font-size: 12px
-        width: 100%
-        &::placeholder
-          color: $grey-400
-          font-size: 12px
-        &:-ms-input-placeholder
-          color: $grey-400
-          font-size: 12px
-        &::-ms-input-placeholder
-          color: $grey-400
-          font-size: 12px
-      .MuiSvgIcon-root
-        font-size: 30px
-        color: $red-400
-        opacity: 0.8
-        cursor: pointer
-        &:hover
-          opacity: 1
-      &__hint
-        font-size: 12px
-        color: $teal-500
-        margin: $padding-medium
-      &__full
-        background: $grey-200
+    color: $grey-500
+    border: 1px solid $grey-300
+    overflow: auto
+    @extend .shadowRegular
+    &__header
+      display: none
+      //display: flex
+      justify-content: space-between
+      align-items: center
+      padding: ($padding-regular / 2)
+      background: $backgroundMain
+      color: $grey-300
+    &__content
+      padding: ($padding-regular / 2)
+      &__item
+        display: flex
         margin-bottom: $padding-medium
-        padding: $padding-regular
-        display: flex
-        justify-content: flex-start
-        flex-direction: column
-        align-items: flex-start
-        width: 100%
-        &__label
-          width: 100%
-          margin-bottom: $padding-small
-        &__content
-          width: 100%
-      &__small
-        background: $grey-200
-        margin: 0 $padding-regular $padding-regular 0
-        padding: $padding-regular
-        display: flex
-        width: 100%
         &:last-of-type
-          margin-right: 0
-        &__label
-          align-self: center
-        &__content
-          align-self: center
+          margin-bottom: 0
+        h5
+          color: $grey-600
+          margin: 0 $padding-medium 0 0
+        .logout
+          background: $backgroundComplementaryColors
+        &__hint
+          font-size: 12px
+          color: $colorComplementary
+          margin: $padding-medium
+        &__button
+          background: $backgroundSiteColors
+          color: white
+          padding: $padding-medium
+          border-radius: 2px
+          justify-content: center
+          cursor: pointer
+          opacity: 0.8
+          width: 100%
+          &:hover
+            opacity: 1
+        input
+          background: white
+          border: 1px solid $grey-400
+          padding: $padding-medium
+          margin-bottom: 4px
+          font-size: 12px
+          width: 100%
+          &::placeholder
+            color: $grey-400
+            font-size: 12px
+          &:-ms-input-placeholder
+            color: $grey-400
+            font-size: 12px
+          &::-ms-input-placeholder
+            color: $grey-400
+            font-size: 12px
+          &:hover
+            opacity: 1
+        .MuiSvgIcon-root
+          font-size: 30px
+          color: $colorSite
+          opacity: 0.8
+          cursor: pointer
+          &:hover
+            opacity: 1
+        &__full
+          background: $grey-200
+          padding: $padding-regular
+          display: flex
+          justify-content: flex-start
+          flex-direction: column
+          align-items: flex-start
+          width: 100%
+          &__label
+            width: 100%
+            margin-bottom: $padding-small
+          &__content
+            width: 100%
+        &__small
+          background: $grey-200
+          margin-right: $padding-medium
+          padding: $padding-regular
+          display: flex
+          width: 100%
+          &:last-of-type
+            margin-right: 0
+          &__label
+            align-self: center
+          &__content
+            align-self: center
 
 

@@ -12,11 +12,11 @@ export default () => {
             <div className='footer__item footer__breadcrumbsWrapper'>
                 <Breadcrumbs />
             </div>
-            <div className='footer__item footer__contactWrapper'>
-                <Contact />
-            </div>
             <div className='footer__item footer__companyInfoWrapper'>
                 <CompanyInfo />
+            </div>
+            <div className='footer__item footer__contactWrapper'>
+                <Contact />
             </div>
         </div>
     );

@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from "react-redux";
 import Settings from './settings';
+import {setShowSettings} from 'store/settings/tasks';
 
 const User = (state) => {
-    const [showSettings, setShowSettings] = useState(false);
+    const _toggleShowsettings = () => {
+        setShowSettings({showSettings: !state.settings.showSettings})
+    };
 
     return (
         <div>
@@ -16,10 +19,9 @@ const User = (state) => {
                     <div className='user__name__dealer'>{state.user.data.dealerName}</div>
                 </div>
                 <div className='user__settingsButton'>
-                    <i className='fas fa-cog settings' onClick={() => setShowSettings(!showSettings)} />
+                    <i className='fas fa-cog settings' onClick={_toggleShowsettings} />
                 </div>
             </div>
-            {showSettings && <div className='settingsBoxWrapper'><Settings/></div>}
         </div>
 
     );
@@ -27,6 +29,7 @@ const User = (state) => {
 
 const MapStateToProps = (state) => {
     return {
+        settings: state.settings,
         user: state.user,
     };
 };
