@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Settings from './settings';
 import {setShowSettings} from 'store/settings/tasks';
 
 const User = (state) => {

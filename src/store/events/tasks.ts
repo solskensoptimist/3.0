@@ -58,20 +58,23 @@ export const getEvents = async (payload) => {
         .value();
 
         // Create object for every day of month...
-        let wholeMonth = {};
+        let monthObject = {};
         let currentDate : any = startDate;
         // ...iterate every day in month, add events appropriately.
         while (currentDate < endDate) {
-            const day = '' + currentDate.getDate();
+            let day = '' + currentDate.getDate();
+            if (day.length === 1) {
+                day = '0' + day;
+            }
             const dateString = '' + dateYear + dateMonth + day;
-            wholeMonth[dateString] = eventsObject.hasOwnProperty(dateString) ? eventsObject[dateString] : [];
+            monthObject[dateString] = eventsObject.hasOwnProperty(dateString) ? eventsObject[dateString] : [];
             currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
         }
 
         // We're done.
         const result = {
             events: {...events},
-            month: wholeMonth
+            month: monthObject
         };
 
         return store.dispatch({ type: eventsActionTypes.SET_EVENTS, payload: result });

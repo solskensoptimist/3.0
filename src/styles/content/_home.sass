@@ -1,10 +1,56 @@
 .homeWrapper
   display: flex
+  justify-content: space-between
   width: 100%
   .newsWrapper
     flex-grow: 1
   .calendarWrapper
-    background: yellow
     flex-grow: 1
-    .dayWrapper
-      background: grey
+    &__extraWrap
+      border-bottom: 1px solid $grey-300
+      .dayWrapper
+        .day
+          display: flex
+          justify-content: flex-start
+          background: white
+          border-top: 1px solid $grey-300
+          border-right: 1px solid $grey-300
+          border-left: 1px solid $grey-300
+          padding: $padding-medium
+          &__date
+            font-size: 24px
+            flex-grow: 0
+            border-radius: 50%
+            background: $grey-300
+            color: white
+            padding: 0.3em 0.45em
+            margin-right: $padding-regular
+          &__content
+            flex-grow: 1
+            display: flex
+            align-items: center
+            justify-content: space-between
+            color: $grey-400
+            &__dateInformation
+              p.weekday
+                font-size: 16px
+                font-weight: 600
+                text-transform: uppercase
+              p.week
+                font-size: 13px
+      .hasEvent
+        .day
+          background: $backgroundLightGrey
+          &__date
+            background: $colorMainBackground
+          &__content
+            &__dateInformation
+              color: $grey-800
+            &__event
+              cursor: pointer
+              p.event
+                color: $grey-700
+                font-weight: 600
+                i
+                  color: $colorComplementary
+                  margin-left: $padding-medium

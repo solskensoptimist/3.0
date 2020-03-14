@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {connect} from 'react-redux';
-import {getSettings, savePassword, saveSettings, setShowsettings} from 'store/settings/tasks';
+import {getSettings, savePassword, saveSettings} from 'store/settings/tasks';
 import {userLogout} from 'store/user/tasks';
 import Loading from 'components/common/loading';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
@@ -57,7 +57,7 @@ const Settings = (state) =>  {
         let payload = state.settings;
         payload.email = !state.settings.email;
         saveSettings(payload);
-    }
+    };
 
     return _stateCheck() ? (
         <div className='settings' onClick={_handleClick}>
