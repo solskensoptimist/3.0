@@ -1,8 +1,8 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {settingsActionTypes} from "store/settings/actions";
+import {rootActionTypes} from "store/actions";
 import {userActionTypes} from "store/user/actions";
-import {getEvents} from 'store/events/tasks';
 
 /**
  * Send login request, set user data to store state.
@@ -16,9 +16,12 @@ export const userLogin = async (credentials) => {
         url: '/login',
     })
     .then(async (data) => {
-        await getEvents({});
-        return store.dispatch({ type: userActionTypes.USER_LOGIN, payload: data });
-    });
+        // Fix: IMPLEMENT ASYNC REDUX ACTION, REMOVE SETTIMEOUT
+        store.dispatch({ type: userActionTypes.USER_LOGIN, payload: data });
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 200)
+    })
 };
 
 /**
@@ -32,6 +35,6 @@ export const userLogout = async () => {
     })
     .then((data) => {
         window.location.href = '/';
-        return store.dispatch({type: userActionTypes.USER_LOGOUT});
-    });
+        return store.dispatch({type: rootActionTypes.CLEAR_STATE});
+    })
 };

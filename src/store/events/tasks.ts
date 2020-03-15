@@ -3,6 +3,16 @@ import {request} from 'helpers';
 import {eventsActionTypes} from './actions';
 import _ from 'underscore';
 
+const weekdayMap = {
+    0: 'Måndag',
+    1: 'Tisdag',
+    2: 'Onsdag',
+    3: 'Torsdag',
+    4: 'Fredag',
+    5: 'Lördag',
+    6: 'Söndag',
+};
+
 /**
  * Get all non expired events for user. If dealId is set, returns events for that deal.
  *
@@ -39,7 +49,10 @@ export const getEvents = async (payload) => {
         // New array with all events collected.
         let events = deals.reduce((memo, num) => {
             return memo.concat(
-                num.events.map((event) => Object.assign(event, {name : num.name, dealId : num._id}))
+                num.events.map((event) => Object.assign(event, {
+                    name : num.name,
+                    dealId : num._id,
+                }))
             );
         }, []);
 
@@ -60,14 +73,28 @@ export const getEvents = async (payload) => {
         // Create object for every day of month...
         let monthObject = {};
         let currentDate : any = startDate;
-        // ...iterate every day in month, add events appropriately.
+        // ...iterate every day in month, add events and date information appropriately.
         while (currentDate < endDate) {
             let day = '' + currentDate.getDate();
             if (day.length === 1) {
                 day = '0' + day;
             }
             const dateString = '' + dateYear + dateMonth + day;
-            monthObject[dateString] = eventsObject.hasOwnProperty(dateString) ? eventsObject[dateString] : [];
+
+            const dateObject = {
+                date: (new Date(currentDate).getDate().toString().length === 1) ? '0' + new Date(currentDate).getDate().toString() : new Date(currentDate).getDate().toString(),
+                week: 12,
+                weekday: weekdayMap[new Date(currentDate).getDay()],
+            };
+
+            monthObject[dateString] = eventsObject.hasOwnProperty(dateString) ? {
+                date: dateObject,
+                events: eventsObject[dateString]
+            } : {
+                date: dateObject,
+                events: []
+            };
+
             currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
         }
 

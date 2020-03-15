@@ -17,7 +17,7 @@ const reducer = combineReducers({
 /**
  * Saves the redux state to local storage.
  */
-const saveToLocalStorage = (state) => {
+const saveToLocalStorage = (state, action) => {
     // Because of different browsers and privacy mode, it might not save to local storage - hence try/catch.
     try {
         // JSON format state.
@@ -49,9 +49,16 @@ const loadFromLocalStorage = () => {
     }
 };
 
+const rootReducer = (state, action) => {
+    if (action.type === 'CLEAR_STATE') {
+        state = undefined;
+    }
+
+    return reducer(state, action);
+};
 
 // Creating redux store.
-const store = createStore(reducer, loadFromLocalStorage());
+const store = createStore(rootReducer, loadFromLocalStorage());
 
 // Subscriptions.
 store.subscribe(() => saveToLocalStorage(store.getState()));

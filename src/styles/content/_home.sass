@@ -16,7 +16,7 @@
           border-top: 1px solid $grey-300
           border-right: 1px solid $grey-300
           border-left: 1px solid $grey-300
-          padding: $padding-medium
+          padding: $paddingMedium $paddingRegular
           &__date
             font-size: 24px
             flex-grow: 0
@@ -24,7 +24,7 @@
             background: $grey-300
             color: white
             padding: 0.3em 0.45em
-            margin-right: $padding-regular
+            margin-right: $paddingRegular
           &__content
             flex-grow: 1
             display: flex
@@ -48,9 +48,24 @@
               color: $grey-800
             &__event
               cursor: pointer
-              p.event
+              display: flex
+              align-items: center
+              p
                 color: $grey-700
+              span.highlight
+                color: $grey-800
                 font-weight: 600
+              i
+                color: $colorComplementary
+                font-size: 15px
+              &__icon
+                margin-right: $paddingMedium
+                display: flex
+                align-items: center
+              &__info
+                display: flex
+                align-items: center
                 i
-                  color: $colorComplementary
-                  margin-left: $padding-medium
+                  font-size: 12px
+                  margin-left: $paddingMedium
+

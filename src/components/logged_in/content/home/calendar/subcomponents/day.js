@@ -1,27 +1,35 @@
 import React from 'react';
+import activityHelper from 'shared_helpers/activity_helper';
 
 export default (props) => {
     const classname = (props.events && props.events.length) ? 'dayWrapper hasEvent' : 'dayWrapper';
     const event = (props.events && props.events.length) ? props.events.map((num) => {
+        const icon = activityHelper.getIconsByActivity(num.action);
+        const event = activityHelper.getReadableActivity(num.action);
+        const fillerText = (icon === 'fa-phone' || icon === 'fa-envelope' || icon === 'fa-pencil') ? 'till' : 'med';
         return (
             <div key={num._id} className='day__content__event'>
-                <p className='event'>{num.name}<i className='fas fa-chevron-right' /></p>
+                <div className='day__content__event__icon'>
+                    <i className={'fa ' + icon} />
+                </div>
+                <div key={num._id} className='day__content__event__info'>
+                    <p><span className='highlight'>{event}</span> {fillerText} {num.name}</p>
+                    <i className='fas fa-chevron-right' />
+                </div>
             </div>)
         ;
     }) : null;
-    console.log('props', props);
-    // {/*{props.day}*/}
-    // {/*Antal events: {props.events.length}*/}
+
     return (
         <div className={classname}>
             <div className='day'>
                 <div className='day__date'>
-                    18
+                    {props.date.date}
                 </div>
                 <div className='day__content'>
                     <div className='day__content__dateInformation'>
-                        <p className='weekday'>Onsdag</p>
-                        <p className='week'>Vecka 12</p>
+                        <p className='weekday'>{props.date.weekday}</p>
+                        <p className='week'>Vecka {props.date.week}</p>
                     </div>
                     {event}
                 </div>

@@ -15,6 +15,7 @@ export default {
     logout: 'Logga ut',
     news: 'Nyheter',
     ourService: 'Vår tjänst',
+    plannedActivities: 'Planerade aktiviteter',
     prices: 'Priser',
     prospect: 'Prospektera',
     savePassword: 'Spara lösenord',
