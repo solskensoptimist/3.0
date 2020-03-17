@@ -129,68 +129,95 @@ body {
   justify-content: space-between;
   width: 100%; }
   .homeWrapper .newsWrapper {
-    flex-grow: 1; }
+    flex-grow: 1;
+    width: 50%;
+    max-height: 519px;
+    overflow: auto;
+    padding: 0 22px; }
   .homeWrapper .calendarWrapper {
-    flex-grow: 1; }
-    .homeWrapper .calendarWrapper__extraWrap {
-      border-bottom: 1px solid #e0e0e0; }
-      .homeWrapper .calendarWrapper__extraWrap .dayWrapper .day {
+    flex-grow: 1;
+    width: 50%; }
+    .homeWrapper .calendarWrapper .calendar {
+      border-bottom: 1px solid #e0e0e0;
+      max-height: 519px;
+      overflow: auto; }
+      .homeWrapper .calendarWrapper .calendar .dayWrapper .day {
         display: flex;
         justify-content: flex-start;
+        align-items: center;
         background: white;
         border-top: 1px solid #e0e0e0;
         border-right: 1px solid #e0e0e0;
         border-left: 1px solid #e0e0e0;
         padding: 12px 22px; }
-        .homeWrapper .calendarWrapper__extraWrap .dayWrapper .day__date {
+        .homeWrapper .calendarWrapper .calendar .dayWrapper .day__date {
           font-size: 24px;
           flex-grow: 0;
           border-radius: 50%;
-          background: #e0e0e0;
+          background: #bdbdbd;
           color: white;
-          padding: 0.3em 0.45em;
-          margin-right: 22px; }
-        .homeWrapper .calendarWrapper__extraWrap .dayWrapper .day__content {
+          height: 49px;
+          width: 48px;
+          margin-right: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center; }
+        .homeWrapper .calendarWrapper .calendar .dayWrapper .day__content {
           flex-grow: 1;
           display: flex;
           align-items: center;
           justify-content: space-between;
           color: #bdbdbd; }
-          .homeWrapper .calendarWrapper__extraWrap .dayWrapper .day__content__dateInformation p.weekday {
+          .homeWrapper .calendarWrapper .calendar .dayWrapper .day__content__dateInformation p.weekday {
             font-size: 16px;
             font-weight: 600;
             text-transform: uppercase; }
-          .homeWrapper .calendarWrapper__extraWrap .dayWrapper .day__content__dateInformation p.week {
+          .homeWrapper .calendarWrapper .calendar .dayWrapper .day__content__dateInformation p.week {
             font-size: 13px; }
-      .homeWrapper .calendarWrapper__extraWrap .hasEvent .day {
+      .homeWrapper .calendarWrapper .calendar .dayWrapper .passed .day__date {
+        opacity: 0.4; }
+      .homeWrapper .calendarWrapper .calendar .dayWrapper .passed .day__content {
+        opacity: 0.4; }
+      .homeWrapper .calendarWrapper .calendar .hasEvent .day {
         background: linear-gradient(to left, #fafafa, #f5f5f5); }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__date {
+        .homeWrapper .calendarWrapper .calendar .hasEvent .day__date {
           background: #263238; }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__dateInformation {
+        .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__dateInformation {
           color: #424242; }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event a, .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event p {
-          color: #616161; }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event a {
-          cursor: pointer;
+        .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events {
           display: flex;
-          align-items: center;
-          text-decoration: none; }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event span.highlight {
-          color: #424242;
-          font-weight: 600; }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event i {
-          color: #ffa000;
-          font-size: 15px; }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__icon {
-          margin-right: 12px;
-          display: flex;
-          align-items: center; }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__info {
-          display: flex;
-          align-items: center; }
-          .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__info i {
-            font-size: 12px;
-            margin-left: 12px; }
+          flex-direction: column;
+          align-content: space-between; }
+          .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event {
+            opacity: 0.8;
+            margin: 8px 0;
+            display: flex;
+            justify-content: flex-end; }
+            .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event:hover {
+              opacity: 1; }
+            .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event a, .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event p {
+              color: #616161; }
+            .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event a {
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              text-decoration: none; }
+            .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event span.highlight {
+              color: #424242;
+              font-weight: 600; }
+            .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event i {
+              color: #ffa000;
+              font-size: 15px; }
+            .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event__icon {
+              margin-right: 12px;
+              display: flex;
+              align-items: center; }
+            .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event__info {
+              display: flex;
+              align-items: center; }
+              .homeWrapper .calendarWrapper .calendar .hasEvent .day__content__events__event__info i {
+                font-size: 12px;
+                margin-left: 12px; }
 
 .logotype img {
   max-width: 100px; }

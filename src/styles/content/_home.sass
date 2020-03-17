@@ -4,14 +4,22 @@
   width: 100%
   .newsWrapper
     flex-grow: 1
+    width: 50%
+    max-height: $heightContentMain
+    overflow: auto
+    padding: 0 $paddingRegular
   .calendarWrapper
     flex-grow: 1
-    &__extraWrap
+    width: 50%
+    .calendar
       border-bottom: 1px solid $grey-300
+      max-height: $heightContentMain
+      overflow: auto
       .dayWrapper
         .day
           display: flex
           justify-content: flex-start
+          align-items: center
           background: white
           border-top: 1px solid $grey-300
           border-right: 1px solid $grey-300
@@ -21,10 +29,14 @@
             font-size: 24px
             flex-grow: 0
             border-radius: 50%
-            background: $grey-300
+            background: $colorTextLight-1
             color: white
-            padding: 0.3em 0.45em
+            height: 49px
+            width: 48px
             margin-right: $paddingRegular
+            display: flex
+            align-items: center
+            justify-content: center
           &__content
             flex-grow: 1
             display: flex
@@ -38,6 +50,12 @@
                 text-transform: uppercase
               p.week
                 font-size: 13px
+        .passed
+          .day
+            &__date
+              opacity: 0.4
+            &__content
+              opacity: 0.4
       .hasEvent
         .day
           background: $backgroundLightGrey
@@ -46,28 +64,38 @@
           &__content
             &__dateInformation
               color: $colorTextDark-1
-            &__event
-              a, p
-                color: $colorTextMain
-              a
-                cursor: pointer
+            &__events
+              display: flex
+              flex-direction: column
+              align-content: space-between
+              &__event
+                opacity: 0.8
+                margin: $paddingSmall 0
                 display: flex
-                align-items: center
-                text-decoration: none
-              span.highlight
-                color: $colorTextDark-1
-                font-weight: 600
-              i
-                color: $colorSecondary
-                font-size: 15px
-              &__icon
-                margin-right: $paddingMedium
-                display: flex
-                align-items: center
-              &__info
-                display: flex
-                align-items: center
+                justify-content: flex-end
+                &:hover
+                  opacity: 1
+                a, p
+                  color: $colorTextMain
+                a
+                  cursor: pointer
+                  display: flex
+                  align-items: center
+                  text-decoration: none
+                span.highlight
+                  color: $colorTextDark-1
+                  font-weight: 600
                 i
-                  font-size: 12px
-                  margin-left: $paddingMedium
+                  color: $colorSecondary
+                  font-size: 15px
+                &__icon
+                  margin-right: $paddingMedium
+                  display: flex
+                  align-items: center
+                &__info
+                  display: flex
+                  align-items: center
+                  i
+                    font-size: 12px
+                    margin-left: $paddingMedium
 

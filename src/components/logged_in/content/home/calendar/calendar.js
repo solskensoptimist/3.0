@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import Day from './subcomponents/day';
 import Loading from 'components/common/loading';
 import {getEvents} from 'store/events/tasks';
+import moment from 'moment';
 
 const Calendar = (state) => {
     useEffect(() => {
@@ -13,7 +14,9 @@ const Calendar = (state) => {
     const _renderDays = () => {
         const result = [];
         for (const day in state.events.month) {
-            result.push(<Day key={day} date={state.events.month[day].date} events={state.events.month[day].events} />);
+            const hasPassed = moment(new Date()).format('YYYY-MM-DD') > moment(new Date(day)).format('YYYY-MM-DD');
+            const isToday = moment(new Date(day)).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD');
+            result.push(<Day key={day} date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} />);
         }
         return result;
     };
@@ -24,11 +27,11 @@ const Calendar = (state) => {
 
     return ( _stateCheck() ?
         <div className='calendarWrapper'>
-            <div className='calendarWrapper__extraWrap'>
-                <div className='headlineMain'>
-                    <h3>{tc.plannedActivities}</h3>
-                    <h5>Mars</h5>
-                </div>
+            <div className='headlineMain'>
+                <h3>{tc.plannedActivities}</h3>
+                <h5>Mars</h5>
+            </div>
+            <div className='calendar'>
             {_renderDays()}
             </div>
         </div> :

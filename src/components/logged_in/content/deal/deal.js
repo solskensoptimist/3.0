@@ -2,6 +2,9 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+/**
+ * Render a deal view.
+ */
 const Deal = (state) => {
     let {id} = useParams();
 

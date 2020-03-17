@@ -1,8 +1,27 @@
 import React from 'react';
 import {NavLink, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {routes} from 'routing';
 
+// If you create a new route you need to add it here for breadcrumbs to display it.
+const routes = {
+    affar: 'Affär',
+    aktivitet: 'Aktivitet',
+    bearbeta: 'Bearbeta',
+    foretag: 'Företag',
+    hem: 'Hem',
+    inloggning: 'Inloggning',
+    listor: 'Listor',
+    person: 'Person',
+    priser: 'Priser',
+    prospektera: 'Prospektera',
+    resultat: 'Resultat',
+    team: 'Team',
+    varTjanst: 'Vår tjänst',
+};
+
+/**
+ * Render breadcrumbs.
+ */
 const Breadcrumbs = (state) => {
     return (
         <div className='breadcrumbs'>

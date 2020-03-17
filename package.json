@@ -38,7 +38,6 @@
   "_moduleAliases": {
     "components": "src/components",
     "helpers": "src/helpers",
-    "routing": "src/routing",
     "store": "src/store",
     "text_content": "src/text_content"
   },

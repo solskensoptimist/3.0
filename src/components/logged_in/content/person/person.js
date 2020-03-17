@@ -2,6 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {useParams} from 'react-router-dom';
 
+/**
+ * Render person view.
+ */
 const Person = (state) => {
     let {id} = useParams();
 
