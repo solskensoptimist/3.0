@@ -8,8 +8,6 @@ import {useParams} from 'react-router-dom';
 const Person = (state) => {
     let {id} = useParams();
 
-    // Hämta id ovan, använd useEffect att anropa store för att hämta allt på personen.
-
     return (
         <div className='personWrapper'>
             Person komponent

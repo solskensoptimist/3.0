@@ -7,7 +7,28 @@ import {Router} from 'react-router-dom';
 import * as serviceWorker from './service_worker';
 import history from './router_history';
 
-// Lägg till google analytics här?
+// Setup moment to use swedish time.
+import moment from 'moment';
+require('moment/locale/sv');
+moment.updateLocale('sv', {
+    relativeTime : {
+        past    : '%s sedan',
+        future  : 'Om %s',
+        s       : 'mindre än 1min',
+        m       : '1min',
+        mm      : '%dmin',
+        h       : '1h',
+        hh      : '%dh',
+        d       : '1 dag',
+        dd      : '%d dagar',
+        M       : '1 månad',
+        MM      : '%d månader',
+        y       : '1 år',
+        yy      : '%d år'
+    }
+});
+
+// Lägg till google analytics här..?
 // history.listen(location => analyticsService.track(location.pathname))
 
 /**

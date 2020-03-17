@@ -56,8 +56,6 @@ export const getEvents = async (payload) => {
             return '' + year + '-' + month + '-' + day;
         });
 
-        console.log('eventsObject', eventsObject);
-
         // Create object for every day of month...
         let monthObject = {};
         let currentDate : any = startDate;

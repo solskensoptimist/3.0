@@ -1,34 +1,14 @@
 import {createStore, combineReducers} from 'redux';
+import {dealReducer} from 'store/deal/reducer';
 import {eventsReducer} from 'store/events/reducer';
 import {groupsReducer} from 'store/groups/reducer';
 import {prospectReducer} from 'store/prospect/reducer';
 import {settingsReducer} from 'store/settings/reducer';
 import {userReducer} from 'store/user/reducer';
 
-// Setup moment to use swedish time.
-import moment from 'moment';
-require('moment/locale/sv');
-moment.updateLocale('sv', {
-    relativeTime : {
-        past    : '%s sedan',
-        future  : 'Om %s',
-        s       : 'mindre än 1min',
-        m       : '1min',
-        mm      : '%dmin',
-        h       : '1h',
-        hh      : '%dh',
-        d       : '1 dag',
-        dd      : '%d dagar',
-        M       : '1 månad',
-        MM      : '%d månader',
-        y       : '1 år',
-        yy      : '%d år'
-    }
-});
-
-
 // All reducers combined.
 const reducer = combineReducers({
+    deal: dealReducer,
     events: eventsReducer,
     groups: groupsReducer,
     prospect: prospectReducer,

@@ -6,7 +6,7 @@
     flex-grow: 1
     width: 50%
     max-height: $heightContentMain
-    overflow: auto
+    overflow-y: auto
     padding: 0 $paddingRegular
   .calendarWrapper
     flex-grow: 1
@@ -14,7 +14,8 @@
     .calendar
       border-bottom: 1px solid $grey-300
       max-height: $heightContentMain
-      overflow: auto
+      overflow-y: auto
+      @extend .scrollbarHide
       .dayWrapper
         .day
           display: flex

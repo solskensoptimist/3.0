@@ -1,27 +1,37 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {getDeal} from 'store/deal/tasks';
+import Loading from 'components/common/loading';
 
 /**
  * Render a deal view.
  */
 const Deal = (state) => {
-    let {id} = useParams();
+    const {id} = useParams();
 
-    // Hämta id ovan, använd useEffect att anropa store för att hämta deal.
+    useEffect(() => {
+        getDeal({id: id});
+    }, [id]);
 
-    return (
-        <div className='personWrapper'>
-            Deal komponent
-            <p>Id: {id}</p>
-        </div>
+    const _stateCheck = () => {
+        return (state && state.deal && state.deal.deal && Object.keys(state.deal.deal).length);
+    };
+
+    return ( _stateCheck() ?
+        <div className='dealWrapper'>
+            <div className='deal'>
+                Deal komponent
+                <p>Id: {id}</p>
+            </div>
+        </div> :
+        <Loading />
     );
 };
 
-
 const MapStateToProps = (state) => {
     return {
-        // deal: state.deal,
+        deal: state.deal,
     };
 };
 

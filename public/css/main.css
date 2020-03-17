@@ -47,6 +47,12 @@ body {
   align-items: center;
   justify-content: space-between; }
 
+.scrollbarHide, .homeWrapper .calendarWrapper .calendar {
+  scrollbar-width: none;
+  -ms-overflow-style: none; }
+  .scrollbarHide::-webkit-scrollbar, .homeWrapper .calendarWrapper .calendar::-webkit-scrollbar {
+    display: none; }
+
 .content {
   background: #fafafa;
   display: flex;
@@ -132,7 +138,7 @@ body {
     flex-grow: 1;
     width: 50%;
     max-height: 519px;
-    overflow: auto;
+    overflow-y: auto;
     padding: 0 22px; }
   .homeWrapper .calendarWrapper {
     flex-grow: 1;
@@ -140,7 +146,7 @@ body {
     .homeWrapper .calendarWrapper .calendar {
       border-bottom: 1px solid #e0e0e0;
       max-height: 519px;
-      overflow: auto; }
+      overflow-y: auto; }
       .homeWrapper .calendarWrapper .calendar .dayWrapper .day {
         display: flex;
         justify-content: flex-start;
@@ -424,8 +430,8 @@ body {
   align-items: center; }
   .loadingWrapper .sk-fading-circle {
     margin: 100px auto;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     position: relative; }
   .loadingWrapper .sk-fading-circle .sk-circle {
     width: 100%;
