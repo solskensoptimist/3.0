@@ -30,7 +30,7 @@
             display: flex
             align-items: center
             justify-content: space-between
-            color: $grey-400
+            color: $colorTextLight-1
             &__dateInformation
               p.weekday
                 font-size: 16px
@@ -42,21 +42,23 @@
         .day
           background: $backgroundLightGrey
           &__date
-            background: $colorMainBackground
+            background: $colorTertiary
           &__content
             &__dateInformation
-              color: $grey-800
+              color: $colorTextDark-1
             &__event
-              cursor: pointer
-              display: flex
-              align-items: center
-              p
-                color: $grey-700
+              a, p
+                color: $colorTextMain
+              a
+                cursor: pointer
+                display: flex
+                align-items: center
+                text-decoration: none
               span.highlight
-                color: $grey-800
+                color: $colorTextDark-1
                 font-weight: 600
               i
-                color: $colorComplementary
+                color: $colorSecondary
                 font-size: 15px
               &__icon
                 margin-right: $paddingMedium

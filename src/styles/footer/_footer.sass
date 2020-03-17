@@ -1,5 +1,5 @@
 .footer
-  background: $backgroundMain
+  background: $backgroundTertiaryColors
   color: $grey-300
   padding: ($paddingRegular * 2)
   display: flex
@@ -28,8 +28,8 @@
           text-decoration: none
         a, span
           position: relative
-          background: $blue-grey-600
-          color: $blue-grey-300
+          background: $colorTertiary-3
+          color: $grey-300
           &:after, &:before
             left: 100%
             top: 50%
@@ -40,16 +40,16 @@
             position: absolute
             pointer-events: none
           &:after
-            border-left-color: $blue-grey-600
+            border-left-color: $colorTertiary-3
             border-width: 15px
             margin-top: -15px
         a
           z-index: 2
         span
           z-index: 1
-          background: $blue-grey-700
+          background: $colorTertiary-2
           &:after
-            border-left-color: $blue-grey-700
+            border-left-color: $colorTertiary-2
   &__contactWrapper
     .contact
       flex-grow: 1

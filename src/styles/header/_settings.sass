@@ -13,7 +13,7 @@
     margin-left: -($width-settings / 2)
     width: $width-settings
     background: $grey-50
-    color: $grey-500
+    color: $colorTextLight
     border: 1px solid $grey-300
     overflow: auto
     @extend .shadowRegular
@@ -21,6 +21,7 @@
       display: flex
       justify-content: space-between
       align-items: center
+      padding: $paddingRegular $paddingMedium
       @extend .headlineMain
     &__content
       margin: 0 $paddingMedium $paddingMedium $paddingMedium
@@ -33,13 +34,13 @@
           color: $grey-600
           margin: 0 $paddingMedium 0 0
         .logout
-          background: $backgroundComplementaryColors
+          background: $backgroundSecondaryColors
         &__hint
           font-size: 12px
-          color: $colorComplementary
+          color: $colorSecondary
           margin: $paddingMedium 0
         &__button
-          background: $backgroundSiteColors
+          background: $backgroundPrimaryColors
           color: white
           padding: $paddingMedium
           border-radius: 2px
@@ -69,7 +70,7 @@
             opacity: 1
         .MuiSvgIcon-root
           font-size: 30px
-          color: $colorSite
+          color: $colorPrimary
           opacity: 0.8
           cursor: pointer
           &:hover

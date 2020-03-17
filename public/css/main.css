@@ -42,7 +42,7 @@ body {
 
 .headlineMain, .settingsWrapper .settings__header {
   color: #212121;
-  padding: 12px;
+  padding: 12px 0;
   display: flex;
   align-items: center;
   justify-content: space-between; }
@@ -54,7 +54,7 @@ body {
   min-height: 500px; }
 
 .footer {
-  background: linear-gradient(to right, #546e7a, #263238);
+  background: linear-gradient(to right, #37474f, #263238);
   color: #e0e0e0;
   padding: 44px;
   display: flex;
@@ -83,7 +83,7 @@ body {
       .footer__breadcrumbsWrapper .breadcrumbs__content a, .footer__breadcrumbsWrapper .breadcrumbs__content span {
         position: relative;
         background: #546e7a;
-        color: #90a4ae; }
+        color: #e0e0e0; }
         .footer__breadcrumbsWrapper .breadcrumbs__content a:after, .footer__breadcrumbsWrapper .breadcrumbs__content a:before, .footer__breadcrumbsWrapper .breadcrumbs__content span:after, .footer__breadcrumbsWrapper .breadcrumbs__content span:before {
           left: 100%;
           top: 50%;
@@ -110,7 +110,7 @@ body {
     flex-grow: 1; }
 
 .headerWrapper .header {
-  background: linear-gradient(to right, #546e7a, #263238);
+  background: linear-gradient(to right, #37474f, #263238);
   color: #e0e0e0;
   display: flex;
   align-items: center;
@@ -168,28 +168,29 @@ body {
           background: #263238; }
         .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__dateInformation {
           color: #424242; }
-        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event {
+        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event a, .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event p {
+          color: #616161; }
+        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event a {
           cursor: pointer;
           display: flex;
+          align-items: center;
+          text-decoration: none; }
+        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event span.highlight {
+          color: #424242;
+          font-weight: 600; }
+        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event i {
+          color: #ffa000;
+          font-size: 15px; }
+        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__icon {
+          margin-right: 12px;
+          display: flex;
           align-items: center; }
-          .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event p {
-            color: #616161; }
-          .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event span.highlight {
-            color: #424242;
-            font-weight: 600; }
-          .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event i {
-            color: #ffa000;
-            font-size: 15px; }
-          .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__icon {
-            margin-right: 12px;
-            display: flex;
-            align-items: center; }
-          .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__info {
-            display: flex;
-            align-items: center; }
-            .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__info i {
-              font-size: 12px;
-              margin-left: 12px; }
+        .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__info {
+          display: flex;
+          align-items: center; }
+          .homeWrapper .calendarWrapper__extraWrap .hasEvent .day__content__event__info i {
+            font-size: 12px;
+            margin-left: 12px; }
 
 .logotype img {
   max-width: 100px; }
@@ -282,7 +283,8 @@ body {
     .settingsWrapper .settings__header {
       display: flex;
       justify-content: space-between;
-      align-items: center; }
+      align-items: center;
+      padding: 22px 12px; }
     .settingsWrapper .settings__content {
       margin: 0 12px 12px 12px; }
       .settingsWrapper .settings__content__item {

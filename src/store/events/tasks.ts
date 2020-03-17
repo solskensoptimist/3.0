@@ -2,16 +2,7 @@ import {store} from 'store';
 import {request} from 'helpers';
 import {eventsActionTypes} from './actions';
 import _ from 'underscore';
-
-const weekdayMap = {
-    0: 'Måndag',
-    1: 'Tisdag',
-    2: 'Onsdag',
-    3: 'Torsdag',
-    4: 'Fredag',
-    5: 'Lördag',
-    6: 'Söndag',
-};
+import moment from 'moment';
 
 /**
  * Get all non expired events for user. If dealId is set, returns events for that deal.
@@ -36,15 +27,15 @@ export const getEvents = async (payload) => {
 
         const dateYear = (payload && payload.date && payload.date.year) ?
             payload.date.year :
-            new Date().getFullYear();
+            moment(new Date()).format('YYYY');
 
         const dateMonth = (payload && payload.date && payload.date.month) ?
-            payload.date.year :
-            (new Date().getMonth() + 1); // We want january as 1, not 0.
+            payload.date.month :
+            moment(new Date()).format('M');
 
         // Current month.
-        const startDate = new Date(dateYear + '-' + dateMonth);
-        const endDate = new Date(dateYear + '-' + (dateMonth + 1));
+        const startDate = moment(new Date(dateYear + '-' + dateMonth));
+        const endDate = moment(new Date(dateYear + '-' + dateMonth)).add(1, 'month');
 
         // New array with all events collected.
         let events = deals.reduce((memo, num) => {
@@ -56,35 +47,28 @@ export const getEvents = async (payload) => {
             );
         }, []);
 
-        // Object with events.
-        const eventsObject = _.chain(events)
-        .filter((num) => {
-            return (new Date(num.event_date) > startDate && new Date(num.event_date) < endDate);
-        })
-        .groupBy((num) => {
-            const date = new Date(num.event_date);
-            const year = '' + date.getFullYear();
-            const month = '' + (date.getMonth() + 1); // We want january as 1, not 0.
-            const day = '' + date.getDate();
-            return year + month + day;
-        })
-        .value();
+        // Create object that has property for every valid event date.
+        const eventsObject = _.groupBy(events, (num) => {
+            const date = moment(new Date(num.event_date));
+            const year = date.format('YYYY');
+            const month = date.format('M');
+            const day = date.format('DD');
+            return '' + year + '-' + month + '-' + day;
+        });
+
+        console.log('eventsObject', eventsObject);
 
         // Create object for every day of month...
         let monthObject = {};
         let currentDate : any = startDate;
         // ...iterate every day in month, add events and date information appropriately.
         while (currentDate < endDate) {
-            let day = '' + currentDate.getDate();
-            if (day.length === 1) {
-                day = '0' + day;
-            }
-            const dateString = '' + dateYear + dateMonth + day;
-
+            const day = moment(currentDate, 'YYYYMMDD').format('DD');
+            const dateString = '' + dateYear + '-' + dateMonth + '-' + day;
             const dateObject = {
-                date: (new Date(currentDate).getDate().toString().length === 1) ? '0' + new Date(currentDate).getDate().toString() : new Date(currentDate).getDate().toString(),
-                week: 12,
-                weekday: weekdayMap[new Date(currentDate).getDay()],
+                date: day,
+                week: moment(currentDate, 'YYYYMMDD').week(),
+                weekday: moment(currentDate, 'YYYYMMDD').format('dddd'),
             };
 
             monthObject[dateString] = eventsObject.hasOwnProperty(dateString) ? {
@@ -95,10 +79,9 @@ export const getEvents = async (payload) => {
                 events: []
             };
 
-            currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+            currentDate = currentDate.add(1, 'day');
         }
 
-        // We're done.
         const result = {
             events: {...events},
             month: monthObject

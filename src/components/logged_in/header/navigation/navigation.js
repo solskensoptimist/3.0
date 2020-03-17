@@ -1,6 +1,5 @@
 import React  from 'react';
 import {NavLink} from "react-router-dom";
-import {addRouteToHistory} from 'routing';
 import tc from 'text_content';
 
 /**
@@ -10,11 +9,11 @@ export default () =>  {
     return (
         <div className='navigation'>
             <div className='navigation__menu'>
-                <NavLink exact onClick={() => {addRouteToHistory('hem')}} to={'/'} key='hem'>{tc.home}</NavLink>
-                <NavLink exact onClick={() => {addRouteToHistory('aktivitet')}} to={'/aktivitet'} key='aktivitet'>{tc.activity}</NavLink>
-                <NavLink exact onClick={() => {addRouteToHistory('bearbeta')}} to={'/bearbeta'} key='bearbeta'>{tc.agile}</NavLink>
-                <NavLink exact onClick={() => {addRouteToHistory('listor')}} to={'/listor'} key='listor'>{tc.lists}</NavLink>
-                <NavLink exact onClick={() => {addRouteToHistory('prospektera')}} to={'/prospektera'} key='prospektera'>{tc.prospect}</NavLink>
+                <NavLink exact to={'/'} key='hem'>{tc.home}</NavLink>
+                <NavLink exact to={'/aktivitet'} key='aktivitet'>{tc.activity}</NavLink>
+                <NavLink exact to={'/bearbeta'} key='bearbeta'>{tc.agile}</NavLink>
+                <NavLink exact to={'/listor'} key='listor'>{tc.lists}</NavLink>
+                <NavLink exact to={'/prospektera'} key='prospektera'>{tc.prospect}</NavLink>
             </div>
         </div>
     );
