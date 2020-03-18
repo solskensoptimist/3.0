@@ -15,7 +15,7 @@ export default (state) =>  {
                         {tc.home}
                     </NavLink>
                     <NavLink exact to={'/aktivitet'} key='aktivitet'>
-                        <i className='fas fa-chart-bar' />
+                        <i className='fas fa-tachometer-alt' />
                         {tc.activity}
                     </NavLink>
                     <NavLink exact to={'/analysera'} key='analysera'>
@@ -23,7 +23,7 @@ export default (state) =>  {
                         {tc.analyse}
                     </NavLink>
                     <NavLink exact to={'/bearbeta'} key='bearbeta'>
-                        <i className='fas fa-user-friends' />
+                        <i className='fas fa-columns' />
                         {tc.agile}
                     </NavLink>
                     <NavLink exact to={'/listor'} key='listor'>

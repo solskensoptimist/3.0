@@ -1,29 +1,29 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import tc from 'text_content';
-import Loading from 'components/common/loading';
 import {connect} from 'react-redux';
 
 const Search = (state) => {
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
+    const inputRef = useRef(null);
 
-    const _stateCheck = () => {
-        return (state && state.search && state.search.showSettings);
+    const _handleClick = (e) => {
+        e.stopPropagation(); // Prevent search to close when clicking inside.
     };
 
-    return ( _stateCheck() ?
-        <div className='searchWrapper'>
-            <div className='search'>
-                <div className='search__input'>
-                    <input type='text' placeholder={tc.searchPlaceholder} />
-                </div>
+    return (
+        <div className='searchWrapper__search' onClick={_handleClick}>
+            <div className='searchWrapper__search__input'>
+                <input ref={inputRef} type='text' placeholder={tc.searchPlaceholder} />
             </div>
-        </div> :
-        <Loading />
+        </div>
     );
 };
 
 const MapStateToProps = (state) => {
     return {
-        search: state.search,
+        //search: state.search,
     };
 };
 

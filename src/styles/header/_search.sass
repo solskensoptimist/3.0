@@ -1,29 +1,31 @@
-.searchWrapper
+.searchClickHandler
   position: fixed
-  background: rgba(0, 0, 0, 0.7)
-  width: 100%
+  top: 0
+  left: 0
   height: 100%
+  width: 100%
   z-index: 4
-  .search
+
+.searchWrapper
+  position: relative
+  z-index: 5
+  &__search
+    position: absolute
+    top: 0
+    left: $paddingRegular
     display: flex
-    &__icon
-      flex-grow: 0
-      display: flex
-      align-items: center
-      justify-content: flex-start
-      padding: $paddingSmall 0
-      margin-right: $paddingRegular
-      i
-        font-size: 20px
-        color: $grey-400
+    background: $backgroundMediumGrey
+    border: 1px solid $grey-300
+    width: 300px
+    padding: $paddingMedium
+    @extend .shadowRegular
     &__input
       flex-grow: 1
-      grid-column-start: 2
-      grid-column-end: 3
+      width: 100%
       input
         color: $colorTextMain
         padding: $paddingMedium ($paddingMedium * 1.5)
-        background: $grey-50
+        background: white
         border: 0
         width: 100%
         font-size: 16px
@@ -37,4 +39,6 @@
         &::-ms-input-placeholder
           color: $grey-400
           font-size: 13px
+        &:focus
+          outline-width: 0
 

@@ -103,7 +103,9 @@ const Settings = (state) =>  {
                 <div className='settings__content__item'>
                     <div className='settings__content__item__full'>
                         <div className='settings__content__item__full__content'>
-                            <div className='settings__content__item__button logout' onClick={userLogout}>{tc.logout}</div>
+                            <div className='settings__content__item__button logout' onClick={userLogout}>
+                                {tc.logout}<i className="fas fa-sign-out-alt" />
+                            </div>
                         </div>
                     </div>
                 </div>

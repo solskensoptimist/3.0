@@ -15,6 +15,7 @@ const User = (state) => {
                 </div>
                 <div className='userWrapper__user__name'>
                     <div className='userWrapper__user__name__name'>{state.user.data.name}</div>
+                    <div className='userWrapper__user__name__delimiter'>|</div>
                     <div className='userWrapper__user__name__dealer'>{state.user.data.dealerName}</div>
                 </div>
                 <div className='userWrapper__user__settingsButton'>

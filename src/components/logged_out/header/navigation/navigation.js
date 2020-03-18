@@ -11,11 +11,11 @@ export default () => {
             <div className='navigationWrapper__navigation'>
                 <div className='navigationWrapper__navigation__menu'>
                     <NavLink exact to={'/'} key='varTjanst'>
-                        <i className='fas fa-home' />
+                        <i className='fas fa-briefcase' />
                         {tc.ourService}
                     </NavLink>
                     <NavLink exact to={'/priser'} key='priser'>
-                        <i className='fas fa-home' />
+                        <i className='fas fa-dollar-sign' />
                         {tc.prices}
                     </NavLink>
                     <NavLink exact to={'/team'} key='team'>
@@ -23,7 +23,7 @@ export default () => {
                         {tc.team}
                     </NavLink>
                     <NavLink exact to={'/inloggning'} key='inloggning'>
-                        <i className='fas fa-home' />
+                        <i className='fas fa-sign-in-alt' />
                         {tc.login}
                     </NavLink>
                 </div>

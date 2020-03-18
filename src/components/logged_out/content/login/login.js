@@ -13,7 +13,7 @@ export default () =>  {
     return (
         <div>
             <div onClick={handleSubmit}>
-                {tc.logon}
+                <button>{tc.logon}</button>
             </div>
         </div>
     );

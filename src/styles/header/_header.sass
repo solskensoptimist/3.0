@@ -7,15 +7,18 @@
       font-size: 14px
       cursor: pointer
       color: white
+      &:hover
+        color: $colorSecondary
     &__top
-      background: $backgroundTertiaryColors
+      background: $backgroundPrimaryColors
       padding: $paddingMedium $paddingHeader
-      color: $colorTertiary-6
+      color: $colorPrimary-6
       display: flex
       align-items: center
       justify-content: space-between
       &__left
-        margin-left: (($widthLogotype + (($paddingRegular * 2) * 2)) + 2) + $paddingRegular // Adjust for logo width
+        display: flex
+        margin-left: (($widthLogotype + (($paddingRegular * 2) * 2)) + 2) + ($paddingRegular * 1.5) // Adjust for logo width
         i
           cursor: pointer
 
