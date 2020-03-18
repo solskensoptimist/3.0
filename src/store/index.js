@@ -3,6 +3,7 @@ import {dealReducer} from 'store/deal/reducer';
 import {eventsReducer} from 'store/events/reducer';
 import {groupsReducer} from 'store/groups/reducer';
 import {prospectReducer} from 'store/prospect/reducer';
+import {searchReducer} from 'store/search/reducer';
 import {settingsReducer} from 'store/settings/reducer';
 import {userReducer} from 'store/user/reducer';
 
@@ -12,6 +13,7 @@ const reducer = combineReducers({
     events: eventsReducer,
     groups: groupsReducer,
     prospect: prospectReducer,
+    search: searchReducer,
     settings: settingsReducer,
     user: userReducer,
 });

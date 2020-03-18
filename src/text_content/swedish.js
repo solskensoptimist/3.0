@@ -1,7 +1,8 @@
 export default {
+    aboutUs: 'Om oss',
     activity: 'Aktivitet',
     agile: 'Bearbeta',
-    aboutUs: 'Om oss',
+    analyse: 'Analysera',
     calendar: 'Kalender',
     companyInfo: 'Företagsinformation',
     contact: 'Kontakt',
@@ -19,6 +20,7 @@ export default {
     prices: 'Priser',
     prospect: 'Prospektera',
     savePassword: 'Spara lösenord',
+    search: 'Sök',
     searchPlaceholder: 'Sök fordon eller fordonsbrukare...',
     settings: 'Inställningar',
     settingsPasswordHintEmpty: 'Lösenord kan ej vara tomma',

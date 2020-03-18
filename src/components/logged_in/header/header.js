@@ -1,26 +1,40 @@
 import React  from 'react';
 import Logotype from 'components/common/logotype';
 import Navigation from './navigation';
-import Search from './search';
 import User from './user';
+import tc from "../../../text_content/swedish";
+import {connect} from 'react-redux';
+import {setShowSearch} from 'store/search/tasks';
 
-export default () => {
+const Header = (state) => {
+    const _setShowSearch = () => {
+        setShowSearch({showSearch: !state.search.showSearch});
+    };
+
     return (
         <div className='headerWrapper'>
-            <div className='header'>
-                <div className='header__item1'>
-                    <Logotype />
+            <Logotype />
+            <div className='headerWrapper__header'>
+                <div className='headerWrapper__header__top'>
+                    <div className='headerWrapper__header__top__left' onClick={_setShowSearch}>
+                        <i className="fas fa-search" />
+                    </div>
+                    <div className='headerWrapper__header__top__right'>
+                        <User />
+                    </div>
                 </div>
-                <div className='header__item2'>
-                    <Search />
-                </div>
-                <div className='header__item3'>
-                    <User />
-                </div>
-            </div>
-            <div className='navigationWrapper'>
                 <Navigation />
             </div>
         </div>
     );
 }
+
+const MapStateToProps = (state) => {
+    return {
+        search: state.search,
+    };
+};
+
+export default connect(
+    MapStateToProps,
+)(Header);

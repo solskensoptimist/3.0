@@ -1,34 +1,45 @@
 .navigationWrapper
   border-bottom: 1px solid $grey-300
+  padding: 0 $paddingHeader
   z-index: 2
   position: relative
   display: flex
   align-items: stretch
+  justify-content: flex-end
   @extend .shadowRegular
-  .navigation
+  &__navigation
     background: white
     display: flex
-    justify-content: center
+    justify-content: flex-end
     width: 100%
     border-bottom: 4px solid $grey-100
     &__menu
+      overflow: hidden
       display: flex
-      justify-content: center
+      justify-content: flex-end
+      align-items: center
       height: 100%
-      align-items: stretch
+      i
+        color: $colorTertiary-2
+        margin-bottom: $paddingMedium
+        font-size: 16px
       a
-        padding: $paddingRegular ($paddingRegular * 2)
-        height: 100%
+        padding: $paddingRegular ($paddingRegular * 1.5)
         display: flex
         align-items: center
+        justify-content: center
+        flex-direction: column
         text-decoration: none
-        color: $colorTertiary
+        color: $colorTertiary-2
         text-transform: uppercase
-        font-weight: 600
+        font-size: 10px
         &:hover
           background: $grey-50
           color: $colorPrimary
+          i
+            color: $colorPrimary
         &.active
           background: $grey-50
           color: $colorPrimary
-
+          i
+            color: $colorPrimary

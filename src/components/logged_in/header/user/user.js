@@ -8,16 +8,16 @@ const User = (state) => {
     };
 
     return (
-        <div>
-            <div className='user'>
-                <div className='user__icon'>
+        <div className='userWrapper'>
+            <div className='userWrapper__user'>
+                <div className='userWrapper__user__icon'>
                     <i className='fas fa-user user' />
                 </div>
-                <div className='user__name'>
-                    <div className='user__name__name'>{state.user.data.name}</div>
-                    <div className='user__name__dealer'>{state.user.data.dealerName}</div>
+                <div className='userWrapper__user__name'>
+                    <div className='userWrapper__user__name__name'>{state.user.data.name}</div>
+                    <div className='userWrapper__user__name__dealer'>{state.user.data.dealerName}</div>
                 </div>
-                <div className='user__settingsButton'>
+                <div className='userWrapper__user__settingsButton'>
                     <i className='fas fa-cog settings' onClick={_toggleShowsettings} />
                 </div>
             </div>

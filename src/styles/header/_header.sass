@@ -1,16 +1,21 @@
 .headerWrapper
-  .header
-    background: $backgroundTertiaryColors
-    color: $grey-300
+  &__header
     display: flex
-    align-items: center
-    justify-content: space-between
-    padding: $paddingRegular $paddingHeader
-    &__item1
-      flex-grow: 0
-    &__item2
-      flex-grow: 0
-      width: 40%
-    &__item3
-      flex-grow: 0
+    flex-direction: column
+    justify-content: flex-end
+    i
+      font-size: 14px
+      cursor: pointer
+      color: white
+    &__top
+      background: $backgroundTertiaryColors
+      padding: $paddingMedium $paddingHeader
+      color: $colorTertiary-6
+      display: flex
+      align-items: center
+      justify-content: space-between
+      &__left
+        margin-left: (($widthLogotype + (($paddingRegular * 2) * 2)) + 2) + $paddingRegular // Adjust for logo width
+        i
+          cursor: pointer
 

@@ -1,22 +1,20 @@
 import React from 'react';
 import Navigation from './navigation';
-import Logotype from "../../common/logotype/logotype";
+import Logotype from "components/common/logotype/logotype";
 
 export default () => {
     return (
         <div className='headerWrapper'>
-            <div className='header'>
-                <div className='header__item1'>
-                    <Logotype />
+            <Logotype />
+            <div className='headerWrapper__header'>
+                <div className='headerWrapper__header__top'>
+                    <div className='headerWrapper__header__top__left'>
+                        left
+                    </div>
+                    <div className='headerWrapper__header__top__right'>
+                        right
+                    </div>
                 </div>
-                <div className='header__item2'>
-                    Header1
-                </div>
-                <div className='header__item3'>
-                    Header2
-                </div>
-            </div>
-            <div className='navigationWrapper'>
                 <Navigation />
             </div>
         </div>

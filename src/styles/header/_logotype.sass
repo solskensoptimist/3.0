@@ -1,3 +1,13 @@
-.logotype
-  img
-    max-width: 100px
+.logotypeWrapper
+  background: $backgroundLightPrimaryColors
+  border-right: 1px solid $colorPrimary
+  border-bottom: 1px solid $colorPrimary
+  border-left: 1px solid $colorPrimary
+  padding: ($paddingRegular * 1.5) ($paddingRegular * 2)
+  position: absolute
+  top: 0
+  left: $paddingHeader
+  z-index: 3
+  .logotype
+    img
+      max-width: $widthLogotype
