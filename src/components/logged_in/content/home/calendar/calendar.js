@@ -15,7 +15,7 @@ const Calendar = (state) => {
         const result = [];
         for (const day in state.events.month) {
             const hasPassed = moment(new Date()).format('YYYY-MM-DD') > moment(new Date(day)).format('YYYY-MM-DD');
-            const isToday = moment(new Date(day)).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD');
+            const isToday = moment(new Date(day)).isSame(new Date(), 'day');
             result.push(<Day key={day} date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} />);
         }
         return result;

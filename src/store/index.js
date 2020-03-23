@@ -2,6 +2,7 @@ import {createStore, combineReducers} from 'redux';
 import {dealReducer} from 'store/deal/reducer';
 import {eventsReducer} from 'store/events/reducer';
 import {groupsReducer} from 'store/groups/reducer';
+import {listsReducer} from 'store/lists/reducer';
 import {prospectReducer} from 'store/prospect/reducer';
 import {searchReducer} from 'store/search/reducer';
 import {settingsReducer} from 'store/settings/reducer';
@@ -12,6 +13,7 @@ const reducer = combineReducers({
     deal: dealReducer,
     events: eventsReducer,
     groups: groupsReducer,
+    lists: listsReducer,
     prospect: prospectReducer,
     search: searchReducer,
     settings: settingsReducer,
