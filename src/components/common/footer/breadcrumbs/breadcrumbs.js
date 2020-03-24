@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 const routes = {
     affar: 'Affär',
     aktivitet: 'Aktivitet',
+    analysera: 'Analysera',
     bearbeta: 'Bearbeta',
     foretag: 'Företag',
     hem: 'Hem',
