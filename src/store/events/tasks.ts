@@ -82,7 +82,9 @@ export const getEvents = async (payload) => {
 
         const result = {
             events: {...events},
-            month: monthObject
+            month: monthObject,
+            monthInScope: Number(dateMonth),
+            yearInScope: Number(dateYear),
         };
 
         return store.dispatch({ type: eventsActionTypes.SET_EVENTS, payload: result });

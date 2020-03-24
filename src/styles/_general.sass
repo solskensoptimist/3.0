@@ -20,8 +20,27 @@ body
   color: $colorTextDark
   padding: $paddingMedium 0
   display: flex
-  align-items: center
   justify-content: space-between
+  h2
+    font-weight: 600
+  h3
+    font-size: 13px
+    font-weight: normal
+    color: $colorTextLight
+    line-height: 18px
+  &__right
+    display: flex
+    align-items: flex-end
+    i
+      color: $colorTextLight
+      cursor: pointer
+      font-size: 18px
+      margin-left: $paddingMedium
+      &:hover
+        color: $colorTextDark
+    i.active
+      color: $colorTextDark
+
 
 .scrollbarHide
   scrollbar-width: none

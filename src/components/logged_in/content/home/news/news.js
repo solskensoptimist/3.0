@@ -5,7 +5,10 @@ export default () => {
     return (
         <div className='newsWrapper'>
             <div className='headlineMain'>
-                <h3>{tc.news}</h3>
+                <div className='headlineMain__left'>
+                    <h2>{tc.news}</h2>
+                    <h3>{tc.newsSub}</h3>
+                </div>
             </div>
          </div>
     );

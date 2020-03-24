@@ -62,7 +62,7 @@ const Settings = (state) =>  {
     return _stateCheck() ? (
         <div className='settings' onClick={_handleClick}>
             <div className='settings__header'>
-                <div className='settings__header__title'><h3>{tc.settings}</h3></div>
+                <div className='settings__header__title'><h2>{tc.settings}</h2></div>
             </div>
             <div className='settings__content'>
                 <div className='settings__content__item'>

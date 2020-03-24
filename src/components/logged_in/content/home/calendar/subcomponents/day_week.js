@@ -1,24 +1,26 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import activityHelper from 'shared_helpers/activity_helper';
 import {NavLink} from 'react-router-dom';
 
 /**
- * Render one day row, called from Calendar.
+ * Render one day, called from calendar when in week mode.
  *
  * props.date - {date, weekday, week}
- * props.events - [{ _id, action, dealId, name, (...) }, {(...)}]
+ * props.events - array - [{ _id, action, dealId, name, (...) }, {(...)}]
  * props.hasPassed - bool
  * props.isToday - bool
  */
 export default (props) => {
     // Scroll to current day.
     const elementRef = useRef(null);
-    if (elementRef && elementRef.current && props.isToday) {
-        elementRef.current.scrollIntoView();
-        window.scrollTo(0, 0);
-    }
+    useEffect(() => {
+        if (elementRef && elementRef.current && props.isToday) {
+            elementRef.current.scrollIntoView();
+            window.scrollTo(0, 0);
+        }
+    }, [elementRef]);
 
-    const event = (props.events && props.events.length) ? props.events.map((num) => {
+    const events = (props.events && props.events.length) ? props.events.map((num) => {
         const icon = activityHelper.getIconsByActivity(num.action);
         const event = activityHelper.getReadableActivity(num.action);
 
@@ -56,11 +58,11 @@ export default (props) => {
                 </div>
                 <div className='day__content'>
                     <div className='day__content__dateInformation'>
-                        <p className='weekday'>{props.date.weekday}</p>
-                        <p className='week'>Vecka {props.date.week}</p>
+                        <p className='day__content__dateInformation__weekday'>{props.date.weekday}</p>
+                        <p className='day__content__dateInformation__week'>Vecka {props.date.week}</p>
                     </div>
                     <div className='day__content__events'>
-                        {event}
+                        {events}
                     </div>
                 </div>
             </div>
