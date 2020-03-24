@@ -1,6 +1,31 @@
 .newsWrapper
   flex-grow: 1
   width: auto
-  max-height: $heightContentMain
-  overflow-y: auto
-  padding: 0 $paddingRegular
+  padding: 0
+  margin-right: $paddingRegular * 2
+  &__news
+    max-height: $heightContentMain
+    overflow-y: auto
+    @extend .scrollbarHide
+    &__item
+      background: white
+      padding: $paddingRegular
+      border: 1px solid $grey-200
+      color: $colorTextMain
+      margin-bottom: $paddingRegular
+      &:last-of-type
+        margin-bottom: 0
+      &__header
+        h3
+          border-bottom: 4px solid $grey-100
+          padding-bottom: $paddingMedium
+      &__content
+        margin: $paddingRegular 0
+        p
+          margin: $paddingMedium 0
+        h5
+          margin: ($paddingMedium * 2) 0 (-$paddingMedium) 0
+      &__footer
+        background: $grey-100
+        padding: $paddingSmall
+        font-size: 0.8em

@@ -1,6 +1,7 @@
 .calendarWrapper
   flex-grow: 1
-  max-width: 490px
+  min-width: $widthCalendar
+  max-width: $widthCalendar
   .calendar
     &__month
       display: flex
@@ -14,7 +15,7 @@
           align-items: center
           background: white
           padding: ($paddingRegular / 1.5) $paddingRegular
-          border: 1px solid $grey-300
+          border: 1px solid $grey-200
           border-radius: 4px
           &__date
             font-size: 20px
@@ -34,7 +35,7 @@
             color: $colorSecondary
             cursor: pointer
     &__week
-      border-bottom: 1px solid $grey-300
+      border-bottom: 1px solid $grey-200
       max-height: $heightCalendarWeek
       overflow-y: auto
       @extend .scrollbarHide
@@ -44,9 +45,9 @@
           justify-content: flex-start
           align-items: center
           background: white
-          border-top: 1px solid $grey-300
-          border-right: 1px solid $grey-300
-          border-left: 1px solid $grey-300
+          border-top: 1px solid $grey-200
+          border-right: 1px solid $grey-200
+          border-left: 1px solid $grey-200
           padding: $paddingMedium $paddingRegular
           &__date
             font-size: 20px

@@ -1,3 +1,8 @@
+h1
+  font-size: 26px
+  line-height: 30px
+  font-weight: 600
+
 h2
   font-size: 22px
   line-height: 24px
@@ -10,6 +15,11 @@ h3
   font-weight: 600
   text-transform: uppercase
 
+h3.headlineMedium
+  font-size: 18px
+  text-transform: none
+  font-weight: normal
+
 h4
   font-size: 14px
   line-height: 20px
@@ -21,3 +31,30 @@ h5
   font-weight: 600
   line-height: 18px
   text-transform: uppercase
+
+// This controls divs with page headlines.
+.headlineMain
+  color: $colorTextDark
+  padding: $paddingMedium 0
+  display: flex
+  justify-content: space-between
+  h2
+    font-weight: 600
+  h3
+    font-size: 14px
+    font-weight: normal
+    color: $colorTextLight
+    text-transform: none
+    line-height: 18px
+  &__right
+    display: flex
+    align-items: flex-end
+    i
+      color: $colorTextLight
+      cursor: pointer
+      font-size: 18px
+      margin-left: $paddingMedium
+      &:hover
+        color: $colorTextDark
+    i.active
+      color: $colorTextDark

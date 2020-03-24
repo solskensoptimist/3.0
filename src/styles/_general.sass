@@ -3,6 +3,7 @@
   padding: 0
   box-sizing: border-box
   font-size: 13px
+  line-height: 20px
   font-family: 'Source sans pro', sans-serif
   font-weight: 400
 
@@ -14,34 +15,13 @@ body
   -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
   box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
 
-.headlineMain
-  color: $colorTextDark
-  padding: $paddingMedium 0
-  display: flex
-  justify-content: space-between
-  h2
-    font-weight: 600
-  h3
-    font-size: 14px
-    font-weight: normal
-    color: $colorTextLight
-    text-transform: none
-    line-height: 18px
-  &__right
-    display: flex
-    align-items: flex-end
-    i
-      color: $colorTextLight
-      cursor: pointer
-      font-size: 18px
-      margin-left: $paddingMedium
-      &:hover
-        color: $colorTextDark
-    i.active
-      color: $colorTextDark
-
-
 .scrollbarHide
+  scrollbar-width: none
+  -ms-overflow-style: none
+  &::-webkit-scrollbar
+    display: none
+
+.scrollbarLight
   scrollbar-width: none
   -ms-overflow-style: none
   &::-webkit-scrollbar
