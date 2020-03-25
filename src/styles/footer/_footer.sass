@@ -1,12 +1,12 @@
 .footer
-  background: $backgroundPrimaryColors
+  background: transparent
   color: $grey-300
   padding: ($paddingRegular * 2)
   display: flex
   justify-content: space-between
   align-items: flex-start
   h4
-    border-bottom: 1px solid $blue-grey-700
+    border-bottom: 1px solid $colorPrimary-300
     padding-bottom: $paddingSmall
     margin-bottom: $paddingRegular
     flex-grow: 1
@@ -28,7 +28,7 @@
           text-decoration: none
         a, span
           position: relative
-          background: $colorPrimary-3
+          background: $colorPrimary-400
           color: $grey-300
           &:after, &:before
             left: 100%
@@ -40,16 +40,16 @@
             position: absolute
             pointer-events: none
           &:after
-            border-left-color: $colorPrimary-3
+            border-left-color: $colorPrimary-400
             border-width: 15px
             margin-top: -15px
         a
           z-index: 2
         span
           z-index: 1
-          background: $colorPrimary-2
+          background: $colorPrimary-600
           &:after
-            border-left-color: $colorPrimary-2
+            border-left-color: $colorPrimary-600
   &__contactWrapper
     .contact
       flex-grow: 1

@@ -11,17 +11,29 @@
     background: white
     padding: 0 $paddingHeader
     display: flex
-    justify-content: flex-end
+    align-items: center
+    justify-content: space-between
     width: 100%
     border-bottom: 4px solid $grey-100
-    &__menu
+    &__left
+      i
+        padding: $paddingMedium
+        color: white
+        background: $grey-400
+        border-radius: 50%
+        font-size: 16px
+        cursor: pointer
+        opacity: 0.8
+        &:hover
+          background: $grey-800
+    &__right
       overflow: hidden
       display: flex
       justify-content: flex-end
       align-items: center
       height: 100%
       i
-        color: $colorPrimary-2
+        color: $grey-500
         margin-bottom: $paddingMedium
         font-size: 16px
       a
@@ -31,16 +43,16 @@
         justify-content: center
         flex-direction: column
         text-decoration: none
-        color: $colorPrimary-2
+        color: $grey-500
         text-transform: uppercase
         font-size: 10px
         &:hover
           background: $grey-50
-          color: $colorSecondary
+          color: $grey-800
           i
-            color: $colorSecondary
+            color: $grey-800
         &.active
           background: $grey-50
-          color: $colorSecondary
+          color: $grey-800
           i
-            color: $colorSecondary
+            color: $grey-800

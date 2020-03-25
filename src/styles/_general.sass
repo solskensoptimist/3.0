@@ -8,7 +8,11 @@
   font-weight: 400
 
 body
+  background: $backgroundSite
   color: $colorTextMain
+
+.appHolder
+  margin: 0 $paddingSite
 
 .shadowRegular
   -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
@@ -22,8 +26,15 @@ body
     display: none
 
 .scrollbarLight
-  scrollbar-width: none
-  -ms-overflow-style: none
+  padding-right: $paddingSmall
+  scrollbar-width: thin
+  scrollbar-color: $grey-200 transparent
   &::-webkit-scrollbar
-    display: none
+    width: 7px
+  &::-webkit-scrollbar-track
+    background: transparent
+  &::-webkit-scrollbar-thumb
+    background: $grey-200
+    border-radius: 6px
+
 

@@ -4,9 +4,9 @@
     flex-direction: column
     justify-content: flex-end
     &__top
-      background: $backgroundPrimaryColors
-      padding: $paddingMedium $paddingHeader
-      color: $colorPrimary-6
+      background: transparent
+      padding: $paddingSmall $paddingHeader
+      color: $colorPrimary-100
       display: flex
       align-items: center
       justify-content: space-between
@@ -15,10 +15,38 @@
         cursor: pointer
         color: white
         &:hover
-          color: $colorSecondary
+          color: $colorPrimary-100
       &__left
-        display: flex
-        margin-left: (($widthLogotype + (($paddingRegular * 2) * 2)) + 2) + ($paddingRegular * 1.5) // Adjust for logo width
-        i
-          cursor: pointer
+        .logotypeWrapper
+          .logotype
+            img
+              max-width: $widthLogotype
+      &__right
+        .userWrapper
+          padding: $paddingSmall
+          &__user
+            display: flex
+            align-items: center
+            justify-content: flex-end
+            i.user
+              font-size: 10px
+              color: $colorPrimary-100
+              cursor: default
+            &__icon
+              flex-grow: 0
+            &__name
+              flex-grow: 1
+              margin: 0 ($paddingMedium * 3) 0 $paddingMedium
+              display: flex
+              align-items: center
+              &__name
+                font-size: 11px
+              &__delimiter
+                margin: 0 $paddingMedium
+                color: $colorPrimary-100
+              &__dealer
+                font-size: 11px
+            &__settingsButton
+              flex-grow: 0
+
 

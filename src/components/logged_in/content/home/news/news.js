@@ -6,18 +6,18 @@ export default () => {
         return (
             <div className='newsWrapper__news__item'>
                 <div className='newsWrapper__news__item__header'>
-                    <h3 className='headlineMedium'>Bilprospekt lanserar machine learning prospektering</h3>
+                    <h3 className='sectionHeading'>Bilprospekt lanserar machine learning prospektering</h3>
                 </div>
                 <div className='newsWrapper__news__item__content'>
+                    <img src='images/example.jpg' alt='Example' />
                     <p>
-                        En ny ap-art har hittats i Kongo i Afrika. Det är bara en av två arter av apor som har upptäckts i världen de senaste 28 åren.
-                        Man kunde tro att i en tid när hela världen är kartlagd och gps-satelliter patrullerar över oss så skulle man inte kunna upptäcka nya arter, och speciellt inte nya apor.
-                        Men det visar sig att det visst går. Om man har tur.
+                        En ny art för Sverige har hittats på västkusten av Michael Lundin, som så sent som i februari gjorde ett annat förstafynd för landet. Det rapporterat Dagens natur.
+                        Den nyfunna arten är en framgälad marin snäcka med det vetenskapliga namnet Simnia hiscocki. Den har tidigare enbart hittats i England och ett fynd har även gjorts i sydvästra Norge.
                     </p>
                     <h5>Upptäcktes av en slump</h5>
                     <p>
-                        Ett forskningsteam med biologer stannade av en slump i en liten by i Kongo-Kinshasa och såg en ovanlig apa stå bunden vid en stolpe. Den var husdjur till en liten flicka, eftersom apans mamma hade blivit dödad av jägare.
-                        – När jag såg den så tänkte jag direkt att det här kan vara något nytt. Vi trodde aldrig att vi skulle hitta en ny art där, men området har utforskats väldigt lite av biologer, säger John Hart, en av forskarna bakom upptäckten.
+                        Hur arten hittat till svenska vatten är oklart i dagsläget.
+                        – Det finns flera möjligheter. De kan vara en del av den svenska marina faunan som inte upptäckts tidigare. Alternativt kan de vara arter som nyligen invandrat söderifrån, och då ha flyttningsmönster som är kompatibla med ökande vattentemperaturer, skriver Artdatabanken i ett pressmeddelande.
                     </p>
                 </div>
                 <div className='newsWrapper__news__item__footer'>

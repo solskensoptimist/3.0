@@ -1,15 +1,28 @@
 import React  from 'react';
 import {NavLink} from "react-router-dom";
 import tc from 'text_content';
+import {setShowSearch} from 'store/search/tasks';
+import Search from '../search/search';
+import {connect} from 'react-redux';
 
 /**
  * Navigation_logged_in component.
  */
-export default (state) =>  {
+const Navigation = (state) =>  {
+    const _setShowSearch = () => {
+        setShowSearch({showSearch: !state.search.showSearch});
+    };
+
     return (
         <div className='navigationWrapper'>
             <div className='navigationWrapper__navigation'>
-                <div className='navigationWrapper__navigation__menu'>
+                <div className='navigationWrapper__navigation__left'>
+                    <div className='searchWrapper'>
+                        <i className="fas fa-search" onClick={_setShowSearch} />
+                        {state.search.showSearch && <Search />}
+                    </div>
+                </div>
+                <div className='navigationWrapper__navigation__right'>
                     <NavLink exact to={'/'} key='hem'>
                         <i className='fas fa-home' />
                         {tc.home}
@@ -39,3 +52,14 @@ export default (state) =>  {
         </div>
     );
 };
+
+const MapStateToProps = (state) => {
+    return {
+        search: state.search,
+    };
+};
+
+export default connect(
+    MapStateToProps,
+)(Navigation);
+

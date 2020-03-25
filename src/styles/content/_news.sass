@@ -1,12 +1,11 @@
 .newsWrapper
   flex-grow: 1
   width: auto
-  padding: 0
   margin-right: $paddingRegular * 2
   &__news
     max-height: $heightContentMain
     overflow-y: auto
-    @extend .scrollbarHide
+    @extend .scrollbarLight
     &__item
       background: white
       padding: $paddingRegular
@@ -21,10 +20,12 @@
           padding-bottom: $paddingMedium
       &__content
         margin: $paddingRegular 0
+        img
+          width: 100%
         p
           margin: $paddingMedium 0
         h5
-          margin: ($paddingMedium * 2) 0 (-$paddingMedium) 0
+          margin: ($paddingMedium * 2) 0 (-$paddingMedium / 2) 0
       &__footer
         background: $grey-100
         padding: $paddingSmall
