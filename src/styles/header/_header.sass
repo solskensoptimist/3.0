@@ -2,13 +2,12 @@
   &__header
     display: flex
     flex-direction: column
-    justify-content: flex-end
     &__top
       background: transparent
-      padding: $paddingSmall $paddingHeader
+      padding: 0 $paddingHeader
       color: $colorPrimary-100
       display: flex
-      align-items: center
+      align-items: flex-start
       justify-content: space-between
       i
         font-size: 14px
@@ -18,12 +17,15 @@
           color: $colorPrimary-100
       &__left
         .logotypeWrapper
+          margin: $paddingRegular 0
           .logotype
             img
               max-width: $widthLogotype
       &__right
         .userWrapper
-          padding: $paddingSmall
+          background: rgba(255,255,255,0.2)
+          padding: $paddingSmall $paddingMedium
+          border-radius: 0 0 4px 4px
           &__user
             display: flex
             align-items: center
@@ -36,7 +38,7 @@
               flex-grow: 0
             &__name
               flex-grow: 1
-              margin: 0 ($paddingMedium * 3) 0 $paddingMedium
+              margin: 0 ($paddingMedium * 2) 0 $paddingMedium
               display: flex
               align-items: center
               &__name
@@ -48,5 +50,7 @@
                 font-size: 11px
             &__settingsButton
               flex-grow: 0
+              display: flex
+              align-items: center
 
 

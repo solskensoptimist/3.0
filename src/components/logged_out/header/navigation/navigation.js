@@ -9,7 +9,7 @@ export default () => {
     return (
         <div className='navigationWrapper'>
             <div className='navigationWrapper__navigation'>
-                <div className='navigationWrapper__navigation__menu'>
+                <div className='navigationWrapper__navigation__left'>
                     <NavLink exact to={'/'} key='varTjanst'>
                         <i className='fas fa-briefcase' />
                         {tc.ourService}
@@ -26,6 +26,8 @@ export default () => {
                         <i className='fas fa-sign-in-alt' />
                         {tc.login}
                     </NavLink>
+                </div>
+                <div className='navigationWrapper__navigation__right'>
                 </div>
             </div>
         </div>

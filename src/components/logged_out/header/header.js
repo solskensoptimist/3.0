@@ -5,14 +5,12 @@ import Logotype from "components/common/logotype/logotype";
 export default () => {
     return (
         <div className='headerWrapper'>
-            <Logotype />
             <div className='headerWrapper__header'>
                 <div className='headerWrapper__header__top'>
                     <div className='headerWrapper__header__top__left'>
-                        left
+                        <Logotype />
                     </div>
                     <div className='headerWrapper__header__top__right'>
-                        right
                     </div>
                 </div>
                 <Navigation />

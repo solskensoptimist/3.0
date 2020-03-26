@@ -18,6 +18,7 @@ const Settings = (state) =>  {
     const passwordRef2 = useRef(null);
 
     const _handleClick = (e) => {
+        console.log("stoppropagataion");
         e.stopPropagation(); // Prevent settings to close when clicking inside.
     };
 
@@ -60,51 +61,53 @@ const Settings = (state) =>  {
     };
 
     return _stateCheck() ? (
-        <div className='settings' onClick={_handleClick}>
-            <div className='settings__header'>
-                <div className='settings__header__title'><h2>{tc.settings}</h2></div>
-            </div>
-            <div className='settings__content'>
-                <div className='settings__content__item'>
-                    <div className='settings__content__item__small'>
-                        <div className='settings__content__item__small__label'>
-                            <h5>{tc.emailNotifications}</h5>
+        <div className='settingsWrapper' onClick={_handleClick}>
+            <div className='settingsWrapper__settings' onClick={_handleClick}>
+                <div className='settingsWrapper__settings__header'>
+                    <div className='settingsWrapper__settings__header__title'><h2>{tc.settings}</h2></div>
+                </div>
+                <div className='settingsWrapper__settings__content'>
+                    <div className='settingsWrapper__settings__content__item'>
+                        <div className='settingsWrapper__settings__content__item__small'>
+                            <div className='settingsWrapper__settings__content__item__small__label'>
+                                <h5>{tc.emailNotifications}</h5>
+                            </div>
+                            <div className='settingsWrapper__settings__content__item__small__content'>
+                                <div onClick={_toggleEmail}>
+                                    {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                                </div>
+                            </div>
                         </div>
-                        <div className='settings__content__item__small__content'>
-                            <div onClick={_toggleEmail}>
-                                {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                        <div className='settingsWrapper__settings__content__item__small'>
+                            <div className='settingsWrapper__settings__content__item__small__label'>
+                                <h5>{tc.emailNotifications}</h5>
+                            </div>
+                            <div className='settingsWrapper__settings__content__item__small__content'>
+                                <div onClick={_toggleEmail}>
+                                    {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className='settings__content__item__small'>
-                        <div className='settings__content__item__small__label'>
-                            <h5>{tc.emailNotifications}</h5>
-                        </div>
-                        <div className='settings__content__item__small__content'>
-                            <div onClick={_toggleEmail}>
-                                {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
+                    <div className='settingsWrapper__settings__content__item'>
+                        <div className='settingsWrapper__settings__content__item__full'>
+                            <div className='settingsWrapper__settings__content__item__full__label'>
+                                <h5>{tc.createNewPassword}</h5>
+                            </div>
+                            <div className='settingsWrapper__settings__content__item__full__content'>
+                                <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
+                                <input type='password' placeholder='Återupprepa lösenord' ref={passwordRef2} />
+                                {showPasswordHint && <div className='settings__content__item__hint'>{passwordHint}</div>}
+                                <div className='settingsWrapper__settings__content__item__button' onClick={_savePassword}>{tc.savePassword}</div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className='settings__content__item'>
-                    <div className='settings__content__item__full'>
-                        <div className='settings__content__item__full__label'>
-                            <h5>{tc.createNewPassword}</h5>
-                        </div>
-                        <div className='settings__content__item__full__content'>
-                            <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
-                            <input type='password' placeholder='Återupprepa lösenord' ref={passwordRef2} />
-                            {showPasswordHint && <div className='settings__content__item__hint'>{passwordHint}</div>}
-                            <div className='settings__content__item__button' onClick={_savePassword}>{tc.savePassword}</div>
-                        </div>
-                    </div>
-                </div>
-                <div className='settings__content__item'>
-                    <div className='settings__content__item__full'>
-                        <div className='settings__content__item__full__content'>
-                            <div className='settings__content__item__button logout' onClick={userLogout}>
-                                {tc.logout}<i className="fas fa-sign-out-alt" />
+                    <div className='settingsWrapper__settings__content__item'>
+                        <div className='settingsWrapper__settings__content__item__full'>
+                            <div className='settingsWrapper__settings__content__item__full__content'>
+                                <div className='settingsWrapper__settings__content__item__button logout' onClick={userLogout}>
+                                    {tc.logout}<i className="fas fa-sign-out-alt" />
+                                </div>
                             </div>
                         </div>
                     </div>

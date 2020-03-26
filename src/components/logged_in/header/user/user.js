@@ -1,9 +1,14 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {setShowSettings} from 'store/settings/tasks';
+import Settings from './settings/settings';
 
 const User = (state) => {
-    const _toggleShowsettings = () => {
+    const _closeShowSettings = () => {
+        setShowSettings({showSettings: false});
+    };
+
+    const _openShowsettings = () => {
         setShowSettings({showSettings: !state.settings.showSettings})
     };
 
@@ -19,7 +24,8 @@ const User = (state) => {
                     <div className='userWrapper__user__name__dealer'>{state.user.data.dealerName}</div>
                 </div>
                 <div className='userWrapper__user__settingsButton'>
-                    <i className='fas fa-cog settings' onClick={_toggleShowsettings} />
+                    <i className='fas fa-cog settings' onClick={_openShowsettings} />
+                    {state.settings.showSettings && <div className='clickHandlerDark' onClick={_closeShowSettings}><Settings /></div>}
                 </div>
             </div>
         </div>

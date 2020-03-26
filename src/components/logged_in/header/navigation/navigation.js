@@ -9,7 +9,11 @@ import {connect} from 'react-redux';
  * Navigation_logged_in component.
  */
 const Navigation = (state) =>  {
-    const _setShowSearch = () => {
+    const _closeShowSearch = () => {
+        setShowSearch({showSearch: false});
+    };
+
+    const _openShowSearch = () => {
         setShowSearch({showSearch: !state.search.showSearch});
     };
 
@@ -17,12 +21,6 @@ const Navigation = (state) =>  {
         <div className='navigationWrapper'>
             <div className='navigationWrapper__navigation'>
                 <div className='navigationWrapper__navigation__left'>
-                    <div className='searchWrapper'>
-                        <i className="fas fa-search" onClick={_setShowSearch} />
-                        {state.search.showSearch && <Search />}
-                    </div>
-                </div>
-                <div className='navigationWrapper__navigation__right'>
                     <NavLink exact to={'/'} key='hem'>
                         <i className='fas fa-home' />
                         {tc.home}
@@ -41,12 +39,16 @@ const Navigation = (state) =>  {
                     </NavLink>
                     <NavLink exact to={'/listor'} key='listor'>
                         <i className='fas fa-list' />
-                    {tc.lists}
+                        {tc.lists}
                     </NavLink>
                     <NavLink exact to={'/prospektera'} key='prospektera'>
                         <i className='fas fa-sliders-h' />
                         {tc.prospect}
                     </NavLink>
+                </div>
+                <div className='navigationWrapper__navigation__right'>
+                    {state.search.showSearch && <div className='clickHandler' onClick={_closeShowSearch}><Search /></div>}
+                    <i className="fas fa-search" onClick={_openShowSearch} />
                 </div>
             </div>
         </div>
