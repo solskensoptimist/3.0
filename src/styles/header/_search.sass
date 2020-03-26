@@ -1,12 +1,12 @@
 .searchWrapper
+  margin: 0 $paddingRegular
+  width: 60%
   &__search
     z-index: 5
     display: flex
-    background: white
-    border: 1px solid $grey-200
-    width: $widthSearchBox
-    padding: $paddingMedium
-    @extend .shadowRegular
+    flex-grow: 1
+    flex-direction: column
+    border-bottom: 1px solid $grey-100
     &__input
       flex-grow: 1
       width: 100%
@@ -30,4 +30,27 @@
           font-size: 13px
         &:focus
           outline-width: 0
-
+    &__results
+      position: absolute
+      top: 80%
+      background: white
+      padding: $paddingRegular
+      z-index: 5
+      @extend .shadowRegular
+      &__item
+        color: $colorTextMain
+        font-size: 15px
+        margin-bottom: $paddingSmall
+        cursor: pointer
+        &:last-of-type
+          margin-bottom: 0
+        &:hover
+          color: $colorSecondary-200
+          i
+            background: $colorSecondary-200
+        i
+          background: $colorTextLight-1
+          border-radius: 50%
+          font-size: 14px
+          padding: 7px 9px
+          margin-right: $paddingMedium

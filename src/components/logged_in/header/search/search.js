@@ -1,9 +1,11 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
 import tc from 'text_content';
 import {setShowSearch} from 'store/search/tasks';
+import {connect} from "react-redux";
 
-export default () => {
+const Search = (state) => {
+    const [searchResults, setSearchResults] = useState([]); //Temp for testing, change this to search results from store...
     const inputRef = useRef(null);
     const searchWrapperRef = useRef(null);
 
@@ -13,7 +15,6 @@ export default () => {
 
     useEffect(() => {
         inputRef.current.focus(); // Focus input field.
-
 
         /**
          * When clicking outside searchWrapper, close it.
@@ -31,14 +32,45 @@ export default () => {
         return () => window.removeEventListener('mousedown', _unmountSearch);
     }, []);
 
+    const _inputHandler = () => {
+        console.log('inputRef.current.value', inputRef.current.value);
+        setTimeout(() => {
+            setSearchResults(['Postnord Sverige AB', 'Postnord Norge AB', 'Postnord Danmark AB']);
+        }, 1000);
+    };
+
+    /**
+     * Return search result rows.
+     */
+    const _searchResultRows = () => {
+        const result = [];
+        for (const val of searchResults) {
+            result.push(
+                <div className='searchWrapper__search__results__item'><i className='fas fa-building' />{val}</div>
+            );
+        }
+        return result;
+    };
+
     return (
         <div className='searchWrapper' ref={searchWrapperRef}>
             <div className='searchWrapper__search'>
                 <div className='searchWrapper__search__input'>
-                    <input ref={inputRef} type='text' placeholder={tc.searchPlaceholder} />
+                    <input ref={inputRef} type='text' placeholder={tc.searchPlaceholder} onChange={_inputHandler} />
                 </div>
+                {(searchResults.length > 0) && <div className='searchWrapper__search__results'>{_searchResultRows()}</div>}
             </div>
         </div>
     );
 };
+
+const MapStateToProps = (state) => {
+    return {
+        search: state.search,
+    };
+};
+
+export default connect(
+    MapStateToProps,
+)(Search);
 
