@@ -4,12 +4,8 @@ import {setShowSettings} from 'store/settings/tasks';
 import Settings from './settings/settings';
 
 const User = (state) => {
-    const _closeShowSettings = () => {
-        setShowSettings({showSettings: false});
-    };
-
-    const _openShowsettings = () => {
-        setShowSettings({showSettings: !state.settings.showSettings})
+    const _openShowSettings = () => {
+        setShowSettings({showSettings: true})
     };
 
     return (
@@ -24,8 +20,8 @@ const User = (state) => {
                     <div className='userWrapper__user__name__dealer'>{state.user.data.dealerName}</div>
                 </div>
                 <div className='userWrapper__user__settingsButton'>
-                    <i className='fas fa-cog settings' onClick={_openShowsettings} />
-                    {state.settings.showSettings && <div className='clickHandlerDark' onClick={_closeShowSettings}><Settings /></div>}
+                    <i className='fas fa-cog settings' onClick={_openShowSettings} />
+                    {state.settings.showSettings && <Settings />}
                 </div>
             </div>
         </div>

@@ -9,12 +9,8 @@ import {connect} from 'react-redux';
  * Navigation_logged_in component.
  */
 const Navigation = (state) =>  {
-    const _closeShowSearch = () => {
-        setShowSearch({showSearch: false});
-    };
-
     const _openShowSearch = () => {
-        setShowSearch({showSearch: !state.search.showSearch});
+        setShowSearch({showSearch: true});
     };
 
     return (
@@ -47,7 +43,7 @@ const Navigation = (state) =>  {
                     </NavLink>
                 </div>
                 <div className='navigationWrapper__navigation__right'>
-                    {state.search.showSearch && <div className='clickHandler' onClick={_closeShowSearch}><Search /></div>}
+                    {state.search.showSearch && <Search />}
                     <i className="fas fa-search" onClick={_openShowSearch} />
                 </div>
             </div>

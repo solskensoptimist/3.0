@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {getSettings, savePassword, saveSettings} from 'store/settings/tasks';
+import {getSettings, savePassword, saveSettings, setShowSettings} from 'store/settings/tasks';
 import {userLogout} from 'store/user/tasks';
 import Loading from 'components/common/loading';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
@@ -8,19 +9,37 @@ import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 import tc from 'text_content';
 
 const Settings = (state) =>  {
-    useEffect(() => {
-        getSettings();
-    }, []);
-
     const [passwordHint, setPasswordHint] = useState('');
     const [showPasswordHint, setShowPasswordHint] = useState(false);
     const passwordRef1 = useRef(null);
     const passwordRef2 = useRef(null);
+    const settingsBoxRef = useRef(null);
 
-    const _handleClick = (e) => {
-        console.log("stoppropagataion");
-        e.stopPropagation(); // Prevent settings to close when clicking inside.
+    /**
+     * Close settings.
+     */
+    const _closeShowSettings = () => {
+        setShowSettings({showSettings: false});
     };
+
+    useEffect(() => {
+        getSettings();
+
+        /**
+         * When clicking outside settings, close it.
+         */
+        const _unmountSearch = (e) => {
+            if (settingsBoxRef && settingsBoxRef.current) {
+                const node = ReactDOM.findDOMNode(settingsBoxRef.current);
+                if (node && !node.contains(e.target)) {
+                    _closeShowSettings();
+                }
+            }
+        };
+
+        window.addEventListener('mousedown', _unmountSearch);
+        return () => window.removeEventListener('mousedown', _unmountSearch);
+    }, []);
 
     /**
      * Save password.
@@ -61,8 +80,8 @@ const Settings = (state) =>  {
     };
 
     return _stateCheck() ? (
-        <div className='settingsWrapper' onClick={_handleClick}>
-            <div className='settingsWrapper__settings' onClick={_handleClick}>
+        <div className='settingsWrapper'>
+            <div className='settingsWrapper__settings' ref={settingsBoxRef}>
                 <div className='settingsWrapper__settings__header'>
                     <div className='settingsWrapper__settings__header__title'><h2>{tc.settings}</h2></div>
                 </div>
