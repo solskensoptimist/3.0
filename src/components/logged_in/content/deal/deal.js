@@ -10,10 +10,6 @@ import Loading from 'components/common/loading';
 const Deal = (state) => {
     const {id} = useParams();
 
-    useEffect(() => {
-        getDeal({id: id});
-    }, [id]);
-
     const _stateCheck = () => {
         return (state && state.deal && state.deal.deal && Object.keys(state.deal.deal).length);
     };
@@ -68,6 +64,10 @@ const Deal = (state) => {
         return builtData
     },
      */
+
+    useEffect(() => {
+        getDeal({id: id});
+    }, [id]);
 
     return ( _stateCheck() ?
         <div className='dealWrapper'>

@@ -1,5 +1,6 @@
 export default {
     aboutUs: 'Om oss',
+    activities: 'Aktiviteter',
     activity: 'Aktivitet',
     agile: 'Bearbeta',
     analyse: 'Analysera',

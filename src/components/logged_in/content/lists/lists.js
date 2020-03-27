@@ -5,14 +5,13 @@ import {connect} from 'react-redux';
 import Loading from 'components/common/loading';
 
 const Lists = (state) => {
-    useEffect(() => {
-        getLists({});
-    }, []);
-    console.log('state.lists i component', state.lists);
-
     const _stateCheck = () => {
         return !!(state && state.lists && state.lists.lists !== null);
     };
+
+    useEffect(() => {
+        getLists({});
+    }, []);
 
     return ( _stateCheck() ?
         <div className='listsWrapper'>

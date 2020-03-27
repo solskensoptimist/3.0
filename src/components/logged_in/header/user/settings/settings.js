@@ -22,25 +22,6 @@ const Settings = (state) =>  {
         setShowSettings({showSettings: false});
     };
 
-    useEffect(() => {
-        getSettings();
-
-        /**
-         * When clicking outside settings, close it.
-         */
-        const _unmountSearch = (e) => {
-            if (settingsBoxRef && settingsBoxRef.current) {
-                const node = ReactDOM.findDOMNode(settingsBoxRef.current);
-                if (node && !node.contains(e.target)) {
-                    _closeShowSettings();
-                }
-            }
-        };
-
-        window.addEventListener('mousedown', _unmountSearch);
-        return () => window.removeEventListener('mousedown', _unmountSearch);
-    }, []);
-
     /**
      * Save password.
      */
@@ -78,6 +59,25 @@ const Settings = (state) =>  {
         payload.email = !state.settings.email;
         saveSettings(payload);
     };
+
+    useEffect(() => {
+        getSettings();
+
+        /**
+         * When clicking outside settings, close it.
+         */
+        const _unmountSearch = (e) => {
+            if (settingsBoxRef && settingsBoxRef.current) {
+                const node = ReactDOM.findDOMNode(settingsBoxRef.current);
+                if (node && !node.contains(e.target)) {
+                    _closeShowSettings();
+                }
+            }
+        };
+
+        window.addEventListener('mousedown', _unmountSearch);
+        return () => window.removeEventListener('mousedown', _unmountSearch);
+    }, []);
 
     return _stateCheck() ? (
         <div className='settingsWrapper'>

@@ -1,20 +1,20 @@
 .navigationWrapper
-  border-bottom: 1px solid $grey-300
+  border-bottom: 1px solid $grey-200
   padding: 0
   z-index: 2
   position: relative
   display: flex
   align-items: stretch
   justify-content: flex-end
-  @extend .shadowRegular
+  @extend .shadowTop
   &__navigation
+    @extend .shadowBottom
     background: white
     padding: 0 $paddingHeader
     display: flex
     align-items: center
     justify-content: space-between
     width: 100%
-    border-bottom: 4px solid $grey-100
     &__left
       overflow: hidden
       display: flex
@@ -34,7 +34,7 @@
         text-decoration: none
         color: $grey-500
         text-transform: uppercase
-        font-size: 10px
+        font-size: 11px
         &:hover
           background: $grey-50
           color: $grey-800

@@ -13,25 +13,6 @@ const Search = (state) => {
         setShowSearch({showSearch: false});
     };
 
-    useEffect(() => {
-        inputRef.current.focus(); // Focus input field.
-
-        /**
-         * When clicking outside searchWrapper, close it.
-         */
-        const _unmountSearch = (e) => {
-            if (searchWrapperRef && searchWrapperRef.current) {
-                const node = ReactDOM.findDOMNode(searchWrapperRef.current);
-                if (node && !node.contains(e.target)) {
-                    _closeShowSearch();
-                }
-            }
-        };
-
-        window.addEventListener('mousedown', _unmountSearch);
-        return () => window.removeEventListener('mousedown', _unmountSearch);
-    }, []);
-
     const _inputHandler = () => {
         console.log('inputRef.current.value', inputRef.current.value);
         setTimeout(() => {
@@ -51,6 +32,25 @@ const Search = (state) => {
         }
         return result;
     };
+
+    useEffect(() => {
+        inputRef.current.focus(); // Focus input field.
+
+        /**
+         * When clicking outside searchWrapper, close it.
+         */
+        const _unmountSearch = (e) => {
+            if (searchWrapperRef && searchWrapperRef.current) {
+                const node = ReactDOM.findDOMNode(searchWrapperRef.current);
+                if (node && !node.contains(e.target)) {
+                    _closeShowSearch();
+                }
+            }
+        };
+
+        window.addEventListener('mousedown', _unmountSearch);
+        return () => window.removeEventListener('mousedown', _unmountSearch);
+    }, []);
 
     return (
         <div className='searchWrapper' ref={searchWrapperRef}>

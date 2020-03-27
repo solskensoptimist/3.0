@@ -10,13 +10,15 @@ import Prices from './prices';
  */
 export default () => {
     return (
-        <div className='content'>
-            <Switch>
-                <Route exact path='/team' component={Team} />
-                <Route exact path='/priser' component={Prices} />
-                <Route exact path='/inloggning' component={Login} />
-                <Route component={Service} />
-            </Switch>
+        <div className='contentWrapper'>
+            <div className='contentWrapper__content'>
+                <Switch>
+                    <Route exact path='/team' component={Team} />
+                    <Route exact path='/priser' component={Prices} />
+                    <Route exact path='/inloggning' component={Login} />
+                    <Route component={Service} />
+                </Switch>
+            </div>
         </div>
     );
 }

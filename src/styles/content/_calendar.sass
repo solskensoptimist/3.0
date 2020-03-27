@@ -10,6 +10,52 @@
         margin: 0 4px 4px 0
         &:nth-child(7n)
           margin: 0 0 4px 0
+        &__eventsWrapper
+          position: relative
+          &__events
+            z-index: 5
+            position: absolute
+            top: 0
+            right: 0
+            background: white
+            border: 1px solid $grey-200
+            @extend .shadowRegular
+            padding: $paddingRegular
+            white-space: nowrap
+            &__event
+              opacity: 0.8
+              margin: $paddingSmall 0
+              display: flex
+              justify-content: flex-end
+              &:hover
+                opacity: 1
+              a, p
+                color: $colorTextMain
+              a
+                cursor: pointer
+                display: flex
+                align-items: center
+                text-decoration: none
+              span.highlight
+                color: $colorTextDark-1
+                font-weight: 600
+              i
+                color: $colorSecondary-300
+                font-size: 14px
+              &__icon
+                margin-right: $paddingMedium
+                display: flex
+                align-items: center
+              &__info
+                display: flex
+                align-items: center
+                p
+                  font-size: 12px
+                i
+                  font-size: 10px
+                  margin-left: $paddingMedium
+                  color: $colorSecondary-300
+
         .day
           display: flex
           align-items: center

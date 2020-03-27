@@ -11,14 +11,7 @@ import {NavLink} from 'react-router-dom';
  * props.isToday - bool
  */
 export default (props) => {
-    // Scroll to current day.
     const elementRef = useRef(null);
-    useEffect(() => {
-        if (elementRef && elementRef.current && props.isToday) {
-            elementRef.current.scrollIntoView();
-            window.scrollTo(0, 0);
-        }
-    }, [elementRef, props.isToday]);
 
     const events = (props.events && props.events.length) ? props.events.map((num) => {
         const icon = activityHelper.getIconsByActivity(num.action);
@@ -49,6 +42,14 @@ export default (props) => {
 
     const classnameWrapper = (props.events && props.events.length) ? 'dayWrapper hasEvent' : 'dayWrapper';
     const classnameDay = (props.hasPassed) ? 'day passed' : 'day';
+
+    useEffect(() => {
+        // Scroll to current day.
+        if (elementRef && elementRef.current && props.isToday) {
+            elementRef.current.scrollIntoView();
+            window.scrollTo(0, 0);
+        }
+    }, [elementRef, props.isToday]);
 
     return (
         <div className={classnameWrapper} ref={elementRef}>

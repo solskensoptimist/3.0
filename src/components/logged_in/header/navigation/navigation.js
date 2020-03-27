@@ -2,7 +2,7 @@ import React  from 'react';
 import {NavLink} from "react-router-dom";
 import tc from 'text_content';
 import {setShowSearch} from 'store/search/tasks';
-import Search from '../search/search';
+import Search from './search/';
 import {connect} from 'react-redux';
 
 /**

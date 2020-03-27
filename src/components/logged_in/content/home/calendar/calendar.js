@@ -1,18 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import tc from 'text_content';
 import {connect} from "react-redux";
-import DayMonth from './subcomponents/day_month';
-import DayWeek from './subcomponents/day_week';
+import DayMonth from './day_month';
+import DayWeek from './day_week';
 import Loading from 'components/common/loading';
 import {getEvents} from 'store/events/tasks';
 import moment from 'moment';
 
 const Calendar = (state) => {
     const [showWeek, setShowWeek] = useState(false);
-
-    useEffect(() => {
-        getEvents();
-    }, []);
 
     const _renderDays = () => {
         const days = [];
@@ -65,7 +61,11 @@ const Calendar = (state) => {
                 year: (state.events.monthInScope === 12) ? state.events.yearInScope + 1 : state.events.yearInScope,
             }
         })
-    };
+    }
+
+    useEffect(() => {
+        getEvents();
+    }, []);
 
     return ( _stateCheck() ?
         <div className='calendarWrapper'>
