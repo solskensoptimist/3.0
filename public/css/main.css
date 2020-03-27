@@ -22,7 +22,7 @@ h3.sectionHeading {
 
 h4 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: 24px;
   font-weight: 600;
   text-transform: uppercase; }
 
@@ -63,14 +63,14 @@ h5 {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 13px;
   line-height: 20px;
   font-family: "Source sans pro", sans-serif;
   font-weight: 400; }
 
 body {
   background: radial-gradient(circle at top right, #F273D8, #E54DC8, #8d36ff);
-  color: #616161; }
+  color: #616161;
+  font-size: 13px; }
 
 .appHolder {
   margin: 0 0; }
@@ -108,13 +108,24 @@ body {
     background: #eeeeee;
     border-radius: 6px; }
 
+.iconCircle, .dealWrapper__deal__header__right__item i, .navigationWrapper__navigation__right i {
+  padding: 12px;
+  color: white;
+  background: #bdbdbd;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.8; }
+  .iconCircle:hover, .dealWrapper__deal__header__right__item i:hover, .navigationWrapper__navigation__right i:hover {
+    background: #424242; }
+
 a {
   color: #212121; }
 
 .contentWrapper__content {
   background: #f5f5f5;
   display: flex;
-  padding: 44px 33px;
+  padding: 44px 4%;
   min-height: 600px;
   overflow: hidden; }
 
@@ -179,7 +190,7 @@ a {
   flex-direction: column; }
   .headerWrapper__header__top {
     background: transparent;
-    padding: 0 33px;
+    padding: 0 4%;
     color: white;
     display: flex;
     align-items: flex-start;
@@ -243,7 +254,7 @@ a {
           z-index: 5;
           position: absolute;
           top: 0;
-          right: 0;
+          left: -250%;
           background: white;
           border: 1px solid #eeeeee;
           padding: 22px;
@@ -251,8 +262,7 @@ a {
           .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event {
             opacity: 0.8;
             margin: 8px 0;
-            display: flex;
-            justify-content: flex-end; }
+            display: flex; }
             .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event:hover {
               opacity: 1; }
             .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event a, .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event p {
@@ -386,6 +396,30 @@ a {
               margin-left: 12px;
               color: #E54DC8; }
 
+.dealWrapper {
+  width: 100%; }
+  .dealWrapper__deal__header {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between; }
+    .dealWrapper__deal__header__left {
+      display: flex;
+      font-size: 16px;
+      font-weight: 400; }
+      .dealWrapper__deal__header__left__item {
+        margin-left: 44px; }
+        .dealWrapper__deal__header__left__item:first-of-type {
+          margin-left: 0; }
+        .dealWrapper__deal__header__left__item h4 {
+          font-size: 12px;
+          color: #bdbdbd; }
+    .dealWrapper__deal__header__right__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; }
+
 .homeWrapper {
   display: flex;
   justify-content: space-between;
@@ -432,7 +466,7 @@ a {
   justify-content: flex-end; }
   .navigationWrapper__navigation {
     background: white;
-    padding: 0 33px;
+    padding: 0 4%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -472,16 +506,6 @@ a {
       align-items: center;
       justify-content: flex-end;
       flex-grow: 1; }
-      .navigationWrapper__navigation__right i {
-        padding: 12px;
-        color: white;
-        background: #bdbdbd;
-        border-radius: 50%;
-        font-size: 16px;
-        cursor: pointer;
-        opacity: 0.8; }
-        .navigationWrapper__navigation__right i:hover {
-          background: #424242; }
 
 .settingsWrapper {
   background: rgba(0, 0, 0, 0.7);

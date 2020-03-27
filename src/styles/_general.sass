@@ -2,7 +2,6 @@
   margin: 0
   padding: 0
   box-sizing: border-box
-  font-size: 13px
   line-height: 20px
   font-family: 'Source sans pro', sans-serif
   font-weight: 400
@@ -10,6 +9,7 @@
 body
   background: $backgroundSite
   color: $colorTextMain
+  font-size: 13px
 
 .appHolder
   margin: 0 $paddingSite
@@ -46,3 +46,14 @@ body
   &::-webkit-scrollbar-thumb
     background: $grey-200
     border-radius: 6px
+
+.iconCircle
+  padding: $paddingMedium
+  color: white
+  background: $colorTextLight-1
+  border-radius: 50%
+  font-size: 16px
+  cursor: pointer
+  opacity: 0.8
+  &:hover
+    background: $grey-800

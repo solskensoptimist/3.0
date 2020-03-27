@@ -10,7 +10,7 @@
   &__navigation
     @extend .shadowBottom
     background: white
-    padding: 0 $paddingHeader
+    padding: 0 $paddingSiteContent
     display: flex
     align-items: center
     justify-content: space-between
@@ -51,12 +51,4 @@
       justify-content: flex-end
       flex-grow: 1
       i
-        padding: $paddingMedium
-        color: white
-        background: $grey-400
-        border-radius: 50%
-        font-size: 16px
-        cursor: pointer
-        opacity: 0.8
-        &:hover
-          background: $grey-800
+        @extend .iconCircle

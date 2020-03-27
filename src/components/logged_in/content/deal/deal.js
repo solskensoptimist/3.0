@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal} from 'store/deal/tasks';
 import Loading from 'components/common/loading';
+import tc from 'text_content';
 
 /**
  * Render a deal view.
@@ -15,20 +16,6 @@ const Deal = (state) => {
     };
 
     /*
-    1. Varför får vi inte köpt namn någonstans? Får ju detta i 2.0...
-    2. Rendera upp kommentarer/events i blandad stream (som på nuvarande deal-sida),
-    såhär görs i 2.0
-
-    FÖRST:
-    dispatcher.dispatch(AgileConstants.AGILE_NEW_DEAL); // Reset deal
-        var dealState = DealStore.getState();
-        return {
-            deals: dealState.prospectDeals,
-            tabIndex: 0,
-        };
-    },
-
-    SEDAN:
 
      _buildStreamData(data) {
         let builtData = [];
@@ -71,9 +58,39 @@ const Deal = (state) => {
 
     return ( _stateCheck() ?
         <div className='dealWrapper'>
-            <div className='deal'>
-                Deal komponent
-                <p>Id: {id}</p>
+            <div className='dealWrapper__deal'>
+                <div className='dealWrapper__deal__header'>
+                <div className='dealWrapper__deal__header__left'>
+                    <div className='dealWrapper__deal__header__left__item'>
+                        <h4>{tc.status}</h4>
+                        <p>Statusen</p>
+                    </div>
+                    <div className='dealWrapper__deal__header__left__item'>
+                        <h4>{tc.savedInList}</h4>
+                        <p>Listnamnet</p>
+                    </div>
+                    <div className='dealWrapper__deal__header__left__item'>
+                        <h4>{tc.responsible}</h4>
+                        <p>Affärsägare</p>
+                    </div>
+                    <div className='dealWrapper__deal__header__left__item'>
+                        <h4>{tc.created}</h4>
+                        <p>När skapad</p>
+                    </div>
+                </div>
+                <div className='dealWrapper__deal__header__right'>
+                    <div className='dealWrapper__deal__header__right__item'>
+                        <i className='fas fa-pencil-alt' />
+                    </div>
+                </div>
+                </div>
+                <div className='dealWrapper__deal__content'>
+                    Deal komponent
+                    <p>Id: {id}</p>
+                    <p>Fixa så att vi visar namn om vi har, annars Man 82, LINKÖPING</p>
+                    <p>Vi kommer behöva göra ett anrop till... se activity_stream_component. Vi behöver hämta både events och allt i deal_actions.</p>
+                    <p>Här passar det nog att komma så nära activity_stream_component logik som möjligt.</p>
+                </div>
             </div>
         </div> :
         <Loading />

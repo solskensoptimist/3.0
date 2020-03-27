@@ -116,7 +116,7 @@ const Settings = (state) =>  {
                             <div className='settingsWrapper__settings__content__item__full__content'>
                                 <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
                                 <input type='password' placeholder='Återupprepa lösenord' ref={passwordRef2} />
-                                {showPasswordHint && <div className='settings__content__item__hint'>{passwordHint}</div>}
+                                {showPasswordHint && <div className='settingsWrapper__settings__content__item__hint'>{passwordHint}</div>}
                                 <div className='settingsWrapper__settings__content__item__button' onClick={_savePassword}>{tc.savePassword}</div>
                             </div>
                         </div>
