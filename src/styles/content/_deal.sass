@@ -4,25 +4,36 @@
     &__header
       padding-bottom: $paddingMedium
       border-bottom: 1px solid $grey-300
+      margin-bottom: $paddingRegular
       display: flex
-      justify-content: space-between
-      &__left
+      flex-direction: column
+      &__top
+        width: 100%
+        margin-bottom: ($paddingRegular * 1.5)
+        h3
+          font-size: 34px
+          text-transform: none
+      &__bottom
+        width: 100%
         display: flex
-        font-size: 16px
-        font-weight: 400
-        &__item
-          margin-left: ($paddingRegular * 2)
-          &:first-of-type
-            margin-left: 0
-          h4
-            font-size: 12px
-            color: $colorTextLight-1
-      &__right
-        &__item
+        justify-content: space-between
+        &__left
           display: flex
-          flex-direction: column
-          justify-content: center
-          align-items: center
-          i
-            @extend .iconCircle
+          font-size: 16px
+          font-weight: 400
+          &__item
+            margin-left: ($paddingRegular * 2)
+            &:first-of-type
+              margin-left: 0
+            h4
+              font-size: 12px
+              color: $colorTextLight-1
+        &__right
+          &__item
+            display: flex
+            flex-direction: column
+            justify-content: center
+            align-items: center
+            i
+              @extend .iconCircle
     &__content

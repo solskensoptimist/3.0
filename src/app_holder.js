@@ -1,7 +1,7 @@
 import React from 'react';
 import LoggedIn from 'components/logged_in';
 import LoggedOut from 'components/logged_out';
-import Footer from 'components/common/footer';
+import Footer from 'components/shared/footer';
 import {connect} from "react-redux";
 
 /**

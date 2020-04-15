@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import tc from 'text_content';
+import {tc} from 'helpers';
 import {getLists} from 'store/lists/tasks';
 import {connect} from 'react-redux';
-import Loading from 'components/common/loading';
+import Loading from 'components/shared/loading';
 
 const Lists = (state) => {
     const _stateCheck = () => {

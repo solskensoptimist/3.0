@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
-import tc from 'text_content';
+import {tc} from 'helpers';
 import {setShowSearch} from 'store/search/tasks';
 import {connect} from "react-redux";
 

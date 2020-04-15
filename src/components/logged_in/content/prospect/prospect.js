@@ -2,7 +2,7 @@ import React  from 'react';
 import {ProspectCar} from './subcomponents/prospect_car';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom'
-import tc from 'text_content';
+import {tc} from 'helpers';
 
 const Prospect = (state) =>  {
     return (

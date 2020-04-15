@@ -1,6 +1,6 @@
 import React  from 'react';
 import {ProspectSub} from './prospect_sub';
-import tc from 'text_content';
+import {tc} from 'helpers';
 
 export const ProspectCar = () => {
     return (

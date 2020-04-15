@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {getSettings, savePassword, saveSettings, setShowSettings} from 'store/settings/tasks';
 import {userLogout} from 'store/user/tasks';
-import Loading from 'components/common/loading';
+import Loading from 'components/shared/loading';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
-import tc from 'text_content';
+import {tc} from 'helpers';
 
 const Settings = (state) =>  {
     const [passwordHint, setPasswordHint] = useState('');

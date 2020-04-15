@@ -34,7 +34,7 @@ h5 {
 
 .headlineMain, .settingsWrapper__settings__header {
   color: #212121;
-  padding: 12px 0;
+  margin-bottom: 22px;
   display: flex;
   justify-content: space-between; }
   .headlineMain h2, .settingsWrapper__settings__header h2 {
@@ -75,7 +75,7 @@ body {
 .appHolder {
   margin: 0 0; }
 
-.shadowRegular, .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events, .settingsWrapper__settings, .searchWrapper__search__results {
+.shadowRegular, .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events, .navigationWrapper__navigation__right .searchWrapper__search__results, .settingsWrapper__settings {
   -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3);
   -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3);
   box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3); }
@@ -90,10 +90,10 @@ body {
   -moz-box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.1); }
 
-.scrollbarHide, .calendarWrapper .calendar__week {
+.scrollbarHide, .eventsCalendarWrapper .eventsCalendar__week {
   scrollbar-width: none;
   -ms-overflow-style: none; }
-  .scrollbarHide::-webkit-scrollbar, .calendarWrapper .calendar__week::-webkit-scrollbar {
+  .scrollbarHide::-webkit-scrollbar, .eventsCalendarWrapper .eventsCalendar__week::-webkit-scrollbar {
     display: none; }
 
 .scrollbarLight, .newsWrapper__news {
@@ -108,7 +108,7 @@ body {
     background: #eeeeee;
     border-radius: 6px; }
 
-.iconCircle, .dealWrapper__deal__header__right__item i, .navigationWrapper__navigation__right i {
+.iconCircle, .dealWrapper__deal__header__bottom__right__item i, .navigationWrapper__navigation__right i {
   padding: 12px;
   color: white;
   background: #bdbdbd;
@@ -116,7 +116,7 @@ body {
   font-size: 16px;
   cursor: pointer;
   opacity: 0.8; }
-  .iconCircle:hover, .dealWrapper__deal__header__right__item i:hover, .navigationWrapper__navigation__right i:hover {
+  .iconCircle:hover, .dealWrapper__deal__header__bottom__right__item i:hover, .navigationWrapper__navigation__right i:hover {
     background: #424242; }
 
 a {
@@ -193,7 +193,7 @@ a {
     padding: 0 4%;
     color: white;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between; }
     .headerWrapper__header__top i {
       font-size: 14px;
@@ -201,22 +201,18 @@ a {
     .headerWrapper__header__top__left .logotypeWrapper {
       margin: 22px 0; }
       .headerWrapper__header__top__left .logotypeWrapper .logotype img {
-        max-width: 140px; }
+        max-width: 120px; }
     .headerWrapper__header__top__right .userWrapper {
-      background: rgba(255, 255, 255, 0.2);
       padding: 8px 12px;
-      border-radius: 0 0 4px 4px; }
-      .headerWrapper__header__top__right .userWrapper:hover .userWrapper__user__name {
-        opacity: 1; }
-      .headerWrapper__header__top__right .userWrapper:hover .userWrapper__user__icon {
+      opacity: 0.7; }
+      .headerWrapper__header__top__right .userWrapper:hover {
         opacity: 1; }
       .headerWrapper__header__top__right .userWrapper__user {
         display: flex;
         align-items: center;
         justify-content: flex-end; }
         .headerWrapper__header__top__right .userWrapper__user__icon {
-          flex-grow: 0;
-          opacity: 0.6; }
+          flex-grow: 0; }
           .headerWrapper__header__top__right .userWrapper__user__icon i.user {
             font-size: 10px;
             cursor: default; }
@@ -224,8 +220,7 @@ a {
           flex-grow: 1;
           margin: 0 24px 0 12px;
           display: flex;
-          align-items: center;
-          opacity: 0.6; }
+          align-items: center; }
           .headerWrapper__header__top__right .userWrapper__user__name__name {
             font-size: 11px; }
           .headerWrapper__header__top__right .userWrapper__user__name__delimiter {
@@ -237,20 +232,20 @@ a {
           display: flex;
           align-items: center; }
 
-.calendarWrapper {
+.eventsCalendarWrapper {
   flex-grow: 1;
   min-width: 490px;
   max-width: 490px; }
-  .calendarWrapper .calendar__month {
+  .eventsCalendarWrapper .eventsCalendar__month {
     display: flex;
     flex-wrap: wrap; }
-    .calendarWrapper .calendar__month .dayWrapper {
+    .eventsCalendarWrapper .eventsCalendar__month .dayWrapper {
       margin: 0 4px 4px 0; }
-      .calendarWrapper .calendar__month .dayWrapper:nth-child(7n) {
+      .eventsCalendarWrapper .eventsCalendar__month .dayWrapper:nth-child(7n) {
         margin: 0 0 4px 0; }
-      .calendarWrapper .calendar__month .dayWrapper__eventsWrapper {
+      .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper {
         position: relative; }
-        .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events {
+        .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events {
           z-index: 5;
           position: absolute;
           top: 0;
@@ -259,46 +254,46 @@ a {
           border: 1px solid #eeeeee;
           padding: 22px;
           white-space: nowrap; }
-          .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event {
+          .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event {
             opacity: 0.8;
             margin: 8px 0;
             display: flex; }
-            .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event:hover {
+            .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event:hover {
               opacity: 1; }
-            .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event a, .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event p {
+            .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event a, .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event p {
               color: #616161; }
-            .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event a {
+            .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event a {
               cursor: pointer;
               display: flex;
               align-items: center;
               text-decoration: none; }
-            .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event span.highlight {
+            .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event span.highlight {
               color: #424242;
               font-weight: 600; }
-            .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event i {
+            .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event i {
               color: #E54DC8;
               font-size: 14px; }
-            .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event__icon {
+            .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event__icon {
               margin-right: 12px;
               display: flex;
               align-items: center; }
-            .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event__info {
+            .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event__info {
               display: flex;
               align-items: center; }
-              .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event__info p {
+              .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event__info p {
                 font-size: 12px; }
-              .calendarWrapper .calendar__month .dayWrapper__eventsWrapper__events__event__info i {
+              .eventsCalendarWrapper .eventsCalendar__month .dayWrapper__eventsWrapper__events__event__info i {
                 font-size: 10px;
                 margin-left: 12px;
                 color: #E54DC8; }
-      .calendarWrapper .calendar__month .dayWrapper .day {
+      .eventsCalendarWrapper .eventsCalendar__month .dayWrapper .day {
         display: flex;
         align-items: center;
         background: white;
         padding: 14.66667px 22px;
         border: 1px solid #e0e0e0;
         border-radius: 4px; }
-        .calendarWrapper .calendar__month .dayWrapper .day__date {
+        .eventsCalendarWrapper .eventsCalendar__month .dayWrapper .day__date {
           font-size: 20px;
           font-weight: 600;
           flex-grow: 0;
@@ -306,16 +301,16 @@ a {
           display: flex;
           align-items: center;
           justify-content: center; }
-      .calendarWrapper .calendar__month .dayWrapper .passed .day__date {
+      .eventsCalendarWrapper .eventsCalendar__month .dayWrapper .passed .day__date {
         opacity: 0.4; }
-    .calendarWrapper .calendar__month .hasEvent .day__date {
+    .eventsCalendarWrapper .eventsCalendar__month .hasEvent .day__date {
       color: #C200A0;
       cursor: pointer; }
-  .calendarWrapper .calendar__week {
+  .eventsCalendarWrapper .eventsCalendar__week {
     border-bottom: 1px solid #e0e0e0;
     max-height: 477px;
     overflow-y: auto; }
-    .calendarWrapper .calendar__week .dayWrapper .day {
+    .eventsCalendarWrapper .eventsCalendar__week .dayWrapper .day {
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -324,7 +319,7 @@ a {
       border-right: 1px solid #e0e0e0;
       border-left: 1px solid #e0e0e0;
       padding: 12px 22px; }
-      .calendarWrapper .calendar__week .dayWrapper .day__date {
+      .eventsCalendarWrapper .eventsCalendar__week .dayWrapper .day__date {
         font-size: 20px;
         flex-grow: 0;
         border-radius: 50%;
@@ -336,62 +331,62 @@ a {
         display: flex;
         align-items: center;
         justify-content: center; }
-      .calendarWrapper .calendar__week .dayWrapper .day__content {
+      .eventsCalendarWrapper .eventsCalendar__week .dayWrapper .day__content {
         flex-grow: 1;
         display: flex;
         align-items: center;
         justify-content: space-between;
         color: #bdbdbd; }
-        .calendarWrapper .calendar__week .dayWrapper .day__content__dateInformation__weekday {
+        .eventsCalendarWrapper .eventsCalendar__week .dayWrapper .day__content__dateInformation__weekday {
           font-size: 15px;
           font-weight: 600;
           text-transform: uppercase; }
-        .calendarWrapper .calendar__week .dayWrapper .day__content__dateInformation__week {
+        .eventsCalendarWrapper .eventsCalendar__week .dayWrapper .day__content__dateInformation__week {
           font-size: 12px; }
-    .calendarWrapper .calendar__week .dayWrapper .passed .day__date {
+    .eventsCalendarWrapper .eventsCalendar__week .dayWrapper .passed .day__date {
       opacity: 0.4; }
-    .calendarWrapper .calendar__week .dayWrapper .passed .day__content {
+    .eventsCalendarWrapper .eventsCalendar__week .dayWrapper .passed .day__content {
       opacity: 0.4; }
-    .calendarWrapper .calendar__week .hasEvent .day {
+    .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day {
       background: linear-gradient(to left, #f5f5f5, #eeeeee); }
-      .calendarWrapper .calendar__week .hasEvent .day__date {
+      .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__date {
         background: #424242; }
-      .calendarWrapper .calendar__week .hasEvent .day__content__dateInformation {
+      .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__dateInformation {
         color: #424242; }
-      .calendarWrapper .calendar__week .hasEvent .day__content__events {
+      .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events {
         display: flex;
         flex-direction: column;
         align-content: space-between; }
-        .calendarWrapper .calendar__week .hasEvent .day__content__events__event {
+        .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event {
           opacity: 0.8;
           margin: 8px 0;
           display: flex;
           justify-content: flex-end; }
-          .calendarWrapper .calendar__week .hasEvent .day__content__events__event:hover {
+          .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event:hover {
             opacity: 1; }
-          .calendarWrapper .calendar__week .hasEvent .day__content__events__event a, .calendarWrapper .calendar__week .hasEvent .day__content__events__event p {
+          .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event a, .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event p {
             color: #616161; }
-          .calendarWrapper .calendar__week .hasEvent .day__content__events__event a {
+          .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event a {
             cursor: pointer;
             display: flex;
             align-items: center;
             text-decoration: none; }
-          .calendarWrapper .calendar__week .hasEvent .day__content__events__event span.highlight {
+          .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event span.highlight {
             color: #424242;
             font-weight: 600; }
-          .calendarWrapper .calendar__week .hasEvent .day__content__events__event i {
+          .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event i {
             color: #E54DC8;
             font-size: 14px; }
-          .calendarWrapper .calendar__week .hasEvent .day__content__events__event__icon {
+          .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event__icon {
             margin-right: 12px;
             display: flex;
             align-items: center; }
-          .calendarWrapper .calendar__week .hasEvent .day__content__events__event__info {
+          .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event__info {
             display: flex;
             align-items: center; }
-            .calendarWrapper .calendar__week .hasEvent .day__content__events__event__info p {
+            .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event__info p {
               font-size: 12px; }
-            .calendarWrapper .calendar__week .hasEvent .day__content__events__event__info i {
+            .eventsCalendarWrapper .eventsCalendar__week .hasEvent .day__content__events__event__info i {
               font-size: 10px;
               margin-left: 12px;
               color: #E54DC8; }
@@ -401,24 +396,35 @@ a {
   .dealWrapper__deal__header {
     padding-bottom: 12px;
     border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 22px;
     display: flex;
-    justify-content: space-between; }
-    .dealWrapper__deal__header__left {
+    flex-direction: column; }
+    .dealWrapper__deal__header__top {
+      width: 100%;
+      margin-bottom: 33px; }
+      .dealWrapper__deal__header__top h3 {
+        font-size: 34px;
+        text-transform: none; }
+    .dealWrapper__deal__header__bottom {
+      width: 100%;
       display: flex;
-      font-size: 16px;
-      font-weight: 400; }
-      .dealWrapper__deal__header__left__item {
-        margin-left: 44px; }
-        .dealWrapper__deal__header__left__item:first-of-type {
-          margin-left: 0; }
-        .dealWrapper__deal__header__left__item h4 {
-          font-size: 12px;
-          color: #bdbdbd; }
-    .dealWrapper__deal__header__right__item {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center; }
+      justify-content: space-between; }
+      .dealWrapper__deal__header__bottom__left {
+        display: flex;
+        font-size: 16px;
+        font-weight: 400; }
+        .dealWrapper__deal__header__bottom__left__item {
+          margin-left: 44px; }
+          .dealWrapper__deal__header__bottom__left__item:first-of-type {
+            margin-left: 0; }
+          .dealWrapper__deal__header__bottom__left__item h4 {
+            font-size: 12px;
+            color: #bdbdbd; }
+      .dealWrapper__deal__header__bottom__right__item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; }
 
 .homeWrapper {
   display: flex;
@@ -506,6 +512,59 @@ a {
       align-items: center;
       justify-content: flex-end;
       flex-grow: 1; }
+      .navigationWrapper__navigation__right .searchWrapper {
+        margin: 0 22px;
+        width: 60%; }
+        .navigationWrapper__navigation__right .searchWrapper__search {
+          z-index: 5;
+          display: flex;
+          flex-grow: 1;
+          flex-direction: column;
+          border-bottom: 1px solid #e0e0e0; }
+          .navigationWrapper__navigation__right .searchWrapper__search__input {
+            flex-grow: 1;
+            width: 100%; }
+            .navigationWrapper__navigation__right .searchWrapper__search__input input {
+              color: #616161;
+              padding: 12px 18px;
+              border: 0;
+              width: 100%;
+              font-size: 16px;
+              border-radius: 4px; }
+              .navigationWrapper__navigation__right .searchWrapper__search__input input::placeholder {
+                color: #bdbdbd;
+                font-size: 13px; }
+              .navigationWrapper__navigation__right .searchWrapper__search__input input:-ms-input-placeholder {
+                color: #bdbdbd;
+                font-size: 13px; }
+              .navigationWrapper__navigation__right .searchWrapper__search__input input::-ms-input-placeholder {
+                color: #bdbdbd;
+                font-size: 13px; }
+              .navigationWrapper__navigation__right .searchWrapper__search__input input:focus {
+                outline-width: 0; }
+          .navigationWrapper__navigation__right .searchWrapper__search__results {
+            position: absolute;
+            top: 80%;
+            background: white;
+            padding: 22px;
+            z-index: 5; }
+            .navigationWrapper__navigation__right .searchWrapper__search__results__item {
+              color: #616161;
+              font-size: 15px;
+              margin-bottom: 8px;
+              cursor: pointer; }
+              .navigationWrapper__navigation__right .searchWrapper__search__results__item:last-of-type {
+                margin-bottom: 0; }
+              .navigationWrapper__navigation__right .searchWrapper__search__results__item:hover {
+                color: #F273D8; }
+                .navigationWrapper__navigation__right .searchWrapper__search__results__item:hover i {
+                  background: #F273D8; }
+              .navigationWrapper__navigation__right .searchWrapper__search__results__item i {
+                background: #bdbdbd;
+                border-radius: 50%;
+                font-size: 14px;
+                padding: 7px 9px;
+                margin-right: 12px; }
 
 .settingsWrapper {
   background: rgba(0, 0, 0, 0.7);
@@ -614,62 +673,6 @@ a {
             align-self: center; }
           .settingsWrapper__settings__content__item__small__content {
             align-self: center; }
-
-.searchWrapper {
-  margin: 0 22px;
-  width: 60%; }
-  .searchWrapper__search {
-    z-index: 5;
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    border-bottom: 1px solid #f5f5f5; }
-    .searchWrapper__search__input {
-      flex-grow: 1;
-      width: 100%; }
-      .searchWrapper__search__input input {
-        color: #616161;
-        padding: 12px 18px;
-        background: #fafafa;
-        border: 0;
-        border-bottom: 1px solid #eeeeee;
-        width: 100%;
-        font-size: 16px;
-        border-radius: 4px; }
-        .searchWrapper__search__input input::placeholder {
-          color: #bdbdbd;
-          font-size: 13px; }
-        .searchWrapper__search__input input:-ms-input-placeholder {
-          color: #bdbdbd;
-          font-size: 13px; }
-        .searchWrapper__search__input input::-ms-input-placeholder {
-          color: #bdbdbd;
-          font-size: 13px; }
-        .searchWrapper__search__input input:focus {
-          outline-width: 0; }
-    .searchWrapper__search__results {
-      position: absolute;
-      top: 80%;
-      background: white;
-      padding: 22px;
-      z-index: 5; }
-      .searchWrapper__search__results__item {
-        color: #616161;
-        font-size: 15px;
-        margin-bottom: 8px;
-        cursor: pointer; }
-        .searchWrapper__search__results__item:last-of-type {
-          margin-bottom: 0; }
-        .searchWrapper__search__results__item:hover {
-          color: #F273D8; }
-          .searchWrapper__search__results__item:hover i {
-            background: #F273D8; }
-        .searchWrapper__search__results__item i {
-          background: #bdbdbd;
-          border-radius: 50%;
-          font-size: 14px;
-          padding: 7px 9px;
-          margin-right: 12px; }
 
 .loadingWrapper {
   width: 100%;

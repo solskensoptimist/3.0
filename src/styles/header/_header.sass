@@ -7,7 +7,7 @@
       padding: 0 $paddingSiteContent
       color: white
       display: flex
-      align-items: flex-start
+      align-items: center
       justify-content: space-between
       i
         font-size: 14px
@@ -20,22 +20,16 @@
               max-width: $widthLogotype
       &__right
         .userWrapper
-          background: rgba(255,255,255,0.2)
           padding: $paddingSmall $paddingMedium
-          border-radius: 0 0 4px 4px
+          opacity: 0.7
           &:hover
-            .userWrapper__user
-              &__name
-                opacity: 1
-              &__icon
-                opacity: 1
+            opacity: 1
           &__user
             display: flex
             align-items: center
             justify-content: flex-end
             &__icon
               flex-grow: 0
-              opacity: 0.6
               i.user
                 font-size: 10px
                 cursor: default
@@ -44,7 +38,6 @@
               margin: 0 ($paddingMedium * 2) 0 $paddingMedium
               display: flex
               align-items: center
-              opacity: 0.6
               &__name
                 font-size: 11px
               &__delimiter

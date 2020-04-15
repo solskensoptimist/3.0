@@ -1,5 +1,5 @@
 import React  from 'react';
-import tc from 'text_content';
+import {tc} from 'helpers';
 
 export default () =>  {
     return (

@@ -16,7 +16,7 @@ export const getDeal = async (payload) => {
     })
     .then((data) => {
         if (!data) {
-            return console.error('No data in getDeal');
+            return console.error('No data in getDeal'); // Detta skapar infinite loading loop, komponenten väntar på state..
         }
 
         return store.dispatch({ type: dealActionTypes.SET_DEAL, payload: {deal: data} });

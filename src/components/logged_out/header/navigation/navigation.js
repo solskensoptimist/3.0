@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import tc from 'text_content';
+import {tc} from 'helpers';
 
 /**
  * Navigation component.

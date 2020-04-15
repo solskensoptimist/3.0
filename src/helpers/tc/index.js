@@ -1,1 +1,2 @@
-export text_content from './swedish.js';
+import tc from './swedish';
+export {tc};

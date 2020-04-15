@@ -1,6 +1,6 @@
 import React from 'react';
 import {userLogin} from 'store/user/tasks';
-import tc from 'text_content';
+import {tc} from 'helpers';
 
 export default () =>  {
     const handleSubmit = async () => {

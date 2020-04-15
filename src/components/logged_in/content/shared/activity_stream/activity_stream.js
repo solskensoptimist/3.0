@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {getActivity} from 'store/activity/tasks';
+// import {getActivity} from 'store/activity/tasks';
 import Loading from 'components/shared/loading';
 
 const ActivityStream = (state) => {
@@ -10,11 +10,12 @@ const ActivityStream = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!state && state.activity;
+        // return !!state && state.activity; // Utveckla...
+        return false;
     };
 
     useEffect(() => {
-        getActivity({});
+        // getActivity({}); // Hämta aktivitet baserat på filter eller targetId. Detta ska skickas in som props.
     });
 
     return ( _stateCheck ?
@@ -29,7 +30,7 @@ const ActivityStream = (state) => {
 
 const MapStateToProps = (state, props) => {
     return {
-        activity: activity
+        activity: state.activity
     };
 };
 

@@ -38,8 +38,7 @@
   "_moduleAliases": {
     "components": "src/components",
     "helpers": "src/helpers",
-    "store": "src/store",
-    "text_content": "src/text_content"
+    "store": "src/store"
   },
   "proxy": "http://localhost:3000/",
   "eslintConfig": {

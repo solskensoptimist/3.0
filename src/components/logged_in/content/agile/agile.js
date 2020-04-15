@@ -1,7 +1,7 @@
 import React  from 'react';
 import {connect} from 'react-redux';
 import {AgileSub} from './subcomponents/agile_sub';
-import tc from 'text_content';
+import {tc} from 'helpers';
 
 const Agile = (state) => {
     return (

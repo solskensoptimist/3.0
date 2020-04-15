@@ -1,4 +1,5 @@
 import {createStore, combineReducers} from 'redux';
+import {activityReducer} from 'store/activity/reducer';
 import {dealReducer} from 'store/deal/reducer';
 import {eventsReducer} from 'store/events/reducer';
 import {groupsReducer} from 'store/groups/reducer';
@@ -10,6 +11,7 @@ import {userReducer} from 'store/user/reducer';
 
 // All reducers combined.
 const reducer = combineReducers({
+    activity: activityReducer,
     deal: dealReducer,
     events: eventsReducer,
     groups: groupsReducer,
