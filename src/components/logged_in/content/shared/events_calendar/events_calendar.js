@@ -3,7 +3,7 @@ import tc from 'text_content';
 import {connect} from "react-redux";
 import DayMonth from './day_month';
 import DayWeek from './day_week';
-import Loading from 'components/common/loading';
+import Loading from 'components/shared/loading';
 import {getEvents} from 'store/events/tasks';
 import moment from 'moment';
 
