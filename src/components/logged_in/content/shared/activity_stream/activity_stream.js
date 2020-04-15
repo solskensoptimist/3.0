@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-// import {getActivityFiltered} from 'store/activity/tasks';
 import Loading from 'components/shared/loading';
 
 const ActivityStream = (state) => {
@@ -10,17 +9,16 @@ const ActivityStream = (state) => {
     };
 
     const _stateCheck = () => {
-        // return !!state && state.activity; // Utveckla...
-        return false;
+        if (state.props.type === 'filter') {
+            return !!state && state.activity && state.activity.activityByFilter; // Utveckla...
+        } else if (state.props.type === 'target') {
+            return !!state && state.activity && state.activity.activityByTarget && state.activity.activityByTarget.data;
+        }
     };
 
-    useEffect(() => {
-        // getActivityFiltered({}); // Beroende på type ska vi hämta aktivitet baserat på filter eller targetId...
-    });
-
     return ( _stateCheck() ?
-        <div className='activitystreamWrapper'>
-            <div className='activitystreamWrapper_activitystream'>
+        <div className='activityStreamWrapper'>
+            <div className='activityStreamWrapper_activityStream'>
                 {_renderActivity()}
             </div>
         </div> :
@@ -30,7 +28,8 @@ const ActivityStream = (state) => {
 
 const MapStateToProps = (state, props) => {
     return {
-        activity: state.activity
+        activity: state.activity,
+        props: props,
     };
 };
 

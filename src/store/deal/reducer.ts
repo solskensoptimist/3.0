@@ -5,7 +5,7 @@ interface EventsState {
 }
 
 const initialState: EventsState = {
-    deal: {},
+    deal: null,
 };
 
 export const dealReducer = (state = initialState, action) => {

@@ -1,19 +1,33 @@
 import {activityActionTypes} from './actions';
 
 interface EventsState {
-    activityFiltered: object | null, // oklart
+    activityByFilter: object | null,
+    activityByTarget: {
+        data: Array<object> | null,
+        id: number | null,
+    },
 }
 
 const initialState: EventsState = {
-    activityFiltered: {}, // oklart
+    activityByFilter: null,
+    activityByTarget: {
+        data: null,
+        id: null,
+    },
 };
 
 export const activityReducer = (state = initialState, action) => {
     switch(action.type) {
-        case activityActionTypes.SET_ACTIVITY_FILTERED: {
+        case activityActionTypes.SET_ACTIVITY_BY_FILTER: {
             return {
                 ...state,
-                activityFiltered: action.payload.activityFiltered, // oklart...
+                activityByFilter: action.payload.activityByFilter,
+            }
+        }
+        case activityActionTypes.SET_ACTIVITY_BY_TARGET: {
+            return {
+                ...state,
+                activityByTarget: action.payload.activityByTarget,
             }
         }
         default: {

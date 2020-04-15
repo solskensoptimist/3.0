@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {getActivityByTarget} from 'store/activity/tasks';
 import {getDeal} from 'store/deal/tasks';
+import ActivityStream from 'components/logged_in/content/shared/activity_stream';
 import Loading from 'components/shared/loading';
 import {tc} from 'helpers';
 
@@ -54,6 +56,7 @@ const Deal = (state) => {
 
     useEffect(() => {
         getDeal({id: id});
+        getActivityByTarget({id: id}); // For ActivityStream
     }, [id]);
 
     return ( _stateCheck() ?
@@ -96,6 +99,7 @@ const Deal = (state) => {
                     <p>Vi kommer behöva göra ett anrop till... se activity_stream_component. Vi behöver hämta både events och allt i deal_actions.</p>
                     <p>Här passar det nog att komma så nära activity_stream_component logik som möjligt.</p>
                     <p>Men kan vi göra anropet när vi hämtar en deal, fast i bakgrunden? Inte nödvändigtvis när denna komponent laddas.</p>
+                    <ActivityStream type='target' />
                 </div>
             </div>
         </div> :

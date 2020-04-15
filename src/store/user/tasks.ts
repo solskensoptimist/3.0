@@ -1,5 +1,6 @@
 import {store} from 'store';
 import {request} from 'helpers';
+import {filterActionTypes} from "store/filter/actions";
 import {settingsActionTypes} from "store/settings/actions";
 import {rootActionTypes} from "store/actions";
 import {userActionTypes} from "store/user/actions";
@@ -16,12 +17,22 @@ export const userLogin = async (credentials) => {
         url: '/login',
     })
     .then(async (data) => {
+        if (!data || (data && !data.id)) {
+            return console.error('Missing user data.');
+        }
+
+        // Set logged in user in filter.
+        store.dispatch({type: filterActionTypes.SET_USERS, payload: {users: [data.id]}});
+
         // Fix: IMPLEMENT ASYNC REDUX ACTION, REMOVE SETTIMEOUT
-        store.dispatch({ type: userActionTypes.USER_LOGIN, payload: data });
+        store.dispatch({type: userActionTypes.USER_LOGIN, payload: {info: data}});
         setTimeout(() => {
             window.location.href = '/';
         }, 200)
     })
+    .catch((err) => {
+        return console.error('Error in userLogin:', err);
+    });
 };
 
 /**
@@ -37,4 +48,7 @@ export const userLogout = async () => {
         window.location.href = '/';
         return store.dispatch({type: rootActionTypes.CLEAR_STATE});
     })
+    .catch((err) => {
+        return console.error('Error in userLogout:', err);
+    });
 };

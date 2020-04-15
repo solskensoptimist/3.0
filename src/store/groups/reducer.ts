@@ -1,8 +1,13 @@
 import {groupsActionTypes} from './actions';
 
-const initialState = {
-    dealer: [],
-    region: [],
+interface GroupsState {
+    dealer: Array<object> | null,
+    region: Array<object> | null,
+}
+
+const initialState: GroupsState = {
+    dealer: null,
+    region: null,
 };
 
 export const groupsReducer = (state = initialState, action) => {

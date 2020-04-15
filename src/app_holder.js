@@ -9,7 +9,7 @@ import {connect} from "react-redux";
  */
 const AppHolder = (state) => {
     const loggedIn = () => {
-        return !!(state && state.user && state.user.data && state.user.data.id);
+        return !!(state && state.user && state.user.info && state.user.info.id);
     };
 
     return (

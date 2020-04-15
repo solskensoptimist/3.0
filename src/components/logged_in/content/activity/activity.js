@@ -8,7 +8,7 @@ export default () => {
             <div className='activityWrapper__activity'>
                 {tc.activity}
             </div>
-            <ActivityStream />
+            <ActivityStream type='filter' />
         </div>
     );
 }

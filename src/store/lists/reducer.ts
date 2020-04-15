@@ -6,7 +6,6 @@ interface ListsState {
 
 const initialState: ListsState = {
     lists: null,
-    // month: null,
 };
 
 export const listsReducer = (state = initialState, action) => {

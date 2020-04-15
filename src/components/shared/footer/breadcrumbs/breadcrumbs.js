@@ -31,7 +31,7 @@ const Breadcrumbs = (state) => {
                 <Route>
                     {({ location }) => {
                         // Split paths.
-                        let pathnames = location.pathname.split('/').filter(x => x);
+                        let pathnames = location.pathname.split('/').filter(x => x.toLowerCase());
 
                         // Check if any of the values start with number or underscore.
                         // If so, we treat is as an ID parameter (for routes such as person/id, affar/id etc.)...
@@ -67,8 +67,8 @@ const Breadcrumbs = (state) => {
                                 })}
 
                                 {/* For index routes, when logged in and logged out. */}
-                                {(pathnames.length === 0 && state.user && state.user.data && state.user.data.email) && <span key='hem'>{routes['hem']}</span>}
-                                {(pathnames.length === 0 && (!state.user || !state.user.data || !state.user.data.email)) && <span key='varTjanst'>{routes['varTjanst']}</span>}
+                                {(pathnames.length === 0 && state.user && state.user.info && state.user.info.id) && <span key='hem'>{routes['hem']}</span>}
+                                {(pathnames.length === 0 && (!state.user || !state.user.info || !state.user.info.id)) && <span key='varTjanst'>{routes['varTjanst']}</span>}
                             </div>
                         );
                     }}

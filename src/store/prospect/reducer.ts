@@ -1,16 +1,17 @@
 import {prospectActionTypes} from './actions';
 
-const initialState = {
-    data: {
-        car: 'car data',
-    },
-    displayMode: 'result',
+interface ProspectState {
+    displayMode: string | null,
+}
+
+const initialState: ProspectState = {
+    displayMode: null,
 };
 
 export const prospectReducer = (state = initialState, action) => {
     switch(action.type) {
         case prospectActionTypes.RESET_SEARCH: {
-            return state;
+            return initialState;
         }
         default: {
             return state;

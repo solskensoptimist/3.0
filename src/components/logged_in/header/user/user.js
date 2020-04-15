@@ -15,9 +15,9 @@ const User = (state) => {
                     <i className='fas fa-user user' />
                 </div>
                 <div className='userWrapper__user__name'>
-                    <div className='userWrapper__user__name__name'>{state.user.data.name}</div>
+                    <div className='userWrapper__user__name__name'>{state.user.info.name}</div>
                     <div className='userWrapper__user__name__delimiter'>|</div>
-                    <div className='userWrapper__user__name__dealer'>{state.user.data.dealerName}</div>
+                    <div className='userWrapper__user__name__dealer'>{state.user.info.dealerName}</div>
                 </div>
                 <div className='userWrapper__user__settingsButton'>
                     <i className='fas fa-cog settings' onClick={_openShowSettings} />
