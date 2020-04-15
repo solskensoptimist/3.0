@@ -1,19 +1,19 @@
 import {activityActionTypes} from './actions';
 
 interface EventsState {
-    activity: object | null, // oklart
+    activityFiltered: object | null, // oklart
 }
 
 const initialState: EventsState = {
-    activity: {}, // oklart
+    activityFiltered: {}, // oklart
 };
 
 export const activityReducer = (state = initialState, action) => {
     switch(action.type) {
-        case activityActionTypes.SET_ACTIVITY: {
+        case activityActionTypes.SET_ACTIVITY_FILTERED: {
             return {
                 ...state,
-                activity: action.payload.activity, // oklart...
+                activityFiltered: action.payload.activityFiltered, // oklart...
             }
         }
         default: {

@@ -5,7 +5,9 @@ import {activityActionTypes} from './actions';
 /**
  * Retrieve one deal.
  */
-export const getActivity = async (payload) => {
+export const getActivityFiltered = async (payload) => {
+
+    //Först store.filter.getState() type..?
 
     /*
     Kolla vad som skickas med, ska vi hämta för en deal, för ett prospekt(?) för andra filter?
@@ -15,19 +17,19 @@ export const getActivity = async (payload) => {
     store.getState().filter borde fungera..?
      */
 
-    if (!payload || !payload.id) {
-        return console.error('Missing params in getDeal');
-    }
+    // if (!payload || !payload.id) {
+    //     return console.error('Missing params in getDeal');
+    // }
 
     request({
-        method: 'get',
+        // method: 'get',
         // url: '/deals/' + payload.id,
     })
-        .then((data) => {
+    .then((data) => {
 
-            return store.dispatch({ type: activityActionTypes.SET_ACTIVITY, payload: {activity: data} });
-        })
-        .catch((err) => {
-            return console.error('Error in getDeal:', err);
-        });
+        return store.dispatch({ type: activityActionTypes.SET_ACTIVITY_FILTERED, payload: {activityFiltered: data} });
+    })
+    .catch((err) => {
+        return console.error('Error in getDeal:', err);
+    });
 };
