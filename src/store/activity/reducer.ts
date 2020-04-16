@@ -4,7 +4,7 @@ interface EventsState {
     activityByFilter: object | null,
     activityByTarget: {
         data: Array<object> | null,
-        id: number | null,
+        id: string | null,
     },
 }
 

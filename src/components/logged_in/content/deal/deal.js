@@ -56,7 +56,7 @@ const Deal = (state) => {
 
     useEffect(() => {
         getDeal({id: id});
-        getActivityByTarget({id: id}); // For ActivityStream
+        getActivityByTarget({id: id, type: 'deal'});
     }, [id]);
 
     return ( _stateCheck() ?

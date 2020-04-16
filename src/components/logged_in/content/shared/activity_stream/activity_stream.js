@@ -5,7 +5,7 @@ import Loading from 'components/shared/loading';
 const ActivityStream = (state) => {
 
     const _renderActivity = () => {
-
+        // Oavsett om det är filter eller target bör vi rendera likadant..?
     };
 
     const _stateCheck = () => {

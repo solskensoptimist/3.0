@@ -6,46 +6,47 @@ import {activityActionTypes} from './actions';
  * Retrieve activity based on filter.
  */
 export const getActivityByFilter = async () => {
-    /*
     const filter = store.getState().filter;
 
-    Upprepa vad som sker i WidgetActivityStoresuperagent:
-
-    .post('/activity/dealer/')
-    .send({
-        limit: 9999, // Intentional high bound, let components handle pagination.
-        users: users,
-        widgetFilters: widgetFilters,
+    request({
+        data: {
+            limit: 9999,
+            users: filter.users,
+            widgetFilters: {
+                date: filter.date,
+                lists: filter.lists,
+            },
+        },
+        method: 'post',
+        url: '/activity/dealer/',
     })
-
-    osv.
-     */
-
-
-    // .then((data) => {
-    //     return store.dispatch({ type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: {activityFiltered: data} });
-    // })
-    // .catch((err) => {
-    //     return console.error('Error in getActivityByFilter:', err);
-    // });
+    .then((data) => {
+        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: {activityByFilter: data}});
+    })
+    .catch((err) => {
+        return console.error('Error in getActivityByFilter:', err);
+    });
 };
 
 /**
  * Retrieve activity based on target id.
  *
- * @param payload.id - Target id, can be user id, orgnr or deal id. <-----STÄMMER DETTA ?!?!?!?!?!?!?
+ * @param payload.id - Can be a prospect id (user id/orgnr) or a deal id.
+ * @param payload.type - Set this to 'deal' when payload.id is a deal id.
  */
 export const getActivityByTarget = async (payload) => {
-
-    // payload.id = 5209064699; // TEMPORARY....
-
     if (!payload || (payload && !payload.id)) {
         return console.error('Missing params in getActivityByTarget');
     }
 
+    // For deals we use a different endpoint.
+    const url = (payload.type && payload.type === 'deal') ?
+        '/activity/deal/' + payload.id :
+        '/comments/' + payload.id;
+
     request({
         method: 'get',
-        url: '/comments/' + payload.id,
+        url: url,
     })
     .then((data) => {
         const result = {
@@ -53,7 +54,7 @@ export const getActivityByTarget = async (payload) => {
             id: payload.id,
         };
 
-        return store.dispatch({ type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: {activityByTarget: result} });
+        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: {activityByTarget: result}});
     })
     .catch((err) => {
         return console.error('Error in getActivityByTarget:', err);
