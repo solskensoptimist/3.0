@@ -1,6 +1,7 @@
 export default {
     aboutUs: 'Om oss',
     activities: 'Aktiviteter',
+    activitiesAllIncludingComments: 'Alla händelser och kommentarer',
     activity: 'Aktivitet',
     agile: 'Bearbeta',
     analyse: 'Analysera',
@@ -27,6 +28,7 @@ export default {
     edit: 'Redigera',
     emailNotifications: 'E-post notifikationer',
     home: 'Hem',
+    lastUpdate: 'Senast uppdaterad',
     lists: 'Listor',
     login: 'Inloggning',
     logon: 'Logga in',
@@ -35,6 +37,7 @@ export default {
     newsSub: 'Detta har hänt på Bilprospekt.se',
     ourService: 'Vår tjänst',
     plannedActivities: 'Planerade aktiviteter',
+    plannedActivitiesNotPerformed: 'Aktiviteter som ännu ej har utförts',
     prices: 'Priser',
     prospect: 'Prospektera',
     responsible: 'Ansvarig',

@@ -1,0 +1,57 @@
+.iconCircle
+  padding: $paddingMedium
+  color: $grey-500
+  background: $grey-200
+  border-radius: 50%
+  font-size: 16px
+  cursor: default
+  opacity: 0.8
+
+.iconCircleLink
+  padding: $paddingMedium
+  color: white
+  background: $grey-400
+  border-radius: 50%
+  font-size: 16px
+  cursor: pointer
+  opacity: 0.8
+  &:hover
+    background: $grey-800
+
+.paperSheet
+  background: white
+  padding: $paddingRegular
+  border: 1px solid $grey-200
+
+.shadowRegular
+  -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
+  -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
+  box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3)
+
+.shadowTop
+  -webkit-box-shadow: 1px -3px 6px  rgba(0, 0, 0, 0.1)
+  -moz-box-shadow: 1px -3px 6px  rgba(0, 0, 0, 0.1)
+  box-shadow: 1px -3px 6px  rgba(0, 0, 0, 0.1)
+
+.shadowBottom
+  -webkit-box-shadow: 1px 3px 6px  rgba(0, 0, 0, 0.1)
+  -moz-box-shadow: 1px 3px 6px  rgba(0, 0, 0, 0.1)
+  box-shadow: 1px 3px 6px  rgba(0, 0, 0, 0.1)
+
+.scrollbarHide
+  scrollbar-width: none
+  -ms-overflow-style: none
+  &::-webkit-scrollbar
+    display: none
+
+.scrollbarLight
+  padding-right: $paddingSmall
+  scrollbar-width: thin
+  scrollbar-color: $grey-200 transparent
+  &::-webkit-scrollbar
+    width: 7px
+  &::-webkit-scrollbar-track
+    background: transparent
+  &::-webkit-scrollbar-thumb
+    background: $grey-200
+    border-radius: 6px

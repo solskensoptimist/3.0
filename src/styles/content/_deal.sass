@@ -11,8 +11,7 @@
         width: 100%
         margin-bottom: ($paddingRegular * 1.5)
         h3
-          font-size: 34px
-          text-transform: none
+          @extend .headlineVeryLarge
       &__bottom
         width: 100%
         display: flex
@@ -35,5 +34,20 @@
             justify-content: center
             align-items: center
             i
-              @extend .iconCircle
+              @extend .iconCircleLink
     &__content
+      &__item
+        @extend .paperSheet
+        color: $colorTextMain
+        margin-bottom: $paddingRegular
+        display: flex
+        &:last-of-type
+          margin-bottom: 0
+        &__left
+          width: auto
+          margin-right: $paddingRegular
+          i
+            @extend .iconCircle
+        &__right
+          &__title
+            @extend .headlineMain

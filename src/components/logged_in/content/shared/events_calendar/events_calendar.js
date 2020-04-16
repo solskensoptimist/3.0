@@ -21,7 +21,7 @@ const EventsCalendar = (state) => {
                 days.push(<DayWeek date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} />);
             }
             result = (
-                <div className='eventsCalendar__week'>
+                <div className='eventsCalendarWrapper__eventsCalendar__content__week'>
                     {days}
                 </div>
             );
@@ -32,7 +32,7 @@ const EventsCalendar = (state) => {
                 days.push(<DayMonth date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} />);
             }
             result = (
-                <div className='eventsCalendar__month'>
+                <div className='eventsCalendarWrapper__eventsCalendar__content__month'>
                     {days}
                 </div>
             );
@@ -69,20 +69,22 @@ const EventsCalendar = (state) => {
 
     return ( _stateCheck() ?
         <div className='eventsCalendarWrapper'>
-            <div className='headlineMain'>
-                <div className='headlineMain__left'>
-                    <h2>{tc.plannedActivities}</h2>
-                    <h3>{tc.calendarMonths[state.events.monthInScope]} {state.events.yearInScope}</h3>
+            <div className='eventsCalendarWrapper__eventsCalendar'>
+                <div className='eventsCalendarWrapper__eventsCalendar__header'>
+                    <div className='eventsCalendarWrapper__eventsCalendar__header__left'>
+                        <h2>{tc.plannedActivities}</h2>
+                        <h3>{tc.calendarMonths[state.events.monthInScope]} {state.events.yearInScope}</h3>
+                    </div>
+                    <div className='eventsCalendarWrapper__eventsCalendar__header__right'>
+                        <i className='fas fa-caret-left' onClick={_stepBack} />
+                        <i className='fas fa-caret-right' onClick={_stepForward} />
+                       <i className={showWeek ? 'far fa-calendar-alt' : 'far fa-calendar-alt active'} onClick={() => {setShowWeek(false)}} />
+                       <i className={showWeek ? 'far fa-calendar active' : 'far fa-calendar'} onClick={() => {setShowWeek(true)}}  />
+                    </div>
                 </div>
-                <div className='headlineMain__right'>
-                    <i className='fas fa-caret-left' onClick={_stepBack} />
-                    <i className='fas fa-caret-right' onClick={_stepForward} />
-                   <i className={showWeek ? 'far fa-calendar-alt' : 'far fa-calendar-alt active'} onClick={() => {setShowWeek(false)}} />
-                   <i className={showWeek ? 'far fa-calendar active' : 'far fa-calendar'} onClick={() => {setShowWeek(true)}}  />
+                <div className='eventsCalendarWrapper__eventsCalendar__content'>
+                {_renderDays()}
                 </div>
-            </div>
-            <div className='eventsCalendar'>
-            {_renderDays()}
             </div>
         </div> :
             <Loading />

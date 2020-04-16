@@ -84,6 +84,10 @@ const Deal = (state) => {
                                 <h4>{tc.created}</h4>
                                 <p>När skapad</p>
                             </div>
+                            <div className='dealWrapper__deal__header__bottom__left__item'>
+                                <h4>{tc.lastUpdate}</h4>
+                                <p>Senast uppdaterad</p>
+                            </div>
                         </div>
                         <div className='dealWrapper__deal__header__bottom__right'>
                             <div className='dealWrapper__deal__header__bottom__right__item'>
@@ -93,13 +97,32 @@ const Deal = (state) => {
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
-                    Deal komponent
-                    <p>Id: {id}</p>
-                    <p>Fixa så att vi visar namn om vi har, annars Man 82, LINKÖPING</p>
-                    <p>Vi kommer behöva göra ett anrop till... se activity_stream_component. Vi behöver hämta både events och allt i deal_actions.</p>
-                    <p>Här passar det nog att komma så nära activity_stream_component logik som möjligt.</p>
-                    <p>Men kan vi göra anropet när vi hämtar en deal, fast i bakgrunden? Inte nödvändigtvis när denna komponent laddas.</p>
-                    <ActivityStream type='target' />
+                    <div className='dealWrapper__deal__content__item'>
+                        <div className='dealWrapper__deal__content__item__left'>
+                            <i className='far fa-calendar-alt' />
+                        </div>
+                        <div className='dealWrapper__deal__content__item__right'>
+                            <div className='dealWrapper__deal__content__item__right__title'>
+                                <h2>{tc.plannedActivities}</h2>
+                                <h3>{tc.plannedActivitiesNotPerformed}</h3>
+                            </div>
+                            En planerade aktiviteter komponent.
+                            Göra om events_calender i week view att bara visa de dagar som har events?
+                        </div>
+                    </div>
+                    <div className='dealWrapper__deal__content__item'>
+                        <div className='dealWrapper__deal__content__item__left'>
+                            <i className='fas fa-history' />
+                        </div>
+                        <div className='dealWrapper__deal__content__item__right'>
+                            <div className='dealWrapper__deal__content__item__right__title'>
+                                <h2>{tc.activities}</h2>
+                                <h3>{tc.activitiesAllIncludingComments}</h3>
+                            </div>
+                            <p>Id: {id}</p>
+                            <ActivityStream type='target' />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div> :

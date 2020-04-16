@@ -32,12 +32,10 @@ h5
   line-height: 18px
   text-transform: uppercase
 
-// This controls divs with page headlines.
+// Main rule for headlines
 .headlineMain
   color: $colorTextDark
   margin-bottom: $paddingRegular
-  display: flex
-  justify-content: space-between
   h2
     font-weight: 600
   h3
@@ -47,15 +45,7 @@ h5
     text-transform: none
     line-height: 18px
     display: inline
-  &__right
-    display: flex
-    align-items: flex-end
-    i
-      color: $colorTextLight
-      cursor: pointer
-      font-size: 18px
-      margin-left: $paddingMedium
-      &:hover
-        color: $colorTextDark
-    i.active
-      color: $colorTextDark
+
+.headlineVeryLarge
+  font-size: 38px
+  text-transform: none

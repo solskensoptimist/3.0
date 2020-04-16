@@ -6,6 +6,10 @@ const ActivityStream = (state) => {
 
     const _renderActivity = () => {
         // Oavsett om det är filter eller target bör vi rendera likadant..?
+        // Kom ihåg att denna komponent bara ska rendera innehåll, inga bakgrundsfärger/färger eller så.
+        return (<div>
+            Aktivitetsström)
+        </div>);
     };
 
     const _stateCheck = () => {
