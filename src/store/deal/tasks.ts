@@ -10,18 +10,28 @@ export const getDeal = async (payload) => {
         return console.error('Missing params in getDeal');
     }
 
-    request({
-        method: 'get',
-        url: '/deals/' + payload.id,
-    })
-    .then((data) => {
-        if (!data) {
+    try {
+        // Get deal.
+        const deal = await request({
+            method: 'get',
+            url: '/deals/' + payload.id,
+        });
+
+        if (!deal) {
             return console.error('No data in getDeal');
         }
 
-        return store.dispatch({ type: dealActionTypes.SET_DEAL, payload: {deal: data} });
-    })
-    .catch((err) => {
+        // Get list name.
+        const list = await request({
+            method: 'get',
+            url: '/lists/' + deal.meta.moved_from_list,
+        });
+
+        const listOrigin = (list) ? list.name : '';
+
+        store.dispatch({ type: dealActionTypes.SET_DEAL, payload: {deal: deal} });
+        return store.dispatch({ type: dealActionTypes.SET_LIST_ORIGIN, payload: {listOrigin: listOrigin} });
+    } catch(err) {
         return console.error('Error in getDeal:', err);
-    });
+    }
 };

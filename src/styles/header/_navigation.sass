@@ -21,10 +21,15 @@
       justify-content: flex-end
       align-items: center
       height: 100%
+      svg
+        color: $grey-500
+        margin-bottom: $paddingMedium
+        stroke-width: 3px
+        width: 15px
       i
         color: $grey-500
         margin-bottom: $paddingMedium
-        font-size: 16px
+        font-size: 12px
       a
         padding: $paddingRegular ($paddingRegular * 1.5)
         display: flex
@@ -34,15 +39,20 @@
         text-decoration: none
         color: $grey-500
         text-transform: uppercase
-        font-size: 11px
+        font-size: 13px
+        font-weight: 600
         &:hover
           background: $grey-50
           color: $grey-800
+          svg
+            color: $grey-800
           i
             color: $grey-800
         &.active
           background: $grey-50
           color: $grey-800
+          svg
+            color: $grey-800
           i
             color: $grey-800
     &__right

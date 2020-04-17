@@ -9,7 +9,7 @@ export default () => {
                     <h3 className='sectionHeading'>Bilprospekt lanserar machine learning prospektering</h3>
                 </div>
                 <div className='newsWrapper__news__item__content'>
-                    <img src='images/example.jpg' alt='Example' />
+                    <img src='images/chart.jpeg' alt='Example' />
                     <p>
                         En ny art för Sverige har hittats på västkusten av Michael Lundin, som så sent som i februari gjorde ett annat förstafynd för landet. Det rapporterat Dagens natur.
                         Den nyfunna arten är en framgälad marin snäcka med det vetenskapliga namnet Simnia hiscocki. Den har tidigare enbart hittats i England och ett fynd har även gjorts i sydvästra Norge.

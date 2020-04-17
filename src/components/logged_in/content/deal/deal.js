@@ -5,7 +5,8 @@ import {getActivityByTarget} from 'store/activity/tasks';
 import {getDeal} from 'store/deal/tasks';
 import ActivityStream from 'components/logged_in/content/shared/activity_stream';
 import Loading from 'components/shared/loading';
-import {tc} from 'helpers';
+import {dealHelper, tc} from 'helpers';
+import moment from 'moment';
 
 /**
  * Render a deal view.
@@ -17,43 +18,6 @@ const Deal = (state) => {
         return (state && state.deal && state.deal.deal && Object.keys(state.deal.deal).length);
     };
 
-    /*
-
-     _buildStreamData(data) {
-        let builtData = [];
-
-        _.each(data, (deal) => {
-            // Activities planned
-            if (deal.events && deal.events.length > 0) {
-                _.each(deal.events, (event) => {
-                    builtData.push({
-                        icon: 'fa-clock-o',
-                        label: deal.userName + this._buildActivityMetaString('planerat', event.action),
-                        comment: event.comment,
-                        date: event.date_created,
-                    });
-                });
-            }
-
-            // Activities marked as complete
-            if (deal.actions !== undefined && deal.actions.length > 0) {
-                _.each(deal.actions, (action) => {
-                    builtData.push({
-                        icon: 'fa-check',
-                        label: deal.userName + this._buildActivityMetaString('utfört', action.action),
-                        comment: null,
-                        date: action.date_created,
-                    });
-                });
-            }
-        });
-
-        // Moves
-
-        return builtData
-    },
-     */
-
     useEffect(() => {
         getDeal({id: id});
         getActivityByTarget({id: id, type: 'deal'});
@@ -64,29 +28,29 @@ const Deal = (state) => {
             <div className='dealWrapper__deal'>
                 <div className='dealWrapper__deal__header'>
                     <div className='dealWrapper__deal__header__top'>
-                        <h3>Man, 28, LINKÖPING</h3>
+                        <h3>Kvinna, 28, LINKÖPING</h3>
                     </div>
                     <div className='dealWrapper__deal__header__bottom'>
                         <div className='dealWrapper__deal__header__bottom__left'>
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.status}</h4>
-                                <p>Statusen</p>
+                                <p>{dealHelper.getReadablePhase(state.deal.deal.phase)}</p>
                             </div>
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.savedInList}</h4>
-                                <p>Listnamnet</p>
+                                <p>{state.deal.listOrigin}</p>
                             </div>
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.responsible}</h4>
-                                <p>Affärsägare</p>
+                                <p>{state.deal.deal.userName}</p>
                             </div>
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.created}</h4>
-                                <p>När skapad</p>
+                                <p>{moment(state.deal.deal.created).format('YYYY-MM-DD HH:mm')}</p>
                             </div>
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.lastUpdate}</h4>
-                                <p>Senast uppdaterad</p>
+                                <p>{moment(state.deal.deal.updated).format('YYYY-MM-DD HH:mm')}</p>
                             </div>
                         </div>
                         <div className='dealWrapper__deal__header__bottom__right'>
@@ -106,8 +70,7 @@ const Deal = (state) => {
                                 <h2>{tc.plannedActivities}</h2>
                                 <h3>{tc.plannedActivitiesNotPerformed}</h3>
                             </div>
-                            En planerade aktiviteter komponent.
-                            Göra om events_calender i week view att bara visa de dagar som har events?
+                            Här kommer det visas en ström av planerade aktiviter, likt den som idag visas när man går in på en affär.
                         </div>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
@@ -119,7 +82,6 @@ const Deal = (state) => {
                                 <h2>{tc.activities}</h2>
                                 <h3>{tc.activitiesAllIncludingComments}</h3>
                             </div>
-                            <p>Id: {id}</p>
                             <ActivityStream type='target' />
                         </div>
                     </div>

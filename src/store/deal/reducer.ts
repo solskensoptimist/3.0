@@ -2,10 +2,12 @@ import {dealActionTypes} from './actions';
 
 interface EventsState {
     deal: object | null,
+    listOrigin: string | null,
 }
 
 const initialState: EventsState = {
     deal: null,
+    listOrigin: null
 };
 
 export const dealReducer = (state = initialState, action) => {
@@ -14,6 +16,12 @@ export const dealReducer = (state = initialState, action) => {
             return {
                 ...state,
                 deal: action.payload.deal,
+            }
+        }
+        case dealActionTypes.SET_LIST_ORIGIN: {
+            return {
+                ...state,
+                listOrigin: action.payload.listOrigin,
             }
         }
         default: {

@@ -6,9 +6,9 @@ import AppHolder from './app_holder';
 import {Router} from 'react-router-dom';
 import * as serviceWorker from './service_worker';
 import history from './router_history';
+import moment from 'moment';
 
 // Setup moment to use swedish time.
-import moment from 'moment';
 require('moment/locale/sv');
 moment.updateLocale('sv', {
     relativeTime : {
@@ -27,6 +27,7 @@ moment.updateLocale('sv', {
         yy      : '%d år'
     }
 });
+
 
 // Lägg till google analytics här..?
 // history.listen(location => analyticsService.track(location.pathname))
