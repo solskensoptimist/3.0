@@ -27,7 +27,7 @@ const Search = (state) => {
         const result = [];
         for (const val of searchResults) {
             result.push(
-                <div className='searchWrapper__search__results__item'><i className='fas fa-building' />{val}</div>
+                <div className='searchWrapper__search__results__item' key={val}><i className='fas fa-building' />{val}</div>
             );
         }
         return result;

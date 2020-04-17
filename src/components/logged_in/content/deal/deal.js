@@ -28,7 +28,7 @@ const Deal = (state) => {
             <div className='dealWrapper__deal'>
                 <div className='dealWrapper__deal__header'>
                     <div className='dealWrapper__deal__header__top'>
-                        <h3>Kvinna, 28, LINKÖPING</h3>
+                        <h3>{state.deal.deal.name}</h3>
                     </div>
                     <div className='dealWrapper__deal__header__bottom'>
                         <div className='dealWrapper__deal__header__bottom__left'>
