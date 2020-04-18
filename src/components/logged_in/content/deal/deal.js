@@ -5,7 +5,7 @@ import {getActivityByTarget} from 'store/activity/tasks';
 import {getDeal} from 'store/deal/tasks';
 import ActivityStream from 'components/logged_in/content/shared/activity_stream';
 import Loading from 'components/shared/loading';
-import {dealHelper, tc} from 'helpers';
+import {dealHelper, iconHelper, tc} from 'helpers';
 import moment from 'moment';
 
 /**
@@ -13,6 +13,10 @@ import moment from 'moment';
  */
 const Deal = (state) => {
     const {id} = useParams();
+
+    const _editDeal = () => {
+
+    };
 
     const _stateCheck = () => {
         return (state && state.deal && state.deal.deal && Object.keys(state.deal.deal).length);
@@ -55,7 +59,7 @@ const Deal = (state) => {
                         </div>
                         <div className='dealWrapper__deal__header__bottom__right'>
                             <div className='dealWrapper__deal__header__bottom__right__item'>
-                                <i className='fas fa-pencil-alt' />
+                                {iconHelper.getIconCircleWithOnClick('edit', _editDeal)}
                             </div>
                         </div>
                     </div>
@@ -63,7 +67,7 @@ const Deal = (state) => {
                 <div className='dealWrapper__deal__content'>
                     <div className='dealWrapper__deal__content__item'>
                         <div className='dealWrapper__deal__content__item__left'>
-                            <i className='far fa-calendar-alt' />
+                            {iconHelper.getIconCircle('events')}
                         </div>
                         <div className='dealWrapper__deal__content__item__right'>
                             <div className='dealWrapper__deal__content__item__right__title'>
@@ -75,7 +79,7 @@ const Deal = (state) => {
                     </div>
                     <div className='dealWrapper__deal__content__item'>
                         <div className='dealWrapper__deal__content__item__left'>
-                            <i className='fas fa-history' />
+                            {iconHelper.getIconCircle('activities')}
                         </div>
                         <div className='dealWrapper__deal__content__item__right'>
                             <div className='dealWrapper__deal__content__item__right__title'>

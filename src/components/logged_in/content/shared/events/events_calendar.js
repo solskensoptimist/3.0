@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {tc} from 'helpers';
+import {iconHelper, tc} from 'helpers';
 import {connect} from "react-redux";
 import DayMonth from './day_month';
 import DayWeek from './day_week';
@@ -76,10 +76,10 @@ const EventsCalendar = (state) => {
                         <h3>{tc.calendarMonths[state.events.monthInScope]} {state.events.yearInScope}</h3>
                     </div>
                     <div className='eventsCalendarWrapper__eventsCalendar__header__right'>
-                        <i className='fas fa-caret-left' onClick={_stepBack} />
-                        <i className='fas fa-caret-right' onClick={_stepForward} />
-                       <i className={showWeek ? 'far fa-calendar-alt' : 'far fa-calendar-alt active'} onClick={() => {setShowWeek(false)}} />
-                       <i className={showWeek ? 'far fa-calendar active' : 'far fa-calendar'} onClick={() => {setShowWeek(true)}}  />
+                        <div className='eventsCalendarWrapper__eventsCalendar__header__right__icon' onClick={_stepBack}>{iconHelper.getIcon('navigateBefore')}</div>
+                        <div className='eventsCalendarWrapper__eventsCalendar__header__right__icon' onClick={_stepForward}>{iconHelper.getIcon('navigateNext')}</div>
+                       <div className={showWeek ? 'eventsCalendarWrapper__eventsCalendar__header__right__icon' : 'eventsCalendarWrapper__eventsCalendar__header__right__icon active'} onClick={() => {setShowWeek(false)}}>{iconHelper.getIcon('events')}</div>
+                        <div className={showWeek ? 'eventsCalendarWrapper__eventsCalendar__header__right__icon active' : 'eventsCalendarWrapper__eventsCalendar__header__right__icon'} onClick={() => {setShowWeek(true)}}>{iconHelper.getIcon('events_week')}</div>
                     </div>
                 </div>
                 <div className='eventsCalendarWrapper__eventsCalendar__content'>

@@ -1,10 +1,9 @@
 import React  from 'react';
 import {NavLink} from "react-router-dom";
-import {tc} from 'helpers';
+import {iconHelper, tc} from 'helpers';
 import {setShowSearch} from 'store/search/tasks';
 import SearchComponent from './search/';
 import {connect} from 'react-redux';
-import {BarChart, Home, List, Sliders, Trello, TrendingUp} from 'react-feather';
 
 /**
  * Navigation_logged_in component.
@@ -19,38 +18,33 @@ const Navigation = (state) =>  {
             <div className='navigationWrapper__navigation'>
                 <div className='navigationWrapper__navigation__left'>
                     <NavLink exact to={'/'} key='hem'>
-                        {/*<i className='fas fa-home' />*/}
-                        <Home />
+                        {iconHelper.getIcon('home')}
                         {tc.home}
                     </NavLink>
                     <NavLink exact to={'/aktivitet'} key='aktivitet'>
-                        <TrendingUp />
+                        {iconHelper.getIcon('activity')}
                         {tc.activity}
                     </NavLink>
                     <NavLink exact to={'/analysera'} key='analysera'>
-                        {/*<i className='fas fa-chart-bar' />*/}
-                        <BarChart />
+                        {iconHelper.getIcon('analyze')}
                         {tc.analyse}
                     </NavLink>
                     <NavLink exact to={'/bearbeta'} key='bearbeta'>
-                        {/*<i className='fas fa-columns' />*/}
-                        <Trello />
+                        {iconHelper.getIcon('agile')}
                         {tc.agile}
                     </NavLink>
                     <NavLink exact to={'/listor'} key='listor'>
-                        {/*<i className='fas fa-list' />*/}
-                        <List />
+                        {iconHelper.getIcon('lists')}
                         {tc.lists}
                     </NavLink>
                     <NavLink exact to={'/prospektera'} key='prospektera'>
-                        {/*<i className='fas fa-sliders-h' />*/}
-                        <Sliders />
+                        {iconHelper.getIcon('prospect')}
                         {tc.prospect}
                     </NavLink>
                 </div>
                 <div className='navigationWrapper__navigation__right'>
                     {state.search.showSearch && <SearchComponent />}
-                    <i className="fas fa-search" onClick={_openShowSearch} />
+                    {iconHelper.getIconCircleWithOnClick('search', _openShowSearch)}
                 </div>
             </div>
         </div>

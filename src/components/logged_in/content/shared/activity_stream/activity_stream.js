@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Loading from 'components/shared/loading';
-import {activityHelper, tc} from 'helpers';
+// import {activityHelper, tc} from 'helpers';
 
 const ActivityStream = (state) => {
 

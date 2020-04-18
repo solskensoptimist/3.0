@@ -3,7 +3,7 @@ import activityHelper from 'shared_helpers/activity_helper';
 import {NavLink} from 'react-router-dom';
 
 /**
- * Render one day, called from events_calendar when in week mode.
+ * Render one day, called from events when in week mode.
  *
  * props.date - {date, weekday, week}
  * props.events - array - [{ _id, action, dealId, name, (...) }, {(...)}]

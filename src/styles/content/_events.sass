@@ -10,14 +10,16 @@
       &__right
         display: flex
         align-items: flex-end
-        i
+        &__icon
+          margin-left: $paddingMedium
           color: $colorTextLight
           cursor: pointer
-          font-size: 18px
-          margin-left: $paddingMedium
+          svg
+            width: 18px
+            height: 18px
           &:hover
             color: $colorTextDark
-        i.active
+        .active
           color: $colorTextDark
     &__content
       &__month

@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 import {tc} from 'helpers';
 
 /**
- * Render one day, called from events_calendar when in month mode.
+ * Render one day, called from events when in month mode.
  *
  * props.date - {date, weekday, week}
  * props.events - array - [{ _id, action, dealId, name, (...) }, {(...)}]
