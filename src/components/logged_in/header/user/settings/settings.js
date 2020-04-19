@@ -4,9 +4,8 @@ import {connect} from 'react-redux';
 import {getSettings, savePassword, saveSettings, setShowSettings} from 'store/settings/tasks';
 import {userLogout} from 'store/user/tasks';
 import Loading from 'components/shared/loading';
-import ToggleOffIcon from '@material-ui/icons/ToggleOff';
-import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 import {tc} from 'helpers';
+import Icon from 'components/shared/icon';
 
 const Settings = (state) =>  {
     const [passwordHint, setPasswordHint] = useState('');
@@ -92,9 +91,7 @@ const Settings = (state) =>  {
                                 <h5>{tc.emailNotifications}</h5>
                             </div>
                             <div className='settingsWrapper__settings__content__item__small__content'>
-                                <div onClick={_toggleEmail}>
-                                    {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
-                                </div>
+                                {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail}/> : <Icon val='toggleOff' onClick={_toggleEmail}/>}
                             </div>
                         </div>
                         <div className='settingsWrapper__settings__content__item__small'>
@@ -102,9 +99,7 @@ const Settings = (state) =>  {
                                 <h5>{tc.emailNotifications}</h5>
                             </div>
                             <div className='settingsWrapper__settings__content__item__small__content'>
-                                <div onClick={_toggleEmail}>
-                                    {state.settings.email ? <ToggleOnIcon /> : <ToggleOffIcon />}
-                                </div>
+                                {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail} /> : <Icon val='toggleOff' onClick={_toggleEmail}/>}
                             </div>
                         </div>
                     </div>
@@ -124,8 +119,8 @@ const Settings = (state) =>  {
                     <div className='settingsWrapper__settings__content__item'>
                         <div className='settingsWrapper__settings__content__item__full'>
                             <div className='settingsWrapper__settings__content__item__full__content'>
-                                <div className='settingsWrapper__settings__content__item__button logout' onClick={userLogout}>
-                                    {tc.logout}<i className="fas fa-sign-out-alt" />
+                                <div className='settingsWrapper__settings__content__item__button__logout' onClick={userLogout}>
+                                    {tc.logout}
                                 </div>
                             </div>
                         </div>

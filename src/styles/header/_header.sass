@@ -30,9 +30,19 @@
             justify-content: flex-end
             &__icon
               flex-grow: 0
-              i.user
-                font-size: 10px
-                cursor: default
+              cursor: default
+              display: flex
+              align-items: center
+              svg
+                width: 18px
+                height: 18px
+              &__link
+                cursor: pointer
+                display: flex
+                align-items: center
+                svg
+                  width: 18px
+                  height: 18px
             &__name
               flex-grow: 1
               margin: 0 ($paddingMedium * 2) 0 $paddingMedium
@@ -48,5 +58,6 @@
               flex-grow: 0
               display: flex
               align-items: center
+
 
 

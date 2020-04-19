@@ -32,15 +32,19 @@
         margin-bottom: $paddingMedium
         &:last-of-type
           margin-bottom: 0
+        svg
+          width: 30px !important
+          height: 30px !important
+          color: $grey-800 !important
+          opacity: 0.8 !important
+          display: flex !important
+          align-items: center !important
+          cursor: pointer !important
+          &:hover
+            opacity: 1 !important
         h5
           color: $grey-600
           margin: 0 $paddingMedium 0 0
-        .logout
-          background: $backgroundSecondaryColors
-          display: flex
-          align-items: center
-          i
-            margin-left: $paddingSmall
         &__hint
           font-size: 12px
           color: $colorTextDark
@@ -50,6 +54,7 @@
           color: white
           padding: $paddingMedium
           display: flex
+          align-items: center
           border-radius: 2px
           justify-content: center
           cursor: pointer
@@ -57,6 +62,9 @@
           width: 100%
           &:hover
             opacity: 1
+          &__logout
+            @extend .settingsWrapper__settings__content__item__button
+            background: $backgroundSecondaryColors
         input
           background: white
           border: 1px solid $colorTextLight-1
@@ -73,15 +81,6 @@
           &::-ms-input-placeholder
             color: $colorTextLight-1
             font-size: 12px
-          &:hover
-            opacity: 1
-        .MuiSvgIcon-root
-          font-size: 30px
-          color: $grey-800
-          opacity: 0.8
-          cursor: pointer
-          &:hover
-            opacity: 1
         &__full
           background: $grey-200
           padding: $paddingRegular
@@ -107,5 +106,6 @@
             align-self: center
           &__content
             align-self: center
+
 
 

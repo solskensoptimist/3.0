@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ReactDOM from "react-dom";
-import activityHelper from 'shared_helpers/activity_helper';
+// import activityHelper from 'shared_helpers/activity_helper';
 import {NavLink} from 'react-router-dom';
-import {tc} from 'helpers';
+import {activityHelper, tc} from 'helpers';
+import Icon from 'components/shared/icon';
 
 /**
  * Render one day, called from events when in month mode.
@@ -23,7 +24,8 @@ export default (props) => {
     };
 
     const events = (props.events && props.events.length) ? props.events.map((num) => {
-        const icon = activityHelper.getIconsByActivity(num.action);
+        // const icon = activityHelper.getIconsByActivity(num.action);
+        const icon = <Icon val={num.action} />;
         const event = activityHelper.getReadableActivity(num.action);
 
         let fillerText = 'med';
@@ -38,7 +40,8 @@ export default (props) => {
             <div key={num._id} className='dayWrapper__eventsWrapper__events__event'>
                 <NavLink to={'/affar/' + num.dealId} key='affar'>
                     <div className='dayWrapper__eventsWrapper__events__event__icon'>
-                        <i className={'fa ' + icon} />
+                        {/*<i className={'fa ' + icon} />*/}
+                        {icon}
                     </div>
                     <div key={num._id} className='dayWrapper__eventsWrapper__events__event__info'>
                         <p><span className='highlight'>{event}</span> {fillerText} {num.name}</p>

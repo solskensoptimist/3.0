@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {iconHelper, tc} from 'helpers';
+import {tc} from 'helpers';
+import Icon from 'components/shared/icon';
 
 /**
  * Navigation component.
@@ -11,19 +12,19 @@ export default () => {
             <div className='navigationWrapper__navigation'>
                 <div className='navigationWrapper__navigation__left'>
                     <NavLink exact to={'/'} key='varTjanst'>
-                        {iconHelper.getIcon('ourService')}
+                        <Icon val='ourService'/>
                         {tc.ourService}
                     </NavLink>
                     <NavLink exact to={'/priser'} key='priser'>
-                        {iconHelper.getIcon('price')}
+                        <Icon val='price'/>
                         {tc.prices}
                     </NavLink>
                     <NavLink exact to={'/team'} key='team'>
-                        {iconHelper.getIcon('team')}
+                        <Icon val='team'/>
                         {tc.team}
                     </NavLink>
                     <NavLink exact to={'/inloggning'} key='inloggning'>
-                        {iconHelper.getIcon('login')}
+                        <Icon val='login'/>
                         {tc.login}
                     </NavLink>
                 </div>

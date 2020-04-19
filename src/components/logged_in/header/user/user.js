@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {setShowSettings} from 'store/settings/tasks';
 import Settings from './settings/settings';
+import Icon from 'components/shared/icon';
 
 const User = (state) => {
     const _openShowSettings = () => {
@@ -12,15 +13,15 @@ const User = (state) => {
         <div className='userWrapper'>
             <div className='userWrapper__user'>
                 <div className='userWrapper__user__icon'>
-                    <i className='fas fa-user user' />
+                    <Icon val='user'/>
                 </div>
                 <div className='userWrapper__user__name'>
                     <div className='userWrapper__user__name__name'>{state.user.info.name}</div>
                     <div className='userWrapper__user__name__delimiter'>|</div>
                     <div className='userWrapper__user__name__dealer'>{state.user.info.dealerName}</div>
                 </div>
-                <div className='userWrapper__user__settingsButton'>
-                    <i className='fas fa-cog settings' onClick={_openShowSettings} />
+                <div className='userWrapper__user__icon__link'>
+                    <Icon val='settings' onClick={_openShowSettings}/>
                     {state.settings.showSettings && <Settings />}
                 </div>
             </div>

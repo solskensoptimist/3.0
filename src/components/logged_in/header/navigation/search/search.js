@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {tc} from 'helpers';
 import {setShowSearch} from 'store/search/tasks';
 import {connect} from "react-redux";
+import Icon from 'components/shared/icon';
 
 const Search = (state) => {
     const [searchResults, setSearchResults] = useState([]); //Temp for testing, change this to search results from store...
@@ -27,7 +28,7 @@ const Search = (state) => {
         const result = [];
         for (const val of searchResults) {
             result.push(
-                <div className='searchWrapper__search__results__item' key={val}><i className='fas fa-building' />{val}</div>
+                <div className='searchWrapper__search__results__item' key={val}><Icon val='company' />{val}</div>
             );
         }
         return result;
