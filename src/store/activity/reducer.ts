@@ -1,19 +1,13 @@
 import {activityActionTypes} from './actions';
 
 interface EventsState {
-    activityByFilter: object | null,
-    activityByTarget: {
-        data: Array<object> | null,
-        id: string | null,
-    },
+    activityByFilter: Array<object> | null,
+    activityByTarget: Array<object> | null,
 }
 
 const initialState: EventsState = {
     activityByFilter: null,
-    activityByTarget: {
-        data: null,
-        id: null,
-    },
+    activityByTarget: null,
 };
 
 export const activityReducer = (state = initialState, action) => {

@@ -4,7 +4,7 @@ import {
     AttachMoney,
     Assignment,
     BarChart,
-    CompareArrows,
+    ChatBubble,
     ContactMail,
     DriveEta,
     Edit,
@@ -26,6 +26,7 @@ import {
     Search,
     Settings,
     SettingsOverscan,
+    SyncAlt,
     Timeline,
     TrendingUp,
     Today,
@@ -37,114 +38,110 @@ import {
 
 
 /**
- * Returns an icon: regular | with css class | with css class and onClick
- *
- * @param props.type
+ * Returns an icon: with or without onClick.
+
  * @param props.val
  */
 export default (props) => {
     const onClick = (typeof props.onClick === 'function') ? props.onClick : null;
-    let classname;
-    if (onClick && props.type === 'circle') {
-        classname = 'icon__circle__click';
-    } else if (!onClick && props.type === 'circle') {
-        classname = 'icon__circle';
-    }
 
     switch (props.val) {
         case 'activities':
-            return <History className={classname} onClick={onClick}/>;
+            return <History onClick={onClick}/>;
         case 'activity':
-            return <Timeline className={classname} onClick={onClick}/>;
+            return <Timeline onClick={onClick}/>;
         case 'agile':
-            return <Assignment className={classname} onClick={onClick}/>;
-            // return <CompareArrows className={classname} onClick={onClick}/>;
+            return <Assignment onClick={onClick}/>;
         case 'analysis':
-            return <TrendingUp className={classname} onClick={onClick}/>;
+            return <TrendingUp onClick={onClick}/>;
         case 'analyze':
-            return <BarChart className={classname} onClick={onClick}/>;
+            return <BarChart onClick={onClick}/>;
         case 'call':
-            return <PhoneAndroid className={classname} onClick={onClick}/>;
+            return <PhoneAndroid onClick={onClick}/>;
+        case 'comment':
+            return <ChatBubble onClick={onClick}/>;
         case 'company':
-            return <Apartment className={classname} onClick={onClick}/>;
+            return <Apartment onClick={onClick}/>;
         case 'did_call':
-            return <PhoneAndroid className={classname} onClick={onClick}/>;
+            return <PhoneAndroid onClick={onClick}/>;
         case 'did_email':
-            return <Mail className={classname} onClick={onClick}/>;
+            return <Mail onClick={onClick}/>;
         case 'did_lose_price':
-            return <AttachMoney className={classname} onClick={onClick}/>;
+            return <AttachMoney onClick={onClick}/>;
         case 'did_lose_product':
-            return <Extension className={classname} onClick={onClick}/>;
+            return <Extension onClick={onClick}/>;
         case 'did_lose_unknown':
-            return <Help className={classname} onClick={onClick}/>;
+            return <Help onClick={onClick}/>;
         case 'did_lose_window':
-            return <SettingsOverscan className={classname} onClick={onClick}/>;
+            return <SettingsOverscan onClick={onClick}/>;
         case 'did_mail':
-            return <Mail className={classname} onClick={onClick}/>;
+            return <Mail onClick={onClick}/>;
         case 'did_meeting':
-            return <FreeBreakfast className={classname} onClick={onClick}/>;
+            return <FreeBreakfast onClick={onClick}/>;
         case 'did_post':
-            return <ContactMail className={classname} onClick={onClick}/>;
+            return <ContactMail onClick={onClick}/>;
         case 'edit':
-            return <Edit className={classname} onClick={onClick}/>;
+            return <Edit onClick={onClick}/>;
         case 'events':
-            return <Today className={classname} onClick={onClick}/>;
+            return <Today onClick={onClick}/>;
         case 'eventsWeek':
-            return <Reorder className={classname} onClick={onClick}/>;
+            return <Reorder onClick={onClick}/>;
         case 'home':
-            return <Home className={classname} onClick={onClick}/>;
+            return <Home onClick={onClick}/>;
         case 'lists':
-            return <List className={classname} onClick={onClick}/>;
+            return <List onClick={onClick}/>;
         case 'login':
-            return <ExitToApp className={classname} onClick={onClick}/>;
+            return <ExitToApp onClick={onClick}/>;
         case 'logout':
-            return <ExitToApp className={classname} onClick={onClick}/>;
+            return <ExitToApp onClick={onClick}/>;
         case 'mail':
-            return <Mail className={classname} onClick={onClick}/>;
+            return <Mail onClick={onClick}/>;
         case 'meeting':
-            return <FreeBreakfast className={classname} onClick={onClick}/>;
+            return <FreeBreakfast onClick={onClick}/>;
+        case 'move':
+            return <SyncAlt onClick={onClick}/>;
         case 'navigateBefore':
-            return <NavigateBefore className={classname} onClick={onClick}/>;
+            return <NavigateBefore onClick={onClick}/>;
         case 'navigateNext':
-            return <NavigateNext className={classname} onClick={onClick}/>;
+            return <NavigateNext onClick={onClick}/>;
         case 'offer':
-            return <InsertDriveFile className={classname} onClick={onClick}/>;
+            return <InsertDriveFile onClick={onClick}/>;
         case 'other':
-            return <Help className={classname} onClick={onClick}/>;
+            return <Help onClick={onClick}/>;
         case 'ourService':
-            return <Work className={classname} onClick={onClick}/>;
+            return <Work onClick={onClick}/>;
         case 'owner':
-            return <Person className={classname} onClick={onClick}/>;
+            return <Person onClick={onClick}/>;
         case 'price':
-            return <AttachMoney className={classname} onClick={onClick}/>;
+            return <AttachMoney onClick={onClick}/>;
         case 'prospect':
-            return <Tune className={classname} onClick={onClick}/>;
+            return <Tune onClick={onClick}/>;
         case 'search':
-            return <Search className={classname} onClick={onClick}/>;
+            return <Search onClick={onClick}/>;
         case 'settings':
-            return <Settings className={classname} onClick={onClick}/>;
+            return <Settings onClick={onClick}/>;
         case 'team':
-            return <Group className={classname} onClick={onClick}/>;
+            return <Group onClick={onClick}/>;
         case 'testride':
-            return <DriveEta className={classname} onClick={onClick}/>;
+            return <DriveEta onClick={onClick}/>;
         case 'toggleOff':
-            return <ToggleOff className={classname} onClick={onClick}/>;
+            return <ToggleOff onClick={onClick}/>;
         case 'toggleOn':
-            return <ToggleOn className={classname} onClick={onClick}/>;
+            return <ToggleOn onClick={onClick}/>;
         case 'user':
-            return <Person className={classname} onClick={onClick}/>;
+            return <Person onClick={onClick}/>;
         case 'valuation':
-            return <AttachMoney className={classname} onClick={onClick}/>;
+            return <AttachMoney onClick={onClick}/>;
         case 'visit':
-            return <Group className={classname} onClick={onClick}/>;
+            return <Group onClick={onClick}/>;
         case 'will_call':
-            return <PhoneAndroid className={classname} onClick={onClick}/>;
+            return <PhoneAndroid onClick={onClick}/>;
         case 'will_mail':
-            return <Mail className={classname} onClick={onClick}/>;
+            return <Mail onClick={onClick}/>;
         case 'will_meeting':
-            return <FreeBreakfast className={classname} onClick={onClick}/>;
+            return <FreeBreakfast onClick={onClick}/>;
         case 'will_post':
-            return <ContactMail className={classname} onClick={onClick}/>;
+            return <ContactMail onClick={onClick}/>;
         default:
             return props.val;
     }

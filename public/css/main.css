@@ -17,6 +17,26 @@ body {
 a {
   color: #212121; }
 
+.iconStyleCircle, .iconStyleCircleClick, .dealWrapper__deal__header__bottom__right__item svg, .navigationWrapper__navigation__right svg, .dealWrapper__deal__content__item__header__left svg {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px !important;
+  color: #9e9e9e !important;
+  background: #eeeeee !important;
+  border-radius: 50% !important;
+  cursor: default !important;
+  opacity: 0.8 !important;
+  width: 38px !important;
+  height: 38px !important; }
+
+.iconStyleCircleClick, .dealWrapper__deal__header__bottom__right__item svg, .navigationWrapper__navigation__right svg {
+  color: white !important;
+  background: #bdbdbd !important;
+  cursor: pointer !important; }
+  .iconStyleCircleClick:hover, .dealWrapper__deal__header__bottom__right__item svg:hover, .navigationWrapper__navigation__right svg:hover {
+    background: #424242 !important; }
+
 .paperSheet, .dealWrapper__deal__content__item, .newsWrapper__news__item {
   background: white;
   padding: 22px;
@@ -89,12 +109,12 @@ h5 {
   line-height: 18px;
   text-transform: uppercase; }
 
-.headlineMain, .eventsCalendarWrapper__eventsCalendar__header, .dealWrapper__deal__content__item__right__title, .settingsWrapper__settings__header {
+.headlineMain, .eventsCalendarWrapper__eventsCalendar__header, .dealWrapper__deal__content__item__header__right, .settingsWrapper__settings__header {
   color: #212121;
   margin-bottom: 22px; }
-  .headlineMain h2, .eventsCalendarWrapper__eventsCalendar__header h2, .dealWrapper__deal__content__item__right__title h2, .settingsWrapper__settings__header h2 {
+  .headlineMain h2, .eventsCalendarWrapper__eventsCalendar__header h2, .dealWrapper__deal__content__item__header__right h2, .settingsWrapper__settings__header h2 {
     font-weight: 600; }
-  .headlineMain h3, .eventsCalendarWrapper__eventsCalendar__header h3, .dealWrapper__deal__content__item__right__title h3, .settingsWrapper__settings__header h3 {
+  .headlineMain h3, .eventsCalendarWrapper__eventsCalendar__header h3, .dealWrapper__deal__content__item__header__right h3, .settingsWrapper__settings__header h3 {
     font-size: 14px;
     font-weight: normal;
     color: #9e9e9e;
@@ -220,6 +240,31 @@ h5 {
 
 .activityWrapper {
   width: 100%; }
+
+.activitiesWrapper {
+  width: 100%; }
+  .activitiesWrapper__activities {
+    color: #616161;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; }
+    .activitiesWrapper__activities__item {
+      background: #f5f5f5;
+      padding: 12px;
+      margin-bottom: 12px; }
+      .activitiesWrapper__activities__item:last-of-type {
+        margin-bottom: 0; }
+      .activitiesWrapper__activities__item svg {
+        width: 16px;
+        height: 16px;
+        color: #D626B5; }
+      .activitiesWrapper__activities__item__action {
+        text-transform: lowercase; }
+        .activitiesWrapper__activities__item__action:first-letter {
+          text-transform: capitalize; }
+        .activitiesWrapper__activities__item__action strong {
+          font-weight: 600;
+          text-transform: capitalize; }
 
 .eventsCalendarWrapper {
   flex-grow: 1;
@@ -431,32 +476,18 @@ h5 {
         align-items: center; }
   .dealWrapper__deal__content__item {
     color: #616161;
-    margin-bottom: 22px;
-    display: flex; }
+    margin-bottom: 22px; }
     .dealWrapper__deal__content__item:last-of-type {
       margin-bottom: 0; }
-    .dealWrapper__deal__content__item__left {
-      width: auto;
-      margin-right: 22px; }
-
-.icon__circle, .icon__circle__click {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 8px !important;
-  color: #9e9e9e !important;
-  background: #eeeeee !important;
-  border-radius: 50% !important;
-  cursor: default !important;
-  opacity: 0.8 !important;
-  width: 38px !important;
-  height: 38px !important; }
-  .icon__circle__click {
-    color: white !important;
-    background: #bdbdbd !important;
-    cursor: pointer !important; }
-    .icon__circle__click:hover {
-      background: #424242 !important; }
+    .dealWrapper__deal__content__item__header {
+      display: flex; }
+      .dealWrapper__deal__content__item__header__left {
+        width: auto;
+        margin-right: 22px; }
+      .dealWrapper__deal__content__item__header__right {
+        width: 100%; }
+    .dealWrapper__deal__content__item__content {
+      display: flex; }
 
 .homeWrapper {
   display: flex;

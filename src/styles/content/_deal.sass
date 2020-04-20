@@ -33,17 +33,24 @@
             flex-direction: column
             justify-content: center
             align-items: center
+            svg
+              @extend .iconStyleCircleClick
     &__content
       &__item
         @extend .paperSheet
         color: $colorTextMain
         margin-bottom: $paddingRegular
-        display: flex
         &:last-of-type
           margin-bottom: 0
-        &__left
-          width: auto
-          margin-right: $paddingRegular
-        &__right
-          &__title
+        &__header
+          display: flex
+          &__left
+            width: auto
+            margin-right: $paddingRegular
+            svg
+              @extend .iconStyleCircle
+          &__right
+            width: 100%
             @extend .headlineMain
+        &__content
+          display: flex

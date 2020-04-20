@@ -21,7 +21,9 @@ export const getActivityByFilter = async () => {
             url: '/activity/dealer/',
         });
 
-        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: {activityByFilter: data}});
+        const result = (data && data.length) ? data : [];
+
+        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: {activityByFilter: result}});
     } catch (err) {
         return console.error('Error in getActivityByFilter:\n' + err);
     }
@@ -49,10 +51,7 @@ export const getActivityByTarget = async (payload) => {
             url: url,
         });
 
-        const result = {
-            data: data,
-            id: payload.id,
-        };
+        const result = (data && data.length) ? data : [];
 
         return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: {activityByTarget: result}});
     } catch (err) {

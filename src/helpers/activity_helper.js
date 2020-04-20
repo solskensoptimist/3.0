@@ -9,10 +9,12 @@ export const activityHelper = {
                 return tc.lost;
             case 'call':
                 return tc.call;
-            case 'meeting':
-                return tc.meeting;
             case 'mail':
                 return tc.mail;
+            case 'meeting':
+                return tc.meeting;
+            case 'move':
+                return tc.moved;
             case 'testride':
                 return tc.testride;
             case 'valuation':

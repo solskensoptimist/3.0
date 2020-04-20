@@ -1,0 +1,25 @@
+.activitiesWrapper
+  width: 100%
+  &__activities
+    color: $colorTextMain
+    display: flex
+    flex-direction: column
+    flex-grow: 1
+    &__item
+      background: $grey-100
+      padding: $paddingMedium
+      margin-bottom: $paddingMedium
+      &:last-of-type
+        margin-bottom: 0
+      svg
+        width: 16px
+        height: 16px
+        color: $colorSecondary-400
+      &__action
+        text-transform: lowercase
+        &:first-letter
+          text-transform: capitalize
+        strong
+          font-weight: 600
+          text-transform: capitalize
+      &__date

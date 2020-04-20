@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {tc} from 'helpers';
 import {getActivityByFilter} from 'store/activity/tasks';
-import ActivityStream from 'components/logged_in/content/shared/activity_stream';
+import Activities from 'components/logged_in/content/shared/activities';
 
 export default () => {
     useEffect(() => {
@@ -13,7 +13,7 @@ export default () => {
             <div className='activityWrapper__activity'>
                 {tc.activity}
             </div>
-            <ActivityStream type='filter' />
+            <Activities type='filter' />
         </div>
     );
 }
