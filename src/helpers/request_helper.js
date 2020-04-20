@@ -1,5 +1,4 @@
 import axios from 'axios';
-import _ from 'underscore';
 
 /**
  * Helper to make requests.
@@ -7,9 +6,8 @@ import _ from 'underscore';
  * @param payload.url
  * @param payload.method
  */
-export const request = (payload) => {
-    return new Promise((resolve, reject) => {
-        // Note that url have to start with "/" for proxy to work.
+export const request = async (payload) => {
+    try {
         let params = {
             url: payload.url,
             method: payload.method,
@@ -21,17 +19,19 @@ export const request = (payload) => {
         };
 
         if (payload.method === 'get') {
-            _.extend(params, {params: payload.data});
+            Object.assign(params, {params: payload.data});
         } else {
-            _.extend(params, {data: payload.data});
+            Object.assign(params, {data: payload.data});
         }
 
-        axios(params)
-        .then((res) => {
-            resolve(res.data);
-        })
-        .catch((err) => {
-            reject(err);
-        })
-    });
+        const res = await axios(params);
+
+        if (res && res.data) {
+            return res.data;
+        } else {
+            return null;
+        }
+    } catch (err) {
+        return err;
+    }
 };

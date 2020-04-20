@@ -29,6 +29,9 @@
           margin: 0 4px 4px 0
           &:nth-child(7n)
             margin: 0 0 4px 0
+          svg
+            width: 16px
+            height: 16px
           &__eventsWrapper
             position: relative
             &__events
@@ -57,11 +60,10 @@
                 span.highlight
                   color: $colorTextDark-1
                   font-weight: 600
-                i
+                svg
                   color: $colorSecondary-300
-                  font-size: 14px
                 &__icon
-                  margin-right: $paddingMedium
+                  margin-right: $paddingSmall
                   display: flex
                   align-items: center
                 &__info
@@ -69,8 +71,7 @@
                   align-items: center
                   p
                     font-size: 12px
-                  i
-                    font-size: 10px
+                  svg
                     margin-left: $paddingMedium
                     color: $colorSecondary-300
 
@@ -103,6 +104,9 @@
         overflow-y: auto
         @extend .scrollbarHide
         .dayWrapper
+          svg
+            width: 16px
+            height: 16px
           .day
             display: flex
             justify-content: flex-start
@@ -172,11 +176,10 @@
                   span.highlight
                     color: $colorTextDark-1
                     font-weight: 600
-                  i
+                  svg
                     color: $colorSecondary-300
-                    font-size: 14px
                   &__icon
-                    margin-right: $paddingMedium
+                    margin-right: $paddingSmall
                     display: flex
                     align-items: center
                   &__info
@@ -184,8 +187,7 @@
                     align-items: center
                     p
                       font-size: 12px
-                    i
-                      font-size: 10px
+                    svg
                       margin-left: $paddingMedium
                       color: $colorSecondary-300
 

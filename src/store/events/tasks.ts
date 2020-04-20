@@ -12,16 +12,17 @@ import moment from 'moment';
  * @param payload.users (optional) - array - Users to retrieve events for, defaults to current logged in user.
  */
 export const getEvents = async (payload) => {
-    request({
-        data: {
-            excludePhases: ['trash'],
-            lists: (payload && payload.lists) ? payload.lists : null,
-            users: (payload && payload.users) ? payload.users : null,
-        },
-        method: 'get',
-        url: '/deals/events',
-    })
-    .then((data) => {
+    try {
+        const data = await request({
+            data: {
+                excludePhases: ['trash'],
+                lists: (payload && payload.lists) ? payload.lists : null,
+                users: (payload && payload.users) ? payload.users : null,
+            },
+            method: 'get',
+            url: '/deals/events',
+        });
+
         // All deals that have events.
         const deals = (data && data.length) ? data : [];
 
@@ -88,8 +89,7 @@ export const getEvents = async (payload) => {
         };
 
         return store.dispatch({ type: eventsActionTypes.SET_EVENTS, payload: result });
-    })
-    .catch((err) => {
-        return console.error('Error in getEvents:', err);
-    });
+    } catch (err) {
+        return console.error('Error in getEvents:\n' + err);
+    }
 };

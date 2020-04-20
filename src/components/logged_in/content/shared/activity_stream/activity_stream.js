@@ -10,6 +10,7 @@ const ActivityStream = (state) => {
         // Kom ihåg att denna komponent bara ska rendera innehåll, inga bakgrundsfärger/färger eller så.
         return (<div>
             Här kommer det visas en aktivitetsström, dvs allt som har skett på affären.
+            KOM IHÅG ATT MAN SKA KUNNA SKAPA/REDIGERA/TA BORT KOMMENTARER.
         </div>);
     };
 

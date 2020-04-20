@@ -6,26 +6,25 @@ import {activityActionTypes} from './actions';
  * Retrieve activity based on filter.
  */
 export const getActivityByFilter = async () => {
-    const filter = store.getState().filter;
-
-    request({
-        data: {
-            limit: 9999,
-            users: filter.users,
-            widgetFilters: {
-                date: filter.date,
-                lists: filter.lists,
+    try {
+        const filter = store.getState().filter;
+        const data = await request({
+            data: {
+                limit: 9999,
+                users: filter.users,
+                widgetFilters: {
+                    date: filter.date,
+                    lists: filter.lists,
+                },
             },
-        },
-        method: 'post',
-        url: '/activity/dealer/',
-    })
-    .then((data) => {
+            method: 'post',
+            url: '/activity/dealer/',
+        });
+
         return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: {activityByFilter: data}});
-    })
-    .catch((err) => {
-        return console.error('Error in getActivityByFilter:', err);
-    });
+    } catch (err) {
+        return console.error('Error in getActivityByFilter:\n' + err);
+    }
 };
 
 /**
@@ -35,28 +34,28 @@ export const getActivityByFilter = async () => {
  * @param payload.type - Set this to 'deal' when payload.id is a deal id.
  */
 export const getActivityByTarget = async (payload) => {
-    if (!payload || (payload && !payload.id)) {
-        return console.error('Missing params in getActivityByTarget');
-    }
+    try {
+        if (!payload || (payload && !payload.id)) {
+            return console.error('Missing params in getActivityByTarget');
+        }
 
-    // For deals we use a different endpoint.
-    const url = (payload.type && payload.type === 'deal') ?
-        '/activity/deal/' + payload.id :
-        '/comments/' + payload.id;
+        // For deals we use a different endpoint.
+        const url = (payload.type && payload.type === 'deal') ?
+            '/activity/deal/' + payload.id :
+            '/comments/' + payload.id;
 
-    request({
-        method: 'get',
-        url: url,
-    })
-    .then((data) => {
+        const data = await request({
+            method: 'get',
+            url: url,
+        });
+
         const result = {
             data: data,
             id: payload.id,
         };
 
         return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: {activityByTarget: result}});
-    })
-    .catch((err) => {
-        return console.error('Error in getActivityByTarget:', err);
-    });
+    } catch (err) {
+        return console.error('Error in getActivityByTarget:\n' + err);
+    }
 };

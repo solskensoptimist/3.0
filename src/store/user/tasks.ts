@@ -11,44 +11,44 @@ import {userActionTypes} from "store/user/actions";
  * @param credentials.password (string)
  */
 export const userLogin = async (credentials) => {
-    await request({
-        data: credentials,
-        method: 'post',
-        url: '/login',
-    })
-    .then(async (data) => {
-        if (!data || (data && !data.id)) {
+    try {
+        const user = await request({
+            data: credentials,
+            method: 'post',
+            url: '/login',
+        });
+
+        if (!user || (user && !user.id)) {
             return console.error('Missing user data.');
         }
 
         // Set logged in user in filter.
-        store.dispatch({type: filterActionTypes.SET_USERS, payload: {users: [data.id]}});
-
+        store.dispatch({type: filterActionTypes.SET_USERS, payload: {users: [user.id]}});
         // Fix: IMPLEMENT ASYNC REDUX ACTION, REMOVE SETTIMEOUT
-        store.dispatch({type: userActionTypes.USER_LOGIN, payload: {info: data}});
-        setTimeout(() => {
+        store.dispatch({type: userActionTypes.USER_LOGIN, payload: {info: user}});
+        return setTimeout(() => {
             window.location.href = '/';
-        }, 200)
-    })
-    .catch((err) => {
-        return console.error('Error in userLogin:', err);
-    });
+        }, 200);
+    } catch (err) {
+        return console.error('Error in userLogin:\n' + err);
+    }
 };
 
 /**
  * Send logout request.
  */
 export const userLogout = async () => {
-    store.dispatch({type: settingsActionTypes.SET_SHOW_SETTINGS, payload: {showSettings: false}});
-    await request({
-        method: 'get',
-        url: '/logout',
-    })
-    .then((data) => {
+    try {
+        store.dispatch({type: settingsActionTypes.SET_SHOW_SETTINGS, payload: {showSettings: false}});
+
+        await request({
+            method: 'get',
+            url: '/logout',
+        });
+
         window.location.href = '/';
         return store.dispatch({type: rootActionTypes.CLEAR_STATE});
-    })
-    .catch((err) => {
-        return console.error('Error in userLogout:', err);
-    });
+    } catch (err) {
+        return console.error('Error in userLogout:\n' + err);
+    }
 };

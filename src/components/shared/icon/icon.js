@@ -4,6 +4,8 @@ import {
     AttachMoney,
     Assignment,
     BarChart,
+    CompareArrows,
+    ContactMail,
     DriveEta,
     Edit,
     ExitToApp,
@@ -56,6 +58,7 @@ export default (props) => {
             return <Timeline className={classname} onClick={onClick}/>;
         case 'agile':
             return <Assignment className={classname} onClick={onClick}/>;
+            // return <CompareArrows className={classname} onClick={onClick}/>;
         case 'analysis':
             return <TrendingUp className={classname} onClick={onClick}/>;
         case 'analyze':
@@ -81,7 +84,7 @@ export default (props) => {
         case 'did_meeting':
             return <FreeBreakfast className={classname} onClick={onClick}/>;
         case 'did_post':
-            return <Edit className={classname} onClick={onClick}/>;
+            return <ContactMail className={classname} onClick={onClick}/>;
         case 'edit':
             return <Edit className={classname} onClick={onClick}/>;
         case 'events':
@@ -141,7 +144,7 @@ export default (props) => {
         case 'will_meeting':
             return <FreeBreakfast className={classname} onClick={onClick}/>;
         case 'will_post':
-            return <Edit className={classname} onClick={onClick}/>;
+            return <ContactMail className={classname} onClick={onClick}/>;
         default:
             return props.val;
     }

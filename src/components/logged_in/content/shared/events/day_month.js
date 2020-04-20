@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ReactDOM from "react-dom";
-// import activityHelper from 'shared_helpers/activity_helper';
 import {NavLink} from 'react-router-dom';
 import {activityHelper, tc} from 'helpers';
 import Icon from 'components/shared/icon';
@@ -24,15 +23,16 @@ export default (props) => {
     };
 
     const events = (props.events && props.events.length) ? props.events.map((num) => {
-        // const icon = activityHelper.getIconsByActivity(num.action);
         const icon = <Icon val={num.action} />;
         const event = activityHelper.getReadableActivity(num.action);
 
         let fillerText = 'med';
-        if (icon === 'fa-phone' || icon === 'fa-envelope' || icon === 'fa-pencil') {
+        if (num.action === 'call' || num.action === 'did_call' || num.action === 'will_call'||
+            num.action === 'mail' || num.action === 'email' || num.action === 'did_mail' || num.action === 'did_email' || num.action === 'will_email' || num.action === 'will_mail' ||
+            num.action === 'did_post' || num.action === 'will_post') {
             fillerText = 'till';
         }
-        if (icon === 'fa-users') {
+        if (num.action === 'visit') {
             fillerText = 'hos';
         }
 
@@ -40,12 +40,11 @@ export default (props) => {
             <div key={num._id} className='dayWrapper__eventsWrapper__events__event'>
                 <NavLink to={'/affar/' + num.dealId} key='affar'>
                     <div className='dayWrapper__eventsWrapper__events__event__icon'>
-                        {/*<i className={'fa ' + icon} />*/}
                         {icon}
                     </div>
                     <div key={num._id} className='dayWrapper__eventsWrapper__events__event__info'>
                         <p><span className='highlight'>{event}</span> {fillerText} {num.name}</p>
-                        <i className='fas fa-chevron-right' />
+                        <Icon val='navigateNext'/>
                     </div>
                 </NavLink>
             </div>)
