@@ -7,7 +7,6 @@ import Icon from 'components/shared/icon';
 
 
 const Activities = (state) => {
-
     const _renderActivity = () => {
         let data = (state.props.type === 'filter') ? state.activity.activityByFilter : state.activity.activityByTarget;
 
@@ -22,46 +21,49 @@ const Activities = (state) => {
         }
 
 
-        return data.map((num) => {
+        return data.map((num, i) => {
             // Action
-            let action = (num.action) ? <div className='activitiesWrapper__activities__item__action'>{activityHelper.getReadableActivity(num.action)}</div> : null;
+            let action = (num.action) ? activityHelper.getReadableActivity(num.action): null;
             if (num.action === 'move') {
-                action =
-                    <div className='activitiesWrapper__activities__item__action'>
-                        {activityHelper.getReadableActivity(num.action)} {tc.theDeal} {tc.from} <strong>{dealHelper.getReadablePhase(num.phase)}</strong> {tc.to} <strong>{dealHelper.getReadablePhase(num.target)}</strong>
-                    </div>;
+                action = <div>{activityHelper.getReadableActivity(num.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(num.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(num.target)}</strong></div>
+            } else if (!num.action && num.comment && num.comment !== '') {
+                action = activityHelper.getReadableActivity('comment');
             }
 
             // Comment
-            const comment = (num.comment && num.comment !== '') ? <div className='activitiesWrapper__activities__item__comment'>{num.comment}</div> : null;
+            const comment = (num.comment && num.comment !== '') ? num.comment : null;
 
             // Date
-            const date = (num.date_created) ? <div className='activitiesWrapper__activities__item__date'>{moment(num.date_created).format('HH:mm LL')}</div> : null;
+            const date = (num.date_created) ? moment(num.date_created).format('LL HH:mm') : null;
 
             // Icon
             let icon;
             if (num.action) {
-                icon =
-                    <div className='activitiesWrapper__activities__item__icon'>
-                        <Icon val={num.action}/>
-                    </div>
+                icon = <Icon val={num.action}/>;
             } else if (!num.action && num.comment) {
-                icon =
-                    <div className='activitiesWrapper__activities__item__icon'>
-                    <Icon val='comment'/>
-                </div>
+                icon = <Icon val='comment'/>;
             }
 
             // User
-
+            const user = (num.user && num.user !== '') ? num.user : tc.unknown;
 
             return (
-                <div className='activitiesWrapper__activities__item'>
-                    {comment}
-                    {date}
-                    {action}
-                    {icon}
-                </div>);
+                <div className='activitiesWrapper__activities__itemWrapper' key={i}>
+                    <div className='activitiesWrapper__activities__itemWrapper__item'>
+                        <div className='activitiesWrapper__activities__itemWrapper__item__icon'><span className='iconHolder'>{icon}</span></div>
+                        <div className='activitiesWrapper__activities__itemWrapper__item__date'><span className='label'>{tc.time}:</span>{date}</div>
+                        <div className='activitiesWrapper__activities__itemWrapper__item__action'><span className='label'>{tc.action}:</span>{action}</div>
+                        <div className='activitiesWrapper__activities__itemWrapper__item__comment'><span className='label'>{tc.comment}:</span>{comment}
+                        asdnö adna södlna sdklsa dlökanslaknsdlask ndsöalkns la
+                        asdnö adna södlna sdklsa dlökanslaknsdlask ndsöalkns la
+                        asdnö adna södlna sdklsa dlökanslaknsdlask ndsöalkns la
+                        asdnö adna södlna sdklsa dlökanslaknsdlask ndsöalkns la
+                        </div>
+                        <div className='activitiesWrapper__activities__itemWrapper__item__user'><span className='label'>{tc.user}:</span>{user}</div>
+                        <div className='activitiesWrapper__activities__itemWrapper__item__edit'><span className='iconHolder'><Icon val='edit'/><Icon val='remove'/></span></div>
+                    </div>
+                </div>
+            );
         });
 
         // return state./

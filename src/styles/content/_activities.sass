@@ -5,21 +5,72 @@
     display: flex
     flex-direction: column
     flex-grow: 1
-    &__item
-      background: $grey-100
-      padding: $paddingMedium
-      margin-bottom: $paddingMedium
+    &__itemWrapper
+      display: flex
+      flex-direction: column
+      padding-bottom: $paddingRegular
+      margin: 0 $paddingRegular $paddingRegular $paddingRegular
+      border-bottom: 2px solid $grey-100
+      &:first-of-type
+        margin-top: $paddingRegular
       &:last-of-type
-        margin-bottom: 0
-      svg
-        width: 16px
-        height: 16px
-        color: $colorSecondary-400
-      &__action
-        text-transform: lowercase
-        &:first-letter
-          text-transform: capitalize
+        border: 0
+        padding-bottom: 0
+      &__item
+        display: flex
+        justify-content: space-between
         strong
           font-weight: 600
-          text-transform: capitalize
-      &__date
+        span.label
+          text-transform: uppercase
+          font-size: 11px
+          color: $colorTextLight
+          margin-right: $paddingSmall
+        span.iconHolder
+          height: 20px
+          display: flex
+          align-items: center
+          svg
+            width: 14px
+            height: 14px
+        &__icon
+          flex-basis: 2%
+          display: flex
+          svg
+            color: $colorTextLight-1
+          //span.iconHolder
+          //  height: 20px
+          //  display: flex
+          //  align-items: center
+          //  svg
+          //    width: 14px
+          //    height: 14px
+        &__date
+          margin-left: $paddingRegular
+          flex-basis: 16%
+          display: flex
+        &__action
+          margin-left: $paddingRegular
+          flex-basis: 30%
+          display: flex
+        &__comment
+          margin-left: $paddingRegular
+          flex-basis: 30%
+          display: flex
+        &__user
+          margin-left: $paddingRegular
+          flex-basis: 19%
+          display: flex
+        &__edit
+          margin-left: $paddingRegular
+          flex-basis: 3%
+          display: flex
+          svg
+            cursor: pointer
+            color: $colorSecondary-300
+            margin-left: $paddingSmall
+            opacity: 0.8
+            &:first-child
+              margin-left: 0
+            &:hover
+              opacity: 1

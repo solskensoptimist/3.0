@@ -9,6 +9,8 @@ export const activityHelper = {
                 return tc.lost;
             case 'call':
                 return tc.call;
+            case 'comment':
+                return tc.comment;
             case 'mail':
                 return tc.mail;
             case 'meeting':

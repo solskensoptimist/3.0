@@ -6,6 +6,7 @@ import {
     BarChart,
     ChatBubble,
     ContactMail,
+    Delete,
     DriveEta,
     Edit,
     ExitToApp,
@@ -26,7 +27,7 @@ import {
     Search,
     Settings,
     SettingsOverscan,
-    SyncAlt,
+    SwapHoriz,
     Timeline,
     TrendingUp,
     Today,
@@ -99,7 +100,7 @@ export default (props) => {
         case 'meeting':
             return <FreeBreakfast onClick={onClick}/>;
         case 'move':
-            return <SyncAlt onClick={onClick}/>;
+            return <SwapHoriz onClick={onClick}/>;
         case 'navigateBefore':
             return <NavigateBefore onClick={onClick}/>;
         case 'navigateNext':
@@ -116,6 +117,8 @@ export default (props) => {
             return <AttachMoney onClick={onClick}/>;
         case 'prospect':
             return <Tune onClick={onClick}/>;
+        case 'remove':
+            return <Delete onClick={onClick}/>;
         case 'search':
             return <Search onClick={onClick}/>;
         case 'settings':
