@@ -1,193 +1,185 @@
 .eventsCalendarWrapper
-  flex-grow: 1
-  min-width: $widthCalendar
-  max-width: $widthCalendar
+  @extend .paperSheet
   &__eventsCalendar
-    &__header
-      @extend .headlineMain
-      display: flex
-      justify-content: space-between
-      &__right
-        display: flex
-        align-items: flex-end
-        &__icon
-          margin-left: $paddingMedium
-          color: $colorTextLight
-          cursor: pointer
-          svg
-            width: 18px
-            height: 18px
-          &:hover
-            color: $colorTextDark
-        .active
-          color: $colorTextDark
     &__content
-      &__month
-        display: flex
-        flex-wrap: wrap
-        .dayWrapper
-          margin: 0 4px 4px 0
-          &:nth-child(7n)
-            margin: 0 0 4px 0
-          svg
-            width: 16px
-            height: 16px
-          &__eventsWrapper
-            position: relative
-            &__events
-              z-index: 5
-              position: absolute
-              top: 0
-              left: -250%
-              background: white
-              border: 1px solid $grey-200
-              @extend .shadowRegular
-              padding: $paddingRegular
-              white-space: nowrap
-              &__event
-                opacity: 0.8
-                margin: $paddingSmall 0
+      display: flex
+      flex-wrap: wrap
+      margin-top: $paddingBig
+      .dayWrapper
+        flex-basis: 13.42%
+        margin-right: 1%
+        margin-bottom: 1%
+        &:nth-child(7n)
+          margin-right: 0
+        svg
+          width: 16px
+          height: 16px
+        &__eventsWrapper
+          position: relative
+          &__events
+            z-index: 5
+            position: absolute
+            top: 0
+            left: -250%
+            background: white
+            border: 1px solid $grey-200
+            @extend .shadowRegular
+            padding: $paddingBig
+            white-space: nowrap
+            &__event
+              opacity: 0.7
+              margin: $paddingSmall 0
+              display: flex
+              &:hover
+                opacity: 1
+              a, p
+                color: $colorTextMain
+              a
+                cursor: pointer
                 display: flex
-                &:hover
-                  opacity: 1
-                a, p
-                  color: $colorTextMain
-                a
-                  cursor: pointer
-                  display: flex
-                  align-items: center
-                  text-decoration: none
-                span.highlight
-                  color: $colorTextDark-1
-                  font-weight: 600
-                svg
-                  color: $colorSecondary-300
-                &__icon
-                  margin-right: $paddingSmall
-                  display: flex
-                  align-items: center
-                &__info
-                  display: flex
-                  align-items: center
-                  p
-                    font-size: 12px
-                  svg
-                    margin-left: $paddingMedium
-                    color: $colorSecondary-300
-
-          .day
-            display: flex
-            align-items: center
-            background: white
-            padding: ($paddingRegular / 1.5) $paddingRegular
-            border: 1px solid $grey-300
-            &__date
-              font-size: 20px
-              font-weight: 600
-              flex-grow: 0
-              color: $colorTextMain
-              display: flex
-              align-items: center
-              justify-content: center
-          .passed
-            .day
-              &__date
-                opacity: 0.4
-        .hasEvent
-          .day
-            &__date
-              color: $colorSecondary-500
-              cursor: pointer
-      &__week
-        border-bottom: 1px solid $grey-300
-        max-height: $heightCalendarWeek
-        overflow-y: auto
-        @extend .scrollbarHide
-        .dayWrapper
-          svg
-            width: 16px
-            height: 16px
-          .day
-            display: flex
-            justify-content: flex-start
-            align-items: center
-            background: white
-            border-top: 1px solid $grey-300
-            border-right: 1px solid $grey-300
-            border-left: 1px solid $grey-300
-            padding: $paddingMedium $paddingRegular
-            &__date
-              font-size: 20px
-              flex-grow: 0
-              border-radius: 50%
-              background: $colorTextLight-1
-              color: white
-              height: 43px
-              width: 43px
-              margin-right: $paddingRegular
-              display: flex
-              align-items: center
-              justify-content: center
-            &__content
-              flex-grow: 1
-              display: flex
-              align-items: center
-              justify-content: space-between
-              color: $colorTextLight-1
-              &__dateInformation
-                &__weekday
-                  font-size: 15px
-                  font-weight: 600
-                  text-transform: uppercase
-                &__week
-                  font-size: 12px
-          .passed
-            .day
-              &__date
-                opacity: 0.4
-              &__content
-                opacity: 0.4
-        .hasEvent
-          .day
-            background: $backgroundLightGrey
-            &__date
-              background: $grey-800
-            &__content
-              &__dateInformation
+                align-items: center
+                text-decoration: none
+              span.highlight
                 color: $colorTextDark-1
-              &__events
+                font-weight: 600
+              svg
+                color: $colorLink
+              &__icon
+                margin-right: $paddingSmall
                 display: flex
-                flex-direction: column
-                align-content: space-between
-                &__event
-                  opacity: 0.8
-                  margin: $paddingSmall 0
-                  display: flex
-                  justify-content: flex-end
-                  &:hover
-                    opacity: 1
-                  a, p
-                    color: $colorTextMain
-                  a
-                    cursor: pointer
-                    display: flex
-                    align-items: center
-                    text-decoration: none
-                  span.highlight
-                    color: $colorTextDark-1
-                    font-weight: 600
-                  svg
-                    color: $colorSecondary-300
-                  &__icon
-                    margin-right: $paddingSmall
-                    display: flex
-                    align-items: center
-                  &__info
-                    display: flex
-                    align-items: center
-                    p
-                      font-size: 12px
-                    svg
-                      margin-left: $paddingMedium
-                      color: $colorSecondary-300
+                align-items: center
+              &__info
+                display: flex
+                align-items: center
+                p
+                  font-size: 12px
+                svg
+                  margin-left: $paddingMedium
+                  color: $colorLink
 
+        .day
+          display: flex
+          align-items: center
+          justify-content: center
+          background: $grey-50
+          border: 1px solid $grey-300
+          padding: 25% 0
+          &__date
+            font-size: 20px
+            font-weight: 600
+            flex-grow: 0
+            color: $grey-700
+            display: flex
+            align-items: center
+            justify-content: center
+        .passed
+          .day
+            &__date
+              opacity: 0.4
+      .hasEvent
+        .day
+          &__date
+            color: $colorLink
+            cursor: pointer
+
+.eventsFlowWrapper
+  @extend .paperSheet
+  &__eventsFlow
+    &__header
+    &__content
+      margin-top: $paddingBig
+
+
+  //&__week
+  //  border-bottom: 1px solid $grey-300
+  //  max-height: $heightCalendarWeek
+  //  overflow-y: auto
+  //  @extend .scrollbarHide
+  //  .dayWrapper
+  //    svg
+  //      width: 16px
+  //      height: 16px
+  //    .day
+  //      display: flex
+  //      justify-content: flex-start
+  //      align-items: center
+  //      background: $grey-50
+  //      border-top: 1px solid $grey-300
+  //      border-right: 1px solid $grey-300
+  //      border-left: 1px solid $grey-300
+  //      padding: $paddingMedium $paddingBig
+  //      &__date
+  //        font-size: 20px
+  //        flex-grow: 0
+  //        border-radius: 50%
+  //        background: $grey-500
+  //        color: white
+  //        height: 43px
+  //        width: 43px
+  //        margin-right: $paddingBig
+  //        display: flex
+  //        align-items: center
+  //        justify-content: center
+  //      &__content
+  //        flex-grow: 1
+  //        display: flex
+  //        align-items: center
+  //        justify-content: space-between
+  //        color: $colorTextLight
+  //        &__dateInformation
+  //          &__weekday
+  //            font-size: 15px
+  //            font-weight: 600
+  //            text-transform: uppercase
+  //          &__week
+  //            font-size: 12px
+  //    .passed
+  //      .day
+  //        &__date
+  //          opacity: 0.4
+  //        &__content
+  //          opacity: 0.4
+  //  .hasEvent
+  //    .day
+  //      background: $backgroundLightGrey
+  //      &__date
+  //        background: $grey-800
+  //      &__content
+  //        &__dateInformation
+  //          color: $colorTextDark-1
+  //        &__events
+  //          display: flex
+  //          flex-direction: column
+  //          align-content: space-between
+  //          &__event
+  //            opacity: 0.7
+  //            margin: $paddingSmall 0
+  //            display: flex
+  //            justify-content: flex-end
+  //            &:hover
+  //              opacity: 1
+  //            a, p
+  //              color: $colorTextMain
+  //            a
+  //              cursor: pointer
+  //              display: flex
+  //              align-items: center
+  //              text-decoration: none
+  //            span.highlight
+  //              color: $colorTextDark-1
+  //              font-weight: 600
+  //            svg
+  //              color: $colorSecondary-300
+  //            &__icon
+  //              margin-right: $paddingSmall
+  //              display: flex
+  //              align-items: center
+  //            &__info
+  //              display: flex
+  //              align-items: center
+  //              p
+  //                font-size: 12px
+  //              svg
+  //                margin-left: $paddingMedium
+  //                color: $colorSecondary-300
+  //

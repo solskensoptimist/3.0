@@ -1,3 +1,13 @@
+.grid2Columns1Row
+  display: grid
+  grid-template-columns: calc(50% - (#{$paddingGrid} / 2)) calc(50% - (#{$paddingGrid} / 2))
+  column-gap: $paddingGrid
+  padding: $paddingGrid
+  align-items: start
+
+.hide
+  display: none !important
+
 .iconStyleCircle
   display: flex !important
   align-items: center !important
@@ -7,7 +17,7 @@
   background: $grey-200 !important
   border-radius: 50% !important
   cursor: default !important
-  opacity: 0.8 !important
+  opacity: 0.7 !important
   width: 38px !important
   height: 38px !important
 .iconStyleCircleClick
@@ -20,7 +30,7 @@
 
 .paperSheet
   background: white
-  padding: $paddingRegular
+  padding: $paddingBig
   border: 1px solid $grey-200
 
 .shadowRegular
@@ -45,13 +55,14 @@
     display: none
 
 .scrollbarLight
-  padding-right: $paddingSmall
+  overflow-y: auto
+  padding-right: ($paddingSmall / 2)
   scrollbar-width: thin
-  scrollbar-color: $grey-200 transparent
+  scrollbar-color: $grey-100 transparent
   &::-webkit-scrollbar
     width: 7px
   &::-webkit-scrollbar-track
     background: transparent
   &::-webkit-scrollbar-thumb
-    background: $grey-200
+    background: $grey-100
     border-radius: 6px

@@ -1,79 +1,43 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Loading from 'components/shared/loading';
-import {activityHelper, dealHelper, tc} from 'helpers';
-import moment from 'moment';
+import ActivityItem from './activity_item';
+import {tc} from 'helpers';
 import Icon from 'components/shared/icon';
+import ContentHeader from 'components/shared/content_header';
+import {getActivityByTarget, getActivityByFilter} from 'store/activity/tasks';
 
-
+/**
+ * Render activities, I.E. all historic events.
+ * Optional to include comments and 'moved' actions.
+ */
 const Activities = (state) => {
+    const [includeComments, setIncludeComments] = useState(state.props.includeComments);
+    const [includeMoved, setIncludeMoved] = useState(state.props.includeMoved);
+    const [showAmount, setShowAmount] = useState(5);
+    const [minimize, setMinimize] = useState(false);
+
     const _renderActivity = () => {
         let data = (state.props.type === 'filter') ? state.activity.activityByFilter : state.activity.activityByTarget;
 
-        if (!state.props.includeMoved) {
-            // Remove 'move' activites.
+        if (!includeMoved) {
+            // Remove move activites.
             data = data.filter((num) => ((num.action && num.action !== 'move') || !num.action));
         }
 
-        if (!state.props.includeComments) {
-            // Remove 'comment' activites (comment activities have no action).
+        if (!includeComments) {
+            // Remove comment activites (comment activities have no 'action' property).
             data = data.filter((num) => (num.action));
         }
 
+        // Show 5 more rows every time user click load icon.
+        data = data.slice(0, showAmount);
 
-        return data.map((num, i) => {
-            // Action
-            let action = (num.action) ? activityHelper.getReadableActivity(num.action): null;
-            if (num.action === 'move') {
-                action = <div>{activityHelper.getReadableActivity(num.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(num.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(num.target)}</strong></div>
-            } else if (!num.action && num.comment && num.comment !== '') {
-                action = activityHelper.getReadableActivity('comment');
-            }
-
-            // Comment
-            const comment = (num.comment && num.comment !== '') ? num.comment : null;
-
-            // Date
-            const date = (num.date_created) ? moment(num.date_created).format('LL HH:mm') : null;
-
-            // Icon
-            let icon;
-            if (num.action) {
-                icon = <Icon val={num.action}/>;
-            } else if (!num.action && num.comment) {
-                icon = <Icon val='comment'/>;
-            }
-
-            // User
-            const user = (num.user && num.user !== '') ? num.user : tc.unknown;
-
-            return (
-                <div className='activitiesWrapper__activities__itemWrapper' key={i}>
-                    <div className='activitiesWrapper__activities__itemWrapper__item'>
-                        <div className='activitiesWrapper__activities__itemWrapper__item__icon'><span className='iconHolder'>{icon}</span></div>
-                        <div className='activitiesWrapper__activities__itemWrapper__item__date'><span className='label'>{tc.time}:</span>{date}</div>
-                        <div className='activitiesWrapper__activities__itemWrapper__item__action'><span className='label'>{tc.action}:</span>{action}</div>
-                        <div className='activitiesWrapper__activities__itemWrapper__item__comment'><span className='label'>{tc.comment}:</span>{comment}
-                        asdnö adna södlna sdklsa dlökanslaknsdlask ndsöalkns la
-                        asdnö adna södlna sdklsa dlökanslaknsdlask ndsöalkns la
-                        asdnö adna södlna sdklsa dlökanslaknsdlask ndsöalkns la
-                        asdnö adna södlna sdklsa dlökanslaknsdlask ndsöalkns la
-                        </div>
-                        <div className='activitiesWrapper__activities__itemWrapper__item__user'><span className='label'>{tc.user}:</span>{user}</div>
-                        <div className='activitiesWrapper__activities__itemWrapper__item__edit'><span className='iconHolder'><Icon val='edit'/><Icon val='remove'/></span></div>
-                    </div>
-                </div>
-            );
+        data = data.map((num, i) => {
+            return <ActivityItem activity={num} type={state.props.type}/>;
         });
 
-        // return state./
-        // Oavsett om det är filter eller target bör vi rendera likadant..?
-        // Kom ihåg att denna komponent bara ska rendera innehåll, inga bakgrundsfärger/färger eller så.
-        // return (<div>
-        //     Här kommer det visas en aktivitetsström, dvs allt som har skett på affären.
-        //     KOM IHÅG ATT MAN SKA KUNNA SKAPA/REDIGERA/TA BORT KOMMENTARER.
-        //     Ha en lösning för att visa några och sedan "visa allt".
-        // </div>);
+        return (data.length) ? data : <p>{tc.noActivity}</p>;
     };
 
     const _stateCheck = () => {
@@ -84,10 +48,38 @@ const Activities = (state) => {
         }
     };
 
+    useEffect(() => {
+        if (state.props.type === 'target' && state.props.id) {
+            getActivityByTarget({id: state.props.id, type: 'deal'});
+        } else {
+            getActivityByFilter();
+        }
+    }, [state.props]);
+
     return ( _stateCheck() ?
         <div className='activitiesWrapper'>
             <div className='activitiesWrapper__activities'>
-                {_renderActivity()}
+                <div className='activitiesWrapper__activities__header'>
+                    <ContentHeader
+                        iconVal='activities'
+                        dashboard={
+                            <>
+                                <Icon hover={true} val='toggleComments' onClick={() => {setIncludeComments(!includeComments)}}/>
+                                <Icon hover={true} val='toggleMoved' onClick={() => {setIncludeMoved(!includeMoved)}}/>
+                                <Icon hover={true} val='load' onClick={() => {setShowAmount(showAmount + 5)}}/>
+                                <Icon hover={true} val='regret' onClick={() => {setShowAmount(5)}}/>
+                                {minimize ? <Icon hover={true} val='maximize' onClick={() => {setMinimize(false)}}/> : <Icon hover={true} val='minimize' onClick={() => {setMinimize(true)}}/>}
+                            </>
+                        }
+                        headline={tc.activities}
+                        headlineSub={tc.activitiesAllIncludingComments}
+                        />
+                </div>
+                <div className={minimize ? 'hide' : 'activitiesWrapper__activities__content'}>
+                    <p>Om state.props.type === 'filter' ska inget göras.</p>
+                    <p>Men om state.props.type === 'target' ska vi visa ett kommentarsfält. OBS vi ska ha target i store så att vi kan kolla detta när vi lägger till newCommentForTarget.</p>
+                    {_renderActivity()}
+                </div>
             </div>
         </div> :
         <Loading />

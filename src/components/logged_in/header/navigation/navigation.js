@@ -45,7 +45,7 @@ const Navigation = (state) =>  {
                 </div>
                 <div className='navigationWrapper__navigation__right'>
                     {state.search.showSearch && <SearchComponent />}
-                    <Icon val='search' onClick={_openShowSearch} />
+                    <Icon hover={true} val='search' onClick={_openShowSearch} />
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ const User = (state) => {
                     <div className='userWrapper__user__name__dealer'>{state.user.info.dealerName}</div>
                 </div>
                 <div className='userWrapper__user__icon'>
-                    <Icon val='settings' onClick={_openShowSettings}/>
+                    <Icon hover={true} val='settings' onClick={_openShowSettings}/>
                     {state.settings.showSettings && <Settings />}
                 </div>
             </div>

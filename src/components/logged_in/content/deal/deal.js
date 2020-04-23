@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getActivityByTarget} from 'store/activity/tasks';
 import {getDeal} from 'store/deal/tasks';
 import Activities from 'components/logged_in/content/shared/activities';
+import Events from 'components/logged_in/content/shared/events';
 import Loading from 'components/shared/loading';
 import {dealHelper, tc} from 'helpers';
 import Icon from 'components/shared/icon';
@@ -16,7 +16,7 @@ const Deal = (state) => {
     const {id} = useParams();
 
     const _editDeal = () => {
-
+        console.log('editDeal');
     };
 
     const _stateCheck = () => {
@@ -25,7 +25,6 @@ const Deal = (state) => {
 
     useEffect(() => {
         getDeal({id: id});
-        getActivityByTarget({id: id, type: 'deal'});
     }, [id]);
 
     return ( _stateCheck() ?
@@ -60,39 +59,20 @@ const Deal = (state) => {
                         </div>
                         <div className='dealWrapper__deal__header__bottom__right'>
                             <div className='dealWrapper__deal__header__bottom__right__item'>
-                                <Icon val='edit' onClick={_editDeal}/>
+                                <Icon hover={true} val='edit' onClick={_editDeal}/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
                     <div className='dealWrapper__deal__content__item'>
-                        <div className='dealWrapper__deal__content__item__header'>
-                            <div className='dealWrapper__deal__content__item__header__left'>
-                                <Icon val='events' />
-                            </div>
-                            <div className='dealWrapper__deal__content__item__header__right'>
-                                <h2>{tc.plannedActivities}</h2>
-                                <h3>{tc.plannedActivitiesNotPerformed}</h3>
-                            </div>
-                        </div>
-                        <div className='dealWrapper__deal__content__item__content'>
-                            Här kommer det visas en ström av planerade aktiviter, likt den som idag visas när man går in på en affär.
-                        </div>
+                        <Events view='flow'/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
-                        <div className='dealWrapper__deal__content__item__header'>
-                            <div className='dealWrapper__deal__content__item__header__left'>
-                                <Icon val='activities' />
-                            </div>
-                            <div className='dealWrapper__deal__content__item__header__right'>
-                                <h2>{tc.activities}</h2>
-                                <h3>{tc.activitiesAllIncludingComments}</h3>
-                            </div>
-                        </div>
-                        <div className='dealWrapper__deal__content__item__content'>
-                            <Activities includeComments={true} includeMoved={true} type='target' />
-                        </div>
+                        <Activities id={id} includeComments={true} includeMoved={true} type='target' />
+                    </div>
+                    <div className='dealWrapper__deal__content__item'>
+                        <Activities id={id} includeComments={true} includeMoved={true} type='filter' />
                     </div>
                 </div>
             </div>

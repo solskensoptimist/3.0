@@ -119,7 +119,7 @@ const Settings = (state) =>  {
                     <div className='settingsWrapper__settings__content__item'>
                         <div className='settingsWrapper__settings__content__item__full'>
                             <div className='settingsWrapper__settings__content__item__full__content'>
-                                <div className='settingsWrapper__settings__content__item__button__logout' onClick={userLogout}>
+                                <div className='settingsWrapper__settings__content__item__button' onClick={userLogout}>
                                     {tc.logout}
                                 </div>
                             </div>

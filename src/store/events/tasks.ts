@@ -82,7 +82,7 @@ export const getEvents = async (payload) => {
         }
 
         const result = {
-            events: {...events},
+            events: events,
             month: monthObject,
             monthInScope: Number(dateMonth),
             yearInScope: Number(dateYear),

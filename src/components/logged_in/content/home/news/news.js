@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {tc} from 'helpers';
+import ContentHeader from 'components/shared/content_header';
+import Icon from "../../../../shared/icon/icon";
 
 export default () => {
+    const [minimize, setMinimize] = useState(false);
+
+    // Temporary, just to have some content for now...
     const _renderItem = () => {
         return (
-            <div className='newsWrapper__news__item'>
-                <div className='newsWrapper__news__item__header'>
+            <div className='newsWrapper__news__content__item'>
+                <div className='newsWrapper__news__content__item__header'>
                     <h3 className='sectionHeading'>Bilprospekt lanserar machine learning prospektering</h3>
                 </div>
-                <div className='newsWrapper__news__item__content'>
+                <div className='newsWrapper__news__content__item__content'>
                     <img src='images/chart.jpeg' alt='Example' />
                     <p>
                         En ny art för Sverige har hittats på västkusten av Michael Lundin, som så sent som i februari gjorde ett annat förstafynd för landet. Det rapporterat Dagens natur.
@@ -20,7 +25,7 @@ export default () => {
                         – Det finns flera möjligheter. De kan vara en del av den svenska marina faunan som inte upptäckts tidigare. Alternativt kan de vara arter som nyligen invandrat söderifrån, och då ha flyttningsmönster som är kompatibla med ökande vattentemperaturer, skriver Artdatabanken i ett pressmeddelande.
                     </p>
                 </div>
-                <div className='newsWrapper__news__item__footer'>
+                <div className='newsWrapper__news__content__item__footer'>
                     Publicerad: 2019-10-22 13:46
                 </div>
             </div>
@@ -29,15 +34,19 @@ export default () => {
 
     return (
         <div className='newsWrapper'>
-            <div className='headlineMain'>
-                <div className='headlineMain__left'>
-                    <h2>{tc.news}</h2>
-                    <h3>{tc.newsSub}</h3>
-                </div>
-            </div>
             <div className='newsWrapper__news'>
-                {_renderItem()}
-                {_renderItem()}
+                <div className='newsWrapper__news__header'>
+                    <ContentHeader
+                        dashboard={minimize ? <Icon hover={true} val='maximize' onClick={() => {setMinimize(false)}}/> : <Icon hover={true} val='minimize' onClick={() => {setMinimize(true)}}/>}
+                        iconVal='news'
+                        headline={tc.news}
+                        headlineSub={tc.newsSub}
+                    />
+                </div>
+                <div className={minimize ? 'hide' : 'newsWrapper__news__content'}>
+                    {_renderItem()}
+                    {_renderItem()}
+                </div>
             </div>
          </div>
     );

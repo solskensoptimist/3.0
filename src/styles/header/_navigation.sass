@@ -1,7 +1,6 @@
 .navigationWrapper
   border-bottom: 1px solid $grey-200
   padding: 0
-  z-index: 2
   position: relative
   display: flex
   align-items: stretch
@@ -27,7 +26,7 @@
         width: 18px
         height: 18px
       a
-        padding: $paddingRegular ($paddingRegular * 1.5)
+        padding: $paddingBig ($paddingBig * 1.5)
         display: flex
         align-items: center
         justify-content: center
@@ -55,7 +54,7 @@
       svg
         @extend .iconStyleCircleClick
       .searchWrapper
-        margin: 0 $paddingRegular
+        margin: 0 $paddingBig
         width: 60%
         &__search
           z-index: 5
@@ -88,11 +87,11 @@
             position: absolute
             top: 80%
             background: white
-            padding: $paddingRegular
+            padding: $paddingBig
             z-index: 5
             @extend .shadowRegular
             &__item
-              color: $colorTextMain
+              color: $colorLink
               font-size: 15px
               margin-bottom: $paddingSmall
               cursor: pointer
@@ -101,11 +100,11 @@
               &:last-of-type
                 margin-bottom: 0
               &:hover
-                color: $colorSecondary-200
+                color: $colorLinkHover
                 svg
-                  color: $colorSecondary-200
+                  color: $colorLinkHover
               svg
-                color: $colorTextMain
+                color: $colorLink
                 width: 14px
                 height: 14px
                 margin-right: $paddingMedium

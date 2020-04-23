@@ -1,24 +1,32 @@
 .activitiesWrapper
-  width: 100%
+  @extend .paperSheet
   &__activities
-    color: $colorTextMain
-    display: flex
-    flex-direction: column
-    flex-grow: 1
-    &__itemWrapper
+    &__content
+      color: $colorTextMain
       display: flex
       flex-direction: column
-      padding-bottom: $paddingRegular
-      margin: 0 $paddingRegular $paddingRegular $paddingRegular
-      border-bottom: 2px solid $grey-100
-      &:first-of-type
-        margin-top: $paddingRegular
-      &:last-of-type
-        border: 0
-        padding-bottom: 0
-      &__item
+      flex-grow: 1
+      margin-top: $paddingBig
+      &__itemWrapper
+        border-bottom: 1px solid $grey-200
         display: flex
-        justify-content: space-between
+        position: relative
+        &:nth-child(even)
+          .activitiesWrapper__activities__content__itemWrapper__item
+            background: $grey-50
+        &:last-of-type
+          border: 0
+        &:hover
+          .activitiesWrapper__activities__content__itemWrapper__edit
+            display: block
+        .iconHolder
+          height: 100%
+          display: flex
+          align-items: center
+        svg
+          width: 14px
+          height: 14px
+          fill: $colorTextLight-1
         strong
           font-weight: 600
         span.label
@@ -26,51 +34,43 @@
           font-size: 11px
           color: $colorTextLight
           margin-right: $paddingSmall
-        span.iconHolder
-          height: 20px
+        &__item
           display: flex
-          align-items: center
-          svg
-            width: 14px
-            height: 14px
-        &__icon
-          flex-basis: 2%
-          display: flex
-          svg
-            color: $colorTextLight-1
-          //span.iconHolder
-          //  height: 20px
-          //  display: flex
-          //  align-items: center
-          //  svg
-          //    width: 14px
-          //    height: 14px
-        &__date
-          margin-left: $paddingRegular
-          flex-basis: 16%
-          display: flex
-        &__action
-          margin-left: $paddingRegular
-          flex-basis: 30%
-          display: flex
-        &__comment
-          margin-left: $paddingRegular
-          flex-basis: 30%
-          display: flex
-        &__user
-          margin-left: $paddingRegular
-          flex-basis: 19%
-          display: flex
-        &__edit
-          margin-left: $paddingRegular
-          flex-basis: 3%
-          display: flex
-          svg
-            cursor: pointer
-            color: $colorSecondary-300
-            margin-left: $paddingSmall
-            opacity: 0.8
-            &:first-child
-              margin-left: 0
-            &:hover
-              opacity: 1
+          justify-content: space-between
+          padding: $paddingBig
+          flex-grow: 1
+          &:hover
+            .activitiesWrapper__activities__content__itemWrapper__item__edit
+              visibility: visible
+          &__icon
+            flex-basis: 2%
+            border-right: 1px solid $grey-200
+            padding-right: $paddingBig
+            display: flex
+            align-items: center
+          &__date
+            margin-left: $paddingBig
+            flex-basis: 16%
+          &__action
+            margin-left: $paddingBig
+            flex-basis: 26%
+            div
+              display: inline
+          &__comment
+            margin-left: $paddingBig
+            flex-basis: 30%
+          &__user
+            margin-left: $paddingBig
+            flex-basis: 20%
+          &__edit
+            margin-left: $paddingBig
+            display: flex
+            justify-content: space-between
+            align-items: center
+            flex-basis: 4%
+            visibility: hidden
+            svg
+              fill: $colorLink
+              cursor: pointer
+              &:hover
+                fill: $colorLinkHover

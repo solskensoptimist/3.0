@@ -1,45 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {tc} from 'helpers';
 import {connect} from "react-redux";
-import DayMonth from './day_month';
-import DayWeek from './day_week';
+import EventsCalendarDay from './events_calendar_day';
 import Loading from 'components/shared/loading';
 import {getEvents} from 'store/events/tasks';
 import moment from 'moment';
-import Icon from "../../../../shared/icon/icon";
+import Icon from 'components/shared/icon';
+import ContentHeader from 'components/shared/content_header';
 
 const EventsCalendar = (state) => {
-    const [showWeek, setShowWeek] = useState(false);
+    const [minimize, setMinimize] = useState(false);
 
     const _renderDays = () => {
         const days = [];
-        let result;
 
-        if (showWeek) {
-            for (const day in state.events.month) {
-                const hasPassed = moment(new Date()).format('YYYY-MM-DD') > moment(new Date(day)).format('YYYY-MM-DD');
-                const isToday = moment(new Date(day)).isSame(new Date(), 'day');
-                days.push(<DayWeek date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} />);
-            }
-            result = (
-                <div className='eventsCalendarWrapper__eventsCalendar__content__week'>
-                    {days}
-                </div>
-            );
-        } else {
-            for (const day in state.events.month) {
-                const hasPassed = moment(new Date()).format('YYYY-MM-DD') > moment(new Date(day)).format('YYYY-MM-DD');
-                const isToday = moment(new Date(day)).isSame(new Date(), 'day');
-                days.push(<DayMonth date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} />);
-            }
-            result = (
-                <div className='eventsCalendarWrapper__eventsCalendar__content__month'>
-                    {days}
-                </div>
-            );
+        for (const day in state.events.month) {
+            const hasPassed = moment(new Date()).format('YYYY-MM-DD') > moment(new Date(day)).format('YYYY-MM-DD');
+            const isToday = moment(new Date(day)).isSame(new Date(), 'day');
+            days.push(<EventsCalendarDay date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} />);
         }
 
-        return result;
+        return days;
     };
 
     const _stateCheck = () => {
@@ -62,7 +43,7 @@ const EventsCalendar = (state) => {
                 year: (state.events.monthInScope === 12) ? state.events.yearInScope + 1 : state.events.yearInScope,
             }
         })
-    }
+    };
 
     useEffect(() => {
         getEvents();
@@ -72,19 +53,22 @@ const EventsCalendar = (state) => {
         <div className='eventsCalendarWrapper'>
             <div className='eventsCalendarWrapper__eventsCalendar'>
                 <div className='eventsCalendarWrapper__eventsCalendar__header'>
-                    <div className='eventsCalendarWrapper__eventsCalendar__header__left'>
-                        <h2>{tc.plannedActivities}</h2>
-                        <h3>{tc.calendarMonths[state.events.monthInScope]} {state.events.yearInScope}</h3>
-                    </div>
-                    <div className='eventsCalendarWrapper__eventsCalendar__header__right'>
-                        <div className='eventsCalendarWrapper__eventsCalendar__header__right__icon' onClick={_stepBack}><Icon val='navigateBefore'/></div>
-                        <div className='eventsCalendarWrapper__eventsCalendar__header__right__icon' onClick={_stepForward}><Icon val='navigateNext'/></div>
-                       <div className={showWeek ? 'eventsCalendarWrapper__eventsCalendar__header__right__icon' : 'eventsCalendarWrapper__eventsCalendar__header__right__icon active'} onClick={() => {setShowWeek(false)}}><Icon val='events'/></div>
-                        <div className={showWeek ? 'eventsCalendarWrapper__eventsCalendar__header__right__icon active' : 'eventsCalendarWrapper__eventsCalendar__header__right__icon'} onClick={() => {setShowWeek(true)}}><Icon val='eventsWeek'/></div>
-                    </div>
+                    <ContentHeader
+                        dashboard={
+                            <>
+                                <Icon hover={true} val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/>
+                                <Icon hover={true} val='eventsFlow' onClick={() => {state.props.setView('flow')}}/>
+                                <Icon hover={true} val='navigateBefore' onClick={_stepBack}/>
+                                <Icon hover={true} val='navigateNext' onClick={_stepForward}/>
+                                {minimize ? <Icon hover={true} val='maximize' onClick={() => {setMinimize(false)}}/> : <Icon hover={true} val='minimize' onClick={() => {setMinimize(true)}}/>}
+                            </>
+                        }
+                        iconVal='events'
+                        headline={tc.events}
+                        headlineSub={'' + tc.calendarMonths[state.events.monthInScope] + ' ' + state.events.yearInScope}/>
                 </div>
-                <div className='eventsCalendarWrapper__eventsCalendar__content'>
-                {_renderDays()}
+                <div className={minimize ? 'hide' : 'eventsCalendarWrapper__eventsCalendar__content'}>
+                    {_renderDays()}
                 </div>
             </div>
         </div> :
@@ -92,9 +76,10 @@ const EventsCalendar = (state) => {
     );
 };
 
-const MapStateToProps = (state) => {
+const MapStateToProps = (state, props) => {
     return {
         events: state.events,
+        props: props,
         user: state.user,
     };
 };

@@ -7,9 +7,9 @@ import Content from './content';
  */
 export default () => {
     return (
-        <div>
+        <>
             <Header />
             <Content />
-        </div>
+        </>
     );
 }

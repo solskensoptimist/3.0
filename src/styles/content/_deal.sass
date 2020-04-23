@@ -1,15 +1,15 @@
 .dealWrapper
-  width: 100%
+  padding: $paddingGrid
   &__deal
     &__header
       padding-bottom: $paddingMedium
       border-bottom: 1px solid $grey-300
-      margin-bottom: $paddingRegular
+      margin-bottom: $paddingGrid
       display: flex
       flex-direction: column
       &__top
         width: 100%
-        margin-bottom: ($paddingRegular * 1.5)
+        margin-bottom: ($paddingBig * 1.5)
         h3
           @extend .headlineVeryLarge
       &__bottom
@@ -21,7 +21,7 @@
           font-size: 16px
           font-weight: 400
           &__item
-            margin-left: ($paddingRegular * 2)
+            margin-left: $paddingGreat
             &:first-of-type
               margin-left: 0
             h4
@@ -37,20 +37,6 @@
               @extend .iconStyleCircleClick
     &__content
       &__item
-        @extend .paperSheet
-        color: $colorTextMain
-        margin-bottom: $paddingRegular
+        margin-bottom: $paddingGrid
         &:last-of-type
           margin-bottom: 0
-        &__header
-          display: flex
-          &__left
-            width: auto
-            margin-right: $paddingRegular
-            svg
-              @extend .iconStyleCircle
-          &__right
-            width: 100%
-            @extend .headlineMain
-        &__content
-          display: flex

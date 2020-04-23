@@ -1,30 +1,26 @@
 .newsWrapper
-  flex-grow: 1
-  width: auto
-  margin-right: $paddingRegular * 2
+  @extend .paperSheet
   &__news
-    max-height: $heightContentMain
-    overflow-y: auto
-    @extend .scrollbarLight
-    &__item
-      @extend .paperSheet
-      color: $colorTextMain
-      margin-bottom: $paddingRegular
-      &:last-of-type
-        margin-bottom: 0
-      &__header
-        h3
-          border-bottom: 4px solid $grey-100
-          padding-bottom: $paddingMedium
-      &__content
-        margin: $paddingRegular 0
-        img
-          width: 100%
-        p
-          margin: $paddingMedium 0
-        h5
-          margin: ($paddingMedium * 2) 0 (-$paddingMedium / 2) 0
-      &__footer
+    &__content
+      max-height: $maxHeightWidget
+      @extend .scrollbarLight
+      margin-top: $paddingBig
+      &__item
+        color: $colorTextMain
+        margin-bottom: $paddingBig
         background: $grey-100
-        padding: $paddingSmall
-        font-size: 0.8em
+        padding: $paddingBig
+        &:last-of-type
+          margin-bottom: 0
+        &__content
+          margin: $paddingBig 0
+          img
+            width: 100%
+          p
+            margin: $paddingMedium 0
+          h5
+            margin: ($paddingMedium * 2) 0 (-$paddingMedium / 2) 0
+        &__footer
+          background: $grey-100
+          padding: $paddingSmall
+          font-size: 0.8em

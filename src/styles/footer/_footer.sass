@@ -1,35 +1,35 @@
 .footer
   background: transparent
-  color: $grey-300
-  padding: ($paddingRegular * 2)
+  color: $colorTextLight-2
+  padding: $paddingGreat
   display: flex
   justify-content: space-between
   align-items: flex-start
   h4
     border-bottom: 1px solid $colorPrimary-300
     padding-bottom: $paddingSmall
-    margin-bottom: $paddingRegular
+    margin-bottom: $paddingBig
     flex-grow: 1
   &__item
     display: flex
     justify-content: flex-start
     align-items: center
     flex-grow: 1
-    margin-right: $paddingRegular * 2
+    margin-right: $paddingGreat
     &:last-of-type
       margin-right: 0
   &__breadcrumbsWrapper
     .breadcrumbs
       flex-grow: 1
       &__content
-        margin-top: $paddingRegular * 1.5
+        margin-top: $paddingBig * 1.5
         a, span
-          padding: $paddingSmall $paddingRegular
+          padding: $paddingSmall $paddingBig
           text-decoration: none
         a, span
           position: relative
           background: $colorPrimary-600
-          color: $grey-300
+          color: $colorTextLight-2
           &:after, &:before
             left: 100%
             top: 50%

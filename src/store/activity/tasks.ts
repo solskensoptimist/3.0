@@ -10,6 +10,7 @@ export const getActivityByFilter = async () => {
         const filter = store.getState().filter;
         const data = await request({
             data: {
+                includeAllComments: true,
                 limit: 9999,
                 users: filter.users,
                 widgetFilters: {
@@ -21,7 +22,16 @@ export const getActivityByFilter = async () => {
             url: '/activity/dealer/',
         });
 
-        const result = (data && data.length) ? data : [];
+        const result = (data && data.length) ? data.filter((num) => {
+                return !('complete' in num && num.complete === false);
+            }).map((num) => {
+                if (!num.date_created && num.added) {
+                    num.date_created = num.added; // Keep it consistent for component rendering.
+                }
+
+                return num;
+            })
+            : [];
 
         return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: {activityByFilter: result}});
     } catch (err) {
@@ -51,7 +61,16 @@ export const getActivityByTarget = async (payload) => {
             url: url,
         });
 
-        const result = (data && data.length) ? data : [];
+        const result = (data && data.length) ? data.filter((num) => {
+                return !('complete' in num && num.complete === false);
+            }).map((num) => {
+                if (!num.date_created && num.added) {
+                    num.date_created = num.added; // Keep it consistent for component rendering.
+                }
+
+                return num;
+            })
+            : [];
 
         return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: {activityByTarget: result}});
     } catch (err) {

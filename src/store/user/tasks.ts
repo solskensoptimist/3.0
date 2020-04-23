@@ -1,6 +1,5 @@
 import {store} from 'store';
 import {request} from 'helpers';
-import {filterActionTypes} from "store/filter/actions";
 import {settingsActionTypes} from "store/settings/actions";
 import {rootActionTypes} from "store/actions";
 import {userActionTypes} from "store/user/actions";
@@ -22,8 +21,6 @@ export const userLogin = async (credentials) => {
             return console.error('Missing user data.');
         }
 
-        // Set logged in user in filter.
-        store.dispatch({type: filterActionTypes.SET_USERS, payload: {users: [user.id]}});
         // Fix: IMPLEMENT ASYNC REDUX ACTION, REMOVE SETTIMEOUT
         store.dispatch({type: userActionTypes.USER_LOGIN, payload: {info: user}});
         return setTimeout(() => {
