@@ -5,7 +5,7 @@ import {activityHelper, tc} from 'helpers';
 import Icon from 'components/shared/icon';
 
 /**
- * Render one day, called from events when in month mode.
+ * Render a day element.
  *
  * props.date - {date, weekday, week}
  * props.events - array - [{ _id, action, dealId, name, (...) }, {(...)}]
