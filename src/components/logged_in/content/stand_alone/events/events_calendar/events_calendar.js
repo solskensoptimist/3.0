@@ -6,7 +6,8 @@ import Loading from 'components/shared/loading';
 import {getEvents} from 'store/events/tasks';
 import moment from 'moment';
 import Icon from 'components/shared/icon';
-import ContentHeader from 'components/shared/content_header';
+import WidgetHeader from 'components/shared/widget_header';
+import Tooltip from 'components/shared/tooltip';
 
 const EventsCalendar = (state) => {
     const [minimize, setMinimize] = useState(false);
@@ -53,19 +54,20 @@ const EventsCalendar = (state) => {
         <div className='eventsCalendarWrapper'>
             <div className='eventsCalendarWrapper__eventsCalendar'>
                 <div className='eventsCalendarWrapper__eventsCalendar__header'>
-                    <ContentHeader
+                    <WidgetHeader
                         dashboard={
                             <>
-                                <Icon hover={true} val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/>
-                                <Icon hover={true} val='eventsFlow' onClick={() => {state.props.setView('flow')}}/>
-                                <Icon hover={true} val='navigateBefore' onClick={_stepBack}/>
-                                <Icon hover={true} val='navigateNext' onClick={_stepForward}/>
-                                {minimize ? <Icon hover={true} val='maximize' onClick={() => {setMinimize(false)}}/> : <Icon hover={true} val='minimize' onClick={() => {setMinimize(true)}}/>}
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsCalendar}><Icon val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsFlow}><Icon val='eventsFlow' onClick={() => {state.props.setView('flow')}}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.navigateBefore}><Icon val='navigateBefore' onClick={_stepBack}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.navigateNext}><Icon val='navigateNext' onClick={_stepForward}/></Tooltip>
+                                {minimize ? <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
                             </>
                         }
                         iconVal='events'
                         headline={tc.events}
-                        headlineSub={'' + tc.calendarMonths[state.events.monthInScope] + ' ' + state.events.yearInScope}/>
+                        headlineSub={'' + tc.calendarMonths[state.events.monthInScope] + ' ' + state.events.yearInScope}
+                    />
                 </div>
                 <div className={minimize ? 'hide' : 'eventsCalendarWrapper__eventsCalendar__content'}>
                     {_renderDays()}

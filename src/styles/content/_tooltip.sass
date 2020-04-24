@@ -1,0 +1,22 @@
+.tooltipWrapper
+  position: relative
+  margin-left: $paddingMedium
+  &:first-of-type
+    margin-left: 0
+  &:hover
+    .tooltipWrapper__tooltip__hover
+      display: block
+  &__tooltip
+    &__hover
+      display: none
+      position: absolute
+      background: $grey-800
+      color: white
+      border-radius: 2px
+      padding: $paddingMedium
+      white-space: nowrap
+      z-index: 10
+    &__content
+      display: flex
+      align-items: center
+      justify-content: center

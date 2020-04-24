@@ -1,5 +1,5 @@
-.contentHeaderWrapper
-  &__contentHeader
+.widgetHeaderWrapper
+  &__widgetHeader
     display: flex
     justify-content: space-between
     &__left
@@ -15,15 +15,10 @@
       display: flex
       justify-content: flex-end
       align-items: center
-      div
-        display: flex
       svg
         cursor: pointer
         width: 20px
         height: 20px
         fill: $grey-400
-        margin-left: $paddingSmall
-        &:first-child
-          margin-left: 0
         &:hover
-          fill: $colorLink
+          fill: $colorLinkHover

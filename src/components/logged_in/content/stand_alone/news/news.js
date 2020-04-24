@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {tc} from 'helpers';
-import ContentHeader from 'components/shared/content_header';
-import Icon from "../../../../shared/icon/icon";
+import WidgetHeader from 'components/shared/widget_header';
+import Icon from 'components/shared/icon';
+import Tooltip from 'components/shared/tooltip';
 
 export default () => {
     const [minimize, setMinimize] = useState(false);
@@ -36,8 +37,8 @@ export default () => {
         <div className='newsWrapper'>
             <div className='newsWrapper__news'>
                 <div className='newsWrapper__news__header'>
-                    <ContentHeader
-                        dashboard={minimize ? <Icon hover={true} val='maximize' onClick={() => {setMinimize(false)}}/> : <Icon hover={true} val='minimize' onClick={() => {setMinimize(true)}}/>}
+                    <WidgetHeader
+                        dashboard={minimize ? <Tooltip tooltipContent={tc.minimize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
                         iconVal='news'
                         headline={tc.news}
                         headlineSub={tc.newsSub}

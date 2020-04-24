@@ -1,5 +1,4 @@
 import React from 'react';
-import {tc} from 'helpers';
 import {
     Apartment,
     AttachMoney,
@@ -45,641 +44,134 @@ import {
 
 
 /**
- * Returns an icon: with or without onClick.
+ * Returns an icon.
+ * We use this to make sure we are consistent with our icon use.
+ * Also easier to maintain when changing icon library etc.
+ *
+ * Can be rendered with onClick and with 'active' class.
 
- * @param props.val
+ * @param props.active (optional) - bool
+ * @param props.onClick (optional) - func
+ * @param props.val - string
  */
 export default (props) => {
     const onClick = (typeof props.onClick === 'function') ? props.onClick : null;
 
     switch (props.val) {
         case 'activities':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <History onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <History onClick={onClick}/>
-            }
+            return <History className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'activity':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Timeline onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Timeline onClick={onClick}/>;
-            }
+            return <Timeline className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'agile':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Assignment onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Assignment onClick={onClick}/>;
-            }
+            return <Assignment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'analysis':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <TrendingUp onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <TrendingUp onClick={onClick}/>;
-            }
+            return <TrendingUp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'analyze':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <BarChart onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <BarChart onClick={onClick}/>;
-            }
+            return <BarChart className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'call':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <PhoneAndroid onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <PhoneAndroid onClick={onClick}/>;
-            }
+            return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'comment':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Comment onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Comment onClick={onClick}/>;
-            }
+            return <Comment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'company':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Apartment onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Apartment onClick={onClick}/>;
-            }
+            return <Apartment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_call':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <PhoneAndroid onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <PhoneAndroid onClick={onClick}/>;
-            }
+            return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_email':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Mail onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Mail onClick={onClick}/>;
-            }
+            return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'load':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Refresh onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Refresh onClick={onClick}/>;
-            }
+            return <Refresh className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_lose_price':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <AttachMoney onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <AttachMoney onClick={onClick}/>;
-            }
+            return <AttachMoney className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_lose_product':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Extension onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Extension onClick={onClick}/>;
-            }
+            return <Extension className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_lose_unknown':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Help onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Help onClick={onClick}/>;
-            }
+            return <Help className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_lose_window':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <SettingsOverscan onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <SettingsOverscan onClick={onClick}/>;
-            }
+            return <SettingsOverscan className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_mail':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Mail onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Mail onClick={onClick}/>;
-            }
+            return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_meeting':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <FreeBreakfast onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <FreeBreakfast onClick={onClick}/>;
-            }
+            return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_post':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <ContactMail onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <ContactMail onClick={onClick}/>;
-            }
+            return <ContactMail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'edit':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Edit onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Edit onClick={onClick}/>;
-            }
+            return <Edit className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'events':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Today onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Today onClick={onClick}/>;
-            }
+            return <Today className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'eventsCalendar':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Today onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Today onClick={onClick}/>;
-            }
+            return <Today className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'eventsFlow':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Reorder onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Reorder onClick={onClick}/>;
-            }
+            return <Reorder className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'home':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Home onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Home onClick={onClick}/>;
-            }
+            return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'lists':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <List onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <List onClick={onClick}/>;
-            }
+            return <List className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'login':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <ExitToApp onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <ExitToApp onClick={onClick}/>;
-            }
+            return <ExitToApp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'logout':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <ExitToApp onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <ExitToApp onClick={onClick}/>;
-            }
+            return <ExitToApp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'mail':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Mail onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Mail onClick={onClick}/>;
-            }
+            return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'maximize':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <ZoomOutMap onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <ZoomOutMap onClick={onClick}/>;
-            }
+            return <ZoomOutMap className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'meeting':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <FreeBreakfast onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <FreeBreakfast onClick={onClick}/>;
-            }
+            return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'minimize':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Minimize onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Minimize onClick={onClick}/>;
-            }
+            return <Minimize className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'move':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <SwapHoriz onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <SwapHoriz onClick={onClick}/>;
-            }
+            return <SwapHoriz className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'navigateBefore':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <NavigateBefore onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <NavigateBefore onClick={onClick}/>;
-            }
+            return <NavigateBefore className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'navigateNext':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <NavigateNext onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <NavigateNext onClick={onClick}/>;
-            }
+            return <NavigateNext className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'news':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <LibraryBooks onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <LibraryBooks onClick={onClick}/>;
-            }
+            return <LibraryBooks className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'offer':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <InsertDriveFile onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <InsertDriveFile onClick={onClick}/>;
-            }
+            return <InsertDriveFile className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'other':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Help onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Help onClick={onClick}/>;
-            }
+            return <Help className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'ourService':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Work onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Work onClick={onClick}/>;
-            }
+            return <Work className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'owner':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Person onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Person onClick={onClick}/>;
-            }
+            return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'price':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <AttachMoney onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <AttachMoney onClick={onClick}/>;
-            }
+            return <AttachMoney className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'prospect':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Tune onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Tune onClick={onClick}/>;
-            }
+            return <Tune className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'regret':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Replay onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Replay onClick={onClick}/>;
-            }
+            return <Replay className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'remove':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Delete onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Delete onClick={onClick}/>;
-            }
+            return <Delete className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'search':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Search onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Search onClick={onClick}/>;
-            }
+            return <Search className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'settings':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Settings onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Settings onClick={onClick}/>;
-            }
+            return <Settings className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'team':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Group onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Group onClick={onClick}/>;
-            }
+            return <Group className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'testride':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <DriveEta onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <DriveEta onClick={onClick}/>;
-            }
+            return <DriveEta className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'toggleComments':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Comment onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Comment onClick={onClick}/>;
-            }
+            return <Comment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'toggleMoved':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <SwapHoriz onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <SwapHoriz onClick={onClick}/>;
-            }
+            return <SwapHoriz className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'toggleOff':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <ToggleOff onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <ToggleOff onClick={onClick}/>;
-            }
+            return <ToggleOff className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'toggleOn':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <ToggleOn onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <ToggleOn onClick={onClick}/>;
-            }
+            return <ToggleOn className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'user':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Person onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Person onClick={onClick}/>;
-            }
+            return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'valuation':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <AttachMoney onClick={onClick}/>
-                    </div>
-                );
-            } else {
-               return <AttachMoney onClick={onClick}/>;
-            }
+            return <AttachMoney className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'visit':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Group onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Group onClick={onClick}/>;
-            }
+            return <Group className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'will_call':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <PhoneAndroid onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <PhoneAndroid onClick={onClick}/>;
-            }
+            return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'will_mail':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <Mail onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <Mail onClick={onClick}/>;
-            }
+            return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'will_meeting':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <FreeBreakfast onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <FreeBreakfast onClick={onClick}/>;
-            }
+            return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'will_post':
-            if (props.hover) {
-                return (
-                    <div className='iconWrapper'>
-                        <div className='iconWrapper__hoverBox'>{tc[props.val]}</div>
-                        <ContactMail onClick={onClick}/>
-                    </div>
-                );
-            } else {
-                return <ContactMail onClick={onClick}/>;
-            }
+            return <ContactMail className={props.active ? 'active' : null} onClick={onClick}/>;
         default:
             return props.val;
     }

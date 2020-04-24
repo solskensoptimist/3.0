@@ -1,6 +1,6 @@
 import React from 'react';
-import Events from 'components/logged_in/content/shared/events';
-import News from './news';
+import Events from 'components/logged_in/content/stand_alone/events';
+import News from 'components/logged_in/content/stand_alone/news';
 
 export default () => {
     return (

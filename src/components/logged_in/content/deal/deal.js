@@ -2,18 +2,23 @@ import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal} from 'store/deal/tasks';
-import Activities from 'components/logged_in/content/shared/activities';
-import Events from 'components/logged_in/content/shared/events';
+import Activities from 'components/logged_in/content/stand_alone/activities';
+import Events from 'components/logged_in/content/stand_alone/events';
 import Loading from 'components/shared/loading';
 import {dealHelper, tc} from 'helpers';
 import Icon from 'components/shared/icon';
 import moment from 'moment';
+import Tooltip from "../../../shared/tooltip/tooltip";
 
 /**
  * Render a deal view.
  */
 const Deal = (state) => {
     const {id} = useParams();
+
+    const _addComment = () => {
+        console.log('addComment');
+    };
 
     const _editDeal = () => {
         console.log('editDeal');
@@ -59,7 +64,8 @@ const Deal = (state) => {
                         </div>
                         <div className='dealWrapper__deal__header__bottom__right'>
                             <div className='dealWrapper__deal__header__bottom__right__item'>
-                                <Icon hover={true} val='edit' onClick={_editDeal}/>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.comment}><Icon val='comment' onClick={_addComment}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.edit}><Icon val='edit' onClick={_editDeal}/></Tooltip>
                             </div>
                         </div>
                     </div>

@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import ContentHeader from 'components/shared/content_header';
+import WidgetHeader from 'components/shared/widget_header';
 import Icon from 'components/shared/icon';
 import {tc} from "helpers";
 import {connect} from "react-redux";
 import EventsFlowItem from './events_flow_item';
 import Loading from 'components/shared/loading';
 import {getEvents} from "store/events/tasks";
+import Tooltip from 'components/shared/tooltip';
 
 const EventsFlow = (state) => {
-    const [showAmount, setShowAmount] = useState(5);
+    const amountIncrease = 5;
+    const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
     const _renderEvents = () => {
@@ -36,15 +38,15 @@ const EventsFlow = (state) => {
         <div className='eventsFlowWrapper'>
             <div className='eventsFlowWrapper__eventsFlow'>
                 <div className='eventsFlowWrapper__eventsFlow__header'>
-                    <ContentHeader
+                    <WidgetHeader
                         iconVal='events'
                         dashboard={
                             <>
-                                <Icon hover={true} val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/>
-                                <Icon hover={true} val='eventsFlow' onClick={() => {state.props.setView('flow')}}/>
-                                <Icon hover={true} val='load' onClick={() => {setShowAmount(showAmount + 10)}}/>
-                                <Icon hover={true} val='regret' onClick={() => {setShowAmount(5)}}/>
-                                {minimize ? <Icon hover={true} val='maximize' onClick={() => {setMinimize(false)}}/> : <Icon hover={true} val='minimize' onClick={() => {setMinimize(true)}}/>}
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsCalendar}><Icon val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsFlow}><Icon val='eventsFlow' onClick={() => {state.props.setView('flow')}}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>
+                                {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
+                                {minimize ? <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
                             </>
                         }
                         headline={tc.events}

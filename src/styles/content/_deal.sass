@@ -30,11 +30,13 @@
         &__right
           &__item
             display: flex
-            flex-direction: column
-            justify-content: center
+            justify-content: flex-end
             align-items: center
             svg
               @extend .iconStyleCircleClick
+            margin-right: $paddingBig
+            &:last-of-type
+              margin-right: 0
     &__content
       &__item
         margin-bottom: $paddingGrid

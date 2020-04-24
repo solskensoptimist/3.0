@@ -6,11 +6,11 @@ import {useParams} from 'react-router-dom';
  * Render person view.
  */
 const Person = (state) => {
-    let {id} = useParams();
+    const {id} = useParams();
 
     return (
         <div className='personWrapper'>
-            Person komponent
+            <p>Personkomponent</p>
             <p>Id: {id}</p>
         </div>
     );

@@ -5,6 +5,7 @@ import {setShowSearch} from 'store/search/tasks';
 import SearchComponent from './search/';
 import {connect} from 'react-redux';
 import Icon from 'components/shared/icon';
+import Tooltip from 'components/shared/tooltip';
 
 /**
  * Navigation_logged_in component.
@@ -45,7 +46,7 @@ const Navigation = (state) =>  {
                 </div>
                 <div className='navigationWrapper__navigation__right'>
                     {state.search.showSearch && <SearchComponent />}
-                    <Icon hover={true} val='search' onClick={_openShowSearch} />
+                    <Tooltip horizontalDirection='left' tooltipContent={tc.search}><Icon val='search' onClick={_openShowSearch} /></Tooltip>
                 </div>
             </div>
         </div>

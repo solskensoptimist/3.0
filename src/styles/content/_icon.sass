@@ -1,21 +1,2 @@
-.iconWrapper
-  position: relative !important
-  display: flex
-  align-items: center
-  &:hover
-    .iconWrapper__hoverBox
-      display: block !important
-  &__hoverBox
-    display: none !important
-    z-index: 10 !important
-    white-space: nowrap !important
-    position: absolute !important
-    top: -50% !important
-    right: 120% !important
-    background: $grey-800 !important
-    color: $grey-50 !important
-    //border: 1px solid $grey-300 !important
-    border-radius: 2px
-    padding: $paddingMedium !important
-    //@extend .shadowBottom
-
+svg.active
+  fill: $colorLinkHover !important

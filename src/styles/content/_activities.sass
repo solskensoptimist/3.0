@@ -39,6 +39,7 @@
           justify-content: space-between
           padding: $paddingBig
           flex-grow: 1
+          word-break: break-word
           &:hover
             .activitiesWrapper__activities__content__itemWrapper__item__edit
               visibility: visible
@@ -65,12 +66,16 @@
           &__edit
             margin-left: $paddingBig
             display: flex
-            justify-content: space-between
+            justify-content: flex-end
             align-items: center
             flex-basis: 4%
             visibility: hidden
-            svg
-              fill: $colorLink
-              cursor: pointer
-              &:hover
-                fill: $colorLinkHover
+            .iconWrapper
+              margin-left: $paddingMedium
+              &:first-of-type
+                margin-left: 0
+              svg
+                fill: $colorLink
+                cursor: pointer
+                &:hover
+                  fill: $colorLinkHover

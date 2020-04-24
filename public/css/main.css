@@ -15,10 +15,10 @@ body {
   margin: 0 0; }
 
 a {
-  color: #0090A7;
+  color: #009AB1;
   text-decoration: none; }
   a:hover {
-    color: #212121; }
+    color: #616161; }
 
 .grid2Columns1Row, .homeWrapper {
   display: grid;
@@ -30,7 +30,7 @@ a {
 .hide {
   display: none !important; }
 
-.iconStyleCircle, .iconStyleCircleClick, .dealWrapper__deal__header__bottom__right__item svg, .navigationWrapper__navigation__right svg, .contentHeaderWrapper__contentHeader__left__left svg {
+.iconStyleCircle, .iconStyleCircleClick, .dealWrapper__deal__header__bottom__right__item svg, .navigationWrapper__navigation__right svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -48,7 +48,7 @@ a {
   background: #bdbdbd !important;
   cursor: pointer !important; }
   .iconStyleCircleClick:hover, .dealWrapper__deal__header__bottom__right__item svg:hover, .navigationWrapper__navigation__right svg:hover {
-    background: #424242 !important; }
+    background: #616161 !important; }
 
 .paperSheet, .activitiesWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .newsWrapper {
   background: white;
@@ -123,11 +123,11 @@ h5 {
   line-height: 18px;
   text-transform: uppercase; }
 
-.headlineMain, .contentHeaderWrapper__contentHeader__left__right, .settingsWrapper__settings__header {
+.headlineMain, .widgetHeaderWrapper__widgetHeader__left__right, .settingsWrapper__settings__header {
   color: #212121; }
-  .headlineMain h2, .contentHeaderWrapper__contentHeader__left__right h2, .settingsWrapper__settings__header h2 {
+  .headlineMain h2, .widgetHeaderWrapper__widgetHeader__left__right h2, .settingsWrapper__settings__header h2 {
     font-weight: 600; }
-  .headlineMain h3, .contentHeaderWrapper__contentHeader__left__right h3, .settingsWrapper__settings__header h3 {
+  .headlineMain h3, .widgetHeaderWrapper__widgetHeader__left__right h3, .settingsWrapper__settings__header h3 {
     font-size: 14px;
     font-weight: normal;
     color: #9e9e9e;
@@ -285,7 +285,8 @@ h5 {
       display: flex;
       justify-content: space-between;
       padding: 22px;
-      flex-grow: 1; }
+      flex-grow: 1;
+      word-break: break-word; }
       .activitiesWrapper__activities__content__itemWrapper__item:hover .activitiesWrapper__activities__content__itemWrapper__item__edit {
         visibility: visible; }
       .activitiesWrapper__activities__content__itemWrapper__item__icon {
@@ -311,40 +312,19 @@ h5 {
       .activitiesWrapper__activities__content__itemWrapper__item__edit {
         margin-left: 22px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         flex-basis: 4%;
         visibility: hidden; }
-        .activitiesWrapper__activities__content__itemWrapper__item__edit svg {
-          fill: #0090A7;
-          cursor: pointer; }
-          .activitiesWrapper__activities__content__itemWrapper__item__edit svg:hover {
-            fill: #212121; }
-
-.contentHeaderWrapper__contentHeader {
-  display: flex;
-  justify-content: space-between; }
-  .contentHeaderWrapper__contentHeader__left {
-    display: flex;
-    align-items: center; }
-    .contentHeaderWrapper__contentHeader__left__right {
-      margin: 0 22px; }
-  .contentHeaderWrapper__contentHeader__right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center; }
-    .contentHeaderWrapper__contentHeader__right div {
-      display: flex; }
-    .contentHeaderWrapper__contentHeader__right svg {
-      cursor: pointer;
-      width: 20px;
-      height: 20px;
-      fill: #bdbdbd;
-      margin-left: 8px; }
-      .contentHeaderWrapper__contentHeader__right svg:first-child {
-        margin-left: 0; }
-      .contentHeaderWrapper__contentHeader__right svg:hover {
-        fill: #0090A7; }
+        .activitiesWrapper__activities__content__itemWrapper__item__edit .iconWrapper {
+          margin-left: 12px; }
+          .activitiesWrapper__activities__content__itemWrapper__item__edit .iconWrapper:first-of-type {
+            margin-left: 0; }
+          .activitiesWrapper__activities__content__itemWrapper__item__edit .iconWrapper svg {
+            fill: #009AB1;
+            cursor: pointer; }
+            .activitiesWrapper__activities__content__itemWrapper__item__edit .iconWrapper svg:hover {
+              fill: #616161; }
 
 .dealWrapper {
   padding: 3%; }
@@ -374,9 +354,11 @@ h5 {
             color: #bdbdbd; }
       .dealWrapper__deal__header__bottom__right__item {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center; }
+        justify-content: flex-end;
+        align-items: center;
+        margin-right: 22px; }
+        .dealWrapper__deal__header__bottom__right__item:last-of-type {
+          margin-right: 0; }
   .dealWrapper__deal__content__item {
     margin-bottom: 3%; }
     .dealWrapper__deal__content__item:last-of-type {
@@ -423,7 +405,7 @@ h5 {
             color: #424242;
             font-weight: 600; }
           .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event svg {
-            color: #0090A7; }
+            color: #009AB1; }
           .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__icon {
             margin-right: 8px;
             display: flex;
@@ -435,7 +417,7 @@ h5 {
               font-size: 12px; }
             .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info svg {
               margin-left: 12px;
-              color: #0090A7; }
+              color: #009AB1; }
     .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .day {
       display: flex;
       align-items: center;
@@ -454,29 +436,14 @@ h5 {
     .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .passed .day__date {
       opacity: 0.4; }
   .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day__date {
-    color: #0090A7;
+    color: #009AB1;
     cursor: pointer; }
 
 .eventsFlowWrapper__eventsFlow__content {
   margin-top: 22px; }
 
-.iconWrapper {
-  position: relative !important;
-  display: flex;
-  align-items: center; }
-  .iconWrapper:hover .iconWrapper__hoverBox {
-    display: block !important; }
-  .iconWrapper__hoverBox {
-    display: none !important;
-    z-index: 10 !important;
-    white-space: nowrap !important;
-    position: absolute !important;
-    top: -50% !important;
-    right: 120% !important;
-    background: #424242 !important;
-    color: #fafafa !important;
-    border-radius: 2px;
-    padding: 12px !important; }
+svg.active {
+  fill: #616161 !important; }
 
 .newsWrapper__news__content {
   max-height: 500px;
@@ -500,6 +467,47 @@ h5 {
       background: #f5f5f5;
       padding: 8px;
       font-size: 0.8em; }
+
+.tooltipWrapper {
+  position: relative;
+  margin-left: 12px; }
+  .tooltipWrapper:first-of-type {
+    margin-left: 0; }
+  .tooltipWrapper:hover .tooltipWrapper__tooltip__hover {
+    display: block; }
+  .tooltipWrapper__tooltip__hover {
+    display: none;
+    position: absolute;
+    background: #424242;
+    color: white;
+    border-radius: 2px;
+    padding: 12px;
+    white-space: nowrap;
+    z-index: 10; }
+  .tooltipWrapper__tooltip__content {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+
+.widgetHeaderWrapper__widgetHeader {
+  display: flex;
+  justify-content: space-between; }
+  .widgetHeaderWrapper__widgetHeader__left {
+    display: flex;
+    align-items: center; }
+    .widgetHeaderWrapper__widgetHeader__left__right {
+      margin: 0 22px; }
+  .widgetHeaderWrapper__widgetHeader__right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+    .widgetHeaderWrapper__widgetHeader__right svg {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      fill: #bdbdbd; }
+      .widgetHeaderWrapper__widgetHeader__right svg:hover {
+        fill: #616161; }
 
 .navigationWrapper {
   border-bottom: 1px solid #eeeeee;
@@ -539,14 +547,14 @@ h5 {
         font-weight: 400; }
         .navigationWrapper__navigation__left a:hover {
           background: #fafafa;
-          color: #424242; }
+          color: #616161; }
           .navigationWrapper__navigation__left a:hover svg {
-            color: #424242; }
+            fill: #616161; }
         .navigationWrapper__navigation__left a.active {
           background: #fafafa;
-          color: #424242; }
+          color: #616161; }
           .navigationWrapper__navigation__left a.active svg {
-            color: #424242; }
+            fill: #616161; }
     .navigationWrapper__navigation__right {
       display: flex;
       align-items: center;
@@ -589,7 +597,7 @@ h5 {
             padding: 22px;
             z-index: 5; }
             .navigationWrapper__navigation__right .searchWrapper__search__results__item {
-              color: #0090A7;
+              color: #009AB1;
               font-size: 15px;
               margin-bottom: 8px;
               cursor: pointer;
@@ -598,11 +606,11 @@ h5 {
               .navigationWrapper__navigation__right .searchWrapper__search__results__item:last-of-type {
                 margin-bottom: 0; }
               .navigationWrapper__navigation__right .searchWrapper__search__results__item:hover {
-                color: #212121; }
+                color: #616161; }
                 .navigationWrapper__navigation__right .searchWrapper__search__results__item:hover svg {
-                  color: #212121; }
+                  color: #616161; }
               .navigationWrapper__navigation__right .searchWrapper__search__results__item svg {
-                color: #0090A7;
+                color: #009AB1;
                 width: 14px;
                 height: 14px;
                 margin-right: 12px; }
@@ -642,12 +650,12 @@ h5 {
         .settingsWrapper__settings__content__item svg {
           width: 30px !important;
           height: 30px !important;
-          fill: #0090A7 !important;
+          fill: #009AB1 !important;
           display: flex !important;
           align-items: center !important;
           cursor: pointer !important; }
           .settingsWrapper__settings__content__item svg:hover {
-            fill: #212121 !important; }
+            fill: #616161 !important; }
         .settingsWrapper__settings__content__item h5 {
           color: #757575;
           margin: 0 12px 0 0; }
@@ -656,7 +664,7 @@ h5 {
           color: #212121;
           margin: 12px 0; }
         .settingsWrapper__settings__content__item__button {
-          background: #0090A7;
+          background: #009AB1;
           color: white;
           padding: 12px;
           display: flex;
@@ -667,7 +675,7 @@ h5 {
           opacity: 0.7;
           width: 100%; }
           .settingsWrapper__settings__content__item__button:hover {
-            background: #212121; }
+            background: #616161; }
         .settingsWrapper__settings__content__item input {
           background: white;
           border: 1px solid #bdbdbd;

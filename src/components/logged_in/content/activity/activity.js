@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {tc} from 'helpers';
 import {getActivityByFilter} from 'store/activity/tasks';
-import Activities from 'components/logged_in/content/shared/activities';
+import Activities from 'components/logged_in/content/stand_alone/activities';
 
 export default () => {
     useEffect(() => {

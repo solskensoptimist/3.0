@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {setShowSettings} from 'store/settings/tasks';
+import {tc} from 'helpers'
 import Settings from './settings/settings';
 import Icon from 'components/shared/icon';
+import Tooltip from 'components/shared/tooltip';
 
 const User = (state) => {
     const _openShowSettings = () => {
@@ -18,7 +20,7 @@ const User = (state) => {
                     <div className='userWrapper__user__name__dealer'>{state.user.info.dealerName}</div>
                 </div>
                 <div className='userWrapper__user__icon'>
-                    <Icon hover={true} val='settings' onClick={_openShowSettings}/>
+                    <Tooltip horizontalDirection='left' verticalDirection='bottom' tooltipContent={tc.settings}><Icon val='settings' onClick={_openShowSettings}/></Tooltip>
                     {state.settings.showSettings && <Settings />}
                 </div>
             </div>
