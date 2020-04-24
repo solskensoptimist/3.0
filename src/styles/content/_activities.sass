@@ -70,12 +70,11 @@
             align-items: center
             flex-basis: 4%
             visibility: hidden
-            .iconWrapper
+            svg
+              fill: $colorLink
+              cursor: pointer
               margin-left: $paddingMedium
+              &:hover
+                fill: $colorLinkHover
               &:first-of-type
                 margin-left: 0
-              svg
-                fill: $colorLink
-                cursor: pointer
-                &:hover
-                  fill: $colorLinkHover

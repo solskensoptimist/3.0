@@ -316,15 +316,14 @@ h5 {
         align-items: center;
         flex-basis: 4%;
         visibility: hidden; }
-        .activitiesWrapper__activities__content__itemWrapper__item__edit .iconWrapper {
+        .activitiesWrapper__activities__content__itemWrapper__item__edit svg {
+          fill: #009AB1;
+          cursor: pointer;
           margin-left: 12px; }
-          .activitiesWrapper__activities__content__itemWrapper__item__edit .iconWrapper:first-of-type {
+          .activitiesWrapper__activities__content__itemWrapper__item__edit svg:hover {
+            fill: #616161; }
+          .activitiesWrapper__activities__content__itemWrapper__item__edit svg:first-of-type {
             margin-left: 0; }
-          .activitiesWrapper__activities__content__itemWrapper__item__edit .iconWrapper svg {
-            fill: #009AB1;
-            cursor: pointer; }
-            .activitiesWrapper__activities__content__itemWrapper__item__edit .iconWrapper svg:hover {
-              fill: #616161; }
 
 .dealWrapper {
   padding: 3%; }
@@ -355,8 +354,9 @@ h5 {
       .dealWrapper__deal__header__bottom__right__item {
         display: flex;
         justify-content: flex-end;
-        align-items: center;
-        margin-right: 22px; }
+        align-items: center; }
+        .dealWrapper__deal__header__bottom__right__item svg {
+          margin-right: 12px; }
         .dealWrapper__deal__header__bottom__right__item:last-of-type {
           margin-right: 0; }
   .dealWrapper__deal__content__item {
