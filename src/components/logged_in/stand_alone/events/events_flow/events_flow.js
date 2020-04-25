@@ -50,7 +50,7 @@ const EventsFlow = (state) => {
                             </>
                         }
                         headline={tc.events}
-                        headlineSub={tc.plannedActivitiesNotPerformed}
+                        headlineSub={tc.activitiesComingUp}
                     />
                 </div>
                 <div className={minimize ? 'hide' : 'eventsFlowWrapper__eventsFlow__content'}>

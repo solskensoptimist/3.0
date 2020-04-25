@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal} from 'store/deal/tasks';
-import Activities from 'components/logged_in/content/stand_alone/activities';
-import Events from 'components/logged_in/content/stand_alone/events';
+import Activities from 'components/logged_in/stand_alone/activities';
+import Events from 'components/logged_in/stand_alone/events';
 import Loading from 'components/shared/loading';
 import {dealHelper, tc} from 'helpers';
 import Icon from 'components/shared/icon';
 import moment from 'moment';
-import Tooltip from "../../../shared/tooltip/tooltip";
+import Tooltip from 'components/shared/tooltip/tooltip';
 
 /**
  * Render a deal view.

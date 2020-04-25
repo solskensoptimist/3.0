@@ -1,7 +1,6 @@
 import React from 'react';
 import LoggedIn from 'components/logged_in';
 import LoggedOut from 'components/logged_out';
-import Footer from 'components/shared/footer';
 import {connect} from "react-redux";
 
 /**
@@ -15,7 +14,6 @@ const AppHolder = (state) => {
     return (
         <div className='appHolder'>
             { loggedIn() ? <LoggedIn /> : <LoggedOut /> }
-            <Footer />
         </div>
     );
 };
