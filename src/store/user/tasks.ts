@@ -18,7 +18,11 @@ export const userLogin = async (credentials) => {
         });
 
         if (!user || (user && !user.id)) {
-            return console.error('Missing user data.');
+            return console.log('Missing user data.');
+        }
+
+        if (user instanceof Error) {
+            console.error('Error in userLogin:\n' + user);
         }
 
         // Fix: IMPLEMENT ASYNC REDUX ACTION, REMOVE SETTIMEOUT

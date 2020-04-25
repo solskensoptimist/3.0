@@ -77,9 +77,6 @@ const Deal = (state) => {
                     <div className='dealWrapper__deal__content__item'>
                         <Activities id={id} includeComments={true} includeMoved={true} type='target' />
                     </div>
-                    <div className='dealWrapper__deal__content__item'>
-                        <Activities id={id} includeComments={true} includeMoved={true} type='filter' />
-                    </div>
                 </div>
             </div>
         </div> :

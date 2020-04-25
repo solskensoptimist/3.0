@@ -32,11 +32,12 @@
             display: flex
             justify-content: flex-end
             align-items: center
+            .tooltipWrapper
+              margin-left: $paddingBig
+              &:first-of-type
+                margin-left: 0
             svg
               @extend .iconStyleCircleClick
-              margin-right: $paddingMedium
-            &:last-of-type
-              margin-right: 0
     &__content
       &__item
         margin-bottom: $paddingGrid

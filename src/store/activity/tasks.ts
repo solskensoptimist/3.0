@@ -22,7 +22,7 @@ export const getActivityByFilter = async () => {
             url: '/activity/dealer/',
         });
 
-        const result = (data && data.length) ? data.filter((num) => {
+        const result = (data && data.length && !(data instanceof Error)) ? data.filter((num) => {
                 return !('complete' in num && num.complete === false);
             }).map((num) => {
                 if (!num.date_created && num.added) {
@@ -61,7 +61,7 @@ export const getActivityByTarget = async (payload) => {
             url: url,
         });
 
-        const result = (data && data.length) ? data.filter((num) => {
+        const result = (data && data.length && !(data instanceof Error)) ? data.filter((num) => {
                 return !('complete' in num && num.complete === false);
             }).map((num) => {
                 if (!num.date_created && num.added) {

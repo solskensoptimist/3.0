@@ -24,7 +24,11 @@ export const getEvents = async (payload) => {
         });
 
         // All deals that have events.
-        const deals = (data && data.length) ? data : [];
+        const deals = (data && data.length && !(data instanceof Error)) ? data : null;
+
+        if (!deals) {
+            return;
+        }
 
         const dateYear = (payload && payload.date && payload.date.year) ?
             payload.date.year :

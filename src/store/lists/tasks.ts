@@ -20,7 +20,11 @@ export const getLists = async (payload) => {
         });
 
         if (!data || (data && !data.data)) {
-            return console.error('No lists.');
+            return;
+        }
+
+        if (data instanceof Error) {
+            return console.error('Error in getLists:\n' + data);
         }
 
         const result = {

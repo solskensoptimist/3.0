@@ -14,11 +14,16 @@ const EventsCalendar = (state) => {
 
     const _renderDays = () => {
         const days = [];
+        let i = 1;
+        const leftDays = [1,2,3,4,8,9,10,11,15,16,17,18,22,23,24,25,29,30,31];
 
         for (const day in state.events.month) {
             const hasPassed = moment(new Date()).format('YYYY-MM-DD') > moment(new Date(day)).format('YYYY-MM-DD');
             const isToday = moment(new Date(day)).isSame(new Date(), 'day');
-            days.push(<EventsCalendarDay date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} />);
+            const position = (leftDays.includes(i)) ? 'left' : 'right'; // First four days of week we want left position.
+
+            days.push(<EventsCalendarDay date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} position={position} />);
+            i++;
         }
 
         return days;

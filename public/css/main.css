@@ -139,8 +139,30 @@ h5 {
   font-size: 38px;
   text-transform: none; }
 
+svg.active {
+  fill: #616161 !important; }
+
+.tooltipWrapper {
+  position: relative; }
+  .tooltipWrapper:hover .tooltipWrapper__tooltip__hover {
+    display: block; }
+  .tooltipWrapper__tooltip__hover {
+    display: none;
+    position: absolute;
+    background: #424242;
+    color: white;
+    border-radius: 2px;
+    padding: 12px;
+    white-space: nowrap;
+    z-index: 10; }
+  .tooltipWrapper__tooltip__content {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+
 .contentWrapper__content {
-  background: #f5f5f5; }
+  background: #f5f5f5;
+  overflow: hidden; }
 
 .footer {
   background: transparent;
@@ -248,7 +270,11 @@ h5 {
           align-items: center; }
 
 .activityWrapper {
-  width: 100%; }
+  padding: 3%; }
+  .activityWrapper__activity__content__item {
+    margin-bottom: 3%; }
+    .activityWrapper__activity__content__item:last-of-type {
+      margin-bottom: 0; }
 
 .activitiesWrapper__activities__content {
   color: #616161;
@@ -355,10 +381,10 @@ h5 {
         display: flex;
         justify-content: flex-end;
         align-items: center; }
-        .dealWrapper__deal__header__bottom__right__item svg {
-          margin-right: 12px; }
-        .dealWrapper__deal__header__bottom__right__item:last-of-type {
-          margin-right: 0; }
+        .dealWrapper__deal__header__bottom__right__item .tooltipWrapper {
+          margin-left: 22px; }
+          .dealWrapper__deal__header__bottom__right__item .tooltipWrapper:first-of-type {
+            margin-left: 0; }
   .dealWrapper__deal__content__item {
     margin-bottom: 3%; }
     .dealWrapper__deal__content__item:last-of-type {
@@ -379,11 +405,14 @@ h5 {
       height: 16px; }
     .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper {
       position: relative; }
+      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper .left {
+        left: 0; }
+      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper .right {
+        right: 0; }
       .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events {
         z-index: 5;
         position: absolute;
         top: 0;
-        left: -250%;
         background: white;
         border: 1px solid #eeeeee;
         padding: 22px;
@@ -435,15 +464,13 @@ h5 {
         justify-content: center; }
     .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .passed .day__date {
       opacity: 0.4; }
-  .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day__date {
-    color: #009AB1;
+  .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day {
     cursor: pointer; }
+    .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day__date {
+      color: #009AB1; }
 
 .eventsFlowWrapper__eventsFlow__content {
   margin-top: 22px; }
-
-svg.active {
-  fill: #616161 !important; }
 
 .newsWrapper__news__content {
   max-height: 500px;
@@ -468,27 +495,6 @@ svg.active {
       padding: 8px;
       font-size: 0.8em; }
 
-.tooltipWrapper {
-  position: relative;
-  margin-left: 12px; }
-  .tooltipWrapper:first-of-type {
-    margin-left: 0; }
-  .tooltipWrapper:hover .tooltipWrapper__tooltip__hover {
-    display: block; }
-  .tooltipWrapper__tooltip__hover {
-    display: none;
-    position: absolute;
-    background: #424242;
-    color: white;
-    border-radius: 2px;
-    padding: 12px;
-    white-space: nowrap;
-    z-index: 10; }
-  .tooltipWrapper__tooltip__content {
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-
 .widgetHeaderWrapper__widgetHeader {
   display: flex;
   justify-content: space-between; }
@@ -501,6 +507,10 @@ svg.active {
     display: flex;
     justify-content: flex-end;
     align-items: center; }
+    .widgetHeaderWrapper__widgetHeader__right .tooltipWrapper {
+      margin-left: 12px; }
+      .widgetHeaderWrapper__widgetHeader__right .tooltipWrapper:first-of-type {
+        margin-left: 0; }
     .widgetHeaderWrapper__widgetHeader__right svg {
       cursor: pointer;
       width: 20px;

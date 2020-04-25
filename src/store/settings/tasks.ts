@@ -13,6 +13,13 @@ export const getSettings = async () => {
             url: '/settings',
         });
 
+        if (!data || data instanceof Error) {
+            return console.error('Error in getSettings:\n' + data);
+        }
+        if (data && !data.settings) {
+            return console.log('No settings data');
+        }
+
         // Backend holds a lot of info we dont use in 3.0, only set email setting for now.
         const savedSettings = SettingsHelper.getSavedSettings(data.settings);
         const categorized = SettingsHelper.categorizeFlags(savedSettings);

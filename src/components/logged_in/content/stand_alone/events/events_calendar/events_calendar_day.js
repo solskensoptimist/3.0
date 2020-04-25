@@ -11,6 +11,7 @@ import Icon from 'components/shared/icon';
  * props.events - array - [{ _id, action, dealId, name, (...) }, {(...)}]
  * props.hasPassed - bool
  * props.isToday - bool
+ * props.position - added to class, determines direction for popup
  */
 export default (props) => {
     const [showEvents, setShowEvents] = useState(false);
@@ -78,7 +79,7 @@ export default (props) => {
         <div className={classnameWrapper} onClick={_openEvents}>
             {showEvents &&
                 <div className='dayWrapper__eventsWrapper' ref={eventsRef}>
-                    <div className='dayWrapper__eventsWrapper__events'>
+                    <div className={'dayWrapper__eventsWrapper__events ' + props.position}>
                         <h4>{(props.events && props.events.length && props.events.length > 1) ? tc.activities : tc.activity}</h4>
                         {events}
                     </div>
