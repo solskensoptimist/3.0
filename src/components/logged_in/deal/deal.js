@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal} from 'store/deal/tasks';
-import Activities from 'components/logged_in/stand_alone/activities';
-import Events from 'components/logged_in/stand_alone/events';
+import Activities from 'components/logged_in/activities';
+import EditDeal from 'components/logged_in/edit_deal';
+import Events from 'components/logged_in/events';
 import Loading from 'components/shared/loading';
 import {dealHelper, tc} from 'helpers';
 import Icon from 'components/shared/icon';
@@ -14,14 +15,11 @@ import Tooltip from 'components/shared/tooltip/tooltip';
  * Render a deal view.
  */
 const Deal = (state) => {
+    const [showEditDeal, setShowEditDeal] = useState(false);
     const {id} = useParams();
 
     const _addComment = () => {
         console.log('addComment');
-    };
-
-    const _editDeal = () => {
-        console.log('editDeal');
     };
 
     const _stateCheck = () => {
@@ -64,13 +62,14 @@ const Deal = (state) => {
                         </div>
                         <div className='dealWrapper__deal__header__bottom__right'>
                             <div className='dealWrapper__deal__header__bottom__right__item'>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.comment}><Icon val='comment' onClick={_addComment}/></Tooltip>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.edit}><Icon val='edit' onClick={_editDeal}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}><Icon val='comment' onClick={_addComment}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}><Icon val='edit' onClick={() => {setShowEditDeal(true)}}/></Tooltip>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
+                    {showEditDeal && <EditDeal close={() => {setShowEditDeal(false)}}/>}
                     <div className='dealWrapper__deal__content__item'>
                         <Events view='flow'/>
                     </div>

@@ -1,34 +1,34 @@
-// General rules
-// (Import documents with variables first, sizes, colors etc.)
+// File with variables, import first
 @import '_sizes'
 @import '_colors'
-@import '_general'
-@import '_links'
-@import '_mixins'
+
+// File with classes used elsewhere, import secondly
 @import '_shared'
 @import '_text_general'
+
+@import '_general'
 @import '_icon'
+@import '_links'
+@import '_loading'
+@import '_mixins'
 @import '_tooltip'
-
-// Domains
-@import 'content/_content'
-@import 'footer/_footer'
-@import 'header/_header'
-
 @import 'content/_activity'
 @import 'content/_activities'
 @import 'content/_agile'
+@import 'content/_content'
 @import 'content/_deal'
+@import 'content/_edit_deal'
 @import 'content/_events'
 @import 'content/_home'
 @import 'content/_lists'
 @import 'content/_news'
 @import 'content/_prospect'
 @import 'content/_tables'
-@import 'content/widget_header'
+@import 'content/_widget_header'
+@import 'footer/_footer'
+@import 'header/_header'
 @import 'header/_navigation'
 @import 'header/_settings'
-@import 'loading'
 
 // Media queries (place last to override rules with same specificity)
 @import 'media/_breakpoints'

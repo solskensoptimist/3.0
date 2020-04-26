@@ -1,6 +1,5 @@
 import {store} from 'store';
 import {request} from 'helpers';
-import {settingsActionTypes} from "store/settings/actions";
 import {rootActionTypes} from "store/actions";
 import {userActionTypes} from "store/user/actions";
 
@@ -40,8 +39,6 @@ export const userLogin = async (credentials) => {
  */
 export const userLogout = async () => {
     try {
-        store.dispatch({type: settingsActionTypes.SET_SHOW_SETTINGS, payload: {showSettings: false}});
-
         await request({
             method: 'get',
             url: '/logout',

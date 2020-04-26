@@ -46,3 +46,5 @@ then access it via state.props.
 Try and user request_helper for requests to keep the store tasks clean. If we need a different format, write a new helper.
 
 Note that we deprecate some helpers in the shared_helpers module, and put new rewritten helpers in /helpers. 
+
+When it comes to styles, we should only extend classes that are in the root folder. I.E. from _shared.sass or _text_general.sass, not content/_deal.sass. Same with variables, keep everything that is shared in root folder.

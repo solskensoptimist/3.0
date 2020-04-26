@@ -4,7 +4,7 @@ import LoggedOut from 'components/logged_out';
 import {connect} from "react-redux";
 
 /**
- * Root component which holds all other subcomponents.
+ * Root component.
  */
 const AppHolder = (state) => {
     const loggedIn = () => {

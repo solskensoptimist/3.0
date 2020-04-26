@@ -1,25 +1,23 @@
 import React, {useEffect, useState, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {getSettings, savePassword, saveSettings, setShowSettings} from 'store/settings/tasks';
+import {getSettings, savePassword, saveSettings} from 'store/settings/tasks';
 import {userLogout} from 'store/user/tasks';
-import Loading from 'components/shared/loading';
 import {tc} from 'helpers';
 import Icon from 'components/shared/icon';
+import Loading from 'components/shared/loading';
+import WidgetHeader from 'components/shared/widget_header';
 
+/**
+ * Handle user settings.
+ * Renders as popup, closes via props func.
+ */
 const Settings = (state) =>  {
     const [passwordHint, setPasswordHint] = useState('');
     const [showPasswordHint, setShowPasswordHint] = useState(false);
     const passwordRef1 = useRef(null);
     const passwordRef2 = useRef(null);
-    const settingsBoxRef = useRef(null);
-
-    /**
-     * Close settings.
-     */
-    const _closeShowSettings = () => {
-        setShowSettings({showSettings: false});
-    };
+    const settingsRef = useRef(null);
 
     /**
      * Save password.
@@ -63,26 +61,29 @@ const Settings = (state) =>  {
         getSettings();
 
         /**
-         * When clicking outside settings, close it.
+         * When clicking outside Settings, close it.
          */
-        const _unmountSearch = (e) => {
-            if (settingsBoxRef && settingsBoxRef.current) {
-                const node = ReactDOM.findDOMNode(settingsBoxRef.current);
+        const _closeSettings = (e) => {
+            if (settingsRef && settingsRef.current) {
+                const node = ReactDOM.findDOMNode(settingsRef.current);
                 if (node && !node.contains(e.target)) {
-                    _closeShowSettings();
+                    state.props.close();
                 }
             }
         };
 
-        window.addEventListener('mousedown', _unmountSearch);
-        return () => window.removeEventListener('mousedown', _unmountSearch);
-    }, []);
+        window.addEventListener('mousedown', _closeSettings);
+        return () => window.removeEventListener('mousedown', _closeSettings);
+    }, [state.props]);
 
     return _stateCheck() ? (
         <div className='settingsWrapper'>
-            <div className='settingsWrapper__settings' ref={settingsBoxRef}>
+            <div className='settingsWrapper__settings' ref={settingsRef}>
                 <div className='settingsWrapper__settings__header'>
-                    <div className='settingsWrapper__settings__header__title'><h2>{tc.settings}</h2></div>
+                    <WidgetHeader
+                        iconVal='settings'
+                        headline={tc.settings}
+                    />
                 </div>
                 <div className='settingsWrapper__settings__content'>
                     <div className='settingsWrapper__settings__content__item'>
@@ -133,8 +134,9 @@ const Settings = (state) =>  {
     );
 };
 
-const MapStateToProps = (state) => {
+const MapStateToProps = (state, props) => {
     return {
+        props: props,
         settings: state.settings,
     };
 };

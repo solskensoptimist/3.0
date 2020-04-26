@@ -68,12 +68,3 @@ export const saveSettings = async (payload) => {
         return console.error('Error in saveSettings:\n' + err);
     }
 };
-
-/**
- * Set show settings.
- *
- * @param payload.showSettings
- */
-export const setShowSettings = (payload) => {
-    return store.dispatch({ type: settingsActionTypes.SET_SHOW_SETTINGS, payload: payload });
-};

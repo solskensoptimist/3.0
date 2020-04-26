@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {getActivityByFilter} from 'store/activity/tasks';
-import Activities from 'components/logged_in/stand_alone/activities';
+import Activities from 'components/logged_in/activities';
 
 export default () => {
     useEffect(() => {

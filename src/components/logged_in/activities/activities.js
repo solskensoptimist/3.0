@@ -83,7 +83,7 @@ const Activities = (state) => {
                 if (activity.deal && activity.deal.name) {
                     // Add deal link to comment.
                     action = <div>{activityHelper.getReadableActivity('comment')} {tc.onDeal.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>;
-                } else if (!activity.deal && activity.target) {
+                } else if (!activity.deal && activity.target && activity.target.toString().length < 13) {
                     // No deal, add prospect link.
                     if (companyHelper.isValidOrgNr(activity.target)) {
                         action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/foretag/' + activity.target} key='foretag'>{tc.oneProspect}</NavLink></div>;
