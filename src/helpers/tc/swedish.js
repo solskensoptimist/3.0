@@ -102,6 +102,7 @@ export default {
     status: 'Status',
     team: 'Team',
     theDeal: 'Affären',
+    theTeam: 'Vi som jobbar här',
     testride: 'Provkörning',
     time: 'Tid',
     to: 'Till',

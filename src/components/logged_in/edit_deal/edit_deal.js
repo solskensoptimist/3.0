@@ -11,6 +11,10 @@ import ReactDOM from "react-dom";
 const EditDeal = (state) => {
     const editDealRef = useRef(null);
 
+    const _closeComponent = () => {
+        state.props.close();
+    };
+
     useEffect(() => {
         /**
          * When clicking outside EditDeal, close it.
@@ -19,14 +23,14 @@ const EditDeal = (state) => {
             if (editDealRef && editDealRef.current) {
                 const node = ReactDOM.findDOMNode(editDealRef.current);
                 if (node && !node.contains(e.target)) {
-                    state.props.close();
+                    _closeComponent();
                 }
             }
         };
 
         window.addEventListener('mousedown', _closeEditDeal);
         return () => window.removeEventListener('mousedown', _closeEditDeal);
-    }, [state.props]);
+    }, []);
 
     return (
         <div className='editDealWrapper'>

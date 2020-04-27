@@ -15,13 +15,9 @@ export default () => {
                         <Icon val='ourService'/>
                         {tc.ourService}
                     </NavLink>
-                    <NavLink exact to={'/priser'} key='priser'>
-                        <Icon val='price'/>
-                        {tc.prices}
-                    </NavLink>
                     <NavLink exact to={'/team'} key='team'>
                         <Icon val='team'/>
-                        {tc.team}
+                        {tc.theTeam}
                     </NavLink>
                     <NavLink exact to={'/inloggning'} key='inloggning'>
                         <Icon val='login'/>

@@ -19,6 +19,10 @@ const Settings = (state) =>  {
     const passwordRef2 = useRef(null);
     const settingsRef = useRef(null);
 
+    const _closeComponent = () => {
+        state.props.close();
+    };
+
     /**
      * Save password.
      */
@@ -67,14 +71,14 @@ const Settings = (state) =>  {
             if (settingsRef && settingsRef.current) {
                 const node = ReactDOM.findDOMNode(settingsRef.current);
                 if (node && !node.contains(e.target)) {
-                    state.props.close();
+                    _closeComponent();
                 }
             }
         };
 
         window.addEventListener('mousedown', _closeSettings);
         return () => window.removeEventListener('mousedown', _closeSettings);
-    }, [state.props]);
+    }, []);
 
     return _stateCheck() ? (
         <div className='settingsWrapper'>

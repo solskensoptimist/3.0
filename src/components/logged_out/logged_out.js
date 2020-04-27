@@ -5,7 +5,6 @@ import Header from './header';
 import Login from './login/';
 import Service from './service/';
 import Team from './team/';
-import Prices from './prices';
 
 /**
  * Main component for logged out content.
@@ -18,7 +17,6 @@ export default () => {
                 <div className='contentWrapper__content'>
                     <Switch>
                         <Route exact path='/team' component={Team} />
-                        <Route exact path='/priser' component={Prices} />
                         <Route exact path='/inloggning' component={Login} />
                         <Route component={Service} />
                     </Switch>

@@ -18,7 +18,8 @@ export const getDeal = async (payload) => {
         });
 
         if (!deal || deal instanceof Error) {
-            return console.error('No data in getDeal');
+            console.error('No data in getDeal');
+            return store.dispatch({ type: dealActionTypes.SET_DEAL, payload: {}});
         }
 
         // Get list name.
@@ -29,8 +30,8 @@ export const getDeal = async (payload) => {
 
         const listOrigin = (list && !(list instanceof Error)) ? list.name : '';
 
-        store.dispatch({ type: dealActionTypes.SET_DEAL, payload: {deal: deal} });
-        return store.dispatch({ type: dealActionTypes.SET_LIST_ORIGIN, payload: {listOrigin: listOrigin} });
+        store.dispatch({ type: dealActionTypes.SET_DEAL, payload: deal});
+        return store.dispatch({ type: dealActionTypes.SET_LIST_ORIGIN, payload: listOrigin});
     } catch(err) {
         return console.error('Error in getDeal:', err);
     }

@@ -23,11 +23,11 @@ export const getSettings = async () => {
         // Backend holds a lot of info we dont use in 3.0, only set email setting for now.
         const savedSettings = SettingsHelper.getSavedSettings(data.settings);
         const categorized = SettingsHelper.categorizeFlags(savedSettings);
-        let payload = {
+        const result = {
             email: categorized.email,
         };
 
-        return store.dispatch({ type: settingsActionTypes.SET_SETTINGS, payload: payload });
+        return store.dispatch({type: settingsActionTypes.SET_SETTINGS, payload: result});
     } catch (err) {
         return console.error('Error in getSettings:\n' + err);
     }

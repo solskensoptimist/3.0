@@ -28,11 +28,7 @@ export const getEvents = async (payload) => {
         });
 
         // We now have all deals that have events.
-        let deals = (data && data.length && !(data instanceof Error)) ? data : null;
-
-        if (!deals) {
-            return;
-        }
+        let deals = (data && data.length && !(data instanceof Error)) ? data : [];
 
         if (payload && payload.prospectId) {
             deals = deals.filter((num) => {
@@ -102,7 +98,7 @@ export const getEvents = async (payload) => {
             yearInScope: Number(dateYear),
         };
 
-        return store.dispatch({ type: eventsActionTypes.SET_EVENTS, payload: result });
+        return store.dispatch({type: eventsActionTypes.SET_EVENTS, payload: result});
     } catch (err) {
         return console.error('Error in getEvents:\n' + err);
     }

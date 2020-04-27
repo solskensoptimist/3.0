@@ -15,13 +15,13 @@ export const dealReducer = (state = initialState, action) => {
         case dealActionTypes.SET_DEAL: {
             return {
                 ...state,
-                deal: action.payload.deal,
+                deal: action.payload,
             }
         }
         case dealActionTypes.SET_LIST_ORIGIN: {
             return {
                 ...state,
-                listOrigin: action.payload.listOrigin,
+                listOrigin: action.payload,
             }
         }
         default: {

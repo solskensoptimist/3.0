@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {tc} from 'helpers'
-import Settings from './settings/settings';
+import Settings from 'components/logged_in/settings/settings';
 import Icon from 'components/shared/icon';
 import Tooltip from 'components/shared/tooltip';
 
