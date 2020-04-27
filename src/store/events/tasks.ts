@@ -8,10 +8,14 @@ import moment from 'moment';
  * Get all non expired events for user. If dealId is set, returns events for that deal.
  *
  * @param payload.date (optional) - object - Defaults to one month from today. Specify year and month, {year: 2020, month: 4}.
- * @param payload.lists (optional) - array - Retrieve events for all users in every list.
+ * @param payload.dealId (optional) - string - Retrieve events for one specific deal.
+ * @param payload.lists (optional) - array - Retrieve events for all users in all lists.
+ * @param payload.prospectId (optional) - string - Retrieve events for a specific prospect id.
  * @param payload.users (optional) - array - Users to retrieve events for, defaults to current logged in user.
  */
 export const getEvents = async (payload) => {
+    const dealId = (payload && payload.dealId) ? payload.dealId : null;
+
     try {
         const data = await request({
             data: {
@@ -20,14 +24,20 @@ export const getEvents = async (payload) => {
                 users: (payload && payload.users) ? payload.users : null,
             },
             method: 'get',
-            url: '/deals/events',
+            url: '/deals/events/' + dealId,
         });
 
-        // All deals that have events.
-        const deals = (data && data.length && !(data instanceof Error)) ? data : null;
+        // We now have all deals that have events.
+        let deals = (data && data.length && !(data instanceof Error)) ? data : null;
 
         if (!deals) {
             return;
+        }
+
+        if (payload && payload.prospectId) {
+            deals = deals.filter((num) => {
+                return (num && num.prospects && num.prospects.includes(payload.prospectId));
+            });
         }
 
         const dateYear = (payload && payload.date && payload.date.year) ?

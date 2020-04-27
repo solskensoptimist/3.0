@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {tc} from 'helpers';
 import {connect} from "react-redux";
 import EventsCalendarDay from './events_calendar_day';
+import EventsCalendarDayEmpty from './events_calendar_day_empty';
 import Loading from 'components/shared/loading';
 import {getEvents} from 'store/events/tasks';
 import moment from 'moment';
@@ -14,8 +15,40 @@ const EventsCalendar = (state) => {
 
     const _renderDays = () => {
         const days = [];
-        let i = 1;
-        const leftDays = [1,2,3,4,8,9,10,11,15,16,17,18,22,23,24,25,29,30,31];
+
+        // First, push empty days to calendar so weekdays get in right position.
+        const firstDay = state.events.month[Object.keys(state.events.month)[0]];
+        let emptyDays = 0;
+        switch (firstDay.date.weekday) {
+            case'tisdag':
+                emptyDays = 1;
+                break;
+            case'onsdag':
+                emptyDays = 2;
+                break;
+            case'torsdag':
+                emptyDays = 3;
+                break;
+            case'fredag':
+                emptyDays = 4;
+                break;
+            case'lördag':
+                emptyDays = 5;
+                break;
+            case'söndag':
+                emptyDays = 6;
+                break;
+            default:
+                emptyDays = 0;
+        }
+        for (let index = 0; index < emptyDays; index++) {
+            days.push(<EventsCalendarDayEmpty/>);
+        }
+
+
+        // Second, push real days. Also add over box with left or right position.
+        let i = 1 + emptyDays;
+        const leftDays = [1,2,3,4,8,9,10,11,15,16,17,18,22,23,24,25,29,30,31,32,36,37,38,39];
 
         for (const day in state.events.month) {
             const hasPassed = moment(new Date()).format('YYYY-MM-DD') > moment(new Date(day)).format('YYYY-MM-DD');
@@ -52,8 +85,11 @@ const EventsCalendar = (state) => {
     };
 
     useEffect(() => {
-        getEvents();
-    }, []);
+        getEvents({
+            dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
+            prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
+        });
+    }, [state.props]);
 
     return ( _stateCheck() ?
         <div className='eventsCalendarWrapper'>

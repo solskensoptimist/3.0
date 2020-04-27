@@ -71,7 +71,7 @@ const Deal = (state) => {
                 <div className='dealWrapper__deal__content'>
                     {showEditDeal && <EditDeal close={() => {setShowEditDeal(false)}}/>}
                     <div className='dealWrapper__deal__content__item'>
-                        <Events view='flow'/>
+                        <Events view='flow' dealId={id}/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
                         <Activities id={id} includeComments={true} includeMoved={true} type='target' />

@@ -499,6 +499,9 @@ a {
     cursor: pointer; }
     .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day__date {
       color: #009AB1; }
+  .eventsCalendarWrapper__eventsCalendar__content .empty .day {
+    background: transparent;
+    border-color: transparent; }
 
 .eventsFlowWrapper__eventsFlow__content {
   margin-top: 22px; }
