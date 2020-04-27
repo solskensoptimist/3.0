@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import EventsCalendarDay from './events_calendar_day';
 import EventsCalendarDayEmpty from './events_calendar_day_empty';
 import Loading from 'components/shared/loading';
-import {getEvents} from 'store/events/tasks';
+import {getEventsCalendar} from 'store/events/tasks';
 import moment from 'moment';
 import Icon from 'components/shared/icon';
 import WidgetHeader from 'components/shared/widget_header';
@@ -16,7 +16,7 @@ const EventsCalendar = (state) => {
     const _renderDays = () => {
         const days = [];
 
-        // First, push empty days to calendar so weekdays get in right position.
+        // First, push empty days to calendar so weekdays get in right columns.
         const firstDay = state.events.month[Object.keys(state.events.month)[0]];
         let emptyDays = 0;
         switch (firstDay.date.weekday) {
@@ -42,11 +42,14 @@ const EventsCalendar = (state) => {
                 emptyDays = 0;
         }
         for (let index = 0; index < emptyDays; index++) {
-            days.push(<EventsCalendarDayEmpty/>);
+            days.push(
+                <React.Fragment key={index + 100}>
+                    {<EventsCalendarDayEmpty/>}
+                </React.Fragment>
+            );
         }
 
-
-        // Second, push real days. Also add over box with left or right position.
+        // Second, push real days. Also add position for hover box.
         let i = 1 + emptyDays;
         const leftDays = [1,2,3,4,8,9,10,11,15,16,17,18,22,23,24,25,29,30,31,32,36,37,38,39];
 
@@ -55,7 +58,10 @@ const EventsCalendar = (state) => {
             const isToday = moment(new Date(day)).isSame(new Date(), 'day');
             const position = (leftDays.includes(i)) ? 'left' : 'right'; // First four days of week we want left position.
 
-            days.push(<EventsCalendarDay date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} position={position} />);
+            days.push(
+                <React.Fragment key={i}>
+                    {<EventsCalendarDay date={state.events.month[day].date} events={state.events.month[day].events} hasPassed={hasPassed} isToday={isToday} key={day} position={position} />}
+                </React.Fragment>);
             i++;
         }
 
@@ -66,18 +72,22 @@ const EventsCalendar = (state) => {
         return (state.events && state.events.month);
     };
 
-    const _stepBack = () => {
-        getEvents({
+    const _stepBack = async () => {
+        await getEventsCalendar({
             date: {
+                dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
+                prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
                 month: (state.events.monthInScope === 1) ? 12 : state.events.monthInScope - 1,
                 year: (state.events.monthInScope === 1) ? state.events.yearInScope - 1 : state.events.yearInScope,
             }
         })
     };
 
-    const _stepForward = () => {
-        getEvents({
+    const _stepForward = async () => {
+        await getEventsCalendar({
             date: {
+                dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
+                prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
                 month: (state.events.monthInScope === 12) ? 1 : state.events.monthInScope + 1,
                 year: (state.events.monthInScope === 12) ? state.events.yearInScope + 1 : state.events.yearInScope,
             }
@@ -85,11 +95,11 @@ const EventsCalendar = (state) => {
     };
 
     useEffect(() => {
-        getEvents({
+        getEventsCalendar({
             dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
             prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
         });
-    }, [state.props]);
+    }, []);
 
     return ( _stateCheck() ?
         <div className='eventsCalendarWrapper'>
@@ -98,7 +108,7 @@ const EventsCalendar = (state) => {
                     <WidgetHeader
                         dashboard={
                             <>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsCalendar}><Icon val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsCalendar}><Icon active={true} val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/></Tooltip>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.eventsFlow}><Icon val='eventsFlow' onClick={() => {state.props.setView('flow')}}/></Tooltip>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.navigateBefore}><Icon val='navigateBefore' onClick={_stepBack}/></Tooltip>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.navigateNext}><Icon val='navigateNext' onClick={_stepForward}/></Tooltip>
@@ -121,7 +131,7 @@ const EventsCalendar = (state) => {
 
 const MapStateToProps = (state, props) => {
     return {
-        events: state.events,
+        events: state.events.eventsCalendar,
         props: props,
         user: state.user,
     };

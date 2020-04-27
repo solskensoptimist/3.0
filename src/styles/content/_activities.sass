@@ -2,47 +2,37 @@
   @extend .paperSheet
   &__activities
     &__content
-      color: $colorTextMain
-      display: flex
-      flex-direction: column
-      flex-grow: 1
       margin-top: $paddingBig
       &__itemWrapper
-        border-bottom: 1px solid $grey-200
-        display: flex
         position: relative
         &:nth-child(even)
           .activitiesWrapper__activities__content__itemWrapper__item
             background: $grey-50
+            margin: 0
         &:last-of-type
           border: 0
-        &:hover
-          .activitiesWrapper__activities__content__itemWrapper__edit
-            display: block
-        .iconHolder
-          height: 100%
-          display: flex
-          align-items: center
-        svg
-          width: 14px
-          height: 14px
-          fill: $colorTextLight-1
-        strong
-          font-weight: 600
-        span.label
-          text-transform: uppercase
-          font-size: 11px
-          color: $colorTextLight
-          margin-right: $paddingSmall
         &__item
           display: flex
           justify-content: space-between
           padding: $paddingBig
           flex-grow: 1
           word-break: break-word
+          border-bottom: 1px solid $grey-200
+          margin: 1px 0
           &:hover
             .activitiesWrapper__activities__content__itemWrapper__item__edit
               visibility: visible
+          svg
+            width: 14px
+            height: 14px
+            fill: $colorTextLight-1
+          strong
+            font-weight: 600
+          span.label
+            text-transform: uppercase
+            font-size: 11px
+            color: $colorTextLight
+            margin-right: $paddingSmall
           &__icon
             flex-basis: 2%
             border-right: 1px solid $grey-200
@@ -70,11 +60,15 @@
             align-items: center
             flex-basis: 4%
             visibility: hidden
-            svg
-              fill: $colorLink
-              cursor: pointer
-              margin-left: $paddingMedium
-              &:hover
-                fill: $colorLinkHover
+            .tooltipWrapper
+              margin-left: $paddingSmall
               &:first-of-type
                 margin-left: 0
+              svg
+                fill: $colorLink
+                cursor: pointer
+                margin-left: $paddingMedium
+                &:hover
+                  fill: $colorLinkHover
+                &:first-of-type
+                  margin-left: 0

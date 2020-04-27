@@ -86,107 +86,102 @@
             color: $colorLink
       .empty
         .day
+          content: ''
           background: transparent
           border-color: transparent
 
 .eventsFlowWrapper
   @extend .paperSheet
   &__eventsFlow
-    &__header
     &__content
       margin-top: $paddingBig
+      &__itemWrapper
+        position: relative
+        &:nth-child(even)
+          .eventsFlowWrapper__eventsFlow__content__itemWrapper__item
+            background: $grey-50
+            margin: 0
+        &:last-of-type
+          border: 0
+        &__item
+          display: flex
+          justify-content: space-between
+          padding: $paddingBig
+          flex-grow: 1
+          word-break: break-word
+          border-bottom: 1px solid $grey-200
+          margin: 1px 0
+          &:hover
+            .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit
+              visibility: visible
+          svg
+            width: 14px
+            height: 14px
+            fill: $colorTextLight-1
+          strong
+            font-weight: 600
+          span.label
+            text-transform: uppercase
+            font-size: 11px
+            color: $colorTextLight
+            margin-right: $paddingSmall
+          &__icon
+            flex-basis: 2%
+            border-right: 1px solid $grey-200
+            padding-right: $paddingBig
+            display: flex
+            align-items: center
+          &__date
+            margin-left: $paddingBig
+            flex-basis: 16%
+          &__action
+            margin-left: $paddingBig
+            flex-basis: 26%
+            div
+              display: inline
+          &__comment
+            margin-left: $paddingBig
+            flex-basis: 30%
+          &__user
+            margin-left: $paddingBig
+            flex-basis: 20%
+          &__edit
+            margin-left: $paddingBig
+            display: flex
+            justify-content: flex-end
+            align-items: center
+            flex-basis: 4%
+            visibility: hidden
+            .tooltipWrapper
+              margin-left: $paddingSmall
+              &:first-of-type
+                margin-left: 0
+              svg
+                fill: $colorLink
+                cursor: pointer
+                margin-left: $paddingMedium
+                &:hover
+                  fill: $colorLinkHover
+                &:first-of-type
+                  margin-left: 0
 
+.green
+  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date
+    color: $green-500 !important
+  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon
+    svg
+      fill: $green-500 !important
 
-  //&__week
-  //  border-bottom: 1px solid $grey-300
-  //  max-height: $heightCalendarWeek
-  //  overflow-y: auto
-  //  @extend .scrollbarHide
-  //  .dayWrapper
-  //    svg
-  //      width: 16px
-  //      height: 16px
-  //    .day
-  //      display: flex
-  //      justify-content: flex-start
-  //      align-items: center
-  //      background: $grey-50
-  //      border-top: 1px solid $grey-300
-  //      border-right: 1px solid $grey-300
-  //      border-left: 1px solid $grey-300
-  //      padding: $paddingMedium $paddingBig
-  //      &__date
-  //        font-size: 20px
-  //        flex-grow: 0
-  //        border-radius: 50%
-  //        background: $grey-500
-  //        color: white
-  //        height: 43px
-  //        width: 43px
-  //        margin-right: $paddingBig
-  //        display: flex
-  //        align-items: center
-  //        justify-content: center
-  //      &__content
-  //        flex-grow: 1
-  //        display: flex
-  //        align-items: center
-  //        justify-content: space-between
-  //        color: $colorTextLight
-  //        &__dateInformation
-  //          &__weekday
-  //            font-size: 15px
-  //            font-weight: 600
-  //            text-transform: uppercase
-  //          &__week
-  //            font-size: 12px
-  //    .passed
-  //      .day
-  //        &__date
-  //          opacity: 0.4
-  //        &__content
-  //          opacity: 0.4
-  //  .hasEvent
-  //    .day
-  //      background: $backgroundLightGrey
-  //      &__date
-  //        background: $grey-800
-  //      &__content
-  //        &__dateInformation
-  //          color: $colorTextDark-1
-  //        &__events
-  //          display: flex
-  //          flex-direction: column
-  //          align-content: space-between
-  //          &__event
-  //            opacity: 0.7
-  //            margin: $paddingSmall 0
-  //            display: flex
-  //            justify-content: flex-end
-  //            &:hover
-  //              opacity: 1
-  //            a, p
-  //              color: $colorTextMain
-  //            a
-  //              cursor: pointer
-  //              display: flex
-  //              align-items: center
-  //              text-decoration: none
-  //            span.highlight
-  //              color: $colorTextDark-1
-  //              font-weight: 600
-  //            svg
-  //              color: $colorSecondary-300
-  //            &__icon
-  //              margin-right: $paddingSmall
-  //              display: flex
-  //              align-items: center
-  //            &__info
-  //              display: flex
-  //              align-items: center
-  //              p
-  //                font-size: 12px
-  //              svg
-  //                margin-left: $paddingMedium
-  //                color: $colorSecondary-300
-  //
+.red
+  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date
+    color: $deep-orange-300 !important
+  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon
+    svg
+      fill: $deep-orange-300 !important
+
+.yellow
+  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date
+    color: $amber-600 !important
+  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon
+    svg
+      fill: $amber-600 !important

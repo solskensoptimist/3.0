@@ -3,6 +3,9 @@ import {tc} from 'helpers';
 import Icon from 'components/shared/icon';
 import Tooltip from 'components/shared/tooltip';
 
+/**
+ * Render an activity row for Activities component.
+ */
 export default (props) => {
     // Only edit comment activities (at least for now).
     const _editCommentOnActivity = () => {

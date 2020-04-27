@@ -35,12 +35,16 @@ const Activities = (state) => {
             data = data.filter((num) => (num.action));
         }
 
-        // Show 5 more rows every time user click load icon.
+        // Show more rows every time user click load icon.
         data = data.slice(0, showAmount);
 
         if (data.length) {
             return data.map((num, i) => {
-                return _renderActivityItem(num);
+                return (
+                    <React.Fragment key={i}>
+                        {_renderActivityItem(num)}
+                    </React.Fragment>
+                );
             });
         } else {
             return <p>{tc.noActivity}</p>;
@@ -171,7 +175,7 @@ const Activities = (state) => {
                             </>
                         }
                         headline={tc.activities}
-                        headlineSub={tc.activitiesAllIncludingComments}
+                        headlineSub={tc.allActivitiesAllIncludingComments}
                         />
                 </div>
                 <div className={minimize ? 'hide' : 'activitiesWrapper__activities__content'}>

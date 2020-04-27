@@ -1,28 +1,37 @@
 import {eventsActionTypes} from './actions';
 
 interface EventsState {
-    events: Array<object> | null,
-    month: object | null,
-    monthInScope: number | null,
-    yearInScope: number | null,
+    eventsCalendar: {           // Holds events by month.
+        events: Array<object> | null,
+        month: object | null,
+        monthInScope: number | null,
+        yearInScope: number | null,
+    },
+    eventsFlow: Array<object>,  // Holds all events.
 }
 
 const initialState: EventsState = {
-    events: null,
-    month: null,
-    monthInScope: null,
-    yearInScope: null,
+    eventsCalendar: {
+        events: null,
+        month: null,
+        monthInScope: null,
+        yearInScope: null,
+    },
+    eventsFlow: [],
 };
 
 export const eventsReducer = (state = initialState, action) => {
     switch(action.type) {
-        case eventsActionTypes.SET_EVENTS: {
+        case eventsActionTypes.SET_EVENTS_CALENDAR: {
             return {
                 ...state,
-                events: action.payload.events,
-                month: action.payload.month,
-                monthInScope: action.payload.monthInScope,
-                yearInScope: action.payload.yearInScope,
+                eventsCalendar: action.payload,
+            }
+        }
+        case eventsActionTypes.SET_EVENTS_FLOW: {
+            return {
+                ...state,
+                eventsFlow: action.payload,
             }
         }
         default: {

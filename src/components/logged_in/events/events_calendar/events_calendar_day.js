@@ -5,7 +5,7 @@ import {activityHelper, tc} from 'helpers';
 import Icon from 'components/shared/icon';
 
 /**
- * Render a day element.
+ * Render a day element for EventsCalendar component.
  *
  * props.date - {date, weekday, week}
  * props.events - array - [{ _id, action, dealId, name, (...) }, {(...)}]

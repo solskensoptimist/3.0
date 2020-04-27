@@ -35,7 +35,7 @@ const Deal = (state) => {
             <div className='dealWrapper__deal'>
                 <div className='dealWrapper__deal__header'>
                     <div className='dealWrapper__deal__header__top'>
-                        <h3>{state.deal.deal.name}</h3>
+                        <h4>{tc.deal}:</h4><h3>{state.deal.deal.name}</h3>
                     </div>
                     <div className='dealWrapper__deal__header__bottom'>
                         <div className='dealWrapper__deal__header__bottom__left'>

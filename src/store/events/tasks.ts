@@ -5,7 +5,9 @@ import _ from 'underscore';
 import moment from 'moment';
 
 /**
- * Get all non expired events for user. If dealId is set, returns events for that deal.
+ * Get events for one month.
+ * If no date is given, return events for current month.
+ * Can return events for specific deal, prospect id, lists and/or users.
  *
  * @param payload.date (optional) - object - Defaults to one month from today. Specify year and month, {year: 2020, month: 4}.
  * @param payload.dealId (optional) - string - Retrieve events for one specific deal.
@@ -13,7 +15,7 @@ import moment from 'moment';
  * @param payload.prospectId (optional) - string - Retrieve events for a specific prospect id.
  * @param payload.users (optional) - array - Users to retrieve events for, defaults to current logged in user.
  */
-export const getEvents = async (payload) => {
+export const getEventsCalendar = async (payload) => {
     const dealId = (payload && payload.dealId) ? payload.dealId : null;
 
     try {
@@ -49,11 +51,13 @@ export const getEvents = async (payload) => {
         const endDate = moment(new Date(dateYear + '-' + dateMonth)).add(1, 'month');
 
         // New array with all events collected.
-        let events = deals.reduce((memo, num) => {
+        const events = deals.reduce((memo, num) => {
             return memo.concat(
                 num.events.map((event) => Object.assign(event, {
                     name : num.name,
                     dealId : num._id,
+                    prospects: num.prospects,
+                    user: num.userName,
                 }))
             );
         }, []);
@@ -98,8 +102,60 @@ export const getEvents = async (payload) => {
             yearInScope: Number(dateYear),
         };
 
-        return store.dispatch({type: eventsActionTypes.SET_EVENTS, payload: result});
+        return store.dispatch({type: eventsActionTypes.SET_EVENTS_CALENDAR, payload: result});
     } catch (err) {
-        return console.error('Error in getEvents:\n' + err);
+        return console.error('Error in getEventsCalendar:\n' + err);
     }
 };
+
+
+/**
+ * Get all events by given arguments.
+ * Can return events for specific deal, prospect id, lists and/or users.
+ *
+ * @param payload.dealId (optional) - string - Retrieve events for one specific deal.
+ * @param payload.lists (optional) - array - Retrieve events for all users in all lists.
+ * @param payload.prospectId (optional) - string - Retrieve events for a specific prospect id.
+ * @param payload.users (optional) - array - Users to retrieve events for, defaults to current logged in user.
+ */
+export const getEventsFlow = async (payload) => {
+    const dealId = (payload && payload.dealId) ? payload.dealId : null;
+
+    try {
+        const data = await request({
+            data: {
+                excludePhases: ['trash'],
+                lists: (payload && payload.lists) ? payload.lists : null,
+                users: (payload && payload.users) ? payload.users : null,
+            },
+            method: 'get',
+            url: '/deals/events/' + dealId,
+        });
+
+        // We now have all deals that have events.
+        let deals = (data && data.length && !(data instanceof Error)) ? data : [];
+
+        if (payload && payload.prospectId) {
+            deals = deals.filter((num) => {
+                return (num && num.prospects && num.prospects.includes(payload.prospectId));
+            });
+        }
+
+        // New array with all events collected.
+        const result = deals.reduce((memo, num) => {
+            return memo.concat(
+                num.events.map((event) => Object.assign(event, {
+                    name : num.name,
+                    dealId : num._id,
+                    prospects: num.prospects,
+                    user: num.userName,
+                }))
+            );
+        }, []);
+
+        return store.dispatch({type: eventsActionTypes.SET_EVENTS_FLOW, payload: result});
+    } catch (err) {
+        return console.error('Error in getEventsCalendar:\n' + err);
+    }
+};
+
