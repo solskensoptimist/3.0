@@ -64,4 +64,42 @@ export const activityHelper = {
                 return activity;
         }
     },
+    getPreposition: (activity) => {
+        switch (activity) {
+            case 'call':
+                return tc.to;
+            case 'did_call':
+                return tc.to;
+            case 'will_call':
+                return tc.to;
+            case 'mail':
+                return tc.to;
+            case 'did_mail':
+                return tc.to;
+            case 'will_mail':
+                return tc.to;
+            case 'email':
+                return tc.to;
+            case 'will_email':
+                return tc.to;
+            case 'did_post':
+                return tc.to;
+            case 'will_post':
+                return tc.to;
+            case 'ofofer':
+                return tc.to;
+            case 'meeting':
+                return tc.with;
+            case 'testrider':
+                return tc.with;
+            case 'analysis':
+                return tc.for;
+            case 'valuation':
+                return tc.for;
+            case 'visit':
+                return tc.at;
+            default:
+                return tc.regarding;
+        }
+    },
 };

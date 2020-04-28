@@ -28,13 +28,45 @@ export const getComment = async (payload) => {
 };
 
 /**
+ * Save new comment.
+ *
+ * @param payload.comment
+ * @param payload.target
+ */
+export const saveComment = async (payload) => {
+    if (!payload || (payload && !payload.target) || (payload && !payload.comment)) {
+        return console.error('Missing params in saveComment');
+    }
+
+    try {
+        const comment = await request({
+            data: {
+                comment: payload.comment,
+                target_id: payload.target,
+            },
+            method: 'post',
+            url: '/comments/',
+        });
+
+        if (!comment || comment instanceof Error) {
+            return console.error('Error in saveComment');
+        }
+
+        return;
+    } catch(err) {
+        return console.error('Error in saveComment:', err);
+    }
+};
+
+/**
  * Update existing comment.
+ *
  * @param payload.id
  * @param payload.comment
  */
 export const updateComment = async (payload) => {
     if (!payload || (payload && !payload.id) || (payload && !payload.comment)) {
-        return console.error('Missing params in getComment');
+        return console.error('Missing params in updateComment');
     }
 
     try {
@@ -53,7 +85,7 @@ export const updateComment = async (payload) => {
 
         return store.dispatch({ type: commentActionTypes.SET_COMMENT_COMMENT, payload: {comment: payload.comment}});
     } catch(err) {
-        return console.error('Error in getComment:', err);
+        return console.error('Error in updateComment:', err);
     }
 };
 
@@ -65,46 +97,6 @@ Comments/routers.js
 
 router.route('/')
     .all(isAuthenticated.rest)
-    .post(function(req, res, next) {
-        var target = req.body.target_id;
-        var comment = req.body.comment;
-        if(!target || !comment) {
-            res.status(400).send('Invalid parameters');
-            return;
-        }
-        commentsModel.createComment({
-            target : target,
-            comment : comment,
-            userId : req.user.id,
-            dealerId : req.user.dealer_id
-        })
-            .then(function(result) {
-                res.send(true);
-            })
-            .catch(function(err) {
-                console.error(err);
-                res.status(500).send(err);
-            });
-    })
-    .put(function(req, res, next) {
-        var comment = req.body.comment;
-        var id = req.body.comment_id;
-
-        if(!id || !comment) {
-            res.status(400).send('Invalid paramters');
-            return;
-        }
-        commentsModel.updateComment({
-            id : id,
-            comment : comment
-        })
-            .then(function() {
-                res.send(true);
-            })
-            .catch(function(err) {
-                res.status(500).send(err);
-            });
-    })
     .delete(function(req, res, next) {
         var id = req.body.comment_id;
         if(!id) {

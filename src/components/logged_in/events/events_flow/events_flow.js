@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {tc} from "helpers";
+import {activityHelper, tc} from "helpers";
 import {connect} from "react-redux";
 import {getEventsFlow} from "store/events/tasks";
 import EventsFlowItem from './events_flow_item';
@@ -7,6 +7,7 @@ import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
+import {NavLink} from "react-router-dom";
 
 const EventsFlow = (state) => {
     const amountIncrease = 5;
@@ -33,11 +34,16 @@ const EventsFlow = (state) => {
         if (!event.action || event.action === '') {
             return null;
         }
-        console.log('event', event);
-        // Action:
-        // Om dealId eller prospectId har värde, så ska vi inte visa details.
-        // Om vi visar details ska vi länka till affären/prospektet. Ska hela raden vara länk, eller en liten länk?
 
+        // Action
+        let action;
+        if (state.props.prospectId || state.props.dealId) {
+            // Showing events for specific target, no link needed.
+            action = <div>{activityHelper.getReadableActivity(event.action)}</div>;
+        } else {
+            // Add a link to action description.
+            action = <div>{activityHelper.getReadableActivity(event.action)} {activityHelper.getPreposition(event.action).toLowerCase()} <NavLink exact to={'/affar/' + event.dealId} key='affar'>{event.name}</NavLink></div>
+        }
 
         // Comment
         const comment = (event.comment) ? event.comment : null;
@@ -51,7 +57,7 @@ const EventsFlow = (state) => {
         // User
         const user = (event.user && event.user !== '') ? event.user : tc.unknown;
 
-        return <EventsFlowItem comment={comment} date={date} icon={icon} user={user}/>;
+        return <EventsFlowItem action={action} comment={comment} date={date} icon={icon} user={user}/>;
     };
 
     const _stateCheck = () => {

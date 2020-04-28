@@ -26,16 +26,7 @@ export default (props) => {
     const events = (props.events && props.events.length) ? props.events.map((num) => {
         const icon = <Icon val={num.action} />;
         const event = activityHelper.getReadableActivity(num.action);
-
-        let fillerText = 'med';
-        if (num.action === 'call' || num.action === 'did_call' || num.action === 'will_call'||
-            num.action === 'mail' || num.action === 'email' || num.action === 'did_mail' || num.action === 'did_email' || num.action === 'will_email' || num.action === 'will_mail' ||
-            num.action === 'did_post' || num.action === 'will_post') {
-            fillerText = 'till';
-        }
-        if (num.action === 'visit') {
-            fillerText = 'hos';
-        }
+        const fillerText = activityHelper.getPreposition(num.action);
 
         return (
             <div key={num._id} className='dayWrapper__eventsWrapper__events__event'>

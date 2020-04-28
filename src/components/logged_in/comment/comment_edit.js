@@ -23,7 +23,9 @@ const CommentEdit = (state) => {
         if (state.props.update && typeof state.props.update === 'function') {
             state.props.update();
         }
-        state.props.close();
+        if (state.props.close && typeof state.props.close === 'function') {
+            state.props.close();
+        }
     };
 
     const _stateCheck = () => {

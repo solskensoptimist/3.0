@@ -67,33 +67,18 @@ const Activities = (state) => {
         let action;
         if (state.props.type === 'filter') {
             // When we show activity based on filter, we show a detailed action.
-            if (activity.action && activity.action === 'move') {
+            if (activity.action && activity.action === 'move' && activity.phase && activity.target) {
                 // For move action we add phases.
                 action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>
-            } else if (activity.action && activity.deal && activity.deal.name && (activity.action === 'meeting' || activity.action === 'testride')) {
-                // For these we add 'with'.
-                action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.with.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
-            } else if (activity.action && activity.deal && activity.deal.name && (activity.action === 'call' ||
-                activity.action === 'did_call' || activity.action === 'will_call' || activity.action === 'mail' ||
-                activity.action === 'did_mail' || activity.action === 'will_mail' || activity.action === 'will_email' ||
-                activity.action === 'did_post' || activity.action === 'will_post' || activity.action === 'offer' )) {
-                // For these we add 'to'.
-                action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.to.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
-            } else if (activity.action && activity.deal && activity.deal.name && (activity.action === 'analysis' || activity.action === 'valuation')) {
-                // For these we add 'for'.
-                action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.for.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
-            } else if (activity.action && activity.deal && activity.deal.name && (activity.action === 'visit')) {
-                // For these we add 'at'.
-                action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.at.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
             } else if (activity.action && activity.deal && activity.deal.name) {
-                // All other actions that has a deal name, add generic text.
-                action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.regarding.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
+                // For these we add a link to deal.
+                action = <div>{activityHelper.getReadableActivity(activity.action)} {activityHelper.getPreposition(activity.action).toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
             } else if (!activity.action && activity.id && activity.comment && activity.comment !== '') {
                 // No action, this is a comment.
                 isEditable = true;
                 isRemovable = true;
                 if (activity.deal && activity.deal.name) {
-                    // Add deal link to comment.
+                    // Add deal link to deal.
                     action = <div>{activityHelper.getReadableActivity('comment')} {tc.onDeal.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>;
                 } else if (!activity.deal && activity.target && activity.target.toString().length < 13) {
                     // No deal, add prospect link.
@@ -111,7 +96,7 @@ const Activities = (state) => {
                 action = <div>{activityHelper.getReadableActivity(activity.action)}</div>;
             }
         } else {
-            // For activity based on a target all the actions and comments is saved on that same target, so we leave details out.
+            // For activity based on a target we don't need to add link to deal/prospect.
             if (activity.action && activity.action === 'move') {
                 action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>;
             } else if (activity.action) {
