@@ -35,7 +35,7 @@ const CommentEdit = (state) => {
     useEffect( () => {
         const _getComment = async () => {
             await getComment({id: state.props.id});
-            setText(state.comment.comment);
+            setText((state.comment.comment) ? state.comment.comment : '');
         };
 
         _getComment();

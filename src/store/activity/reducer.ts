@@ -15,13 +15,13 @@ export const activityReducer = (state = initialState, action) => {
         case activityActionTypes.SET_ACTIVITY_BY_FILTER: {
             return {
                 ...state,
-                activityByFilter: action.payload.activityByFilter,
+                activityByFilter: action.payload,
             }
         }
         case activityActionTypes.SET_ACTIVITY_BY_TARGET: {
             return {
                 ...state,
-                activityByTarget: action.payload.activityByTarget,
+                activityByTarget: action.payload,
             }
         }
         default: {

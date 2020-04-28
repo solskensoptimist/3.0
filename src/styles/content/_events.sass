@@ -135,6 +135,13 @@
           &__date
             margin-left: $paddingBig
             flex-basis: 16%
+            .additionalDate
+              display: flex
+              align-items: center
+              font-weight: 600
+              line-height: 20px
+              svg
+                margin-right: $paddingSmall
           &__action
             margin-left: $paddingBig
             flex-basis: 26%
@@ -167,22 +174,19 @@
                   margin-left: 0
 
 .passedDate
-  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date
+  .additionalDate
     color: $colorEventPassedDate !important
-  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon
     svg
       fill: $colorEventPassedDate !important
 
 .withinADay
-  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date
+  .additionalDate
     color: $colorEventWithinOneDay !important
-  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon
     svg
       fill: $colorEventWithinOneDay !important
 
 .withinAWeek
-  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date
+  .additionalDate
     color: $colorEventWithinAWeek !important
-  .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon
     svg
       fill: $colorEventWithinAWeek !important

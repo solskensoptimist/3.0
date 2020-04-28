@@ -15,6 +15,7 @@ import {
     FreeBreakfast,
     Group,
     Help,
+    Info,
     History,
     Home,
     InsertDriveFile,
@@ -107,6 +108,8 @@ export default (props) => {
             return <Reorder className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'home':
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'info':
+            return <Info className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'lists':
             return <List className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'login':

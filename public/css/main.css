@@ -372,7 +372,8 @@ a {
     padding: 12px;
     color: #616161;
     width: 100%;
-    max-width: 100%; }
+    max-width: 100%;
+    font-size: 14px; }
 
 .contentWrapper__content {
   background: #f5f5f5;
@@ -546,6 +547,13 @@ a {
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
         margin-left: 22px;
         flex-basis: 16%; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate {
+          display: flex;
+          align-items: center;
+          font-weight: 600;
+          line-height: 20px; }
+          .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate svg {
+            margin-right: 8px; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action {
         margin-left: 22px;
         flex-basis: 26%; }
@@ -577,20 +585,20 @@ a {
             .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
               margin-left: 0; }
 
-.passedDate .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
+.passedDate .additionalDate {
   color: #ff8a65 !important; }
-.passedDate .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon svg {
-  fill: #ff8a65 !important; }
+  .passedDate .additionalDate svg {
+    fill: #ff8a65 !important; }
 
-.withinADay .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
+.withinADay .additionalDate {
   color: #81c784 !important; }
-.withinADay .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon svg {
-  fill: #81c784 !important; }
+  .withinADay .additionalDate svg {
+    fill: #81c784 !important; }
 
-.withinAWeek .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
+.withinAWeek .additionalDate {
   color: #ffb300 !important; }
-.withinAWeek .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon svg {
-  fill: #ffb300 !important; }
+  .withinAWeek .additionalDate svg {
+    fill: #ffb300 !important; }
 
 .loginWrapper__login {
   display: flex;

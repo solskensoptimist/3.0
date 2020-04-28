@@ -7,6 +7,8 @@ import {activityActionTypes} from './actions';
  */
 export const getActivityByFilter = async () => {
     try {
+        store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: []}); // Clear old.
+
         const filter = store.getState().filter;
         const data = await request({
             data: {
@@ -26,14 +28,14 @@ export const getActivityByFilter = async () => {
                 return !('complete' in num && num.complete === false);
             }).map((num) => {
                 if (!num.date_created && num.added) {
-                    num.date_created = num.added; // Keep it consistent for component rendering.
+                    num.date_created = num.added; // To keep it consistent for component rendering.
                 }
 
                 return num;
             })
             : [];
 
-        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: {activityByFilter: result}});
+        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: result});
     } catch (err) {
         return console.error('Error in getActivityByFilter:\n' + err);
     }
@@ -51,6 +53,8 @@ export const getActivityByTarget = async (payload) => {
             return console.error('Missing params in getActivityByTarget');
         }
 
+        store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: []}); // Clear old.
+
         // For deals we use a different endpoint.
         const url = (payload.type && payload.type === 'deal') ?
             '/activity/deal/' + payload.id :
@@ -65,14 +69,14 @@ export const getActivityByTarget = async (payload) => {
                 return !('complete' in num && num.complete === false);
             }).map((num) => {
                 if (!num.date_created && num.added) {
-                    num.date_created = num.added; // Keep it consistent for component rendering.
+                    num.date_created = num.added; // To keep it consistent for component rendering.
                 }
 
                 return num;
             })
             : [];
 
-        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: {activityByTarget: result}});
+        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: result});
     } catch (err) {
         return console.error('Error in getActivityByTarget:\n' + err);
     }

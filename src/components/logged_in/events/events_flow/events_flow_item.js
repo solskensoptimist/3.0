@@ -8,14 +8,18 @@ import Tooltip from 'components/shared/tooltip';
  * Render an event row for EventsFlow component.
  */
 export default (props) => {
+    let additionalDateInfo;
 
     const _additionalClass = () => {
         const diff = moment(new Date(props.date)).diff(new Date(), 'hours');
         if (diff < (7 * 24) && diff > 24) {
+            additionalDateInfo = <span className='additionalDate'><Icon val='info'/>{moment(new Date(props.date)).fromNow()}</span>;
             return 'withinAWeek';
         } else if (diff < 24 && diff >= 0) {
+            additionalDateInfo = <span className='additionalDate'><Icon val='info'/>{moment(new Date(props.date)).fromNow()}</span>;
             return 'withinADay';
         } else if (diff < 0) {
+            additionalDateInfo = <span className='additionalDate'><Icon val='info'/>{moment(new Date(props.date)).fromNow()}</span>;
             return 'passedDate';
         }
     };
@@ -32,7 +36,7 @@ export default (props) => {
         <div className={'eventsFlowWrapper__eventsFlow__content__itemWrapper ' + _additionalClass()}>
             <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item'>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon'><span className='iconHolder'>{props.icon}</span></div>
-                <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date'><span className='label'>{tc.time}:</span>{moment(props.date).format('LL HH:mm')}</div>
+                <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date'><span className='label'>{tc.time}:</span>{moment(props.date).format('LL HH:mm')}{additionalDateInfo}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action'><span className='label'>{tc.action}:</span>{props.action}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment'><span className='label'>{tc.comment}:</span>{props.comment}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user'><span className='label'>{tc.user}:</span>{props.user}</div>
