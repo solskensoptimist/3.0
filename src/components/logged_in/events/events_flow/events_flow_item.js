@@ -10,13 +10,13 @@ import Tooltip from 'components/shared/tooltip';
 export default (props) => {
 
     const _additionalClass = () => {
-        const diff = moment(props.date).diff(new Date(), 'days');
-        if (diff < 7 && diff > 1) {
-            return 'yellow';
-        } else if (diff < 1) {
-            return 'green';
+        const diff = moment(new Date(props.date)).diff(new Date(), 'hours');
+        if (diff < (7 * 24) && diff > 24) {
+            return 'withinAWeek';
+        } else if (diff < 24 && diff >= 0) {
+            return 'withinADay';
         } else if (diff < 0) {
-            return 'red';
+            return 'passedDate';
         }
     };
 
@@ -36,7 +36,7 @@ export default (props) => {
         <div className={'eventsFlowWrapper__eventsFlow__content__itemWrapper ' + _additionalClass()}>
             <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item'>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon'><span className='iconHolder'>{props.icon}</span></div>
-                <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date'><span className='label'>{tc.time}:</span>{props.date}</div>
+                <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date'><span className='label'>{tc.time}:</span>{moment(props.date).format('LL HH:mm')}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action'><span className='label'>{tc.action}:</span>action</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment'><span className='label'>{tc.comment}:</span>{props.comment}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user'><span className='label'>{tc.user}:</span>{props.user}</div>

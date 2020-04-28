@@ -1,0 +1,28 @@
+.popupWrapper
+  background: rgba(0, 0, 0, 0.3)
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 5
+  display: flex
+  align-items: flex-start
+  justify-content: center
+  padding: 5% 0
+  &__popup
+    overflow-y: auto
+    max-height: 100%
+    width: $widthPopupMedium
+    z-index: 6
+    padding: $paddingBig
+    background: white
+    @extend .scrollbarRegular
+
+.popupWrapper
+  .big
+    width: $widthPopupBig !important
+  .medium
+    width: $widthPopupMedium !important
+  .small
+    width: $widthPopupSmall !important

@@ -3,14 +3,11 @@ import {connect} from "react-redux";
 import {tc} from 'helpers'
 import Settings from 'components/logged_in/settings/settings';
 import Icon from 'components/shared/icon';
+import Popup from 'components/shared/popup';
 import Tooltip from 'components/shared/tooltip';
 
 const User = (state) => {
     const [showSettings, setShowSettings] = useState(false);
-
-    // const _openShowSettings = () => {
-    //     setShowSettings({showSettings: true})
-    // };
 
     return (
         <div className='userWrapper'>
@@ -22,7 +19,7 @@ const User = (state) => {
                 </div>
                 <div className='userWrapper__user__icon'>
                     <Tooltip horizontalDirection='left' verticalDirection='bottom' tooltipContent={tc.settings}><Icon val='settings' onClick={() => {setShowSettings(true)}}/></Tooltip>
-                    {showSettings && <Settings close={() => {setShowSettings(false)}}/>}
+                    {showSettings && <Popup close={() => {setShowSettings(false)}} size='medium'><Settings/></Popup>}
                 </div>
             </div>
         </div>

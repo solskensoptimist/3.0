@@ -1,40 +1,16 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import {tc} from 'helpers';
-import WidgetHeader from 'components/shared/widget_header';
 import {connect} from "react-redux";
-import ReactDOM from "react-dom";
+import WidgetHeader from 'components/shared/widget_header';
 
 /**
  * Edit a deal.
  * Renders as a popup, closes via props func.
  */
 const EditDeal = (state) => {
-    const editDealRef = useRef(null);
-
-    const _closeComponent = () => {
-        state.props.close();
-    };
-
-    useEffect(() => {
-        /**
-         * When clicking outside EditDeal, close it.
-         */
-        const _closeEditDeal = (e) => {
-            if (editDealRef && editDealRef.current) {
-                const node = ReactDOM.findDOMNode(editDealRef.current);
-                if (node && !node.contains(e.target)) {
-                    _closeComponent();
-                }
-            }
-        };
-
-        window.addEventListener('mousedown', _closeEditDeal);
-        return () => window.removeEventListener('mousedown', _closeEditDeal);
-    }, []);
-
     return (
         <div className='editDealWrapper'>
-            <div className='editDealWrapper__editDeal' ref={editDealRef}>
+            <div className='editDealWrapper__editDeal'>
                 <div className='editDealWrapper__editDeal__header'>
                     <WidgetHeader
                         iconVal='edit'

@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useRef} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {getSettings, savePassword, saveSettings} from 'store/settings/tasks';
 import {userLogout} from 'store/user/tasks';
@@ -17,11 +16,6 @@ const Settings = (state) =>  {
     const [showPasswordHint, setShowPasswordHint] = useState(false);
     const passwordRef1 = useRef(null);
     const passwordRef2 = useRef(null);
-    const settingsRef = useRef(null);
-
-    const _closeComponent = () => {
-        state.props.close();
-    };
 
     /**
      * Save password.
@@ -63,26 +57,11 @@ const Settings = (state) =>  {
 
     useEffect(() => {
         getSettings();
-
-        /**
-         * When clicking outside Settings, close it.
-         */
-        const _closeSettings = (e) => {
-            if (settingsRef && settingsRef.current) {
-                const node = ReactDOM.findDOMNode(settingsRef.current);
-                if (node && !node.contains(e.target)) {
-                    _closeComponent();
-                }
-            }
-        };
-
-        window.addEventListener('mousedown', _closeSettings);
-        return () => window.removeEventListener('mousedown', _closeSettings);
     }, []);
 
     return _stateCheck() ? (
         <div className='settingsWrapper'>
-            <div className='settingsWrapper__settings' ref={settingsRef}>
+            <div className='settingsWrapper__settings'>
                 <div className='settingsWrapper__settings__header'>
                     <WidgetHeader
                         iconVal='settings'

@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal} from 'store/deal/tasks';
+import {dealHelper, tc} from 'helpers';
+import moment from 'moment';
 import Activities from 'components/logged_in/activities';
 import EditDeal from 'components/logged_in/edit_deal';
 import Events from 'components/logged_in/events';
 import Loading from 'components/shared/loading';
-import {dealHelper, tc} from 'helpers';
 import Icon from 'components/shared/icon';
-import moment from 'moment';
+import Popup from 'components/shared/popup';
 import Tooltip from 'components/shared/tooltip/tooltip';
 
 /**
@@ -69,7 +70,7 @@ const Deal = (state) => {
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
-                    {showEditDeal && <EditDeal close={() => {setShowEditDeal(false)}}/>}
+                    {showEditDeal && <Popup close={() => {setShowEditDeal(false)}} size='medium'><EditDeal/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
                         <Events view='flow' dealId={id}/>
                     </div>

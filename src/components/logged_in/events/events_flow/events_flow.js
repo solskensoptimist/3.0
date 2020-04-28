@@ -44,7 +44,7 @@ const EventsFlow = (state) => {
         const comment = (event.comment) ? event.comment : null;
 
         // Date
-        const date = (event.event_date) ? moment(event.event_date).format('LL HH:mm') : null;
+        const date = (event.event_date) ? event.event_date : null;
 
         // Icon
         const icon = <Icon val={event.action}/>;

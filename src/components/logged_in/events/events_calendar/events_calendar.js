@@ -117,7 +117,7 @@ const EventsCalendar = (state) => {
                         }
                         iconVal='events'
                         headline={tc.events}
-                        headlineSub={'' + tc.calendarMonths[state.events.monthInScope] + ' ' + state.events.yearInScope}
+                        headlineSub={tc.activitiesComingUp + ' - ' + tc.calendarMonths[state.events.monthInScope].toLowerCase() + ' ' + state.events.yearInScope}
                     />
                 </div>
                 <div className={minimize ? 'hide' : 'eventsCalendarWrapper__eventsCalendar__content'}>
