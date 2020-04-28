@@ -24,10 +24,6 @@ export default (props) => {
 
     };
 
-    const _editCommentOnEvent = () => {
-
-    };
-
     const _removeEvent = () => {
 
     };

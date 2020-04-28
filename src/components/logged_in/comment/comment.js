@@ -3,14 +3,24 @@ import CommentEdit from './comment_edit';
 import CommentNew from './comment_new';
 
 export default (props) => {
-    // Behöver props.target, antingen deal eller prospekt id.
-
     switch (props.type) {
         case 'new':
-            return <CommentNew target={props.target}/>;
+            if (props.target) {
+                return <CommentNew close={props.close} target={props.target} update={props.update}/>;
+            } else {
+                return console.error('Missing props.target for Comment');
+            }
         case 'edit':
-            return <CommentEdit id={props.id}/>;
+            if (props.id) {
+                return <CommentEdit close={props.close}  id={props.id} update={props.update}/>;
+            } else {
+                return console.error('Missing props.id for Comment');
+            }
         default:
-            return <CommentNew target={props.target}/>;
+            if (props.target) {
+                return <CommentNew close={props.close}  target={props.target} update={props.update}/>;
+            } else {
+                return console.error('Missing props.target for Comment');
+            }
     }
 }

@@ -2,10 +2,8 @@ import React, {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
 
 /**
- * Used to render content as a popup.
- *
- * @param props.close - func - function that closes popup
- * @param props.size - string - small|medium|big
+ * Used to render a popup.
+ * Uses store to retrieve content and close/show.
  */
 export default (props) => {
     const popupRef = useRef(null);
@@ -16,7 +14,7 @@ export default (props) => {
 
     useEffect(() => {
         /**
-         * When clicking outside EditDeal, close it.
+         * When clicking outside popup content, close it.
          */
         const _closePopup = (e) => {
             if (popupRef && popupRef.current) {

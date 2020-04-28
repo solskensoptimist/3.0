@@ -7,7 +7,6 @@ import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
-import moment from "moment";
 
 const EventsFlow = (state) => {
     const amountIncrease = 5;

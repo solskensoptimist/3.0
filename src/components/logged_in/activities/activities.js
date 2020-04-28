@@ -22,6 +22,14 @@ const Activities = (state) => {
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
+    const _getActivity = () => {
+        if (state.props.type === 'target' && state.props.id) {
+            getActivityByTarget({id: state.props.id, type: 'deal'});
+        } else {
+            getActivityByFilter();
+        }
+    };
+
     const _renderActivities = () => {
         let data = (state.props.type === 'filter') ? state.activity.activityByFilter : state.activity.activityByTarget;
 
@@ -140,7 +148,7 @@ const Activities = (state) => {
         // User
         const user = (activity.user && activity.user !== '') ? activity.user : tc.unknown;
 
-        return <ActivityItem action={action} comment={comment} date={date} id={id} icon={icon} isEditable={isEditable} isRemovable={isRemovable} user={user}/>;
+        return <ActivityItem action={action} comment={comment} date={date} id={id} getActivity={_getActivity} icon={icon} isEditable={isEditable} isRemovable={isRemovable} user={user}/>;
     };
 
     const _stateCheck = () => {
@@ -152,12 +160,8 @@ const Activities = (state) => {
     };
 
     useEffect(() => {
-        if (state.props.type === 'target' && state.props.id) {
-            getActivityByTarget({id: state.props.id, type: 'deal'});
-        } else {
-            getActivityByFilter();
-        }
-    }, [state.props]);
+        _getActivity();
+    }, []);
 
     return ( _stateCheck() ?
         <div className='activitiesWrapper'>
@@ -190,6 +194,7 @@ const Activities = (state) => {
 const MapStateToProps = (state, props) => {
     return {
         activity: state.activity,
+        comment: state.comment,
         props: props,
     };
 };

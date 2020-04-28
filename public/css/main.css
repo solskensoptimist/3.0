@@ -150,7 +150,7 @@ svg.active {
   fill: #616161 !important; }
 
 a {
-  color: #009AB1;
+  color: #20B6CC;
   text-decoration: none; }
   a:hover {
     color: #616161; }
@@ -356,7 +356,7 @@ a {
           .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
             margin-left: 0; }
           .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg {
-            fill: #009AB1;
+            fill: #20B6CC;
             cursor: pointer;
             margin-left: 12px; }
             .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
@@ -365,7 +365,14 @@ a {
               margin-left: 0; }
 
 .commentWrapper__comment__content {
-  margin-top: 22px; }
+  margin: 22px 0; }
+  .commentWrapper__comment__content textarea {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    color: #616161;
+    width: 100%;
+    max-width: 100%; }
 
 .contentWrapper__content {
   background: #f5f5f5;
@@ -461,7 +468,7 @@ a {
             color: #424242;
             font-weight: 600; }
           .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event svg {
-            color: #009AB1; }
+            color: #20B6CC; }
           .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__icon {
             margin-right: 8px;
             display: flex;
@@ -473,7 +480,7 @@ a {
               font-size: 12px; }
             .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info svg {
               margin-left: 12px;
-              color: #009AB1; }
+              color: #20B6CC; }
     .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .day {
       display: flex;
       align-items: center;
@@ -494,7 +501,7 @@ a {
   .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day {
     cursor: pointer; }
     .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day__date {
-      color: #009AB1; }
+      color: #20B6CC; }
   .eventsCalendarWrapper__eventsCalendar__content .empty .day {
     content: "";
     background: transparent;
@@ -507,7 +514,7 @@ a {
     .eventsFlowWrapper__eventsFlow__content__itemWrapper:nth-child(even) .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
       background: #fafafa;
       margin: 0; }
-    .eventsFlowWrapper__eventsFlow__content__itemWrapper:last-of-type {
+    .eventsFlowWrapper__eventsFlow__content__itemWrapper:last-of-type .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
       border: 0; }
     .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
       display: flex;
@@ -562,7 +569,7 @@ a {
           .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
             margin-left: 0; }
           .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg {
-            fill: #009AB1;
+            fill: #20B6CC;
             cursor: pointer;
             margin-left: 12px; }
             .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
@@ -654,6 +661,22 @@ a {
   width: 46% !important; }
 .popupWrapper .small {
   width: 36% !important; }
+
+.widgetFooterWrapper__widgetFooter {
+  color: #616161;
+  border-top: 1px solid #eeeeee;
+  padding-top: 12px;
+  display: flex;
+  justify-content: flex-end; }
+  .widgetFooterWrapper__widgetFooter button {
+    cursor: pointer;
+    background: #20B6CC;
+    padding: 8px 12px;
+    color: white;
+    border: 0;
+    border-radius: 2px; }
+    .widgetFooterWrapper__widgetFooter button:hover {
+      background: #616161; }
 
 .widgetHeaderWrapper__widgetHeader {
   display: flex;
@@ -872,7 +895,7 @@ a {
             padding: 22px;
             z-index: 5; }
             .navigationWrapper__navigation__right .searchWrapper__search__results__item {
-              color: #009AB1;
+              color: #20B6CC;
               font-size: 15px;
               margin-bottom: 8px;
               cursor: pointer;
@@ -885,7 +908,7 @@ a {
                 .navigationWrapper__navigation__right .searchWrapper__search__results__item:hover svg {
                   fill: #616161 !important; }
               .navigationWrapper__navigation__right .searchWrapper__search__results__item svg {
-                fill: #009AB1 !important;
+                fill: #20B6CC !important;
                 width: 14px !important;
                 height: 14px !important;
                 margin-right: 12px !important;
@@ -905,7 +928,7 @@ a {
       .settingsWrapper__settings__content__item svg {
         width: 30px !important;
         height: 30px !important;
-        fill: #009AB1 !important;
+        fill: #20B6CC !important;
         display: flex !important;
         align-items: center !important;
         cursor: pointer !important; }
@@ -919,7 +942,7 @@ a {
         color: #212121;
         margin: 12px 0; }
       .settingsWrapper__settings__content__item__button {
-        background: #009AB1;
+        background: #20B6CC;
         color: white;
         padding: 12px;
         display: flex;
@@ -927,7 +950,6 @@ a {
         border-radius: 2px;
         justify-content: center;
         cursor: pointer;
-        opacity: 0.7;
         width: 100%; }
         .settingsWrapper__settings__content__item__button:hover {
           background: #616161; }

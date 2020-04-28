@@ -93,6 +93,7 @@ export default {
     regret: 'Återställ',
     remove: 'Ta bort',
     responsible: 'Ansvarig',
+    save: 'Spara',
     savedInList: 'Sparad i lista',
     savePassword: 'Spara lösenord',
     search: 'Sök',

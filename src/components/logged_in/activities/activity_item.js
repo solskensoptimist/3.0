@@ -28,8 +28,8 @@ export default (props) => {
                     {props.isEditable && <Tooltip horizontalDirection='left' tooltipContent={tc.edit}><Icon val='edit' onClick={() => {setShowEditComment(true)}}/></Tooltip> }
                     {props.isRemovable && <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={_removeCommentActivity}/></Tooltip>}
                 </div>
-                {showEditComment && <Popup close={() => {setShowEditComment(false)}} size='medium'><Comment id={props.id} type='edit'/></Popup>}
             </div>
+            {showEditComment && <Popup close={()=> {setShowEditComment(false)}} size='small'><Comment close={()=> {setShowEditComment(false)}} id={props.id} type='edit' update={props.getActivity}/></Popup>}
         </div>
     );
 };

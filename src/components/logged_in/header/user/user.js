@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {tc} from 'helpers'
-import Settings from 'components/logged_in/settings/settings';
 import Icon from 'components/shared/icon';
 import Popup from 'components/shared/popup';
+import Settings from 'components/logged_in/settings/settings';
 import Tooltip from 'components/shared/tooltip';
 
 const User = (state) => {

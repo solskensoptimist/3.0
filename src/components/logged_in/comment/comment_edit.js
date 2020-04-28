@@ -1,17 +1,42 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
-import {getComment} from 'store/comment/tasks';
+import {getComment, updateComment} from 'store/comment/tasks';
 import Loading from 'components/shared/loading';
+import WidgetFooter from 'components/shared/widget_footer';
 import WidgetHeader from 'components/shared/widget_header';
 
 const CommentEdit = (state) => {
+    const [text, setText] = useState((state.comment.comment) ? state.comment.comment : '');
+    const textRef = useRef(null);
+
+    const _onChange = () => {
+        if (textRef && textRef.current && textRef.current.value) {
+            setText(textRef.current.value);
+        }
+    };
+
+    const _updateComment = () => {
+        if (textRef && textRef.current && textRef.current.value) {
+            updateComment({comment: textRef.current.value, id: state.comment.id});
+        }
+        if (state.props.update && typeof state.props.update === 'function') {
+            state.props.update();
+        }
+        state.props.close();
+    };
+
     const _stateCheck = () => {
         return !!(state && state.comment && state.comment.comment);
     };
 
-    useEffect(() => {
-        getComment({id: state.props.id});
+    useEffect( () => {
+        const _getComment = async () => {
+            await getComment({id: state.props.id});
+            setText(state.comment.comment);
+        };
+
+        _getComment();
     }, []);
 
     return ( _stateCheck() ?
@@ -24,8 +49,10 @@ const CommentEdit = (state) => {
                     />
                 </div>
                 <div className='commentWrapper__comment__content'>
-                    Kommentarkomponent edit
-
+                    <textarea onChange={_onChange} ref={textRef} value={text}/>
+                </div>
+                <div className='commentWrapper__comment__footer'>
+                    <WidgetFooter save={_updateComment}/>
                 </div>
             </div>
         </div> :

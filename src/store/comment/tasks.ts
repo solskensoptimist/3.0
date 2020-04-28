@@ -6,7 +6,7 @@ import {commentActionTypes} from './actions';
  * Retrieve one Comment
  */
 export const getComment = async (payload) => {
-    if (!payload || !payload.id) {
+    if (!payload || (payload && !payload.id)) {
         return console.error('Missing params in getComment');
     }
 
@@ -21,7 +21,37 @@ export const getComment = async (payload) => {
             return store.dispatch({ type: commentActionTypes.SET_COMMENT, payload: {}});
         }
 
-        return store.dispatch({ type: commentActionTypes.SET_COMMENT, payload: comment});
+        return store.dispatch({ type: commentActionTypes.SET_COMMENT, payload: {...comment}});
+    } catch(err) {
+        return console.error('Error in getComment:', err);
+    }
+};
+
+/**
+ * Update existing comment.
+ * @param payload.id
+ * @param payload.comment
+ */
+export const updateComment = async (payload) => {
+    if (!payload || (payload && !payload.id) || (payload && !payload.comment)) {
+        return console.error('Missing params in getComment');
+    }
+
+    try {
+        const comment = await request({
+            data: {
+                comment: payload.comment,
+                comment_id: payload.id,
+            },
+            method: 'put',
+            url: '/comments/',
+        });
+
+        if (!comment || comment instanceof Error) {
+            return console.error('Error in updateComment');
+        }
+
+        return store.dispatch({ type: commentActionTypes.SET_COMMENT_COMMENT, payload: {comment: payload.comment}});
     } catch(err) {
         return console.error('Error in getComment:', err);
     }
