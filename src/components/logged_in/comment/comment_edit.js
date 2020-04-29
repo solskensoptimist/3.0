@@ -20,9 +20,6 @@ const CommentEdit = (state) => {
         if (textRef && textRef.current && textRef.current.value) {
             await updateComment({comment: textRef.current.value, id: state.props.id});
         }
-        if (state.props.update && typeof state.props.update === 'function') {
-            state.props.update();
-        }
         if (state.props.close && typeof state.props.close === 'function') {
             state.props.close();
         }

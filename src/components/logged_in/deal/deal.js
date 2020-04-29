@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal} from 'store/deal/tasks';
-import {getActivityByTarget} from 'store/activity/tasks';
 import {dealHelper, tc} from 'helpers';
 import moment from 'moment';
 import Activities from 'components/logged_in/activities';
@@ -69,7 +68,7 @@ const Deal = (state) => {
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
-                    {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new' update={() => {getActivityByTarget({id: id, type: 'deal'})}} /></Popup>}
+                    {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
                     {showEditDeal && <Popup close={() => {setShowEditDeal(false)}} size='medium'><EditDeal/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
                         <Events view='flow' dealId={id}/>

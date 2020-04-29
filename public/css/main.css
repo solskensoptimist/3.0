@@ -609,6 +609,9 @@ a {
       bottom: 22px;
       right: 22px; }
 
+.eventsFlowItemPopupWrapper__eventsFlowItemPopup__content {
+  margin: 22px 0; }
+
 .passedDate .additionalDate svg {
   fill: #ffab91 !important; }
 

@@ -18,9 +18,6 @@ export default (props) => {
         if (textRef && textRef.current && textRef.current.value) {
             await saveComment({comment: textRef.current.value, target: props.target});
         }
-        if (props.update && typeof props.update === 'function') {
-            props.update();
-        }
         if (props.close && typeof props.close === 'function') {
             props.close();
         }

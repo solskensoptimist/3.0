@@ -7,8 +7,6 @@ import {activityActionTypes} from './actions';
  */
 export const getActivityByFilter = async () => {
     try {
-        store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: []}); // Clear old.
-
         const filter = store.getState().filter;
         const data = await request({
             data: {
@@ -35,7 +33,6 @@ export const getActivityByFilter = async () => {
             })
             : [];
 
-        // Just to be sure.
         result = result.sort((a, b) => {
             return (new Date(a.date_created) < new Date(b.date_created)) ? 1 : -1;
         });
@@ -49,28 +46,35 @@ export const getActivityByFilter = async () => {
 /**
  * Retrieve activity based on target id.
  *
- * @param payload.id - Can be a prospect id (user id/orgnr) or a deal id.
- * @param payload.type - Set this to 'deal' when payload.id is a deal id.
+ * @param payload.id - Can be a prospect id (user id/orgnr) or a deal id. If no id, do search for last target in store.
  */
 export const getActivityByTarget = async (payload) => {
     try {
-        if (!payload || (payload && !payload.id)) {
-            return console.error('Missing params in getActivityByTarget');
+        // Set new target, or retrieve from store state.
+        let target;
+        if (payload.id) {
+            target = payload.id;
+        } else {
+            target = store.getState().activity.activityByTarget.target;
+            if (!target) {
+                // If no target, don't do nutting.
+                return;
+            }
         }
 
-        store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: []}); // Clear old.
+        console.log('getactivitytarget', target);
 
-        // For deals we use a different endpoint.
-        const url = (payload.type && payload.type === 'deal') ?
-            '/activity/deal/' + payload.id :
-            '/comments/' + payload.id;
+        // Different endpoint for deals than prospects.
+        const url = (target.length > 13) ? '/activity/deal/' + target : '/comments/' + target;
+
+        console.log(url);
 
         const data = await request({
             method: 'get',
             url: url,
         });
 
-        let result = (data && data.length && !(data instanceof Error)) ? data.filter((num) => {
+        let activities = (data && data.length && !(data instanceof Error)) ? data.filter((num) => {
                 return !('complete' in num && num.complete === false);
             }).map((num) => {
                 if (!num.date_created && num.added) {
@@ -81,12 +85,13 @@ export const getActivityByTarget = async (payload) => {
             })
             : [];
 
-        // Just to be sure.
-        result = result.sort((a, b) => {
+        activities = activities.sort((a, b) => {
             return (new Date(a.date_created) < new Date(b.date_created)) ? 1 : -1;
         });
 
-        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: result});
+        console.log('activitiit', activities);
+
+        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: {activities: activities, target: target}});
     } catch (err) {
         return console.error('Error in getActivityByTarget:\n' + err);
     }

@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
  */
 export default (props) => {
     const popupRef = useRef(null);
+    const size = (props.size) ? props.size : 'medium';
 
     useEffect(() => {
         /**
@@ -27,7 +28,7 @@ export default (props) => {
 
     return (
         <div className='popupWrapper'>
-            <div className={'popupWrapper__popup ' + props.size} ref={popupRef}>
+            <div className={'popupWrapper__popup ' + size} ref={popupRef}>
                 {props.children}
             </div>
         </div>

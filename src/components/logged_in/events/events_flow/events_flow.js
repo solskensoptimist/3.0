@@ -51,13 +51,19 @@ const EventsFlow = (state) => {
         // Date
         const date = (event.event_date) ? event.event_date : null;
 
+        // Deal id
+        const dealId = event.dealId;
+
+        // Event id
+        const eventId = event._id;
+
         // Icon
         const icon = <Icon val={event.action}/>;
 
         // User
         const user = (event.user && event.user !== '') ? event.user : tc.unknown;
 
-        return <EventsFlowItem action={action} comment={comment} date={date} icon={icon} user={user}/>;
+        return <EventsFlowItem action={action} comment={comment} date={date} dealId={dealId} eventId={eventId} icon={icon} user={user}/>;
     };
 
     const _stateCheck = () => {

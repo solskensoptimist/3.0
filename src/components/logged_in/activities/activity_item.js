@@ -25,8 +25,8 @@ export default (props) => {
                     {props.isRemovable && <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {setShowRemoveComment(true)}}/></Tooltip>}
                 </div>
             </div>
-            {showEditComment && <Popup close={()=> {setShowEditComment(false)}} size='small'><Comment close={()=> {setShowEditComment(false)}} id={props.id} type='edit' update={props.getActivity}/></Popup>}
-            {showRemoveComment && <Popup close={()=> {setShowRemoveComment(false)}} size='small'><Comment close={()=> {setShowEditComment(false)}} id={props.id} type='remove' update={props.getActivity}/></Popup>}
+            {showEditComment && <Popup close={()=> {setShowEditComment(false)}} size='small'><Comment close={()=> {setShowEditComment(false)}} id={props.id} type='edit'/></Popup>}
+            {showRemoveComment && <Popup close={()=> {setShowRemoveComment(false)}} size='small'><Comment close={()=> {setShowEditComment(false)}} id={props.id} type='remove'/></Popup>}
         </div>
     );
 };

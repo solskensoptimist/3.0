@@ -1,9 +1,12 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {commentActionTypes} from './actions';
+import {getActivityByFilter, getActivityByTarget} from 'store/activity/tasks';
 
 /**
  * Retrieve one Comment
+ *
+ * @param payload.id
  */
 export const getComment = async (payload) => {
     if (!payload || (payload && !payload.id)) {
@@ -29,7 +32,7 @@ export const getComment = async (payload) => {
 };
 
 /**
- * Save new comment.
+ * Remove one comment.
  *
  * @param payload.comment
  * @param payload.target
@@ -51,6 +54,9 @@ export const removeComment = async (payload) => {
         if (!comment || comment instanceof Error) {
             return console.error('Error in removeComment');
         }
+
+        await getActivityByFilter();
+        await getActivityByTarget({});
 
         return;
     } catch(err) {
@@ -83,6 +89,9 @@ export const saveComment = async (payload) => {
             return console.error('Error in saveComment');
         }
 
+        await getActivityByFilter();
+        await getActivityByTarget({});
+
         return;
     } catch(err) {
         return console.error('Error in saveComment:', err);
@@ -114,6 +123,8 @@ export const updateComment = async (payload) => {
             return console.error('Error in updateComment');
         }
 
+        await getActivityByFilter();
+        await getActivityByTarget({});
         return store.dispatch({ type: commentActionTypes.SET_COMMENT_COMMENT, payload: {comment: payload.comment}});
     } catch(err) {
         return console.error('Error in updateComment:', err);

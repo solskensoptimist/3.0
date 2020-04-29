@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {tc} from 'helpers';
 import moment from 'moment';
+import EventsFlowItemComplete from './events_flow_item_complete';
+import EventsFlowItemRemove from './events_flow_item_remove';
 import Icon from 'components/shared/icon';
+import Popup from 'components/shared/popup';
 import Tooltip from 'components/shared/tooltip';
 
 /**
  * Render an event row for EventsFlow component.
  */
 export default (props) => {
+    const [showCompleteEvent, setShowCompleteEvent] = useState(false);
+    const [showRemoveEvent, setShowRemoveEvent] = useState(false);
     let additionalDateInfo;
 
     const _additionalClass = () => {
@@ -26,14 +31,6 @@ export default (props) => {
         }
     };
 
-    const _completeEvent = () => {
-
-    };
-
-    const _removeEvent = () => {
-
-    };
-
     return (
         <div className={'eventsFlowWrapper__eventsFlow__content__itemWrapper ' + _additionalClass()}>
             <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item'>
@@ -46,10 +43,12 @@ export default (props) => {
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment'><span className='label'>{tc.comment}:</span>{props.comment}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user'><span className='label'>{tc.user}:</span>{props.user}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit'>
-                    {<Tooltip horizontalDirection='left' tooltipContent={tc.complete}><Icon val='complete' onClick={_completeEvent}/></Tooltip>}
-                    {<Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={_removeEvent}/></Tooltip>}
+                    {<Tooltip horizontalDirection='left' tooltipContent={tc.complete}><Icon val='complete' onClick={() => {setShowCompleteEvent(true)}}/></Tooltip>}
+                    {<Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {setShowRemoveEvent(true)}}/></Tooltip>}
                 </div>
             </div>
+            {showCompleteEvent && <Popup close={() => {setShowCompleteEvent(false)}} size='small'><EventsFlowItemComplete close={() => {setShowCompleteEvent(false)}} eventId={props.eventId}/></Popup>}
+            {showRemoveEvent && <Popup close={() => {setShowRemoveEvent(false)}} size='small'><EventsFlowItemRemove close={() => {setShowRemoveEvent(false)}} dealId={props.dealId} eventId={props.eventId}/></Popup>}
         </div>
     );
 };

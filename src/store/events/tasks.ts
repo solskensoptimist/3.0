@@ -1,8 +1,49 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {eventsActionTypes} from './actions';
+import {getActivityByFilter, getActivityByTarget} from 'store/activity/tasks'
 import _ from 'underscore';
 import moment from 'moment';
+
+/**
+ * Complete an event.
+ *
+ * @param payload.eventId
+ */
+export const completeEvent = async (payload) => {
+    if (!payload || (payload && !payload.eventId)) {
+        return console.error('Missing params in completeEvent');
+    }
+
+    const event = store.getState().events.eventsFlow.find((num) => {
+        return num._id === payload.eventId;
+    });
+
+    if (!event || (event && !event.action) || (event && !event.dealId)) {
+        return console.error('Could not find event in completeEvent');
+    }
+
+    try {
+        const action = await request({
+            data: {
+                action: event.action,
+                comment: (event.comment) ? event.comment : '',
+                dealId: event.dealId,
+            },
+            method: 'post',
+            url: '/deals/actions/',
+        });
+
+        if (action && action instanceof Error) {
+            return console.error('Error in completeEvent');
+        }
+
+        return await removeEvent({dealId: event.dealId, eventId: payload.eventId});
+    } catch(err) {
+        return console.error('Error in completeEvent:', err);
+    }
+};
+
 
 /**
  * Get events for one month.
@@ -162,3 +203,36 @@ export const getEventsFlow = async (payload) => {
     }
 };
 
+/**
+ * Remove an event.
+ *
+ * @param payload.dealId
+ * @param payload.eventId
+ */
+export const removeEvent = async (payload) => {
+    if (!payload || (payload && !payload.dealId) || (payload && !payload.eventId)) {
+        return console.error('Missing params in removeEvent');
+    }
+
+    try {
+        const event = await request({
+            data: {
+                dealId: payload.dealId,
+                eventId: payload.eventId,
+            },
+            method: 'delete',
+            url: '/deals/events/',
+        });
+
+        if (event && event instanceof Error) {
+            return console.error('Error in removeEvent');
+        }
+
+        await getActivityByFilter();
+        await getActivityByTarget({});
+
+        return;
+    } catch(err) {
+        return console.error('Error in removeEvent:', err);
+    }
+};

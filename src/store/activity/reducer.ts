@@ -2,12 +2,18 @@ import {activityActionTypes} from './actions';
 
 interface EventsState {
     activityByFilter: Array<object> | null,
-    activityByTarget: Array<object> | null,
+    activityByTarget: {
+        activities: Array<object> | null,
+        target: string | null,
+    },
 }
 
 const initialState: EventsState = {
     activityByFilter: null,
-    activityByTarget: null,
+    activityByTarget: {
+        activities: null,
+        target: null,
+    },
 };
 
 export const activityReducer = (state = initialState, action) => {
@@ -21,7 +27,10 @@ export const activityReducer = (state = initialState, action) => {
         case activityActionTypes.SET_ACTIVITY_BY_TARGET: {
             return {
                 ...state,
-                activityByTarget: action.payload,
+                activityByTarget: {
+                    activities: action.payload.activities,
+                    target: action.payload.target,
+                },
             }
         }
         default: {
