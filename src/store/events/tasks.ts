@@ -96,7 +96,6 @@ export const getEventsCalendar = async (payload) => {
         }
 
         const result = {
-            events: events,
             month: monthObject,
             monthInScope: Number(dateMonth),
             yearInScope: Number(dateYear),

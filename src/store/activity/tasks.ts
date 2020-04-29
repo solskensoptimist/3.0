@@ -24,7 +24,7 @@ export const getActivityByFilter = async () => {
             url: '/activity/dealer/',
         });
 
-        const result = (data && data.length && !(data instanceof Error)) ? data.filter((num) => {
+        let result = (data && data.length && !(data instanceof Error)) ? data.filter((num) => {
                 return !('complete' in num && num.complete === false);
             }).map((num) => {
                 if (!num.date_created && num.added) {
@@ -34,6 +34,11 @@ export const getActivityByFilter = async () => {
                 return num;
             })
             : [];
+
+        // Just to be sure.
+        result = result.sort((a, b) => {
+            return (new Date(a.date_created) < new Date(b.date_created)) ? 1 : -1;
+        });
 
         return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_FILTER, payload: result});
     } catch (err) {
@@ -65,7 +70,7 @@ export const getActivityByTarget = async (payload) => {
             url: url,
         });
 
-        const result = (data && data.length && !(data instanceof Error)) ? data.filter((num) => {
+        let result = (data && data.length && !(data instanceof Error)) ? data.filter((num) => {
                 return !('complete' in num && num.complete === false);
             }).map((num) => {
                 if (!num.date_created && num.added) {
@@ -75,6 +80,11 @@ export const getActivityByTarget = async (payload) => {
                 return num;
             })
             : [];
+
+        // Just to be sure.
+        result = result.sort((a, b) => {
+            return (new Date(a.date_created) < new Date(b.date_created)) ? 1 : -1;
+        });
 
         return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: result});
     } catch (err) {

@@ -2,7 +2,6 @@ import {eventsActionTypes} from './actions';
 
 interface EventsState {
     eventsCalendar: {           // Holds events by month.
-        events: Array<object> | null,
         month: object | null,
         monthInScope: number | null,
         yearInScope: number | null,
@@ -12,7 +11,6 @@ interface EventsState {
 
 const initialState: EventsState = {
     eventsCalendar: {
-        events: null,
         month: null,
         monthInScope: null,
         yearInScope: null,
