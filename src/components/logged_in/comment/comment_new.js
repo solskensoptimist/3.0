@@ -14,9 +14,9 @@ export default (props) => {
         }
     };
 
-    const _saveComment = () => {
+    const _saveComment = async () => {
         if (textRef && textRef.current && textRef.current.value) {
-            saveComment({comment: textRef.current.value, target: props.target});
+            await saveComment({comment: textRef.current.value, target: props.target});
         }
         if (props.update && typeof props.update === 'function') {
             props.update();

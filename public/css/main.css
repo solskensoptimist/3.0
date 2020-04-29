@@ -54,16 +54,16 @@
   .scrollbarHide::-webkit-scrollbar {
     display: none; }
 
-.scrollbarLight, .newsWrapper__news__content {
+.scrollbarLight, .small .eventsFlowWrapper__eventsFlow__content, .newsWrapper__news__content {
   overflow-y: auto;
   padding-right: 4px;
   scrollbar-width: thin;
   scrollbar-color: #f5f5f5 transparent; }
-  .scrollbarLight::-webkit-scrollbar, .newsWrapper__news__content::-webkit-scrollbar {
+  .scrollbarLight::-webkit-scrollbar, .small .eventsFlowWrapper__eventsFlow__content::-webkit-scrollbar, .newsWrapper__news__content::-webkit-scrollbar {
     width: 7px; }
-  .scrollbarLight::-webkit-scrollbar-track, .newsWrapper__news__content::-webkit-scrollbar-track {
+  .scrollbarLight::-webkit-scrollbar-track, .small .eventsFlowWrapper__eventsFlow__content::-webkit-scrollbar-track, .newsWrapper__news__content::-webkit-scrollbar-track {
     background: transparent; }
-  .scrollbarLight::-webkit-scrollbar-thumb, .newsWrapper__news__content::-webkit-scrollbar-thumb {
+  .scrollbarLight::-webkit-scrollbar-thumb, .small .eventsFlowWrapper__eventsFlow__content::-webkit-scrollbar-thumb, .newsWrapper__news__content::-webkit-scrollbar-thumb {
     background: #f5f5f5;
     border-radius: 6px; }
 
@@ -299,8 +299,7 @@ a {
   .activitiesWrapper__activities__content__itemWrapper {
     position: relative; }
     .activitiesWrapper__activities__content__itemWrapper:nth-child(even) .activitiesWrapper__activities__content__itemWrapper__item {
-      background: #fafafa;
-      margin: 0; }
+      background: #fafafa; }
     .activitiesWrapper__activities__content__itemWrapper:last-of-type .activitiesWrapper__activities__content__itemWrapper__item {
       border: 0; }
     .activitiesWrapper__activities__content__itemWrapper__item {
@@ -309,8 +308,7 @@ a {
       padding: 22px;
       flex-grow: 1;
       word-break: break-word;
-      border-bottom: 1px solid #eeeeee;
-      margin: 1px 0; }
+      border-bottom: 1px solid #eeeeee; }
       .activitiesWrapper__activities__content__itemWrapper__item:hover .activitiesWrapper__activities__content__itemWrapper__item__edit {
         visibility: visible; }
       .activitiesWrapper__activities__content__itemWrapper__item svg {
@@ -513,8 +511,7 @@ a {
   .eventsFlowWrapper__eventsFlow__content__itemWrapper {
     position: relative; }
     .eventsFlowWrapper__eventsFlow__content__itemWrapper:nth-child(even) .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
-      background: #fafafa;
-      margin: 0; }
+      background: #fafafa; }
     .eventsFlowWrapper__eventsFlow__content__itemWrapper:last-of-type .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
       border: 0; }
     .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
@@ -523,8 +520,7 @@ a {
       padding: 22px;
       flex-grow: 1;
       word-break: break-word;
-      border-bottom: 1px solid #eeeeee;
-      margin: 1px 0; }
+      border-bottom: 1px solid #eeeeee; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item:hover .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
         visibility: visible; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item svg {
@@ -585,30 +581,32 @@ a {
             .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
               margin-left: 0; }
 
-.small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
-  flex-direction: column; }
-  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon {
-    display: none; }
-  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
-    margin-left: 0;
-    display: flex;
-    flex-basis: 100%;
-    justify-content: space-between; }
-    .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate {
-      margin-left: 12px; }
-  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action {
-    margin-left: 0;
-    flex-basis: 100%; }
-  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment {
-    margin-left: 0;
-    flex-basis: 100%; }
-  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user {
-    margin-left: 0;
-    flex-basis: 100%; }
-  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
-    position: absolute;
-    bottom: 22px;
-    right: 22px; }
+.small .eventsFlowWrapper__eventsFlow__content {
+  max-height: 504px; }
+  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
+    flex-direction: column; }
+    .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon {
+      display: none; }
+    .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
+      margin-left: 0;
+      display: flex;
+      flex-basis: 100%;
+      justify-content: space-between; }
+      .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate {
+        margin-left: 12px; }
+    .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action {
+      margin-left: 0;
+      flex-basis: 100%; }
+    .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment {
+      margin-left: 0;
+      flex-basis: 100%; }
+    .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user {
+      margin-left: 0;
+      flex-basis: 100%; }
+    .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
+      position: absolute;
+      bottom: 22px;
+      right: 22px; }
 
 .passedDate .additionalDate {
   color: #ff8a65 !important; }
@@ -646,7 +644,7 @@ a {
     cursor: pointer; }
 
 .newsWrapper__news__content {
-  max-height: 500px;
+  max-height: 504px;
   margin-top: 22px; }
   .newsWrapper__news__content__item {
     color: #616161;

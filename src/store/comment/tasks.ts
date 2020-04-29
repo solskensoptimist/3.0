@@ -34,6 +34,36 @@ export const getComment = async (payload) => {
  * @param payload.comment
  * @param payload.target
  */
+export const removeComment = async (payload) => {
+    if (!payload || (payload && !payload.id)) {
+        return console.error('Missing params in removeComment');
+    }
+
+    try {
+        const comment = await request({
+            data: {
+                comment_id: payload.id,
+            },
+            method: 'delete',
+            url: '/comments/',
+        });
+
+        if (!comment || comment instanceof Error) {
+            return console.error('Error in removeComment');
+        }
+
+        return;
+    } catch(err) {
+        return console.error('Error in removeComment:', err);
+    }
+};
+
+/**
+ * Save new comment.
+ *
+ * @param payload.comment
+ * @param payload.target
+ */
 export const saveComment = async (payload) => {
     if (!payload || (payload && !payload.target) || (payload && !payload.comment)) {
         return console.error('Missing params in saveComment');
@@ -89,28 +119,3 @@ export const updateComment = async (payload) => {
         return console.error('Error in updateComment:', err);
     }
 };
-
-/*
-Det går att uppdatera en enskild, radera en enskild, och skapa en enskild.
-Det enda som saknas är att hämta en enskild.
-
-Comments/routers.js
-
-router.route('/')
-    .all(isAuthenticated.rest)
-    .delete(function(req, res, next) {
-        var id = req.body.comment_id;
-        if(!id) {
-            res.status(400).send('Invalid parameters');
-            return;
-        }
-        commentsModel.deleteComment(id)
-            .then(function() {
-                res.send(true);
-            })
-            .catch(function(err) {
-                res.status(500).send(err);
-            });
-
-    });
-*/

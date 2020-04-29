@@ -16,9 +16,9 @@ const CommentEdit = (state) => {
         }
     };
 
-    const _updateComment = () => {
+    const _updateComment = async () => {
         if (textRef && textRef.current && textRef.current.value) {
-            updateComment({comment: textRef.current.value, id: state.comment.id});
+            await updateComment({comment: textRef.current.value, id: state.props.id});
         }
         if (state.props.update && typeof state.props.update === 'function') {
             state.props.update();

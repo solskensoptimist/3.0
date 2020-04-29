@@ -92,6 +92,8 @@ export default {
     regarding: 'Gällande',
     regret: 'Återställ',
     remove: 'Ta bort',
+    removeComment: 'Ta bort kommentar',
+    removeEnsure: 'Är du säker?',
     responsible: 'Ansvarig',
     save: 'Spara',
     savedInList: 'Sparad i lista',
