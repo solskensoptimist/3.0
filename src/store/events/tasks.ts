@@ -142,7 +142,7 @@ export const getEventsFlow = async (payload) => {
         }
 
         // New array with all events collected.
-        const result = deals.reduce((memo, num) => {
+        let result = deals.reduce((memo, num) => {
             return memo.concat(
                 num.events.map((event) => Object.assign(event, {
                     name : num.name,
@@ -152,6 +152,10 @@ export const getEventsFlow = async (payload) => {
                 }))
             );
         }, []);
+
+        result = result.sort((a, b) => {
+            return (new Date(a.event_date) > new Date(b.event_date)) ? 1 : -1;
+        });
 
         return store.dispatch({type: eventsActionTypes.SET_EVENTS_FLOW, payload: result});
     } catch (err) {

@@ -544,6 +544,7 @@ a {
         margin-left: 22px;
         flex-basis: 16%; }
         .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate {
+          color: #616161;
           display: flex;
           align-items: center;
           font-weight: 600;
@@ -608,20 +609,14 @@ a {
       bottom: 22px;
       right: 22px; }
 
-.passedDate .additionalDate {
-  color: #ff8a65 !important; }
-  .passedDate .additionalDate svg {
-    fill: #ff8a65 !important; }
+.passedDate .additionalDate svg {
+  fill: #ffab91 !important; }
 
-.withinADay .additionalDate {
-  color: #81c784 !important; }
-  .withinADay .additionalDate svg {
-    fill: #81c784 !important; }
+.withinADay .additionalDate svg {
+  fill: #81c784 !important; }
 
-.withinAWeek .additionalDate {
-  color: #ffb300 !important; }
-  .withinAWeek .additionalDate svg {
-    fill: #ffb300 !important; }
+.withinAWeek .additionalDate svg {
+  fill: #ffd54f !important; }
 
 .loginWrapper__login {
   display: flex;
