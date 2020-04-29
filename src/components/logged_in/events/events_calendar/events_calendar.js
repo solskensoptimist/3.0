@@ -99,7 +99,7 @@ const EventsCalendar = (state) => {
             dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
             prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
         });
-    }, []);
+    }, [state.props]);
 
     return ( _stateCheck() ?
         <div className='eventsCalendarWrapper'>

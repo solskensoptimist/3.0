@@ -6,7 +6,7 @@ export default () => {
     return (
         <div className='homeWrapper'>
             <News />
-            <Events view='calendar' />
+            <Events small={true} view='calendar' />
         </div>
     );
 }

@@ -8,10 +8,6 @@ import ReactDOM from 'react-dom';
 export default (props) => {
     const popupRef = useRef(null);
 
-    const _closeComponent = () => {
-        props.close();
-    };
-
     useEffect(() => {
         /**
          * When clicking outside popup content, close it.
@@ -20,14 +16,14 @@ export default (props) => {
             if (popupRef && popupRef.current) {
                 const node = ReactDOM.findDOMNode(popupRef.current);
                 if (node && !node.contains(e.target)) {
-                    _closeComponent();
+                    props.close();
                 }
             }
         };
 
         window.addEventListener('mousedown', _closePopup);
         return () => window.removeEventListener('mousedown', _closePopup);
-    }, []);
+    }, [props]);
 
     return (
         <div className='popupWrapper'>

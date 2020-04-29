@@ -69,10 +69,10 @@ const EventsFlow = (state) => {
             dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
             prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
         });
-    }, []);
+    }, [state.props]);
 
     return ( _stateCheck() ?
-        <div className='eventsFlowWrapper'>
+        <div className={(state.props.small) ? 'eventsFlowWrapper small' : 'eventsFlowWrapper'}>
             <div className='eventsFlowWrapper__eventsFlow'>
                 <div className='eventsFlowWrapper__eventsFlow__header'>
                     <WidgetHeader

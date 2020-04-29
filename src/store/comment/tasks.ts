@@ -21,7 +21,8 @@ export const getComment = async (payload) => {
             return store.dispatch({ type: commentActionTypes.SET_COMMENT, payload: {}});
         }
 
-        return store.dispatch({ type: commentActionTypes.SET_COMMENT, payload: {...comment}});
+        await store.dispatch({ type: commentActionTypes.SET_COMMENT, payload: {...comment}});
+        return;
     } catch(err) {
         return console.error('Error in getComment:', err);
     }

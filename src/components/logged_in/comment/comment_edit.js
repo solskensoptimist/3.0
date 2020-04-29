@@ -7,7 +7,7 @@ import WidgetFooter from 'components/shared/widget_footer';
 import WidgetHeader from 'components/shared/widget_header';
 
 const CommentEdit = (state) => {
-    const [text, setText] = useState((state.comment.comment) ? state.comment.comment : '');
+    const [text, setText] = useState('');
     const textRef = useRef(null);
 
     const _onChange = () => {
@@ -39,7 +39,7 @@ const CommentEdit = (state) => {
         };
 
         _getComment();
-    }, []);
+    }, [state.comment.comment, state.props.id]);
 
     return ( _stateCheck() ?
         <div className='commentWrapper'>

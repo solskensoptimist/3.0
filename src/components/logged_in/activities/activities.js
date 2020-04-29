@@ -145,8 +145,12 @@ const Activities = (state) => {
     };
 
     useEffect(() => {
-        _getActivity();
-    }, []);
+        if (state.props.type === 'target' && state.props.id) {
+            getActivityByTarget({id: state.props.id, type: 'deal'});
+        } else {
+            getActivityByFilter();
+        }
+    }, [state.props.id, state.props.type]);
 
     return ( _stateCheck() ?
         <div className='activitiesWrapper'>

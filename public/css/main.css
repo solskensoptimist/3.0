@@ -585,6 +585,31 @@ a {
             .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
               margin-left: 0; }
 
+.small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
+  flex-direction: column; }
+  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon {
+    display: none; }
+  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
+    margin-left: 0;
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-between; }
+    .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate {
+      margin-left: 12px; }
+  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action {
+    margin-left: 0;
+    flex-basis: 100%; }
+  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment {
+    margin-left: 0;
+    flex-basis: 100%; }
+  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user {
+    margin-left: 0;
+    flex-basis: 100%; }
+  .small .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
+    position: absolute;
+    bottom: 22px;
+    right: 22px; }
+
 .passedDate .additionalDate {
   color: #ff8a65 !important; }
   .passedDate .additionalDate svg {
