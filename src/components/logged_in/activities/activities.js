@@ -23,7 +23,7 @@ const Activities = (state) => {
     const [minimize, setMinimize] = useState(false);
 
     const _renderActivities = () => {
-        let data = (state.props.type === 'filter') ? state.activity.activityByFilter : state.activity.activityByTarget.activities;
+        let data = (state.props.type === 'filter') ? state.activity.activityByFilter : state.activity.activityByTarget;
 
         if (!includeMoved) {
             // Remove move activites.
@@ -132,17 +132,17 @@ const Activities = (state) => {
         if (state.props.type === 'filter') {
             return !!state && state.activity && state.activity.activityByFilter;
         } else if (state.props.type === 'target') {
-            return !!state && state.activity && state.activity.activityByTarget && state.activity.activityByTarget.activities;
+            return !!state && state.activity && state.activity.activityByTarget;
         }
     };
 
     useEffect(() => {
-        if (state.props.type === 'target' && state.props.id) {
-            getActivity({target: state.props.id, type: 'target'});
+        if (state.props.type === 'target' && state.props.target) {
+            getActivity({target: state.props.target, type: 'target'});
         } else {
             getActivity({type: 'filter'});
         }
-    }, [state.props.id, state.props.type]);
+    }, [state.props.target, state.props.type]);
 
     return ( _stateCheck() ?
         <div className='activitiesWrapper'>

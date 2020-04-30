@@ -74,7 +74,7 @@ const Deal = (state) => {
                         <Events target={id} type='target' view='flow'/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
-                        <Activities id={id} includeComments={true} includeMoved={true} type='target' />
+                        <Activities includeComments={true} includeMoved={true} target={id} type='target' />
                     </div>
                 </div>
             </div>

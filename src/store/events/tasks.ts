@@ -16,7 +16,7 @@ export const completeEvent = async (payload) => {
         return console.error('Missing params in completeEvent');
     }
 
-    const event = store.getState().events.eventsFlow.find((num) => {
+    const event = store.getState().events.events.find((num) => {
         return num._id === payload.eventId;
     });
 
