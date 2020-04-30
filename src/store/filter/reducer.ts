@@ -14,7 +14,7 @@ interface EventsState {
 const initialState: EventsState = {
     date: {
         from:  moment(new Date().setHours(23,59,59,0)).subtract(1, 'month').toDate(),
-        to: moment(new Date().setHours(23,59,59,0)).toDate(),
+        to: moment(new Date().setHours(23,59,59,0)).add(1, 'month').toDate(),
     },
     leads: false,
     lists: null,

@@ -5,7 +5,7 @@ import WidgetFooter from 'components/shared/widget_footer';
 import WidgetHeader from 'components/shared/widget_header';
 
 export default (props) => {
-        const _removeComment = async () => {
+    const _removeComment = async () => {
         await removeComment({id: props.id});
         if (props.close && typeof props.close === 'function') {
             props.close();

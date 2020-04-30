@@ -26,7 +26,7 @@ export default (props) => {
                 </div>
             </div>
             {showEditComment && <Popup close={()=> {setShowEditComment(false)}} size='small'><Comment close={()=> {setShowEditComment(false)}} id={props.id} type='edit'/></Popup>}
-            {showRemoveComment && <Popup close={()=> {setShowRemoveComment(false)}} size='small'><Comment close={()=> {setShowEditComment(false)}} id={props.id} type='remove'/></Popup>}
+            {showRemoveComment && <Popup close={()=> {setShowRemoveComment(false)}} size='small'><Comment close={()=> {setShowRemoveComment(false)}} id={props.id} type='remove'/></Popup>}
         </div>
     );
 };
