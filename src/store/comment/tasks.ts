@@ -1,7 +1,7 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {commentActionTypes} from './actions';
-import {getActivityByFilter, getActivityByTarget} from 'store/activity/tasks';
+import {getActivity} from 'store/activity/tasks';
 
 /**
  * Retrieve one Comment
@@ -55,8 +55,8 @@ export const removeComment = async (payload) => {
             return console.error('Error in removeComment');
         }
 
-        await getActivityByFilter();
-        await getActivityByTarget({});
+        // Update activities.
+        await getActivity({type: 'last'});
 
         return;
     } catch(err) {
@@ -89,8 +89,8 @@ export const saveComment = async (payload) => {
             return console.error('Error in saveComment');
         }
 
-        await getActivityByFilter();
-        await getActivityByTarget({});
+        // Update activities.
+        await getActivity({type: 'last'});
 
         return;
     } catch(err) {
@@ -123,8 +123,9 @@ export const updateComment = async (payload) => {
             return console.error('Error in updateComment');
         }
 
-        await getActivityByFilter();
-        await getActivityByTarget({});
+        // Update activities.
+        await getActivity({type: 'last'});
+
         return store.dispatch({ type: commentActionTypes.SET_COMMENT_COMMENT, payload: {comment: payload.comment}});
     } catch(err) {
         return console.error('Error in updateComment:', err);

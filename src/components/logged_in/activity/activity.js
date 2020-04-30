@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {getActivityByFilter} from 'store/activity/tasks';
+import {getActivity} from 'store/activity/tasks';
 import Activities from 'components/logged_in/activities';
 import Events from 'components/logged_in/events';
 
 export default () => {
     useEffect(() => {
-        getActivityByFilter();
+        getActivity({type: 'filter'});
     });
 
     return (
@@ -16,7 +16,7 @@ export default () => {
                 </div>
                 <div className='activityWrapper__activity__content'>
                     <div className='activityWrapper__activity__content__item'>
-                        <Events type='flow' />
+                        <Events type='filter' view='flow' />
                     </div>
                     <div className='activityWrapper__activity__content__item'>
                         <Activities includeMoved={true} type='filter' />

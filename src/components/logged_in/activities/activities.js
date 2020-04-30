@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {activityHelper, dealHelper, tc} from 'helpers';
 import companyHelper from 'shared_helpers/company_helper';
 import moment from 'moment';
-import {getActivityByTarget, getActivityByFilter} from 'store/activity/tasks';
+import {getActivity} from 'store/activity/tasks';
 import {NavLink} from 'react-router-dom';
 import ActivityItem from './activity_item';
 import Icon from 'components/shared/icon';
@@ -138,9 +138,9 @@ const Activities = (state) => {
 
     useEffect(() => {
         if (state.props.type === 'target' && state.props.id) {
-            getActivityByTarget({id: state.props.id});
+            getActivity({target: state.props.id, type: 'target'});
         } else {
-            getActivityByFilter();
+            getActivity({type: 'filter'});
         }
     }, [state.props.id, state.props.type]);
 

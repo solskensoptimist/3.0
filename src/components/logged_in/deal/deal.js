@@ -71,7 +71,7 @@ const Deal = (state) => {
                     {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
                     {showEditDeal && <Popup close={() => {setShowEditDeal(false)}} size='medium'><EditDeal/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
-                        <Events view='flow' dealId={id}/>
+                        <Events target={id} type='target' view='flow'/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
                         <Activities id={id} includeComments={true} includeMoved={true} type='target' />

@@ -2,18 +2,14 @@ import {activityActionTypes} from './actions';
 
 interface EventsState {
     activityByFilter: Array<object> | null,
-    activityByTarget: {
-        activities: Array<object> | null,
-        target: string | null,
-    },
+    activityByTarget: Array<object> | null,
+    lastSearch: object | null,
 }
 
 const initialState: EventsState = {
     activityByFilter: null,
-    activityByTarget: {
-        activities: null,
-        target: null,
-    },
+    activityByTarget: null,
+    lastSearch: null,
 };
 
 export const activityReducer = (state = initialState, action) => {
@@ -27,11 +23,14 @@ export const activityReducer = (state = initialState, action) => {
         case activityActionTypes.SET_ACTIVITY_BY_TARGET: {
             return {
                 ...state,
-                activityByTarget: {
-                    activities: action.payload.activities,
-                    target: action.payload.target,
-                },
+                activityByTarget: action.payload,
             }
+        }
+        case activityActionTypes.SET_LAST_SEARCH: {
+            return {
+                ...state,
+                lastSearch: action.payload,
+        }
         }
         default: {
             return state;

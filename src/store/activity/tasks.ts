@@ -1,13 +1,48 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {activityActionTypes} from './actions';
+import {eventsActionTypes} from "../events/actions";
+
+/**
+ * Get activity main func.
+ *
+ * @payload.type - string - Can be 'filter' | 'last' | 'target'.
+ * @payload.target  - string - Only required/working when type === 'target'. Can be prospect id or deal id.
+ */
+export const getActivity = async (payload) => {
+    if (payload.type !== 'last') {
+        // Save search.
+        store.dispatch({type: eventsActionTypes.SET_LAST_SEARCH, payload: payload});
+    }
+
+    try {
+        switch (payload.type) {
+            case 'filter':
+                return await getActivityByFilter();
+            case 'last':
+                const lastSearch = (store.getState().activity.lastSearch) ? store.getState().activity.lastSearch : null;
+                if (lastSearch) {
+                    return await getActivity(lastSearch);
+                } else {
+                    return console.error('No last search in getActivity');
+                }
+            case 'target':
+                return await getActivityByTarget({target: payload.target});
+            default:
+                return await getActivityByFilter();
+        }
+    } catch (err) {
+        console.error('Error in getActivity:\n' + err);
+    }
+};
 
 /**
  * Retrieve activity based on filter.
  */
-export const getActivityByFilter = async () => {
+const getActivityByFilter = async () => {
     try {
         const filter = store.getState().filter;
+
         const data = await request({
             data: {
                 includeAllComments: true,
@@ -46,28 +81,16 @@ export const getActivityByFilter = async () => {
 /**
  * Retrieve activity based on target id.
  *
- * @param payload.id - Can be a prospect id (user id/orgnr) or a deal id. If no id, do search for last target in store.
+ * @param payload.target - Can be a prospect id (user id/orgnr) or a deal id.
  */
-export const getActivityByTarget = async (payload) => {
+const getActivityByTarget = async (payload) => {
     try {
-        // Set new target, or retrieve from store state.
-        let target;
-        if (payload.id) {
-            target = payload.id;
-        } else {
-            target = store.getState().activity.activityByTarget.target;
-            if (!target) {
-                // If no target, don't do nutting.
-                return;
-            }
+        if (!payload || (payload && !payload.target)) {
+            return console.error('Missing target in getActivityByTarget');
         }
 
-        console.log('getactivitytarget', target);
-
         // Different endpoint for deals than prospects.
-        const url = (target.length > 13) ? '/activity/deal/' + target : '/comments/' + target;
-
-        console.log(url);
+        const url = (payload.target.length > 14) ? '/activity/deal/' + payload.target : '/comments/' + payload.target;
 
         const data = await request({
             method: 'get',
@@ -89,9 +112,7 @@ export const getActivityByTarget = async (payload) => {
             return (new Date(a.date_created) < new Date(b.date_created)) ? 1 : -1;
         });
 
-        console.log('activitiit', activities);
-
-        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: {activities: activities, target: target}});
+        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: activities});
     } catch (err) {
         return console.error('Error in getActivityByTarget:\n' + err);
     }

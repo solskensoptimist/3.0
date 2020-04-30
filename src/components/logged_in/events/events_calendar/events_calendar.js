@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import EventsCalendarDay from './events_calendar_day';
 import EventsCalendarDayEmpty from './events_calendar_day_empty';
 import Loading from 'components/shared/loading';
-import {getEventsCalendar} from 'store/events/tasks';
+import {getEvents} from 'store/events/tasks';
 import moment from 'moment';
 import Icon from 'components/shared/icon';
 import WidgetHeader from 'components/shared/widget_header';
@@ -69,35 +69,35 @@ const EventsCalendar = (state) => {
     };
 
     const _stateCheck = () => {
-        return (state.events && state.events.month);
+        return (state.events && state.events && state.events.month);
     };
 
     const _stepBack = async () => {
-        await getEventsCalendar({
-            date: {
-                dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
-                prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
+        await getEvents({
+            calendar: {
                 month: (state.events.monthInScope === 1) ? 12 : state.events.monthInScope - 1,
                 year: (state.events.monthInScope === 1) ? state.events.yearInScope - 1 : state.events.yearInScope,
-            }
+            },
+            target: state.props.target,
+            type: state.props.type,
         })
     };
 
     const _stepForward = async () => {
-        await getEventsCalendar({
-            date: {
-                dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
-                prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
+        await getEvents({
+            calendar: {
                 month: (state.events.monthInScope === 12) ? 1 : state.events.monthInScope + 1,
-                year: (state.events.monthInScope === 12) ? state.events.yearInScope + 1 : state.events.yearInScope,
-            }
-        })
+                year: (state.events.yearInScope === 12) ? state.events.yearInScope + 1 : state.events.yearInScope,
+            },
+            target: (state.props && state.props.target) ? state.props.target : null,
+            type: state.props.type,
+        });
     };
 
     useEffect(() => {
-        getEventsCalendar({
-            dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
-            prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
+        getEvents({
+            target: (state.props && state.props.target) ? state.props.target : null,
+            type:  state.props.type,
         });
     }, [state.props]);
 
@@ -131,7 +131,7 @@ const EventsCalendar = (state) => {
 
 const MapStateToProps = (state, props) => {
     return {
-        events: state.events.eventsCalendar,
+        events: state.events.eventsByMonth,
         props: props,
         user: state.user,
     };

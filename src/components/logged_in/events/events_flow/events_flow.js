@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {activityHelper, tc} from "helpers";
 import {connect} from "react-redux";
-import {getEventsFlow} from "store/events/tasks";
+import {getEvents} from "store/events/tasks";
 import EventsFlowItem from './events_flow_item';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
@@ -71,9 +71,9 @@ const EventsFlow = (state) => {
     };
 
     useEffect(() => {
-        getEventsFlow({
-            dealId: (state.props && state.props.dealId) ? state.props.dealId : null,
-            prospectId: (state.props && state.props.prospectId) ? state.props.prospectId : null,
+        getEvents({
+            target: (state.props && state.props.target) ? state.props.target : null,
+            type: state.props.type,
         });
     }, [state.props]);
 
@@ -107,7 +107,7 @@ const EventsFlow = (state) => {
 
 const MapStateToProps = (state, props) => {
     return {
-        events: state.events.eventsFlow,
+        events: state.events.events,
         props: props,
         user: state.user,
     };
