@@ -140,6 +140,8 @@ export default (props) => {
             return <Work className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'owner':
             return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'person':
+            return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'price':
             return <AttachMoney className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'prospect':

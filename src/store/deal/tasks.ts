@@ -49,56 +49,59 @@ export const getDeal = async (payload) => {
  */
 const getProspectInfo = async (payload) => {
     if (!payload || (payload && !payload.ids) || (payload && payload.ids && payload.ids.length === 0)) {
-        return;
+        return [];
     }
 
-    const prospectPromises = payload.ids.map((id) => {
+    // No really ideal, company reteurns a lot of redundant information. But we use the end points we have atm.
+    const prospectPromises = await payload.ids.map(async (id) => {
         if (companyHelper.isValidOrgNr(id)) {
-            return request({
+            return await request({
                 method: 'get',
                 url: '/company/' + id,
-            })
-            .then((data) => {
-                return data;
-            })
-            .catch((err) => {
-                console.error(err);
             });
         } else {
-            return request({
+            return await request({
                 method: 'get',
                 url: '/privatePerson/' + id,
-            })
-            .then((data) => {
-                return data;
-            })
-            .catch((err) => {
-                console.error(err);
             });
         }
     });
 
     const data = await Promise.all(prospectPromises);
 
-    const prospectInfo: Array<object> = [];
+    let prospectInfo = data.map((num: any) => {
+        if (num.person && num.person.length) {
+            return {
+                address: num.person[0].person.address ? num.person[0].person.address : '',
+                gender: num.person[0].person.gender ? num.person[0].person.gender : '',
+                id: num.person[0].id ? num.person[0].id : '',
+                name: num.person[0].person.name? num.person[0].person.name : '',
+                type: 'person',
+                zip: num.person[0].person.zip ? num.person[0].person.zip : '',
+                zipMuncipality: num.person[0].person.zipMuncipality ? num.person[0].person.zipMuncipality : '',
+            };
+        } else if (num.company) {
+            return {
+                address: num.company.address ? num.company.address : '',
+                id: num.company.user_id ? num.company.user_id : '',
+                name: num.company.name ? num.company.name : '',
+                parentCompany: num.company.parentCompanyId ? num.company.parentCompanyId : '',
+                type: 'company',
+                zip: num.company.zip ? num.company.zip : '',
+                zipMuncipality: num.company.zipMuncipality ? num.company.zipMuncipality : '',
+            };
+        } else {
+            return false;
+        }
+    });
 
-    data.map((num: any) => {
-        if (num.hasOwnProperty('person')) {
-            return prospectInfo.push({
-                address: num.person.address,
-                name: num.person.name,
-                gender: num.person.gender,
-                zip: num.person.zip,
-                zipMuncipality: num.person.zipMuncipality,
-            });
-        } else if (num.hasOwnProperty('company')) {
-            return prospectInfo.push({
-                address: num.company.address,
-                name: num.company.name,
-                gender: num.company.gender,
-                zip: num.company.zip,
-                zipMuncipality: num.company.zipMuncipality,
-            });
+    prospectInfo = prospectInfo.sort((a: any, b: any) => {
+        if ( a.name < b.name){
+            return -1;
+        } else if ( a.name > b.name ){
+            return 1;
+        } else {
+            return 0;
         }
     });
 

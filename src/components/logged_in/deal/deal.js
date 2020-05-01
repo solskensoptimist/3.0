@@ -6,12 +6,12 @@ import {dealHelper, tc} from 'helpers';
 import moment from 'moment';
 import Activities from 'components/logged_in/activities';
 import Comment from 'components/logged_in/comment';
+import DealProspectsList from './deal_prospects_list';
 import EditDeal from 'components/logged_in/edit_deal';
 import Events from 'components/logged_in/events';
 import Loading from 'components/shared/loading';
 import Icon from 'components/shared/icon';
 import Popup from 'components/shared/popup';
-import TempProspectsidsTableName from 'components/logged_in/temp_prospectids_table_name';
 import Tooltip from 'components/shared/tooltip/tooltip';
 
 /**
@@ -45,7 +45,7 @@ const Deal = (state) => {
                             </div>
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.savedInList}</h4>
-                                <p>{state.deal.listOrigin}</p>
+                                <p>{state.deal.listName}</p>
                             </div>
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.responsible}</h4>
@@ -72,7 +72,7 @@ const Deal = (state) => {
                     {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
                     {showEditDeal && <Popup close={() => {setShowEditDeal(false)}} size='medium'><EditDeal/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
-                        <TempProspectsidsTableName ids={state.deal.prospects}/>
+                        <DealProspectsList/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
                         <Events target={id} type='target' view='flow'/>
