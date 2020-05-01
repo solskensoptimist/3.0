@@ -110,7 +110,7 @@ export default (props) => {
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'info':
             return <Info className={props.active ? 'active' : null} onClick={onClick}/>;
-        case 'lists':
+        case 'list':
             return <List className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'login':
             return <ExitToApp className={props.active ? 'active' : null} onClick={onClick}/>;

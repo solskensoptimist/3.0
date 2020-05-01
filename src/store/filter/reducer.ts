@@ -1,7 +1,7 @@
 import {filterActionTypes} from './actions';
 import moment from 'moment';
 
-interface EventsState {
+interface FilterState {
     date: {
         from: Date,
         to: Date,
@@ -11,7 +11,7 @@ interface EventsState {
     users: Array<number> | null,
 }
 
-const initialState: EventsState = {
+const initialState: FilterState = {
     date: {
         from:  moment(new Date().setHours(23,59,59,0)).subtract(1, 'month').toDate(),
         to: moment(new Date().setHours(23,59,59,0)).add(1, 'month').toDate(),

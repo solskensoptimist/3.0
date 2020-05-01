@@ -89,7 +89,7 @@ const getActivityByTarget = async (payload) => {
             return console.error('Missing target in getActivityByTarget');
         }
 
-        // Different endpoint for deals than prospects.
+        // Different endpoint for deals than temp_prospectids_table_name.
         const url = (payload.target.length > 14) ? '/activity/deal/' + payload.target : '/comments/' + payload.target;
 
         const data = await request({

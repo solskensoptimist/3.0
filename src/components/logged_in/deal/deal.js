@@ -11,6 +11,7 @@ import Events from 'components/logged_in/events';
 import Loading from 'components/shared/loading';
 import Icon from 'components/shared/icon';
 import Popup from 'components/shared/popup';
+import TempProspectsidsTableName from 'components/logged_in/temp_prospectids_table_name';
 import Tooltip from 'components/shared/tooltip/tooltip';
 
 /**
@@ -71,10 +72,13 @@ const Deal = (state) => {
                     {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
                     {showEditDeal && <Popup close={() => {setShowEditDeal(false)}} size='medium'><EditDeal/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
+                        <TempProspectsidsTableName ids={state.deal.prospects}/>
+                    </div>
+                    <div className='dealWrapper__deal__content__item'>
                         <Events target={id} type='target' view='flow'/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
-                        <Activities includeComments={true} includeMoved={true} target={id} type='target' />
+                        <Activities includeComments={true} includeMoved={true} target={id} type='target'/>
                     </div>
                 </div>
             </div>

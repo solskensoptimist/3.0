@@ -1,13 +1,15 @@
 import {dealActionTypes} from './actions';
 
 interface EventsState {
-    deal: object | null,
-    listOrigin: string | null,
+    deal: object | null, // The real deal object, this is what we send to backend when update.
+    listName: string | null, // Name of list deal originate from.
+    prospectInfo: Array<object> | null, // Extra info about prospects in deal.
 }
 
 const initialState: EventsState = {
     deal: null,
-    listOrigin: null
+    listName: null,
+    prospectInfo: null,
 };
 
 export const dealReducer = (state = initialState, action) => {
@@ -18,10 +20,16 @@ export const dealReducer = (state = initialState, action) => {
                 deal: action.payload,
             }
         }
-        case dealActionTypes.SET_LIST_ORIGIN: {
+        case dealActionTypes.SET_LIST_NAME: {
             return {
                 ...state,
-                listOrigin: action.payload,
+                listName: action.payload,
+            }
+        }
+        case dealActionTypes.SET_PROSPECT_INFO: {
+            return {
+                ...state,
+                prospectInfo: action.payload,
             }
         }
         default: {

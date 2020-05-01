@@ -76,7 +76,7 @@ const Breadcrumbs = (state) => {
             </div>
         </div>
     );
-}
+};
 
 const MapStateToProps = (state) => {
     return {
