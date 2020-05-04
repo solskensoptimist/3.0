@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request} from 'helpers';
+import {prospectHelper, request} from 'helpers';
 import {dealActionTypes} from './actions';
 import companyHelper from 'shared_helpers/company_helper';
 
@@ -52,7 +52,7 @@ const getProspectInfo = async (payload) => {
         return [];
     }
 
-    // No really ideal, company reteurns a lot of redundant information. But we use the end points we have atm.
+    // No really ideal, company returns a lot of redundant information. But we use the end points we have atm.
     const prospectPromises = await payload.ids.map(async (id) => {
         if (companyHelper.isValidOrgNr(id)) {
             return await request({
@@ -71,14 +71,22 @@ const getProspectInfo = async (payload) => {
 
     let prospectInfo = data.map((num: any) => {
         if (num.person && num.person.length) {
+            const person = num.person[0].person;
+            let name;
+            if (!person.name || person.name === '') {
+                name = prospectHelper.buildPersonDefaultName(person.gender, person.birthYear);
+            } else {
+                name = person.name;
+            }
+
             return {
-                address: num.person[0].person.address ? num.person[0].person.address : '',
-                gender: num.person[0].person.gender ? num.person[0].person.gender : '',
+                address: person.address ? person.address : '',
+                gender: person.gender ? person.gender : '',
                 id: num.person[0].id ? num.person[0].id : '',
-                name: num.person[0].person.name? num.person[0].person.name : '',
+                name: name,
                 type: 'person',
-                zip: num.person[0].person.zip ? num.person[0].person.zip : '',
-                zipMuncipality: num.person[0].person.zipMuncipality ? num.person[0].person.zipMuncipality : '',
+                zip: person.zip ? person.zip : '',
+                zipMuncipality: person.zipMuncipality ? person.zipMuncipality : '',
             };
         } else if (num.company) {
             return {

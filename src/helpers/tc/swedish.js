@@ -40,7 +40,7 @@ export default {
     createNewPassword: 'Skapa nytt lösenord',
     date: 'Datum',
     deal: 'Affär',
-    dealProspectsInfo: 'Dessa prospekt ingår i denna affär',
+    dealProspectsInfo: 'Prospekt som ingår i affären',
     didCall: 'Har ringt',
     didEmail: 'Har e-postat',
     didLosePrice: 'Förlorade affären pga. pris',
@@ -61,6 +61,7 @@ export default {
     for: 'För',
     from: 'Från',
     gender: 'Kön',
+    genderNotProvided: 'Kön ej angivet',
     home: 'Hem',
     idle: 'Prospekt',
     imgTextLogo: 'Bilprospekt logotyp',
@@ -140,5 +141,6 @@ export default {
     willPost: 'Skall skicka brev',
     with: 'Med',
     won: 'Vunnen',
+    years: 'År',
     zipMuncipality: 'Postort'
 }

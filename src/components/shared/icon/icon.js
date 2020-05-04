@@ -8,6 +8,7 @@ import {
     ContactMail,
     Delete,
     Done,
+    DoubleArrow,
     DriveEta,
     Edit,
     ExitToApp,
@@ -110,7 +111,11 @@ export default (props) => {
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'info':
             return <Info className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'link':
+            return <DoubleArrow className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'list':
+            return <List className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'lists':
             return <List className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'login':
             return <ExitToApp className={props.active ? 'active' : null} onClick={onClick}/>;

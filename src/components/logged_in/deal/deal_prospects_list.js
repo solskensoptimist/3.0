@@ -35,26 +35,19 @@ const DealProspectsList = (state) => {
     };
 
     const _renderProspectsListItem = (prospect) => {
-        const getGender = (gender) => {
-            if (gender === 'M') {
-                return tc.male;
-            } else if (gender === 'F') {
-                return tc.female;
-            } else {
-                return tc.notProvided;
-            }
-        };
-
         return (
             <div className='dealProspectsListsWrapper__dealProspectsLists__content__item'>
                 <NavLink exact to={(prospect.type === 'company') ? '/foretag/' + prospect.id : '/person/' + prospect.id} key={prospect.id}>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__icon'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__name'><span className='label'>{tc.name}</span>{prospect.name}</div>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__address'><span className='label'>{tc.zipMuncipality}</span>{prospect.zipMuncipality}</div>
-                    {(prospect.type === 'company') ?
-                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__extraInfo'><span className='label'>{tc.parentCompany}</span>{prospect.parentCompany}</div> :
-                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__extraInfo'><span className='label'>{tc.gender}</span>{getGender(prospect.gender)}</div>
-                    }
+                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder'>
+                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
+                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info'>
+                            <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info__name'>{prospect.name}</div>
+                            <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info__address'>{prospect.zipMuncipality}</div>
+                        </div>
+                    </div>
+                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder'>
+                        <Icon val='link'/>
+                    </div>
                 </NavLink>
             </div>
         );
