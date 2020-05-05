@@ -1,3 +1,3 @@
 export const searchActionTypes = {
-    SET_SHOW_SEARCH: 'SET_SHOW_SEARCH',
+    SET_SEARCH_SUGGESTIONS: 'SET_SEARCH_SUGGESTIONS',
 };

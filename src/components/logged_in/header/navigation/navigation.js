@@ -1,20 +1,13 @@
-import React  from 'react';
+import React from 'react';
 import {NavLink} from "react-router-dom";
 import {tc} from 'helpers';
-import {setShowSearch} from 'store/search/tasks';
-import SearchComponent from './search/';
-import {connect} from 'react-redux';
 import Icon from 'components/shared/icon';
-import Tooltip from 'components/shared/tooltip';
+import Search from 'components/logged_in/search';
 
 /**
  * Navigation_logged_in component.
  */
-const Navigation = (state) =>  {
-    const _openShowSearch = () => {
-        setShowSearch({showSearch: true});
-    };
-
+export default () =>  {
     return (
         <div className='navigationWrapper'>
             <div className='navigationWrapper__navigation'>
@@ -45,21 +38,9 @@ const Navigation = (state) =>  {
                     </NavLink>
                 </div>
                 <div className='navigationWrapper__navigation__right'>
-                    {state.search.showSearch && <SearchComponent />}
-                    <Tooltip horizontalDirection='left' tooltipContent={tc.search}><Icon val='search' onClick={_openShowSearch} /></Tooltip>
+                    <Search view='links'/>
                 </div>
             </div>
         </div>
     );
 };
-
-const MapStateToProps = (state) => {
-    return {
-        search: state.search,
-    };
-};
-
-export default connect(
-    MapStateToProps,
-)(Navigation);
-

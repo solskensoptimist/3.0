@@ -2,9 +2,9 @@ import React from 'react';
 import Icon from 'components/shared/icon';
 
 /***
- * We use this to render headers for content when they are displayed as a widget.
+ * We use this to render headers for components when they are displayed as a widget.
  *
- * @param props.dashboard (optional) - component/element with content handler (icons with onClicks), usually minimize/maximize is included.
+ * @param props.dashboard (optional) - component/element with components handler (icons with onClicks), usually minimize/maximize is included.
  * @param props.headline - headline
  * @param props.headlineSub (optional) - sub headline
  * @param props.iconVal (optional) - determines which icon to display

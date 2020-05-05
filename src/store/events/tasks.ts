@@ -112,7 +112,7 @@ const getEventsAll = async (payload) => {
             }
         });
     } catch (err) {
-        return console.log('Error in getEventsByTarget:\n' + err);
+        return console.error('Error in getEventsByTarget:\n' + err);
     }
 };
 
@@ -207,7 +207,7 @@ const getEventsByTarget = async (payload) => {
             }
         });
     } catch (err) {
-        return console.log('Error in getEventsByTarget:\n' + err);
+        return console.error('Error in getEventsByTarget:\n' + err);
     }
 };
 

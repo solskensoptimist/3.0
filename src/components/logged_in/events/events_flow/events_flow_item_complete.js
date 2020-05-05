@@ -25,7 +25,7 @@ export default (props) => {
                     {tc.removeEnsure}
                 </div>
                 <div className='eventsFlowItemPopupWrapper__eventsFlowItemPopup__footer'>
-                    <WidgetFooter remove={_completeEvent}/>
+                    <WidgetFooter save={_completeEvent}/>
                 </div>
             </div>
         </div>

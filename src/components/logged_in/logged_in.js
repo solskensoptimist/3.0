@@ -14,7 +14,7 @@ import Prospect from './prospect/';
 import ProspectResult from './prospect/result';
 
 /**
- * Main component for logged in content.
+ * Main component for logged in components.
  */
 export default () => {
     return (

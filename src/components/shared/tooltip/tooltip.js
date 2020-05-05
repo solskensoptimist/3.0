@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Adds a tooltip to content.
+ * Adds a tooltip to components.
  *
  * @param props.horizontalCirection (optional) - left|right
  * @param props.verticalDirection (optional) - top|bottom

@@ -1,0 +1,60 @@
+.searchLinksWrapper
+    margin: 0 $paddingBig
+    width: 60%
+    &__searchLinks
+        &__header
+            display: flex
+            justify-content: flex-end
+            align-items: center
+            width: 100%
+            svg
+                @extend .iconStyleCircleClick
+            input
+                color: $colorTextMain
+                padding: $paddingMedium ($paddingMedium * 1.5)
+                border: 0
+                width: 100%
+                font-size: 16px
+                border-bottom: 1px solid $grey-300
+                margin-right: $paddingBig
+                &::placeholder
+                    color: $grey-400
+                    font-size: 13px
+                &:-ms-input-placeholder
+                    color: $grey-400
+                    font-size: 13px
+                &::-ms-input-placeholder
+                    color: $grey-400
+                    font-size: 13px
+                &:focus
+                    outline-width: 0
+        &__content
+            &__searchResult
+                position: absolute
+                top: 80%
+                background: white
+                padding: $paddingBig
+                z-index: 10
+                @extend .shadowRegular
+                &__item
+                    color: $colorLink
+                    font-size: 15px
+                    margin-bottom: $paddingSmall
+                    cursor: pointer
+                    display: flex
+                    align-items: center
+                    &:last-of-type
+                        margin-bottom: 0
+                    &:hover
+                        color: $colorLinkHover
+                        svg
+                            fill: $colorLinkHover !important
+                    svg
+                        fill: $colorLink !important
+                        width: 14px !important
+                        height: 14px !important
+                        margin-right: $paddingMedium !important
+                        border-radius: 0 !important
+                        background: transparent !important
+                        padding: 0 !important
+

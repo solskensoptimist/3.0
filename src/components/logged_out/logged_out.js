@@ -7,7 +7,7 @@ import Service from './service/';
 import Team from './team/';
 
 /**
- * Main component for logged out content.
+ * Main component for logged out components.
  */
 export default () => {
     return (

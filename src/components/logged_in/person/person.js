@@ -12,6 +12,7 @@ const Person = (state) => {
         <div className='personWrapper'>
             <p>Personkomponent</p>
             <p>Id: {id}</p>
+            <p>Här ska vi bland annat visa alla deals som detta prospekt ingår i, inom dealer/colleagues/connections.</p>
         </div>
     );
 };

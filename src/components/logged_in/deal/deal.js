@@ -22,6 +22,10 @@ const Deal = (state) => {
     const [showEditDeal, setShowEditDeal] = useState(false);
     const {id} = useParams();
 
+    const _openInAgile = () => {
+        console.log('Öppna i Bearbeta');
+    };
+
     const _stateCheck = () => {
         return (state && state.deal && state.deal.deal && Object.keys(state.deal.deal).length);
     };
@@ -64,6 +68,7 @@ const Deal = (state) => {
                             <div className='dealWrapper__deal__header__bottom__right__item'>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}><Icon val='comment' onClick={() => {setShowComment(true)}}/></Tooltip>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}><Icon val='edit' onClick={() => {setShowEditDeal(true)}}/></Tooltip>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.openInAgile}><Icon val='agile' onClick={_openInAgile}/></Tooltip>
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ import Tooltip from 'components/shared/tooltip';
 export default () => {
     const [minimize, setMinimize] = useState(false);
 
-    // Temporary, just to have some content for now...
+    // Temporary, just to have some components for now...
     const _renderItem = () => {
         return (
             <div className='newsWrapper__news__content__item'>

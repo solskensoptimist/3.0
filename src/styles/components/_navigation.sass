@@ -1,0 +1,53 @@
+.navigationWrapper
+  border-bottom: 1px solid $grey-200
+  padding: 0
+  position: relative
+  display: flex
+  align-items: stretch
+  justify-content: flex-end
+  @extend .shadowTop
+  &__navigation
+    @extend .shadowBottom
+    background: white
+    padding: 0 $paddingSiteContent
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 100%
+    &__left
+      overflow: hidden
+      display: flex
+      justify-content: flex-end
+      align-items: center
+      height: 100%
+      svg
+        color: $grey-500
+        margin-bottom: $paddingMedium
+        width: 18px
+        height: 18px
+      a
+        padding: $paddingBig ($paddingBig * 1.5)
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        text-decoration: none
+        color: $grey-500
+        text-transform: uppercase
+        font-size: 12px
+        font-weight: 400
+        &:hover
+          background: $grey-50
+          color: $colorLinkHover
+          svg
+            fill: $colorLinkHover
+        &.active
+          background: $grey-50
+          color: $colorLinkHover
+          svg
+            fill: $colorLinkHover
+    &__right
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      flex-grow: 1

@@ -1,19 +1,19 @@
 import {searchActionTypes} from './actions';
 
 interface SearchState {
-    showSearch: boolean,
+    searchSuggestions: Array<object>,
 }
 
 const initialState: SearchState = {
-    showSearch: false,
+    searchSuggestions: [],
 };
 
 export const searchReducer = (state = initialState, action) => {
     switch(action.type) {
-        case searchActionTypes.SET_SHOW_SEARCH: {
+        case searchActionTypes.SET_SEARCH_SUGGESTIONS: {
             return {
                 ...state,
-                showSearch: action.payload.showSearch,
+                searchSuggestions: action.payload,
             }
         }
         default: {

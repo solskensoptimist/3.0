@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 /**
  * Used to render a popup.
- * Uses store to retrieve content and close/show.
+ * Uses store to retrieve components and close/show.
  */
 export default (props) => {
     const popupRef = useRef(null);
@@ -11,7 +11,7 @@ export default (props) => {
 
     useEffect(() => {
         /**
-         * When clicking outside popup content, close it.
+         * When clicking outside popup components, close it.
          */
         const _closePopup = (e) => {
             if (popupRef && popupRef.current) {
