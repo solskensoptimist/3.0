@@ -37,7 +37,7 @@ export const getAllSuggestions = async (payload) => {
 };
 
 /**
- * Redirect to search result table.
+ * Redirect to search prospect_result table.
  *
  * @payload.q - Search value
  */

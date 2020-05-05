@@ -50,6 +50,7 @@ export default {
     didMail: 'Har e-postat',
     didMeeting: 'Har haft möte',
     didPost: 'Har skickat brev',
+    doVehicleSearch: 'Gör fordonssökning',
     edit: 'Redigera',
     editComment: 'Redigera kommentar',
     editDeal: 'Redigera affär',

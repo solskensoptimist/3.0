@@ -25,8 +25,14 @@ const SearchLinks = (state) => {
         }
     };
 
+    const _redirectSearch = async () => {
+        if (inputRef && inputRef.current && inputRef.current.value && inputRef.current.value.length) {
+            return await redirectSearch({q: inputRef.current.value});
+        }
+    };
+
     /**
-     * Return search result rows.
+     * Return search prospect_result rows.
      */
     const _renderSuggestionRows = () => {
         if (!state.search.searchSuggestions || state.search.searchSuggestions.length === 0) {
@@ -34,18 +40,22 @@ const SearchLinks = (state) => {
         }
 
         return state.search.searchSuggestions.map((num) => {
+            let iconVal;
             let to;
             if (companyHelper.isValidOrgNr(num.id)) {
+                iconVal = 'company';
                 to = '/foretag/' + num.id;
             } else if (carHelper.isValidRegNumber(num.id)) {
+                iconVal = 'car';
                 to = '/bil/' + num.id;
             } else {
+                iconVal = 'person';
                 to = '/person/' + num.id;
             }
 
             return (
                 <div className='searchLinksWrapper__searchLinks__content__searchResult__item' key={num.id}>
-                    <NavLink exact to={to} key={num.id}><Icon val='company' />{num.name}</NavLink>
+                    <NavLink exact to={to} key={num.id}><Icon val={iconVal} />{num.name}</NavLink>
                 </div>
             );
         });
@@ -82,7 +92,7 @@ const SearchLinks = (state) => {
                 setSearchValue('');
                 return cleanSearch();
             } else if (e.keyCode === 13 && inputRef && inputRef.current && inputRef.current.value) {
-                return await redirectSearch({q: inputRef.current.value});
+                return await _redirectSearch();
             }
         };
 
@@ -101,13 +111,16 @@ const SearchLinks = (state) => {
                     {showSearch && <input ref={inputRef} type='text' placeholder={tc.placeholderSearchAll} onChange={_handleInput} />}
                     <Tooltip horizontalDirection='left' tooltipContent={tc.search}><Icon val='search' onClick={_showSearch} /></Tooltip>
                 </div>
-                <div className='searchLinksWrapper__searchLinks__content'>
-                    {showSearch && searchValue.length > 0 &&
+                {showSearch && searchValue.length > 0 &&
+                    <div className='searchLinksWrapper__searchLinks__content'>
                         <div className='searchLinksWrapper__searchLinks__content__searchResult'>
                             {_renderSuggestionRows()}
                         </div>
-                    }
-                </div>
+                        <div className='searchLinksWrapper__searchLinks__content__vehicleSearch' onClick={_redirectSearch}>
+                            {tc.doVehicleSearch}<Icon val='link'/>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     );

@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {tc} from 'helpers';
 import {getLists} from 'store/lists/tasks';
 import {connect} from 'react-redux';
 import Loading from 'components/shared/loading';
@@ -15,12 +14,16 @@ const Lists = (state) => {
 
     return ( _stateCheck() ?
         <div className='listsWrapper'>
-            {tc.lists}
-            {
-                state.lists.lists.map((list) => {
-                    return <p>{list.name}</p>
-                })
-            }
+            <div className='listsWrapper__lists'>
+                <div className='listsWrapper__lists__header'>
+
+                </div>
+                <div className='listsWrapper__lists__content'>
+                    {state.lists.lists.map((list) => {
+                            return <p>{list.name}</p>
+                        })}
+                </div>
+            </div> :
         </div> :
         <Loading />
     );

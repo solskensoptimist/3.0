@@ -73,6 +73,8 @@ export default (props) => {
             return <BarChart className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'call':
             return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'car':
+            return <DriveEta className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'comment':
             return <Comment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'company':

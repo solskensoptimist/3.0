@@ -33,7 +33,7 @@
   padding: 22px;
   border: 1px solid #eeeeee; }
 
-.shadowRegular, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events, .searchLinksWrapper__searchLinks__content__searchResult {
+.shadowRegular, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events, .searchLinksWrapper__searchLinks__content {
   -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3);
   -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3);
   box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3); }
@@ -925,33 +925,59 @@ a {
         font-size: 13px; }
       .searchLinksWrapper__searchLinks__header input:focus {
         outline-width: 0; }
-  .searchLinksWrapper__searchLinks__content__searchResult {
+  .searchLinksWrapper__searchLinks__content {
     position: absolute;
     top: 80%;
     background: white;
-    padding: 22px;
     z-index: 10; }
-    .searchLinksWrapper__searchLinks__content__searchResult__item {
+    .searchLinksWrapper__searchLinks__content__searchResult {
+      padding: 22px; }
+      .searchLinksWrapper__searchLinks__content__searchResult__item {
+        color: #20B6CC;
+        font-size: 15px;
+        margin-bottom: 8px;
+        padding: 8px;
+        background: #fafafa;
+        border: 1px solid #f5f5f5;
+        cursor: pointer;
+        display: flex;
+        align-items: center; }
+        .searchLinksWrapper__searchLinks__content__searchResult__item:last-of-type {
+          margin-bottom: 0; }
+        .searchLinksWrapper__searchLinks__content__searchResult__item:hover {
+          color: #616161;
+          background: #f5f5f5; }
+          .searchLinksWrapper__searchLinks__content__searchResult__item:hover svg {
+            fill: #616161; }
+        .searchLinksWrapper__searchLinks__content__searchResult__item a {
+          display: flex;
+          align-items: center; }
+        .searchLinksWrapper__searchLinks__content__searchResult__item svg {
+          fill: #20B6CC;
+          width: 14px;
+          height: 14px;
+          margin-right: 12px;
+          border-radius: 0;
+          background: transparent;
+          padding: 0; }
+    .searchLinksWrapper__searchLinks__content__vehicleSearch {
+      background: #f5f5f5;
       color: #20B6CC;
-      font-size: 15px;
-      margin-bottom: 8px;
+      border-top: 1px solid #eeeeee;
       cursor: pointer;
+      padding: 22px;
       display: flex;
-      align-items: center; }
-      .searchLinksWrapper__searchLinks__content__searchResult__item:last-of-type {
-        margin-bottom: 0; }
-      .searchLinksWrapper__searchLinks__content__searchResult__item:hover {
-        color: #616161; }
-        .searchLinksWrapper__searchLinks__content__searchResult__item:hover svg {
-          fill: #616161 !important; }
-      .searchLinksWrapper__searchLinks__content__searchResult__item svg {
-        fill: #20B6CC !important;
-        width: 14px !important;
-        height: 14px !important;
-        margin-right: 12px !important;
-        border-radius: 0 !important;
-        background: transparent !important;
-        padding: 0 !important; }
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600; }
+      .searchLinksWrapper__searchLinks__content__vehicleSearch:hover {
+        color: #616161;
+        background: white; }
+      .searchLinksWrapper__searchLinks__content__vehicleSearch svg {
+        width: 16px;
+        height: 16px;
+        margin-left: 12px; }
 
 .settingsWrapper__settings {
   color: #9e9e9e; }

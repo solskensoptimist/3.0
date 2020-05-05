@@ -29,17 +29,20 @@
                 &:focus
                     outline-width: 0
         &__content
+            position: absolute
+            top: 80%
+            background: white
+            z-index: 10
+            @extend .shadowRegular
             &__searchResult
-                position: absolute
-                top: 80%
-                background: white
                 padding: $paddingBig
-                z-index: 10
-                @extend .shadowRegular
                 &__item
                     color: $colorLink
                     font-size: 15px
                     margin-bottom: $paddingSmall
+                    padding: $paddingSmall
+                    background: $grey-50
+                    border: 1px solid $grey-100
                     cursor: pointer
                     display: flex
                     align-items: center
@@ -47,14 +50,35 @@
                         margin-bottom: 0
                     &:hover
                         color: $colorLinkHover
+                        background: $grey-100
                         svg
-                            fill: $colorLinkHover !important
+                            fill: $colorLinkHover
+                    a
+                        display: flex
+                        align-items: center
                     svg
-                        fill: $colorLink !important
-                        width: 14px !important
-                        height: 14px !important
-                        margin-right: $paddingMedium !important
-                        border-radius: 0 !important
-                        background: transparent !important
-                        padding: 0 !important
-
+                        fill: $colorLink
+                        width: 14px
+                        height: 14px
+                        margin-right: $paddingMedium
+                        border-radius: 0
+                        background: transparent
+                        padding: 0
+            &__vehicleSearch
+                background: $grey-100
+                color: $colorLink
+                border-top: 1px solid $grey-200
+                cursor: pointer
+                padding: $paddingBig
+                display: flex
+                justify-content: center
+                align-items: center
+                font-size: 18px
+                font-weight: 600
+                &:hover
+                    color: $colorLinkHover
+                    background: white
+                svg
+                    width: 16px
+                    height: 16px
+                    margin-left: $paddingMedium
