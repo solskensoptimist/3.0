@@ -923,6 +923,9 @@ a {
       .searchMainWrapper__searchMain__header input::-ms-input-placeholder {
         color: #bdbdbd;
         font-size: 13px; }
+      .searchMainWrapper__searchMain__header input::-webkit-input-placeholder {
+        color: #bdbdbd;
+        font-size: 13px; }
       .searchMainWrapper__searchMain__header input:focus {
         outline-width: 0; }
   .searchMainWrapper__searchMain__content {

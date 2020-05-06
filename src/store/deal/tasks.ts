@@ -52,7 +52,7 @@ const getProspectInfo = async (payload) => {
         return [];
     }
 
-    // No really ideal, company returns a lot of redundant information. But we use the end points we have atm.
+    // This endpoint is slow and does a lot of redundant stuff for what we want here, new end point is coming...
     const prospectPromises = await payload.ids.map(async (id) => {
         if (companyHelper.isValidOrgNr(id)) {
             return await request({

@@ -21,7 +21,7 @@ const SearchMain = (state) => {
     const _handleInput = async () => {
         if (inputRef && inputRef.current && inputRef.current.value && inputRef.current.value.length) {
             setSearchValue(inputRef.current.value);
-            await getAllSuggestions({limit: 8, q: inputRef.current.value});
+            await getAllSuggestions({q: inputRef.current.value});
         }
     };
 
@@ -32,7 +32,7 @@ const SearchMain = (state) => {
     };
 
     /**
-     * Return search prospect_result rows.
+     * Return search result rows.
      */
     const _renderSuggestionRows = () => {
         if (!state.search.searchSuggestions || state.search.searchSuggestions.length === 0) {
@@ -73,13 +73,13 @@ const SearchMain = (state) => {
          * When clicking outside searchWrapper, close it.
          */
         const _closeSearch = (e) => {
-            if (searchWrapperRef && searchWrapperRef.current) {
-                const node = ReactDOM.findDOMNode(searchWrapperRef.current);
-                if (node && !node.contains(e.target)) {
-                    setShowSearch(false);
+                if (searchWrapperRef && searchWrapperRef.current) {
+                    const node = ReactDOM.findDOMNode(searchWrapperRef.current);
+                    if (node && !node.contains(e.target)) {
+                        setShowSearch(false);
+                    }
                 }
-            }
-        };
+            };
 
         /**
          * Handle key press.
@@ -108,7 +108,7 @@ const SearchMain = (state) => {
         <div className='searchMainWrapper' ref={searchWrapperRef}>
             <div className='searchMainWrapper__searchMain'>
                 <div className='searchMainWrapper__searchMain__header'>
-                    {showSearch && <input ref={inputRef} type='text' placeholder={tc.placeholderSearchAll} onChange={_handleInput} />}
+                    {showSearch && <input ref={inputRef} type='search' placeholder={tc.placeholderSearchAll} onChange={_handleInput} />}
                     <Tooltip horizontalDirection='left' tooltipContent={tc.search}><Icon val='search' onClick={_showSearch} /></Tooltip>
                 </div>
                 {showSearch && searchValue.length > 0 &&

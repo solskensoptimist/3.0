@@ -1,6 +1,7 @@
 import React from 'react';
 import {tc} from 'helpers';
 import {connect} from "react-redux";
+import Search from 'components/logged_in/search';
 import WidgetHeader from 'components/shared/widget_header';
 
 /**
@@ -18,7 +19,8 @@ const EditDeal = (state) => {
                     />
                 </div>
                 <div className='editDealWrapper__editDeal__content'>
-                    Content
+                    <Search view='select' type='all'/>
+                    <Search view='select' type='contacts'/>
                 </div>
             </div>
         </div>

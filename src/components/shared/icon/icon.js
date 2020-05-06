@@ -4,6 +4,8 @@ import {
     AttachMoney,
     Assignment,
     BarChart,
+    Check,
+    CheckBoxOutlineBlank,
     Comment,
     ContactMail,
     Delete,
@@ -75,6 +77,10 @@ export default (props) => {
             return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'car':
             return <DriveEta className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'checkbox':
+            return <CheckBoxOutlineBlank className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'check':
+            return <Check className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'comment':
             return <Comment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'company':
