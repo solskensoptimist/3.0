@@ -3,7 +3,7 @@ import {searchActionTypes} from './actions';
 import {request} from 'helpers';
 import {debounce }from 'debounce';
 
-export const cleanSearch = () => {
+export const resetSearch = () => {
     // Lägg till mer här... clean up q mm.
     return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
 };
@@ -19,7 +19,7 @@ const getAllSuggestionsDebounced = async (payload) => {
         const data = await request({
             data: {
                 limit: payload.limit,
-                term: payload.q,
+                term: (payload.q) ? payload.q : 8,
             },
             method: 'get',
             url: '/search/suggestSearch',

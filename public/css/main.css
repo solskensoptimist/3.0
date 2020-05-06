@@ -8,7 +8,7 @@
 .hide {
   display: none !important; }
 
-.iconStyleCircle, .iconStyleCircleClick, .dealWrapper__deal__header__bottom__right__item svg, .searchLinksWrapper__searchLinks__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
+.iconStyleCircle, .iconStyleCircleClick, .dealWrapper__deal__header__bottom__right__item svg, .searchMainWrapper__searchMain__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -21,11 +21,11 @@
   width: 38px !important;
   height: 38px !important; }
 
-.iconStyleCircleClick, .dealWrapper__deal__header__bottom__right__item svg, .searchLinksWrapper__searchLinks__header svg {
+.iconStyleCircleClick, .dealWrapper__deal__header__bottom__right__item svg, .searchMainWrapper__searchMain__header svg {
   fill: white !important;
   background: #bdbdbd !important;
   cursor: pointer !important; }
-  .iconStyleCircleClick:hover, .dealWrapper__deal__header__bottom__right__item svg:hover, .searchLinksWrapper__searchLinks__header svg:hover {
+  .iconStyleCircleClick:hover, .dealWrapper__deal__header__bottom__right__item svg:hover, .searchMainWrapper__searchMain__header svg:hover {
     background: #616161 !important; }
 
 .paperSheet, .activitiesWrapper, .dealWrapper__deal__content__item .dealProspectsListsWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .newsWrapper {
@@ -33,7 +33,7 @@
   padding: 22px;
   border: 1px solid #eeeeee; }
 
-.shadowRegular, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events, .searchLinksWrapper__searchLinks__content {
+.shadowRegular, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events, .searchMainWrapper__searchMain__content {
   -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3);
   -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3);
   box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3); }
@@ -898,15 +898,15 @@ a {
 .popupWrapper .small {
   width: 36% !important; }
 
-.searchLinksWrapper {
+.searchMainWrapper {
   margin: 0 22px;
   width: 60%; }
-  .searchLinksWrapper__searchLinks__header {
+  .searchMainWrapper__searchMain__header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 100%; }
-    .searchLinksWrapper__searchLinks__header input {
+    .searchMainWrapper__searchMain__header input {
       color: #616161;
       padding: 12px 18px;
       border: 0;
@@ -914,42 +914,45 @@ a {
       font-size: 16px;
       border-bottom: 1px solid #e0e0e0;
       margin-right: 22px; }
-      .searchLinksWrapper__searchLinks__header input::placeholder {
+      .searchMainWrapper__searchMain__header input::placeholder {
         color: #bdbdbd;
         font-size: 13px; }
-      .searchLinksWrapper__searchLinks__header input:-ms-input-placeholder {
+      .searchMainWrapper__searchMain__header input:-ms-input-placeholder {
         color: #bdbdbd;
         font-size: 13px; }
-      .searchLinksWrapper__searchLinks__header input::-ms-input-placeholder {
+      .searchMainWrapper__searchMain__header input::-ms-input-placeholder {
         color: #bdbdbd;
         font-size: 13px; }
-      .searchLinksWrapper__searchLinks__header input:focus {
+      .searchMainWrapper__searchMain__header input:focus {
         outline-width: 0; }
-  .searchLinksWrapper__searchLinks__content {
+  .searchMainWrapper__searchMain__content {
     position: absolute;
     top: 80%;
     background: white;
-    z-index: 10; }
-    .searchLinksWrapper__searchLinks__content__searchResult__item {
+    z-index: 10;
+    max-width: 430px; }
+    .searchMainWrapper__searchMain__content__searchResult__item {
       color: #20B6CC;
       font-size: 15px;
-      padding: 12px;
-      border-bottom: 1px solid #fafafa;
+      padding: 22px 22px 0 22px;
       cursor: pointer;
-      display: flex;
-      align-items: center; }
-      .searchLinksWrapper__searchLinks__content__searchResult__item:last-of-type {
-        margin-bottom: 0; }
-      .searchLinksWrapper__searchLinks__content__searchResult__item:hover {
+      display: block;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+      .searchMainWrapper__searchMain__content__searchResult__item:last-of-type {
+        margin-bottom: 22px; }
+      .searchMainWrapper__searchMain__content__searchResult__item:hover {
         color: #616161; }
-        .searchLinksWrapper__searchLinks__content__searchResult__item:hover svg {
+        .searchMainWrapper__searchMain__content__searchResult__item:hover svg {
           fill: #616161; }
-        .searchLinksWrapper__searchLinks__content__searchResult__item:hover a {
+        .searchMainWrapper__searchMain__content__searchResult__item:hover a {
           color: #616161; }
-      .searchLinksWrapper__searchLinks__content__searchResult__item a {
+      .searchMainWrapper__searchMain__content__searchResult__item a {
         display: flex;
         align-items: center; }
-      .searchLinksWrapper__searchLinks__content__searchResult__item svg {
+      .searchMainWrapper__searchMain__content__searchResult__item svg {
         fill: #20B6CC;
         width: 14px;
         height: 14px;
@@ -957,7 +960,7 @@ a {
         border-radius: 0;
         background: transparent;
         padding: 0; }
-    .searchLinksWrapper__searchLinks__content__vehicleSearch {
+    .searchMainWrapper__searchMain__content__vehicleSearch {
       background: #20B6CC;
       color: white;
       cursor: pointer;
@@ -967,9 +970,9 @@ a {
       align-items: center;
       font-size: 18px;
       font-weight: 600; }
-      .searchLinksWrapper__searchLinks__content__vehicleSearch:hover {
+      .searchMainWrapper__searchMain__content__vehicleSearch:hover {
         background: #616161; }
-      .searchLinksWrapper__searchLinks__content__vehicleSearch svg {
+      .searchMainWrapper__searchMain__content__vehicleSearch svg {
         width: 16px;
         height: 16px;
         margin-left: 12px; }

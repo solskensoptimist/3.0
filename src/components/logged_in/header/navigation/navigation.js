@@ -38,7 +38,7 @@ export default () =>  {
                     </NavLink>
                 </div>
                 <div className='navigationWrapper__navigation__right'>
-                    <Search view='links'/>
+                    <Search view='main'/>
                 </div>
             </div>
         </div>

@@ -100,7 +100,7 @@ export default {
     ourService: 'Vår tjänst',
     owner: 'Ansvarig',
     parentCompany: 'Moderbolag',
-    placeholderSearchAll: 'Sök person, företag eller fordon',
+    placeholderSearchAll: 'Sök person, företag eller registreringsnummer',
     placeholderSearchCarKoncern: 'Sök fordon inom koncern',
     placeholderSearchContacts: 'Sök kontakter',
     prices: 'Priser',

@@ -1,7 +1,7 @@
-.searchLinksWrapper
+.searchMainWrapper
     margin: 0 $paddingBig
     width: 60%
-    &__searchLinks
+    &__searchMain
         &__header
             display: flex
             justify-content: flex-end
@@ -33,18 +33,21 @@
             top: 80%
             background: white
             z-index: 10
+            max-width: $widthSearchMain
             @extend .shadowRegular
             &__searchResult
                 &__item
                     color: $colorLink
                     font-size: 15px
-                    padding: $paddingMedium
-                    border-bottom: 1px solid $grey-50
+                    padding: $paddingBig $paddingBig 0 $paddingBig
                     cursor: pointer
-                    display: flex
+                    display: block
                     align-items: center
+                    white-space: nowrap
+                    overflow: hidden
+                    text-overflow: ellipsis
                     &:last-of-type
-                        margin-bottom: 0
+                        margin-bottom: $paddingBig
                     &:hover
                         color: $colorLinkHover
                         svg

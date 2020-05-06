@@ -1,14 +1,14 @@
 import React from 'react';
-import SearchLinks from './search_links';
+import SearchMain from './search_main';
 import SearchSelect from './search_select';
 
 export default (props) => {
     switch (props.view) {
-        case 'links':
-            return <SearchLinks/>;
+        case 'main':
+            return <SearchMain/>;
         case 'select':
             return <SearchSelect type={props.type}/>;
         default:
-            return <SearchLinks/>;
+            return <SearchSelect type={props.type}/>;
     }
 };
