@@ -35,14 +35,11 @@
             z-index: 10
             @extend .shadowRegular
             &__searchResult
-                padding: $paddingBig
                 &__item
                     color: $colorLink
                     font-size: 15px
-                    margin-bottom: $paddingSmall
-                    padding: $paddingSmall
-                    background: $grey-50
-                    border: 1px solid $grey-100
+                    padding: $paddingMedium
+                    border-bottom: 1px solid $grey-50
                     cursor: pointer
                     display: flex
                     align-items: center
@@ -50,9 +47,10 @@
                         margin-bottom: 0
                     &:hover
                         color: $colorLinkHover
-                        background: $grey-100
                         svg
                             fill: $colorLinkHover
+                        a
+                            color: $colorLinkHover
                     a
                         display: flex
                         align-items: center
@@ -65,9 +63,8 @@
                         background: transparent
                         padding: 0
             &__vehicleSearch
-                background: $grey-100
-                color: $colorLink
-                border-top: 1px solid $grey-200
+                background: $colorLink
+                color: white
                 cursor: pointer
                 padding: $paddingBig
                 display: flex
@@ -76,8 +73,7 @@
                 font-size: 18px
                 font-weight: 600
                 &:hover
-                    color: $colorLinkHover
-                    background: white
+                    background: $colorLinkHover
                 svg
                     width: 16px
                     height: 16px

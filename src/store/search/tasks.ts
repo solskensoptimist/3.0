@@ -1,6 +1,7 @@
 import {store} from 'store';
 import {searchActionTypes} from './actions';
 import {request} from 'helpers';
+import {debounce }from 'debounce';
 
 export const cleanSearch = () => {
     // Lägg till mer här... clean up q mm.
@@ -13,9 +14,7 @@ export const cleanSearch = () => {
  * @param payload.limit - Limit rows.
  * @param payload.q - Search value.
  */
-export const getAllSuggestions = async (payload) => {
-    // Lägg till debounce... <----------------------------- !!!!
-
+const getAllSuggestionsDebounced = async (payload) => {
     try {
         const data = await request({
             data: {
@@ -35,6 +34,8 @@ export const getAllSuggestions = async (payload) => {
         return console.error('Error in getAllSuggestions:\n' + err);
     }
 };
+
+export const getAllSuggestions = debounce(getAllSuggestionsDebounced, 300);
 
 /**
  * Redirect to search prospect_result table.
