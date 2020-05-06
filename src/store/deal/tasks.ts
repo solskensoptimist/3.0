@@ -115,3 +115,13 @@ const getProspectInfo = async (payload) => {
 
     return prospectInfo;
 };
+
+/**
+ * Remove a prospect from deal.
+ *
+ * @payload.id
+ */
+export const removeProspect = async (payload) => {
+    console.log('removeProspect', payload);
+    return true;
+};

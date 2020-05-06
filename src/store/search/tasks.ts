@@ -30,7 +30,44 @@ const getAllSuggestionsDebounced = async (payload) => {
     }
 };
 
+/**
+ * Get contact suggestions.
+ *
+ * @param payload.q
+ */
+const getContactSuggestionsDebounced = async (payload) => {
+    try {
+        let data = await request({
+            data: {
+                name: payload.q,
+            },
+            method: 'get',
+            url: '/contacts',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in getContactSuggestions.');
+        }
+
+        data = data.map((num) => {
+            if (num._id) {
+                num.id = num._id; // To keep it consistent when rendering in search component.
+                delete num._id;
+            }
+            return num;
+        }).filter((num) => !!(num.id)); // Overly cautious. :)
+
+        return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
+    } catch (err) {
+        return console.error('Error in getContactSuggestions:\n' + err);
+    }
+};
+
+/**
+ * Debounce suggestions calls.
+ */
 export const getAllSuggestions = debounce(getAllSuggestionsDebounced, 300);
+export const getContactSuggestions = debounce(getContactSuggestionsDebounced, 300);
 
 /**
  * Redirect to search result view.

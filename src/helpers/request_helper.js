@@ -3,8 +3,9 @@ import axios from 'axios';
 /**
  * Helper to make requests.
  *
- * @param payload.url
+ * @param payload.data (optional)
  * @param payload.method
+ * @param payload.url
  */
 export const request = async (payload) => {
     try {

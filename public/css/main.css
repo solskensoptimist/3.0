@@ -28,7 +28,7 @@
   .iconStyleCircleClick:hover, .dealWrapper__deal__header__bottom__right__item svg:hover, .searchMainWrapper__searchMain__header svg:hover {
     background: #616161 !important; }
 
-.paperSheet, .activitiesWrapper, .dealWrapper__deal__content__item .dealProspectsListsWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .newsWrapper {
+.paperSheet, .activitiesWrapper, .contactsWrapper, .dealProspectsListsWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .newsWrapper {
   background: white;
   padding: 22px;
   border: 1px solid #eeeeee; }
@@ -146,32 +146,11 @@ body {
 .appHolder {
   margin: 0 0; }
 
-svg.active {
-  fill: #616161 !important; }
-
 a {
   color: #20B6CC;
   text-decoration: none; }
   a:hover {
     color: #616161; }
-
-.tooltipWrapper {
-  position: relative; }
-  .tooltipWrapper:hover .tooltipWrapper__tooltip__hover {
-    display: block; }
-  .tooltipWrapper__tooltip__hover {
-    display: none;
-    position: absolute;
-    background: #424242;
-    color: white;
-    border-radius: 2px;
-    padding: 12px;
-    white-space: nowrap;
-    z-index: 10; }
-  .tooltipWrapper__tooltip__content {
-    display: flex;
-    align-items: center;
-    justify-content: center; }
 
 .activityWrapper {
   padding: 3%; }
@@ -259,6 +238,9 @@ a {
     max-width: 100%;
     font-size: 14px; }
 
+.contactsWrapper__contacts__content {
+  margin-top: 22px; }
+
 .contentWrapper__content {
   background: #f5f5f5;
   overflow: hidden; }
@@ -305,56 +287,75 @@ a {
     margin-bottom: 3%; }
     .dealWrapper__deal__content__item:last-of-type {
       margin-bottom: 0; }
-    .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content {
-      margin-top: 22px;
+
+.dealProspectsListsWrapper__dealProspectsLists__content {
+  display: flex;
+  flex-wrap: wrap; }
+  .dealProspectsListsWrapper__dealProspectsLists__content__item, .dealProspectsListsWrapper__dealProspectsLists__content__search {
+    border: 1px solid #f5f5f5;
+    background: #fafafa;
+    flex-basis: calc(25% - 22px - (22px / 3));
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: 22px 22px 0 0;
+    border-radius: 4px; }
+    .dealProspectsListsWrapper__dealProspectsLists__content__item:hover .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon, .dealProspectsListsWrapper__dealProspectsLists__content__search:hover .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon {
+      display: none; }
+    .dealProspectsListsWrapper__dealProspectsLists__content__item:hover .dealProspectsListsWrapper__dealProspectsLists__content__item__hidden, .dealProspectsListsWrapper__dealProspectsLists__content__search:hover .dealProspectsListsWrapper__dealProspectsLists__content__item__hidden {
       display: flex; }
-      .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item {
-        border: 1px solid #f5f5f5;
-        background: #fafafa;
-        width: 25%;
-        margin-right: 22px;
-        border-radius: 4px; }
-        .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item:hover .dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder {
-          background: #616161; }
-        .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item:hover .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon svg {
-          fill: #616161; }
-        .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item:last-of-type {
-          margin-right: 0; }
-        .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item a {
-          display: flex;
-          align-items: stretch;
-          justify-content: space-between;
+    .dealProspectsListsWrapper__dealProspectsLists__content__item:last-of-type, .dealProspectsListsWrapper__dealProspectsLists__content__search:last-of-type {
+      margin-right: 0; }
+    .dealProspectsListsWrapper__dealProspectsLists__content__item a, .dealProspectsListsWrapper__dealProspectsLists__content__search a {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      color: #9e9e9e;
+      border-radius: 4px; }
+    .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder {
+      display: flex;
+      max-width: calc(100% - 36px - 12px);
+      align-items: center; }
+      .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon {
+        padding-left: 12px; }
+        .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon svg {
+          fill: #bdbdbd; }
+      .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info {
+        overflow: hidden;
+        padding: 12px; }
+        .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info__name {
+          text-overflow: ellipsis;
           overflow: hidden;
-          color: #9e9e9e;
-          border-radius: 4px; }
-        .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder {
-          display: flex;
-          max-width: calc(100% - 36px - 12px);
-          align-items: center; }
-          .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon {
-            padding-left: 12px; }
-            .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon svg {
-              fill: #bdbdbd; }
-          .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info {
-            overflow: hidden;
-            padding: 12px; }
-            .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info__name {
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
-              color: #616161;
-              font-weight: 600; }
-            .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info__address {
-              text-overflow: ellipsis;
-              white-space: nowrap; }
-        .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder {
-          background: #20B6CC;
-          width: 36px;
-          display: flex;
-          align-items: center;
-          justify-content: center; }
-          .dealWrapper__deal__content__item .dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder svg {
-            fill: white; }
+          white-space: nowrap;
+          color: #616161;
+          font-weight: 600; }
+        .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info__address {
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+    .dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder {
+      background: #20B6CC;
+      width: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder:hover {
+        background: #616161; }
+      .dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder svg {
+        fill: white; }
+    .dealProspectsListsWrapper__dealProspectsLists__content__item__hidden {
+      display: none;
+      padding-left: 12px;
+      align-items: center; }
+      .dealProspectsListsWrapper__dealProspectsLists__content__item__hidden svg {
+        fill: #20B6CC; }
+      .dealProspectsListsWrapper__dealProspectsLists__content__item__hidden:hover svg {
+        fill: #616161; }
+  .dealProspectsListsWrapper__dealProspectsLists__content__search {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 1px; }
 
 .editDealWrapper__editDeal__content {
   margin-top: 22px; }
@@ -618,7 +619,7 @@ a {
   flex-direction: column; }
   .headerWrapper__header__top {
     background: transparent;
-    padding: 0 4%;
+    padding: 0 3%;
     color: white;
     display: flex;
     align-items: center;
@@ -661,6 +662,9 @@ a {
           flex-grow: 0;
           display: flex;
           align-items: center; }
+
+svg.active {
+  fill: #616161 !important; }
 
 .loadingWrapper {
   width: 100%;
@@ -805,7 +809,7 @@ a {
   justify-content: flex-end; }
   .navigationWrapper__navigation {
     background: white;
-    padding: 0 4%;
+    padding: 0 3%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -899,7 +903,7 @@ a {
   width: 36% !important; }
 
 .searchMainWrapper {
-  margin: 0 22px;
+  margin-left: 22px;
   width: 60%; }
   .searchMainWrapper__searchMain__header {
     display: flex;
@@ -980,6 +984,28 @@ a {
         height: 16px;
         margin-left: 12px; }
 
+.searchSelectWrapper {
+  width: 100%; }
+  .searchSelectWrapper__searchSelect__header input {
+    color: #616161;
+    padding: 12px 18px;
+    border: 0;
+    width: 100%;
+    font-size: 14px;
+    border-bottom: 1px solid #e0e0e0; }
+    .searchSelectWrapper__searchSelect__header input::placeholder {
+      color: #bdbdbd;
+      font-size: 11px; }
+    .searchSelectWrapper__searchSelect__header input:-ms-input-placeholder {
+      color: #bdbdbd;
+      font-size: 11px; }
+    .searchSelectWrapper__searchSelect__header input::-ms-input-placeholder {
+      color: #bdbdbd;
+      font-size: 11px; }
+    .searchSelectWrapper__searchSelect__header input::-webkit-input-placeholder {
+      color: #bdbdbd;
+      font-size: 11px; }
+
 .settingsWrapper__settings {
   color: #9e9e9e; }
   .settingsWrapper__settings__content {
@@ -1058,6 +1084,24 @@ a {
           align-self: center; }
         .settingsWrapper__settings__content__item__small__content {
           align-self: center; }
+
+.tooltipWrapper {
+  position: relative; }
+  .tooltipWrapper:hover .tooltipWrapper__tooltip__hover {
+    display: block; }
+  .tooltipWrapper__tooltip__hover {
+    display: none;
+    position: absolute;
+    background: #424242;
+    color: white;
+    border-radius: 2px;
+    padding: 12px;
+    white-space: nowrap;
+    z-index: 10; }
+  .tooltipWrapper__tooltip__content {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
 
 .widgetFooterWrapper__widgetFooter {
   color: #616161;

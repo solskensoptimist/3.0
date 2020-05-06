@@ -9,9 +9,9 @@ import React from 'react';
 export default (props) => {
     let style = (props.horizontalDirection === 'left') ? {right: '0'} : {left: '0'};
     if (props.verticalDirection === 'bottom') {
-        style = Object.assign(style, {top: 'calc(100% + 12px)'});
+        style = Object.assign(style, {top: 'calc(100% + 14px)'});
     } else {
-        style = Object.assign(style, {bottom: 'calc(100%  + 12px)'});
+        style = Object.assign(style, {bottom: 'calc(100%  + 14px)'});
     }
 
     return (

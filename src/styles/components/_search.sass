@@ -1,5 +1,5 @@
 .searchMainWrapper
-    margin: 0 $paddingBig
+    margin-left: $paddingBig
     width: 60%
     &__searchMain
         &__header
@@ -84,3 +84,28 @@
                     width: 16px
                     height: 16px
                     margin-left: $paddingMedium
+
+.searchSelectWrapper
+    width: 100%
+    &__searchSelect
+        &__header
+            input
+                color: $colorTextMain
+                padding: $paddingMedium ($paddingMedium * 1.5)
+                border: 0
+                width: 100%
+                font-size: 14px
+                border-bottom: 1px solid $grey-300
+                &::placeholder
+                    color: $grey-400
+                    font-size: 11px
+                &:-ms-input-placeholder
+                    color: $grey-400
+                    font-size: 11px
+                &::-ms-input-placeholder
+                    color: $grey-400
+                    font-size: 11px
+                &::-webkit-input-placeholder
+                    color: $grey-400
+                    font-size: 11px
+        &__content

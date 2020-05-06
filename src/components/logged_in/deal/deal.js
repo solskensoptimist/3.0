@@ -6,6 +6,7 @@ import {dealHelper, tc} from 'helpers';
 import moment from 'moment';
 import Activities from 'components/logged_in/activities';
 import Comment from 'components/logged_in/comment';
+import Contacts from 'components/logged_in/contacts';
 import DealProspectsList from './deal_prospects_list';
 import EditDeal from 'components/logged_in/edit_deal';
 import Events from 'components/logged_in/events';
@@ -76,6 +77,9 @@ const Deal = (state) => {
                 <div className='dealWrapper__deal__content'>
                     {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
                     {showEditDeal && <Popup close={() => {setShowEditDeal(false)}} size='medium'><EditDeal/></Popup>}
+                    <div className='dealWrapper__deal__content__item'>
+                        <Contacts/>
+                    </div>
                     <div className='dealWrapper__deal__content__item'>
                         <DealProspectsList/>
                     </div>

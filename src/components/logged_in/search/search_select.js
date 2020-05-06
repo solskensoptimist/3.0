@@ -3,9 +3,8 @@ import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
-import {getAllSuggestions, resetSearch, toggleSelectAll, toggleSelectContacts} from 'store/search/tasks';
+import {getAllSuggestions, getContactSuggestions, resetSearch, toggleSelectAll, toggleSelectContacts} from 'store/search/tasks';
 import Icon from 'components/shared/icon';
-import Tooltip from 'components/shared/tooltip';
 import ReactDOM from "react-dom";
 
 const SearchSelect = (state) => {
@@ -17,13 +16,13 @@ const SearchSelect = (state) => {
     let placeholder;
     switch (state.props.type) {
         case 'carKoncern':
-            placeholder = tc.placeholderSearchCarKoncern;
+            placeholder = tc.placeholderSearchConnectCarKoncern;
             break;
         case 'contacts':
-            placeholder = tc.placeholderSearchContacts;
+            placeholder = tc.placeholderSearchConnectContacts;
             break;
         case 'all':
-            placeholder = tc.placeholderSearchAll;
+            placeholder = tc.placeholderSearchConnectAll;
             break;
         default:
             placeholder = '';
@@ -39,7 +38,7 @@ const SearchSelect = (state) => {
                 case 'carKoncern':
                     return await getAllSuggestions({q: inputRef.current.value}); //byt
                 case 'contacts':
-                    return await getAllSuggestions({q: inputRef.current.value}); //byt
+                    return await getContactSuggestions({q: inputRef.current.value}); //byt
                 case 'all':
                     return await getAllSuggestions({limit: 5, q: inputRef.current.value});
                 default:
@@ -76,10 +75,6 @@ const SearchSelect = (state) => {
         });
     };
 
-    const _showSearch = () => {
-        setSearchValue('');
-    };
-
     const _toggleSelected = (id) => {
         if (selected.includes(id)) {
             const filtered = selected.filter((x) => x !== id);
@@ -96,8 +91,6 @@ const SearchSelect = (state) => {
     };
 
     useEffect(() => {
-        inputRef && inputRef.current && inputRef.current.focus();
-
         /**
          * When clicking outside searchWrapper, reset search.
          */
@@ -134,7 +127,6 @@ const SearchSelect = (state) => {
             <div className='searchSelectWrapper__searchSelect'>
                 <div className='searchSelectWrapper__searchSelect__header'>
                     <input ref={inputRef} type='search' placeholder={placeholder} onChange={_handleInput} />
-                    <Tooltip horizontalDirection='left' tooltipContent={tc.search}><Icon val='search' onClick={_showSearch} /></Tooltip>
                 </div>
                 {searchValue.length > 0 &&
                     <div className='searchSelectWrapper__searchSelect__content'>
