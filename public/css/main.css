@@ -1,13 +1,17 @@
-.buttonRegularSave, .searchSelectWrapper__searchSelect__header__bottom__save, .settingsWrapper__settings__content__item__button {
-  background: #20B6CC;
+.buttonRegularSave, .searchSelectWrapper__searchSelect__content__save, .settingsWrapper__settings__content__item__button {
+  background: #00B4CC;
   color: white;
   display: flex;
   align-items: center;
   border-radius: 2px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
   justify-content: center;
   cursor: pointer;
   padding: 8px 22px; }
-  .buttonRegularSave:hover, .searchSelectWrapper__searchSelect__header__bottom__save:hover, .settingsWrapper__settings__content__item__button:hover {
+  .buttonRegularSave:hover, .searchSelectWrapper__searchSelect__content__save:hover, .settingsWrapper__settings__content__item__button:hover {
     background: #616161; }
 
 .grid2Columns1Row, .homeWrapper {
@@ -42,7 +46,7 @@
   padding: 22px;
   border: 1px solid #eeeeee; }
 
-.shadowRegular, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events, .searchMainWrapper__searchMain__content, .searchSelectWrapper__searchSelect__content {
+.shadowRegular, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events, .searchMainWrapper__searchMain__content, .searchSelectWrapper__searchSelect__header__bottom__searchResult {
   -webkit-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3);
   -moz-box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3);
   box-shadow: 1px 3px 6px rgba(150, 150, 150, 0.3); }
@@ -148,7 +152,7 @@ h5 {
   font-weight: 400; }
 
 body {
-  background: radial-gradient(circle at top right, #09A3BA, #009AB1, #2A4AB1);
+  background: radial-gradient(circle at top right, #00B4CC, #40C4D5, #00A2BB);
   color: #616161;
   font-size: 13px; }
 
@@ -162,7 +166,7 @@ input:focus {
   outline: none; }
 
 a {
-  color: #20B6CC;
+  color: #00B4CC;
   text-decoration: none; }
   a:hover {
     color: #616161; }
@@ -234,7 +238,7 @@ a {
           .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
             margin-left: 0; }
           .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg {
-            fill: #20B6CC;
+            fill: #00B4CC;
             cursor: pointer;
             margin-left: 12px; }
             .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
@@ -313,7 +317,6 @@ a {
     justify-content: space-between;
     flex-grow: 1; }
     .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item {
-      border: 1px solid #eeeeee;
       background: #fafafa;
       flex-basis: calc(33.33% - (22px / 3 * 2));
       flex-grow: 0;
@@ -322,7 +325,6 @@ a {
       display: flex;
       justify-content: space-between;
       margin-top: 22px;
-      border-radius: 4px;
       height: 72px; }
       .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item:hover .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__visible {
         display: none; }
@@ -343,7 +345,7 @@ a {
         .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden {
           display: none; }
           .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden svg {
-            fill: #ff8a65; }
+            fill: #00B4CC; }
           .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden:hover svg {
             fill: #616161; }
       .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item a {
@@ -382,7 +384,7 @@ a {
         align-items: center;
         justify-content: center; }
         .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__linkHolder svg {
-          fill: #20B6CC; }
+          fill: #00B4CC; }
   .dealProspectsListsWrapper__dealProspectsLists__content__search {
     flex-basis: calc(33.33% - (22px / 3 * 2));
     flex-grow: 0;
@@ -447,7 +449,7 @@ a {
             color: #424242;
             font-weight: 600; }
           .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event svg {
-            color: #20B6CC; }
+            color: #00B4CC; }
           .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__icon {
             margin-right: 8px;
             display: flex;
@@ -459,7 +461,7 @@ a {
               font-size: 12px; }
             .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info svg {
               margin-left: 12px;
-              color: #20B6CC; }
+              color: #00B4CC; }
     .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .day {
       display: flex;
       align-items: center;
@@ -480,7 +482,7 @@ a {
   .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day {
     cursor: pointer; }
     .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day__date {
-      color: #20B6CC; }
+      color: #00B4CC; }
   .eventsCalendarWrapper__eventsCalendar__content .empty .day {
     content: "";
     background: transparent;
@@ -554,7 +556,7 @@ a {
           .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
             margin-left: 0; }
           .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg {
-            fill: #20B6CC;
+            fill: #00B4CC;
             cursor: pointer;
             margin-left: 12px; }
             .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
@@ -609,7 +611,7 @@ a {
   justify-content: space-between;
   align-items: flex-start; }
   .footer h4 {
-    border-bottom: 1px solid #7489DC;
+    border-bottom: 1px solid #60CCDA;
     padding-bottom: 8px;
     margin-bottom: 22px;
     flex-grow: 1; }
@@ -630,7 +632,7 @@ a {
         text-decoration: none; }
       .footer__breadcrumbsWrapper .breadcrumbs__content a, .footer__breadcrumbsWrapper .breadcrumbs__content span {
         position: relative;
-        background: #2A4AB1;
+        background: #007993;
         color: #e0e0e0; }
         .footer__breadcrumbsWrapper .breadcrumbs__content a:after, .footer__breadcrumbsWrapper .breadcrumbs__content a:before, .footer__breadcrumbsWrapper .breadcrumbs__content span:after, .footer__breadcrumbsWrapper .breadcrumbs__content span:before {
           left: 100%;
@@ -642,16 +644,16 @@ a {
           position: absolute;
           pointer-events: none; }
         .footer__breadcrumbsWrapper .breadcrumbs__content a:after, .footer__breadcrumbsWrapper .breadcrumbs__content span:after {
-          border-left-color: #2A4AB1;
+          border-left-color: #007993;
           border-width: 15px;
           margin-top: -15px; }
       .footer__breadcrumbsWrapper .breadcrumbs__content a {
         z-index: 2; }
       .footer__breadcrumbsWrapper .breadcrumbs__content span {
         z-index: 1;
-        background: #315AC2; }
+        background: #008EA8; }
         .footer__breadcrumbsWrapper .breadcrumbs__content span:after {
-          border-left-color: #315AC2; }
+          border-left-color: #008EA8; }
   .footer__contactWrapper .contact {
     flex-grow: 1; }
   .footer__companyInfoWrapper .companyInfo {
@@ -732,7 +734,7 @@ svg.active {
     margin: 0 auto;
     width: 15%;
     height: 15%;
-    background-color: #315AC2;
+    background-color: #00B4CC;
     border-radius: 100%;
     -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
     animation: sk-circleFadeDelay 1.2s infinite ease-in-out both; }
@@ -947,7 +949,8 @@ svg.active {
 
 .searchMainWrapper {
   margin-left: 22px;
-  width: 60%; }
+  width: 64%;
+  position: relative; }
   .searchMainWrapper__searchMain__header {
     display: flex;
     justify-content: flex-end;
@@ -960,6 +963,7 @@ svg.active {
       width: 100%;
       font-size: 16px;
       border-bottom: 1px solid #e0e0e0;
+      background: #f5f5f5;
       margin-right: 22px; }
       .searchMainWrapper__searchMain__header input::placeholder {
         color: #bdbdbd;
@@ -975,22 +979,18 @@ svg.active {
         font-size: 13px; }
       .searchMainWrapper__searchMain__header input:focus {
         outline-width: 0; }
-  .searchMainWrapper__searchMain__content, .searchSelectWrapper__searchSelect__content {
+  .searchMainWrapper__searchMain__content {
     position: absolute;
-    top: 80%;
+    top: calc(100% + 8px);
+    right: 0;
     background: white;
     z-index: 10;
-    max-width: 430px; }
+    width: 100%; }
     .searchMainWrapper__searchMain__content__searchResult__item {
-      color: #20B6CC;
+      color: #00B4CC;
       font-size: 15px;
       padding: 22px 22px 0 22px;
-      cursor: pointer;
-      display: block;
-      align-items: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; }
+      cursor: pointer; }
       .searchMainWrapper__searchMain__content__searchResult__item:last-of-type {
         margin-bottom: 22px; }
       .searchMainWrapper__searchMain__content__searchResult__item:hover {
@@ -1002,8 +1002,12 @@ svg.active {
       .searchMainWrapper__searchMain__content__searchResult__item a {
         display: flex;
         align-items: center; }
+      .searchMainWrapper__searchMain__content__searchResult__item span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
       .searchMainWrapper__searchMain__content__searchResult__item svg {
-        fill: #20B6CC;
+        fill: #00B4CC;
         width: 14px;
         height: 14px;
         margin-right: 12px;
@@ -1011,7 +1015,7 @@ svg.active {
         background: transparent;
         padding: 0; }
     .searchMainWrapper__searchMain__content__vehicleSearch {
-      background: #20B6CC;
+      background: #00B4CC;
       color: white;
       cursor: pointer;
       padding: 22px;
@@ -1028,8 +1032,7 @@ svg.active {
         margin-left: 12px; }
 
 .searchSelectWrapper {
-  width: 100%;
-  position: relative; }
+  width: 100%; }
   .searchSelectWrapper__searchSelect__header__top {
     background: #fafafa;
     padding: 12px; }
@@ -1057,25 +1060,63 @@ svg.active {
         height: 44px; }
         .searchSelectWrapper__searchSelect__header__top__input input::placeholder {
           color: #bdbdbd;
-          font-size: 11px; }
+          font-size: 12px; }
         .searchSelectWrapper__searchSelect__header__top__input input:-ms-input-placeholder {
           color: #bdbdbd;
-          font-size: 11px; }
+          font-size: 12px; }
         .searchSelectWrapper__searchSelect__header__top__input input::-ms-input-placeholder {
           color: #bdbdbd;
-          font-size: 11px; }
+          font-size: 12px; }
         .searchSelectWrapper__searchSelect__header__top__input input::-webkit-input-placeholder {
           color: #bdbdbd;
-          font-size: 11px; }
+          font-size: 12px; }
   .searchSelectWrapper__searchSelect__header__bottom {
+    position: relative; }
+    .searchSelectWrapper__searchSelect__header__bottom__searchResult {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: white;
+      z-index: 10;
+      width: 100%; }
+      .searchSelectWrapper__searchSelect__header__bottom__searchResult__item {
+        color: #9e9e9e;
+        font-size: 15px;
+        padding: 12px 12px 0 12px;
+        cursor: pointer;
+        display: flex; }
+        .searchSelectWrapper__searchSelect__header__bottom__searchResult__item:hover {
+          color: #616161; }
+          .searchSelectWrapper__searchSelect__header__bottom__searchResult__item:hover svg {
+            fill: #616161; }
+        .searchSelectWrapper__searchSelect__header__bottom__searchResult__item span.light svg {
+          fill: #bdbdbd;
+          width: 14px;
+          height: 14px; }
+        .searchSelectWrapper__searchSelect__header__bottom__searchResult__item span.light:hover {
+          fill: v #bdbdbd; }
+        .searchSelectWrapper__searchSelect__header__bottom__searchResult__item span.text {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          flex-grow: 1; }
+        .searchSelectWrapper__searchSelect__header__bottom__searchResult__item svg {
+          fill: #00B4CC;
+          width: 18px;
+          height: 18px;
+          margin-right: 12px;
+          border-radius: 0;
+          background: transparent;
+          padding: 0; }
+  .searchSelectWrapper__searchSelect__content {
     display: flex;
     justify-content: space-between;
     align-items: flex-start; }
-    .searchSelectWrapper__searchSelect__header__bottom__chips {
+    .searchSelectWrapper__searchSelect__content__chips {
       flex-grow: 1;
       display: flex;
       flex-wrap: wrap; }
-      .searchSelectWrapper__searchSelect__header__bottom__chips__item {
+      .searchSelectWrapper__searchSelect__content__chips__item {
         border-radius: 4px;
         background: #f5f5f5;
         color: #757575;
@@ -1084,21 +1125,18 @@ svg.active {
         display: flex;
         align-items: center;
         font-size: 11px; }
-        .searchSelectWrapper__searchSelect__header__bottom__chips__item:first-of-type {
+        .searchSelectWrapper__searchSelect__content__chips__item:first-of-type {
           margin-left: 0; }
-        .searchSelectWrapper__searchSelect__header__bottom__chips__item svg {
+        .searchSelectWrapper__searchSelect__content__chips__item svg {
           width: 14px;
           height: 14px;
-          fill: #20B6CC;
+          fill: #00B4CC;
           margin-left: 8px;
           cursor: pointer; }
-          .searchSelectWrapper__searchSelect__header__bottom__chips__item svg:hover {
+          .searchSelectWrapper__searchSelect__content__chips__item svg:hover {
             fill: #616161; }
-    .searchSelectWrapper__searchSelect__header__bottom__save {
+    .searchSelectWrapper__searchSelect__content__save {
       margin: 8px 0 0 12px; }
-  .searchSelectWrapper__searchSelect__content {
-    top: 100%;
-    width: calc(100% - 2px); }
 
 .settingsWrapper__settings {
   color: #9e9e9e; }
@@ -1112,7 +1150,7 @@ svg.active {
       .settingsWrapper__settings__content__item svg {
         width: 30px !important;
         height: 30px !important;
-        fill: #20B6CC !important;
+        fill: #00B4CC !important;
         display: flex !important;
         align-items: center !important;
         cursor: pointer !important; }
@@ -1195,7 +1233,7 @@ svg.active {
   justify-content: flex-end; }
   .widgetFooterWrapper__widgetFooter button {
     cursor: pointer;
-    background: #20B6CC;
+    background: #00B4CC;
     padding: 8px 12px;
     color: white;
     border: 0;

@@ -56,7 +56,7 @@ const SearchMain = (state) => {
 
             return (
                 <div className='searchMainWrapper__searchMain__content__searchResult__item' key={num.id}>
-                    <NavLink exact to={to} key={num.id} onClick={() => {setShowSearch(false)}}><Icon val={iconVal} />{num.name}</NavLink>
+                    <NavLink exact to={to} key={num.id} onClick={() => {setShowSearch(false)}}><Icon val={iconVal} /><span>{num.name}</span></NavLink>
                 </div>
             );
         });

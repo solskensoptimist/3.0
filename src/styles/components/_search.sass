@@ -1,6 +1,8 @@
+// Main search box
 .searchMainWrapper
     margin-left: $paddingBig
-    width: 60%
+    width: 64%
+    position: relative
     &__searchMain
         &__header
             display: flex
@@ -16,6 +18,7 @@
                 width: 100%
                 font-size: 16px
                 border-bottom: 1px solid $grey-300
+                background: $grey-100
                 margin-right: $paddingBig
                 &::placeholder
                     color: $grey-400
@@ -33,10 +36,11 @@
                     outline-width: 0
         &__content
             position: absolute
-            top: 80%
+            top: calc(100% + #{$paddingSmall})
+            right: 0
             background: white
             z-index: 10
-            max-width: $widthSearchMain
+            width: 100%
             @extend .shadowRegular
             &__searchResult
                 &__item
@@ -44,11 +48,6 @@
                     font-size: 15px
                     padding: $paddingBig $paddingBig 0 $paddingBig
                     cursor: pointer
-                    display: block
-                    align-items: center
-                    white-space: nowrap
-                    overflow: hidden
-                    text-overflow: ellipsis
                     &:last-of-type
                         margin-bottom: $paddingBig
                     &:hover
@@ -60,6 +59,10 @@
                     a
                         display: flex
                         align-items: center
+                    span
+                        white-space: nowrap
+                        overflow: hidden
+                        text-overflow: ellipsis
                     svg
                         fill: $colorLink
                         width: 14px
@@ -85,9 +88,9 @@
                     height: 16px
                     margin-left: $paddingMedium
 
+// Search component used for selections
 .searchSelectWrapper
     width: 100%
-    position: relative
     &__searchSelect
         &__header
             &__top
@@ -95,7 +98,7 @@
                 padding: $paddingMedium
                 &__title
                     h4
-                        color: $colorTertiary-400
+                        color: $colorSecondary-400
                         font-size: 12px
                         margin-bottom: $paddingMedium
                 &__input
@@ -103,7 +106,7 @@
                     align-items: center
                     justify-content: flex-start
                     svg
-                        background: $colorTertiary-400
+                        background: $colorSecondary-400
                         fill: white
                         height: 44px
                         width: 34px
@@ -112,53 +115,89 @@
                         background: white
                         color: $colorTextMain
                         padding: $paddingMedium ($paddingMedium * 1.5)
-                        border: 2px solid $colorTertiary-400
+                        border: 2px solid $colorSecondary-400
                         width: 100%
                         font-size: 13px
                         height: 44px
                         &::placeholder
                             color: $grey-400
-                            font-size: 11px
+                            font-size: 12px
                         &:-ms-input-placeholder
                             color: $grey-400
-                            font-size: 11px
+                            font-size: 12px
                         &::-ms-input-placeholder
                             color: $grey-400
-                            font-size: 11px
+                            font-size: 12px
                         &::-webkit-input-placeholder
                             color: $grey-400
-                            font-size: 11px
+                            font-size: 12px
             &__bottom
-                display: flex
-                justify-content: space-between
-                align-items: flex-start
-                &__chips
-                    flex-grow: 1
-                    display: flex
-                    flex-wrap: wrap
+                position: relative
+                &__searchResult
+                    position: absolute
+                    top: calc(100% + #{$paddingSmall})
+                    right: 0
+                    background: white
+                    z-index: 10
+                    width: 100%
+                    @extend .shadowRegular
                     &__item
-                        border-radius: 4px
-                        background: $grey-100
-                        color: $grey-600
-                        margin: $paddingSmall 0 0$paddingSmall
-                        padding: $paddingSmall
+                        color: $colorTextLight
+                        font-size: 15px
+                        padding: $paddingMedium $paddingMedium 0 $paddingMedium
+                        cursor: pointer
                         display: flex
-                        align-items: center
-                        font-size: 11px
-                        &:first-of-type
-                            margin-left: 0
-                        svg
-                            width: 14px
-                            height: 14px
-                            fill: $colorLink
-                            margin-left: $paddingSmall
-                            cursor: pointer
-                            &:hover
+                        &:hover
+                            color: $colorLinkHover
+                            svg
                                 fill: $colorLinkHover
-                &__save
-                    margin: $paddingSmall 0 0 $paddingMedium
-                    @extend .buttonRegularSave
+                        span.light
+                            svg
+                                fill: $colorTextLight-1
+                                width: 14px
+                                height: 14px
+                            &:hover
+                                fill: v$colorTextLight-1
+                        span.text
+                            white-space: nowrap
+                            overflow: hidden
+                            text-overflow: ellipsis
+                            flex-grow: 1
+                        svg
+                            fill: $colorLink
+                            width: 18px
+                            height: 18px
+                            margin-right: $paddingMedium
+                            border-radius: 0
+                            background: transparent
+                            padding: 0
         &__content
-            @extend .searchMainWrapper__searchMain__content
-            top: 100%
-            width: calc(100% - 2px)
+            display: flex
+            justify-content: space-between
+            align-items: flex-start
+            &__chips
+                flex-grow: 1
+                display: flex
+                flex-wrap: wrap
+                &__item
+                    border-radius: 4px
+                    background: $grey-100
+                    color: $grey-600
+                    margin: $paddingSmall 0 0$paddingSmall
+                    padding: $paddingSmall
+                    display: flex
+                    align-items: center
+                    font-size: 11px
+                    &:first-of-type
+                        margin-left: 0
+                    svg
+                        width: 14px
+                        height: 14px
+                        fill: $colorLink
+                        margin-left: $paddingSmall
+                        cursor: pointer
+                        &:hover
+                            fill: $colorLinkHover
+            &__save
+                margin: $paddingSmall 0 0 $paddingMedium
+                @extend .buttonRegularSave

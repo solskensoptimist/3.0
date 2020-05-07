@@ -44,6 +44,12 @@ const SearchSelect = (state) => {
             title = '';
     }
 
+    const _clearSearch = () => {
+        setSearchValue('');
+        inputSelectRef.current.value = '';
+        resetSelected();
+    };
+
     /**
      * Handle input change.
      */
@@ -70,7 +76,7 @@ const SearchSelect = (state) => {
         if (state.search.selected && state.search.selected.length) {
             return state.search.selected.map((num) => {
                 return (
-                    <div className='searchSelectWrapper__searchSelect__header__bottom__chips__item' key={num.id}>
+                    <div className='searchSelectWrapper__searchSelect__content__chips__item' key={num.id}>
                         {num.name}
                         <Icon val='clear' onClick={() => {_toggleSelected({id: num.id, name: num.name})}}/>
                     </div>
@@ -100,8 +106,8 @@ const SearchSelect = (state) => {
             const iconCheckboxVal = (selected.find((x) => x.id === num.id)) ? 'check' : 'checkbox';
 
             return (
-                <div className='searchSelectWrapper__searchSelect__content__searchResult__item' key={num.id} onClick={() => {_toggleSelected({id: num.id, name: num.name})}}>
-                    <Icon val={iconCheckboxVal}/><Icon val={iconVal}/>{num.name}
+                <div className='searchSelectWrapper__searchSelect__header__bottom__searchResult__item' key={num.id} onClick={() => {_toggleSelected({id: num.id, name: num.name})}}>
+                    <span className='light'><Icon val={iconVal}/></span><span className='text'>{num.name}</span><Icon val={iconCheckboxVal}/>
                 </div>
             );
         });
@@ -124,7 +130,7 @@ const SearchSelect = (state) => {
 
         För prospekt/koncern sparar vi annorlunda... kolla upp.
          */
-        resetSelected();
+        _clearSearch();
     };
 
     const _stateCheck = () => {
@@ -190,20 +196,20 @@ const SearchSelect = (state) => {
                         </div>
                     </div>
                     <div className='searchSelectWrapper__searchSelect__header__bottom'>
-                        <div className='searchSelectWrapper__searchSelect__header__bottom__chips'>
-                            {_renderChips()}
-                        </div>
-                        {state.search.selected.length > 0 &&
-                            <div className='searchSelectWrapper__searchSelect__header__bottom__save' onClick={_saveSelected}>
-                                {tc.save}
+                        {searchValue.length > 0 &&
+                            <div className='searchSelectWrapper__searchSelect__header__bottom__searchResult'>
+                                {_renderSuggestionRows()}
                             </div>
                         }
                     </div>
                 </div>
-                {searchValue.length > 0 &&
+                {state.search.selected.length > 0 &&
                     <div className='searchSelectWrapper__searchSelect__content'>
-                        <div className='searchSelectWrapper__searchSelect__content__searchResult'>
-                            {_renderSuggestionRows()}
+                        <div className='searchSelectWrapper__searchSelect__content__chips'>
+                            {_renderChips()}
+                        </div>
+                        <div className='searchSelectWrapper__searchSelect__content__save' onClick={_saveSelected}>
+                            {tc.save}
                         </div>
                     </div>
                 }
