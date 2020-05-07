@@ -31,6 +31,7 @@ import {
     Minimize,
     NavigateBefore,
     NavigateNext,
+    PermContactCalendar,
     PhoneAndroid,
     Person,
     Refresh,
@@ -93,6 +94,8 @@ export default (props) => {
             return <Apartment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'complete':
             return <Done className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'contact':
+            return <PermContactCalendar className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_call':
             return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_email':

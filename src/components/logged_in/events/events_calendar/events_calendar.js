@@ -120,9 +120,11 @@ const EventsCalendar = (state) => {
                         headlineSub={tc.activitiesComingUp + ' - ' + tc.calendarMonths[state.events.monthInScope].toLowerCase() + ' ' + state.events.yearInScope}
                     />
                 </div>
-                <div className={minimize ? 'hide' : 'eventsCalendarWrapper__eventsCalendar__content'}>
-                    {_renderDays()}
-                </div>
+                {!minimize &&
+                    <div className='eventsCalendarWrapper__eventsCalendar__content'>
+                        {_renderDays()}
+                    </div>
+                }
             </div>
         </div> :
             <Loading />

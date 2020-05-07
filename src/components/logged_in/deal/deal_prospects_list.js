@@ -92,14 +92,16 @@ const DealProspectsList = (state) => {
                         headlineSub={tc.dealProspectsInfo}
                     />
                 </div>
-                <div className={minimize ? 'hide' : 'dealProspectsListsWrapper__dealProspectsLists__content'}>
-                    {showAddProspect &&
+                {!minimize &&
+                    <div className='dealProspectsListsWrapper__dealProspectsLists__content'>
+                        {showAddProspect &&
                         <div className='dealProspectsListsWrapper__dealProspectsLists__content__search'>
                             <Search view='select' type='all'/>
                         </div>
-                    }
-                    {_renderProspectsList()}
-                </div>
+                        }
+                        {_renderProspectsList()}
+                    </div>
+                }
             </div>
         </div> :
         <Loading/>

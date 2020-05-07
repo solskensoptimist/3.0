@@ -163,9 +163,11 @@ const Activities = (state) => {
                         headlineSub={tc.allActivitiesAllIncludingComments}
                     />
                 </div>
-                <div className={minimize ? 'hide' : 'activitiesWrapper__activities__content'}>
-                    {_renderActivities()}
-                </div>
+                {!minimize &&
+                    <div className='activitiesWrapper__activities__content'>
+                        {_renderActivities()}
+                    </div>
+                }
             </div>
         </div> :
         <Loading />

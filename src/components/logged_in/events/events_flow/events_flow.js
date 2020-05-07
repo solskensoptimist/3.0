@@ -96,9 +96,11 @@ const EventsFlow = (state) => {
                         headlineSub={tc.activitiesComingUp}
                     />
                 </div>
-                <div className={minimize ? 'hide' : 'eventsFlowWrapper__eventsFlow__content'}>
-                    {_renderEvents()}
-                </div>
+                {!minimize &&
+                    <div className='eventsFlowWrapper__eventsFlow__content'>
+                        {_renderEvents()}
+                    </div>
+                }
             </div>
         </div> :
         <Loading/>

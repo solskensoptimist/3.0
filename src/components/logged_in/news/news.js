@@ -44,10 +44,12 @@ export default () => {
                         headlineSub={tc.newsSub}
                     />
                 </div>
-                <div className={minimize ? 'hide' : 'newsWrapper__news__content'}>
+                {!minimize &&
+                <div className='newsWrapper__news__content'>
                     {_renderItem()}
                     {_renderItem()}
                 </div>
+                }
             </div>
          </div>
     );
