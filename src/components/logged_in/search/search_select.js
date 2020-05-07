@@ -1,48 +1,63 @@
 import React, {useEffect, useRef, useState} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
 import {getAllSuggestions, getContactSuggestions, resetSearch, toggleSelectAll, toggleSelectContacts} from 'store/search/tasks';
 import Icon from 'components/shared/icon';
-import ReactDOM from "react-dom";
 
 const SearchSelect = (state) => {
     const [searchValue, setSearchValue] = useState('');
     const [selected, setSelected] = useState([]);
-    const inputRef = useRef(null);
-    const searchWrapperRef = useRef(null);
+    const inputSelectRef = useRef(null);
+    const searchSelectWrapperRef = useRef(null);
 
     let placeholder;
     switch (state.props.type) {
         case 'carKoncern':
-            placeholder = tc.placeholderSearchConnectCarKoncern;
+            placeholder = tc.placeholderSearchCarKoncern;
             break;
         case 'contacts':
-            placeholder = tc.placeholderSearchConnectContacts;
+            placeholder = tc.placeholderSearchContacts;
             break;
         case 'all':
-            placeholder = tc.placeholderSearchConnectAll;
+            placeholder = tc.placeholderSearchAll;
             break;
         default:
             placeholder = '';
+    }
+
+    let title;
+    switch (state.props.type) {
+        case 'carKoncern':
+            title = tc.connectCarKoncern;
+            break;
+        case 'contacts':
+            title = tc.connectContacts;
+            break;
+        case 'all':
+            title = tc.connectProspects;
+            break;
+        default:
+            title = '';
     }
 
     /**
      * Handle input change.
      */
     const _handleInput = async () => {
-        if (inputRef && inputRef.current && inputRef.current.value && inputRef.current.value.length) {
-            setSearchValue(inputRef.current.value);
+        if (inputSelectRef && inputSelectRef.current && inputSelectRef.current.value && inputSelectRef.current.value.length) {
+            setSearchValue(inputSelectRef.current.value);
             switch (state.props.type) {
                 case 'carKoncern':
-                    return await getAllSuggestions({q: inputRef.current.value}); //byt
+                    return await getAllSuggestions({q: inputSelectRef.current.value}); //byt
                 case 'contacts':
-                    return await getContactSuggestions({q: inputRef.current.value}); //byt
+                    return await getContactSuggestions({q: inputSelectRef.current.value});
                 case 'all':
-                    return await getAllSuggestions({limit: 5, q: inputRef.current.value});
+                    return await getAllSuggestions({q: inputSelectRef.current.value});
                 default:
-                    await getAllSuggestions({limit: 5, q: inputRef.current.value});
+                    await getAllSuggestions({limit: 5, q: inputSelectRef.current.value});
             }
         }
     };
@@ -95,8 +110,11 @@ const SearchSelect = (state) => {
          * When clicking outside searchWrapper, reset search.
          */
         const _closeSearch = (e) => {
-            if (searchWrapperRef && searchWrapperRef.current) {
-                const node = ReactDOM.findDOMNode(searchWrapperRef.current);
+            console.log('e.target', e.target);
+            console.log('searchSelectWrapperRef.current', searchSelectWrapperRef.current);
+            if (searchSelectWrapperRef && searchSelectWrapperRef.current) {
+                const node = ReactDOM.findDOMNode(searchSelectWrapperRef.current);
+                console.log('node', node);
                 if (node && !node.contains(e.target)) {
                     setSearchValue('');
                     return resetSearch();
@@ -123,10 +141,16 @@ const SearchSelect = (state) => {
     }, []);
 
     return (
-        <div className='searchSelectWrapper' ref={searchWrapperRef}>
+        <div className='searchSelectWrapper' ref={searchSelectWrapperRef}>
             <div className='searchSelectWrapper__searchSelect'>
                 <div className='searchSelectWrapper__searchSelect__header'>
-                    <input ref={inputRef} type='search' placeholder={placeholder} onChange={_handleInput} />
+                    <div className='searchSelectWrapper__searchSelect__header__title'>
+                        <h4>{title}:</h4>
+                    </div>
+                    <div className='searchSelectWrapper__searchSelect__header__input'>
+                        <Icon val='link'/>
+                        <input ref={inputSelectRef} type='search' placeholder={placeholder} onChange={_handleInput} />
+                    </div>
                 </div>
                 {searchValue.length > 0 &&
                     <div className='searchSelectWrapper__searchSelect__content'>

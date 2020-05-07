@@ -11,6 +11,8 @@ import {debounce }from 'debounce';
  */
 const getAllSuggestionsDebounced = async (payload) => {
     try {
+        store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
+
         const data = await request({
             data: {
                 limit: (payload.limit) ? payload.limit : 8,
@@ -37,6 +39,8 @@ const getAllSuggestionsDebounced = async (payload) => {
  */
 const getContactSuggestionsDebounced = async (payload) => {
     try {
+        store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
+
         let data = await request({
             data: {
                 name: payload.q,

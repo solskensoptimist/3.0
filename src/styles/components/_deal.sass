@@ -54,38 +54,65 @@
     &__content
       display: flex
       flex-wrap: wrap
+      justify-content: space-between
       &__item
-        border: 1px solid $grey-100
+        border: 1px solid $grey-200
         background: $grey-50
-        flex-basis: calc(25% - #{$paddingBig} - (#{$paddingBig} / 3))
+        flex-basis: calc(25% - #{$paddingBig})
         flex-grow: 0
         flex-shrink: 0
-        margin: $paddingBig $paddingBig 0 0
+        min-width: 0
+        display: flex
+        justify-content: space-between
+        margin-top: $paddingBig
         border-radius: 4px
+        height: 72px
         &:hover
-          .dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__icon
+          .dealProspectsListsWrapper__dealProspectsLists__content__item__icon__visible
             display: none
-          .dealProspectsListsWrapper__dealProspectsLists__content__item__hidden
+          .dealProspectsListsWrapper__dealProspectsLists__content__item__icon__hidden
             display: flex
-        &:last-of-type
-          margin-right: 0
+        svg
+          cursor: pointer
+        &__icon
+          padding: 0 $paddingMedium
+          flex-basis: 8%
+          flex-shrink: 0
+          flex-grow: 0
+          display: flex
+          align-items: center
+          justify-content: center
+          &__visible
+            svg
+              fill: $colorTextLight-1
+          &__hidden
+            display: none
+            svg
+              fill: $colorRemove
+            &:hover
+              svg
+                fill: $colorLinkHover
         a
           display: flex
           align-items: stretch
           justify-content: space-between
           color: $colorTextLight
-          border-radius: 4px
+          flex-basis: calc(92% - (#{$paddingMedium * 2}))
+          flex-shrink: 0
+          flex-grow: 0
+          min-width: 0
+          &:hover
+            .dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder
+              svg
+                fill: $colorLinkHover
         &__infoHolder
           display: flex
-          max-width: calc(100% - 36px - #{$paddingMedium})
           align-items: center
-          &__icon
-            padding-left: $paddingMedium
-            svg
-              fill: $colorTextLight-1
+          flex-grow: 1
+          min-width: 0
           &__info
             overflow: hidden
-            padding: $paddingMedium
+            padding-right: $paddingMedium
             &__name
               text-overflow: ellipsis
               overflow: hidden
@@ -95,31 +122,25 @@
             &__address
               text-overflow: ellipsis
               white-space: nowrap
+              overflow: hidden
         &__linkHolder
-          background: $colorLink
-          width: 36px
+          padding: 0 $paddingSmall
+          border-radius: 0 4px 4px 0
           display: flex
           align-items: center
           justify-content: center
-          &:hover
-            background: $colorLinkHover
-          svg
-            fill: white
-        &__hidden
-          display: none
-          padding-left: $paddingMedium
-          align-items: center
           svg
             fill: $colorLink
-          &:hover
-            svg
-              fill: $colorLinkHover
       &__search
         @extend .dealProspectsListsWrapper__dealProspectsLists__content__item
         background: transparent
         border: 0
         border-radius: 0
         display: flex
-        align-items: flex-end
-        padding-bottom: 1px
+        flex-direction: column
+        align-items: flex-start
+        padding: 0
+        h4
+          font-size: 11px
+          line-height: 14px
 

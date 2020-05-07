@@ -117,7 +117,7 @@ const SearchMain = (state) => {
                             {_renderSuggestionRows()}
                         </div>
                         <div className='searchMainWrapper__searchMain__content__vehicleSearch' onClick={_redirectSearch}>
-                            {tc.doVehicleSearch}<Icon val='link'/>
+                            {tc.doVehicleSearch}<Icon val='navigate'/>
                         </div>
                     </div>
                 }

@@ -87,25 +87,44 @@
 
 .searchSelectWrapper
     width: 100%
+    position: relative
     &__searchSelect
         &__header
-            input
-                color: $colorTextMain
-                padding: $paddingMedium ($paddingMedium * 1.5)
-                border: 0
-                width: 100%
-                font-size: 14px
-                border-bottom: 1px solid $grey-300
-                &::placeholder
-                    color: $grey-400
-                    font-size: 11px
-                &:-ms-input-placeholder
-                    color: $grey-400
-                    font-size: 11px
-                &::-ms-input-placeholder
-                    color: $grey-400
-                    font-size: 11px
-                &::-webkit-input-placeholder
-                    color: $grey-400
-                    font-size: 11px
+            &__title
+                h4
+                    font-size: 12px
+                    margin-bottom: $paddingMedium
+            &__input
+                display: flex
+                align-items: center
+                justify-content: flex-start
+                svg
+                    background: $grey-200
+                    fill: $grey-500
+                    height: 44px
+                    width: 34px
+                    padding: $paddingSmall
+                input
+                    background: white
+                    color: $colorTextMain
+                    padding: $paddingMedium ($paddingMedium * 1.5)
+                    border: 2px solid $grey-200
+                    width: 100%
+                    font-size: 13px
+                    height: 44px
+                    &::placeholder
+                        color: $grey-400
+                        font-size: 11px
+                    &:-ms-input-placeholder
+                        color: $grey-400
+                        font-size: 11px
+                    &::-ms-input-placeholder
+                        color: $grey-400
+                        font-size: 11px
+                    &::-webkit-input-placeholder
+                        color: $grey-400
+                        font-size: 11px
         &__content
+            @extend .searchMainWrapper__searchMain__content
+            top: 100%
+            width: calc(100% - 2px)

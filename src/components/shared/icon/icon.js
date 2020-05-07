@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Add,
     Apartment,
     AttachMoney,
     Assignment,
@@ -23,6 +24,8 @@ import {
     Home,
     InsertDriveFile,
     LibraryBooks,
+    Link,
+    LinkOff,
     List,
     Mail,
     Minimize,
@@ -43,6 +46,7 @@ import {
     ToggleOff,
     ToggleOn,
     Tune,
+    VisibilityOff,
     Work,
     ZoomOutMap,
 } from '@material-ui/icons';
@@ -67,6 +71,8 @@ export default (props) => {
             return <History className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'activity':
             return <Timeline className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'add':
+            return <Add className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'agile':
             return <Assignment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'analysis':
@@ -115,12 +121,16 @@ export default (props) => {
             return <Today className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'eventsFlow':
             return <Reorder className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'hide':
+            return <VisibilityOff className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'home':
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'info':
             return <Info className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'link':
-            return <DoubleArrow className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <Link className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'linkOff':
+            return <LinkOff className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'list':
             return <List className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'lists':
@@ -139,6 +149,8 @@ export default (props) => {
             return <Minimize className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'move':
             return <SwapHoriz className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'navigate':
+            return <DoubleArrow className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'navigateBefore':
             return <NavigateBefore className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'navigateNext':
