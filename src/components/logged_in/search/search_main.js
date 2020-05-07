@@ -7,6 +7,7 @@ import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
 import {resetSearch, getAllSuggestions, redirectSearch} from 'store/search/tasks';
 import Icon from 'components/shared/icon';
+import Loading from 'components/shared/loading';
 import Tooltip from 'components/shared/tooltip';
 
 const SearchMain = (state) => {
@@ -66,6 +67,10 @@ const SearchMain = (state) => {
         setShowSearch(true)
     };
 
+    const _stateCheck = () => {
+        return !!(state && state.search);
+    };
+
     useEffect(() => {
         inputRef && inputRef.current && inputRef.current.focus();
 
@@ -104,7 +109,7 @@ const SearchMain = (state) => {
         };
     }, [showSearch]);
 
-    return (
+    return ( _stateCheck() ?
         <div className='searchMainWrapper' ref={searchWrapperRef}>
             <div className='searchMainWrapper__searchMain'>
                 <div className='searchMainWrapper__searchMain__header'>
@@ -122,7 +127,8 @@ const SearchMain = (state) => {
                     </div>
                 }
             </div>
-        </div>
+        </div> :
+        <Loading/>
     );
 };
 

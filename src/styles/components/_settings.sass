@@ -25,17 +25,8 @@
           color: $colorTextDark
           margin: $paddingMedium 0
         &__button
-          background: $colorLink
-          color: white
-          padding: $paddingMedium
-          display: flex
-          align-items: center
-          border-radius: 2px
-          justify-content: center
-          cursor: pointer
+          @extend .buttonRegularSave
           width: 100%
-          &:hover
-            background: $colorLinkHover
         input
           background: white
           border: 1px solid $colorTextLight-1

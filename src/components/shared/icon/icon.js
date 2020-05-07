@@ -7,6 +7,7 @@ import {
     BarChart,
     Check,
     CheckBoxOutlineBlank,
+    Clear,
     Comment,
     ContactMail,
     Delete,
@@ -88,6 +89,8 @@ export default (props) => {
             return <CheckBoxOutlineBlank className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'check':
             return <Check className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'clear':
+            return <Clear className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'comment':
             return <Comment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'company':

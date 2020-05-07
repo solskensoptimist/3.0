@@ -84,40 +84,34 @@ export const redirectSearch = async (payload) => {
     }
 };
 
+/**
+ * Empty search suggestions array.
+ */
 export const resetSearch = () => {
     return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
 };
 
 /**
- * Toggle a value in selectedAll array.
- *
- * @param id
+ * Empty selected array.
  */
-export const toggleSelectAll = (id) => {
-    let selected = store.getState().search.selectedAll;
-
-    if (selected.includes(id)) {
-        selected = selected.filter((x) => x !== id);
-    } else {
-        selected.push(id);
-    }
-
-    return store.dispatch({type: searchActionTypes.SET_SELECTED_ALL, payload: selected});
+export const resetSelected = () => {
+    return store.dispatch({type: searchActionTypes.SET_SELECTED, payload: []});
 };
 
 /**
- * Toggle a value in selectedContacts array.
+ * Toggle a value in selected array.
  *
- * @param id
+ * @payload.id
+ * @payload.name
  */
-export const toggleSelectContacts = (id) => {
-    let selected = store.getState().search.selectedContacts;
+export const toggleSelected = (payload) => {
+    let selected = store.getState().search.selected;
 
-    if (selected.includes(id)) {
-        selected = selected.filter((x) => x !== id);
+    if (selected.find((num) => num.id === payload.id)) {
+        selected = selected.filter((num) => num.id !== payload.id);
     } else {
-        selected.push(id);
+        selected.push(payload);
     }
 
-    return store.dispatch({type: searchActionTypes.SET_SELECTED_CONTACTS, payload: selected});
+    return store.dispatch({type: searchActionTypes.SET_SELECTED, payload: selected});
 };

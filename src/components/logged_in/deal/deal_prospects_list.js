@@ -44,19 +44,19 @@ const DealProspectsList = (state) => {
 
     const _renderProspectsListItem = (prospect) => {
         return (
-            <div className='dealProspectsListsWrapper__dealProspectsLists__content__item'>
-                <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__icon'>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__icon__visible'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__icon__hidden'><Tooltip horizontalDirection='left' tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async (e) => {return await _removeProspect(e, {id: prospect.id})}}/></Tooltip></div>
+            <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item'>
+                <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon'>
+                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__visible'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
+                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden'><Tooltip horizontalDirection='left' tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async (e) => {return await _removeProspect(e, {id: prospect.id})}}/></Tooltip></div>
                 </div>
                 <NavLink exact to={(prospect.type === 'company') ? '/foretag/' + prospect.id : '/person/' + prospect.id} key={prospect.id}>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder'>
-                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info'>
-                            <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info__name'>{prospect.name}</div>
-                            <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__infoHolder__info__address'>{prospect.zipMuncipality}</div>
+                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder'>
+                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info'>
+                            <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info__name'>{prospect.name}</div>
+                            <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info__address'>{prospect.zipMuncipality}</div>
                         </div>
                     </div>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__item__linkHolder'>
+                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__linkHolder'>
                         <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToProspect}><Icon val='navigate'/></Tooltip>
                     </div>
                 </NavLink>
@@ -99,7 +99,9 @@ const DealProspectsList = (state) => {
                             <Search view='select' type='all'/>
                         </div>
                         }
-                        {_renderProspectsList()}
+                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects'>
+                            {_renderProspectsList()}
+                        </div>
                     </div>
                 }
             </div>
