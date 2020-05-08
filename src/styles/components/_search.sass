@@ -144,29 +144,33 @@
                     &__item
                         color: $colorTextLight
                         font-size: 15px
-                        padding: $paddingMedium $paddingMedium 0 $paddingMedium
+                        margin: $paddingMedium $paddingMedium 0 $paddingMedium
                         cursor: pointer
                         display: flex
+                        &:last-of-type
+                            margin-bottom: $paddingMedium
                         &:hover
                             color: $colorLinkHover
                             svg
                                 fill: $colorLinkHover
-                        span.light
+                        span
+                            display: flex
+                            align-items: center
+                        span.small
                             svg
-                                fill: $colorTextLight-1
                                 width: 14px
                                 height: 14px
                             &:hover
-                                fill: v$colorTextLight-1
+                                fill: $colorTextLight-1
                         span.text
                             white-space: nowrap
                             overflow: hidden
                             text-overflow: ellipsis
                             flex-grow: 1
                         svg
-                            fill: $colorLink
-                            width: 18px
-                            height: 18px
+                            fill: $colorTextLight
+                            width: 20px
+                            height: 20px
                             margin-right: $paddingMedium
                             border-radius: 0
                             background: transparent

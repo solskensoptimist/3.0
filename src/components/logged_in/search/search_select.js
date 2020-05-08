@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
-import {getAllSuggestions, getContactSuggestions, resetSearch, resetSelected, toggleSelected} from 'store/search/tasks';
+import {getAllSuggestions, getCompanyCarSuggestions, getKoncernCompaniesSuggestions, getContactSuggestions, resetSearch, resetSelected, toggleSelected} from 'store/search/tasks';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 
@@ -16,14 +16,17 @@ const SearchSelect = (state) => {
 
     let placeholder;
     switch (state.props.type) {
-        case 'carKoncern':
-            placeholder = tc.placeholderSearchCarKoncern;
+        case 'all':
+            placeholder = tc.placeholderSearchAll;
+            break;
+        case 'companyCars':
+            placeholder = tc.placeholderSearchCompanyCars;
             break;
         case 'contacts':
             placeholder = tc.placeholderSearchContacts;
             break;
-        case 'all':
-            placeholder = tc.placeholderSearchAll;
+        case 'koncernCompanies':
+            placeholder = tc.placeholderSearchKoncernCompanies;
             break;
         default:
             placeholder = '';
@@ -31,14 +34,17 @@ const SearchSelect = (state) => {
 
     let title;
     switch (state.props.type) {
-        case 'carKoncern':
-            title = tc.connectCarKoncern;
+        case 'all':
+            title = tc.connectProspects;
+            break;
+        case 'companyCars':
+            title = tc.connectCompanyCars;
             break;
         case 'contacts':
             title = tc.connectContacts;
             break;
-        case 'all':
-            title = tc.connectProspects;
+        case 'koncernCompanies':
+            title = tc.connectKoncernCompanies;
             break;
         default:
             title = '';
@@ -57,8 +63,10 @@ const SearchSelect = (state) => {
         if (inputSelectRef && inputSelectRef.current && inputSelectRef.current.value && inputSelectRef.current.value.length) {
             setSearchValue(inputSelectRef.current.value);
             switch (state.props.type) {
-                case 'carKoncern':
-                    return await getAllSuggestions({q: inputSelectRef.current.value}); //byt
+                case 'companyCars':
+                    return await getCompanyCarSuggestions({companyId: state.props.companyId, koncern: state.props.koncern, q: inputSelectRef.current.value});
+                case 'koncernCompanies':
+                    return await getKoncernCompaniesSuggestions({companyId: state.props.companyId, q: inputSelectRef.current.value});
                 case 'contacts':
                     return await getContactSuggestions({q: inputSelectRef.current.value});
                 case 'all':
@@ -93,7 +101,7 @@ const SearchSelect = (state) => {
             return null;
         }
 
-        return state.search.searchSuggestions.map((num) => {
+        return state.search.searchSuggestions.map((num, i) => {
             let iconVal;
             if (companyHelper.isValidOrgNr(num.id)) {
                 iconVal = 'company';
@@ -106,8 +114,8 @@ const SearchSelect = (state) => {
             const iconCheckboxVal = (selected.find((x) => x.id === num.id)) ? 'check' : 'checkbox';
 
             return (
-                <div className='searchSelectWrapper__searchSelect__header__bottom__searchResult__item' key={num.id} onClick={() => {_toggleSelected({id: num.id, name: num.name})}}>
-                    <span className='light'><Icon val={iconVal}/></span><span className='text'>{num.name}</span><Icon val={iconCheckboxVal}/>
+                <div className='searchSelectWrapper__searchSelect__header__bottom__searchResult__item' key={num.id + i} onClick={() => {_toggleSelected({id: num.id, name: num.name})}}>
+                    <span className='small'><Icon val={iconVal}/></span><span className='text'>{num.name}</span><Icon val={iconCheckboxVal}/>
                 </div>
             );
         });
@@ -120,8 +128,8 @@ const SearchSelect = (state) => {
         Ska vi även skicka om deal === true?
         Och koncern === true. Så utreder vi senare hur vi gör med koncern.
 
-        För prospekt/koncern ska vi kunna knyta kontakter.
-        För affärer ska vi kunna knyta kontakter/prospekt/carKoncern.
+        För prospekt/koncern ska vi kunna knyta kontakter och ev car?.
+        För affärer ska vi kunna knyta kontakter/prospekt/koncern/car.
 
         Beroende på vad som är true ska olika funktioner köras.
         Till exempel för deal ska vi köra samma funktion som vi kör för updateDeal, skicka in nya värden bara.

@@ -11,6 +11,9 @@ import {debounce }from 'debounce';
  */
 const getAllSuggestionsDebounced = async (payload) => {
     try {
+        if (!payload || (payload && !payload.q)) {
+            return console.error('Missing params in getAllSugestionsDebounced');
+        }
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
 
         const data = await request({
@@ -33,12 +36,104 @@ const getAllSuggestionsDebounced = async (payload) => {
 };
 
 /**
+ * Return suggestions for koncern companies.
+ *
+ * @param payload.companyId
+ * @param payload.koncern
+ * @param payload.q
+ */
+const getCompanyCarSuggestionsDebounced = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.q) || (payload && !payload.companyId)) {
+            return console.error('Missing params in getCompanyCarSuggestionsDebounced');
+        }
+
+        store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
+
+        // BYGG OCH ANVÄND NY ENDPOINT HÄR, NUVARANDE ÄR LÅNGSAM OCH TVEKSAMT OM DEN RETURNERAR RESULTAT FÖR KONCERNBOLAG.
+        let data = await request({
+            data: {
+                koncern: payload.isKoncern ? 1 : 0,
+                term: payload.q,
+            },
+            method: 'get',
+            url: '/fleet/' + payload.companyId,
+        });
+
+        if (!data || data instanceof Error || !data.results || (data && data.results && !data.results.length)) {
+            console.error('No result in getCompanyCarSuggestionsDebounced', data);
+            return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
+        }
+
+        data = data.results
+            .filter((num) => {
+                const model = (num.model ? num.model : num.real_trade_name.split(' ')[0]) || '';
+                let name = num.brand + ' ' + model + ' (' + num.reg_number + ')';
+                return (name.toLowerCase().indexOf(payload.q.toLowerCase()) !== -1); // Match search.
+            })
+            .map((num) => {
+                const model = (num.model ? num.model : num.real_trade_name.split(' ')[0]) || '';
+                let name = num.brand + ' ' + model + ' (' + num.reg_number + ')';
+                return {
+                    id: num.reg_number,
+                    name: name,
+                }
+            });
+
+        return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
+    } catch (err) {
+        return console.error('Error in getCompanyCarSuggestionsDebounced:\n' + err);
+    }
+};
+
+/**
+ * Return suggestions for koncern companies.
+ *
+ * @param payload.companyId
+ * @param payload.q
+ */
+const getKoncernCompaniesSuggestionsDebounced = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.q) || (payload && !payload.companyId)) {
+            return console.error('Missing params in getKoncernCompanySuggestionsDebounced');
+        }
+
+        store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
+
+        let data = await request({
+            method: 'get',
+            url: '/api/koncern/' + payload.companyId,
+        });
+
+        if (data && data.structure && data.structure.length) {
+            data = data.structure
+                .filter((num) => (num && num.name.toLowerCase().indexOf(payload.q.toLowerCase()) !== -1)) // Company name match search?
+                .map((num) => {
+                    return {
+                        id: num.id,
+                        name: num.name,
+                    }
+                });
+        }
+
+        return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
+    } catch (err) {
+        return console.error('Error in getKoncernCompanySuggestionsDebounced:\n' + err);
+    }
+};
+
+
+/**
  * Get contact suggestions.
  *
  * @param payload.q
  */
 const getContactSuggestionsDebounced = async (payload) => {
     try {
+        if (!payload || (payload && !payload.q)) {
+            return console.error('Missing params in getContactsSuggestionsDebounced');
+        }
+
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
 
         let data = await request({
@@ -68,9 +163,11 @@ const getContactSuggestionsDebounced = async (payload) => {
 };
 
 /**
- * Debounce suggestions calls.
+ * Debounce and export suggestions calls.
  */
 export const getAllSuggestions = debounce(getAllSuggestionsDebounced, 300);
+export const getCompanyCarSuggestions = debounce(getCompanyCarSuggestionsDebounced, 300);
+export const getKoncernCompaniesSuggestions = debounce(getKoncernCompaniesSuggestionsDebounced, 200);
 export const getContactSuggestions = debounce(getContactSuggestionsDebounced, 300);
 
 /**
