@@ -99,9 +99,9 @@ const SearchSelect = (state) => {
 
     const _saveSelected = async () => {
         if (typeof state.props.save === 'function') {
-            state.props.save();
+            await state.props.save();
         }
-        _clearSearch();
+        return _clearSearch();
     };
 
     const _stateCheck = () => {

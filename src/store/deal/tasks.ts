@@ -4,6 +4,26 @@ import {dealActionTypes} from './actions';
 import companyHelper from 'shared_helpers/company_helper';
 
 /**
+ * Remove a prospect from deal.
+ *
+ * @payload.ids
+ */
+export const addProspects = async (payload) => {
+    try  {
+        if (!payload || !payload.ids || (payload.ids && !payload.ids.length)) {
+            return console.error('Missing params in addProspects');
+        }
+
+        payload.ids.map((num) => num.id);
+
+        // Hämta deal objekt, addera payload.ids till prospects och try await updateDeal();
+        return true;
+    } catch (err) {
+        return console.error('Error in addProspects:\n' + err);
+    }
+};
+
+/**
  * Retrieve one deal.
  */
 export const getDeal = async (payload) => {
@@ -132,9 +152,16 @@ const getProspectInfo = async (payload) => {
  * @payload.id
  */
 export const removeProspect = async (payload) => {
-    console.log('removeProspect', payload);
-    // Hämta deal objeklt, filtrera bort id från prospects och kör updateDeal();
-    return true;
+    try {
+        if (!payload || (payload && !payload.id)) {
+            return console.error('Missing params in removeProspect.');
+        }
+        console.log('removeProspect', payload);
+        // Hämta deal objekt, filtrera bort id från prospects och try await updateDeal();
+        return true;
+    } catch (err) {
+        return console.error('Error in removeProspect:\n' + err);
+    }
 };
 
 /**

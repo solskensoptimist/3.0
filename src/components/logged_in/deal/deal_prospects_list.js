@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import {NavLink} from 'react-router-dom';
-import {removeProspect} from 'store/deal/tasks';
+import {addProspects, removeProspect} from 'store/deal/tasks';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 import Search from 'components/logged_in/search';
@@ -10,13 +10,18 @@ import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
 
 /**
- * This component renders a pretty basic list, based on deal.prospectsInfo.
+ * This component renders a list of prospects, based on deal.prospectsInfo.
  */
 const DealProspectsList = (state) => {
     const amountIncrease = 4;
     const [showAddProspect, setShowAddProspect] = useState(false);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
+
+    const _addProspects = async () => {
+        console.log('_addProspects');
+        return await addProspects({ids: state.search.selectedAll});
+    };
 
     const _removeProspect = async (e, payload) => {
         e.preventDefault();
@@ -96,7 +101,7 @@ const DealProspectsList = (state) => {
                     <div className='dealProspectsListsWrapper__dealProspectsLists__content'>
                         {showAddProspect &&
                         <div className='dealProspectsListsWrapper__dealProspectsLists__content__search'>
-                            <Search type='all'/>
+                            <Search type='all' save={_addProspects}/>
                         </div>
                         }
                         <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects'>
@@ -114,6 +119,7 @@ const DealProspectsList = (state) => {
 const MapStateToProps = (state) => {
     return {
         deal: state.deal,
+        search: state.search,
     };
 };
 

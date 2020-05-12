@@ -11,21 +11,24 @@ import SearchSelect from './search_select';
  * Type 'contacts' returns all contacts.
  * Type 'koncernCompanies' returns all companies in a  koncern. Target id can be parent company or just a company within a koncern.
  *
+ * SearchSelect only sets values in store.search.selectedAll, store.search.selectedCars, store.search.selectedContacts etc.
+ * To use these values there need to be a send props.save.
  *
  * @param props.koncern - bool
+ * @param props.save - function
  * @param props.targetId - string
  * @param props.type - string
  */
 export default (props) => {
     switch (props.type) {
         case 'all':
-            return <SearchSelect type={props.type}/>;
+            return <SearchSelect save={props.save} type={props.type}/>;
         case 'cars':
-            return <SearchSelect koncern={props.koncern} targetId={props.targetId} type={props.type}/>;
+            return <SearchSelect koncern={props.koncern} save={props.save} targetId={props.targetId} type={props.type}/>;
         case 'contacts':
-            return <SearchSelect type={props.type}/>;
+            return <SearchSelect save={props.save} type={props.type}/>;
         case 'koncernCompanies':
-            return <SearchSelect targetId={props.targetId} type={props.type}/>;
+            return <SearchSelect save={props.save} targetId={props.targetId} type={props.type}/>;
         case 'main':
             return <SearchMain/>;
         default:
