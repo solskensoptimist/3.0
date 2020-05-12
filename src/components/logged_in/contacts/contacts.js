@@ -10,7 +10,7 @@ import WidgetHeader from 'components/shared/widget_header';
 
 const Contacts = (state) => {
     const amountIncrease = 6;
-    const [showAddContacts, setShowAddContacts] = useState(false);
+    const [showAddContacts, setShowAddContacts] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 

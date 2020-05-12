@@ -379,7 +379,7 @@ a {
     flex-wrap: wrap;
     flex-grow: 1; }
     .dealProspectsWrapper__dealProspects__content__prospects__item {
-      background: #fafafa;
+      background: #f5f5f5;
       flex-basis: calc(33.33% - (22px / 3 * 2));
       flex-grow: 0;
       flex-shrink: 0;
@@ -475,7 +475,7 @@ a {
     flex-wrap: wrap;
     flex-grow: 1; }
     .dealCarsWrapper__dealCars__content__cars__item {
-      background: #fafafa;
+      background: #f5f5f5;
       flex-basis: calc(33.33% - (22px / 3 * 2));
       flex-grow: 0;
       flex-shrink: 0;
@@ -1185,10 +1185,10 @@ svg.active {
 .searchSelectWrapper {
   width: 100%; }
   .searchSelectWrapper__searchSelect__header__top {
-    background: #fafafa;
+    background: #f5f5f5;
     padding: 12px; }
     .searchSelectWrapper__searchSelect__header__top__title h4 {
-      color: #ffca28;
+      color: #ffc107;
       font-size: 12px;
       margin-bottom: 12px; }
     .searchSelectWrapper__searchSelect__header__top__input {
@@ -1196,7 +1196,7 @@ svg.active {
       align-items: center;
       justify-content: flex-start; }
       .searchSelectWrapper__searchSelect__header__top__input svg {
-        background: #ffca28;
+        background: #ffc107;
         fill: white;
         height: 44px;
         width: 34px;
@@ -1205,7 +1205,7 @@ svg.active {
         background: white;
         color: #616161;
         padding: 12px 18px;
-        border: 2px solid #ffca28;
+        border: 2px solid #ffc107;
         width: 100%;
         font-size: 13px;
         height: 44px; }

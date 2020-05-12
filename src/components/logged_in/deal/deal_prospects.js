@@ -14,7 +14,7 @@ import WidgetHeader from 'components/shared/widget_header';
  */
 const DealProspects = (state) => {
     const amountIncrease = 6;
-    const [showAddProspect, setShowAddProspect] = useState(false);
+    const [showAddProspect, setShowAddProspect] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 

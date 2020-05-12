@@ -22,7 +22,7 @@ const SearchMain = (state) => {
     const _handleInput = async () => {
         if (inputRef && inputRef.current && inputRef.current.value && inputRef.current.value.length) {
             setSearchValue(inputRef.current.value);
-            await getAllSuggestions({q: inputRef.current.value});
+            await getAllSuggestions({limit: 6, q: inputRef.current.value});
         }
     };
 

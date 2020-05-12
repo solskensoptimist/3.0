@@ -10,11 +10,11 @@ import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
 
 /**
- * This component renders a list of cars, based on store.deal.cars.
+ * This component renders a list of cars, based on store.deal.deal.cars.
  */
 const DealCars = (state) => {
     const amountIncrease = 6;
-    const [showAddCars, setShowAddCars] = useState(false);
+    const [showAddCars, setShowAddCars] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
