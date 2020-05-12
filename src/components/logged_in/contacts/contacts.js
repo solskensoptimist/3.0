@@ -1,17 +1,80 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import {tc} from 'helpers';
+import {addTargetToContacts, getContacts, removeContact, removeTargetFromContact, saveNewContact} from 'store/contacts/tasks';
 import Icon from 'components/shared/icon';
+import Loading from 'components/shared/loading';
 import Search from 'components/logged_in/search';
 import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
 
-export default () => {
-    const amountIncrease = 4;
+const Contacts = (state) => {
+    const amountIncrease = 6;
     const [showAddContacts, setShowAddContacts] = useState(false);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
-    return (
+    const _addTargetToContacts = async () => {
+        const ids = state.search.selectedContacts.map((num) => num.id.toString());
+        return await addTargetToContacts({ids: ids, target: state.props.target});
+    };
+
+    const _removeContact = async (id) => {
+        return await removeContact({id: id});
+    };
+
+    const _removeTargetFromContact = async (payload) => {
+        return await removeTargetFromContact({id: payload.id, target: payload.target});
+    };
+
+    const _saveNewContact = async (payload) => {
+        return await saveNewContact(payload);
+    };
+
+    const _renderContacts = () => {
+        // Show more rows every time user click load icon.
+        const data = state.contacts.contacts.slice(0, showAmount);
+
+        if (data.length) {
+            return data.map((num, i) => {
+                return (
+                    <React.Fragment key={i}>
+                        {_renderContactItem(num)}
+                    </React.Fragment>
+                );
+            });
+        } else {
+            return <p className='marginTop'>{tc.noContacts}</p>;
+        }
+    };
+
+    const _renderContactItem = (contact) => {
+        return (
+            <div className='contactsWrapper__contacts__content__contacts__item'>
+                <div className='contactsWrapper__contacts__content__pcontacts__item__icon'>
+                    <Icon val='contact'/>
+                </div>
+                {/*<div className='contactsWrapper__contacts__content__contacts__item__icon__visible'><Tooltip horizontalDirection='left' tooltipContent={tc.removeContact}><Icon val='remove' onClick={async () => {return await _removeContact(contact._id)}}/></Tooltip></div>*/}
+                    <div className='contactsWrapper__contacts__content__contacts__item__infoHolder'>
+                        <div className='contactsWrapper__contacts__content__contacts__item__infoHolder__info'>
+                            <div className='contactsWrapper__contacts__content__contacts__item__infoHolder__info__name'>{contact.name}</div>
+                            <div className='contactsWrapper__contacts__content__contacts_item__infoHolder__info__name'>{contact.name}</div>
+                        </div>
+                        <p>En lista för varje affär som kontakten ingår i, med krysstecken, som är kopplad till removeTargetFromContact</p>
+                    </div>
+            </div>
+        );
+    };
+
+    const _stateCheck = () => {
+        return !!(state && state.contacts && state.contacts && state.contacts.contacts);
+    };
+
+    useEffect(async () => {
+        await getContacts({target: state.props.target});
+    }, [state.props.target]);
+
+    return ( _stateCheck() ?
         <div className='contactsWrapper'>
             <div className='contactsWrapper__contacts'>
                 <div className='contactsWrapper__contacts__header'>
@@ -32,17 +95,38 @@ export default () => {
                             </>
                         }
                         headline={tc.contacts}
-                        headlineSub={tc.contactsInfo}
+                        headlineSub={tc.handleContacts}
                     />
                 </div>
                 {!minimize &&
-                    <div className='contactsWrapper__contacts__content'>
-                        Denna komponent ska erbjuda möjlighet att skapa ny kontakt, lista existerande kontakter samt sökruta där man kan koppla tidigare kontakter.
-                        Den ska fungera för affär, person, företag (och koncern..?).
-                        {showAddContacts && <Search type='contacts'/>}
+                <div className='contactsWrapper__contacts__content'>
+                    {showAddContacts &&
+                    <div className='contactsWrapper__contacts__search'>
+                        <Search type='contacts' save={_addTargetToContacts}/>
                     </div>
+                    }
+                    <div className='contactsWrapper__contacts__content__contacts'>
+                        {_renderContacts()}
+                        <p>Man ska kunna redigera varje fält i kontakten.</p>
+                        <p>Och det ska finnas en lista med varje affär/prospekt där kontakten ingår, man ska kunna ta bort dessa.</p>
+                    </div>
+                </div>
                 }
             </div>
-        </div>
+        </div> :
+        <Loading/>
     );
 };
+
+const MapStateToProps = (state, props) => {
+    return {
+        contacts: state.contacts,
+        props: props,
+        search: state.search,
+    };
+};
+
+export default connect(
+    MapStateToProps,
+)(Contacts);
+

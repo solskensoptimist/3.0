@@ -79,7 +79,7 @@ const Deal = (state) => {
                     {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
                     {showEditDeal && <Popup close={() => {setShowEditDeal(false)}} size='medium'><EditDeal/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
-                        <Contacts/>
+                        <Contacts target={state.deal.deal._id}/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
                         <DealProspects/>

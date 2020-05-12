@@ -16,7 +16,7 @@ import SearchSelect from './search_select';
  *
  * @param props.koncern - bool
  * @param props.save - function
- * @param props.targetId - string
+ * @param props.target - string
  * @param props.type - string
  */
 export default (props) => {
@@ -24,11 +24,11 @@ export default (props) => {
         case 'all':
             return <SearchSelect save={props.save} type={props.type}/>;
         case 'cars':
-            return <SearchSelect koncern={props.koncern} save={props.save} targetId={props.targetId} type={props.type}/>;
+            return <SearchSelect koncern={props.koncern} save={props.save} target={props.target} type={props.type}/>;
         case 'contacts':
             return <SearchSelect save={props.save} type={props.type}/>;
         case 'koncernCompanies':
-            return <SearchSelect save={props.save} targetId={props.targetId} type={props.type}/>;
+            return <SearchSelect save={props.save} target={props.target} type={props.type}/>;
         case 'main':
             return <SearchMain/>;
         default:

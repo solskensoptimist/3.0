@@ -27,7 +27,7 @@ const DealProspects = (state) => {
         return await updateDeal({prospectsToRemove: [id.toString()]});
     };
 
-    const _renderProspectsList = () => {
+    const _renderProspects = () => {
         let data = state.deal.prospectInfo;
 
         // Show more rows every time user click load icon.
@@ -37,7 +37,7 @@ const DealProspects = (state) => {
             return data.map((num, i) => {
                 return (
                     <React.Fragment key={i}>
-                        {_renderProspectsListItem(num)}
+                        {_renderProspectItem(num)}
                     </React.Fragment>
                 );
             });
@@ -46,7 +46,7 @@ const DealProspects = (state) => {
         }
     };
 
-    const _renderProspectsListItem = (prospect) => {
+    const _renderProspectItem = (prospect) => {
         return (
             <div className='dealProspectsWrapper__dealProspects__content__prospects__item'>
                 <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon'>
@@ -93,7 +93,7 @@ const DealProspects = (state) => {
                             </>
                         }
                         headline={tc.prospects}
-                        headlineSub={tc.dealProspectsInfo}
+                        headlineSub={tc.handleProspects}
                     />
                 </div>
                 {!minimize &&
@@ -104,7 +104,7 @@ const DealProspects = (state) => {
                         </div>
                         }
                         <div className='dealProspectsWrapper__dealProspects__content__prospects'>
-                            {_renderProspectsList()}
+                            {_renderProspects()}
                         </div>
                     </div>
                 }

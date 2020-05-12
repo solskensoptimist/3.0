@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
-import {getAllSuggestions, getCarSuggestions, getKoncernCompaniesSuggestions, getContactSuggestions, resetSearch, resetSelected, toggleSelected} from 'store/search/tasks';
+import {getAllSuggestions, getCarSuggestionsBasedOnRegNumber, getCarSuggestionsBasedOnTarget, getKoncernCompaniesSuggestions, getContactSuggestions, resetSearch, resetSelected, toggleSelected} from 'store/search/tasks';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 
@@ -30,9 +30,13 @@ const SearchSelect = (state) => {
             setSearchValue(inputSelectRef.current.value);
             switch (state.props.type) {
                 case 'cars':
-                    return await getCarSuggestions({koncern: state.props.koncern, q: inputSelectRef.current.value, targetId: state.props.targetId});
+                    if (state.props.target) {
+                        return await getCarSuggestionsBasedOnTarget({koncern: state.props.koncern, q: inputSelectRef.current.value, target: state.props.target});
+                    } else {
+                        return await getCarSuggestionsBasedOnRegNumber({q: inputSelectRef.current.value});
+                    }
                 case 'koncernCompanies':
-                    return await getKoncernCompaniesSuggestions({q: inputSelectRef.current.value, targetId: state.props.targetId});
+                    return await getKoncernCompaniesSuggestions({q: inputSelectRef.current.value, target: state.props.target});
                 case 'contacts':
                     return await getContactSuggestions({q: inputSelectRef.current.value});
                 case 'all':
@@ -109,6 +113,7 @@ const SearchSelect = (state) => {
     };
 
     const _toggleSelected = (payload) => {
+        console.log('_toggleselected', payload);
         toggleSelected({obj: payload, type: state.props.type});
     };
 
@@ -154,7 +159,7 @@ const SearchSelect = (state) => {
         };
 
         /**
-         * Handle key press.
+         * Handle key press.r
          */
         const _handleKey = async (e) => {
             if (e.keyCode === 27) {

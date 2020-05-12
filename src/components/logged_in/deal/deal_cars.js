@@ -19,7 +19,7 @@ const DealCars = (state) => {
     const [minimize, setMinimize] = useState(false);
 
     const _addCars = async () => {
-        const cars = state.search.selectedAll.map((num) => {
+        const cars = state.search.selectedCars.map((num) => {
             return {
                 id: num.id.toString(),
                 name: num.id.toString(),
@@ -100,7 +100,7 @@ const DealCars = (state) => {
                                 </>
                             }
                             headline={tc.cars}
-                            headlineSub={tc.dealCarsInfo}
+                            headlineSub={tc.handleCars}
                         />
                     </div>
                     {!minimize &&

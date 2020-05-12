@@ -1,6 +1,7 @@
 import {createStore, combineReducers} from 'redux';
 import {activityReducer} from 'store/activity/reducer';
 import {commentReducer} from 'store/comment/reducer';
+import {contactsReducer} from 'store/contacts/reducer';
 import {dealReducer} from 'store/deal/reducer';
 import {eventsReducer} from 'store/events/reducer';
 import {filterReducer} from 'store/filter/reducer';
@@ -15,6 +16,7 @@ import {userReducer} from 'store/user/reducer';
 const reducer = combineReducers({
     activity: activityReducer,
     comment: commentReducer,
+    contacts: contactsReducer,
     deal: dealReducer,
     events: eventsReducer,
     filter: filterReducer,

@@ -1,12 +1,12 @@
 import {activityActionTypes} from './actions';
 
-interface EventsState {
+interface ActivityState {
     activityByFilter: Array<object> | null,
     activityByTarget: Array<object> | null,
     lastSearch: object | null,
 }
 
-const initialState: EventsState = {
+const initialState: ActivityState = {
     activityByFilter: null,
     activityByTarget: null,
     lastSearch: null,

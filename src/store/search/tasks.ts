@@ -18,7 +18,7 @@ const getAllSuggestionsDebounced = async (payload) => {
 
         const data = await request({
             data: {
-                limit: (payload.limit) ? payload.limit : 8,
+                limit: (payload.limit) ? payload.limit : 10,
                 term: payload.q,
             },
             method: 'get',
@@ -36,16 +36,59 @@ const getAllSuggestionsDebounced = async (payload) => {
 };
 
 /**
- * Return suggestions based on fleet for target.
+ * Return suggestions based on generic search for reg number.
  *
- * @param payload.koncern (optional) - If we want cars for the whole koncern.
  * @param payload.q - Search query
- * @param payload.targetId - User id or orgnr.
  */
-const getCarSuggestionsDebounced = async (payload) => {
+const getCarSuggestionsBasedOnRegNumberDebounced = async (payload) => {
     try {
-        if (!payload || (payload && !payload.q) || (payload && !payload.targetId)) {
-            return console.error('Missing params in getCarSuggestionsDebounced');
+        if (!payload || (payload && !payload.q)) {
+            return console.error('Missing params in getCarSuggestionsBasedOnRegNumberDebounced');
+        }
+
+        store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
+
+        let data = await request({
+            data: {
+                limit: (payload.limit) ? payload.limit : 10,
+                term: payload.q,
+            },
+            method: 'get',
+            url: '/search/suggestSearchCars',
+        });
+
+        if (!data || data instanceof Error || !data.results || (data && data.results && !data.results.length)) {
+            console.error('No result in getCarSuggestionsBasedOnRegNumberDebounced', data);
+            return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
+        }
+
+        // No search term match required, already done backend.
+        data = data.results.map((num) => {
+            const model = (num.model ? num.model : num.real_trade_name.split(' ')[0]) || '';
+            let name = num.brand + ' ' + model + ' (' + num.reg_number + ')';
+            return {
+                id: num.reg_number,
+                name: name,
+            }
+        });
+
+        return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
+    } catch (err) {
+        return console.error('Error in getCarSuggestionsBasedOnRegNumberDebounced:\n' + err);
+    }
+};
+
+/**
+ * Return suggestions based on fleet for target, or generic search for reg number.
+ *
+ * @param payload.koncern (optional) - If we want cars for the whole koncern. Only possible when target is provided.
+ * @param payload.q - Search query
+ * @param payload.target (optional) - TS user id/orgnr. If not provided, generic search for reg number is done.
+ */
+const getCarSuggestionsBasedOnTargetDebounced = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.q)) {
+            return console.error('Missing params in getCarSuggestionsBasedOnTargetDebounced ');
         }
 
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
@@ -53,19 +96,19 @@ const getCarSuggestionsDebounced = async (payload) => {
         let data = await request({
             data: {
                 koncern: payload.koncern ? 1 : 0,
+                limit: (payload.limit) ? payload.limit : 10,
                 term: payload.q,
             },
             method: 'get',
-            url: '/fleet/' + payload.targetId,
+            url: '/fleet/' + payload.target,
         });
 
         if (!data || data instanceof Error || !data.results || (data && data.results && !data.results.length)) {
-            console.error('No result in getCarSuggestionsDebounced', data);
+            console.error('No result in getCarSuggestionsBasedOnTargetDebounced ', data);
             return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
         }
 
-        data = data.results
-            .filter((num) => {
+        data = data.results.filter((num) => {
                 const model = (num.model ? num.model : num.real_trade_name.split(' ')[0]) || '';
                 let name = num.brand + ' ' + model + ' (' + num.reg_number + ')';
                 return (name.toLowerCase().indexOf(payload.q.toLowerCase()) !== -1); // Match search.
@@ -81,7 +124,7 @@ const getCarSuggestionsDebounced = async (payload) => {
 
         return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
     } catch (err) {
-        return console.error('Error in getCarSuggestionsDebounced:\n' + err);
+        return console.error('Error in getCarSuggestionsBasedOnTargetDebounced :\n' + err);
     }
 };
 
@@ -110,14 +153,6 @@ const getContactSuggestionsDebounced = async (payload) => {
         if (data instanceof Error) {
             return console.error('Error in getContactSuggestions.');
         }
-
-        // data = data.map((num) => {
-        //     if (num._id) {
-        //         // To keep id property consistent when rendering in search_select component - we restore this before saving to backend.
-        //         num.id = num._id;
-        //     }
-        //     return num;
-        // }).filter((num) => !!(num.id)); // Overly cautious. :)
 
         return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
     } catch (err) {
@@ -165,7 +200,8 @@ const getKoncernCompaniesSuggestionsDebounced = async (payload) => {
  * Debounce and export suggestions calls.
  */
 export const getAllSuggestions = debounce(getAllSuggestionsDebounced, 300);
-export const getCarSuggestions = debounce(getCarSuggestionsDebounced, 300);
+export const getCarSuggestionsBasedOnRegNumber = debounce(getCarSuggestionsBasedOnRegNumberDebounced, 300);
+export const getCarSuggestionsBasedOnTarget = debounce(getCarSuggestionsBasedOnTargetDebounced, 300);
 export const getContactSuggestions = debounce(getContactSuggestionsDebounced, 300);
 export const getKoncernCompaniesSuggestions = debounce(getKoncernCompaniesSuggestionsDebounced, 200);
 
@@ -228,8 +264,8 @@ export const toggleSelected = (payload) => {
         case 'cars':
             let selectedCars = store.getState().search.selectedCars;
 
-            if (selectedCars.find((num) => num.regNum === payload.obj.regNum)) {
-                selectedCars = selectedCars.filter((num) => num.regNum !== payload.obj.regNum);
+            if (selectedCars.find((num) => num.id === payload.obj.id)) {
+                selectedCars = selectedCars.filter((num) => num.id !== payload.obj.id);
             } else {
                 selectedCars.push(payload.obj);
             }
