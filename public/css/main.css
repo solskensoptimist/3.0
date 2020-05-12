@@ -39,7 +39,10 @@
   .iconStyleCircleClick:hover, .dealWrapper__deal__header__bottom__right__item svg:hover, .searchMainWrapper__searchMain__header svg:hover {
     background: #616161 !important; }
 
-.paperSheet, .activitiesWrapper, .contactsWrapper, .dealProspectsListsWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .newsWrapper {
+.marginTop {
+  margin-top: 22px; }
+
+.paperSheet, .activitiesWrapper, .contactsWrapper, .dealProspectsWrapper, .dealCarsWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .newsWrapper {
   background: white;
   padding: 22px;
   border: 1px solid #eeeeee; }
@@ -134,7 +137,7 @@ h5 {
     font-weight: normal;
     color: #9e9e9e;
     text-transform: none;
-    line-height: 18px;
+    line-height: 22px;
     display: inline; }
 
 .headlineVeryLarge, .dealWrapper__deal__header__top h3 {
@@ -305,16 +308,15 @@ a {
     .dealWrapper__deal__content__item:last-of-type {
       margin-bottom: 0; }
 
-.dealProspectsListsWrapper__dealProspectsLists__content {
+.dealProspectsWrapper__dealProspects__content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start; }
-  .dealProspectsListsWrapper__dealProspectsLists__content__prospects {
+  .dealProspectsWrapper__dealProspects__content__prospects {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     flex-grow: 1; }
-    .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item {
+    .dealProspectsWrapper__dealProspects__content__prospects__item {
       background: #fafafa;
       flex-basis: calc(33.33% - (22px / 3 * 2));
       flex-grow: 0;
@@ -322,15 +324,17 @@ a {
       min-width: 0;
       display: flex;
       justify-content: space-between;
-      margin-top: 22px;
+      margin: 22px 22px 0 0;
       height: 72px; }
-      .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item:hover .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__visible {
+      .dealProspectsWrapper__dealProspects__content__prospects__item:hover .dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible {
         display: none; }
-      .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item:hover .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden {
+      .dealProspectsWrapper__dealProspects__content__prospects__item:hover .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden {
         display: flex; }
-      .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item svg {
+      .dealProspectsWrapper__dealProspects__content__prospects__item:nth-child(3n) {
+        margin-right: 0; }
+      .dealProspectsWrapper__dealProspects__content__prospects__item svg {
         cursor: pointer; }
-      .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon {
+      .dealProspectsWrapper__dealProspects__content__prospects__item__icon {
         padding: 0 12px;
         flex-basis: 8%;
         flex-shrink: 0;
@@ -338,15 +342,15 @@ a {
         display: flex;
         align-items: center;
         justify-content: center; }
-        .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__visible svg {
+        .dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible svg {
           fill: #bdbdbd; }
-        .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden {
+        .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden {
           display: none; }
-          .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden svg {
+          .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden svg {
             fill: #00B4CC; }
-          .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden:hover svg {
+          .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden:hover svg {
             fill: #616161; }
-      .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item a {
+      .dealProspectsWrapper__dealProspects__content__prospects__item a {
         display: flex;
         align-items: stretch;
         justify-content: space-between;
@@ -355,35 +359,35 @@ a {
         flex-shrink: 0;
         flex-grow: 0;
         min-width: 0; }
-        .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item a:hover .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__linkHolder svg {
+        .dealProspectsWrapper__dealProspects__content__prospects__item a:hover .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder svg {
           fill: #616161; }
-      .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder {
+      .dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder {
         display: flex;
         align-items: center;
         flex-grow: 1;
         min-width: 0; }
-        .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info {
+        .dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info {
           overflow: hidden;
           padding-right: 12px; }
-          .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info__name {
+          .dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__name {
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
             color: #616161;
             font-weight: 600; }
-          .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info__address {
+          .dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__address {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden; }
-      .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__linkHolder {
+      .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder {
         padding: 0 12px;
         border-radius: 0 4px 4px 0;
         display: flex;
         align-items: center;
         justify-content: center; }
-        .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__linkHolder svg {
+        .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder svg {
           fill: #00B4CC; }
-  .dealProspectsListsWrapper__dealProspectsLists__content__search {
+  .dealProspectsWrapper__dealProspects__content__search {
     flex-basis: calc(33.33% - (22px / 3 * 2));
     flex-grow: 0;
     flex-shrink: 0;
@@ -396,7 +400,94 @@ a {
     align-items: flex-start;
     padding: 0;
     margin: 22px 22px 0 0; }
-    .dealProspectsListsWrapper__dealProspectsLists__content__search h4 {
+    .dealProspectsWrapper__dealProspects__content__search h4 {
+      font-size: 11px;
+      line-height: 14px; }
+
+.dealCarsWrapper__dealCars__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; }
+  .dealCarsWrapper__dealCars__content__cars {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1; }
+    .dealCarsWrapper__dealCars__content__cars__item {
+      background: #fafafa;
+      flex-basis: calc(33.33% - (22px / 3 * 2));
+      flex-grow: 0;
+      flex-shrink: 0;
+      min-width: 0;
+      display: flex;
+      justify-content: space-between;
+      margin: 22px 22px 0 0;
+      height: 72px; }
+      .dealCarsWrapper__dealCars__content__cars__item:hover .dealCarsWrapper__dealCars__content__cars__item__icon__visible {
+        display: none; }
+      .dealCarsWrapper__dealCars__content__cars__item:hover .dealCarsWrapper__dealCars__content__cars__item__icon__hidden {
+        display: flex; }
+      .dealCarsWrapper__dealCars__content__cars__item:nth-child(3n) {
+        margin-right: 0; }
+      .dealCarsWrapper__dealCars__content__cars__item svg {
+        cursor: pointer; }
+      .dealCarsWrapper__dealCars__content__cars__item__icon {
+        padding: 0 12px;
+        flex-basis: 8%;
+        flex-shrink: 0;
+        flex-grow: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .dealCarsWrapper__dealCars__content__cars__item__icon__visible svg {
+          fill: #bdbdbd; }
+        .dealCarsWrapper__dealCars__content__cars__item__icon__hidden {
+          display: none; }
+          .dealCarsWrapper__dealCars__content__cars__item__icon__hidden svg {
+            fill: #00B4CC; }
+          .dealCarsWrapper__dealCars__content__cars__item__icon__hidden:hover svg {
+            fill: #616161; }
+      .dealCarsWrapper__dealCars__content__cars__item a {
+        display: flex;
+        color: #9e9e9e;
+        flex-basis: calc(92% - (24px));
+        flex-shrink: 0;
+        flex-grow: 0;
+        min-width: 0; }
+        .dealCarsWrapper__dealCars__content__cars__item a:hover .dealCarsWrapper__dealCars__content__cars__item__linkHolder svg {
+          fill: #616161; }
+      .dealCarsWrapper__dealCars__content__cars__item__regNum {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        flex-grow: 1;
+        min-width: 0;
+        overflow: hidden; }
+        .dealCarsWrapper__dealCars__content__cars__item__regNum__strong {
+          color: #616161;
+          font-weight: 600; }
+      .dealCarsWrapper__dealCars__content__cars__item__linkHolder {
+        padding: 0 12px;
+        border-radius: 0 4px 4px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .dealCarsWrapper__dealCars__content__cars__item__linkHolder svg {
+          fill: #00B4CC; }
+  .dealCarsWrapper__dealCars__content__search {
+    flex-basis: calc(33.33% - (22px / 3 * 2));
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    margin: 22px 22px 0 0; }
+    .dealCarsWrapper__dealCars__content__search h4 {
       font-size: 11px;
       line-height: 14px; }
 

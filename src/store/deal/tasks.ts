@@ -3,28 +3,11 @@ import {prospectHelper, request} from 'helpers';
 import {dealActionTypes} from './actions';
 import companyHelper from 'shared_helpers/company_helper';
 
-/**
- * Remove a prospect from deal.
- *
- * @payload.ids
- */
-export const addProspects = async (payload) => {
-    try  {
-        if (!payload || !payload.ids || (payload.ids && !payload.ids.length)) {
-            return console.error('Missing params in addProspects');
-        }
-
-        payload.ids.map((num) => num.id);
-
-        // Hämta deal objekt, addera payload.ids till prospects och try await updateDeal();
-        return true;
-    } catch (err) {
-        return console.error('Error in addProspects:\n' + err);
-    }
-};
 
 /**
  * Retrieve one deal.
+ *
+ * @payload.id
  */
 export const getDeal = async (payload) => {
     try {
@@ -147,63 +130,161 @@ const getProspectInfo = async (payload) => {
 };
 
 /**
- * Remove a prospect from deal.
- *
- * @payload.id
- */
-export const removeProspect = async (payload) => {
-    try {
-        if (!payload || (payload && !payload.id)) {
-            return console.error('Missing params in removeProspect.');
-        }
-        console.log('removeProspect', payload);
-        // Hämta deal objekt, filtrera bort id från prospects och try await updateDeal();
-        return true;
-    } catch (err) {
-        return console.error('Error in removeProspect:\n' + err);
-    }
-};
-
-/**
  * Update a deal.
  *
- * @param payload - Deal object.
+ * Should ONLY hold properties that has changes. I.E. all properties optional.
+ * We retrieve id for deal, and other data, from current store.deal.deal object.
+ *
+ * @param payload.carsToAdd - For cars add, use this property.
+ * @param payload.carsToRemove - For cars remove, use this property.
+ * @param payload.comments
+ * @param payload.description
+ * @param payload.filesToAdd - For files add, use this property.
+ * @param payload.filesToRemove - For files remove, use this property.
+ * @param payload.contactsToAdd - For contacts add, use this property.
+ * @param payload.contactsToRemove - For contacts remove, use this property.
+ * @param payload.maturity
+ * @param payload.name
+ * @param payload.potential
+ * @param payload.prospectsToAdd - For prospects add, use this property.
+ * @param payload.prospectsToRemove - For prospects remove, use this property.
+ * @param payload.user_id
  */
 export const updateDeal = async (payload) => {
     try {
-        if (!payload || (payload && !payload._id)) {
+        if (!payload) {
             return console.error('Missing params in updateDeal');
         }
-        console.log('updateDeal', payload);
 
+        const currentDeal = store.getState().deal.deal;
+        const updatedDeal: any = {};
+        let precedingPromises = [];
 
-        /*
-        Kolla vad som sker på frontend i 2.0, men i princip ska vi skicka detta:
+        // When adding contacts to deal, we need to update contacts object in mongo collection.
+        if (payload.contactsToAdd && payload.contactsToAdd.length) {
+            // Adjust updated deal obj.
+            updatedDeal.contacts = currentDeal.contacts.concat(payload.contactsToAdd);
 
-        req.body {
-            id: '5ea98dae085c6bbfa842e860',
-                properties: {
-                prospects: [ [Object], [Object], [Object] ],
-                contacts: [ [Object] ],
-                cars: [],
-                comments: null,
-                maturity: 3,
-                name: null,
-                description: 'Beskrivning av affär',
-                potential: '10',
-                files: [ [Object] ],
-                id: '5ea98dae085c6bbfa842e860'
-            }
+            // And save backend call in promise.
+            let contactPromises = await payload.contactsToAdd.map(async (contact) => {
+                contact.savedTo.push({
+                    entityId: currentDeal._id,
+                });
+
+                return await request({
+                    data: {
+                        contactId: contact._id,
+                        updatedData: {
+                            savedTo: contact.savedTo
+                        }
+                    },
+                    method: 'put',
+                    url: '/contacts'
+                });
+            });
+
+            precedingPromises = precedingPromises.concat(contactPromises);
         }
 
-        files ser ut såhär:[
-          {
-            s3_filename: '6348f74c-d304-44e3-a9d7-2821c3898b0e_Prospektera_old.png',
-            original_name: 'Prospektera_old.png'
-          }
-        ]
-        */
+        // When removing contacts from deal, we need to update contacts object in mongo collection.
+        if (payload.contactsToRemove && payload.contactsToRemove.length) {
+            // Adjust updated deal obj.
+            updatedDeal.contacts = currentDeal.contacts.filter((contact) => !payload.contactsToRemove.find((num) => num._id === contact._id));
 
+            // And save backend call in promise.
+            let contactPromises = await payload.contactsToAdd.map(async (contact) => {
+                return await request({
+                    data: {
+                        contactId: contact._id,
+                        entityId: currentDeal._id,
+                    },
+                    method: 'put',
+                    url: '/contacts/removeFromEntity'
+                });
+            });
+
+            precedingPromises = precedingPromises.concat(contactPromises);
+        }
+
+        // When deal owner changes, we need to create a deal action.
+        if (payload.user_id) {
+            // Adjust updated deal obj.
+            updatedDeal.prev_user_id = currentDeal.user_id;
+            updatedDeal.user_id = payload.user_id;
+
+            // And save backend call in promise.
+            precedingPromises.concat(
+               await request({
+                   data: {
+                       action: 'owner',
+                       dealId: currentDeal._id,
+                       prevUserId: currentDeal.user_id,
+                       user_id: payload.user_id,
+                       moved: true,
+                   },
+                   method: 'post',
+                   url: '/deals/actions',
+               })
+            );
+        }
+
+        // Adjust remaining properties.
+        if (payload.carsToAdd) {
+            updatedDeal.cars = currentDeal.cars.concat(payload.carsToAdd);
+        }
+
+        if (payload.carsToRemove) {
+            updatedDeal.cars = currentDeal.cars.filter((car) => !payload.carsToRemove.find((num) => num.id === car.id));
+        }
+
+        if (payload.filesToAdd) {
+            updatedDeal.files = currentDeal.meta.files.concat(payload.filesToAdd);
+        }
+
+        if (payload.filesToRemove) {
+            updatedDeal.files = currentDeal.meta.files.filter((file) => !payload.filesToRemove.find((num) => num.s3_filename === file.s3_filename));
+        }
+
+        if (payload.prospectsToAdd) {
+            updatedDeal.prospects = currentDeal.prospects.concat(payload.prospectsToAdd);
+        }
+
+        if (payload.prospectsToRemove) {
+            updatedDeal.prospects = currentDeal.prospects.filter((id) => !payload.prospectsToRemove.includes(id));
+        }
+
+        updatedDeal.cars = updatedDeal.cars ? updatedDeal.cars : currentDeal.cars;
+        updatedDeal.comments = payload.comments ? payload.comments : currentDeal.comments;
+        updatedDeal.description = payload.description ? payload.description : currentDeal.description;
+        updatedDeal.files = updatedDeal.files ? updatedDeal.files : currentDeal.meta.files;
+        updatedDeal.id = currentDeal._id;
+        updatedDeal.maturity = payload.maturity ? payload.maturity : currentDeal.maturity;
+        updatedDeal.name = payload.name || currentDeal.name || null;
+        updatedDeal.potential = payload.potential ? payload.potential : currentDeal.potential;
+        updatedDeal.prospects = updatedDeal.prospects ? updatedDeal.prospects : currentDeal.prospects;
+
+        // Lets resolve the first set of promises.
+        const data = await Promise.all(precedingPromises);
+
+        if (!data) {
+            return console.error('Could not update deal, preceding promises');
+        }
+
+        // Actual update of deal.
+        const deal = await request({
+            data: {
+                id: currentDeal._id,
+                properties: updatedDeal,
+            },
+            method: 'put',
+            url: '/deals'
+        });
+
+        if (!deal) {
+            return console.error('Could not update deal');
+        }
+
+        return await getDeal({id: currentDeal._id});
     } catch (err) {
         return console.error('Error in updateDeal:\n' + err);
     }

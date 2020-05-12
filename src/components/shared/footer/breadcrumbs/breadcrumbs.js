@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
+import carHelper from 'shared_helpers/car_helper';
 
 // If you create a new route you need to add it here for breadcrumbs to display it.
 const routes = {
@@ -8,6 +9,7 @@ const routes = {
     aktivitet: 'Aktivitet',
     analysera: 'Analysera',
     bearbeta: 'Bearbeta',
+    bil: 'Bil',
     foretag: 'Företag',
     hem: 'Hem',
     inloggning: 'Inloggning',
@@ -33,11 +35,11 @@ const Breadcrumbs = (state) => {
                         // Split paths.
                         let pathnames = location.pathname.split('/').filter(x => x.toLowerCase());
 
-                        // Check if any of the values start with number or underscore.
+                        // Check if any of the values start with number/underscore or if value is valid reg number.
                         // If so, we treat is as an ID parameter (for routes such as person/id, affar/id etc.)...
                         // ...which means concat it with the previous value and remove the value itself.
                         pathnames.forEach((value, index) => {
-                            if (Number.isInteger(Number(value.charAt(0)) || value.charAt(0) === '_') ) {
+                            if (Number.isInteger(Number(value.charAt(0)) || value.charAt(0) === '_') || carHelper.isValidRegNumber(value)) {
                                 pathnames[index - 1] = pathnames[index - 1] + '/' + value;
                                 pathnames = pathnames.splice(0, index);
                             }

@@ -48,9 +48,10 @@
         &:last-of-type
           margin-bottom: 0
 
-.dealProspectsListsWrapper
+// DealProspects component.
+.dealProspectsWrapper
   @extend .paperSheet
-  &__dealProspectsLists
+  &__dealProspects
     &__content
       display: flex
       justify-content: space-between
@@ -58,7 +59,6 @@
       &__prospects
         display: flex
         flex-wrap: wrap
-        justify-content: space-between
         flex-grow: 1
         &__item
           background: $grey-50
@@ -68,13 +68,15 @@
           min-width: 0
           display: flex
           justify-content: space-between
-          margin-top: $paddingBig
+          margin: $paddingBig $paddingBig 0 0
           height: 72px
           &:hover
-            .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__visible
+            .dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible
               display: none
-            .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden
+            .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden
               display: flex
+          &:nth-child(3n)
+            margin-right: 0
           svg
             cursor: pointer
           &__icon
@@ -105,7 +107,7 @@
             flex-grow: 0
             min-width: 0
             &:hover
-              .dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__linkHolder
+              .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder
                 svg
                   fill: $colorLinkHover
           &__infoHolder
@@ -150,4 +152,101 @@
         h4
           font-size: 11px
           line-height: 14px
+
+// DealCars component
+.dealCarsWrapper
+  @extend .paperSheet
+  &__dealCars
+    &__content
+      display: flex
+      justify-content: space-between
+      align-items: flex-start
+      &__cars
+        display: flex
+        flex-wrap: wrap
+        flex-grow: 1
+        &__item
+          background: $grey-50
+          flex-basis: calc(33.33% - (#{$paddingBig} / 3 * 2))
+          flex-grow: 0
+          flex-shrink: 0
+          min-width: 0
+          display: flex
+          justify-content: space-between
+          margin: $paddingBig $paddingBig 0 0
+          height: 72px
+          &:hover
+            .dealCarsWrapper__dealCars__content__cars__item__icon__visible
+              display: none
+            .dealCarsWrapper__dealCars__content__cars__item__icon__hidden
+              display: flex
+          &:nth-child(3n)
+            margin-right: 0
+          svg
+            cursor: pointer
+          &__icon
+            padding: 0 $paddingMedium
+            flex-basis: 8%
+            flex-shrink: 0
+            flex-grow: 0
+            display: flex
+            align-items: center
+            justify-content: center
+            &__visible
+              svg
+                fill: $grey-400
+            &__hidden
+              display: none
+              svg
+                fill: $colorLink
+              &:hover
+                svg
+                  fill: $colorLinkHover
+          a
+            display: flex
+            color: $colorTextLight
+            flex-basis: calc(92% - (#{$paddingMedium * 2}))
+            flex-shrink: 0
+            flex-grow: 0
+            min-width: 0
+            &:hover
+              .dealCarsWrapper__dealCars__content__cars__item__linkHolder
+                svg
+                  fill: $colorLinkHover
+          &__regNum
+            display: flex
+            align-items: flex-start
+            justify-content: center
+            flex-direction: column
+            flex-grow: 1
+            min-width: 0
+            overflow: hidden
+            &__strong
+              color: $colorTextMain
+              font-weight: 600
+          &__linkHolder
+            padding: 0 $paddingMedium
+            border-radius: 0 4px 4px 0
+            display: flex
+            align-items: center
+            justify-content: center
+            svg
+              fill: $colorLink
+      &__search
+        flex-basis: calc(33.33% - (#{$paddingBig} / 3 * 2))
+        flex-grow: 0
+        flex-shrink: 0
+        min-width: 0
+        background: transparent
+        border: 0
+        border-radius: 0
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        padding: 0
+        margin: $paddingBig $paddingBig 0 0
+        h4
+          font-size: 11px
+          line-height: 14px
+
 

@@ -7,7 +7,8 @@ import moment from 'moment';
 import Activities from 'components/logged_in/activities';
 import Comment from 'components/logged_in/comment';
 import Contacts from 'components/logged_in/contacts';
-import DealProspectsList from './deal_prospects_list';
+import DealCars from './deal_cars';
+import DealProspects from './deal_prospects';
 import EditDeal from 'components/logged_in/edit_deal';
 import Events from 'components/logged_in/events';
 import Loading from 'components/shared/loading';
@@ -81,7 +82,10 @@ const Deal = (state) => {
                         <Contacts/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
-                        <DealProspectsList/>
+                        <DealProspects/>
+                    </div>
+                    <div className='dealWrapper__deal__content__item'>
+                        <DealCars/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
                         <Events target={id} type='target' view='flow'/>

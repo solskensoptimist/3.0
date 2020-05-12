@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import {NavLink} from 'react-router-dom';
-import {addProspects, removeProspect} from 'store/deal/tasks';
+import {updateDeal} from 'store/deal/tasks';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 import Search from 'components/logged_in/search';
@@ -10,22 +10,21 @@ import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
 
 /**
- * This component renders a list of prospects, based on deal.prospectsInfo.
+ * This component renders a list of prospects, based on store.deal.prospectsInfo.
  */
-const DealProspectsList = (state) => {
-    const amountIncrease = 4;
+const DealProspects = (state) => {
+    const amountIncrease = 6;
     const [showAddProspect, setShowAddProspect] = useState(false);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
     const _addProspects = async () => {
-        console.log('_addProspects');
-        return await addProspects({ids: state.search.selectedAll});
+        const ids = state.search.selectedAll.map((num) => num.id.toString());
+        return await updateDeal({prospectsToAdd: ids});
     };
 
-    const _removeProspect = async (e, payload) => {
-        e.preventDefault();
-        return await removeProspect(payload);
+    const _removeProspect = async (id) => {
+        return await updateDeal({prospectsToRemove: [id.toString()]});
     };
 
     const _renderProspectsList = () => {
@@ -43,25 +42,25 @@ const DealProspectsList = (state) => {
                 );
             });
         } else {
-            return <p>{tc.noProspects}</p>;
+            return <p className='marginTop'>{tc.noProspects}</p>;
         }
     };
 
     const _renderProspectsListItem = (prospect) => {
         return (
-            <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item'>
-                <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon'>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__visible'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__icon__hidden'><Tooltip horizontalDirection='left' tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async (e) => {return await _removeProspect(e, {id: prospect.id})}}/></Tooltip></div>
+            <div className='dealProspectsWrapper__dealProspects__content__prospects__item'>
+                <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon'>
+                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
+                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden'><Tooltip horizontalDirection='left' tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async () => {return await _removeProspect(prospect.id)}}/></Tooltip></div>
                 </div>
                 <NavLink exact to={(prospect.type === 'company') ? '/foretag/' + prospect.id : '/person/' + prospect.id} key={prospect.id}>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder'>
-                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info'>
-                            <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info__name'>{prospect.name}</div>
-                            <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__infoHolder__info__address'>{prospect.zipMuncipality}</div>
+                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder'>
+                        <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info'>
+                            <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__name'>{prospect.name}</div>
+                            <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__address'>{prospect.zipMuncipality}</div>
                         </div>
                     </div>
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects__item__linkHolder'>
+                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder'>
                         <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToProspect}><Icon val='navigate'/></Tooltip>
                     </div>
                 </NavLink>
@@ -74,9 +73,9 @@ const DealProspectsList = (state) => {
     };
 
     return ( _stateCheck() ?
-        <div className='dealProspectsListsWrapper'>
-            <div className='dealProspectsListsWrapper__dealProspectsLists'>
-                <div className='dealProspectsListsWrapper__dealProspectsLists__header'>
+        <div className='dealProspectsWrapper'>
+            <div className='dealProspectsWrapper__dealProspects'>
+                <div className='dealProspectsWrapper__dealProspects__header'>
                     <WidgetHeader
                         iconVal='person'
                         dashboard={
@@ -98,13 +97,13 @@ const DealProspectsList = (state) => {
                     />
                 </div>
                 {!minimize &&
-                    <div className='dealProspectsListsWrapper__dealProspectsLists__content'>
+                    <div className='dealProspectsWrapper__dealProspects__content'>
                         {showAddProspect &&
-                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__search'>
+                        <div className='dealProspectsWrapper__dealProspects__content__search'>
                             <Search type='all' save={_addProspects}/>
                         </div>
                         }
-                        <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects'>
+                        <div className='dealProspectsWrapper__dealProspects__content__prospects'>
                             {_renderProspectsList()}
                         </div>
                     </div>
@@ -125,4 +124,4 @@ const MapStateToProps = (state) => {
 
 export default connect(
     MapStateToProps,
-)(DealProspectsList);
+)(DealProspects);
