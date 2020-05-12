@@ -36,32 +36,31 @@ const getAllSuggestionsDebounced = async (payload) => {
 };
 
 /**
- * Return suggestions for koncern companies.
+ * Return suggestions based on fleet for target.
  *
- * @param payload.companyId
- * @param payload.koncern
- * @param payload.q
+ * @param payload.koncern (optional) - If we want cars for the whole koncern.
+ * @param payload.q - Search query
+ * @param payload.targetId - User id or orgnr.
  */
-const getCompanyCarSuggestionsDebounced = async (payload) => {
+const getCarSuggestionsDebounced = async (payload) => {
     try {
-        if (!payload || (payload && !payload.q) || (payload && !payload.companyId)) {
-            return console.error('Missing params in getCompanyCarSuggestionsDebounced');
+        if (!payload || (payload && !payload.q) || (payload && !payload.targetId)) {
+            return console.error('Missing params in getCarSuggestionsDebounced');
         }
 
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
 
-        // BYGG OCH ANVÄND NY ENDPOINT HÄR, NUVARANDE ÄR LÅNGSAM OCH TVEKSAMT OM DEN RETURNERAR RESULTAT FÖR KONCERNBOLAG.
         let data = await request({
             data: {
-                koncern: payload.isKoncern ? 1 : 0,
+                koncern: payload.koncern ? 1 : 0,
                 term: payload.q,
             },
             method: 'get',
-            url: '/fleet/' + payload.companyId,
+            url: '/fleet/' + payload.targetId,
         });
 
         if (!data || data instanceof Error || !data.results || (data && data.results && !data.results.length)) {
-            console.error('No result in getCompanyCarSuggestionsDebounced', data);
+            console.error('No result in getCarSuggestionsDebounced', data);
             return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
         }
 
@@ -82,43 +81,7 @@ const getCompanyCarSuggestionsDebounced = async (payload) => {
 
         return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
     } catch (err) {
-        return console.error('Error in getCompanyCarSuggestionsDebounced:\n' + err);
-    }
-};
-
-/**
- * Return suggestions for koncern companies.
- *
- * @param payload.companyId
- * @param payload.q
- */
-const getKoncernCompaniesSuggestionsDebounced = async (payload) => {
-    try {
-        if (!payload || (payload && !payload.q) || (payload && !payload.companyId)) {
-            return console.error('Missing params in getKoncernCompanySuggestionsDebounced');
-        }
-
-        store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
-
-        let data = await request({
-            method: 'get',
-            url: '/api/koncern/' + payload.companyId,
-        });
-
-        if (data && data.structure && data.structure.length) {
-            data = data.structure
-                .filter((num) => (num && num.name.toLowerCase().indexOf(payload.q.toLowerCase()) !== -1)) // Company name match search?
-                .map((num) => {
-                    return {
-                        id: num.id,
-                        name: num.name,
-                    }
-                });
-        }
-
-        return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
-    } catch (err) {
-        return console.error('Error in getKoncernCompanySuggestionsDebounced:\n' + err);
+        return console.error('Error in getCarSuggestionsDebounced:\n' + err);
     }
 };
 
@@ -148,13 +111,13 @@ const getContactSuggestionsDebounced = async (payload) => {
             return console.error('Error in getContactSuggestions.');
         }
 
-        data = data.map((num) => {
-            if (num._id) {
-                num.id = num._id; // To keep it consistent when rendering in search component.
-                delete num._id;
-            }
-            return num;
-        }).filter((num) => !!(num.id)); // Overly cautious. :)
+        // data = data.map((num) => {
+        //     if (num._id) {
+        //         // To keep id property consistent when rendering in search_select component - we restore this before saving to backend.
+        //         num.id = num._id;
+        //     }
+        //     return num;
+        // }).filter((num) => !!(num.id)); // Overly cautious. :)
 
         return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
     } catch (err) {
@@ -163,12 +126,48 @@ const getContactSuggestionsDebounced = async (payload) => {
 };
 
 /**
+ * Return suggestions for koncern companies.
+ *
+ * @param payload.q
+ * @param payload.targetId - The company, doesn't have to be parent company, can be a company within a koncern.
+ */
+const getKoncernCompaniesSuggestionsDebounced = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.q) || (payload && !payload.targetId)) {
+            return console.error('Missing params in getKoncernCompanySuggestionsDebounced');
+        }
+
+        store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
+
+        let data = await request({
+            method: 'get',
+            url: '/api/koncern/' + payload.targetId,
+        });
+
+        if (data && data.structure && data.structure.length) {
+            data = data.structure
+                .filter((num) => (num && num.name.toLowerCase().indexOf(payload.q.toLowerCase()) !== -1)) // Match search.
+                .map((num) => {
+                    return {
+                        id: num.id,
+                        name: num.name,
+                    }
+                });
+        }
+
+        return store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: data});
+    } catch (err) {
+        return console.error('Error in getKoncernCompanySuggestionsDebounced:\n' + err);
+    }
+};
+
+/**
  * Debounce and export suggestions calls.
  */
 export const getAllSuggestions = debounce(getAllSuggestionsDebounced, 300);
-export const getCompanyCarSuggestions = debounce(getCompanyCarSuggestionsDebounced, 300);
-export const getKoncernCompaniesSuggestions = debounce(getKoncernCompaniesSuggestionsDebounced, 200);
+export const getCarSuggestions = debounce(getCarSuggestionsDebounced, 300);
 export const getContactSuggestions = debounce(getContactSuggestionsDebounced, 300);
+export const getKoncernCompaniesSuggestions = debounce(getKoncernCompaniesSuggestionsDebounced, 200);
 
 /**
  * Redirect to search result view.
@@ -190,25 +189,73 @@ export const resetSearch = () => {
 
 /**
  * Empty selected array.
+ *
+ * @payload.type
  */
-export const resetSelected = () => {
-    return store.dispatch({type: searchActionTypes.SET_SELECTED, payload: []});
+export const resetSelected = (payload) => {
+    switch (payload.type) {
+        case 'all':
+            return store.dispatch({type: searchActionTypes.SET_SELECTED_ALL, payload: []});
+        case 'cars':
+            return store.dispatch({type: searchActionTypes.SET_SELECTED_CARS, payload: []});
+        case 'contacts':
+            return store.dispatch({type: searchActionTypes.SET_SELECTED_CONTACTS, payload: []});
+        case 'koncernCompanies':
+            return store.dispatch({type: searchActionTypes.SET_SELECTED_KONCERN_COMPANIES, payload: []});
+        default:
+            return console.error('Missing type in resetSelected.');
+    }
 };
 
 /**
- * Toggle a value in selected array.
+ * Toggle an object in selected array.
  *
- * @payload.id
- * @payload.name
+ * @payload.obj - Object that will be added/removed.
+ * @payload.type - Determines which selected array to change.
  */
 export const toggleSelected = (payload) => {
-    let selected = store.getState().search.selected;
+    switch (payload.type) {
+        case 'all':
+            let selectedAll = store.getState().search.selectedAll;
 
-    if (selected.find((num) => num.id === payload.id)) {
-        selected = selected.filter((num) => num.id !== payload.id);
-    } else {
-        selected.push(payload);
+            if (selectedAll.find((num) => num.id === payload.obj.id)) {
+                selectedAll = selectedAll.filter((num) => num.id !== payload.obj.id);
+            } else {
+                selectedAll.push(payload.obj);
+            }
+
+            return store.dispatch({type: searchActionTypes.SET_SELECTED_ALL, payload: selectedAll});
+        case 'cars':
+            let selectedCars = store.getState().search.selectedCars;
+
+            if (selectedCars.find((num) => num.regNum === payload.obj.regNum)) {
+                selectedCars = selectedCars.filter((num) => num.regNum !== payload.obj.regNum);
+            } else {
+                selectedCars.push(payload.obj);
+            }
+
+            return store.dispatch({type: searchActionTypes.SET_SELECTED_CARS, payload: selectedCars});
+        case 'contacts':
+            let selectedContacts = store.getState().search.selectedContacts;
+
+            if (selectedContacts.find((num) => num._id === payload.obj._id)) {
+                selectedContacts = selectedContacts.filter((num) => num._id !== payload.obj._id);
+            } else {
+                selectedContacts.push(payload.obj);
+            }
+
+            return store.dispatch({type: searchActionTypes.SET_SELECTED_CONTACTS, payload: selectedContacts});
+        case 'koncernCompanies':
+            let selectedKoncernCompanies = store.getState().search.selectedKoncernCompanies;
+
+            if (selectedKoncernCompanies.find((num) => num.id === payload.obj.id)) {
+                selectedKoncernCompanies = selectedKoncernCompanies.filter((num) => num.id !== payload.obj.id);
+            } else {
+                selectedKoncernCompanies.push(payload.obj);
+            }
+
+            return store.dispatch({type: searchActionTypes.SET_SELECTED_KONCERN_COMPANIES, payload: selectedKoncernCompanies});
+        default:
+            return console.error('Missing type in toggleSelected.');
     }
-
-    return store.dispatch({type: searchActionTypes.SET_SELECTED, payload: selected});
 };

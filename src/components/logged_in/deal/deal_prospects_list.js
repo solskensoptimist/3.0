@@ -96,7 +96,7 @@ const DealProspectsList = (state) => {
                     <div className='dealProspectsListsWrapper__dealProspectsLists__content'>
                         {showAddProspect &&
                         <div className='dealProspectsListsWrapper__dealProspectsLists__content__search'>
-                            <Search type='all' view='select'/>
+                            <Search type='all'/>
                         </div>
                         }
                         <div className='dealProspectsListsWrapper__dealProspectsLists__content__prospects'>

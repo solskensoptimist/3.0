@@ -4,56 +4,22 @@ import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
-import {getAllSuggestions, getCompanyCarSuggestions, getKoncernCompaniesSuggestions, getContactSuggestions, resetSearch, resetSelected, toggleSelected} from 'store/search/tasks';
+import {getAllSuggestions, getCarSuggestions, getKoncernCompaniesSuggestions, getContactSuggestions, resetSearch, resetSelected, toggleSelected} from 'store/search/tasks';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 
 const SearchSelect = (state) => {
+    const [placeholder, setPlaceholder] = useState('');
     const [searchValue, setSearchValue] = useState('');
     const [selected, setSelected] = useState([]);
+    const [title, setTitle] = useState('');
     const inputSelectRef = useRef(null);
     const searchSelectWrapperRef = useRef(null);
-
-    let placeholder;
-    switch (state.props.type) {
-        case 'all':
-            placeholder = tc.placeholderSearchAll;
-            break;
-        case 'companyCars':
-            placeholder = tc.placeholderSearchCompanyCars;
-            break;
-        case 'contacts':
-            placeholder = tc.placeholderSearchContacts;
-            break;
-        case 'koncernCompanies':
-            placeholder = tc.placeholderSearchKoncernCompanies;
-            break;
-        default:
-            placeholder = '';
-    }
-
-    let title;
-    switch (state.props.type) {
-        case 'all':
-            title = tc.connectProspects;
-            break;
-        case 'companyCars':
-            title = tc.connectCompanyCars;
-            break;
-        case 'contacts':
-            title = tc.connectContacts;
-            break;
-        case 'koncernCompanies':
-            title = tc.connectKoncernCompanies;
-            break;
-        default:
-            title = '';
-    }
 
     const _clearSearch = () => {
         setSearchValue('');
         inputSelectRef.current.value = '';
-        resetSelected();
+        resetSelected({type: state.props.type});
     };
 
     /**
@@ -63,16 +29,16 @@ const SearchSelect = (state) => {
         if (inputSelectRef && inputSelectRef.current && inputSelectRef.current.value && inputSelectRef.current.value.length) {
             setSearchValue(inputSelectRef.current.value);
             switch (state.props.type) {
-                case 'companyCars':
-                    return await getCompanyCarSuggestions({companyId: state.props.companyId, koncern: state.props.koncern, q: inputSelectRef.current.value});
+                case 'cars':
+                    return await getCarSuggestions({koncern: state.props.koncern, q: inputSelectRef.current.value, targetId: state.props.targetId});
                 case 'koncernCompanies':
-                    return await getKoncernCompaniesSuggestions({companyId: state.props.companyId, q: inputSelectRef.current.value});
+                    return await getKoncernCompaniesSuggestions({q: inputSelectRef.current.value, targetId: state.props.targetId});
                 case 'contacts':
                     return await getContactSuggestions({q: inputSelectRef.current.value});
                 case 'all':
                     return await getAllSuggestions({q: inputSelectRef.current.value});
                 default:
-                    await getAllSuggestions({limit: 5, q: inputSelectRef.current.value});
+                    return console.error('Missing prop.type in SearchSelect');
             }
         }
     };
@@ -81,12 +47,12 @@ const SearchSelect = (state) => {
      * Render selected values, with remove button.
      */
     const _renderChips = () => {
-        if (state.search.selected && state.search.selected.length) {
-            return state.search.selected.map((num) => {
+        if (selected && selected.length) {
+            return selected.map((num) => {
                 return (
-                    <div className='searchSelectWrapper__searchSelect__content__chips__item' key={num.id}>
+                    <div className='searchSelectWrapper__searchSelect__content__chips__item' key={num.id ? num.id : num._id}>
                         {num.name}
-                        <Icon val='clear' onClick={() => {_toggleSelected({id: num.id, name: num.name})}}/>
+                        <Icon val='clear' onClick={() => {_toggleSelected(num)}}/>
                     </div>
                 );
             });
@@ -97,67 +63,82 @@ const SearchSelect = (state) => {
      * Return search result rows.
      */
     const _renderSuggestionRows = () => {
-        if (!state.search.searchSuggestions || state.search.searchSuggestions.length === 0) {
+        if (!state.search.searchSuggestions || (state.search.searchSuggestions && state.search.searchSuggestions.length === 0)) {
             return null;
         }
 
-        return state.search.searchSuggestions.map((num, i) => {
+        const rows = state.search.searchSuggestions.map((num, i) => {
             let iconVal;
-            if (companyHelper.isValidOrgNr(num.id)) {
+            if (companyHelper.isValidOrgNr(num.id ? num.id : num._id)) {
                 iconVal = 'company';
-            } else if (carHelper.isValidRegNumber(num.id)) {
+            } else if (carHelper.isValidRegNumber(num.id ? num.id : num._id)) {
                 iconVal = 'car';
             } else {
                 iconVal = 'person';
             }
 
-            const iconCheckboxVal = (selected.find((x) => x.id === num.id)) ? 'check' : 'checkbox';
+            const iconCheckboxVal = (selected.find((x) => {
+                const selectedId = x.id ? x.id : x._id;
+                const searchResultId = num.id ? num.id : num._id;
+                return selectedId === searchResultId;
+            })) ? 'check' : 'checkbox';
 
             return (
-                <div className='searchSelectWrapper__searchSelect__header__bottom__searchResult__item' key={num.id + i} onClick={() => {_toggleSelected({id: num.id, name: num.name})}}>
+                <div className='searchSelectWrapper__searchSelect__header__bottom__searchResult__item' key={num.id ? num.id : num._id} onClick={() => {_toggleSelected(num)}}>
                     <span className='small'><Icon val={iconVal}/></span><span className='text'>{num.name}</span><Icon val={iconCheckboxVal}/>
                 </div>
             );
         });
+
+        return (
+            <div className='searchSelectWrapper__searchSelect__header__bottom__searchResult'>
+                {rows}
+            </div>
+        );
     };
 
     const _saveSelected = async () => {
-        console.log('SAVE');
-        /*
-        Vi behöver ytterligare en prop för detta där vi skickar id, kanske borde heta 'target'?
-        Ska vi även skicka om deal === true?
-        Och koncern === true. Så utreder vi senare hur vi gör med koncern.
-
-        För prospekt/koncern ska vi kunna knyta kontakter och ev car?.
-        För affärer ska vi kunna knyta kontakter/prospekt/koncern/car.
-
-        Beroende på vad som är true ska olika funktioner köras.
-        Till exempel för deal ska vi köra samma funktion som vi kör för updateDeal, skicka in nya värden bara.
-        Kanske hämta ut nuvarade deal-objekt, lägga till selected i contacts/prospects, och sen skicka
-        in objektet till saveDeal..?
-
-        För prospekt/koncern sparar vi annorlunda... kolla upp.
-         */
+        if (typeof state.props.save === 'function') {
+            state.props.save();
+        }
         _clearSearch();
     };
 
     const _stateCheck = () => {
-        return !!(state && state.search && state.search.selected && state.search.searchSuggestions);
+        return !!(searchValue !== undefined && selected && state && state.search && state.search.searchSuggestions);
     };
 
     const _toggleSelected = (payload) => {
-        if (selected.find((num) => num.id === payload.id)) {
-            const filtered = selected.filter((num) => num.id !== payload.id);
-            setSelected(filtered);
-        } else {
-            setSelected([...selected, payload]);
-        }
-
-        toggleSelected(payload);
+        toggleSelected({obj: payload, type: state.props.type});
     };
 
     useEffect(() => {
-        resetSelected();
+        // Reset selected array.
+        resetSelected({type: state.props.type});
+        // Reset search suggestions.
+        resetSearch();
+
+        // Set placeholder and title.
+        switch (state.props.type) {
+            case 'all':
+                setPlaceholder(tc.placeholderSearchAll);
+                setTitle(tc.connectProspects);
+                break;
+            case 'cars':
+                setPlaceholder(tc.placeholderSearchCars);
+                setTitle(tc.connectCars);
+                break;
+            case 'contacts':
+                setPlaceholder(tc.placeholderSearchContacts);
+                setTitle(tc.connectContacts);
+                break;
+            case 'koncernCompanies':
+                setPlaceholder(tc.placeholderSearchKoncernCompanies);
+                setTitle(tc.connectKoncernCompanies);
+                break;
+            default:
+                setPlaceholder('');
+        }
 
         /**
          * When clicking outside searchWrapper, reset search.
@@ -188,7 +169,32 @@ const SearchSelect = (state) => {
             window.removeEventListener('mousedown', _closeSearch);
             window.removeEventListener('keydown', _closeSearch);
         };
-    }, []);
+    }, [state.props.type]);
+
+    useEffect(() => {
+        if (state.props.type === 'all') {
+            setSelected(state.search.selectedAll);
+        }
+    }, [state.props.type, state.search.selectedAll]);
+
+    useEffect(() => {
+        if (state.props.type === 'cars') {
+            setSelected(state.search.selectedCars);
+        }
+    }, [state.props.type, state.search.selectedCars]);
+
+
+    useEffect(() => {
+        if (state.props.type === 'contacts') {
+            setSelected(state.search.selectedContacts);
+        }
+    }, [state.props.type, state.search.selectedContacts]);
+
+    useEffect(() => {
+        if (state.props.type === 'koncernCompanies') {
+            setSelected(state.search.selectedKoncernCompanies);
+        }
+    }, [state.props.type, state.search.selectedKoncernCompanies]);
 
     return ( _stateCheck() ?
         <div className='searchSelectWrapper' ref={searchSelectWrapperRef}>
@@ -204,14 +210,10 @@ const SearchSelect = (state) => {
                         </div>
                     </div>
                     <div className='searchSelectWrapper__searchSelect__header__bottom'>
-                        {searchValue.length > 0 &&
-                            <div className='searchSelectWrapper__searchSelect__header__bottom__searchResult'>
-                                {_renderSuggestionRows()}
-                            </div>
-                        }
+                        {_renderSuggestionRows()}
                     </div>
                 </div>
-                {state.search.selected.length > 0 &&
+                {selected.length > 0 &&
                     <div className='searchSelectWrapper__searchSelect__content'>
                         <div className='searchSelectWrapper__searchSelect__content__chips'>
                             {_renderChips()}

@@ -133,5 +133,51 @@ const getProspectInfo = async (payload) => {
  */
 export const removeProspect = async (payload) => {
     console.log('removeProspect', payload);
+    // Hämta deal objeklt, filtrera bort id från prospects och kör updateDeal();
     return true;
+};
+
+/**
+ * Update a deal.
+ *
+ * @param payload - Deal object.
+ */
+export const updateDeal = async (payload) => {
+    try {
+        if (!payload || (payload && !payload._id)) {
+            return console.error('Missing params in updateDeal');
+        }
+        console.log('updateDeal', payload);
+
+
+        /*
+        Kolla vad som sker på frontend i 2.0, men i princip ska vi skicka detta:
+
+        req.body {
+            id: '5ea98dae085c6bbfa842e860',
+                properties: {
+                prospects: [ [Object], [Object], [Object] ],
+                contacts: [ [Object] ],
+                cars: [],
+                comments: null,
+                maturity: 3,
+                name: null,
+                description: 'Beskrivning av affär',
+                potential: '10',
+                files: [ [Object] ],
+                id: '5ea98dae085c6bbfa842e860'
+            }
+        }
+
+        files ser ut såhär:[
+          {
+            s3_filename: '6348f74c-d304-44e3-a9d7-2821c3898b0e_Prospektera_old.png',
+            original_name: 'Prospektera_old.png'
+          }
+        ]
+        */
+
+    } catch (err) {
+        return console.error('Error in updateDeal:\n' + err);
+    }
 };

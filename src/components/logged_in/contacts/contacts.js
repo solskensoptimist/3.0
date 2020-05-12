@@ -39,7 +39,7 @@ export default () => {
                     <div className='contactsWrapper__contacts__content'>
                         Denna komponent ska erbjuda möjlighet att skapa ny kontakt, lista existerande kontakter samt sökruta där man kan koppla tidigare kontakter.
                         Den ska fungera för affär, person, företag (och koncern..?).
-                        {showAddContacts && <Search view='select' type='contacts'/>}
+                        {showAddContacts && <Search type='contacts'/>}
                     </div>
                 }
             </div>

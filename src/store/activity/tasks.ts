@@ -63,7 +63,6 @@ const getActivityByFilter = async () => {
                 if (!num.date_created && num.added) {
                     num.date_created = num.added; // To keep it consistent for component rendering.
                 }
-
                 return num;
             })
             : [];
@@ -103,7 +102,6 @@ const getActivityByTarget = async (payload) => {
                 if (!num.date_created && num.added) {
                     num.date_created = num.added; // To keep it consistent for component rendering.
                 }
-
                 return num;
             })
             : [];
