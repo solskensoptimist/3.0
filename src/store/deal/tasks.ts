@@ -2,12 +2,12 @@ import {store} from 'store';
 import {prospectHelper, request} from 'helpers';
 import {dealActionTypes} from './actions';
 import companyHelper from 'shared_helpers/company_helper';
-
+import _ from 'underscore';
 
 /**
  * Retrieve one deal.
  *
- * @payload.id
+ * @param payload.id
  */
 export const getDeal = async (payload) => {
     try {
@@ -132,8 +132,8 @@ const getProspectInfo = async (payload) => {
 /**
  * Update a deal.
  *
- * Should ONLY hold properties that has changes. I.E. all properties optional.
- * We retrieve id for deal, and other data, from current store.deal.deal object.
+ * payload should ONLY hold properties that has changes. I.E. all properties optional.
+ * Depending on what to update, we have to do some extra backend calls.
  *
  * @param payload.carsToAdd - For cars add, use this property.
  * @param payload.carsToRemove - For cars remove, use this property.
@@ -155,6 +155,8 @@ export const updateDeal = async (payload) => {
         if (!payload) {
             return console.error('Missing params in updateDeal');
         }
+
+        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: true});
 
         const currentDeal = store.getState().deal.deal;
         const updatedDeal: any = {};
@@ -254,6 +256,35 @@ export const updateDeal = async (payload) => {
         }
 
         updatedDeal.cars = updatedDeal.cars ? updatedDeal.cars : currentDeal.cars;
+        // Sort and remove duplicates.
+        if (updatedDeal.cars && updatedDeal.cars.length) {
+            updatedDeal.cars = updatedDeal.cars.sort((a: any, b: any) => {
+                if ( a.name < b.name){
+                    return -1;
+                } else if ( a.name > b.name ){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+        updatedDeal.cars = _.uniq(updatedDeal.cars, 'id');
+
+        updatedDeal.prospects = updatedDeal.prospects ? updatedDeal.prospects : currentDeal.prospects;
+        // Sort and remove duplicates.
+        if (updatedDeal.prospects && updatedDeal.prospects.length) {
+            updatedDeal.prospects = updatedDeal.prospects.sort((a: any, b: any) => {
+                if ( a.name < b.name){
+                    return -1;
+                } else if ( a.name > b.name ){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+        updatedDeal.prospects = _.uniq(updatedDeal.prospects);
+
         updatedDeal.comments = payload.comments ? payload.comments : currentDeal.comments;
         updatedDeal.description = payload.description ? payload.description : currentDeal.description;
         updatedDeal.files = updatedDeal.files ? updatedDeal.files : currentDeal.meta.files;
@@ -261,12 +292,12 @@ export const updateDeal = async (payload) => {
         updatedDeal.maturity = payload.maturity ? payload.maturity : currentDeal.maturity;
         updatedDeal.name = payload.name || currentDeal.name || null;
         updatedDeal.potential = payload.potential ? payload.potential : currentDeal.potential;
-        updatedDeal.prospects = updatedDeal.prospects ? updatedDeal.prospects : currentDeal.prospects;
 
         // Lets resolve the first set of promises.
         const data = await Promise.all(precedingPromises);
 
         if (!data) {
+            store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
             return console.error('Could not update deal, preceding promises');
         }
 
@@ -281,11 +312,14 @@ export const updateDeal = async (payload) => {
         });
 
         if (!deal) {
+            store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
             return console.error('Could not update deal');
         }
 
+        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
         return await getDeal({id: currentDeal._id});
     } catch (err) {
+        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
         return console.error('Error in updateDeal:\n' + err);
     }
 };

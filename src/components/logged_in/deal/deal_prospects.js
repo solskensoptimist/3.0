@@ -13,10 +13,10 @@ import WidgetHeader from 'components/shared/widget_header';
  * This component renders a list of prospects, based on store.deal.prospectsInfo.
  */
 const DealProspects = (state) => {
-    const amountIncrease = 6;
+    const amountIncrease = 4;
     const [showAddProspect, setShowAddProspect] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
-    const [minimize, setMinimize] = useState(false);
+    const [minimize, setMinimize] = useState(true);
 
     const _addProspects = async () => {
         const ids = state.search.selectedAll.map((num) => num.id.toString());
@@ -37,7 +37,7 @@ const DealProspects = (state) => {
             return data.map((num, i) => {
                 return (
                     <React.Fragment key={i}>
-                        {_renderProspectItem(num)}
+                        {_renderProspectItem(num, (i === 0))}
                     </React.Fragment>
                 );
             });
@@ -46,12 +46,12 @@ const DealProspects = (state) => {
         }
     };
 
-    const _renderProspectItem = (prospect) => {
+    const _renderProspectItem = (prospect, firstItem) => {
         return (
             <div className='dealProspectsWrapper__dealProspects__content__prospects__item'>
                 <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon'>
                     <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
-                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden'><Tooltip horizontalDirection='left' tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async () => {return await _removeProspect(prospect.id)}}/></Tooltip></div>
+                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden'><Tooltip horizontalDirection='right' verticalDirection={firstItem ? 'bottom' : 'top'} tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async () => {return await _removeProspect(prospect.id)}}/></Tooltip></div>
                 </div>
                 <NavLink exact to={(prospect.type === 'company') ? '/foretag/' + prospect.id : '/person/' + prospect.id} key={prospect.id}>
                     <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder'>
@@ -61,7 +61,7 @@ const DealProspects = (state) => {
                         </div>
                     </div>
                     <div className='dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder'>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToProspect}><Icon val='navigate'/></Tooltip>
+                        <Tooltip horizontalDirection='left' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.navigateToProspect}><Icon val='navigate'/></Tooltip>
                     </div>
                 </NavLink>
             </div>

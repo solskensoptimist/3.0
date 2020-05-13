@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
-import {addTargetToContacts, getContacts, removeContact, removeTargetFromContact, saveNewContact} from 'store/contacts/tasks';
+// import {addTargetToContacts, getContacts, removeContact, removeTargetFromContact, saveNewContact} from 'store/contacts/tasks';
+import {getContacts} from 'store/contacts/tasks';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 import Search from 'components/logged_in/search';
@@ -15,25 +16,41 @@ const Contacts = (state) => {
     const [minimize, setMinimize] = useState(false);
 
     const _addTargetToContacts = async () => {
-        const ids = state.search.selectedContacts.map((num) => num.id.toString());
-        return await addTargetToContacts({ids: ids, target: state.props.target});
+        // const ids = state.search.selectedContacts.map((num) => num.id.toString());
+        console.log('_addTargetToContacts');
+        // return await addTargetToContacts({ids: ids, target: state.props.target});
     };
-
-    const _removeContact = async (id) => {
-        return await removeContact({id: id});
-    };
-
-    const _removeTargetFromContact = async (payload) => {
-        return await removeTargetFromContact({id: payload.id, target: payload.target});
-    };
-
-    const _saveNewContact = async (payload) => {
-        return await saveNewContact(payload);
-    };
+    //
+    // const _removeContact = async (id) => {
+    //     return await removeContact({id: id});
+    // };
+    //
+    // const _removeTargetFromContact = async (payload) => {
+    //     return await removeTargetFromContact({id: payload.id, target: payload.target});
+    // };
+    //
+    // const _saveNewContact = async (payload) => {
+    //     return await saveNewContact(payload);
+    // };
 
     const _renderContacts = () => {
         // Show more rows every time user click load icon.
-        const data = state.contacts.contacts.slice(0, showAmount);
+        // const data = state.contacts.contacts.slice(0, showAmount);
+
+        const data = [
+            {
+                name: 'Kontaktnamn Kontakt'
+            },
+            {
+                name: 'Kontaktnamn Kontakt'
+            },
+            {
+                name: 'Kontaktnamn Kontakt'
+            },
+            {
+                name: 'Kontaktnamn Kontakt'
+            }
+        ];
 
         if (data.length) {
             return data.map((num, i) => {
@@ -60,7 +77,6 @@ const Contacts = (state) => {
                             <div className='contactsWrapper__contacts__content__contacts__item__infoHolder__info__name'>{contact.name}</div>
                             <div className='contactsWrapper__contacts__content__contacts_item__infoHolder__info__name'>{contact.name}</div>
                         </div>
-                        <p>En lista för varje affär som kontakten ingår i, med krysstecken, som är kopplad till removeTargetFromContact</p>
                     </div>
             </div>
         );
@@ -70,8 +86,8 @@ const Contacts = (state) => {
         return !!(state && state.contacts && state.contacts && state.contacts.contacts);
     };
 
-    useEffect(async () => {
-        await getContacts({target: state.props.target});
+    useEffect(() => {
+        getContacts({target: state.props.target});
     }, [state.props.target]);
 
     return ( _stateCheck() ?
@@ -101,7 +117,7 @@ const Contacts = (state) => {
                 {!minimize &&
                 <div className='contactsWrapper__contacts__content'>
                     {showAddContacts &&
-                    <div className='contactsWrapper__contacts__search'>
+                    <div className='contactsWrapper__contacts__content__search'>
                         <Search type='contacts' save={_addTargetToContacts}/>
                     </div>
                     }
@@ -109,6 +125,7 @@ const Contacts = (state) => {
                         {_renderContacts()}
                         <p>Man ska kunna redigera varje fält i kontakten.</p>
                         <p>Och det ska finnas en lista med varje affär/prospekt där kontakten ingår, man ska kunna ta bort dessa.</p>
+                        <p>En lista för varje affär som kontakten ingår i, med krysstecken, som är kopplad till removeTargetFromContact</p>
                     </div>
                 </div>
                 }

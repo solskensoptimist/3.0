@@ -6,8 +6,8 @@ import {eventsActionTypes} from "../events/actions";
 /**
  * Get activity main func.
  *
- * @payload.type - string - Can be 'filter' | 'last' | 'target'.
- * @payload.target  - string - Only required/working when type === 'target'. Can be prospect id or deal id.
+ * @param payload.type - string - Can be 'filter' | 'last' | 'target'.
+ * @pparam ayload.target  - string - Only required/working when type === 'target'. Can be prospect id or deal id.
  */
 export const getActivity = async (payload) => {
     if (payload.type !== 'last') {

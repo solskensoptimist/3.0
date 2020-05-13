@@ -1,6 +1,9 @@
 import React from 'react';
 import SearchMain from './search_main';
-import SearchSelect from './search_select';
+import SearchSelectAll from './search_select_all';
+import SearchSelectCars from './search_select_cars';
+import SearchSelectContacts from './search_select_contacts';
+import SearchSelectKoncernCompanies from './search_select_koncern_companies';
 
 /**
  * Return a search component based on view.
@@ -22,13 +25,13 @@ import SearchSelect from './search_select';
 export default (props) => {
     switch (props.type) {
         case 'all':
-            return <SearchSelect save={props.save} type={props.type}/>;
+            return <SearchSelectAll save={props.save}/>;
         case 'cars':
-            return <SearchSelect koncern={props.koncern} save={props.save} target={props.target} type={props.type}/>;
+            return <SearchSelectCars koncern={props.koncern} save={props.save} target={props.target}/>;
         case 'contacts':
-            return <SearchSelect save={props.save} type={props.type}/>;
+            return <SearchSelectContacts save={props.save}/>;
         case 'koncernCompanies':
-            return <SearchSelect save={props.save} target={props.target} type={props.type}/>;
+            return <SearchSelectKoncernCompanies save={props.save} target={props.target}/>;
         case 'main':
             return <SearchMain/>;
         default:

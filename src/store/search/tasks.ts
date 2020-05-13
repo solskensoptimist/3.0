@@ -208,9 +208,10 @@ export const getKoncernCompaniesSuggestions = debounce(getKoncernCompaniesSugges
 /**
  * Redirect to search result view.
  *
- * @payload.q - Search value
+ * @param payload.q - Search value
  */
 export const redirectSearch = async (payload) => {
+    resetSearch();
     if (payload.q && payload.q.length) {
         return window.location.href = '/sok/' + payload.q;
     }
@@ -226,7 +227,7 @@ export const resetSearch = () => {
 /**
  * Empty selected array.
  *
- * @payload.type
+ * @param payload.type
  */
 export const resetSelected = (payload) => {
     switch (payload.type) {
@@ -246,8 +247,8 @@ export const resetSelected = (payload) => {
 /**
  * Toggle an object in selected array.
  *
- * @payload.obj - Object that will be added/removed.
- * @payload.type - Determines which selected array to change.
+ * @param payload.obj - Object that will be added/removed.
+ * @param payload.type - Determines which selected array to change.
  */
 export const toggleSelected = (payload) => {
     switch (payload.type) {

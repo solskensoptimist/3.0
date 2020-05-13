@@ -48,9 +48,9 @@ export const completeEvent = async (payload) => {
 /**
  * Get events main func.
  *
- * @payload.type - string - Can be 'all' | 'filter' | 'last' | 'target'.
+ * @param payload.type - string - Can be 'all' | 'filter' | 'last' | 'target'.
  * @param payload.calendar (optional) - object - Used when going back/forward in calendar. Defaults to current month. Specify year and month, {year: 2020, month: 4}.
- * @payload.target - string - Only required/working when type === 'target'. Can be prospect id or deal id.
+ * @param payload.target - string - Only required/working when type === 'target'. Can be prospect id or deal id.
  */
 export const getEvents = async (payload) => {
     if (payload.type !== 'last') {
@@ -84,7 +84,7 @@ export const getEvents = async (payload) => {
 /**
  * Get all events for logged in user.
  *
- * @payload.calendar (optional) - object - When going back/forward in calendar.
+ * @param payload.calendar (optional) - object - When going back/forward in calendar.
  */
 const getEventsAll = async (payload) => {
     try {
@@ -214,11 +214,11 @@ const getEventsByTarget = async (payload) => {
 /**
  * Receive deals array and return eventsByMonth object and events array.
  *
- * @payload.deals
- * @payload.calendar.month (optional) - Only affects eventsByMonth
- * @payload.calendar.year (optional) - Only affects eventsByMonth
- * @payload.date.from (optional) - Affects events and eventsByMonth
- * @payload.date.to (optional) - Affects events and eventsByMonth
+ * @param payload.deals
+ * @param payload.calendar.month (optional) - Only affects eventsByMonth
+ * @param payload.calendar.year (optional) - Only affects eventsByMonth
+ * @param payload.date.from (optional) - Affects events and eventsByMonth
+ * @param payload.date.to (optional) - Affects events and eventsByMonth
  */
 const mapEvents = (payload) => {
     // Set calendar month and year.

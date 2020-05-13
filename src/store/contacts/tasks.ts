@@ -5,8 +5,8 @@ import {contactsActionTypes} from './actions';
 /**
  * Add a target to contacts 'savedTo' array.
  *
- * @payload.ids - Array - Contact ids.
- * @payload.target - string - Target.
+ * @param payload.ids - Array - Contact ids.
+ * @param payload.target - string - Target.
  */
 export const addTargetToContacts = async (payload) => {
     try {
@@ -33,7 +33,7 @@ export const addTargetToContacts = async (payload) => {
 /**
  * Get contacts for target.
  *
- * @payload.target - string - Orgnr or deal id.
+ * @param payload.target - string - Orgnr or deal id.
  */
 export const getContacts = async (payload) => {
     try {
@@ -55,7 +55,7 @@ export const getContacts = async (payload) => {
 /**
  * Remove a contact completely.
  *
- * @payload.id - string - Contact id.
+ * @param payload.id - string - Contact id.
  */
 export const removeContact = async (payload) => {
     try {
@@ -77,8 +77,8 @@ export const removeContact = async (payload) => {
 /**
  * Remove a target from contact 'savedTo' array,
  *
- * @payload.id - string - Contact id.
- * @payload.target - string - Target.
+ * @param payload.id - string - Contact id.
+ * @param payload.target - string - Target.
  */
 export const removeTargetFromContact = async (payload) => {
     try {
@@ -100,12 +100,12 @@ export const removeTargetFromContact = async (payload) => {
 /**
  * Save a new contact
  *
- * @payload.comment - string
- * @payload.tele - array
- * @payload.email - array
- * @payload.name - string
- * @payload.tele - array
- * @payload.target - string - Orgnr or deal id.
+ * @param payload.comment - string
+ * @param payload.tele - array
+ * @param payload.email - array
+ * @param payload.name - string
+ * @param payload.tele - array
+ * @param payload.target - string - Orgnr or deal id.
  */
 export const saveNewContact = async (payload) => {
     try {

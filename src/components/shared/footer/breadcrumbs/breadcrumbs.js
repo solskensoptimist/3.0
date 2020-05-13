@@ -18,6 +18,7 @@ const routes = {
     priser: 'Priser',
     prospektera: 'Prospektera',
     resultat: 'Resultat',
+    sok: 'Sökning',
     team: 'Team',
     varTjanst: 'Vår tjänst',
 };
@@ -39,7 +40,9 @@ const Breadcrumbs = (state) => {
                         // If so, we treat is as an ID parameter (for routes such as person/id, affar/id etc.)...
                         // ...which means concat it with the previous value and remove the value itself.
                         pathnames.forEach((value, index) => {
-                            if (Number.isInteger(Number(value.charAt(0)) || value.charAt(0) === '_') || carHelper.isValidRegNumber(value)) {
+                            if (Number.isInteger(Number(value.charAt(0)) ||
+                                value.charAt(0) === '_') ||
+                                carHelper.isValidRegNumber(value)) {
                                 pathnames[index - 1] = pathnames[index - 1] + '/' + value;
                                 pathnames = pathnames.splice(0, index);
                             }

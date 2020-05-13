@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 import {tc} from 'helpers';
 import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
-import {resetSearch, getAllSuggestions, redirectSearch} from 'store/search/tasks';
+import {getAllSuggestions, redirectSearch} from 'store/search/tasks';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
 import Tooltip from 'components/shared/tooltip';
@@ -13,22 +13,22 @@ import Tooltip from 'components/shared/tooltip';
 const SearchMain = (state) => {
     const [searchValue, setSearchValue] = useState('');
     const [showSearch, setShowSearch] = useState(false);
-    const inputRef = useRef(null);
-    const searchWrapperRef = useRef(null);
+    const inputRefMain = useRef(null);
+    const searchMainWrapperRef = useRef(null);
 
     /**
      * Handle input change.
      */
     const _handleInput = async () => {
-        if (inputRef && inputRef.current && inputRef.current.value && inputRef.current.value.length) {
-            setSearchValue(inputRef.current.value);
-            await getAllSuggestions({limit: 6, q: inputRef.current.value});
+        if (inputRefMain && inputRefMain.current && inputRefMain.current.value && inputRefMain.current.value.length) {
+            setSearchValue(inputRefMain.current.value);
+            await getAllSuggestions({limit: 6, q: inputRefMain.current.value});
         }
     };
 
     const _redirectSearch = async () => {
-        if (inputRef && inputRef.current && inputRef.current.value && inputRef.current.value.length) {
-            return await redirectSearch({q: inputRef.current.value});
+        if (inputRefMain && inputRefMain.current && inputRefMain.current.value && inputRefMain.current.value.length) {
+            return await redirectSearch({q: inputRefMain.current.value});
         }
     };
 
@@ -36,7 +36,9 @@ const SearchMain = (state) => {
      * Return search result rows.
      */
     const _renderSuggestionRows = () => {
-        if (!state.search.searchSuggestions || state.search.searchSuggestions.length === 0) {
+        if (!state.search.searchSuggestions ||
+            (state.search.searchSuggestions && state.search.searchSuggestions.length === 0) ||
+            (!searchValue || (searchValue && !searchValue.length))) {
             return null;
         }
 
@@ -55,7 +57,7 @@ const SearchMain = (state) => {
             }
 
             return (
-                <div className='searchMainWrapper__searchMain__content__searchResult__item' key={num.id}>
+                <div className='searchMainWrapper__searchMain__content__searchResult__item' key={Math.random().toString()}>
                     <NavLink exact to={to} key={num.id} onClick={() => {setShowSearch(false)}}><Icon val={iconVal} /><span>{num.name}</span></NavLink>
                 </div>
             );
@@ -68,23 +70,27 @@ const SearchMain = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!(state && state.search);
+        return !!(searchValue !== undefined && state && state.search);
     };
 
     useEffect(() => {
-        inputRef && inputRef.current && inputRef.current.focus();
+        inputRefMain && inputRefMain.current && inputRefMain.current.focus();
 
         /**
          * When clicking outside searchWrapper, close it.
          */
         const _closeSearch = (e) => {
-                if (searchWrapperRef && searchWrapperRef.current) {
-                    const node = ReactDOM.findDOMNode(searchWrapperRef.current);
-                    if (node && !node.contains(e.target)) {
-                        setShowSearch(false);
+            if (searchMainWrapperRef && searchMainWrapperRef.current) {
+                const node = ReactDOM.findDOMNode(searchMainWrapperRef.current);
+                if (node && !node.contains(e.target)) {
+                    if (inputRefMain.current && inputRefMain.current) {
+                        inputRefMain.current.value = '';
                     }
+                    setSearchValue('');
+                    setShowSearch(false);
                 }
-            };
+            }
+        };
 
         /**
          * Handle key press.
@@ -93,10 +99,10 @@ const SearchMain = (state) => {
             if (!showSearch) {
                 return null;
             } else if (e.keyCode === 27) {
-                setShowSearch(false);
                 setSearchValue('');
-                return resetSearch();
-            } else if (e.keyCode === 13 && inputRef && inputRef.current && inputRef.current.value) {
+                inputRefMain.current.value = '';
+                setShowSearch(false);
+            } else if (e.keyCode === 13 && inputRefMain && inputRefMain.current && inputRefMain.current.value) {
                 return await _redirectSearch();
             }
         };
@@ -110,10 +116,10 @@ const SearchMain = (state) => {
     }, [showSearch]);
 
     return ( _stateCheck() ?
-        <div className='searchMainWrapper' ref={searchWrapperRef}>
+        <div className='searchMainWrapper' ref={searchMainWrapperRef}>
             <div className='searchMainWrapper__searchMain'>
                 <div className='searchMainWrapper__searchMain__header'>
-                    {showSearch && <input ref={inputRef} type='search' placeholder={tc.placeholderSearchAll} onChange={_handleInput} />}
+                    {showSearch && <input ref={inputRefMain} type='search' placeholder={tc.placeholderSearchAll} onChange={_handleInput} />}
                     <Tooltip horizontalDirection='left' tooltipContent={tc.search}><Icon val='search' onClick={_showSearch} /></Tooltip>
                 </div>
                 {showSearch && searchValue.length > 0 &&

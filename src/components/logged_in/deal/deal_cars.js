@@ -13,10 +13,10 @@ import WidgetHeader from 'components/shared/widget_header';
  * This component renders a list of cars, based on store.deal.deal.cars.
  */
 const DealCars = (state) => {
-    const amountIncrease = 6;
+    const amountIncrease = 4;
     const [showAddCars, setShowAddCars] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
-    const [minimize, setMinimize] = useState(false);
+    const [minimize, setMinimize] = useState(true);
 
     const _addCars = async () => {
         const cars = state.search.selectedCars.map((num) => {
@@ -46,7 +46,7 @@ const DealCars = (state) => {
             return data.map((num, i) => {
                 return (
                     <React.Fragment key={i}>
-                        {_renderCarItem(num)}
+                        {_renderCarItem(num, (i === 0))}
                     </React.Fragment>
                 );
             });
@@ -55,20 +55,20 @@ const DealCars = (state) => {
         }
     };
 
-    const _renderCarItem = (car) => {
+    const _renderCarItem = (car, firstItem) => {
         return (
             <div className='dealCarsWrapper__dealCars__content__cars__item'>
                 <div className='dealCarsWrapper__dealCars__content__cars__item__icon'>
                     <div className='dealCarsWrapper__dealCars__content__cars__item__icon__visible'>{<Icon val='car'/>}</div>
-                    <div className='dealCarsWrapper__dealCars__content__cars__item__icon__hidden'><Tooltip horizontalDirection='left' tooltipContent={tc.removeCar}><Icon val='remove' onClick={async () => {return await _removeCar(car.id)}}/></Tooltip></div>
+                    <div className='dealCarsWrapper__dealCars__content__cars__item__icon__hidden'><Tooltip horizontalDirection='right' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.removeCar}><Icon val='remove' onClick={async () => {return await _removeCar(car.id)}}/></Tooltip></div>
                 </div>
                 <NavLink exact to={'/bil/' + car.id} key={car.id}>
-                    <div className='dealCarsWrapper__dealCars__content__cars__item__regNum'>
+                    <div className='dealCarsWrapper__dealCars__content__cars__item__infoHolder'>
                         <p>{tc.regNumber}:</p>
-                        <p className='dealCarsWrapper__dealCars__content__cars__item__regNum__strong'>{car.id}</p>
+                        <p className='dealCarsWrapper__dealCars__content__cars__item__infoHolder__regNum'>{car.id}</p>
                     </div>
                     <div className='dealCarsWrapper__dealCars__content__cars__item__linkHolder'>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToCar}><Icon val='navigate'/></Tooltip>
+                        <Tooltip horizontalDirection='left' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.navigateToCar}><Icon val='navigate'/></Tooltip>
                     </div>
                 </NavLink>
             </div>
