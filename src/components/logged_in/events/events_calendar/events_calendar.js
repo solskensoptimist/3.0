@@ -107,13 +107,17 @@ const EventsCalendar = (state) => {
                 <div className='eventsCalendarWrapper__eventsCalendar__header'>
                     <WidgetHeader
                         dashboard={
-                            <>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsCalendar}><Icon active={true} val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/></Tooltip>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsFlow}><Icon val='eventsFlow' onClick={() => {state.props.setView('flow')}}/></Tooltip>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.navigateBefore}><Icon val='navigateBefore' onClick={_stepBack}/></Tooltip>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.navigateNext}><Icon val='navigateNext' onClick={_stepForward}/></Tooltip>
-                                {minimize ? <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
-                            </>
+                            minimize ?
+                                <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
+                                </> :
+                                <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.eventsCalendar}><Icon active={true} val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.eventsFlow}><Icon val='eventsFlow' onClick={() => {state.props.setView('flow')}}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.navigateBefore}><Icon val='navigateBefore' onClick={_stepBack}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.navigateNext}><Icon val='navigateNext' onClick={_stepForward}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
+                                </>
                         }
                         iconVal='events'
                         headline={tc.events}

@@ -11,6 +11,8 @@ import WidgetHeader from 'components/shared/widget_header';
 
 const Contacts = (state) => {
     const amountIncrease = 6;
+    const [dataLength, setDataLength] = useState(null); // Used to know when we have rendered all rows.
+    const [contactRows, setContactRows] = useState(null); // Holds JSX content.
     const [showAddContacts, setShowAddContacts] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
@@ -33,55 +35,6 @@ const Contacts = (state) => {
     //     return await saveNewContact(payload);
     // };
 
-    const _renderContacts = () => {
-        // Show more rows every time user click load icon.
-        // const data = state.contacts.contacts.slice(0, showAmount);
-
-        const data = [
-            {
-                name: 'Kontaktnamn Kontakt'
-            },
-            {
-                name: 'Kontaktnamn Kontakt'
-            },
-            {
-                name: 'Kontaktnamn Kontakt'
-            },
-            {
-                name: 'Kontaktnamn Kontakt'
-            }
-        ];
-
-        if (data.length) {
-            return data.map((num, i) => {
-                return (
-                    <React.Fragment key={i}>
-                        {_renderContactItem(num)}
-                    </React.Fragment>
-                );
-            });
-        } else {
-            return <p className='marginTop'>{tc.noContacts}</p>;
-        }
-    };
-
-    const _renderContactItem = (contact) => {
-        return (
-            <div className='contactsWrapper__contacts__content__contacts__item'>
-                <div className='contactsWrapper__contacts__content__pcontacts__item__icon'>
-                    <Icon val='contact'/>
-                </div>
-                {/*<div className='contactsWrapper__contacts__content__contacts__item__icon__visible'><Tooltip horizontalDirection='left' tooltipContent={tc.removeContact}><Icon val='remove' onClick={async () => {return await _removeContact(contact._id)}}/></Tooltip></div>*/}
-                    <div className='contactsWrapper__contacts__content__contacts__item__infoHolder'>
-                        <div className='contactsWrapper__contacts__content__contacts__item__infoHolder__info'>
-                            <div className='contactsWrapper__contacts__content__contacts__item__infoHolder__info__name'>{contact.name}</div>
-                            <div className='contactsWrapper__contacts__content__contacts_item__infoHolder__info__name'>{contact.name}</div>
-                        </div>
-                    </div>
-            </div>
-        );
-    };
-
     const _stateCheck = () => {
         return !!(state && state.contacts && state.contacts && state.contacts.contacts);
     };
@@ -90,6 +43,63 @@ const Contacts = (state) => {
         getContacts({target: state.props.target});
     }, [state.props.target]);
 
+    useEffect(() => {
+        const _renderContacts = () => {
+            // Hämta data i state.contacts.contacts..?
+            const data = [
+                {
+                    name: 'Kontaktnamn Kontakt'
+                },
+                {
+                    name: 'Kontaktnamn Kontakt'
+                },
+                {
+                    name: 'Kontaktnamn Kontakt'
+                },
+                {
+                    name: 'Kontaktnamn Kontakt'
+                }
+            ];
+
+            // Set data length before slice.
+            setDataLength(data.length);
+
+            // Show more rows every time user click load icon.
+            // const data = state.contacts.contacts.slice(0, showAmount);
+
+            if (data.length) {
+                setContactRows(data.map((num, i) => {
+                    return (
+                        <React.Fragment key={i}>
+                            {_renderContactItem(num)}
+                        </React.Fragment>
+                    );
+                }));
+            } else {
+                setContactRows(<p className='marginTop'>{tc.noContacts}</p>);
+            }
+        };
+
+        const _renderContactItem = (contact) => {
+            return (
+                <div className='contactsWrapper__contacts__content__contacts__item'>
+                    <div className='contactsWrapper__contacts__content__pcontacts__item__icon'>
+                        <Icon val='contact'/>
+                    </div>
+                    {/*<div className='contactsWrapper__contacts__content__contacts__item__icon__visible'><Tooltip horizontalDirection='left' tooltipContent={tc.removeContact}><Icon val='remove' onClick={async () => {return await _removeContact(contact._id)}}/></Tooltip></div>*/}
+                    <div className='contactsWrapper__contacts__content__contacts__item__infoHolder'>
+                        <div className='contactsWrapper__contacts__content__contacts__item__infoHolder__info'>
+                            <div className='contactsWrapper__contacts__content__contacts__item__infoHolder__info__name'>{contact.name}</div>
+                            <div className='contactsWrapper__contacts__content__contacts_item__infoHolder__info__name'>{contact.name}</div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        _renderContacts();
+    }, [showAmount, state.contacts.contacts]);
+
     return ( _stateCheck() ?
         <div className='contactsWrapper'>
             <div className='contactsWrapper__contacts'>
@@ -97,18 +107,16 @@ const Contacts = (state) => {
                     <WidgetHeader
                         iconVal='contact'
                         dashboard={
-                            <>
-                                {showAddContacts ?
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.hideConnectContacts}><Icon val='linkOff' onClick={() => {setShowAddContacts(false)}}/></Tooltip> :
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.connectContacts}><Icon val='link' onClick={() => {setShowAddContacts(true)}}/></Tooltip>
-                                }
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>
-                                {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
-                                {minimize ?
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> :
+                            minimize ?
+                                <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
+                                </> :
+                                <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={showAddContacts ? tc.hideConnectContacts : tc.connectContacts}><Icon active={showAddContacts} val='link' onClick={() => {setShowAddContacts(!showAddContacts)}}/></Tooltip>
+                                    {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
+                                    {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
                                     <Tooltip tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
-                                }
-                            </>
+                                </>
                         }
                         headline={tc.contacts}
                         headlineSub={tc.handleContacts}
@@ -122,7 +130,7 @@ const Contacts = (state) => {
                     </div>
                     }
                     <div className='contactsWrapper__contacts__content__contacts'>
-                        {_renderContacts()}
+                        {contactRows}
                         <p>Man ska kunna redigera varje fält i kontakten.</p>
                         <p>Och det ska finnas en lista med varje affär/prospekt där kontakten ingår, man ska kunna ta bort dessa.</p>
                         <p>En lista för varje affär som kontakten ingår i, med krysstecken, som är kopplad till removeTargetFromContact</p>

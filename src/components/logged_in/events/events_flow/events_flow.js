@@ -11,60 +11,10 @@ import {NavLink} from "react-router-dom";
 
 const EventsFlow = (state) => {
     const amountIncrease = 5;
+    const [dataLength, setDataLength] = useState(null); // Used to know when we have rendered all rows.
+    const [eventRows, setEventRows] = useState(null); // Holds JSX content.
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
-
-    const _renderEvents = () => {
-        let data = state.events;
-
-        // Show more rows every time user click load icon.
-        data = data.slice(0, showAmount);
-
-        data = data.map((num, i) => {
-            return (
-                <React.Fragment key={i}>
-                    {_renderEventItem(num)}
-                </React.Fragment>);
-        });
-
-        return (data.length) ? data : <p>{tc.noEvents}</p>;
-    };
-
-    const _renderEventItem = (event) => {
-        if (!event.action || event.action === '') {
-            return null;
-        }
-
-        // Action
-        let action;
-        if (state.props.prospectId || state.props.dealId) {
-            // Showing events for specific target, no link needed.
-            action = <div>{activityHelper.getReadableActivity(event.action)}</div>;
-        } else {
-            // Add a link to action description.
-            action = <div>{activityHelper.getReadableActivity(event.action)} {activityHelper.getPreposition(event.action).toLowerCase()} <NavLink exact to={'/affar/' + event.dealId} key='affar'>{event.name}</NavLink></div>
-        }
-
-        // Comment
-        const comment = (event.comment) ? event.comment : null;
-
-        // Date
-        const date = (event.event_date) ? event.event_date : null;
-
-        // Deal id
-        const dealId = event.dealId;
-
-        // Event id
-        const eventId = event._id;
-
-        // Icon
-        const icon = <Icon val={event.action}/>;
-
-        // User
-        const user = (event.user && event.user !== '') ? event.user : tc.unknown;
-
-        return <EventsFlowItem action={action} comment={comment} date={date} dealId={dealId} eventId={eventId} icon={icon} user={user}/>;
-    };
 
     const _stateCheck = () => {
         return !!state.events;
@@ -77,6 +27,69 @@ const EventsFlow = (state) => {
         });
     }, [state.props]);
 
+    useEffect(() => {
+        const _renderEvents = () => {
+            let data = state.events;
+
+            // Set data length before slice.
+            setDataLength(data.length);
+
+            // Show more rows every time user click load icon.
+            data = data.slice(0, showAmount);
+
+            data = data.map((num, i) => {
+                return (
+                    <React.Fragment key={i}>
+                        {_renderEventItem(num)}
+                    </React.Fragment>);
+            });
+
+            if (data.length) {
+                setEventRows(data);
+            } else {
+                setEventRows(<p>{tc.noEvents}</p>);
+            }
+        };
+
+        const _renderEventItem = (event) => {
+            if (!event.action || event.action === '') {
+                return null;
+            }
+
+            // Action
+            let action;
+            if (state.props.prospectId || state.props.dealId) {
+                // Showing events for specific target, no link needed.
+                action = <div>{activityHelper.getReadableActivity(event.action)}</div>;
+            } else {
+                // Add a link to action description.
+                action = <div>{activityHelper.getReadableActivity(event.action)} {activityHelper.getPreposition(event.action).toLowerCase()} <NavLink exact to={'/affar/' + event.dealId} key='affar'>{event.name}</NavLink></div>
+            }
+
+            // Comment
+            const comment = (event.comment) ? event.comment : null;
+
+            // Date
+            const date = (event.event_date) ? event.event_date : null;
+
+            // Deal id
+            const dealId = event.dealId;
+
+            // Event id
+            const eventId = event._id;
+
+            // Icon
+            const icon = <Icon val={event.action}/>;
+
+            // User
+            const user = (event.user && event.user !== '') ? event.user : tc.unknown;
+
+            return <EventsFlowItem action={action} comment={comment} date={date} dealId={dealId} eventId={eventId} icon={icon} user={user}/>;
+        };
+
+        _renderEvents();
+    }, [showAmount, state.events]);
+
     return ( _stateCheck() ?
         <div className={(state.props.small) ? 'eventsFlowWrapper small' : 'eventsFlowWrapper'}>
             <div className='eventsFlowWrapper__eventsFlow'>
@@ -84,13 +97,17 @@ const EventsFlow = (state) => {
                     <WidgetHeader
                         iconVal='events'
                         dashboard={
-                            <>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsCalendar}><Icon val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/></Tooltip>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.eventsFlow}><Icon active={true} val='eventsFlow' onClick={() => {state.props.setView('flow')}}/></Tooltip>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>
-                                {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
-                                {minimize ? <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
-                            </>
+                            minimize ?
+                                <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
+                                </> :
+                                <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.eventsCalendar}><Icon val='eventsCalendar' onClick={() => {state.props.setView('calendar')}}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.eventsFlow}><Icon active={true} val='eventsFlow' onClick={() => {state.props.setView('flow')}}/></Tooltip>
+                                    {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
+                                    {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
+                                </>
                         }
                         headline={tc.events}
                         headlineSub={tc.activitiesComingUp}
@@ -98,7 +115,7 @@ const EventsFlow = (state) => {
                 </div>
                 {!minimize &&
                     <div className='eventsFlowWrapper__eventsFlow__content'>
-                        {_renderEvents()}
+                        {eventRows}
                     </div>
                 }
             </div>

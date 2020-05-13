@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import {NavLink} from 'react-router-dom';
@@ -14,6 +14,8 @@ import WidgetHeader from 'components/shared/widget_header';
  */
 const DealProspects = (state) => {
     const amountIncrease = 4;
+    const [dataLength, setDataLength] = useState(null); // Used to know when we have rendered all rows.
+    const [prospectRows, setProspectRows] = useState(null); // Holds JSX content.
     const [showAddProspect, setShowAddProspect] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(true);
@@ -27,50 +29,63 @@ const DealProspects = (state) => {
         return await updateDeal({prospectsToRemove: [id.toString()]});
     };
 
-    const _renderProspects = () => {
-        let data = state.deal.prospectInfo;
-
-        // Show more rows every time user click load icon.
-        data = data.slice(0, showAmount);
-
-        if (data.length) {
-            return data.map((num, i) => {
-                return (
-                    <React.Fragment key={i}>
-                        {_renderProspectItem(num, (i === 0))}
-                    </React.Fragment>
-                );
-            });
-        } else {
-            return <p className='marginTop'>{tc.noProspects}</p>;
-        }
-    };
-
-    const _renderProspectItem = (prospect, firstItem) => {
-        return (
-            <div className='dealProspectsWrapper__dealProspects__content__prospects__item'>
-                <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon'>
-                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
-                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden'><Tooltip horizontalDirection='right' verticalDirection={firstItem ? 'bottom' : 'top'} tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async () => {return await _removeProspect(prospect.id)}}/></Tooltip></div>
-                </div>
-                <NavLink exact to={(prospect.type === 'company') ? '/foretag/' + prospect.id : '/person/' + prospect.id} key={prospect.id}>
-                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder'>
-                        <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info'>
-                            <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__name'>{prospect.name}</div>
-                            <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__address'>{prospect.zipMuncipality}</div>
-                        </div>
-                    </div>
-                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder'>
-                        <Tooltip horizontalDirection='left' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.navigateToProspect}><Icon val='navigate'/></Tooltip>
-                    </div>
-                </NavLink>
-            </div>
-        );
-    };
-
     const _stateCheck = () => {
         return !!(state && state.deal && state.deal.prospectInfo);
     };
+
+    useEffect(() => {
+        /**
+         * Render prospect rows, and set to state.
+         */
+        const _renderProspects = () => {
+            let data = state.deal.prospectInfo;
+
+            // Set data length before slice.
+            setDataLength(data.length);
+
+            // Show more rows every time user click load icon.
+            data = data.slice(0, showAmount);
+
+            if (data.length) {
+                setProspectRows(data.map((num, i) => {
+                    return (
+                        <React.Fragment key={i}>
+                            {_renderProspectItem(num, (i === 0))}
+                        </React.Fragment>
+                    );
+                }));
+            } else {
+                setProspectRows(<p className='marginTop'>{tc.noProspects}</p>);
+            }
+        };
+
+        /**
+         * Return a prospect row.
+         */
+        const _renderProspectItem = (prospect, firstItem) => {
+            return (
+                <div className='dealProspectsWrapper__dealProspects__content__prospects__item'>
+                    <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon'>
+                        <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
+                        <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden'><Tooltip horizontalDirection='right' verticalDirection={firstItem ? 'bottom' : 'top'} tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async () => {return await _removeProspect(prospect.id)}}/></Tooltip></div>
+                    </div>
+                    <NavLink exact to={(prospect.type === 'company') ? '/foretag/' + prospect.id : '/person/' + prospect.id} key={prospect.id}>
+                        <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder'>
+                            <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info'>
+                                <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__name'>{prospect.name}</div>
+                                <div className='dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__address'>{prospect.zipMuncipality}</div>
+                            </div>
+                        </div>
+                        <div className='dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder'>
+                            <Tooltip horizontalDirection='left' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.navigateToProspect}><Icon val='navigate'/></Tooltip>
+                        </div>
+                    </NavLink>
+                </div>
+            );
+        };
+
+        _renderProspects();
+    }, [showAmount, state.deal.prospectInfo]);
 
     return ( _stateCheck() ?
         <div className='dealProspectsWrapper'>
@@ -79,15 +94,16 @@ const DealProspects = (state) => {
                     <WidgetHeader
                         iconVal='person'
                         dashboard={
-                            <>
-                                <Tooltip horizontalDirection='left' tooltipContent={showAddProspect ? tc.hideConnectProspects : tc.connectProspects}><Icon active={showAddProspect} val='link' onClick={() => {setShowAddProspect(!showAddProspect)}}/></Tooltip>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>
-                                {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
-                                {minimize ?
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> :
+                            minimize ?
+                                <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
+                                </> :
+                                <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={showAddProspect ? tc.hideConnectProspects : tc.connectProspects}><Icon active={showAddProspect} val='link' onClick={() => {setShowAddProspect(!showAddProspect)}}/></Tooltip>
+                                    {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
+                                    {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
                                     <Tooltip tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
-                                }
-                            </>
+                                </>
                         }
                         headline={tc.prospects}
                         headlineSub={tc.handleProspects}
@@ -101,7 +117,7 @@ const DealProspects = (state) => {
                         </div>
                         }
                         <div className='dealProspectsWrapper__dealProspects__content__prospects'>
-                            {_renderProspects()}
+                            {prospectRows}
                         </div>
                     </div>
                 }

@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request} from 'helpers';
+// import {request} from 'helpers';
 import {contactsActionTypes} from './actions';
 
 /**
