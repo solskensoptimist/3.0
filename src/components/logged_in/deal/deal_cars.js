@@ -103,7 +103,7 @@ const DealCars = (state) => {
                                         <Tooltip horizontalDirection='left' tooltipContent={showAddCars ? tc.hideConnectCars : tc.connectCars}><Icon active={showAddCars} val='link' onClick={() => {setShowAddCars(!showAddCars)}}/></Tooltip>
                                         {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
                                         {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
-                                        <Tooltip tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
+                                        <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
                                     </>
                             }
                             headline={tc.cars}

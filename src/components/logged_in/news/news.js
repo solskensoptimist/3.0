@@ -38,7 +38,7 @@ export default () => {
             <div className='newsWrapper__news'>
                 <div className='newsWrapper__news__header'>
                     <WidgetHeader
-                        dashboard={minimize ? <Tooltip tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
+                        dashboard={minimize ? <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
                         iconVal='news'
                         headline={tc.news}
                         headlineSub={tc.newsSub}

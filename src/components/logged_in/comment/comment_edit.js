@@ -8,17 +8,17 @@ import WidgetHeader from 'components/shared/widget_header';
 
 const CommentEdit = (state) => {
     const [text, setText] = useState('');
-    const textRef = useRef(null);
+    const commentEditTextRef = useRef(null);
 
     const _onChange = () => {
-        if (textRef && textRef.current && textRef.current.value) {
-            setText(textRef.current.value);
+        if (commentEditTextRef && commentEditTextRef.current && commentEditTextRef.current.value) {
+            setText(commentEditTextRef.current.value);
         }
     };
 
     const _updateComment = async () => {
-        if (textRef && textRef.current && textRef.current.value) {
-            await updateComment({comment: textRef.current.value, id: state.props.id});
+        if (commentEditTextRef && commentEditTextRef.current && commentEditTextRef.current.value) {
+            await updateComment({comment: commentEditTextRef.current.value, id: state.props.id});
         }
         if (state.props.close && typeof state.props.close === 'function') {
             state.props.close();
@@ -48,7 +48,7 @@ const CommentEdit = (state) => {
                     />
                 </div>
                 <div className='commentWrapper__comment__content'>
-                    <textarea onChange={_onChange} ref={textRef} value={text}/>
+                    <textarea onChange={_onChange} ref={commentEditTextRef} value={text}/>
                 </div>
                 <div className='commentWrapper__comment__footer'>
                     <WidgetFooter save={_updateComment}/>

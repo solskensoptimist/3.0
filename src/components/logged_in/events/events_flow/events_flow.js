@@ -88,7 +88,7 @@ const EventsFlow = (state) => {
         };
 
         _renderEvents();
-    }, [showAmount, state.events]);
+    }, [showAmount, state.events, state.props.dealId, state.props.prospectId]);
 
     return ( _stateCheck() ?
         <div className={(state.props.small) ? 'eventsFlowWrapper small' : 'eventsFlowWrapper'}>

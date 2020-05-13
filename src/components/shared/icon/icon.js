@@ -38,6 +38,7 @@ import {
     Refresh,
     Reorder,
     Replay,
+    Save,
     Search,
     Settings,
     SettingsOverscan,
@@ -181,6 +182,8 @@ export default (props) => {
             return <Replay className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'remove':
             return <Delete className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'save':
+            return <Save className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'search':
             return <Search className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'settings':

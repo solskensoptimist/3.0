@@ -6,17 +6,17 @@ import WidgetHeader from 'components/shared/widget_header';
 
 export default (props) => {
     const [text, setText] = useState('');
-    const textRef = useRef(null);
+    const commentNewTextRef = useRef(null);
 
     const _onChange = () => {
-        if (textRef && textRef.current && textRef.current.value) {
-            setText(textRef.current.value);
+        if (commentNewTextRef && commentNewTextRef.current && commentNewTextRef.current.value) {
+            setText(commentNewTextRef.current.value);
         }
     };
 
     const _saveComment = async () => {
-        if (textRef && textRef.current && textRef.current.value) {
-            await saveComment({comment: textRef.current.value, target: props.target});
+        if (commentNewTextRef && commentNewTextRef.current && commentNewTextRef.current.value) {
+            await saveComment({comment: commentNewTextRef.current.value, target: props.target});
         }
         if (props.close && typeof props.close === 'function') {
             props.close();
@@ -33,7 +33,7 @@ export default (props) => {
                     />
                 </div>
                 <div className='commentWrapper__comment__content'>
-                    <textarea onChange={_onChange} ref={textRef} value={text}/>
+                    <textarea onChange={_onChange} ref={commentNewTextRef} value={text}/>
                 </div>
                 <div className='commentWrapper__comment__footer'>
                     <WidgetFooter save={_saveComment}/>
