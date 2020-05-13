@@ -15,6 +15,8 @@ export const getDeal = async (payload) => {
             return console.error('Missing params in getDeal');
         }
 
+        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: true});
+
         // Get deal info.
         const deal = await request({
             method: 'get',
@@ -36,6 +38,7 @@ export const getDeal = async (payload) => {
         // Get prospects info.
         const prospectInfo = await getProspectInfo({ids: deal.prospects});
 
+        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
         store.dispatch({ type: dealActionTypes.SET_DEAL, payload: deal});
         store.dispatch({ type: dealActionTypes.SET_LIST_NAME, payload: listName});
         return store.dispatch({ type: dealActionTypes.SET_PROSPECT_INFO, payload: prospectInfo});

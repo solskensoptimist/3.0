@@ -87,10 +87,7 @@ const DealCars = (state) => {
                             iconVal='person'
                             dashboard={
                                 <>
-                                    {showAddCars ?
-                                        <Tooltip horizontalDirection='left' tooltipContent={tc.hideConnectCars}><Icon val='linkOff' onClick={() => {setShowAddCars(false)}}/></Tooltip> :
-                                        <Tooltip horizontalDirection='left' tooltipContent={tc.connectCars}><Icon val='link' onClick={() => {setShowAddCars(true)}}/></Tooltip>
-                                    }
+                                    <Tooltip horizontalDirection='left' tooltipContent={showAddCars ? tc.hideConnectCars : tc.connectCars}><Icon active={showAddCars} val='link' onClick={() => {setShowAddCars(!showAddCars)}}/></Tooltip>
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>
                                     {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
                                     {minimize ?

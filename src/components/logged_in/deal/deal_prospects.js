@@ -80,10 +80,7 @@ const DealProspects = (state) => {
                         iconVal='person'
                         dashboard={
                             <>
-                                {showAddProspect ?
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.hideConnectProspects}><Icon val='linkOff' onClick={() => {setShowAddProspect(false)}}/></Tooltip> :
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.connectProspects}><Icon val='link' onClick={() => {setShowAddProspect(true)}}/></Tooltip>
-                                }
+                                <Tooltip horizontalDirection='left' tooltipContent={showAddProspect ? tc.hideConnectProspects : tc.connectProspects}><Icon active={showAddProspect} val='link' onClick={() => {setShowAddProspect(!showAddProspect)}}/></Tooltip>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>
                                 {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
                                 {minimize ?

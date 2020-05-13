@@ -70,8 +70,9 @@
       margin-top: $paddingBig
       &__prospects
         display: flex
-        flex-wrap: wrap
-        overflow-x: hidden
+        flex-direction: column
+        flex-basis: calc(50% - (#{$paddingBig} / 2))
+        margin-left: ($paddingBig / 2)
         &__item
           border-bottom: 2px solid $grey-100
           display: flex
@@ -95,7 +96,6 @@
             align-items: center
             justify-content: center
             min-height: 32px
-            flex-basis: calc (18px + ($paddingMedium * 1.5))
             &__visible
               svg
                 fill: $grey-400
@@ -142,7 +142,7 @@
         display: flex
         flex-direction: column
         align-items: flex-start
-        margin: 0 $paddingBig 0 0
+        margin-right: ($paddingBig / 2)
         h4
           font-size: 11px
           line-height: 14px
@@ -158,8 +158,9 @@
       margin-top: $paddingBig
       &__cars
         display: flex
-        flex-wrap: wrap
-        overflow-x: hidden
+        flex-direction: column
+        margin-left: ($paddingBig / 2)
+        flex-basis: calc(50% - (#{$paddingBig} / 2))
         &__item
           border-bottom: 2px solid $grey-100
           display: flex
@@ -229,7 +230,7 @@
         display: flex
         flex-direction: column
         align-items: flex-start
-        margin: 0 $paddingBig 0 0
+        margin-right: ($paddingBig / 2)
         h4
           font-size: 11px
           line-height: 14px
