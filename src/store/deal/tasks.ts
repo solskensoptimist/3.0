@@ -288,13 +288,15 @@ export const updateDeal = async (payload) => {
         }
         updatedDeal.prospects = _.uniq(updatedDeal.prospects);
 
-        updatedDeal.comments = payload.comments ? payload.comments : currentDeal.comments;
-        updatedDeal.description = payload.description ? payload.description : currentDeal.description;
-        updatedDeal.files = updatedDeal.files ? updatedDeal.files : currentDeal.meta.files;
+        updatedDeal.description = (payload.hasOwnProperty('description')) ? payload.description : currentDeal.description;
+        updatedDeal.files = (payload.hasOwnProperty('files')) ? payload.files : currentDeal.files;
         updatedDeal.id = currentDeal._id;
-        updatedDeal.maturity = payload.maturity ? payload.maturity : currentDeal.maturity;
-        updatedDeal.name = payload.name || currentDeal.name || null;
-        updatedDeal.potential = payload.potential ? payload.potential : currentDeal.potential;
+        updatedDeal.maturity = (payload.hasOwnProperty('maturity')) ? Number(payload.maturity) : currentDeal.maturity;
+        updatedDeal.name = (payload.hasOwnProperty('name')) ? payload.name : currentDeal.name;
+        updatedDeal.potential = (payload.hasOwnProperty('potential')) ? payload.potential : currentDeal.otential;
+        updatedDeal.user_id = (payload.hasOwnProperty('user_id')) ? Number(payload.user_id) : currentDeal.user_id;
+
+        console.log('updatedDeal', updatedDeal);
 
         // Lets resolve the first set of promises.
         const data = await Promise.all(precedingPromises);
@@ -304,7 +306,7 @@ export const updateDeal = async (payload) => {
             return console.error('Could not update deal, preceding promises');
         }
 
-        // Actual update of deal.
+        // Then actual update of deal.
         const deal = await request({
             data: {
                 id: currentDeal._id,

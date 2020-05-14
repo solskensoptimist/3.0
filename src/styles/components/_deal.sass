@@ -2,13 +2,22 @@
   padding: $paddingGrid
   &__deal
     &__header
-      padding-bottom: $paddingMedium
-      border-bottom: 1px solid $grey-300
       margin-bottom: $paddingGrid
       display: flex
       flex-direction: column
-      &__top
+      font-size: 16px
+      font-weight: 400
+      input
+        background: transparent
+        border: 0
         width: 100%
+        padding: 0
+        font-size: 16px
+        color: $colorTextDark
+        &:first-line
+          background: $colorHighLight
+      &__top
+        flex-grow: 1
         margin-bottom: ($paddingBig * 1.5)
         h3
           @extend .headlineVeryLarge
@@ -16,31 +25,26 @@
           font-size: 12px
           color: $colorTextLight-1
           margin-bottom: $paddingSmall
-        input
-          background: transparent
-          border: 0
-          width: 100%
-          padding: 0
-          &:first-line
-            background: $colorSecondary-200
         input.name
           @extend .headlineVeryLarge
           @extend h3
-      &__bottom
-        width: 100%
+      &__middle
+        flex-grow: 1
         display: flex
         justify-content: space-between
+        padding-bottom: $paddingMedium
+        border-bottom: 1px solid $grey-300
+        margin-bottom: $paddingGrid
+        h4
+          font-size: 12px
+          color: $colorTextLight-1
+          margin-bottom: 0
         &__left
           display: flex
-          font-size: 16px
-          font-weight: 400
           &__item
             margin-left: $paddingGreat
             &:first-of-type
               margin-left: 0
-            h4
-              font-size: 12px
-              color: $colorTextLight-1
         &__right
           &__item
             display: flex
@@ -57,6 +61,29 @@
               background: $colorLink !important
               &:hover
                 background: $colorLinkHover !important
+      &__bottom
+        padding-bottom: $paddingMedium
+        border-bottom: 1px solid $grey-300
+        flex-grow: 1
+        display: flex
+        justify-content: space-between
+        h4
+          font-size: 12px
+          color: $colorTextLight-1
+          margin-bottom: 0
+        &__left
+          flex-grow: 1
+          display: flex
+          flex-wrap: wrap
+          &__item
+            margin-left: $paddingGreat
+            &:first-of-type
+              margin-left: 0
+        &__right
+          flex-basis: calc(30% - #{$paddingGreat})
+          min-width: 0
+          margin-left: $paddingGreat
+          &__item
     &__content
       &__item
         margin-bottom: $paddingGrid

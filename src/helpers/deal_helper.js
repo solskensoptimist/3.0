@@ -1,6 +1,20 @@
 import {tc} from 'helpers';
 
 export const dealHelper = {
+    getMaturityList: () => {
+        return [
+            {id: 0, name: '-'},
+            {id: 1, name: tc.iceCold},
+            {id: 2, name: tc.cold},
+            {id: 3, name: tc.lukewarm},
+            {id: 4, name: tc.hot},
+            {id: 5, name: tc.veryHot},
+        ];
+    },
+    getMaturityName: (id) => {
+        const arr = dealHelper.getMaturityList().filter((num) => (id === num.id));
+        return arr[0].name;
+    },
     getReadablePhase: (phase) => {
         switch (phase) {
             case 'idle':
