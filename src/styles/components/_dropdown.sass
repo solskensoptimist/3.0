@@ -1,0 +1,58 @@
+.dropdownWrapper
+  position: relative
+  width: 100%
+  &__dropdown
+    &__downArrow
+      margin-left: $paddingMedium
+      width: 0
+      height: 0
+      border-left: 5px solid transparent
+      border-right: 5px solid transparent
+      border-top: 5px solid $colorTextDark
+    &__upArrow
+      @extend .dropdownWrapper__dropdown__downArrow
+      border-top: 0
+      border-bottom: 5px solid $colorTextDark
+    &__header
+      padding: $paddingSmall $paddingMedium
+      color: $colorTextDark
+      border: 1px solid $grey-300
+      cursor: pointer
+      background: white
+      display: flex
+      align-items: center
+      justify-content: space-between
+    &__headerHighlight
+      @extend .dropdownWrapper__dropdown__header
+      background: $colorHighLight
+      border: 0
+    &__content
+      @extend .shadowRegular
+      z-index: 20
+      min-width: 100%
+      background: white
+      position: absolute
+      top: 100%
+
+.dropdownItemWrapper
+  padding: $paddingSmall $paddingMedium
+  border-bottom: 1px solid $grey-200
+  &:last-of-type
+    border-bottom: 0
+  &__dropdownItem
+    color: $colorTextMain
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: space-between
+    font-size: 14px
+    svg
+      fill: $grey-500
+      margin-left: $paddingMedium
+      width: 14px
+      height: 14px
+  &__dropdownItemActive
+    @extend .dropdownItemWrapper__dropdownItem
+    color: $colorInformatory
+    svg
+      fill: $colorInformatory

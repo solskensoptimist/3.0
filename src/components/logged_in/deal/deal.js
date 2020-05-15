@@ -31,6 +31,7 @@ const Deal = (state) => {
     const _onInputChange = () => {
         setDealObj({
             description: dealDescriptionInputRef.current.value,
+            maturity: dealObj.maturity,
             name: dealNameInputRef.current.value,
             potential: dealPotentialInputRef.current.value,
         });
@@ -42,7 +43,7 @@ const Deal = (state) => {
 
     const _renderMaturityList = () => {
         return (
-            <Dropdown displayValue={dealHelper.getMaturityName(dealObj.maturity)}>
+            <Dropdown displayValue={dealHelper.getMaturityName(dealObj.maturity)} highlight={true}>
                 {dealHelper.getMaturityList().map((num) => {
                     return(
                         <DropdownItem
