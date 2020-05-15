@@ -31,24 +31,24 @@ const EventsFlow = (state) => {
         const _renderEvents = () => {
             let data = state.events;
 
+            // if no data, minimize widget.
+            if (data.length === 0) {
+                setEventRows(<p>{tc.noEvents}</p>);
+                return setMinimize(true);
+            }
+
             // Set data length before slice.
             setDataLength(data.length);
 
             // Show more rows every time user click load icon.
             data = data.slice(0, showAmount);
 
-            data = data.map((num, i) => {
+            setEventRows(data.map((num, i) => {
                 return (
                     <React.Fragment key={i}>
                         {_renderEventItem(num)}
                     </React.Fragment>);
-            });
-
-            if (data.length) {
-                setEventRows(data);
-            } else {
-                setEventRows(<p>{tc.noEvents}</p>);
-            }
+            }));
         };
 
         const _renderEventItem = (event) => {

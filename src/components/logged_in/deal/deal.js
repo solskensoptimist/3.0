@@ -9,7 +9,7 @@ import Comment from 'components/logged_in/comment';
 import Contacts from 'components/logged_in/contacts';
 import DealCars from './deal_cars';
 import DealProspects from './deal_prospects';
-import {Dropdown, DropdownItem} from 'components/shared/dropdown';
+import {Dropdown, DropdownItem, DropdownItemDelimiter} from 'components/shared/dropdown';
 import Events from 'components/logged_in/events';
 import Loading from 'components/shared/loading';
 import Icon from 'components/shared/icon';
@@ -30,8 +30,8 @@ const Deal = (state) => {
 
     const _onInputChange = () => {
         setDealObj({
+            ...dealObj,
             description: dealDescriptionInputRef.current.value,
-            maturity: dealObj.maturity,
             name: dealNameInputRef.current.value,
             potential: dealPotentialInputRef.current.value,
         });
@@ -39,6 +39,95 @@ const Deal = (state) => {
 
     const _openInAgile = () => {
         console.log('Öppna i Bearbeta');
+    };
+
+    const _removeFile = (file) => {
+        console.log('Remove file', file);
+    };
+
+    const _renderFiles = () => {
+        return dealObj.files.map((file) => {
+            return (
+                <div className='dealWrapper__deal__header__bottom__right__item__fileWrapper' key={file.original_name}>
+                    <a href={`https://s3.eu-central-1.amazonaws.com/bilp-test/${file.s3_filename}`} target='_blank' rel='noopener noreferrer'>{file.original_name}</a>
+                    <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon onClick={() => {_removeFile(file)}} val='remove'/></Tooltip>
+                </div>
+            );
+        });
+    };
+
+    const _renderColleagueList = () => {
+        let colleagues = [];
+
+        if (state && state.user && state.user.connections && state.user.connections.length) {
+            // Render colleagues with dealer name delimiter, first the users own dealer...
+            colleagues = [<DropdownItemDelimiter key={state.user.info.dealerName} label={state.user.info.dealerName}/>];
+            colleagues = colleagues.concat(state.user.colleagues.map((user, i) => {
+                return(
+                    <DropdownItem
+                        active={dealObj.user_id === user.id}
+                        key={user.id}
+                        label={user.name}
+                        onClick={() => {
+                            setDealObj({
+                                ...dealObj,
+                                user_id: user.id,
+                                userName: user.name
+                            });
+                        }}
+                    />
+                );
+            }));
+
+            // ...then the connections.
+            colleagues = colleagues.concat(state.user.connections.map((dealer, i) => {
+                const items = [];
+                items.push(
+                    <DropdownItemDelimiter key={dealer.name} label={dealer.name}/>
+                );
+                dealer.users.forEach((user) => {
+                    items.push(
+                        <DropdownItem
+                            active={dealObj.user_id === user.id}
+                            key={user.id}
+                            label={user.name}
+                            onClick={() => {
+                                setDealObj({
+                                    ...dealObj,
+                                    user_id: user.id,
+                                    userName: user.name
+                                });
+                            }}
+                        />
+                    );
+                });
+                return items;
+            }));
+        } else {
+            colleagues = state.user.colleagues.map((user, i) => {
+                // Render colleagues without delimiter.
+                return (
+                    <DropdownItem
+                        active={dealObj.user_id === user.id}
+                        key={user.id}
+                        label={user.name}
+                        onClick={() => {
+                            setDealObj({
+                                ...dealObj,
+                                user_id: user.id,
+                                userName: user.name
+                            });
+                        }}
+                    />
+                );
+            })
+        }
+
+        return (
+            <Dropdown displayValue={dealObj.userName} highlight={true}>
+                {colleagues}
+            </Dropdown>
+        );
     };
 
     const _renderMaturityList = () => {
@@ -52,10 +141,8 @@ const Deal = (state) => {
                             label={num.name}
                             onClick={() => {
                                 setDealObj({
-                                    description: dealObj.description,
+                                    ...dealObj,
                                     maturity: num.id,
-                                    name: dealObj.name,
-                                    potential: dealObj.potential,
                                 });
                             }}/>
                     );
@@ -78,14 +165,19 @@ const Deal = (state) => {
     }, [id]);
 
     useEffect(() => {
-        // Set properties that we should be able to edit. Make sure they correlate to params in updateDeal.
-        setDealObj({
-            description: state.deal.deal.description,
-            maturity: state.deal.deal.maturity,
-            name: state.deal.deal.name,
-            potential: state.deal.deal.potential,
-        });
-    }, [state.deal.deal]);
+        if (state.deal && state.deal.deal) {
+            // Set properties that we should be able to edit. Make sure they correlate to params in updateDeal.
+            setDealObj({
+                description: state.deal.deal.description,
+                files: state.deal.deal.meta.files,
+                maturity: state.deal.deal.maturity,
+                name: state.deal.deal.name,
+                potential: state.deal.deal.potential,
+                user_id: state.deal.deal.user_id,
+                userName: state.deal.deal.userName, // This is for frontend display, when changing user we only care send user id.
+            });
+        }
+    }, [state.deal]);
 
     return ( _stateCheck() ?
         <div className='dealWrapper'>
@@ -130,11 +222,13 @@ const Deal = (state) => {
                     <div className='dealWrapper__deal__header__bottom'>
                         <div className='dealWrapper__deal__header__bottom__left'>
                             <div className='dealWrapper__deal__header__bottom_left__item'>
-                                <div className='dealWrapper__deal__header__bottom_left__item'>
                                     <h4>{tc.responsible}</h4>
-                                    <p>{state.deal.deal.userName}</p>
-                                    <p>Dropdown med kollegor, här behöver vi hämta kollegor i store först när user sätts.t</p>
-                                </div>
+                                    {editDeal ?
+                                        _renderColleagueList() :
+                                        <p>{dealObj.userName}</p>
+                                    }
+                            </div>
+                            <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.descriptionDeal}</h4>
                                 {editDeal ?
                                     <input className='name' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={dealObj.description}/> :
@@ -159,7 +253,7 @@ const Deal = (state) => {
                         <div className='dealWrapper__deal__header__bottom__right'>
                             <h4>{tc.files}</h4>
                             <div className='dealWrapper__deal__header__bottom__right__item'>
-                                Fil-item
+                                {_renderFiles()}
                             </div>
                         </div>
                     </div>
@@ -190,6 +284,7 @@ const Deal = (state) => {
 const MapStateToProps = (state) => {
     return {
         deal: state.deal,
+        user: state.user,
     };
 };
 

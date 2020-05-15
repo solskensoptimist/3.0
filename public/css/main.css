@@ -81,16 +81,16 @@
     background: #f5f5f5;
     border-radius: 6px; }
 
-.scrollbarRegular, .popupWrapper__popup {
+.scrollbarRegular, .dropdownWrapper__dropdown__content, .popupWrapper__popup {
   overflow-y: auto;
   padding-right: 4px;
   scrollbar-width: thin;
   scrollbar-color: #bdbdbd transparent; }
-  .scrollbarRegular::-webkit-scrollbar, .popupWrapper__popup::-webkit-scrollbar {
+  .scrollbarRegular::-webkit-scrollbar, .dropdownWrapper__dropdown__content::-webkit-scrollbar, .popupWrapper__popup::-webkit-scrollbar {
     width: 7px; }
-  .scrollbarRegular::-webkit-scrollbar-track, .popupWrapper__popup::-webkit-scrollbar-track {
+  .scrollbarRegular::-webkit-scrollbar-track, .dropdownWrapper__dropdown__content::-webkit-scrollbar-track, .popupWrapper__popup::-webkit-scrollbar-track {
     background: transparent; }
-  .scrollbarRegular::-webkit-scrollbar-thumb, .popupWrapper__popup::-webkit-scrollbar-thumb {
+  .scrollbarRegular::-webkit-scrollbar-thumb, .dropdownWrapper__dropdown__content::-webkit-scrollbar-thumb, .popupWrapper__popup::-webkit-scrollbar-thumb {
     background: #bdbdbd;
     border-radius: 6px; }
 
@@ -227,8 +227,8 @@ a {
       .activitiesWrapper__activities__content__itemWrapper__item:hover .activitiesWrapper__activities__content__itemWrapper__item__edit {
         visibility: visible; }
       .activitiesWrapper__activities__content__itemWrapper__item svg {
-        width: 14px;
-        height: 14px;
+        width: 18px;
+        height: 18px;
         fill: #ffc107; }
       .activitiesWrapper__activities__content__itemWrapper__item strong {
         font-weight: 600; }
@@ -269,6 +269,8 @@ a {
           .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
             margin-left: 0; }
           .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg {
+            width: 14px;
+            height: 14px;
             fill: #00B4CC;
             cursor: pointer;
             margin-left: 12px; }
@@ -366,14 +368,12 @@ a {
     font-size: 16px;
     font-weight: 400; }
     .dealWrapper__deal__header input {
-      background: transparent;
+      background: #ffe082;
       border: 0;
       width: 100%;
-      padding: 0;
       font-size: 16px;
-      color: #212121; }
-      .dealWrapper__deal__header input:first-line {
-        background: #ffe082; }
+      color: #212121;
+      padding: 8px; }
     .dealWrapper__deal__header__top {
       flex-grow: 1;
       margin-bottom: 33px; }
@@ -381,6 +381,10 @@ a {
         font-size: 12px;
         color: #bdbdbd;
         margin-bottom: 8px; }
+      .dealWrapper__deal__header__top input.name {
+        background: transparent; }
+        .dealWrapper__deal__header__top input.name:first-line {
+          background: #ffe082; }
     .dealWrapper__deal__header__middle {
       flex-grow: 1;
       display: flex;
@@ -430,9 +434,24 @@ a {
           .dealWrapper__deal__header__bottom__left__item:first-of-type {
             margin-left: 0; }
       .dealWrapper__deal__header__bottom__right {
-        flex-basis: calc(30% - 44px);
+        flex-basis: calc(25% - 44px);
         min-width: 0;
         margin-left: 44px; }
+        .dealWrapper__deal__header__bottom__right__item__fileWrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-grow: 1; }
+          .dealWrapper__deal__header__bottom__right__item__fileWrapper:hover svg {
+            visibility: visible; }
+          .dealWrapper__deal__header__bottom__right__item__fileWrapper svg {
+            visibility: hidden;
+            width: 18px;
+            height: 18px;
+            fill: #00B4CC;
+            cursor: pointer; }
+            .dealWrapper__deal__header__bottom__right__item__fileWrapper svg:hover svg {
+              fill: #616161; }
   .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer {
     margin-bottom: 3%; }
     .dealWrapper__deal__content__item:last-of-type, .dealWrapper__deal__content__itemsContainer:last-of-type {
@@ -633,6 +652,9 @@ a {
   .dropdownWrapper__dropdown__content {
     z-index: 20;
     min-width: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
     background: white;
     position: absolute;
     top: 100%; }
@@ -648,7 +670,14 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 14px; }
+    white-space: nowrap;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden; }
+    .dropdownItemWrapper__dropdownItem:hover, .dropdownItemWrapper__dropdownItemActive:hover {
+      color: #616161; }
+      .dropdownItemWrapper__dropdownItem:hover svg, .dropdownItemWrapper__dropdownItemActive:hover svg {
+        fill: #616161; }
     .dropdownItemWrapper__dropdownItem svg, .dropdownItemWrapper__dropdownItemActive svg {
       fill: #9e9e9e;
       margin-left: 12px;
@@ -658,6 +687,19 @@ a {
     color: #ffc107; }
     .dropdownItemWrapper__dropdownItemActive svg {
       fill: #ffc107; }
+
+.dropdownItemDelimiterWrapper {
+  margin-top: 22px; }
+  .dropdownItemDelimiterWrapper:first-child {
+    margin-top: 0; }
+  .dropdownItemDelimiterWrapper__dropdownItemDelimiter {
+    color: #9e9e9e;
+    padding: 8px 12px;
+    border-bottom: 1px solid #eeeeee;
+    white-space: nowrap;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden; }
 
 .eventsCalendarWrapper__eventsCalendar__content {
   display: flex;
@@ -760,8 +802,8 @@ a {
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item:hover .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
         visibility: visible; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item svg {
-        width: 14px;
-        height: 14px;
+        width: 18px;
+        height: 18px;
         fill: #ffc107; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item strong {
         font-weight: 600; }
@@ -786,7 +828,9 @@ a {
           font-weight: 600;
           line-height: 20px; }
           .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate svg {
-            margin-right: 8px; }
+            margin-right: 8px;
+            width: 14px;
+            height: 14px; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action {
         margin-left: 22px;
         flex-basis: 26%; }
@@ -812,7 +856,9 @@ a {
           .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg {
             fill: #00B4CC;
             cursor: pointer;
-            margin-left: 12px; }
+            margin-left: 12px;
+            width: 14px;
+            height: 14px; }
             .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
               fill: #616161; }
             .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {

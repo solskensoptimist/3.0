@@ -61,23 +61,25 @@ const Contacts = (state) => {
                 }
             ];
 
+            // if no data, minimize widget.
+            if (data.length === 0) {
+                setContactRows(<p className='marginTop'>{tc.noContacts}</p>);
+                return setMinimize(true);
+            }
+
             // Set data length before slice.
             setDataLength(data.length);
 
             // Show more rows every time user click load icon.
             // const data = state.contacts.contacts.slice(0, showAmount);
 
-            if (data.length) {
-                setContactRows(data.map((num, i) => {
-                    return (
-                        <React.Fragment key={i}>
-                            {_renderContactItem(num)}
-                        </React.Fragment>
-                    );
-                }));
-            } else {
-                setContactRows(<p className='marginTop'>{tc.noContacts}</p>);
-            }
+            setContactRows(data.map((num, i) => {
+                return (
+                    <React.Fragment key={i}>
+                        {_renderContactItem(num)}
+                    </React.Fragment>
+                );
+            }));
         };
 
         const _renderContactItem = (contact) => {

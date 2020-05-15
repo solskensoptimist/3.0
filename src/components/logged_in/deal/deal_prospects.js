@@ -40,23 +40,25 @@ const DealProspects = (state) => {
         const _renderProspects = () => {
             let data = state.deal.prospectInfo;
 
+            // if no data, minimize widget.
+            if (data.length === 0) {
+                setProspectRows(<p className='marginTop'>{tc.noProspects}</p>);
+                return setMinimize(true);
+            }
+
             // Set data length before slice.
             setDataLength(data.length);
 
             // Show more rows every time user click load icon.
             data = data.slice(0, showAmount);
 
-            if (data.length) {
-                setProspectRows(data.map((num, i) => {
-                    return (
-                        <React.Fragment key={i}>
-                            {_renderProspectItem(num, (i === 0))}
-                        </React.Fragment>
-                    );
-                }));
-            } else {
-                setProspectRows(<p className='marginTop'>{tc.noProspects}</p>);
-            }
+            setProspectRows(data.map((num, i) => {
+                return (
+                    <React.Fragment key={i}>
+                        {_renderProspectItem(num, (i === 0))}
+                    </React.Fragment>
+                );
+            }));
         };
 
         /**

@@ -4,6 +4,46 @@ import {rootActionTypes} from "store/actions";
 import {userActionTypes} from "store/user/actions";
 
 /**
+ * Get user colleagues on same dealer.
+ */
+const getUserColleagues = async () => {
+    try {
+        const colleagues = await request({
+            method: 'get',
+            url: '/user/getUsersByDealerId',
+        });
+
+        if (colleagues instanceof Error) {
+            return console.error('Error in getUserColleagues:\n' + colleagues);
+        }
+
+        return store.dispatch({type: userActionTypes.SET_USER_COLLEAGUES, payload: colleagues});
+    } catch (err) {
+        return console.error('Error in getUserColleagues:\n' + err);
+    }
+};
+
+/**
+ * Get user connections, I.E. connected dealers and their users.
+ */
+const getUserConnections = async () => {
+    try {
+        const connections = await request({
+            method: 'get',
+            url: '/user/hierarchy',
+        });
+
+        if (connections instanceof Error) {
+            return console.error('Error in getUserColleagues:\n' + connections);
+        }
+
+        return store.dispatch({type: userActionTypes.SET_USER_CONNECTIONS, payload: connections});
+    } catch (err) {
+        return console.error('Error in getUserColleagues:\n' + err);
+    }
+};
+
+/**
  * Send login request, set user data to store state.
  * @param credentials.email (string)
  * @param credentials.password (string)
@@ -24,8 +64,12 @@ export const userLogin = async (credentials) => {
             console.error('Error in userLogin:\n' + user);
         }
 
-        // Fix: IMPLEMENT ASYNC REDUX ACTION, REMOVE SETTIMEOUT
-        store.dispatch({type: userActionTypes.USER_LOGIN, payload: {info: user}});
+        // Fix: Implement async redux actions, remove setTimeout below.
+        store.dispatch({type: userActionTypes.SET_USER_INFO, payload: user});
+
+        await getUserColleagues();
+        await getUserConnections();
+
         return setTimeout(() => {
             window.location.href = '/';
         }, 200);

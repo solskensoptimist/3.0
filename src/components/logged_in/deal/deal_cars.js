@@ -46,23 +46,25 @@ const DealCars = (state) => {
         const _renderCars = () => {
             let data = state.deal.deal.cars;
 
+            // if no data, minimize widget.
+            if (data.length === 0) {
+                setCarRows(<p className='marginTop'>{tc.noCars}</p>);
+                return setMinimize(true);
+            }
+
             // Set data length before slice.
             setDataLength(data.length);
 
             // Show more rows every time user click load icon.
             data = data.slice(0, showAmount);
 
-            if (data.length) {
-                setCarRows(data.map((num, i) => {
-                    return (
-                        <React.Fragment key={i}>
-                            {_renderCarItem(num, (i === 0))}
-                        </React.Fragment>
-                    );
-                }));
-            } else {
-                setCarRows(<p className='marginTop'>{tc.noCars}</p>);
-            }
+            setCarRows(data.map((num, i) => {
+                return (
+                    <React.Fragment key={i}>
+                        {_renderCarItem(num, (i === 0))}
+                    </React.Fragment>
+                );
+            }));
         };
 
         const _renderCarItem = (car, firstItem) => {

@@ -8,14 +8,12 @@
       font-size: 16px
       font-weight: 400
       input
-        background: transparent
+        background: $colorHighLight
         border: 0
         width: 100%
-        padding: 0
         font-size: 16px
         color: $colorTextDark
-        &:first-line
-          background: $colorHighLight
+        padding: $paddingSmall
       &__top
         flex-grow: 1
         margin-bottom: ($paddingBig * 1.5)
@@ -28,6 +26,9 @@
         input.name
           @extend .headlineVeryLarge
           @extend h3
+          background: transparent
+          &:first-line
+            background: $colorHighLight
       &__middle
         flex-grow: 1
         display: flex
@@ -80,10 +81,27 @@
             &:first-of-type
               margin-left: 0
         &__right
-          flex-basis: calc(30% - #{$paddingGreat})
+          flex-basis: calc(25% - #{$paddingGreat})
           min-width: 0
           margin-left: $paddingGreat
           &__item
+            &__fileWrapper
+              display: flex
+              align-items: center
+              justify-content: space-between
+              flex-grow: 1
+              &:hover
+                svg
+                  visibility: visible
+              svg
+                visibility: hidden
+                width: 18px
+                height: 18px
+                fill: $colorLink
+                cursor: pointer
+                &:hover
+                  svg
+                    fill: $colorLinkHover
     &__content
       &__item
         margin-bottom: $paddingGrid

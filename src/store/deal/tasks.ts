@@ -289,7 +289,7 @@ export const updateDeal = async (payload) => {
         updatedDeal.prospects = _.uniq(updatedDeal.prospects);
 
         updatedDeal.description = (payload.hasOwnProperty('description')) ? payload.description : currentDeal.description;
-        updatedDeal.files = (payload.hasOwnProperty('files')) ? payload.files : currentDeal.files;
+        updatedDeal.files = updatedDeal.files ? updatedDeal.files : currentDeal.meta.files;
         updatedDeal.id = currentDeal._id;
         updatedDeal.maturity = (payload.hasOwnProperty('maturity')) ? Number(payload.maturity) : currentDeal.maturity;
         updatedDeal.name = (payload.hasOwnProperty('name')) ? payload.name : currentDeal.name;

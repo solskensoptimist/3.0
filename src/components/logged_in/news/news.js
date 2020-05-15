@@ -8,6 +8,7 @@ export default () => {
     const [minimize, setMinimize] = useState(false);
 
     // Temporary, just to have some components for now...
+    // Rebuild this component similar to Activities or Contacts, I.E. 'load' icon etc.
     const _renderItem = () => {
         return (
             <div className='newsWrapper__news__content__item'>

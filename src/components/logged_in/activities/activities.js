@@ -61,23 +61,25 @@ const Activities = (state) => {
                 data = data.filter((num) => (num.action));
             }
 
+            // if no data, minimize widget.
+            if (data.length === 0) {
+                setActivityRows(<p>{tc.noActivity}</p>);
+                return setMinimize(true);
+            }
+
             // Set data length before slice.
             setDataLength(data.length);
 
             // Show more rows every time user click load icon.
             data = data.slice(0, showAmount);
 
-            if (data.length) {
-                setActivityRows(data.map((num, i) => {
-                    return (
-                        <React.Fragment key={i}>
-                            {_renderActivityItem(num)}
-                        </React.Fragment>
-                    );
-                }));
-            } else {
-                setActivityRows(<p>{tc.noActivity}</p>);
-            }
+            setActivityRows(data.map((num, i) => {
+                return (
+                    <React.Fragment key={i}>
+                        {_renderActivityItem(num)}
+                    </React.Fragment>
+                );
+            }));
         };
 
         /**

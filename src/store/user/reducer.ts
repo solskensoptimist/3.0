@@ -14,10 +14,22 @@ const initialState: UserState = {
 
 export const userReducer = (state = initialState, action) => {
     switch(action.type) {
-        case userActionTypes.USER_LOGIN: {
+        case userActionTypes.SET_USER_COLLEAGUES: {
             return {
                 ...state,
-                info: action.payload.info
+                colleagues: action.payload
+            }
+        }
+        case userActionTypes.SET_USER_CONNECTIONS: {
+            return {
+                ...state,
+                connections: action.payload
+            }
+        }
+        case userActionTypes.SET_USER_INFO: {
+            return {
+                ...state,
+                info: action.payload
             }
         }
         default: {
