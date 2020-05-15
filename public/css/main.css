@@ -1,15 +1,29 @@
-.buttonRegularSave, .searchSelectWrapper__searchSelect__content__save, .settingsWrapper__settings__content__item__button {
-  background: #00B4CC;
-  color: white;
+.buttonRegular, .dealWrapper__deal__header__bottom__right__item button {
+  background: #eeeeee;
+  border: 1px solid #e0e0e0;
+  color: #616161;
   display: flex;
   align-items: center;
-  border-radius: 2px;
   text-transform: uppercase;
   font-size: 12px;
   justify-content: center;
   cursor: pointer;
   padding: 8px 22px; }
-  .buttonRegularSave:hover, .searchSelectWrapper__searchSelect__content__save:hover, .settingsWrapper__settings__content__item__button:hover {
+  .buttonRegular:hover, .dealWrapper__deal__header__bottom__right__item button:hover {
+    background: #e0e0e0; }
+
+.buttonSave, .searchSelectWrapper__searchSelect__content__save, .settingsWrapper__settings__content__item__button {
+  background: #00B4CC;
+  color: white;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px 22px;
+  border: 0; }
+  .buttonSave:hover, .searchSelectWrapper__searchSelect__content__save:hover, .settingsWrapper__settings__content__item__button:hover {
     background: #616161; }
 
 .grid2Columns1Row, .homeWrapper {
@@ -18,6 +32,9 @@
   column-gap: 3%;
   padding: 3%;
   align-items: start; }
+
+.hidden {
+  display: none; }
 
 .iconStyleCircle, .iconStyleCircleClick, .dealWrapper__deal__header__middle__right__item svg, .searchMainWrapper__searchMain__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
   display: flex !important;
@@ -382,7 +399,8 @@ a {
         color: #bdbdbd;
         margin-bottom: 8px; }
       .dealWrapper__deal__header__top input.name {
-        background: transparent; }
+        background: transparent;
+        padding: 0; }
         .dealWrapper__deal__header__top input.name:first-line {
           background: #ffe082; }
     .dealWrapper__deal__header__middle {
@@ -441,7 +459,8 @@ a {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          flex-grow: 1; }
+          flex-grow: 1;
+          margin-top: 8px; }
           .dealWrapper__deal__header__bottom__right__item__fileWrapper:hover svg {
             visibility: visible; }
           .dealWrapper__deal__header__bottom__right__item__fileWrapper svg {

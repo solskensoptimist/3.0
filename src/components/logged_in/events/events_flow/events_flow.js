@@ -58,7 +58,7 @@ const EventsFlow = (state) => {
 
             // Action
             let action;
-            if (state.props.prospectId || state.props.dealId) {
+            if (state.props.target) {
                 // Showing events for specific target, no link needed.
                 action = <div>{activityHelper.getReadableActivity(event.action)}</div>;
             } else {
@@ -88,7 +88,7 @@ const EventsFlow = (state) => {
         };
 
         _renderEvents();
-    }, [showAmount, state.events, state.props.dealId, state.props.prospectId]);
+    }, [showAmount, state.events, state.props.target]);
 
     return ( _stateCheck() ?
         <div className={(state.props.small) ? 'eventsFlowWrapper small' : 'eventsFlowWrapper'}>

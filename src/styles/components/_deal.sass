@@ -27,6 +27,7 @@
           @extend .headlineVeryLarge
           @extend h3
           background: transparent
+          padding: 0
           &:first-line
             background: $colorHighLight
       &__middle
@@ -85,11 +86,14 @@
           min-width: 0
           margin-left: $paddingGreat
           &__item
+            button
+              @extend .buttonRegular
             &__fileWrapper
               display: flex
               align-items: center
               justify-content: space-between
               flex-grow: 1
+              margin-top: $paddingSmall
               &:hover
                 svg
                   visibility: visible

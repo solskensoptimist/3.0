@@ -14,6 +14,7 @@ import Events from 'components/logged_in/events';
 import Loading from 'components/shared/loading';
 import Icon from 'components/shared/icon';
 import Popup from 'components/shared/popup';
+import DealFileUploader from 'components/logged_in/deal_file_uploader';
 import Tooltip from 'components/shared/tooltip/tooltip';
 
 /**
@@ -151,6 +152,21 @@ const Deal = (state) => {
         );
     };
 
+    const _setDealObjFromStore = () => {
+        if (state.deal && state.deal.deal) {
+            // Set properties that we should be able to edit. Make sure they correlate to params in updateDeal.
+            setDealObj({
+                description: state.deal.deal.description,
+                files: state.deal.deal.meta.files,
+                maturity: state.deal.deal.maturity,
+                name: state.deal.deal.name,
+                potential: state.deal.deal.potential,
+                user_id: state.deal.deal.user_id,
+                userName: state.deal.deal.userName, // This is for frontend display, when changing user we only care send user id.
+            });
+        }
+    };
+
     const _saveChanges = async () => {
         setEditDeal(false);
         return await updateDeal(dealObj);
@@ -214,7 +230,10 @@ const Deal = (state) => {
                                 {!editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}><Icon val='comment' onClick={() => {setShowComment(true)}}/></Tooltip>}
                                 {!editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.openInAgile}><Icon val='agile' onClick={_openInAgile}/></Tooltip>}
                                 {!editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}><Icon val='edit' onClick={() => {setEditDeal(true)}}/></Tooltip>}
-                                {editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {setEditDeal(false)}}/></Tooltip> }
+                                {editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {
+                                    setEditDeal(false)
+                                    _setDealObjFromStore();
+                                }}/></Tooltip> }
                                 {editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.saveChanges}><Icon active={true} val='save' onClick={_saveChanges}/></Tooltip>}
                             </div>
                         </div>
@@ -253,6 +272,7 @@ const Deal = (state) => {
                         <div className='dealWrapper__deal__header__bottom__right'>
                             <h4>{tc.files}</h4>
                             <div className='dealWrapper__deal__header__bottom__right__item'>
+                                <DealFileUploader/>
                                 {_renderFiles()}
                             </div>
                         </div>

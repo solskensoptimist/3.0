@@ -86,8 +86,10 @@ const DealProspects = (state) => {
             );
         };
 
-        _renderProspects();
-    }, [showAmount, state.deal.prospectInfo]);
+        if (state.deal && state.deal.prospectInfo) {
+            _renderProspects();
+        }
+    }, [showAmount, state.deal]);
 
     return ( _stateCheck() ?
         <div className='dealProspectsWrapper'>

@@ -5,6 +5,7 @@ export default {
     activitiesComingUp: 'Ej utförda aktiviteter',
     activity: 'Aktivitet',
     addComment: 'Lägg till kommentar',
+    addFile: 'Bifoga fil',
     address: 'Adress',
     agile: 'Bearbeta',
     allActivitiesAllIncludingComments: 'Alla händelser och kommentarer',

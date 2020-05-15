@@ -132,6 +132,10 @@ const getProspectInfo = async (payload) => {
     }
 };
 
+export const setUpdatingDeal = (val) => {
+    store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: val});
+};
+
 /**
  * Update a deal.
  *
