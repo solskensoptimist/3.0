@@ -42,8 +42,9 @@ const Deal = (state) => {
         console.log('Öppna i Bearbeta');
     };
 
-    const _removeFile = (file) => {
+    const _removeFile = async (file) => {
         console.log('Remove file', file);
+        return await updateDeal({filesToRemove: [file]});
     };
 
     const _renderFiles = () => {

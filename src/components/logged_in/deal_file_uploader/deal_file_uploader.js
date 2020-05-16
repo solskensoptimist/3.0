@@ -7,17 +7,14 @@ import {tc} from 'helpers';
 /**s
  * Upload files to deal that are currently set in store state.deal.deal.
  */
-const S3DealFileUploader = (state) => {
+const S3DealFileUploader = () => {
     const _finishUpload = async (e, f) => {
-        const files = (state && state.deal && state.deal.deal && state.deal.deal.meta &&
-            state.deal.deal.meta.files && Array.isArray(state.deal.deal.meta.files)) ? state.deal.deal.meta.files : [];
-
-        files.push({
+        const files = [{
             s3_filename: e.filename,
             original_name: f.name,
-        });
+        }];
 
-        return await updateDeal({files: files});
+        return await updateDeal({filesToAdd: files});
     };
 
     const _startUpload = () => {
