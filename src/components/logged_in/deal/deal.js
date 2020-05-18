@@ -280,7 +280,7 @@ const Deal = (state) => {
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
-                    {state.deal.updatingDeal && <Loading size='full'/>}
+                    {state.deal.dealUpdating && <Loading size='full'/>}
                     {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
                         <Events target={id} type='target' view='flow'/>

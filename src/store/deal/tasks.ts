@@ -7,15 +7,14 @@ import _ from 'underscore';
 /**
  * Retrieve one deal.
  *
- * @param payload.id
+ * @param payload.id - string
+ * @param payload.noProspectInfo - bool (mostly used after a deal update)
  */
 export const getDeal = async (payload) => {
     try {
         if (!payload || (payload && !payload.id)) {
             return console.error('Missing params in getDeal');
         }
-
-        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: true});
 
         // Get deal info.
         const deal = await request({
@@ -36,12 +35,13 @@ export const getDeal = async (payload) => {
         const listName = (list && !(list instanceof Error)) ? list.name : '';
 
         // Get prospects info.
-        const prospectInfo = await getProspectInfo({ids: deal.prospects});
+        if (!payload.noProspectInfo) {
+            const prospectInfo = await getProspectInfo({ids: deal.prospects});
+            store.dispatch({ type: dealActionTypes.SET_PROSPECT_INFO, payload: prospectInfo});
+        }
 
-        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
         store.dispatch({ type: dealActionTypes.SET_DEAL, payload: deal});
-        store.dispatch({ type: dealActionTypes.SET_LIST_NAME, payload: listName});
-        return store.dispatch({ type: dealActionTypes.SET_PROSPECT_INFO, payload: prospectInfo});
+        return store.dispatch({ type: dealActionTypes.SET_LIST_NAME, payload: listName});
     } catch(err) {
         return console.error('Error in getDeal:', err);
     }
@@ -132,19 +132,15 @@ const getProspectInfo = async (payload) => {
     }
 };
 
-export const setUpdatingDeal = (val) => {
-    store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: val});
-};
-
 /**
  * Update a deal.
  *
- * payload should ONLY hold properties that has changes. I.E. all properties optional.
- * Depending on what to update, we have to do some extra backend calls.
+ * All properties optional.
+ * Note that we have to do extra backend calls depending on what to update.
+ * (We do not include deal.comments - as far as I can tell it's a deprecated property.)
  *
  * @param payload.carsToAdd - For cars add, use this property.
  * @param payload.carsToRemove - For cars remove, use this property.
- * @param payload.comments
  * @param payload.description
  * @param payload.filesToAdd - For files add, use this property.
  * @param payload.filesToRemove - For files remove, use this property.
@@ -163,21 +159,55 @@ export const updateDeal = async (payload) => {
             return console.error('Missing params in updateDeal');
         }
 
-        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: true});
+        store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: true});
 
-        const currentDeal = store.getState().deal.deal;
-        const updatedDeal: any = {};
-        let precedingPromises = [];
+        const dealInScope = store.getState().deal.deal;
+        const params: any = {};
+        let promises = [];
 
-        // When adding contacts to deal, we need to update contacts object in mongo collection.
+        // Add cars.
+        if (payload.carsToAdd && payload.carsToAdd.length) {
+            params.cars = dealInScope.cars.concat(payload.carsToAdd);
+
+            // Sort and remove duplicates.
+            params.cars = params.cars.sort((a: any, b: any) => {
+                if ( a.name < b.name){
+                    return -1;
+                } else if ( a.name > b.name ){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            params.cars = _.uniq(params.cars, 'id');
+        }
+
+        // Remove cars.
+        if (payload.carsToRemove && payload.carsToRemove.length) {
+            params.cars = dealInScope.cars.filter((car) => !payload.carsToRemove.find((num) => num.id === car.id));
+
+            // Sort and remove duplicates.
+            params.cars = params.cars.sort((a: any, b: any) => {
+                if ( a.name < b.name){
+                    return -1;
+                } else if ( a.name > b.name ){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            params.cars = _.uniq(params.cars, 'id');
+        }
+
+        // Add contacts
         if (payload.contactsToAdd && payload.contactsToAdd.length) {
             // Adjust updated deal obj.
-            updatedDeal.contacts = currentDeal.contacts.concat(payload.contactsToAdd);
+            params.contacts = dealInScope.contacts.concat(payload.contactsToAdd);
 
-            // And save backend call in promise.
+            // When adding contacts to deal, we need to update contacts object in mongo collection.
             let contactPromises = await payload.contactsToAdd.map(async (contact) => {
                 contact.savedTo.push({
-                    entityId: currentDeal._id,
+                    entityId: dealInScope._id,
                 });
 
                 return await request({
@@ -192,143 +222,122 @@ export const updateDeal = async (payload) => {
                 });
             });
 
-            precedingPromises = precedingPromises.concat(contactPromises);
+            promises = promises.concat(contactPromises);
         }
 
-        // When removing contacts from deal, we need to update contacts object in mongo collection.
+        // Remove contacts.
         if (payload.contactsToRemove && payload.contactsToRemove.length) {
             // Adjust updated deal obj.
-            updatedDeal.contacts = currentDeal.contacts.filter((contact) => !payload.contactsToRemove.find((num) => num._id === contact._id));
+            params.contacts = dealInScope.contacts.filter((contact) => !payload.contactsToRemove.find((num) => num._id === contact._id));
 
-            // And save backend call in promise.
-            let contactPromises = await payload.contactsToAdd.map(async (contact) => {
+            // When removing contacts from deal, we need to update contacts object in mongo collection.
+            let contactPromises = await payload.contactsToRemove.map(async (contact) => {
                 return await request({
                     data: {
                         contactId: contact._id,
-                        entityId: currentDeal._id,
+                        entityId: dealInScope._id,
                     },
                     method: 'put',
                     url: '/contacts/removeFromEntity'
                 });
             });
 
-            precedingPromises = precedingPromises.concat(contactPromises);
+            promises = promises.concat(contactPromises);
         }
 
-        // When deal owner changes, we need to create a deal action.
+        // Add files.
+        if (payload.filesToAdd && payload.filesToAdd.length) {
+            params.files = dealInScope.meta.files.concat(payload.filesToAdd);
+        }
+
+        // Remove files.
+        if (payload.filesToRemove && payload.filesToRemove.length) {
+            params.files = dealInScope.meta.files.filter((file) => !payload.filesToRemove.find((num) => num.s3_filename === file.s3_filename));
+        }
+
+        // Description.
+        if (payload.hasOwnProperty('description')) {
+            params.description = payload.description;
+        }
+        // Maturity.
+        if (payload.hasOwnProperty('maturity')) {
+            params.maturity = payload.maturity;
+        }
+
+        // Name.
+        if (payload.hasOwnProperty('name')) {
+            params.name = payload.name;
+        }
+
+        // Potential.
+        if (payload.hasOwnProperty('potential')) {
+            params.potential = payload.potential;
+        }
+
+        // Add prospects.
+        if (payload.prospectsToAdd && payload.prospectsToAdd.length) {
+            params.prospects = dealInScope.prospects.concat(payload.prospectsToAdd);
+            params.prospects = _.uniq(params.prospects);
+        }
+
+        // Remove prospects.
+        if (payload.prospectsToRemove && payload.prospectsToRemove.length) {
+            params.prospects = dealInScope.prospects.filter((id) => !payload.prospectsToRemove.includes(id));
+            params.prospects = _.uniq(params.prospects);
+        }
+
+        // Deal owner.
         if (payload.user_id) {
             // Adjust updated deal obj.
-            updatedDeal.prev_user_id = currentDeal.user_id;
-            updatedDeal.user_id = payload.user_id;
+            params.prev_user_id = Number(dealInScope.user_id);
+            params.user_id = Number(payload.user_id);
 
-            // And save backend call in promise.
-            precedingPromises.concat(
-               await request({
-                   data: {
-                       action: 'owner',
-                       dealId: currentDeal._id,
-                       prevUserId: currentDeal.user_id,
-                       user_id: payload.user_id,
-                       moved: true,
-                   },
-                   method: 'post',
-                   url: '/deals/actions',
-               })
+            // When deal owner changes, we need to create a deal action.
+            promises = promises.concat(
+                await request({
+                    data: {
+                        action: 'owner',
+                        dealId: dealInScope._id,
+                        prevUserId: dealInScope.user_id,
+                        user_id: payload.user_id,
+                        moved: true,
+                    },
+                    method: 'post',
+                    url: '/deals/actions',
+                })
             );
         }
 
-        // Adjust remaining properties.
-        if (payload.carsToAdd) {
-            updatedDeal.cars = currentDeal.cars.concat(payload.carsToAdd);
-        }
+        // Add promise for actual deal update.
+        promises = promises.concat(
+            await request({
+                data: {
+                    id: dealInScope._id,
+                    properties: params,
+                },
+                method: 'put',
+                url: '/deals'
+            })
+        );
 
-        if (payload.carsToRemove) {
-            updatedDeal.cars = currentDeal.cars.filter((car) => !payload.carsToRemove.find((num) => num.id === car.id));
-        }
-
-        if (payload.filesToAdd) {
-            updatedDeal.files = currentDeal.meta.files.concat(payload.filesToAdd);
-        }
-
-        if (payload.filesToRemove) {
-            updatedDeal.files = currentDeal.meta.files.filter((file) => !payload.filesToRemove.find((num) => num.s3_filename === file.s3_filename));
-        }
-
-        if (payload.prospectsToAdd) {
-            updatedDeal.prospects = currentDeal.prospects.concat(payload.prospectsToAdd);
-        }
-
-        if (payload.prospectsToRemove) {
-            updatedDeal.prospects = currentDeal.prospects.filter((id) => !payload.prospectsToRemove.includes(id));
-        }
-
-        updatedDeal.cars = updatedDeal.cars ? updatedDeal.cars : currentDeal.cars;
-        // Sort and remove duplicates.
-        if (updatedDeal.cars && updatedDeal.cars.length) {
-            updatedDeal.cars = updatedDeal.cars.sort((a: any, b: any) => {
-                if ( a.name < b.name){
-                    return -1;
-                } else if ( a.name > b.name ){
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
-        }
-        updatedDeal.cars = _.uniq(updatedDeal.cars, 'id');
-
-        updatedDeal.prospects = updatedDeal.prospects ? updatedDeal.prospects : currentDeal.prospects;
-        // Sort and remove duplicates.
-        if (updatedDeal.prospects && updatedDeal.prospects.length) {
-            updatedDeal.prospects = updatedDeal.prospects.sort((a: any, b: any) => {
-                if ( a.name < b.name){
-                    return -1;
-                } else if ( a.name > b.name ){
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
-        }
-        updatedDeal.prospects = _.uniq(updatedDeal.prospects);
-
-        updatedDeal.description = (payload.hasOwnProperty('description')) ? payload.description : currentDeal.description;
-        updatedDeal.files = updatedDeal.files ? updatedDeal.files : currentDeal.meta.files;
-        updatedDeal.id = currentDeal._id;
-        updatedDeal.maturity = (payload.hasOwnProperty('maturity')) ? Number(payload.maturity) : currentDeal.maturity;
-        updatedDeal.name = (payload.hasOwnProperty('name')) ? payload.name : currentDeal.name;
-        updatedDeal.potential = (payload.hasOwnProperty('potential')) ? payload.potential : currentDeal.otential;
-        updatedDeal.user_id = (payload.hasOwnProperty('user_id')) ? Number(payload.user_id) : currentDeal.user_id;
-
-        console.log('updatedDeal', updatedDeal);
-
-        // Lets resolve the first set of promises.
-        const data = await Promise.all(precedingPromises);
+        // All set, lets resolve promises.
+        const data = await Promise.all(promises);
 
         if (!data) {
-            store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
-            return console.error('Could not update deal, preceding promises');
+            store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: false});
+            return console.error('Error in updateDeal, promise chain fail.');
         }
 
-        // Then actual update of deal.
-        const deal = await request({
-            data: {
-                id: currentDeal._id,
-                properties: updatedDeal,
-            },
-            method: 'put',
-            url: '/deals'
-        });
+        store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: false});
 
-        if (!deal) {
-            store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
-            return console.error('Could not update deal');
+        if (payload.prospectsToAdd || payload.prospectsToRemove) {
+            return await getDeal({id: dealInScope._id});
+        } else {
+            // Retrieving prospect info is somewhat slow, so try and avoid when unnecessary.
+            return await getDeal({id: dealInScope._id, noProspectInfo: true});
         }
-
-        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
-        return await getDeal({id: currentDeal._id});
     } catch (err) {
-        store.dispatch({ type: dealActionTypes.SET_UPDATING_DEAL, payload: false});
+        store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: false});
         return console.error('Error in updateDeal:\n' + err);
     }
 };

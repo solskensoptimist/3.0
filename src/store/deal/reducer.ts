@@ -1,17 +1,17 @@
 import {dealActionTypes} from './actions';
 
 interface EventsState {
-    deal: object | null, // The real deal object, this is what we send to backend when update.
+    deal: object | null, // The deal object that is currently in scope (this is a direct copy from db and shouldn't be tampered with, hence the extra properties in this store).
+    dealUpdating: boolean,
     listName: string | null, // Name of list deal originate from.
     prospectInfo: Array<object> | null, // Extra info about prospects in deal.
-    updatingDeal: boolean,
 }
 
 const initialState: EventsState = {
     deal: null,
+    dealUpdating: false,
     listName: null,
     prospectInfo: null,
-    updatingDeal: false,
 };
 
 export const dealReducer = (state = initialState, action) => {
@@ -20,6 +20,12 @@ export const dealReducer = (state = initialState, action) => {
             return {
                 ...state,
                 deal: action.payload,
+            }
+        }
+        case dealActionTypes.SET_DEAL_UPDATING: {
+            return {
+                ...state,
+                dealUpdating: action.payload,
             }
         }
         case dealActionTypes.SET_LIST_NAME: {
@@ -32,12 +38,6 @@ export const dealReducer = (state = initialState, action) => {
             return {
                 ...state,
                 prospectInfo: action.payload,
-            }
-        }
-        case dealActionTypes.SET_UPDATING_DEAL: {
-            return {
-                ...state,
-                updatingDeal: action.payload,
             }
         }
         default: {
