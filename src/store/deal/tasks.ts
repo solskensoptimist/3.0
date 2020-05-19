@@ -27,8 +27,11 @@ export const getDeal = async (payload) => {
             return store.dispatch({ type: dealActionTypes.SET_DEAL, payload: {}});
         }
 
+        // Set deal, before getting complementary information.
+        store.dispatch({ type: dealActionTypes.SET_DEAL, payload: deal});
+
         // Get list name.
-        if (deal.meta && deal.meta.mmoved_from_list && deal.meta.moved_from_list.length) {
+        if (deal.meta && deal.meta.moved_from_list && deal.meta.moved_from_list.length) {
             const list = await request({
                 method: 'get',
                 url: '/lists/getList/' + deal.meta.moved_from_list,
@@ -43,7 +46,7 @@ export const getDeal = async (payload) => {
             store.dispatch({ type: dealActionTypes.SET_PROSPECT_INFO, payload: prospectInfo});
         }
 
-       return store.dispatch({ type: dealActionTypes.SET_DEAL, payload: deal});
+       return;
     } catch(err) {
         return console.error('Error in getDeal:', err);
     }

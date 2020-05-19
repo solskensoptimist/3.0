@@ -1,6 +1,6 @@
 .dealWrapper
-  padding: $paddingGrid
   &__deal
+    padding: $paddingGrid
     &__header
       margin-bottom: $paddingGrid
       display: flex
@@ -16,95 +16,59 @@
         padding: $paddingSmall
       &__top
         flex-grow: 1
+        display: flex
+        align-items: flex-end
+        justify-content: space-between
         margin-bottom: ($paddingBig * 1.5)
-        h3
-          @extend .headlineVeryLarge
-        h4
-          font-size: 12px
-          color: $colorTextLight-1
-          margin-bottom: $paddingSmall
-        input.name
-          @extend .headlineVeryLarge
-          @extend h3
-          background: transparent
-          padding: 0
-          &:first-line
-            background: $colorHighLight
-      &__middle
-        flex-grow: 1
-        display: flex
-        justify-content: space-between
-        padding-bottom: $paddingMedium
-        border-bottom: 1px solid $grey-300
-        margin-bottom: $paddingGrid
-        h4
-          font-size: 12px
-          color: $colorTextLight-1
-          margin-bottom: 0
         &__left
-          display: flex
-          &__item
-            margin-left: $paddingGreat
-            &:first-of-type
-              margin-left: 0
+          flex-shrink: 1
+          h3
+            @extend .headlineVeryLarge
+          h4
+            font-size: 12px
+            color: $colorTextLight-1
+            margin-bottom: $paddingSmall
+          input.name
+            @extend .headlineVeryLarge
+            @extend h3
+            background: transparent
+            padding: 0
+            &:first-line
+              background: $colorHighLight
         &__right
-          &__item
-            display: flex
-            justify-content: flex-end
-            align-items: center
-            .tooltipWrapper
-              margin-left: $paddingBig
-              &:first-of-type
-                margin-left: 0
-            svg
-              @extend .iconStyleCircleClick
-            svg.active
-              fill: white !important
-              background: $colorLink !important
-              &:hover
-                background: $colorLinkHover !important
-      &__bottom
-        padding-bottom: $paddingMedium
-        border-bottom: 1px solid $grey-300
-        flex-grow: 1
-        display: flex
-        justify-content: space-between
-        h4
-          font-size: 12px
-          color: $colorTextLight-1
-          margin-bottom: 0
-        &__left
-          flex-grow: 1
-          display: flex
-          flex-wrap: wrap
-          &__item
-            margin-left: $paddingGreat
-            &:first-of-type
-              margin-left: 0
-        &__right
-          flex-basis: calc(25% - #{$paddingGreat})
-          min-width: 0
           margin-left: $paddingGreat
-          &__item
-            button
-              @extend .buttonRegular
-            &__fileWrapper
-              display: flex
-              align-items: center
-              justify-content: space-between
-              flex-grow: 1
-              margin-top: $paddingSmall
-              &:hover
-                svg
-                  visibility: visible
-              svg
-                visibility: hidden
-                width: 18px
-                height: 18px
-                fill: $colorLink
-                cursor: pointer
-                &:hover
-                  fill: $colorLinkHover
+          display: flex
+          justify-content: flex-end
+          align-items: center
+          .tooltipWrapper
+            margin-left: $paddingBig
+            &:first-of-type
+              margin-left: 0
+          svg
+            @extend .iconStyleCircleClick
+          svg.active
+            fill: white !important
+            background: $colorLink !important
+            &:hover
+              background: $colorLinkHover !important
+      &__bottom
+        flex-grow: 1
+        display: flex
+        justify-content: flex-start
+        flex-wrap: wrap
+        border-bottom: 1px solid $grey-300
+        h4
+          font-size: 12px
+          color: $colorTextLight-1
+          margin-bottom: 0
+        &__item
+          margin-right: ($paddingBig * 1.5)
+          margin-bottom: $paddingBig
+          max-width: 20%
+          flex-wrap: wrap
+          min-width: 0
+          &:last-of-type
+            margin-right: 0
     &__content
       &__item
         margin-bottom: $paddingGrid
@@ -298,4 +262,31 @@
           font-size: 11px
           line-height: 14px
 
-
+// DealFiles component
+.dealFilesWrapper
+  @extend .paperSheet
+  &__dealFiles
+    &__content
+      display: flex
+      justify-content: space-between
+      align-items: flex-start
+      flex-wrap: wrap
+      margin-top: $paddingBig
+      &__file
+        background: $grey-100
+        display: flex
+        align-items: center
+        justify-content: space-between
+        margin-bottom: $paddingSmall
+        &:hover
+          svg
+            visibility: visible
+        svg
+          visibility: hidden
+          width: 18px
+          height: 18px
+          fill: $colorLink
+          cursor: pointer
+          margin-left: $paddingBig
+          &:hover
+            fill: $colorLinkHover

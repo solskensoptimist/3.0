@@ -128,6 +128,8 @@ export default (props) => {
             return <Today className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'eventsFlow':
             return <Reorder className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'file':
+            return <InsertDriveFile className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'hide':
             return <VisibilityOff className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'home':

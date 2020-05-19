@@ -1,0 +1,135 @@
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {tc} from 'helpers';
+import {updateDeal} from 'store/deal/tasks';
+import ReactS3Uploader from 'react-s3-uploader';
+import Icon from 'components/shared/icon';
+import Loading from 'components/shared/loading';
+import Tooltip from 'components/shared/tooltip';
+import WidgetHeader from 'components/shared/widget_header';
+
+/**
+ * This component renders a list of files, based on store.deal.deal.files.
+ * Also an upload button.
+ */
+const DealFiles = (state) => {
+    const amountIncrease = 10;
+    const [fileRows, setFileRows] = useState(null);
+    const [dataLength, setDataLength] = useState(null); // Used to know when we have rendered all rows.
+    const [showAmount, setShowAmount] = useState(amountIncrease);
+    const [minimize, setMinimize] = useState(false);
+
+    const _finishUpload = async (e, f) => {
+        const files = [{
+            s3_filename: e.filename,
+            original_name: f.name,
+        }];
+
+        return await updateDeal({filesToAdd: files});
+    };
+
+    const _removeFile = async (file) => {
+        return await updateDeal({filesToRemove: [file]});
+    };
+
+    const _startUpload = () => {
+        document.querySelector('#s3Uploader').click();
+    };
+
+    const _stateCheck = () => {
+        return !!(state && state.deal && state.deal.deal && state.deal.deal.meta && state.deal.deal.meta.files);
+    };
+
+    const _uploadError = (message) => {
+        console.error('S3 file upload error:', message);
+    };
+
+    useEffect(() => {
+        const _renderFiles = () => {
+            let data = state.deal.deal.meta.files;
+
+            // if no data, minimize widget.
+            if (data.length === 0) {
+                setFileRows(<p>{tc.noFiles}</p>);
+                return setMinimize(true);
+            }
+
+            // Set data length before slice.
+            setDataLength(data.length);
+
+            // Show more rows every time user click load icon.
+            data = data.slice(0, showAmount);
+
+            setFileRows(data.map((num, i) => {
+                return (
+                    <React.Fragment key={i}>
+                        {_renderFileItem(num)}
+                    </React.Fragment>
+                );
+            }));
+        };
+
+        const _renderFileItem = (file) => {
+            return(
+                <div className='dealFilesWrapper__dealFiles_content__file' key={file.original_name}>
+                   <a href={`https://s3.eu-central-1.amazonaws.com/bilp-test/${file.s3_filename}`} target='_blank' rel='noopener noreferrer'>{file.original_name}</a>
+                   <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon onClick={() => {_removeFile(file)}} val='remove'/></Tooltip>
+                </div>
+            );
+        };
+
+        _renderFiles();
+    }, [showAmount, state.deal.deal.meta.files]);
+
+    return ( _stateCheck() ?
+            <div className='dealFilesWrapper'>
+                <div className='dealFilesWrapper__dealFiles'>
+                    <div className='dealFilesWrapper__dealFiles__header'>
+                        <WidgetHeader
+                            iconVal='file'
+                            dashboard={
+                                minimize ?
+                                    <>
+                                        <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
+                                    </> :
+                                    <>
+                                        <Tooltip horizontalDirection='left' tooltipContent={tc.uploadFile}><Icon val='add' onClick={() => {_startUpload()}}/></Tooltip>
+                                        {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
+                                        {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
+                                        <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
+                                    </>
+                            }
+                            headline={tc.files}
+                            headlineSub={tc.handleFiles}
+                        />
+                    </div>
+                    {!minimize &&
+                    <div className='dealFilesWrapper__dealFiles__content'>
+                        {fileRows}
+                    </div>
+                    }
+                    <div className='hidden'>
+                        <ReactS3Uploader
+                            id='s3Uploader'
+                            signingUrl='/s3/sign'
+                            onFinish={_finishUpload}
+                            onError={_uploadError}
+                            contentDisposition='auto'
+                        />
+                    </div>
+                </div>
+            </div> :
+            <Loading/>
+    );
+};
+
+
+const MapStateToProps = (state) => {
+    return {
+        deal: state.deal,
+    };
+};
+
+export default connect(
+    MapStateToProps,
+)(DealFiles);
