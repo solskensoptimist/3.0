@@ -71,9 +71,11 @@ const DealFiles = (state) => {
 
         const _renderFileItem = (file) => {
             return(
-                <div className='dealFilesWrapper__dealFiles_content__file' key={file.original_name}>
-                   <a href={`https://s3.eu-central-1.amazonaws.com/bilp-test/${file.s3_filename}`} target='_blank' rel='noopener noreferrer'>{file.original_name}</a>
-                   <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon onClick={() => {_removeFile(file)}} val='remove'/></Tooltip>
+                <div className='dealFilesWrapper__dealFiles__content__file' key={file.original_name}>
+                    <div className='dealFilesWrapper__dealFiles__content__file__icon'><Icon val='file'/></div>
+                    <div className='dealFilesWrapper__dealFiles__content__file__remove'><Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon onClick={() => {_removeFile(file)}} val='remove'/></Tooltip></div>
+                    <p>{file.original_name}</p>
+                    <a href={`https://s3.eu-central-1.amazonaws.com/bilp-test/${file.s3_filename}`} target='_blank' rel='noopener noreferrer'><Tooltip horizontalDirection='left' tooltipContent={tc.download}><Icon val='download'/></Tooltip></a>
                 </div>
             );
         };

@@ -18,6 +18,7 @@ import {
     ExitToApp,
     Extension,
     FreeBreakfast,
+    GetApp,
     Group,
     Help,
     Info,
@@ -120,6 +121,8 @@ export default (props) => {
             return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_post':
             return <ContactMail className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'download':
+            return <GetApp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'edit':
             return <Edit className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'events':

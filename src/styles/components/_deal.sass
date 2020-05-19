@@ -19,7 +19,7 @@
         display: flex
         align-items: flex-end
         justify-content: space-between
-        margin-bottom: ($paddingBig * 1.5)
+        margin-bottom: $paddingGreat
         &__left
           flex-shrink: 1
           h3
@@ -268,25 +268,52 @@
   &__dealFiles
     &__content
       display: flex
-      justify-content: space-between
-      align-items: flex-start
+      justify-content: flex-start
+      align-items: center
       flex-wrap: wrap
-      margin-top: $paddingBig
       &__file
-        background: $grey-100
+        margin-top: $paddingBig
         display: flex
         align-items: center
-        justify-content: space-between
-        margin-bottom: $paddingSmall
+        justify-content: flex-start
+        margin-left: $paddingBig
+        border-left: 1px solid $grey-300
+        padding-left: $paddingBig
+        flex-basis: calc(25% - ((3 * #{$paddingBig}) / 4))
+        min-width: 0
         &:hover
-          svg
-            visibility: visible
+          .dealFilesWrapper__dealFiles__content__file__icon
+            display: none
+          .dealFilesWrapper__dealFiles__content__file__remove
+            display: flex
+        &:first-of-type
+          margin-left: 0
+          border-left: 0
+          padding-left: 0
+        &:nth-child(5n)
+          margin-left: 0
+          border-left: 0
+          padding-left: 0
         svg
-          visibility: hidden
-          width: 18px
-          height: 18px
-          fill: $colorLink
-          cursor: pointer
-          margin-left: $paddingBig
+          width: 14px
+          height: 14px
+        &__icon
+          margin-right: $paddingSmall
+          display: flex
+          align-items: center
+          justify-content: center
+          svg
+            fill: $colorInformatory
+        p
+          flex-grow: 1
+        &__remove
+          @extend .dealFilesWrapper__dealFiles__content__file__icon
+          display: none
           &:hover
-            fill: $colorLinkHover
+            svg
+              fill: $colorLinkHover
+          svg
+            fill: $colorLink
+            cursor: pointer
+        a
+          margin-left: $paddingGreat

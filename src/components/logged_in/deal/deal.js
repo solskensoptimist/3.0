@@ -184,7 +184,7 @@ const Deal = (state) => {
                 <div className='dealWrapper__deal__header'>
                     <div className='dealWrapper__deal__header__top'>
                         <div className='dealWrapper__deal__header__top__left'>
-                            <h4>{tc.deal}:</h4>
+                            <h4>{tc.deal}</h4>
                             {editDeal ?
                                 <input className='name' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={(dealObj.name) ? dealObj.name : ''}/> :
                                 <h3>{state.deal.deal.name}</h3>
