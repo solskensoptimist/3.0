@@ -184,7 +184,7 @@ const Activities = (state) => {
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
                                 </>
                         }
-                        headline={tc.activities}
+                        headline={tc.activity}
                         headlineSub={tc.allActivitiesAllIncludingComments}
                     />
                 </div>

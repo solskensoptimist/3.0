@@ -248,10 +248,10 @@ const Deal = (state) => {
                     {state.deal.dealUpdating && <Loading size='full'/>}
                     {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
-                        <DealFiles/>
+                        <Events target={id} type='target' view='flow'/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
-                        <Events target={id} type='target' view='flow'/>
+                        <DealFiles/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
                         <Contacts target={state.deal.deal._id}/>

@@ -11,6 +11,7 @@ import {
     Comment,
     ContactMail,
     Delete,
+    Description,
     Done,
     DoubleArrow,
     DriveEta,
@@ -170,7 +171,7 @@ export default (props) => {
         case 'news':
             return <LibraryBooks className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'offer':
-            return <InsertDriveFile className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <Description className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'other':
             return <Help className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'ourService':

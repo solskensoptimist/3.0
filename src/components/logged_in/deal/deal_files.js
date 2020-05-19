@@ -50,7 +50,7 @@ const DealFiles = (state) => {
 
             // if no data, minimize widget.
             if (data.length === 0) {
-                setFileRows(<p>{tc.noFiles}</p>);
+                setFileRows(<p className='marginTop'>{tc.noFiles}</p>);
                 return setMinimize(true);
             }
 
