@@ -28,11 +28,14 @@ export const getDeal = async (payload) => {
         }
 
         // Get list name.
-        const list = await request({
-            method: 'get',
-            url: '/lists/' + deal.meta.moved_from_list,
-        });
-        const listName = (list && !(list instanceof Error)) ? list.name : '';
+        if (deal.meta && deal.meta.mmoved_from_list && deal.meta.moved_from_list.length) {
+            const list = await request({
+                method: 'get',
+                url: '/lists/getList/' + deal.meta.moved_from_list,
+            });
+            const listName = (list && !(list instanceof Error)) ? list.name : '';
+            store.dispatch({ type: dealActionTypes.SET_LIST_NAME, payload: listName});
+        }
 
         // Get prospects info.
         if (!payload.noProspectInfo) {
@@ -40,8 +43,7 @@ export const getDeal = async (payload) => {
             store.dispatch({ type: dealActionTypes.SET_PROSPECT_INFO, payload: prospectInfo});
         }
 
-        store.dispatch({ type: dealActionTypes.SET_DEAL, payload: deal});
-        return store.dispatch({ type: dealActionTypes.SET_LIST_NAME, payload: listName});
+       return store.dispatch({ type: dealActionTypes.SET_DEAL, payload: deal});
     } catch(err) {
         return console.error('Error in getDeal:', err);
     }

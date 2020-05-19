@@ -12,8 +12,12 @@ export const dealHelper = {
         ];
     },
     getMaturityName: (id) => {
-        const arr = dealHelper.getMaturityList().filter((num) => (id === num.id));
-        return arr[0].name;
+        const arr = dealHelper.getMaturityList().filter((num) => (Number(id) === num.id));
+        if (arr && arr[0] && arr[0].name) {
+            return arr[0].name;
+        } else {
+            return '';
+        }
     },
     getReadablePhase: (phase) => {
         switch (phase) {

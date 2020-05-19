@@ -42,7 +42,7 @@ const DealProspects = (state) => {
 
             // if no data, minimize widget.
             if (data.length === 0) {
-                setProspectRows(<p className='marginTop'>{tc.noProspects}</p>);
+                setProspectRows(<p>{tc.noProspects}</p>);
                 return setMinimize(true);
             }
 

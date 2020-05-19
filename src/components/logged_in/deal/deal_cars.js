@@ -48,7 +48,7 @@ const DealCars = (state) => {
 
             // if no data, minimize widget.
             if (data.length === 0) {
-                setCarRows(<p className='marginTop'>{tc.noCars}</p>);
+                setCarRows(<p>{tc.noCars}</p>);
                 return setMinimize(true);
             }
 

@@ -203,7 +203,7 @@ const Deal = (state) => {
                     <div className='dealWrapper__deal__header__top'>
                         <h4>{tc.deal}:</h4>
                         {editDeal ?
-                            <input className='name' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={dealObj.name}/> :
+                            <input className='name' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={(dealObj.name) ? dealObj.name : ''}/> :
                             <h3>{state.deal.deal.name}</h3>
                         }
                     </div>
@@ -251,14 +251,14 @@ const Deal = (state) => {
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.descriptionDeal}</h4>
                                 {editDeal ?
-                                    <input className='name' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={dealObj.description}/> :
+                                    <input className='name' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={(dealObj.description) ? dealObj.description : ''}/> :
                                     <p>{dealObj.description}</p>
                                 }
                             </div>
                             <div className='dealWrapper__deal__header__bottom__left__item'>
                                 <h4>{tc.potentialVehicles}</h4>
                                 {editDeal ?
-                                    <input className='name' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={dealObj.potential}/> :
+                                    <input className='name' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/> :
                                     <p>{dealObj.potential}</p>
                                 }
                             </div>

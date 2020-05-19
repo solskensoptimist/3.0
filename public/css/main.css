@@ -469,7 +469,7 @@ a {
             height: 18px;
             fill: #00B4CC;
             cursor: pointer; }
-            .dealWrapper__deal__header__bottom__right__item__fileWrapper svg:hover svg {
+            .dealWrapper__deal__header__bottom__right__item__fileWrapper svg:hover {
               fill: #616161; }
   .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer {
     margin-bottom: 3%; }
@@ -1275,7 +1275,7 @@ svg.active {
 
 .searchMainWrapper {
   margin-left: 22px;
-  width: 64%;
+  width: 70%;
   position: relative; }
   .searchMainWrapper__searchMain__header {
     display: flex;
