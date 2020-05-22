@@ -21,21 +21,12 @@ const DealCars = (state) => {
     const [minimize, setMinimize] = useState(true);
 
     const _addCars = async () => {
-        const cars = state.search.selectedCars.map((num) => {
-            return {
-                id: num.id.toString(),
-                name: num.id.toString(),
-            }
-        });
-        return await updateDeal({carsToAdd: cars});
+        const ids = state.search.selectedCars.map((num) => num.id);
+        return await updateDeal({carsToAdd: ids});
     };
 
     const _removeCar = async (id) => {
-        const car = {
-            id: id.toString(),
-            name: id.toString(),
-        };
-        return await updateDeal({carsToRemove: [car]});
+        return await updateDeal({carsToRemove: id});
     };
 
     const _stateCheck = () => {
@@ -67,17 +58,17 @@ const DealCars = (state) => {
             }));
         };
 
-        const _renderCarItem = (car, firstItem) => {
+        const _renderCarItem = (regNr, firstItem) => {
             return (
                 <div className='dealCarsWrapper__dealCars__content__cars__item'>
                     <div className='dealCarsWrapper__dealCars__content__cars__item__icon'>
                         <div className='dealCarsWrapper__dealCars__content__cars__item__icon__visible'>{<Icon val='car'/>}</div>
-                        <div className='dealCarsWrapper__dealCars__content__cars__item__icon__hidden'><Tooltip horizontalDirection='right' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.removeCar}><Icon val='remove' onClick={async () => {return await _removeCar(car.id)}}/></Tooltip></div>
+                        <div className='dealCarsWrapper__dealCars__content__cars__item__icon__hidden'><Tooltip horizontalDirection='right' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.removeCar}><Icon val='remove' onClick={async () => {return await _removeCar(regNr)}}/></Tooltip></div>
                     </div>
-                    <NavLink exact to={'/bil/' + car.id} key={car.id}>
+                    <NavLink exact to={'/bil/' + regNr} key={regNr}>
                         <div className='dealCarsWrapper__dealCars__content__cars__item__infoHolder'>
                             <p>{tc.regNumber}:</p>
-                            <p className='dealCarsWrapper__dealCars__content__cars__item__infoHolder__regNum'>{car.id}</p>
+                            <p className='dealCarsWrapper__dealCars__content__cars__item__infoHolder__regNum'>{regNr}</p>
                         </div>
                         <div className='dealCarsWrapper__dealCars__content__cars__item__linkHolder'>
                             <Tooltip horizontalDirection='left' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.navigateToCar}><Icon val='navigate'/></Tooltip>

@@ -175,33 +175,35 @@ export const updateDeal = async (payload) => {
             params.cars = dealInScope.cars.concat(payload.carsToAdd);
 
             // Sort and remove duplicates.
-            params.cars = params.cars.sort((a: any, b: any) => {
-                if ( a.name < b.name){
+            params.cars = params.cars.sort((a: string, b: string) => {
+                if ( a < b){
                     return -1;
-                } else if ( a.name > b.name ){
+                } else if ( a > b ){
                     return 1;
                 } else {
                     return 0;
                 }
             });
-            params.cars = _.uniq(params.cars, 'id');
+
+            params.cars = _.uniq(params.cars, true);
         }
 
         // Remove cars.
         if (payload.carsToRemove && payload.carsToRemove.length) {
-            params.cars = dealInScope.cars.filter((car) => !payload.carsToRemove.find((num) => num.id === car.id));
+            params.cars = dealInScope.cars.filter((id) => !payload.carsToRemove.includes(id));
 
             // Sort and remove duplicates.
-            params.cars = params.cars.sort((a: any, b: any) => {
-                if ( a.name < b.name){
+            params.cars = params.cars.sort((a: string, b: string) => {
+                if ( a < b){
                     return -1;
-                } else if ( a.name > b.name ){
+                } else if ( a > b){
                     return 1;
                 } else {
                     return 0;
                 }
             });
-            params.cars = _.uniq(params.cars, 'id');
+
+            params.cars = _.uniq(params.cars, true);
         }
 
         // Add contacts
