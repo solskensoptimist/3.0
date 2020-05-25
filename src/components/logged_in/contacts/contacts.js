@@ -45,21 +45,7 @@ const Contacts = (state) => {
 
     useEffect(() => {
         const _renderContacts = () => {
-            // Hämta data i state.contacts.contacts..?
-            const data = [
-                {
-                    name: 'Kontaktnamn Kontakt'
-                },
-                {
-                    name: 'Kontaktnamn Kontakt'
-                },
-                {
-                    name: 'Kontaktnamn Kontakt'
-                },
-                {
-                    name: 'Kontaktnamn Kontakt'
-                }
-            ];
+            const data = state.contacts.contacts;
 
             // if no data, minimize widget.
             if (data.length === 0) {

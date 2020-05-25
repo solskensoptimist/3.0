@@ -21,12 +21,14 @@ const DealProspects = (state) => {
     const [minimize, setMinimize] = useState(true);
 
     const _addProspects = async () => {
-        const ids = state.search.selectedAll.map((num) => num.id.toString());
-        return await updateDeal({prospectsToAdd: ids});
-    };
+        let prospects = state.search.selectedAll.map((num) => num.toString());
+        if (Array.isArray(state.deal.deal.prospects)) {
+            prospects = state.deal.deal.prospects.concat(state.search.selectedAll);
+        } else {
+            prospects = [].concat(state.search.selectedAll);
+        }
 
-    const _removeProspect = async (id) => {
-        return await updateDeal({prospectsToRemove: [id.toString()]});
+        return await updateDeal({prospects: prospects});
     };
 
     const _stateCheck = () => {
@@ -34,9 +36,11 @@ const DealProspects = (state) => {
     };
 
     useEffect(() => {
-        /**
-         * Render prospect rows, and set to state.
-         */
+        const _removeProspect = async (id) => {
+            const prospects = state.deal.deal.prospects.filter((num) => num.toString() !== id.toString());
+            return await updateDeal({prospects: prospects});
+        };
+
         const _renderProspects = () => {
             let data = state.deal.prospectInfo;
 
@@ -61,9 +65,6 @@ const DealProspects = (state) => {
             }));
         };
 
-        /**
-         * Return a prospect row.
-         */
         const _renderProspectItem = (prospect, firstItem) => {
             return (
                 <div className='dealProspectsWrapper__dealProspects__content__prospects__item'>

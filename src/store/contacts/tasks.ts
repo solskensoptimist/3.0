@@ -1,6 +1,7 @@
 import {store} from 'store';
-// import {request} from 'helpers';
+import {request} from 'helpers';
 import {contactsActionTypes} from './actions';
+import companyHelper from 'shared_helpers/company_helper';
 
 /**
  * Add a target to contacts 'savedTo' array.
@@ -30,10 +31,28 @@ export const addTargetToContacts = async (payload) => {
     }
 };
 
+export const deleteContact = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.id)) {
+            return console.error('Missing params in deleteContact.');
+        }
+
+        console.log('deleteContact');
+
+        // if (store.getState().contacts && store.getState().contacts.target) {
+        // Om vi har arget i denna funktion ska vi använda payload.target istället
+        //     return await getContacts({target: store.getState().contacts.target});
+        // }
+    } catch (err) {
+        return console.error('Error in deleteContact:\n' + err);
+    }
+};
+
+
 /**
  * Get contacts for target.
  *
- * @param payload.target - string - Orgnr or deal id.
+ * @param payload.target - string - Company orgnr or a deal id.
  */
 export const getContacts = async (payload) => {
     try {
@@ -41,12 +60,27 @@ export const getContacts = async (payload) => {
             return console.error('Missing params in getContacts.');
         }
 
-        console.log('getContacts');
+        let data: any = {};
+        if (companyHelper.isValidOrgNr(payload.target)) {
+            data.companyId = payload.target;
+        } else {
+            data.entityId = payload.target;
+        }
 
-        // Var / hur hämtar vi contacts..?
+        // Get contacts.
+        const contacts = await request({
+            data: data,
+            method: 'get',
+            url: '/contacts/',
+        });
 
-        store.dispatch({type: contactsActionTypes.SET_TARGET, payload: payload.id});
-        return store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: []});
+        store.dispatch({type: contactsActionTypes.SET_TARGET, payload: payload.target});
+
+        if (!contacts || contacts instanceof Error) {
+            return store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: []});
+        } else {
+            return store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: contacts});
+        }
     } catch (err) {
         return console.error('Error in getContacts:\n' + err);
     }
@@ -68,7 +102,10 @@ export const removeContact = async (payload) => {
         // Om det kontakt finns i  deal så ska vi även uppdatera deal-objektets contacts-array.. sker detta på backend eller krävs ett separat anrop?
         // Kolla upp.
 
-        // return await getContacts({target: store.getState().contacts.target});
+// if (store.getState().contacts && store.getState().contacts.target) {
+        // Om vi har arget i denna funktion ska vi använda payload.target istället
+        //     return await getContacts({target: store.getState().contacts.target});
+        // }
     } catch (err) {
         return console.error('Error in removeContact:\n' + err);
     }
@@ -104,9 +141,52 @@ export const removeTargetFromContact = async (payload) => {
  * @param payload.tele - array
  * @param payload.email - array
  * @param payload.name - string
+ * @param payload.savedTo - string
  * @param payload.tele - array
  * @param payload.target - string - Orgnr or deal id.
  */
+export const updateContact = async (payload) => {
+    try {
+        if (!payload || Object.keys(payload).length === 0) {
+            return console.error('Missing params in updateContact.');
+        }
+
+        console.log('updateContact');
+
+        // EXEMPEL, allt behöver inte skickas med väl..?
+        // req.body {
+        //     contactId: '5d7a1da75b4af56b3953b598',
+        //     updatedData: {
+        //         name: 'Patrik Forslund2',
+        //         email: [ 'patrik.forslund@bilvision.se', 'patrik.forslund@bilvision.se2' ],
+        //         tele: [ '031-3821710', '031-123456789' ],
+        //         comment: 'Beskrivning',
+        //         savedTo: [ [Object], [Object], [Object] ],
+        //         userId: 7305,
+        //         dealerId: 5141,
+        //         updated: '2019-10-04T12:48:41.076Z'
+        //     }
+        // }
+
+
+        const data = await request({
+            data: {
+                contactId: 'hej',
+                updatedData: payload
+            },
+            method: 'put',
+            url: '/contacts/',
+        });
+
+        // if (store.getState().contacts && store.getState().contacts.target) {
+        //      Om vi har arget i denna funktion ska vi använda payload.target istället
+    //      return await getContacts({target: store.getState().contacts.target});
+        // }
+    } catch (err) {
+        return console.error('Error in updateContact:\n' + err);
+    }
+};
+
 export const saveNewContact = async (payload) => {
     try {
         if (!payload || (payload && !payload.target)) {
@@ -123,7 +203,10 @@ export const saveNewContact = async (payload) => {
 
         console.log('saveNewContact');
 
-        // return await getContacts({target: payload.target});
+// if (store.getState().contacts && store.getState().contacts.target) {
+        // Om vi har arget i denna funktion ska vi använda payload.target istället
+        //     return await getContacts({target: store.getState().contacts.target});
+        // }
     } catch (err) {
         return console.error('Error in saveNewContact:\n' + err);
     }

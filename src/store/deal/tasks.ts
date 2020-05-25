@@ -144,19 +144,15 @@ const getProspectInfo = async (payload) => {
  * Note that we have to do extra backend calls depending on what to update.
  * (We do not include deal.comments - as far as I can tell it's a deprecated property.)
  *
- * @param payload.carsToAdd - For cars add, use this property.
- * @param payload.carsToRemove - For cars remove, use this property.
- * @param payload.description
- * @param payload.filesToAdd - For files add, use this property.
- * @param payload.filesToRemove - For files remove, use this property.
- * @param payload.contactsToAdd - For contacts add, use this property.
- * @param payload.contactsToRemove - For contacts remove, use this property.
- * @param payload.maturity
- * @param payload.name
- * @param payload.potential
- * @param payload.prospectsToAdd - For prospects add, use this property.
- * @param payload.prospectsToRemove - For prospects remove, use this property.
- * @param payload.user_id
+ * @param payload.cars - array
+ * @param payload.description - string
+ * @param payload.files - array
+ * @param payload.contacts - array
+ * @param payload.maturity- number
+ * @param payload.name - string
+ * @param payload.potential - string
+ * @param payload.prospects - array
+ * @param payload.user_id - number
  */
 export const updateDeal = async (payload) => {
     try {
@@ -170,49 +166,50 @@ export const updateDeal = async (payload) => {
         const params: any = {};
         let promises = [];
 
-        // Add cars.
-        if (payload.carsToAdd && payload.carsToAdd.length) {
-            params.cars = dealInScope.cars.concat(payload.carsToAdd);
-
-            // Sort and remove duplicates.
-            params.cars = params.cars.sort((a: string, b: string) => {
-                if ( a < b){
-                    return -1;
-                } else if ( a > b ){
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
-
-            params.cars = _.uniq(params.cars, true);
+        // Cars
+        if (payload.hasOwnProperty('cars')) {
+            params.cars = payload.cars;
+            if (params.cars.length) {
+                params.cars = params.cars.sort((a: string, b: string) => {
+                    if ( a < b){
+                        return -1;
+                    } else if ( a > b ){
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
+                params.cars = _.uniq(params.cars, true);
+            }
         }
 
-        // Remove cars.
-        if (payload.carsToRemove && payload.carsToRemove.length) {
-            params.cars = dealInScope.cars.filter((id) => !payload.carsToRemove.includes(id));
+        // Contacts
+        if (payload.hasOwnProperty('contacts')) {
+            let contactsAdd;
+            let contactsRemove;
+            params.contacts = payload.contacts;
 
-            // Sort and remove duplicates.
-            params.cars = params.cars.sort((a: string, b: string) => {
-                if ( a < b){
-                    return -1;
-                } else if ( a > b){
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
+            if (params.contacts.length) {
+                params.contacts = params.contacts.sort((a: any, b: any) => {
+                    if ( a.name < b.name){
+                        return -1;
+                    } else if ( a.name > b.name ){
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
+                params.contacts = _.uniq(params.contacts, true);
 
-            params.cars = _.uniq(params.cars, true);
-        }
+                // When adding or removing contacts from deal, we also need to update contacts object in mongo collection.
+                contactsAdd = payload.contacts.filter((num) => !dealInScope.contacts.find((x) => x._id === num._id));
+                contactsRemove = dealInScope.contacts.filter((num) => !payload.contacts.find((x) => x._id === num._id));
+            } else {
+                contactsAdd = [];
+                contactsRemove = dealInScope.contacts;
+            }
 
-        // Add contacts
-        if (payload.contactsToAdd && payload.contactsToAdd.length) {
-            // Adjust updated deal obj.
-            params.contacts = dealInScope.contacts.concat(payload.contactsToAdd);
-
-            // When adding contacts to deal, we need to update contacts object in mongo collection.
-            let contactPromises = await payload.contactsToAdd.map(async (contact) => {
+            const contactPromisesAdd = await contactsAdd.map(async (contact) => {
                 contact.savedTo.push({
                     entityId: dealInScope._id,
                 });
@@ -229,16 +226,7 @@ export const updateDeal = async (payload) => {
                 });
             });
 
-            promises = promises.concat(contactPromises);
-        }
-
-        // Remove contacts.
-        if (payload.contactsToRemove && payload.contactsToRemove.length) {
-            // Adjust updated deal obj.
-            params.contacts = dealInScope.contacts.filter((contact) => !payload.contactsToRemove.find((num) => num._id === contact._id));
-
-            // When removing contacts from deal, we need to update contacts object in mongo collection.
-            let contactPromises = await payload.contactsToRemove.map(async (contact) => {
+            const contactPromisesRemove = await contactsRemove.map(async (contact) => {
                 return await request({
                     data: {
                         contactId: contact._id,
@@ -249,17 +237,12 @@ export const updateDeal = async (payload) => {
                 });
             });
 
-            promises = promises.concat(contactPromises);
+            promises = promises.concat(contactPromisesAdd, contactPromisesRemove);
         }
 
-        // Add files.
-        if (payload.filesToAdd && payload.filesToAdd.length) {
-            params.files = dealInScope.meta.files.concat(payload.filesToAdd);
-        }
-
-        // Remove files.
-        if (payload.filesToRemove && payload.filesToRemove.length) {
-            params.files = dealInScope.meta.files.filter((file) => !payload.filesToRemove.find((num) => num.s3_filename === file.s3_filename));
+        // Files.
+        if (payload.hasOwnProperty('files')) {
+            params.files = payload.files;
         }
 
         // Description.
@@ -281,16 +264,13 @@ export const updateDeal = async (payload) => {
             params.potential = payload.potential;
         }
 
-        // Add prospects.
-        if (payload.prospectsToAdd && payload.prospectsToAdd.length) {
-            params.prospects = dealInScope.prospects.concat(payload.prospectsToAdd);
-            params.prospects = _.uniq(params.prospects);
-        }
-
-        // Remove prospects.
-        if (payload.prospectsToRemove && payload.prospectsToRemove.length) {
-            params.prospects = dealInScope.prospects.filter((id) => !payload.prospectsToRemove.includes(id));
-            params.prospects = _.uniq(params.prospects);
+        // Prospects.
+        if (payload.hasOwnProperty('prospects')) {
+            params.prospects = payload.prospects;
+            if (params.prospects.length) {
+                params.prospects = params.prospects.map((num) => num.toString());
+                params.prospects = _.uniq(params.prospects);
+            }
         }
 
         // Deal owner.
@@ -337,7 +317,7 @@ export const updateDeal = async (payload) => {
 
         store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: false});
 
-        if (payload.prospectsToAdd || payload.prospectsToRemove) {
+        if (payload.prospects && payload.prospects.length) {
             return await getDeal({id: dealInScope._id});
         } else {
             // Retrieving prospect info is somewhat slow, so try and avoid when unnecessary.

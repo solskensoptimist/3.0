@@ -20,16 +20,20 @@ const DealFiles = (state) => {
     const [minimize, setMinimize] = useState(false);
 
     const _finishUpload = async (e, f) => {
-        const files = [{
-            s3_filename: e.filename,
-            original_name: f.name,
-        }];
+        let files;
+        if (Array.isArray(state.deal.deal.meta.files)) {
+            files = state.deal.deal.meta.files.concat([{
+                s3_filename: e.filename,
+                original_name: f.name,
+            }]);
+        } else {
+            files = [{
+                s3_filename: e.filename,
+                original_name: f.name,
+            }];
+        }
 
-        return await updateDeal({filesToAdd: files});
-    };
-
-    const _removeFile = async (file) => {
-        return await updateDeal({filesToRemove: [file]});
+        return await updateDeal({files: files});
     };
 
     const _startUpload = () => {
@@ -45,8 +49,14 @@ const DealFiles = (state) => {
     };
 
     useEffect(() => {
+        const _removeFile = async (file) => {
+            const files = state.deal.deal.meta.files.filter((num) => num.s3_filename !== file.s3_filename);
+            return await updateDeal({files: files});
+        };
+
         const _renderFiles = () => {
             let data = state.deal.deal.meta.files;
+            console.log('data', data);
 
             // if no data, minimize widget.
             if (data.length === 0) {

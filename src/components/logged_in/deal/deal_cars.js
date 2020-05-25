@@ -21,12 +21,14 @@ const DealCars = (state) => {
     const [minimize, setMinimize] = useState(true);
 
     const _addCars = async () => {
-        const ids = state.search.selectedCars.map((num) => num.id);
-        return await updateDeal({carsToAdd: ids});
-    };
+        let cars = state.search.selectedCars.map((num) => num.id.toString());
+        if (Array.isArray(state.deal.deal.cars)) {
+            cars = state.deal.deal.cars.concat(cars);
+        } else {
+            cars = [].concat(cars);
+        }
 
-    const _removeCar = async (id) => {
-        return await updateDeal({carsToRemove: id});
+        return await updateDeal({cars: cars});
     };
 
     const _stateCheck = () => {
@@ -34,6 +36,11 @@ const DealCars = (state) => {
     };
 
     useEffect(() => {
+        const _removeCar = async (id) => {
+            const cars = state.deal.deal.cars.filter((num) => num !== id);
+            return await updateDeal({cars: cars});
+        };
+
         const _renderCars = () => {
             let data = state.deal.deal.cars;
 
