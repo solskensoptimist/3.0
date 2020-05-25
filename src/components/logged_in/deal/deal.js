@@ -173,7 +173,7 @@ const Deal = (state) => {
                 name: state.deal.deal.name,
                 potential: state.deal.deal.potential,
                 user_id: state.deal.deal.user_id,
-                userName: state.deal.deal.userName, // This is for frontend display, when changing user we only care send user id.
+                userName: state.deal.deal.userName, // This is for frontend display, when changing user we only send user id.
             });
         }
     }, [state.deal]);

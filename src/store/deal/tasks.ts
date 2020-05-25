@@ -1,8 +1,7 @@
 import {store} from 'store';
-import {prospectHelper, request} from 'helpers';
+import {prospectHelper, request, tc} from 'helpers';
 import {dealActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
-import {tc} from 'helpers';
 import companyHelper from 'shared_helpers/company_helper';
 import _ from 'underscore';
 
@@ -25,6 +24,7 @@ export const getDeal = async (payload) => {
         });
 
         if (!deal || deal instanceof Error) {
+            showFlashMessage(tc.couldNotGetDeal);
             console.error('No data in getDeal');
             return store.dispatch({ type: dealActionTypes.SET_DEAL, payload: {}});
         }
@@ -143,13 +143,11 @@ const getProspectInfo = async (payload) => {
  * Update a deal.
  *
  * All properties optional.
- * Note that we have to do extra backend calls depending on what to update.
- * (We do not include deal.comments - as far as I can tell it's a deprecated property.)
+ * (We do not include deal.comments - as far as I can tell it's a deprecated property. Same with deal.contacts.)
  *
  * @param payload.cars - array
  * @param payload.description - string
  * @param payload.files - array
- * @param payload.contacts - array
  * @param payload.maturity- number
  * @param payload.name - string
  * @param payload.potential - string
@@ -181,63 +179,6 @@ export const updateDeal = async (payload) => {
                 });
                 params.cars = _.uniq(params.cars, true);
             }
-        }
-
-        // Contacts
-        if (payload.hasOwnProperty('contacts')) {
-            let contactsAdd;
-            let contactsRemove;
-            params.contacts = payload.contacts;
-
-            if (params.contacts.length) {
-                params.contacts = params.contacts.sort((a: any, b: any) => {
-                    if ( a.name < b.name){
-                        return -1;
-                    } else if ( a.name > b.name ){
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                });
-                params.contacts = _.uniq(params.contacts, true);
-
-                // When adding or removing contacts from deal, we also need to update contacts object in mongo collection.
-                contactsAdd = payload.contacts.filter((num) => !dealInScope.contacts.find((x) => x._id === num._id));
-                contactsRemove = dealInScope.contacts.filter((num) => !payload.contacts.find((x) => x._id === num._id));
-            } else {
-                contactsAdd = [];
-                contactsRemove = dealInScope.contacts;
-            }
-
-            const contactPromisesAdd = await contactsAdd.map(async (contact) => {
-                contact.savedTo.push({
-                    entityId: dealInScope._id,
-                });
-
-                return await request({
-                    data: {
-                        contactId: contact._id,
-                        updatedData: {
-                            savedTo: contact.savedTo
-                        }
-                    },
-                    method: 'put',
-                    url: '/contacts'
-                });
-            });
-
-            const contactPromisesRemove = await contactsRemove.map(async (contact) => {
-                return await request({
-                    data: {
-                        contactId: contact._id,
-                        entityId: dealInScope._id,
-                    },
-                    method: 'put',
-                    url: '/contacts/removeFromEntity'
-                });
-            });
-
-            promises = promises.concat(contactPromisesAdd, contactPromisesRemove);
         }
 
         // Files.

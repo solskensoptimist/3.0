@@ -1,13 +1,15 @@
 import {store} from 'store';
-import {request} from 'helpers';
+import {request, tc} from 'helpers';
 import {contactsActionTypes} from './actions';
+import {showFlashMessage} from 'store/flash_messages/tasks';
+import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
 
 /**
- * Add a target to contacts 'savedTo' array.
+ * Add an entity to contacts 'savedTo' array.
  *
- * @param payload.ids - Array - Contact ids.
- * @param payload.target - string - Target.
+ * @param payload.ids - Array
+ * @param payload.target - string
  */
 export const addTargetToContacts = async (payload) => {
     try {
@@ -15,44 +17,27 @@ export const addTargetToContacts = async (payload) => {
             return console.error('Missing params in addTargetToContact.');
         }
 
-        // Kom ihåg att göra en checkpå target om det är valid org nr, kanske även någon check på om det är fler än 12 tecken.
-        // Vi ska ju ange entityType 'company' eller 'deal'. Kolla upp att detta är de enda två typerna vi har i db.
+        // Denna ska användas när man har sökt upp och valt kontakter från
+        // sökrutan i kontaktkomponenten, och sparar. Då finnas kontakterna redan, men de ska sparas till
+        // affären eller prospektet man är inne på.
+        // Denna ska användas när man redigerar en kontakt, och vill knyta kontakten till andra prospekt/bilar.
 
+        // Gör entityType 'company', 'deal' eller 'car' beroende på längd på id och valid orgnr.
         // Iterera payload.ids, detta är id för varje kontakt som ska få entityId och entityType i sin 'savedTo' array.
 
-        // Om det gäller deal så ska vi även uppdatera deal-objektets contacts-array.. sker detta på backend eller krävs ett separat anrop?
-        // Kolla upp.
+        showFlashMessage(tc.contactWasAddedToTarget);
 
-        console.log('addTargetToContact');
-
-        // return await getContacts({target: payload.target});
+        return await getContacts({target: payload.target});
     } catch (err) {
         return console.error('Error in addTargetToContact:\n' + err);
     }
 };
 
-export const deleteContact = async (payload) => {
-    try {
-        if (!payload || (payload && !payload.id)) {
-            return console.error('Missing params in deleteContact.');
-        }
-
-        console.log('deleteContact');
-
-        // if (store.getState().contacts && store.getState().contacts.target) {
-        // Om vi har arget i denna funktion ska vi använda payload.target istället
-        //     return await getContacts({target: store.getState().contacts.target});
-        // }
-    } catch (err) {
-        return console.error('Error in deleteContact:\n' + err);
-    }
-};
-
-
 /**
- * Get contacts for target.
+ * Get contacts for a specific target.
+ * Target being the same as entityId, which can be: a company org nr/a car reg nr/a deal id.
  *
- * @param payload.target - string - Company orgnr or a deal id.
+ * @param payload.target - string
  */
 export const getContacts = async (payload) => {
     try {
@@ -97,22 +82,31 @@ export const removeContact = async (payload) => {
             return console.error('Missing params in removeContact.');
         }
 
-        console.log('removeContact');
+        const deletedContact = await request({
+            data: {
+                contactId: payload.id,
+            },
+            method: 'get',
+            url: '/contacts/',
+        });
 
-        // Om det kontakt finns i  deal så ska vi även uppdatera deal-objektets contacts-array.. sker detta på backend eller krävs ett separat anrop?
-        // Kolla upp.
+        if (!deletedContact) {
+            return console.error('Error in removeContact.');
+        }
 
-// if (store.getState().contacts && store.getState().contacts.target) {
-        // Om vi har arget i denna funktion ska vi använda payload.target istället
-        //     return await getContacts({target: store.getState().contacts.target});
-        // }
+        showFlashMessage(tc.contactWasRemoved);
+
+        if (store.getState().contacts && store.getState().contacts.target) {
+            return await getContacts({target: store.getState().contacts.target});
+        }
     } catch (err) {
         return console.error('Error in removeContact:\n' + err);
     }
 };
 
 /**
- * Remove a target from contact 'savedTo' array,
+ * Remove a target (company/deal/car) from contacts 'savedTo' array.
+ * Contact is not removed, even if the savedTo array becomes empty.
  *
  * @param payload.id - string - Contact id.
  * @param payload.target - string - Target.
@@ -123,91 +117,117 @@ export const removeTargetFromContact = async (payload) => {
             return console.error('Missing params in removeTargetFromContact.');
         }
 
-        // Om det gäller deal så ska vi även uppdatera deal-objektets contacts-array.. sker detta på backend eller krävs ett separat anrop?
-        // Kolla upp.
+        const targetRemoved = await request({
+            data: {
+                contactId: payload.id,
+                entityId: payload.target,
+            },
+            method: 'delete',
+            url: '/contacts/removeFromEntity',
+        });
 
-        console.log('removeTargetFromContact');
+        if (!targetRemoved) {
+            return console.error('Error in removeTargetFromContact.');
+        }
 
-        // return await getContacts({target: payload.target});
+        showFlashMessage(tc.contactWasRemovedFromTarget);
+
+        return await getContacts({target: payload.target});
     } catch (err) {
         return console.error('Error in removeTargetFromContact:\n' + err);
     }
 };
 
 /**
- * Save a new contact
+ * Save a new contact.
  *
  * @param payload.comment - string
- * @param payload.tele - array
  * @param payload.email - array
  * @param payload.name - string
- * @param payload.savedTo - string
+ * @param payload.savedTo - array
  * @param payload.tele - array
- * @param payload.target - string - Orgnr or deal id.
+ */
+export const saveNewContact = async (payload) => {
+    try {
+        if (!payload) {
+            return console.error('Missing params in saveNewContact.');
+        }
+
+        // Add type to entity.
+        if (payload.savedTo && payload.savedTo.length) {
+            payload.savedTo.map((num) => {
+                if (carHelper.isValidRegNumber(num.entityId)) {
+                    num.entityType = 'car';
+                } else if (companyHelper.isValidOrgNr(num.entityId)) {
+                    num.entityType = 'company';
+                } else {
+                    num.entityType = 'deal';
+                }
+                return num;
+            });
+        }
+
+        if (!payload.tele || !Array.isArray(payload.tele)) {
+            payload.tele = ['']; // 2.0 frontend breaks if tele array doesn't exist, fix at some point.
+        }
+
+        const contact = await request({
+            data: payload,
+            method: 'post',
+            url: '/contacts',
+        });
+
+        if (!contact) {
+            return console.error('Error in saveNewContact.');
+        }
+
+        showFlashMessage(tc.contactWasSaved);
+
+        if (store.getState().contacts && store.getState().contacts.target) {
+            return await getContacts({target: store.getState().contacts.target});
+        }
+    } catch (err) {
+        return console.error('Error in saveNewContact:\n' + err);
+    }
+};
+
+
+/**
+ * Update a new contact
+ *
+ * @param payload.id - string - Id for contact.
+ *
+ * @param payload.data.comment - string
+ * @param payload.data.email - array
+ * @param payload.data.name - string
+ * @param payload.data.savedTo - array
+ * @param payload.data.tele - array
  */
 export const updateContact = async (payload) => {
     try {
-        if (!payload || Object.keys(payload).length === 0) {
+        if (!payload || !payload.id || !payload.data) {
             return console.error('Missing params in updateContact.');
         }
 
-        console.log('updateContact');
-
-        // EXEMPEL, allt behöver inte skickas med väl..?
-        // req.body {
-        //     contactId: '5d7a1da75b4af56b3953b598',
-        //     updatedData: {
-        //         name: 'Patrik Forslund2',
-        //         email: [ 'patrik.forslund@bilvision.se', 'patrik.forslund@bilvision.se2' ],
-        //         tele: [ '031-3821710', '031-123456789' ],
-        //         comment: 'Beskrivning',
-        //         savedTo: [ [Object], [Object], [Object] ],
-        //         userId: 7305,
-        //         dealerId: 5141,
-        //         updated: '2019-10-04T12:48:41.076Z'
-        //     }
-        // }
-
-
-        const data = await request({
+        const updated = await request({
             data: {
-                contactId: 'hej',
-                updatedData: payload
+                contactId: payload.id,
+                updatedData: payload.data
             },
             method: 'put',
             url: '/contacts/',
         });
 
-        // if (store.getState().contacts && store.getState().contacts.target) {
-        //      Om vi har arget i denna funktion ska vi använda payload.target istället
-    //      return await getContacts({target: store.getState().contacts.target});
-        // }
+        if (!updated) {
+            return console.error('Error in updateContact');
+        }
+
+        showFlashMessage(tc.contactWasUpdated);
+
+        if (store.getState().contacts && store.getState().contacts.target) {
+            return await getContacts({target: store.getState().contacts.target});
+        }
     } catch (err) {
         return console.error('Error in updateContact:\n' + err);
-    }
-};
-
-export const saveNewContact = async (payload) => {
-    try {
-        if (!payload || (payload && !payload.target)) {
-            return console.error('Missing params in saveNewContact.');
-        }
-        // Kom ihåg att göra en checkpå target om det är valid org nr, kanske även någon check på om det är fler än 12 tecken.
-        // Vi ska ju ange entityType 'company' eller 'deal'. Kolla upp att detta är de enda två typerna vi har i db.
-
-        /*
-        Kolla upp hur kontakter sparas... oklart om ovanstående params är korrekta...
-         */
-
-        // Om target är deal så ska även deal-objekjtet uppdateras. Sker detta på backend eller krävs separat anrop?
-
-        console.log('saveNewContact');
-
-// if (store.getState().contacts && store.getState().contacts.target) {
-        // Om vi har arget i denna funktion ska vi använda payload.target istället
-        //     return await getContacts({target: store.getState().contacts.target});
-        // }
-    } catch (err) {
-        return console.error('Error in saveNewContact:\n' + err);
     }
 };
