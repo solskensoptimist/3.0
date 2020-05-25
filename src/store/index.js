@@ -5,6 +5,7 @@ import {contactsReducer} from 'store/contacts/reducer';
 import {dealReducer} from 'store/deal/reducer';
 import {eventsReducer} from 'store/events/reducer';
 import {filterReducer} from 'store/filter/reducer';
+import {flashMessagesReducer} from 'store/flash_messages/reducer';
 import {groupsReducer} from 'store/groups/reducer';
 import {listsReducer} from 'store/lists/reducer';
 import {prospectReducer} from 'store/prospect/reducer';
@@ -20,6 +21,7 @@ const reducer = combineReducers({
     deal: dealReducer,
     events: eventsReducer,
     filter: filterReducer,
+    flashMessages: flashMessagesReducer,
     groups: groupsReducer,
     lists: listsReducer,
     prospect: prospectReducer,

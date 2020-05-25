@@ -1,0 +1,16 @@
+.flashMessagesWrapper
+  position: fixed
+  height: 100%
+  width: 100%
+  display: flex
+  justify-content: center
+  &__flashMessages
+    background: $colorInformatoryDark
+    color: white
+    border-radius: 4px 4px 0 0
+    padding: $paddingMedium $paddingBig
+    z-index: 100
+    position: fixed
+    bottom: 0
+    animation: slideFromBottom 2s
+    max-width: 40%

@@ -45,7 +45,7 @@ const DealProspects = (state) => {
             let data = state.deal.prospectInfo;
 
             // if no data, minimize widget.
-            if (data.length === 0) {
+            if (!data || (data && data.length === 0)) {
                 setProspectRows(<p>{tc.noProspects}</p>);
                 return setMinimize(true);
             }

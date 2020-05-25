@@ -49,6 +49,7 @@ export default {
     createNewPassword: 'Skapa nytt lösenord',
     date: 'Datum',
     deal: 'Affär',
+    dealWasUpdated: 'Affären är nu uppdaterad',
     descriptionDeal: 'Beskrivning av affär',
     didCall: 'Har ringt',
     didEmail: 'Har e-postat',

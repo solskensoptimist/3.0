@@ -45,7 +45,7 @@ const DealCars = (state) => {
             let data = state.deal.deal.cars;
 
             // if no data, minimize widget.
-            if (data.length === 0) {
+            if (!data || (data && data.length === 0)) {
                 setCarRows(<p>{tc.noCars}</p>);
                 return setMinimize(true);
             }

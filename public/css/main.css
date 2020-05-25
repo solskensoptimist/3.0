@@ -1,3 +1,8 @@
+@keyframes slideFromBottom {
+  0% {
+    bottom: -100%; }
+  100% {
+    bottom: 0; } }
 .buttonRegular {
   background: #eeeeee;
   border: 1px solid #e0e0e0;
@@ -938,6 +943,23 @@ a {
 
 .withinAWeek .additionalDate svg {
   fill: #ffd54f !important; }
+
+.flashMessagesWrapper {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; }
+  .flashMessagesWrapper__flashMessages {
+    background: #ffb300;
+    color: white;
+    border-radius: 4px 4px 0 0;
+    padding: 12px 22px;
+    z-index: 100;
+    position: fixed;
+    bottom: 0;
+    animation: slideFromBottom 2s;
+    max-width: 40%; }
 
 .footer {
   background: transparent;

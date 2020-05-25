@@ -32,7 +32,7 @@ const EventsFlow = (state) => {
             let data = state.events;
 
             // if no data, minimize widget.
-            if (data.length === 0) {
+            if (!data || (data && data.length === 0)) {
                 setEventRows(<p>{tc.noEvents}</p>);
                 return setMinimize(true);
             }

@@ -7,6 +7,7 @@ import Car from './car/';
 import Company from './company/';
 import Deal from './deal/';
 import Footer from 'components/shared/footer';
+import FlashMessages from 'components/logged_in/flash_messages';
 import Header from './header';
 import Home from './home/';
 import List from './list/';
@@ -42,6 +43,7 @@ export default () => {
                     </Switch>
                 </div>
             </div>
+            <FlashMessages/>
             <Footer/>
         </>
     );

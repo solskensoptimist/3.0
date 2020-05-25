@@ -1,6 +1,8 @@
 import {store} from 'store';
 import {prospectHelper, request} from 'helpers';
 import {dealActionTypes} from './actions';
+import {showFlashMessage} from 'store/flash_messages/tasks';
+import {tc} from 'helpers';
 import companyHelper from 'shared_helpers/company_helper';
 import _ from 'underscore';
 
@@ -160,8 +162,6 @@ export const updateDeal = async (payload) => {
             return console.error('Missing params in updateDeal');
         }
 
-        store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: true});
-
         const dealInScope = store.getState().deal.deal;
         const params: any = {};
         let promises = [];
@@ -274,7 +274,7 @@ export const updateDeal = async (payload) => {
         }
 
         // Deal owner.
-        if (payload.user_id) {
+        if (payload.hasOwnProperty('user_id') && payload.user_id.length) {
             // Adjust updated deal obj.
             params.prev_user_id = Number(dealInScope.user_id);
             params.user_id = Number(payload.user_id);
@@ -311,20 +311,18 @@ export const updateDeal = async (payload) => {
         const data = await Promise.all(promises);
 
         if (!data) {
-            store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: false});
             return console.error('Error in updateDeal, promise chain fail.');
         }
 
-        store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: false});
-
         if (payload.prospects && payload.prospects.length) {
-            return await getDeal({id: dealInScope._id});
+            await getDeal({id: dealInScope._id});
+            return showFlashMessage(tc.dealWasUpdated);
         } else {
             // Retrieving prospect info is somewhat slow, so try and avoid when unnecessary.
-            return await getDeal({id: dealInScope._id, noProspectInfo: true});
+            await getDeal({id: dealInScope._id, noProspectInfo: true});
+            return showFlashMessage(tc.dealWasUpdated);
         }
     } catch (err) {
-        store.dispatch({ type: dealActionTypes.SET_DEAL_UPDATING, payload: false});
         return console.error('Error in updateDeal:\n' + err);
     }
 };

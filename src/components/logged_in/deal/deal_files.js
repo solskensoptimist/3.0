@@ -56,10 +56,9 @@ const DealFiles = (state) => {
 
         const _renderFiles = () => {
             let data = state.deal.deal.meta.files;
-            console.log('data', data);
 
             // if no data, minimize widget.
-            if (data.length === 0) {
+            if (!data || (data && data.length === 0)) {
                 setFileRows(<p className='marginTop'>{tc.noFiles}</p>);
                 return setMinimize(true);
             }

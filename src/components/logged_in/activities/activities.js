@@ -62,7 +62,7 @@ const Activities = (state) => {
             }
 
             // if no data, minimize widget.
-            if (data.length === 0) {
+            if (!data || (data && data.length === 0)) {
                 setActivityRows(<p>{tc.noActivity}</p>);
                 return setMinimize(true);
             }
