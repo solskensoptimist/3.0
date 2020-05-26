@@ -19,6 +19,7 @@ import {
     ExitToApp,
     Extension,
     FreeBreakfast,
+    FormatQuote,
     GetApp,
     Group,
     Help,
@@ -102,12 +103,12 @@ export default (props) => {
             return <Done className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'contact':
             return <PermContactCalendar className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'description':
+            return <FormatQuote className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_call':
             return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_email':
             return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
-        case 'load':
-            return <Refresh className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_lose_price':
             return <AttachMoney className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_lose_product':
@@ -148,6 +149,8 @@ export default (props) => {
             return <List className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'lists':
             return <List className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'load':
+            return <Refresh className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'login':
             return <ExitToApp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'logout':

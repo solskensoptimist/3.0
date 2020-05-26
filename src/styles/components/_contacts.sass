@@ -1,5 +1,6 @@
 .contactsWrapper
   @extend .paperSheet
+  padding: $paddingBig
   &__contacts
     &__content
       display: flex
@@ -11,46 +12,66 @@
         flex-grow: 1
         &__item
           background: $grey-50
+          padding: $paddingBig
           flex-basis: calc(33.33% - (#{$paddingBig} / 3 * 2))
           flex-grow: 0
           flex-shrink: 0
           min-width: 0
-          display: flex
-          justify-content: space-between
           margin: $paddingBig $paddingBig 0 0
-          height: 72px
+          word-break: break-word
           &:nth-child(3n)
             margin-right: 0
-          svg
-            cursor: pointer
-          &__icon
-            padding: 0 $paddingMedium
-            flex-basis: 8%
-            flex-shrink: 0
-            flex-grow: 0
+          &__header
             display: flex
             align-items: center
-            justify-content: center
-          &__infoHolder
-            display: flex
-            align-items: center
-            flex-grow: 1
-            min-width: 0
-            &__info
-              overflow: hidden
-              padding-right: $paddingMedium
-              &__name
-                text-overflow: ellipsis
-                overflow: hidden
-                white-space: nowrap
-                color: $colorTextMain
-                font-weight: 600
-              &__address
-                text-overflow: ellipsis
-                white-space: nowrap
-                overflow: hidden
+            justify-content: space-between
+            border-bottom: 1px solid $grey-400
+            padding-bottom: $paddingSmall
+            &__left
+              flex-grow: 1
+            &__right
+              margin-left: $paddingBig
+              svg
+                fill: $colorLink
+                width: 18px
+                height: 18px
+                cursor: pointer
+                &:hover
+                  fill: $colorLinkHover
+          &__content
+            margin-top: $paddingBig
+            &__item
+              display: flex
+              align-items: flex-start
+              margin-bottom: $paddingMedium
+              &:last-of-type
+                margin-bottom: 0
+              &__left
+                margin-right: $paddingMedium
+                svg
+                  fill: $colorTextLight
+                  width: 14px
+                  height: 14px
+            &__entities
+              &__header
+              &__content
+                display: flex
+                align-items: center
+                &__entity
+                  display: flex
+                  align-items: center
+                  padding: $paddingSmall
+                  background: $grey-300
+                  margin-left: $paddingMedium
+                  &:first-of-type
+                    margin-left: 0
+                  svg
+                    width: 14px
+                    height: 14px
+                    margin-left: $paddingMedium
+                    cursor: pointer
       &__search
-        flex-basis: calc(33.33% - (#{$paddingBig} / 3 * 2))
+        flex-basis: calc(25% - (#{$paddingBig} / 2))
         flex-grow: 0
         flex-shrink: 0
         min-width: 0

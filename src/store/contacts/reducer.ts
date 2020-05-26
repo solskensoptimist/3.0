@@ -2,12 +2,12 @@ import {contactsActionTypes} from './actions';
 
 interface ContactsState {
     contacts: Array<object> | null,
-    target: string | null,
+    entityId: string | null,
 }
 
 const initialState: ContactsState = {
     contacts: null,
-    target: null,
+    entityId: null,
 };
 
 export const contactsReducer = (state = initialState, action) => {
@@ -18,7 +18,7 @@ export const contactsReducer = (state = initialState, action) => {
                 contacts: action.payload,
             }
         }
-        case contactsActionTypes.SET_TARGET: {
+        case contactsActionTypes.SET_ENTITY_ID: {
             return {
                 ...state,
                 target: action.payload,

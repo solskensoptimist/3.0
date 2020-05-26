@@ -66,7 +66,6 @@
 
 .paperSheet, .activitiesWrapper, .contactsWrapper, .dealProspectsWrapper, .dealCarsWrapper, .dealFilesWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .newsWrapper {
   background: white;
-  padding: 22px;
   border: 1px solid #eeeeee; }
 
 .shadowRegular, .dropdownWrapper__dropdown__content, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events, .searchMainWrapper__searchMain__content, .searchSelectWrapper__searchSelect__header__bottom__searchResult {
@@ -231,75 +230,77 @@ a {
     .activityWrapper__activity__content__item:last-of-type {
       margin-bottom: 0; }
 
-.activitiesWrapper__activities__content {
-  margin-top: 22px; }
-  .activitiesWrapper__activities__content__itemWrapper {
-    position: relative; }
-    .activitiesWrapper__activities__content__itemWrapper:nth-child(even) .activitiesWrapper__activities__content__itemWrapper__item {
-      background: #fafafa; }
-    .activitiesWrapper__activities__content__itemWrapper:last-of-type .activitiesWrapper__activities__content__itemWrapper__item {
-      border: 0; }
-    .activitiesWrapper__activities__content__itemWrapper__item {
-      display: flex;
-      justify-content: space-between;
-      padding: 22px;
-      flex-grow: 1;
-      word-break: break-word;
-      border-bottom: 1px solid #eeeeee; }
-      .activitiesWrapper__activities__content__itemWrapper__item:hover .activitiesWrapper__activities__content__itemWrapper__item__edit {
-        visibility: visible; }
-      .activitiesWrapper__activities__content__itemWrapper__item svg {
-        width: 18px;
-        height: 18px;
-        fill: #ffc107; }
-      .activitiesWrapper__activities__content__itemWrapper__item strong {
-        font-weight: 600; }
-      .activitiesWrapper__activities__content__itemWrapper__item span.label {
-        text-transform: uppercase;
-        font-size: 11px;
-        color: #9e9e9e;
-        margin-right: 8px; }
-      .activitiesWrapper__activities__content__itemWrapper__item__icon {
-        flex-basis: 2%;
-        border-right: 1px solid #eeeeee;
-        padding-right: 22px;
+.activitiesWrapper {
+  padding: 22px; }
+  .activitiesWrapper__activities__content {
+    margin-top: 22px; }
+    .activitiesWrapper__activities__content__itemWrapper {
+      position: relative; }
+      .activitiesWrapper__activities__content__itemWrapper:nth-child(even) .activitiesWrapper__activities__content__itemWrapper__item {
+        background: #fafafa; }
+      .activitiesWrapper__activities__content__itemWrapper:last-of-type .activitiesWrapper__activities__content__itemWrapper__item {
+        border: 0; }
+      .activitiesWrapper__activities__content__itemWrapper__item {
         display: flex;
-        align-items: center; }
-      .activitiesWrapper__activities__content__itemWrapper__item__date {
-        margin-left: 22px;
-        flex-basis: 16%; }
-      .activitiesWrapper__activities__content__itemWrapper__item__action {
-        margin-left: 22px;
-        flex-basis: 26%; }
-        .activitiesWrapper__activities__content__itemWrapper__item__action div {
-          display: inline; }
-      .activitiesWrapper__activities__content__itemWrapper__item__comment {
-        margin-left: 22px;
-        flex-basis: 30%; }
-      .activitiesWrapper__activities__content__itemWrapper__item__user {
-        margin-left: 22px;
-        flex-basis: 20%; }
-      .activitiesWrapper__activities__content__itemWrapper__item__edit {
-        margin-left: 22px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        flex-basis: 4%;
-        visibility: hidden; }
-        .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper {
-          margin-left: 8px; }
-          .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
-            margin-left: 0; }
-          .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg {
-            width: 14px;
-            height: 14px;
-            fill: #00B4CC;
-            cursor: pointer;
-            margin-left: 12px; }
-            .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
-              fill: #616161; }
-            .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
+        justify-content: space-between;
+        padding: 22px;
+        flex-grow: 1;
+        word-break: break-word;
+        border-bottom: 1px solid #eeeeee; }
+        .activitiesWrapper__activities__content__itemWrapper__item:hover .activitiesWrapper__activities__content__itemWrapper__item__edit {
+          visibility: visible; }
+        .activitiesWrapper__activities__content__itemWrapper__item svg {
+          width: 18px;
+          height: 18px;
+          fill: #ffc107; }
+        .activitiesWrapper__activities__content__itemWrapper__item strong {
+          font-weight: 600; }
+        .activitiesWrapper__activities__content__itemWrapper__item span.label {
+          text-transform: uppercase;
+          font-size: 11px;
+          color: #9e9e9e;
+          margin-right: 8px; }
+        .activitiesWrapper__activities__content__itemWrapper__item__icon {
+          flex-basis: 2%;
+          border-right: 1px solid #eeeeee;
+          padding-right: 22px;
+          display: flex;
+          align-items: center; }
+        .activitiesWrapper__activities__content__itemWrapper__item__date {
+          margin-left: 22px;
+          flex-basis: 16%; }
+        .activitiesWrapper__activities__content__itemWrapper__item__action {
+          margin-left: 22px;
+          flex-basis: 26%; }
+          .activitiesWrapper__activities__content__itemWrapper__item__action div {
+            display: inline; }
+        .activitiesWrapper__activities__content__itemWrapper__item__comment {
+          margin-left: 22px;
+          flex-basis: 30%; }
+        .activitiesWrapper__activities__content__itemWrapper__item__user {
+          margin-left: 22px;
+          flex-basis: 20%; }
+        .activitiesWrapper__activities__content__itemWrapper__item__edit {
+          margin-left: 22px;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          flex-basis: 4%;
+          visibility: hidden; }
+          .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper {
+            margin-left: 8px; }
+            .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
               margin-left: 0; }
+            .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg {
+              width: 14px;
+              height: 14px;
+              fill: #00B4CC;
+              cursor: pointer;
+              margin-left: 12px; }
+              .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
+                fill: #616161; }
+              .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
+                margin-left: 0; }
 
 .commentWrapper__comment__content {
   margin: 22px 0; }
@@ -312,70 +313,90 @@ a {
     max-width: 100%;
     font-size: 14px; }
 
-.contactsWrapper__contacts__content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start; }
-  .contactsWrapper__contacts__content__contacts {
+.contactsWrapper {
+  padding: 22px; }
+  .contactsWrapper__contacts__content {
     display: flex;
-    flex-wrap: wrap;
-    flex-grow: 1; }
-    .contactsWrapper__contacts__content__contacts__item {
-      background: #fafafa;
-      flex-basis: calc(33.33% - (22px / 3 * 2));
+    justify-content: space-between;
+    align-items: flex-start; }
+    .contactsWrapper__contacts__content__contacts {
+      display: flex;
+      flex-wrap: wrap;
+      flex-grow: 1; }
+      .contactsWrapper__contacts__content__contacts__item {
+        background: #fafafa;
+        padding: 22px;
+        flex-basis: calc(33.33% - (22px / 3 * 2));
+        flex-grow: 0;
+        flex-shrink: 0;
+        min-width: 0;
+        margin: 22px 22px 0 0;
+        word-break: break-word; }
+        .contactsWrapper__contacts__content__contacts__item:nth-child(3n) {
+          margin-right: 0; }
+        .contactsWrapper__contacts__content__contacts__item__header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid #bdbdbd;
+          padding-bottom: 8px; }
+          .contactsWrapper__contacts__content__contacts__item__header__left {
+            flex-grow: 1; }
+          .contactsWrapper__contacts__content__contacts__item__header__right {
+            margin-left: 22px; }
+            .contactsWrapper__contacts__content__contacts__item__header__right svg {
+              fill: #00B4CC;
+              width: 18px;
+              height: 18px;
+              cursor: pointer; }
+              .contactsWrapper__contacts__content__contacts__item__header__right svg:hover {
+                fill: #616161; }
+        .contactsWrapper__contacts__content__contacts__item__content {
+          margin-top: 22px; }
+          .contactsWrapper__contacts__content__contacts__item__content__item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px; }
+            .contactsWrapper__contacts__content__contacts__item__content__item:last-of-type {
+              margin-bottom: 0; }
+            .contactsWrapper__contacts__content__contacts__item__content__item__left {
+              margin-right: 12px; }
+              .contactsWrapper__contacts__content__contacts__item__content__item__left svg {
+                fill: #9e9e9e;
+                width: 14px;
+                height: 14px; }
+          .contactsWrapper__contacts__content__contacts__item__content__entities__content {
+            display: flex;
+            align-items: center; }
+            .contactsWrapper__contacts__content__contacts__item__content__entities__content__entity {
+              display: flex;
+              align-items: center;
+              padding: 8px;
+              background: #e0e0e0;
+              margin-left: 12px; }
+              .contactsWrapper__contacts__content__contacts__item__content__entities__content__entity:first-of-type {
+                margin-left: 0; }
+              .contactsWrapper__contacts__content__contacts__item__content__entities__content__entity svg {
+                width: 14px;
+                height: 14px;
+                margin-left: 12px;
+                cursor: pointer; }
+    .contactsWrapper__contacts__content__search {
+      flex-basis: calc(25% - (22px / 2));
       flex-grow: 0;
       flex-shrink: 0;
       min-width: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
       display: flex;
-      justify-content: space-between;
-      margin: 22px 22px 0 0;
-      height: 72px; }
-      .contactsWrapper__contacts__content__contacts__item:nth-child(3n) {
-        margin-right: 0; }
-      .contactsWrapper__contacts__content__contacts__item svg {
-        cursor: pointer; }
-      .contactsWrapper__contacts__content__contacts__item__icon {
-        padding: 0 12px;
-        flex-basis: 8%;
-        flex-shrink: 0;
-        flex-grow: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center; }
-      .contactsWrapper__contacts__content__contacts__item__infoHolder {
-        display: flex;
-        align-items: center;
-        flex-grow: 1;
-        min-width: 0; }
-        .contactsWrapper__contacts__content__contacts__item__infoHolder__info {
-          overflow: hidden;
-          padding-right: 12px; }
-          .contactsWrapper__contacts__content__contacts__item__infoHolder__info__name {
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            color: #616161;
-            font-weight: 600; }
-          .contactsWrapper__contacts__content__contacts__item__infoHolder__info__address {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden; }
-  .contactsWrapper__contacts__content__search {
-    flex-basis: calc(33.33% - (22px / 3 * 2));
-    flex-grow: 0;
-    flex-shrink: 0;
-    min-width: 0;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0;
-    margin: 22px 22px 0 0; }
-    .contactsWrapper__contacts__content__search h4 {
-      font-size: 11px;
-      line-height: 14px; }
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0;
+      margin: 22px 22px 0 0; }
+      .contactsWrapper__contacts__content__search h4 {
+        font-size: 11px;
+        line-height: 14px; }
 
 .contentWrapper__content {
   background: #f5f5f5; }
@@ -459,211 +480,217 @@ a {
       .dealWrapper__deal__content__itemsContainer > div:nth-child(2) {
         margin-left: 1%; }
 
-.dealProspectsWrapper__dealProspects__content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-top: 22px; }
-  .dealProspectsWrapper__dealProspects__content__prospects {
+.dealProspectsWrapper {
+  padding: 22px; }
+  .dealProspectsWrapper__dealProspects__content {
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin-left: 11px; }
-    .dealProspectsWrapper__dealProspects__content__prospects__item {
-      border-bottom: 2px solid #f5f5f5;
-      display: flex;
-      flex-basis: 100%;
-      margin-top: 22px;
-      padding-bottom: 12px; }
-      .dealProspectsWrapper__dealProspects__content__prospects__item:hover .dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible {
-        display: none; }
-      .dealProspectsWrapper__dealProspects__content__prospects__item:hover .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden {
-        display: flex; }
-      .dealProspectsWrapper__dealProspects__content__prospects__item:first-of-type {
-        margin-top: 0; }
-      .dealProspectsWrapper__dealProspects__content__prospects__item svg {
-        cursor: pointer;
-        width: 16px;
-        height: 16px; }
-      .dealProspectsWrapper__dealProspects__content__prospects__item__icon {
-        padding: 0 18px 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 32px; }
-        .dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible svg {
-          fill: #bdbdbd; }
-        .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden {
-          display: none; }
-          .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden svg {
-            fill: #00B4CC; }
-          .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden:hover svg {
-            fill: #616161; }
-      .dealProspectsWrapper__dealProspects__content__prospects__item a {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #9e9e9e;
-        flex-shrink: 1;
-        flex-basis: calc(100% - (18px + (12px * 1.5) ) ); }
-        .dealProspectsWrapper__dealProspects__content__prospects__item a:hover .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder svg {
-          fill: #616161; }
-      .dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder {
-        word-break: break-word;
-        flex-basis: calc(100% - (18px + (12px * 1.5) ) );
-        min-width: 0; }
-        .dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__name {
-          color: #616161;
-          font-weight: 600; }
-      .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder {
-        padding: 0 0 0 18px;
-        border-radius: 0 4px 4px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 0; }
-        .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder svg {
-          fill: #00B4CC; }
-  .dealProspectsWrapper__dealProspects__content__search {
-    flex-basis: calc(50% - (22px / 2));
-    flex-grow: 0;
-    flex-shrink: 0;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: flex-start;
-    margin-right: 11px; }
-    .dealProspectsWrapper__dealProspects__content__search h4 {
-      font-size: 11px;
-      line-height: 14px; }
-
-.dealCarsWrapper__dealCars__content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-top: 22px; }
-  .dealCarsWrapper__dealCars__content__cars {
-    display: flex;
-    flex-direction: column;
-    margin-left: 11px;
-    flex-grow: 1; }
-    .dealCarsWrapper__dealCars__content__cars__item {
-      border-bottom: 2px solid #f5f5f5;
+    margin-top: 22px; }
+    .dealProspectsWrapper__dealProspects__content__prospects {
       display: flex;
-      flex-basis: 100%;
-      margin-top: 22px;
-      padding-bottom: 12px; }
-      .dealCarsWrapper__dealCars__content__cars__item:hover .dealCarsWrapper__dealCars__content__cars__item__icon__visible {
-        display: none; }
-      .dealCarsWrapper__dealCars__content__cars__item:hover .dealCarsWrapper__dealCars__content__cars__item__icon__hidden {
-        display: flex; }
-      .dealCarsWrapper__dealCars__content__cars__item:first-child {
-        margin-top: 0; }
-      .dealCarsWrapper__dealCars__content__cars__item svg {
-        cursor: pointer;
-        width: 16px;
-        height: 16px; }
-      .dealCarsWrapper__dealCars__content__cars__item__icon {
-        padding: 0 18px 0 0;
+      flex-direction: column;
+      flex-grow: 1;
+      margin-left: 11px; }
+      .dealProspectsWrapper__dealProspects__content__prospects__item {
+        border-bottom: 2px solid #f5f5f5;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 32px;
-        flex-basis: calc 36px; }
-        .dealCarsWrapper__dealCars__content__cars__item__icon__visible svg {
-          fill: #bdbdbd; }
-        .dealCarsWrapper__dealCars__content__cars__item__icon__hidden {
+        flex-basis: 100%;
+        margin-top: 22px;
+        padding-bottom: 12px; }
+        .dealProspectsWrapper__dealProspects__content__prospects__item:hover .dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible {
           display: none; }
-          .dealCarsWrapper__dealCars__content__cars__item__icon__hidden svg {
-            fill: #00B4CC; }
-          .dealCarsWrapper__dealCars__content__cars__item__icon__hidden:hover svg {
+        .dealProspectsWrapper__dealProspects__content__prospects__item:hover .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden {
+          display: flex; }
+        .dealProspectsWrapper__dealProspects__content__prospects__item:first-of-type {
+          margin-top: 0; }
+        .dealProspectsWrapper__dealProspects__content__prospects__item svg {
+          cursor: pointer;
+          width: 16px;
+          height: 16px; }
+        .dealProspectsWrapper__dealProspects__content__prospects__item__icon {
+          padding: 0 18px 0 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 32px; }
+          .dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible svg {
+            fill: #bdbdbd; }
+          .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden {
+            display: none; }
+            .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden svg {
+              fill: #00B4CC; }
+            .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden:hover svg {
+              fill: #616161; }
+        .dealProspectsWrapper__dealProspects__content__prospects__item a {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: #9e9e9e;
+          flex-shrink: 1;
+          flex-basis: calc(100% - (18px + (12px * 1.5) ) ); }
+          .dealProspectsWrapper__dealProspects__content__prospects__item a:hover .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder svg {
             fill: #616161; }
-      .dealCarsWrapper__dealCars__content__cars__item a {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #9e9e9e;
-        flex-shrink: 1;
-        flex-basis: calc(100% - (18px + (12px * 1.5) ) ); }
-        .dealCarsWrapper__dealCars__content__cars__item a:hover .dealCarsWrapper__dealCars__content__cars__item__linkHolder svg {
-          fill: #616161; }
-      .dealCarsWrapper__dealCars__content__cars__item__infoHolder {
-        word-break: break-word;
-        flex-basis: calc(100% - (18px + (12px * 1.5) ) );
-        min-width: 0; }
-        .dealCarsWrapper__dealCars__content__cars__item__infoHolder__regNum {
-          color: #616161;
-          font-weight: 600; }
-      .dealCarsWrapper__dealCars__content__cars__item__linkHolder {
-        padding: 0 0 0 18px;
-        border-radius: 0 4px 4px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 0; }
-        .dealCarsWrapper__dealCars__content__cars__item__linkHolder svg {
-          fill: #00B4CC; }
-  .dealCarsWrapper__dealCars__content__search {
-    flex-basis: calc(50% - (22px / 2));
-    flex-grow: 0;
-    flex-shrink: 0;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right: 11px; }
-    .dealCarsWrapper__dealCars__content__search h4 {
-      font-size: 11px;
-      line-height: 14px; }
+        .dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder {
+          word-break: break-word;
+          flex-basis: calc(100% - (18px + (12px * 1.5) ) );
+          min-width: 0; }
+          .dealProspectsWrapper__dealProspects__content__prospects__item__infoHolder__info__name {
+            color: #616161;
+            font-weight: 600; }
+        .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder {
+          padding: 0 0 0 18px;
+          border-radius: 0 4px 4px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 0; }
+          .dealProspectsWrapper__dealProspects__content__prospects__item__linkHolder svg {
+            fill: #00B4CC; }
+    .dealProspectsWrapper__dealProspects__content__search {
+      flex-basis: calc(50% - (22px / 2));
+      flex-grow: 0;
+      flex-shrink: 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-right: 11px; }
+      .dealProspectsWrapper__dealProspects__content__search h4 {
+        font-size: 11px;
+        line-height: 14px; }
 
-.dealFilesWrapper__dealFiles__content {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap; }
-  .dealFilesWrapper__dealFiles__content__file {
-    margin-top: 22px;
+.dealCarsWrapper {
+  padding: 22px; }
+  .dealCarsWrapper__dealCars__content {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 22px; }
+    .dealCarsWrapper__dealCars__content__cars {
+      display: flex;
+      flex-direction: column;
+      margin-left: 11px;
+      flex-grow: 1; }
+      .dealCarsWrapper__dealCars__content__cars__item {
+        border-bottom: 2px solid #f5f5f5;
+        display: flex;
+        flex-basis: 100%;
+        margin-top: 22px;
+        padding-bottom: 12px; }
+        .dealCarsWrapper__dealCars__content__cars__item:hover .dealCarsWrapper__dealCars__content__cars__item__icon__visible {
+          display: none; }
+        .dealCarsWrapper__dealCars__content__cars__item:hover .dealCarsWrapper__dealCars__content__cars__item__icon__hidden {
+          display: flex; }
+        .dealCarsWrapper__dealCars__content__cars__item:first-child {
+          margin-top: 0; }
+        .dealCarsWrapper__dealCars__content__cars__item svg {
+          cursor: pointer;
+          width: 16px;
+          height: 16px; }
+        .dealCarsWrapper__dealCars__content__cars__item__icon {
+          padding: 0 18px 0 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 32px;
+          flex-basis: calc 36px; }
+          .dealCarsWrapper__dealCars__content__cars__item__icon__visible svg {
+            fill: #bdbdbd; }
+          .dealCarsWrapper__dealCars__content__cars__item__icon__hidden {
+            display: none; }
+            .dealCarsWrapper__dealCars__content__cars__item__icon__hidden svg {
+              fill: #00B4CC; }
+            .dealCarsWrapper__dealCars__content__cars__item__icon__hidden:hover svg {
+              fill: #616161; }
+        .dealCarsWrapper__dealCars__content__cars__item a {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: #9e9e9e;
+          flex-shrink: 1;
+          flex-basis: calc(100% - (18px + (12px * 1.5) ) ); }
+          .dealCarsWrapper__dealCars__content__cars__item a:hover .dealCarsWrapper__dealCars__content__cars__item__linkHolder svg {
+            fill: #616161; }
+        .dealCarsWrapper__dealCars__content__cars__item__infoHolder {
+          word-break: break-word;
+          flex-basis: calc(100% - (18px + (12px * 1.5) ) );
+          min-width: 0; }
+          .dealCarsWrapper__dealCars__content__cars__item__infoHolder__regNum {
+            color: #616161;
+            font-weight: 600; }
+        .dealCarsWrapper__dealCars__content__cars__item__linkHolder {
+          padding: 0 0 0 18px;
+          border-radius: 0 4px 4px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 0; }
+          .dealCarsWrapper__dealCars__content__cars__item__linkHolder svg {
+            fill: #00B4CC; }
+    .dealCarsWrapper__dealCars__content__search {
+      flex-basis: calc(50% - (22px / 2));
+      flex-grow: 0;
+      flex-shrink: 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-right: 11px; }
+      .dealCarsWrapper__dealCars__content__search h4 {
+        font-size: 11px;
+        line-height: 14px; }
+
+.dealFilesWrapper {
+  padding: 22px; }
+  .dealFilesWrapper__dealFiles__content {
+    display: flex;
     justify-content: flex-start;
-    margin-left: 22px;
-    border-left: 1px solid #e0e0e0;
-    padding-left: 22px;
-    flex-basis: calc(25% - ((3 * 22px) / 4));
-    min-width: 0; }
-    .dealFilesWrapper__dealFiles__content__file:hover .dealFilesWrapper__dealFiles__content__file__icon, .dealFilesWrapper__dealFiles__content__file:hover .dealFilesWrapper__dealFiles__content__file__remove {
-      display: none; }
-    .dealFilesWrapper__dealFiles__content__file:hover .dealFilesWrapper__dealFiles__content__file__remove {
-      display: flex; }
-    .dealFilesWrapper__dealFiles__content__file:first-of-type {
-      margin-left: 0;
-      border-left: 0;
-      padding-left: 0; }
-    .dealFilesWrapper__dealFiles__content__file:nth-child(5n) {
-      margin-left: 0;
-      border-left: 0;
-      padding-left: 0; }
-    .dealFilesWrapper__dealFiles__content__file svg {
-      width: 14px;
-      height: 14px; }
-    .dealFilesWrapper__dealFiles__content__file__icon, .dealFilesWrapper__dealFiles__content__file__remove {
-      margin-right: 8px;
+    align-items: center;
+    flex-wrap: wrap; }
+    .dealFilesWrapper__dealFiles__content__file {
+      margin-top: 22px;
       display: flex;
       align-items: center;
-      justify-content: center; }
-      .dealFilesWrapper__dealFiles__content__file__icon svg, .dealFilesWrapper__dealFiles__content__file__remove svg {
-        fill: #ffc107; }
-    .dealFilesWrapper__dealFiles__content__file p {
-      flex-grow: 1; }
-    .dealFilesWrapper__dealFiles__content__file__remove {
-      display: none; }
-      .dealFilesWrapper__dealFiles__content__file__remove:hover svg {
-        fill: #616161; }
-      .dealFilesWrapper__dealFiles__content__file__remove svg {
-        fill: #00B4CC;
-        cursor: pointer; }
-    .dealFilesWrapper__dealFiles__content__file a {
-      margin-left: 44px; }
+      justify-content: flex-start;
+      margin-left: 22px;
+      border-left: 1px solid #e0e0e0;
+      padding-left: 22px;
+      flex-basis: calc(25% - ((3 * 22px) / 4));
+      min-width: 0; }
+      .dealFilesWrapper__dealFiles__content__file:hover .dealFilesWrapper__dealFiles__content__file__icon, .dealFilesWrapper__dealFiles__content__file:hover .dealFilesWrapper__dealFiles__content__file__remove {
+        display: none; }
+      .dealFilesWrapper__dealFiles__content__file:hover .dealFilesWrapper__dealFiles__content__file__remove {
+        display: flex; }
+      .dealFilesWrapper__dealFiles__content__file:first-of-type {
+        margin-left: 0;
+        border-left: 0;
+        padding-left: 0; }
+      .dealFilesWrapper__dealFiles__content__file:nth-child(5n) {
+        margin-left: 0;
+        border-left: 0;
+        padding-left: 0; }
+      .dealFilesWrapper__dealFiles__content__file svg {
+        width: 14px;
+        height: 14px; }
+      .dealFilesWrapper__dealFiles__content__file__icon, .dealFilesWrapper__dealFiles__content__file__remove {
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .dealFilesWrapper__dealFiles__content__file__icon svg, .dealFilesWrapper__dealFiles__content__file__remove svg {
+          fill: #ffc107; }
+      .dealFilesWrapper__dealFiles__content__file p {
+        flex-grow: 1; }
+      .dealFilesWrapper__dealFiles__content__file__remove {
+        display: none; }
+        .dealFilesWrapper__dealFiles__content__file__remove:hover svg {
+          fill: #616161; }
+        .dealFilesWrapper__dealFiles__content__file__remove svg {
+          fill: #00B4CC;
+          cursor: pointer; }
+      .dealFilesWrapper__dealFiles__content__file a {
+        margin-left: 44px; }
 
 .dropdownWrapper {
   position: relative;
@@ -742,168 +769,172 @@ a {
     text-overflow: ellipsis;
     overflow: hidden; }
 
-.eventsCalendarWrapper__eventsCalendar__content {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 22px; }
-  .eventsCalendarWrapper__eventsCalendar__content .dayWrapper {
-    flex-basis: 13.42%;
-    margin-right: 1%;
-    margin-bottom: 1%; }
-    .eventsCalendarWrapper__eventsCalendar__content .dayWrapper:nth-child(7n) {
-      margin-right: 0; }
-    .eventsCalendarWrapper__eventsCalendar__content .dayWrapper svg {
-      width: 16px;
-      height: 16px; }
-    .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper {
-      position: relative; }
-      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper .left {
-        left: 0; }
-      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper .right {
-        right: 0; }
-      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events {
-        z-index: 5;
-        position: absolute;
-        top: 0;
-        background: white;
-        border: 1px solid #eeeeee;
-        padding: 22px;
-        white-space: nowrap; }
-        .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event {
-          opacity: 0.7;
-          margin: 8px 0;
-          display: flex; }
-          .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event:hover {
-            opacity: 1; }
-          .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event a, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event p {
-            color: #616161; }
-          .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event a {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            text-decoration: none; }
-          .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event span.highlight {
-            color: #424242;
-            font-weight: 600; }
-          .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event svg {
-            color: #00B4CC; }
-          .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__icon {
-            margin-right: 8px;
-            display: flex;
-            align-items: center; }
-          .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info {
-            display: flex;
-            align-items: center; }
-            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info p {
-              font-size: 12px; }
-            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info svg {
-              margin-left: 12px;
+.eventsCalendarWrapper {
+  padding: 22px; }
+  .eventsCalendarWrapper__eventsCalendar__content {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 22px; }
+    .eventsCalendarWrapper__eventsCalendar__content .dayWrapper {
+      flex-basis: 13.42%;
+      margin-right: 1%;
+      margin-bottom: 1%; }
+      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper:nth-child(7n) {
+        margin-right: 0; }
+      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper svg {
+        width: 16px;
+        height: 16px; }
+      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper {
+        position: relative; }
+        .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper .left {
+          left: 0; }
+        .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper .right {
+          right: 0; }
+        .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events {
+          z-index: 5;
+          position: absolute;
+          top: 0;
+          background: white;
+          border: 1px solid #eeeeee;
+          padding: 22px;
+          white-space: nowrap; }
+          .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event {
+            opacity: 0.7;
+            margin: 8px 0;
+            display: flex; }
+            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event:hover {
+              opacity: 1; }
+            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event a, .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event p {
+              color: #616161; }
+            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event a {
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              text-decoration: none; }
+            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event span.highlight {
+              color: #424242;
+              font-weight: 600; }
+            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event svg {
               color: #00B4CC; }
-    .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .day {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fafafa;
-      border: 1px solid #e0e0e0;
-      padding: 25% 0; }
-      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .day__date {
-        font-size: 20px;
-        font-weight: 600;
-        flex-grow: 0;
-        color: #616161;
+            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__icon {
+              margin-right: 8px;
+              display: flex;
+              align-items: center; }
+            .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info {
+              display: flex;
+              align-items: center; }
+              .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info p {
+                font-size: 12px; }
+              .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events__event__info svg {
+                margin-left: 12px;
+                color: #00B4CC; }
+      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .day {
         display: flex;
         align-items: center;
-        justify-content: center; }
-    .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .passed .day__date {
-      opacity: 0.4; }
-  .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day {
-    cursor: pointer; }
-    .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day__date {
-      color: #00B4CC; }
-  .eventsCalendarWrapper__eventsCalendar__content .empty .day {
-    content: "";
-    background: transparent;
-    border-color: transparent; }
-
-.eventsFlowWrapper__eventsFlow__content {
-  margin-top: 22px; }
-  .eventsFlowWrapper__eventsFlow__content__itemWrapper {
-    position: relative; }
-    .eventsFlowWrapper__eventsFlow__content__itemWrapper:nth-child(even) .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
-      background: #fafafa; }
-    .eventsFlowWrapper__eventsFlow__content__itemWrapper:last-of-type .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
-      border: 0; }
-    .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
-      display: flex;
-      justify-content: space-between;
-      padding: 22px;
-      flex-grow: 1;
-      word-break: break-word;
-      border-bottom: 1px solid #eeeeee; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item:hover .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
-        visibility: visible; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item svg {
-        width: 18px;
-        height: 18px;
-        fill: #ffc107; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item strong {
-        font-weight: 600; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item span.label {
-        text-transform: uppercase;
-        font-size: 11px;
-        color: #9e9e9e;
-        margin-right: 8px; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon {
-        flex-basis: 2%;
-        border-right: 1px solid #eeeeee;
-        padding-right: 22px;
-        display: flex;
-        align-items: center; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
-        margin-left: 22px;
-        flex-basis: 16%; }
-        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate {
+        justify-content: center;
+        background: #fafafa;
+        border: 1px solid #e0e0e0;
+        padding: 25% 0; }
+        .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .day__date {
+          font-size: 20px;
+          font-weight: 600;
+          flex-grow: 0;
           color: #616161;
           display: flex;
           align-items: center;
-          font-weight: 600;
-          line-height: 20px; }
-          .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate svg {
-            margin-right: 8px;
-            width: 14px;
-            height: 14px; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action {
-        margin-left: 22px;
-        flex-basis: 26%; }
-        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action div {
-          display: inline; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment {
-        margin-left: 22px;
-        flex-basis: 30%; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user {
-        margin-left: 22px;
-        flex-basis: 20%; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
-        margin-left: 22px;
+          justify-content: center; }
+      .eventsCalendarWrapper__eventsCalendar__content .dayWrapper .passed .day__date {
+        opacity: 0.4; }
+    .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day {
+      cursor: pointer; }
+      .eventsCalendarWrapper__eventsCalendar__content .hasEvent .day__date {
+        color: #00B4CC; }
+    .eventsCalendarWrapper__eventsCalendar__content .empty .day {
+      content: "";
+      background: transparent;
+      border-color: transparent; }
+
+.eventsFlowWrapper {
+  padding: 22px; }
+  .eventsFlowWrapper__eventsFlow__content {
+    margin-top: 22px; }
+    .eventsFlowWrapper__eventsFlow__content__itemWrapper {
+      position: relative; }
+      .eventsFlowWrapper__eventsFlow__content__itemWrapper:nth-child(even) .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
+        background: #fafafa; }
+      .eventsFlowWrapper__eventsFlow__content__itemWrapper:last-of-type .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
+        border: 0; }
+      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item {
         display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        flex-basis: 4%;
-        visibility: hidden; }
-        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper {
-          margin-left: 8px; }
-          .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
-            margin-left: 0; }
-          .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg {
-            fill: #00B4CC;
-            cursor: pointer;
-            margin-left: 12px;
-            width: 14px;
-            height: 14px; }
-            .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
-              fill: #616161; }
-            .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
+        justify-content: space-between;
+        padding: 22px;
+        flex-grow: 1;
+        word-break: break-word;
+        border-bottom: 1px solid #eeeeee; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item:hover .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
+          visibility: visible; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item svg {
+          width: 18px;
+          height: 18px;
+          fill: #ffc107; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item strong {
+          font-weight: 600; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item span.label {
+          text-transform: uppercase;
+          font-size: 11px;
+          color: #9e9e9e;
+          margin-right: 8px; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon {
+          flex-basis: 2%;
+          border-right: 1px solid #eeeeee;
+          padding-right: 22px;
+          display: flex;
+          align-items: center; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date {
+          margin-left: 22px;
+          flex-basis: 16%; }
+          .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate {
+            color: #616161;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            line-height: 20px; }
+            .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date .additionalDate svg {
+              margin-right: 8px;
+              width: 14px;
+              height: 14px; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action {
+          margin-left: 22px;
+          flex-basis: 26%; }
+          .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action div {
+            display: inline; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment {
+          margin-left: 22px;
+          flex-basis: 30%; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user {
+          margin-left: 22px;
+          flex-basis: 20%; }
+        .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
+          margin-left: 22px;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          flex-basis: 4%;
+          visibility: hidden; }
+          .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper {
+            margin-left: 8px; }
+            .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper:first-of-type {
               margin-left: 0; }
+            .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg {
+              fill: #00B4CC;
+              cursor: pointer;
+              margin-left: 12px;
+              width: 14px;
+              height: 14px; }
+              .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:hover {
+                fill: #616161; }
+              .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
+                margin-left: 0; }
 
 .small .eventsFlowWrapper__eventsFlow__content {
   max-height: 504px; }
@@ -1262,28 +1293,30 @@ svg.active {
       justify-content: flex-end;
       flex-grow: 1; }
 
-.newsWrapper__news__content {
-  max-height: 504px;
-  margin-top: 22px; }
-  .newsWrapper__news__content__item {
-    color: #616161;
-    margin-bottom: 22px;
-    background: #f5f5f5;
-    padding: 22px; }
-    .newsWrapper__news__content__item:last-of-type {
-      margin-bottom: 0; }
-    .newsWrapper__news__content__item__content {
-      margin: 22px 0; }
-      .newsWrapper__news__content__item__content img {
-        width: 100%; }
-      .newsWrapper__news__content__item__content p {
-        margin: 12px 0; }
-      .newsWrapper__news__content__item__content h5 {
-        margin: 24px 0 -6px 0; }
-    .newsWrapper__news__content__item__footer {
+.newsWrapper {
+  padding: 22px; }
+  .newsWrapper__news__content {
+    max-height: 504px;
+    margin-top: 22px; }
+    .newsWrapper__news__content__item {
+      color: #616161;
+      margin-bottom: 22px;
       background: #f5f5f5;
-      padding: 8px;
-      font-size: 0.8em; }
+      padding: 22px; }
+      .newsWrapper__news__content__item:last-of-type {
+        margin-bottom: 0; }
+      .newsWrapper__news__content__item__content {
+        margin: 22px 0; }
+        .newsWrapper__news__content__item__content img {
+          width: 100%; }
+        .newsWrapper__news__content__item__content p {
+          margin: 12px 0; }
+        .newsWrapper__news__content__item__content h5 {
+          margin: 24px 0 -6px 0; }
+      .newsWrapper__news__content__item__footer {
+        background: #f5f5f5;
+        padding: 8px;
+        font-size: 0.8em; }
 
 .popupWrapper {
   background: rgba(0, 0, 0, 0.2);

@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request, tc} from 'helpers';
+import {request, requestWithBody, tc} from 'helpers';
 import {contactsActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import carHelper from 'shared_helpers/car_helper';
@@ -8,49 +8,82 @@ import companyHelper from 'shared_helpers/company_helper';
 /**
  * Add an entity to contacts 'savedTo' array.
  *
- * @param payload.ids - Array
- * @param payload.target - string
+ * @param payload.companyId - string - When type is car or company, we want a value here.
+ * @param payload.contacts - Array - Contacts that will receive new entity.
+ * @param payload.entityId - string - The entity.
+ * @param payload.entityType - string - 'car' / 'company' / 'deal'
  */
-export const addTargetToContacts = async (payload) => {
+export const addEntityToContacts = async (payload) => {
     try {
-        if (!payload || (payload && !payload.ids) || (payload && !payload.target)) {
-            return console.error('Missing params in addTargetToContact.');
+        if (!payload || (payload && !payload.contacts) || (payload && !payload.entityId) || (payload && !payload.type)) {
+            return console.error('Missing params in addEntityToContact.');
         }
 
-        // Denna ska användas när man har sökt upp och valt kontakter från
-        // sökrutan i kontaktkomponenten, och sparar. Då finnas kontakterna redan, men de ska sparas till
-        // affären eller prospektet man är inne på.
-        // Denna ska användas när man redigerar en kontakt, och vill knyta kontakten till andra prospekt/bilar.
+        const promises = await payload.contacts.map(async (contact) => {
+            if (!contact.savedTo || (contact.savedTo && !Array.isArray(contact.savedTo))) {
+                contact.savedTo = [];
+            }
 
-        // Gör entityType 'company', 'deal' eller 'car' beroende på längd på id och valid orgnr.
-        // Iterera payload.ids, detta är id för varje kontakt som ska få entityId och entityType i sin 'savedTo' array.
+            let entity: any = {
+                companyId: payload.companyId,
+                entityId: payload.entityId,
+                entityType: payload.entityType,
+            };
 
-        showFlashMessage(tc.contactWasAddedToTarget);
+            if (payload.type === 'car') {
+                entity.entityName = (payload.entityName) ? payload.entityName : contact.entityId;
+            }
 
-        return await getContacts({target: payload.target});
+            if (payload.entityType === 'company' && !payload.entityName) {
+                throw new Error('Mssing entityName for entityType company in addEntitToContacts.');
+            }
+
+            if (payload.entityType === 'company') {
+                entity.entityName = payload.entityName;
+            }
+
+            contact.savedTo.push(entity);
+
+            return await request({
+                data: {
+                    contactId: contact._id,
+                    updatedData: contact,
+                },
+                method: 'put',
+                url: '/contacts/',
+            });
+        });
+
+        const data = await Promise.all(promises);
+
+        if (!data) {
+            return console.error('Error in addEntityToContacts');
+        }
+
+        showFlashMessage(tc.entityWasAddedToContact);
+
+        return await getContacts({entityId: payload.entityId});
     } catch (err) {
-        return console.error('Error in addTargetToContact:\n' + err);
+        return console.error('Error in addEntityToContact:\n' + err);
     }
 };
 
 /**
- * Get contacts for a specific target.
- * Target being the same as entityId, which can be: a company org nr/a car reg nr/a deal id.
+ * Get contacts for a specific entityId, which can be: a company org nr/a car reg nr/a deal id.
  *
- * @param payload.target - string
+ * @param payload.entityId - string
  */
 export const getContacts = async (payload) => {
     try {
-        console.log('getContacts körs');
-        if (!payload || (payload && !payload.target)) {
+        if (!payload || (payload && !payload.entityId)) {
             return console.error('Missing params in getContacts.');
         }
 
         let data: any = {};
-        if (companyHelper.isValidOrgNr(payload.target)) {
-            data.companyId = payload.target;
+        if (companyHelper.isValidOrgNr(payload.entityId)) {
+            data.companyId = payload.entityId;
         } else {
-            data.entityId = payload.target;
+            data.entityId = payload.entityId;
         }
 
         // Get contacts.
@@ -63,7 +96,7 @@ export const getContacts = async (payload) => {
         // Make sure to clear out faulty values.
         contacts = contacts.filter((num) => num);
 
-        store.dispatch({type: contactsActionTypes.SET_TARGET, payload: payload.target});
+        store.dispatch({type: contactsActionTypes.SET_ENTITY_ID, payload: payload.entityId});
 
         if (!contacts || contacts instanceof Error) {
             return store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: []});
@@ -100,8 +133,8 @@ export const removeContact = async (payload) => {
 
         showFlashMessage(tc.contactWasRemoved);
 
-        if (store.getState().contacts && store.getState().contacts.target) {
-            return await getContacts({target: store.getState().contacts.target});
+        if (store.getState().contacts && store.getState().contacts.entityId) {
+            return await getContacts({entityId: store.getState().contacts.entityId});
         }
     } catch (err) {
         return console.error('Error in removeContact:\n' + err);
@@ -109,36 +142,36 @@ export const removeContact = async (payload) => {
 };
 
 /**
- * Remove a target (company/deal/car) from contacts 'savedTo' array.
+ * Remove an entity (company/deal/car) from contacts 'savedTo' array.
  * Contact is not removed, even if the savedTo array becomes empty.
  *
- * @param payload.id - string - Contact id.
- * @param payload.target - string - Target.
+ * @param payload.entityId - string
+ * @param payload.id - string
  */
-export const removeTargetFromContact = async (payload) => {
+export const removeEntityFromContact = async (payload) => {
     try {
-        if (!payload || (payload && !payload.id) || (payload && !payload.target)) {
-            return console.error('Missing params in removeTargetFromContact.');
+        if (!payload || (payload && !payload.id) || (payload && !payload.entityId)) {
+            return console.error('Missing params in removeEntityFromContact.');
         }
 
-        const targetRemoved = await request({
+        const updated = await requestWithBody({
             data: {
                 contactId: payload.id,
-                entityId: payload.target,
+                entityId: payload.entityId
             },
             method: 'delete',
             url: '/contacts/removeFromEntity',
         });
 
-        if (!targetRemoved) {
-            return console.error('Error in removeTargetFromContact.');
+        if (!updated) {
+            return console.error('Error in removeEntityFromContact.');
         }
 
-        showFlashMessage(tc.contactWasRemovedFromTarget);
+        showFlashMessage(tc.entityWasRemovedFromContact);
 
-        return await getContacts({target: payload.target});
+        return await getContacts({entityId: payload.entityId});
     } catch (err) {
-        return console.error('Error in removeTargetFromContact:\n' + err);
+        return console.error('Error in removeEntityFromContact:\n' + err);
     }
 };
 
@@ -205,7 +238,7 @@ export const saveNewContact = async (payload) => {
         }
 
         if (!payload.tele || !Array.isArray(payload.tele)) {
-            payload.tele = ['']; // 2.0 frontend breaks if tele array doesn't exist, fix at some point.
+            payload.tele = []; // 2.0 frontend breaks if tele array doesn't exist.
         }
 
         const contact = await request({
@@ -220,8 +253,8 @@ export const saveNewContact = async (payload) => {
 
         showFlashMessage(tc.contactWasSaved);
 
-        if (store.getState().contacts && store.getState().contacts.target) {
-            return await getContacts({target: store.getState().contacts.target});
+        if (store.getState().contacts && store.getState().contacts.entityId) {
+            return await getContacts({entityId: store.getState().contacts.entityId});
         }
     } catch (err) {
         return console.error('Error in saveNewContact:\n' + err);
@@ -261,8 +294,8 @@ export const updateContact = async (payload) => {
 
         showFlashMessage(tc.contactWasUpdated);
 
-        if (store.getState().contacts && store.getState().contacts.target) {
-            return await getContacts({target: store.getState().contacts.target});
+        if (store.getState().contacts && store.getState().contacts.entityId) {
+            return await getContacts({entityId: store.getState().contacts.entityId});
         }
     } catch (err) {
         return console.error('Error in updateContact:\n' + err);
