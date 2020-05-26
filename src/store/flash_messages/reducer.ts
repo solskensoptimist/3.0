@@ -6,8 +6,8 @@ interface flashMessagesState {
 }
 
 const initialState: flashMessagesState = {
-    message: ' asdas dass ddaa da dada ',
-    showMessage: true,
+    message: '',
+    showMessage: false,
 };
 
 export const flashMessagesReducer = (state = initialState, action) => {

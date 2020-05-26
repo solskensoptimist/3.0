@@ -41,6 +41,7 @@ export const addTargetToContacts = async (payload) => {
  */
 export const getContacts = async (payload) => {
     try {
+        console.log('getContacts körs');
         if (!payload || (payload && !payload.target)) {
             return console.error('Missing params in getContacts.');
         }
@@ -53,11 +54,14 @@ export const getContacts = async (payload) => {
         }
 
         // Get contacts.
-        const contacts = await request({
+        let contacts = await request({
             data: data,
             method: 'get',
             url: '/contacts/',
         });
+
+        // Make sure to clear out faulty values.
+        contacts = contacts.filter((num) => num);
 
         store.dispatch({type: contactsActionTypes.SET_TARGET, payload: payload.target});
 
@@ -86,7 +90,7 @@ export const removeContact = async (payload) => {
             data: {
                 contactId: payload.id,
             },
-            method: 'get',
+            method: 'delete',
             url: '/contacts/',
         });
 
@@ -141,6 +145,15 @@ export const removeTargetFromContact = async (payload) => {
 /**
  * Save a new contact.
  *
+ * Note:
+ * 'savedTo' array holds entity objects with the properties below.
+ * An entity can be a car, company or deal. It's not possible to save a contact to a person, but you can save a contact to a car where the user is a person.
+ * companyId - for company this is the company org nr / for car we save user id for the vehicle here / for deal we don't save companyId.
+ * entityType - 'deal' / 'company' / 'car'.
+ * entityId - company org nr / id for deal / car reg nr.
+ * entityName - company name / car name (brand, model and reg nr, example: 'DAF CF (EAD349)'), or just reg nr / for deals we don't save entityName.
+ *
+ *
  * @param payload.comment - string
  * @param payload.email - array
  * @param payload.name - string
@@ -153,16 +166,40 @@ export const saveNewContact = async (payload) => {
             return console.error('Missing params in saveNewContact.');
         }
 
-        // Add type to entity.
+        // Add properties to entity objects where missing.
         if (payload.savedTo && payload.savedTo.length) {
             payload.savedTo.map((num) => {
+                if (!num.entityId) {
+                    throw new Error('Missing entityId for entity in saveNewContact.');
+                }
+
                 if (carHelper.isValidRegNumber(num.entityId)) {
-                    num.entityType = 'car';
+                    // Car
+                    if (!num.companyId) {
+                        throw new Error('Missing companyId for entityType "car" in saveNewContact.');
+                    }
+                    if (!num.entityType) {
+                        num.entityType = 'car';
+                    }
+                    if (!num.entityName) {
+                        num.entityName = num.entityId;
+                    }
                 } else if (companyHelper.isValidOrgNr(num.entityId)) {
-                    num.entityType = 'company';
+                    // Company
+                    if (!num.entityName) {
+                        throw new Error('Mssing entityName for entityType "company" in saveNewContact');
+                    }
+                    if (!num.entityType) {
+                        num.entityType = 'company';
+                    }
+                    if (!num.companyId) {
+                        num.companyId = num.entityId;
+                    }
                 } else {
+                    // Deal
                     num.entityType = 'deal';
                 }
+
                 return num;
             });
         }

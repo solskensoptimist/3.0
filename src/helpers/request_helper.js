@@ -19,7 +19,7 @@ export const request = async (payload) => {
             withCredentials: true // Important for authentication to backend.
         };
 
-        if (payload.method === 'get') {
+        if (payload.method === 'get' || payload.method === 'delete') {
             Object.assign(params, {params: payload.data});
         } else {
             Object.assign(params, {data: payload.data});

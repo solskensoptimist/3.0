@@ -9,6 +9,13 @@ export default () => {
             <div className='companyWrapper__company'>
                 <p>Företagskomponent</p>
                 <p>Id: {id}</p>
+                <p>Här ska vi hämta kontakter för detta företag, det innebär att vi hämtar kontakter på companyId.
+                Det kan finnas kontatketr som har entityId som ett regnr, men companyId är företag. Alla dessa ska
+                givetvis hämtas också. Anropar vi bara getContacts med ''target' som är orgnr, så ska det lösa sig.
+                Bara låter detta ligga kvar som en påminnelse.</p>
+                <p>Obs, när vi är inne på koncernvyn, dvs: /koncern/orgnr (ej byggt ännu). Då hämtar vi kontakter på samma sätt.
+                Och då ska vi hämta alla kontakter för koncernen, och då kan entityId vara ett orgnr som är ett av deras underbolag.</p>
+                <p>Varje gång som vi sparar en kontakt för ett företag så ska vi skicka med entityName: företagsnamn.</p>
             </div>
         </div>
     );
