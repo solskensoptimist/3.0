@@ -57,10 +57,12 @@ const DealFiles = (state) => {
         const _renderFiles = () => {
             let data = state.deal.deal.meta.files;
 
-            // if no data, minimize widget.
+            // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
                 setFileRows(<p className='marginTop'>{tc.noFiles}</p>);
                 return setMinimize(true);
+            } else {
+                setMinimize(false);
             }
 
             // Set data length before slice.

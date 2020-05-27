@@ -7,6 +7,7 @@ import {NavLink} from 'react-router-dom';
 import {addEntityToContacts, getContacts, removeContact, removeEntityFromContact, saveNewContact} from 'store/contacts/tasks';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
+import Popup from 'components/shared/popup';
 import Search from 'components/logged_in/search';
 import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
@@ -91,10 +92,12 @@ const Contacts = (state) => {
         const _renderContacts = () => {
             const data = state.contacts.contacts;
 
-            // if no data, minimize widget.
+            // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
                 setContactRows(<p className='marginTop'>{tc.noContacts}</p>);
                 return setMinimize(true);
+            } else {
+                setMinimize(false);
             }
 
             // Set data length before slice.
@@ -138,24 +141,23 @@ const Contacts = (state) => {
                 <div className='contactsWrapper__contacts__content__contacts__item'>
                     <div className='contactsWrapper__contacts__content__contacts__item__header'>
                         <div className='contactsWrapper__contacts__content__contacts__item__header__left'>
-                            {contact.name}
+                            <Icon val='contact'/>
                         </div>
                         <div className='contactsWrapper__contacts__content__contacts__item__header__right'>
-                            {(!editRow) && <Tooltip horizontalDirection='left' tooltipContent={tc.editContact}><Icon val='edit' onClick={() => {if (!editRow) {setEditRow(contact._id)}}}/></Tooltip>}
+                            <div className='contactsWrapper__contacts__content__contacts__item__header__right__name'>
+                                {contact.name}
+                            </div>
+                            {(!editRow) &&
+                                <div className='contactsWrapper__contacts__content__contacts__item__header__right__icon'>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.editContact}><Icon val='edit' onClick={() => {if (!editRow) {setEditRow(contact._id)}}}/></Tooltip>
+                                </div>
+                            }
                         </div>
                     </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content'>
                         <div className='contactsWrapper__contacts__content__contacts__item__content__item'>
                             <div className='contactsWrapper__contacts__content__contacts__item__content__item__left'>
-                                <Icon val='description'/>
-                            </div>
-                            <div className='contactsWrapper__contacts__content__contacts__item__content__item__right'>
-                                {contact.comment}
-                            </div>
-                        </div>
-                        <div className='contactsWrapper__contacts__content__contacts__item__content__item'>
-                            <div className='contactsWrapper__contacts__content__contacts__item__content__item__left'>
-                                <Icon val='call'/>
+                                {tc.phone}:
                             </div>
                             <div className='contactsWrapper__contacts__content__contacts__item__content__item__right'>
                                 {contact.tele.map((num, i) => <p key={i}>{num}</p>)}
@@ -163,10 +165,40 @@ const Contacts = (state) => {
                         </div>
                         <div className='contactsWrapper__contacts__content__contacts__item__content__item'>
                             <div className='contactsWrapper__contacts__content__contacts__item__content__item__left'>
-                                <Icon val='mail'/>
+                                {tc.mail}:
                             </div>
                             <div className='contactsWrapper__contacts__content__contacts__item__content__item__right'>
-                                {contact.email.map((num, i) => <p key={i}>{num}</p>)}
+                                {(contact.email && contact.email.length) ? contact.email.map((num, i) => <p key={i}>{num}</p>) : <p className='italic'>{tc.dataMissing}</p>}
+                            </div>
+                        </div>
+                        <div className='contactsWrapper__contacts__content__contacts__item__content__item'>
+                            <div className='contactsWrapper__contacts__content__contacts__item__content__item__left'>
+                                {tc.comment}:
+                            </div>
+                            <div className='contactsWrapper__contacts__content__contacts__item__content__item__right'>
+                                {contact.comment}
+                            </div>
+                        </div>
+                        <div className='contactsWrapper__contacts__content__contacts__item__content__item'>
+                            <div className='contactsWrapper__contacts__content__contacts__item__content__item__left'>
+                                {tc.connectedTo}:
+                            </div>
+                            <div className='contactsWrapper__contacts__content__contacts__item__content__item__right__entities'>
+                                {(contact.savedTo && contact.savedTo.length) && contact.savedTo.map((num, i) => {
+                                    let link;
+                                    if (carHelper.isValidRegNumber(num.entityId)) {
+                                        link = <NavLink exact to={'/bil/' + num.entityId} key={i}>{num.entityName}</NavLink>;
+                                    } else if (companyHelper.isValidOrgNr(num.entityId)) {
+                                        link = <NavLink exact to={'/foretag/' + num.entityId} key={i}>{num.entityName}</NavLink>;
+                                    } else {
+                                        link = <NavLink exact to={'/affar/' + num.entityId} key={i}>{tc.deal}</NavLink>;
+                                    }
+                                    return (
+                                        <div className='contactsWrapper__contacts__content__contacts__item__content__item__right__entities__entity' key={i}>
+                                            {link}{(i === contact.savedTo.length - 1) ? '' : ', '}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -188,22 +220,22 @@ const Contacts = (state) => {
                         <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {setEditRow(null)}}/></Tooltip>
                         <Tooltip horizontalDirection='left' tooltipContent={tc.removeContact}><Icon val='remove' onClick={async () => {return await _removeContact(contact._id)}}/></Tooltip>
                         <Tooltip horizontalDirection='left' tooltipContent={tc.saveContact}><Icon val='save' onClick={async () => {return await _saveEditContact()}}/></Tooltip>
-                        <div className='contactsWrapper__contacts__content__contacts__item__content__entities'>
-                            <div className='contactsWrapper__contacts__content__contacts__item__content__entities__header'>
-                                <h5>{tc.contactConnections}:</h5>
+                        <div className='contactsWrapper__contacts__content__contacts__item__content__item'>
+                            <div className='contactsWrapper__contacts__content__contacts__item__content__item__left'>
+                                {tc.contactConnections}:
                             </div>
-                            <div className='contactsWrapper__contacts__content__contacts__item__content__entities__content'>
+                            <div className='contactsWrapper__contacts__content__contacts__item__content__item__right__entities'>
                                 {(contact.savedTo && contact.savedTo.length) && contact.savedTo.map((num, i) => {
                                     let link;
                                     if (carHelper.isValidRegNumber(num.entityId)) {
-                                         link = <NavLink exact to={'/bil/' + num.entityId} key={i}>{num.entityName}</NavLink>;
+                                        link = <NavLink exact to={'/bil/' + num.entityId} key={i}>{num.entityName}</NavLink>;
                                     } else if (companyHelper.isValidOrgNr(num.entityId)) {
                                         link = <NavLink exact to={'/foretag/' + num.entityId} key={i}>{num.entityName}</NavLink>;
                                     } else {
                                         link = <NavLink exact to={'/deal/' + num.entityId} key={i}>{tc.deal}</NavLink>;
                                     }
                                     return (
-                                        <div className='contactsWrapper__contacts__content__contacts__item__content__entities__content__entity' key={i}>
+                                        <div className='contactsWrapper__contacts__content__contacts__item__content__item__right__entities__entity' key={i}>
                                             {link}
                                             <Tooltip horizontalDirection='left' tooltipContent={tc.removeEntityFromContact}><Icon val='clear' onClick={async () => {return await _removeEntityFromContact({id: contact._id, entityId: num.entityId})}}/></Tooltip>
                                         </div>

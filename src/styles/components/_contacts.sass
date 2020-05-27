@@ -11,67 +11,91 @@
         flex-wrap: wrap
         flex-grow: 1
         &__item
-          background: $grey-50
-          padding: $paddingBig
-          flex-basis: calc(33.33% - (#{$paddingBig} / 3 * 2))
+          flex-basis: calc(33.33% - (#{$paddingGreat} / 3 * 2))
           flex-grow: 0
           flex-shrink: 0
           min-width: 0
-          margin: $paddingBig $paddingBig 0 0
+          margin: $paddingBig $paddingGreat 0 0
           word-break: break-word
           &:nth-child(3n)
             margin-right: 0
+          &:hover
+            .contactsWrapper__contacts__content__contacts__item__header__right__icon
+              visibility: visible
           &__header
             display: flex
-            align-items: center
-            justify-content: space-between
-            border-bottom: 1px solid $grey-400
-            padding-bottom: $paddingSmall
+            justify-content: flex-start
+            position: relative
+            height: calc(50px - (#{$paddingMedium} / 2))
             &__left
-              flex-grow: 1
-            &__right
-              margin-left: $paddingBig
+              position: absolute
+              top: 0
+              left: -$paddingMedium
+              border-radius: 50%
+              border: 1px solid $colorPrimary-300
+              background: white
+              display: flex
+              align-items: center
+              justify-content: center
+              width: 48px
+              height: 48px
+              z-index: 3
               svg
-                fill: $colorLink
-                width: 18px
-                height: 18px
-                cursor: pointer
-                &:hover
-                  fill: $colorLinkHover
+                fill: $colorPrimary-300
+                width: 26px
+                height: 26px
+            &__right
+              flex-grow: 1
+              display: flex
+              align-items: center
+              justify-content: space-between
+              max-width: calc(100% - (#{$paddingMedium} * 3))
+              border-bottom: 1px solid $colorPrimary-300
+              position: relative
+              margin-left: $paddingMedium * 3
+              padding-left: $paddingMedium
+              &__name
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis
+              &__icon
+                visibility: hidden
+                margin-left: $paddingMedium
+                svg
+                  fill: $colorLink
+                  width: 18px
+                  height: 18px
+                  cursor: pointer
+                  &:hover
+                    fill: $colorLinkHover
           &__content
             margin-top: $paddingBig
             &__item
               display: flex
               align-items: flex-start
-              margin-bottom: $paddingMedium
+              margin-bottom: $paddingSmall
               &:last-of-type
                 margin-bottom: 0
               &__left
-                margin-right: $paddingMedium
-                svg
-                  fill: $colorTextLight
-                  width: 14px
-                  height: 14px
-            &__entities
-              &__header
-              &__content
-                display: flex
-                align-items: center
-                &__entity
+                margin: 0 $paddingSmall 0 0
+                color: $colorTextLight-1
+                white-space: nowrap
+              &__right
+                &__entities
                   display: flex
-                  align-items: center
-                  padding: $paddingSmall
-                  background: $grey-300
-                  margin-left: $paddingMedium
-                  &:first-of-type
-                    margin-left: 0
-                  svg
-                    width: 14px
-                    height: 14px
+                  &__entity
+                    display: flex
+                    align-items: center
                     margin-left: $paddingMedium
-                    cursor: pointer
+                    &:first-of-type
+                      margin-left: 0
+                    svg
+                      width: 14px
+                      height: 14px
+                      margin-left: $paddingMedium
+                      cursor: pointer
       &__search
-        flex-basis: calc(25% - (#{$paddingBig} / 2))
+        flex-basis: calc(25% - (#{$paddingGreat} / 2))
         flex-grow: 0
         flex-shrink: 0
         min-width: 0
@@ -82,7 +106,7 @@
         flex-direction: column
         align-items: flex-start
         padding: 0
-        margin: $paddingBig $paddingBig 0 0
+        margin: $paddingBig $paddingGreat 0 0
         h4
           font-size: 11px
           line-height: 14px

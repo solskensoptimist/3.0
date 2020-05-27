@@ -31,10 +31,12 @@ const EventsFlow = (state) => {
         const _renderEvents = () => {
             let data = state.events;
 
-            // if no data, minimize widget.
+            // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
                 setEventRows(<p>{tc.noEvents}</p>);
                 return setMinimize(true);
+            } else {
+                setMinimize(false);
             }
 
             // Set data length before slice.
