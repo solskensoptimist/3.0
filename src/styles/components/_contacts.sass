@@ -17,7 +17,6 @@
           flex-shrink: 0
           min-width: 0
           margin: $paddingBig $paddingBig 0 0
-          border: 1px solid $grey-200
           padding: $paddingMedium $paddingMedium $paddingMedium ($paddingMedium *2)
           word-break: break-word
           &:nth-child(3n)
@@ -25,6 +24,12 @@
           &:hover
             .contactsWrapper__contacts__content__contacts__item__header__right__icon
               visibility: visible
+          input
+            width: 100%
+            margin-bottom: 4px
+            border: 1px solid $grey-300
+            background: $grey-50
+            padding: ($paddingSmall / 2) $paddingSmall
           &__header
             display: flex
             justify-content: flex-start
@@ -58,6 +63,7 @@
               margin-left: $paddingMedium * 3
               padding-left: $paddingMedium
               &__name
+                flex-grow: 1
                 white-space: nowrap
                 overflow: hidden
                 text-overflow: ellipsis
@@ -87,6 +93,7 @@
                 color: $colorTextLight-1
                 white-space: nowrap
               &__right
+                flex-grow: 1
                 &__entities
                   display: flex
                   &__entity
@@ -103,6 +110,22 @@
                       fill: $colorLink
                       &:hover
                         fill: $colorLinkHover
+                &__addField
+                  display: flex
+                  align-items: center
+                  cursor: pointer
+                  &:hover
+                    p
+                      color: $colorLinkHover
+                    svg
+                      fill: $colorLinkHover
+                  p
+                    color: $colorLink
+                    margin-right: $paddingSmall
+                  svg
+                    width: 18px
+                    height: 18px
+                    fill: $colorLink
               &__buttons
                 padding: 0 10%
                 display: flex

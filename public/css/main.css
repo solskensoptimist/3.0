@@ -334,13 +334,18 @@ a {
         flex-shrink: 0;
         min-width: 0;
         margin: 22px 22px 0 0;
-        border: 1px solid #eeeeee;
         padding: 12px 12px 12px 24px;
         word-break: break-word; }
         .contactsWrapper__contacts__content__contacts__item:nth-child(3n) {
           margin-right: 0; }
         .contactsWrapper__contacts__content__contacts__item:hover .contactsWrapper__contacts__content__contacts__item__header__right__icon {
           visibility: visible; }
+        .contactsWrapper__contacts__content__contacts__item input {
+          width: 100%;
+          margin-bottom: 4px;
+          border: 1px solid #e0e0e0;
+          background: #fafafa;
+          padding: 4px 8px; }
         .contactsWrapper__contacts__content__contacts__item__header {
           display: flex;
           justify-content: flex-start;
@@ -374,6 +379,7 @@ a {
             margin-left: 36px;
             padding-left: 12px; }
             .contactsWrapper__contacts__content__contacts__item__header__right__name {
+              flex-grow: 1;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
@@ -402,22 +408,39 @@ a {
               margin: 0 8px 0 0;
               color: #bdbdbd;
               white-space: nowrap; }
-            .contactsWrapper__contacts__content__contacts__item__content__row__right__entities {
-              display: flex; }
-              .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity {
+            .contactsWrapper__contacts__content__contacts__item__content__row__right {
+              flex-grow: 1; }
+              .contactsWrapper__contacts__content__contacts__item__content__row__right__entities {
+                display: flex; }
+                .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity {
+                  display: flex;
+                  align-items: center;
+                  margin-left: 12px; }
+                  .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity:first-of-type {
+                    margin-left: 0; }
+                  .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity svg {
+                    width: 14px;
+                    height: 14px;
+                    margin-left: 12px;
+                    cursor: pointer;
+                    fill: #00B4CC; }
+                    .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity svg:hover {
+                      fill: #616161; }
+              .contactsWrapper__contacts__content__contacts__item__content__row__right__addField {
                 display: flex;
                 align-items: center;
-                margin-left: 12px; }
-                .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity:first-of-type {
-                  margin-left: 0; }
-                .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity svg {
-                  width: 14px;
-                  height: 14px;
-                  margin-left: 12px;
-                  cursor: pointer;
+                cursor: pointer; }
+                .contactsWrapper__contacts__content__contacts__item__content__row__right__addField:hover p {
+                  color: #616161; }
+                .contactsWrapper__contacts__content__contacts__item__content__row__right__addField:hover svg {
+                  fill: #616161; }
+                .contactsWrapper__contacts__content__contacts__item__content__row__right__addField p {
+                  color: #00B4CC;
+                  margin-right: 8px; }
+                .contactsWrapper__contacts__content__contacts__item__content__row__right__addField svg {
+                  width: 18px;
+                  height: 18px;
                   fill: #00B4CC; }
-                  .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity svg:hover {
-                    fill: #616161; }
             .contactsWrapper__contacts__content__contacts__item__content__row__buttons {
               padding: 0 10%;
               display: flex;

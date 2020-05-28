@@ -4,6 +4,7 @@ export default {
     activities: 'Aktiviteter',
     activitiesComingUp: 'Ej utförda aktiviteter',
     activity: 'Aktivitet',
+    add: 'Lägg till',
     addComment: 'Lägg till kommentar',
     addFile: 'Bifoga fil',
     address: 'Adress',

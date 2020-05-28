@@ -53,11 +53,9 @@ const Contacts = (state) => {
      * Save changes for contact that is being edited.
      */
     const _updateContact = async (contact) => {
-        console.log('_updateContact', contact);
         setCreateContact(false);
         setEditContact(null);
-        // payload.type = state.props.type;
-        // return await updateContact({});
+        return await updateContact({id: contact._id, data: contact});
     };
 
     /**

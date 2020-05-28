@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {tc} from 'helpers';
 import carHelper from 'shared_helpers/car_helper';
 import companyHelper from 'shared_helpers/company_helper';
@@ -15,31 +15,43 @@ import Tooltip from 'components/shared/tooltip';
  * @param props.saveChanges
  */
 export default (props) => {
+    const [contactObj, setContactObj] = useState({});
+    const contactCommentInputRef = useRef(null);
+    const contactEmailInputRefs = useRef([]);
+    const contactNameInputRef = useRef(null);
+    const contactPhoneInputRefs = useRef([]);
+
     const _onInputChange = () => {
-        console.log('_onInputChange');
+        console.log('contactCommentInputRef.current', contactCommentInputRef.current);
+        setContactObj({
+            ...contactObj,
+            comment: contactCommentInputRef.current.value,
+            email: contactEmailInputRefs.current.map((num) => num.value),
+            name: contactNameInputRef.current.value,
+            tele: contactPhoneInputRefs.current.map((num) => num.value),
+        });
     };
 
-    /*
-    refs are basiclly objects, and they have a default key current. So, you can create an array of refs like this:
+    const _saveChanges = () => {
+        let contact = contactObj;
 
-const myRefs= useRef([]);
-Then you can populate this array of refs like this:
+        if (!Array.isArray(contact.email)) {
+            contact.email = [];
+        }
+        if (!Array.isArray(contact.tele)) {
+            contact.tele = [];
+        }
 
-ref={el => (myRefs.current[i] = el)}
-Here is the full version:
+        // Filter out empty values.
+        contact.email = contact.email.filter((num) => (num && num.length));
+        contact.tele = contact.tele.filter((num) => (num && num.length));
 
-{
-  [1, 2, 3].map((v, i) => {
-    return (
-      <button
-        ref={(el) => (myRefs.current[i] = el)}
-        id={i}
-        onClick={submitClick}
-      >{`Button${i}`}</button>
-    );
-  });
-}
-     */
+        props.saveChanges(contact);
+    };
+
+    useEffect(() => {
+        setContactObj(props.contact);
+    }, [props.contact]);
 
     return (
         <div className='contactsWrapper__contacts__content__contacts__item'>
@@ -49,7 +61,7 @@ Here is the full version:
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__header__right'>
                     <div className='contactsWrapper__contacts__content__contacts__item__header__right__name'>
-                        <input onChange={_onInputChange} type='text' value={(props.contact.name) ? props.contact.name : ''}/>
+                        <input onChange={_onInputChange} ref={contactNameInputRef} type='text' value={(contactObj.name) ? contactObj.name : ''}/>
                     </div>
                 </div>
             </div>
@@ -59,7 +71,17 @@ Here is the full version:
                         {tc.phone}:
                     </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
-                        phone. plustecken för att lägga till
+                        {(contactObj.tele && contactObj.tele.length) && contactObj.tele.map((num, i) => {
+                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactPhoneInputRefs.current[i] = el)} type='text' value={num}/>);
+                        })}
+                        <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__addField' onClick={() => {
+                            setContactObj({
+                                ...contactObj,
+                                tele: (Array.isArray(contactObj.tele)) ? contactObj.tele.concat(['']) : [''],
+                            })
+                        }}>
+                            <p>{tc.add}</p><Icon val='add'/>
+                        </div>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
@@ -67,7 +89,17 @@ Here is the full version:
                         {tc.mail}:
                     </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
-                        email. plustecken för att lägga till.
+                        {(contactObj.email && contactObj.email.length) && contactObj.email.map((num, i) => {
+                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactEmailInputRefs.current[i] = el)} type='text' value={num}/>);
+                        })}
+                        <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__addField' onClick={() => {
+                            setContactObj({
+                                ...contactObj,
+                                email: (Array.isArray(contactObj.email)) ? contactObj.email.concat(['']) : [''],
+                            })
+                        }}>
+                            <p>{tc.add}</p><Icon val='add'/>
+                        </div>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
@@ -75,7 +107,7 @@ Here is the full version:
                         {tc.comment}:
                     </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
-                        kommentar
+                        <input onChange={_onInputChange} ref={contactCommentInputRef} type='text' value={(contactObj.comment) ? contactObj.comment : ''}/>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
@@ -83,7 +115,7 @@ Here is the full version:
                         {tc.connectedTo}:
                     </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__entities'>
-                        {(props.contact.savedTo && props.contact.savedTo.length) && props.contact.savedTo.map((num, i) => {
+                        {(contactObj.savedTo && contactObj.savedTo.length) && contactObj.savedTo.map((num, i) => {
                             let connection;
                             if (carHelper.isValidRegNumber(num.entityId) || companyHelper.isValidOrgNr(num.entityId)) {
                                 connection = num.entityName;
@@ -93,8 +125,10 @@ Here is the full version:
                             return (
                                 <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity' key={i}>
                                     {connection}
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.removeEntityFromContact}><Icon val='remove' onClick={() => {props.removeEntityFromContact({id: props.contact._id, entityId: num.entityId})}}/></Tooltip>
-                                    {(i === props.contact.savedTo.length - 1) ? '': ', '}
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.removeEntityFromContact}>
+                                        <Icon val='remove' onClick={() => {props.removeEntityFromContact({id: props.contact._id, entityId: num.entityId})}}/>
+                                    </Tooltip>
+                                    {(i === contactObj.savedTo.length - 1) ? '': ', '}
                                 </div>
                             );
                         })}
@@ -102,9 +136,15 @@ Here is the full version:
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__buttons'>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.removeContact}><Icon val='remove' onClick={() => {props.removeContact(props.contact._id)}}/></Tooltip>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.saveChanges}><Icon val='save' onClick={() => {props.saveChanges('kontaktobjekjtet ska skickas här')}}/></Tooltip>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {props.cancelEdit()}}/></Tooltip>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.removeContact}>
+                            <Icon val='remove' onClick={() => {props.removeContact(props.contact._id)}}/>
+                        </Tooltip>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.saveChanges}>
+                            <Icon val='save' onClick={_saveChanges}/>
+                        </Tooltip>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}>
+                            <Icon val='clear' onClick={() => {props.cancelEdit()}}/>
+                        </Tooltip>
                     </div>
                 </div>
             </div>

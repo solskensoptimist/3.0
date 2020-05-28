@@ -21,7 +21,7 @@ export const contactsReducer = (state = initialState, action) => {
         case contactsActionTypes.SET_ENTITY_ID: {
             return {
                 ...state,
-                target: action.payload,
+                entityId: action.payload,
             }
         }
         default: {
