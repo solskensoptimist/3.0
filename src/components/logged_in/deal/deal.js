@@ -253,7 +253,7 @@ const Deal = (state) => {
                         <DealFiles/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
-                        <Contacts entityId={state.deal.deal._id} type='deal'/>
+                        <Contacts entityId={state.deal.deal._id} entityType='deal'/>
                     </div>
                     <div className='dealWrapper__deal__content__itemsContainer'>
                         <DealProspects/>

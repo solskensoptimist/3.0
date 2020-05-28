@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
+import carHelper from 'shared_helpers/car_helper';
+import companyHelper from 'shared_helpers/company_helper';
 import {addEntityToContacts, getContacts, removeContact, removeEntityFromContact, saveNewContact, updateContact} from 'store/contacts/tasks';
 import ContactItem from './contact_item';
+import ContactCreateItem from './contact_create_item';
 import ContactEditItem from './contact_edit_item';
 import Icon from 'components/shared/icon';
 import Loading from 'components/shared/loading';
@@ -10,6 +13,18 @@ import Search from 'components/logged_in/search';
 import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
 
+/**
+ * Render contacts for an entityId (can be deal id, car reg number or company org number).
+ *
+ * Example, using this component on /foretag/id: <Contacts entityId='5566448899' entityName='Company name' entityType='company'/>
+ * Example, using this component on /car/regNum: <Contacts companyId='5566889944' entityId='abc123' entityType='car'/>
+ * Example, using this component on /deal/id: <Contacts entityId='5ea98dae085c6bbfa842e860' entityType='deal'/>
+ *
+ * @param state.props.companyId - string - When props.entityType === 'car' this should be provided, this is the user id for the car.
+ * @param state.props.entityId - string - Always provided.
+ * @param state.props.entityName - string - Wen props.entityType === 'company' this should be provided as company name. When props.entityType === 'car', this should be provided as 'brand  model (regnum)'.
+ * @param state.props.entityType - string - Always provided. 'car'/ 'company' / 'deal'
+ */
 const Contacts = (state) => {
     const amountIncrease = 6;
     const [dataLength, setDataLength] = useState(null); // Used to know when we have rendered all rows.
@@ -58,34 +73,16 @@ const Contacts = (state) => {
         return await updateContact({id: contact._id, data: contact});
     };
 
-    /**
-     * Start create a new contact.
-     */
-    const _startCreateContact = () => {
-        setCreateContact(true);
-    };
-
     useEffect(() => {
         getContacts({entityId: state.props.entityId});
     }, [state.props.entityId]);
 
     useEffect(() => {
         /**
-         * Save new contact from form.
-         */
-        const _saveNewContact = async (contact) => {
-            console.log('_saveNewContact', contact);
-            setCreateContact(false);
-            setEditContact(null);
-            // payload.type = state.props.type;
-            // return await saveNewContact({});
-        };
-
-        /**
          * Set contact rows to render.
          */
         const _renderContacts = () => {
-            const data = state.contacts.contacts;
+            let data = state.contacts.contacts;
 
             // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
@@ -99,9 +96,19 @@ const Contacts = (state) => {
             setDataLength(data.length);
 
             // Show more rows every time user click load icon.
-            // const data = state.contacts.contacts.slice(0, showAmount);
+            data = state.contacts.contacts.slice(0, showAmount);
 
-            const rows = data.map((num, i) => {
+            let rows = [];
+
+            if (createContact) {
+                rows.push(
+                    <React.Fragment key={data.length + 1}>
+                        <ContactCreateItem cancelCreate={() => {setCreateContact(false)}} saveContact={_saveNewContact}/>
+                    </React.Fragment>
+                );
+            }
+
+            rows = rows.concat(data.map((num, i) => {
                 if (editContact=== num._id) {
                     return (
                         <React.Fragment key={i}>
@@ -115,29 +122,42 @@ const Contacts = (state) => {
                         </React.Fragment>
                     );
                 }
-            });
-
-            if (createContact) {
-                rows.push(
-                    <React.Fragment key={data.length + 1}>
-                        {_renderCreateContactItem()}
-                    </React.Fragment>
-                );
-            }
+            }));
 
             setContactRows(rows);
         };
 
         /**
-         * Render a form to create a new contact.
+         * Save new contact from form.
          */
-        const _renderCreateContactItem = () => {
-            return (
-                <div className='contactsWrapper__contacts__content__contacts__item'>
-                    <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {setCreateContact(false)}}/></Tooltip>
-                    <Tooltip horizontalDirection='left' tooltipContent={tc.saveContact}><Icon val='save' onClick={async () => {return await _saveNewContact()}}/></Tooltip>
-                </div>
-            );
+        const _saveNewContact = async (contact) => {
+            console.log('_saveNewContact', contact);
+            setCreateContact(false);
+            setEditContact(null);
+
+            // Add current entity to the new contact.
+            if (carHelper.isValidRegNumber(state.props.entityId)) {
+                contact.savedTo = [{
+                    companyId: state.props.companyId,
+                    entityId: state.props.entityId,
+                    entityName: (state.props.entityName) ? state.props.entityName : state.props.entityId,
+                    entityType: state.props.type,
+                }];
+            } else if (companyHelper.isValidOrgNr(state.props.entityId)) {
+                contact.savedTo = [{
+                    companyId: state.props.entityId,
+                    entityId: state.props.entityId,
+                    entityName: state.props.entityName,
+                    entityType: state.props.type,
+                }];
+            } else {
+                contact.savedTo = [{
+                    entityId: state.props.entityId,
+                    entityType: state.props.entityType,
+                }];
+            }
+
+            return await saveNewContact(contact);
         };
 
         _renderContacts();
@@ -156,7 +176,7 @@ const Contacts = (state) => {
                                 </> :
                                 <>
                                     <Tooltip horizontalDirection='left' tooltipContent={showAddContacts ? tc.hideConnectContacts : tc.connectContacts}><Icon active={showAddContacts} val='link' onClick={() => {setShowAddContacts(!showAddContacts)}}/></Tooltip>
-                                    {!createContact && <Tooltip horizontalDirection='left' tooltipContent={tc.createNewContact}><Icon val='add' onClick={() => {_startCreateContact()}}/></Tooltip>}
+                                    {!createContact && <Tooltip horizontalDirection='left' tooltipContent={tc.createNewContact}><Icon val='add' onClick={() => {setCreateContact(true)}}/></Tooltip>}
                                     {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
                                     {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>

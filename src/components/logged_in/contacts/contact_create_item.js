@@ -1,37 +1,32 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {tc} from 'helpers';
-import carHelper from 'shared_helpers/car_helper';
-import companyHelper from 'shared_helpers/company_helper';
 import Icon from 'components/shared/icon';
 import Tooltip from 'components/shared/tooltip';
 
 /**
- * Render a contact item in edit mode.
+ * Render a form to create contact.
  *
- * @param props.cancelEdit
- * @param props.contact
- * @param props.removeContact
- * @param props.removeEntityFromContact
- * @param props.saveChanges
+ * @param props.cancelCreate
+ * @param props.saveContact
  */
 export default (props) => {
-    const [contactObj, setContactObj] = useState({});
-    const contactCommentInputRef = useRef(null);
-    const contactEmailInputRefs = useRef([]);
-    const contactNameInputRef = useRef(null);
-    const contactPhoneInputRefs = useRef([]);
+    const [contactObj, setContactObj] = useState({email: [''], tele: ['']});
+    const contactCreateCommentInputRef = useRef(null);
+    const contactCreateEmailInputRefs = useRef([]);
+    const contactCreateNameInputRef = useRef(null);
+    const contactCreatePhoneInputRefs = useRef([]);
 
     const _onInputChange = () => {
         setContactObj({
             ...contactObj,
-            comment: contactCommentInputRef.current.value,
-            email: contactEmailInputRefs.current.map((num) => num.value),
-            name: contactNameInputRef.current.value,
-            tele: contactPhoneInputRefs.current.map((num) => num.value),
+            comment: contactCreateCommentInputRef.current.value,
+            email: contactCreateEmailInputRefs.current.map((num) => num.value),
+            name: contactCreateNameInputRef.current.value,
+            tele: contactCreatePhoneInputRefs.current.map((num) => num.value),
         });
     };
 
-    const _saveChanges = () => {
+    const _saveContact = () => {
         let contact = contactObj;
 
         if (!Array.isArray(contact.email)) {
@@ -45,12 +40,8 @@ export default (props) => {
         contact.email = contact.email.filter((num) => (num && num.length));
         contact.tele = contact.tele.filter((num) => (num && num.length));
 
-        props.saveChanges(contact);
+        props.saveContact(contact);
     };
-
-    useEffect(() => {
-        setContactObj(props.contact);
-    }, [props.contact]);
 
     return (
         <div className='contactsWrapper__contacts__content__contacts__item'>
@@ -60,7 +51,7 @@ export default (props) => {
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__header__right'>
                     <div className='contactsWrapper__contacts__content__contacts__item__header__right__name'>
-                        <input onChange={_onInputChange} ref={contactNameInputRef} type='text' value={(contactObj.name) ? contactObj.name : ''}/>
+                        <input onChange={_onInputChange} ref={contactCreateNameInputRef} type='text' value={(contactObj.name) ? contactObj.name : ''}/>
                     </div>
                 </div>
             </div>
@@ -71,7 +62,7 @@ export default (props) => {
                     </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
                         {(contactObj.tele && contactObj.tele.length) ? contactObj.tele.map((num, i) => {
-                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactPhoneInputRefs.current[i] = el)} type='text' value={num}/>);
+                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactCreatePhoneInputRefs.current[i] = el)} type='text' value={num}/>);
                         }) : null}
                         <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__addField' onClick={() => {
                             setContactObj({
@@ -89,7 +80,7 @@ export default (props) => {
                     </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
                         {(contactObj.email && contactObj.email.length) ? contactObj.email.map((num, i) => {
-                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactEmailInputRefs.current[i] = el)} type='text' value={num}/>);
+                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactCreateEmailInputRefs.current[i] = el)} type='text' value={num}/>);
                         }) : null}
                         <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__addField' onClick={() => {
                             setContactObj({
@@ -106,43 +97,16 @@ export default (props) => {
                         {tc.comment}:
                     </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
-                        <input onChange={_onInputChange} ref={contactCommentInputRef} type='text' value={(contactObj.comment) ? contactObj.comment : ''}/>
-                    </div>
-                </div>
-                <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__left'>
-                        {tc.connectedTo}:
-                    </div>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__entities'>
-                        {(contactObj.savedTo && contactObj.savedTo.length) ? contactObj.savedTo.map((num, i) => {
-                            let connection;
-                            if (carHelper.isValidRegNumber(num.entityId) || companyHelper.isValidOrgNr(num.entityId)) {
-                                connection = num.entityName;
-                            } else {
-                                connection = tc.deal;
-                            }
-                            return (
-                                <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity' key={i}>
-                                    {connection}
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.removeEntityFromContact}>
-                                        <Icon val='remove' onClick={() => {props.removeEntityFromContact({id: props.contact._id, entityId: num.entityId})}}/>
-                                    </Tooltip>
-                                    {(i === contactObj.savedTo.length - 1) ? '': ', '}
-                                </div>
-                            );
-                        }) : null}
+                        <input onChange={_onInputChange} ref={contactCreateCommentInputRef} type='text' value={(contactObj.comment) ? contactObj.comment : ''}/>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__buttons'>
                         <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}>
-                            <Icon val='clear' onClick={() => {props.cancelEdit()}}/>
+                            <Icon val='clear' onClick={() => {props.cancelCreate()}}/>
                         </Tooltip>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.saveChanges}>
-                            <Icon val='save' onClick={_saveChanges}/>
-                        </Tooltip>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.removeContact}>
-                            <Icon val='remove' onClick={() => {props.removeContact(props.contact._id)}}/>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.saveContact}>
+                            <Icon val='save' onClick={_saveContact}/>
                         </Tooltip>
                     </div>
                 </div>

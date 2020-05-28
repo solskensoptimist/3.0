@@ -180,8 +180,10 @@ export const removeEntityFromContact = async (payload) => {
  *
  * Note:
  * 'savedTo' array holds entity objects with the properties below.
+ * (It has been a little confusing historically, and not really setup for what is has been trying to do.
+ * So from now on, we're not gonna save companyId or entityName for when entity is a deal.)
  * An entity can be a car, company or deal. It's not possible to save a contact to a person, but you can save a contact to a car where the user is a person.
- * companyId - for company this is the company org nr, but if company is part of a koncern it should be koncern org nr / for car we save user id for the vehicle here / for deal we don't save companyId.
+ * companyId - for company this is the company org nr / for car we save user id for the vehicle here / for deal we don't save companyId.
  * entityType - 'deal' / 'company' / 'car'.
  * entityId - company org nr / deal id / car reg nr.
  * entityName - company name / car name (brand, model and reg nr, example: 'DAF CF (EAD349)'), or just reg nr / for deals we don't save entityName.
@@ -237,8 +239,11 @@ export const saveNewContact = async (payload) => {
             });
         }
 
+        if (!payload.email || !Array.isArray(payload.email)) {
+            payload.email = []; // 2.0 frontend breaks if email isn't array.
+        }
         if (!payload.tele || !Array.isArray(payload.tele)) {
-            payload.tele = []; // 2.0 frontend breaks if tele array doesn't exist.
+            payload.tele = []; // 2.0 frontend breaks if tele isn't array.
         }
 
         const contact = await request({
@@ -247,8 +252,8 @@ export const saveNewContact = async (payload) => {
             url: '/contacts',
         });
 
-        if (!contact) {
-            return console.error('Error in saveNewContact.');
+        if (!contact || contact instanceof Error) {
+            return console.error('Error in saveNewContact\n' + contact);
         }
 
         showFlashMessage(tc.contactWasSaved);

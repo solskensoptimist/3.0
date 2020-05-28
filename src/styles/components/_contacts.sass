@@ -17,7 +17,7 @@
           flex-shrink: 0
           min-width: 0
           margin: $paddingBig $paddingBig 0 0
-          padding: $paddingMedium $paddingMedium $paddingMedium ($paddingMedium *2)
+          padding-left: ($paddingMedium *2)
           word-break: break-word
           &:nth-child(3n)
             margin-right: 0
@@ -40,7 +40,7 @@
               top: -2px
               left: -$paddingMedium
               border-radius: 50%
-              border: 1px solid $colorPrimary-300
+              border: 1px solid $colorTertiary-200
               background: white
               display: flex
               align-items: center
@@ -49,7 +49,7 @@
               height: 48px
               z-index: 3
               svg
-                fill: $colorPrimary-300
+                fill: $colorTertiary-200
                 width: 26px
                 height: 26px
             &__right
@@ -58,7 +58,7 @@
               align-items: center
               justify-content: space-between
               max-width: calc(100% - (#{$paddingMedium} * 3))
-              border-bottom: 1px solid $colorPrimary-300
+              border-bottom: 1px solid $colorTertiary-200
               position: relative
               margin-left: $paddingMedium * 3
               padding-left: $paddingMedium
