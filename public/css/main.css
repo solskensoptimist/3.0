@@ -334,7 +334,8 @@ a {
         flex-shrink: 0;
         min-width: 0;
         margin: 22px 22px 0 0;
-        padding-left: 24px;
+        padding: 12px 12px 12px 24px;
+        background: #fafafa;
         word-break: break-word; }
         .contactsWrapper__contacts__content__contacts__item:nth-child(3n) {
           margin-right: 0; }
@@ -344,7 +345,7 @@ a {
           width: 100%;
           margin-bottom: 4px;
           border: 1px solid #e0e0e0;
-          background: #fafafa;
+          background: white;
           padding: 4px 8px; }
         .contactsWrapper__contacts__content__contacts__item__header {
           display: flex;
@@ -791,7 +792,7 @@ a {
     background: #ffe082;
     border: 0; }
   .dropdownWrapper__dropdown__content {
-    z-index: 20;
+    z-index: 10;
     min-width: 100%;
     max-width: 300px;
     max-height: 300px;
@@ -864,7 +865,7 @@ a {
         .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper .right {
           right: 0; }
         .eventsCalendarWrapper__eventsCalendar__content .dayWrapper__eventsWrapper__events {
-          z-index: 5;
+          z-index: 4;
           position: absolute;
           top: 0;
           background: white;
@@ -1398,7 +1399,7 @@ svg.active {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 5;
+  z-index: 10;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1407,7 +1408,7 @@ svg.active {
     overflow-y: auto;
     max-height: 100%;
     width: 46%;
-    z-index: 6;
+    z-index: 11;
     padding: 22px;
     background: white; }
 
@@ -1455,7 +1456,7 @@ svg.active {
     top: calc(100% + 8px);
     right: 0;
     background: white;
-    z-index: 10;
+    z-index: 5;
     width: 100%; }
     .searchMainWrapper__searchMain__content__searchResult__item {
       color: #00B4CC;

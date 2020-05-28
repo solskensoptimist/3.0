@@ -17,7 +17,8 @@
           flex-shrink: 0
           min-width: 0
           margin: $paddingBig $paddingBig 0 0
-          padding-left: ($paddingMedium *2)
+          padding: $paddingMedium $paddingMedium $paddingMedium ($paddingMedium *2)
+          background: $grey-50
           word-break: break-word
           &:nth-child(3n)
             margin-right: 0
@@ -28,7 +29,7 @@
             width: 100%
             margin-bottom: 4px
             border: 1px solid $grey-300
-            background: $grey-50
+            background: white
             padding: ($paddingSmall / 2) $paddingSmall
           &__header
             display: flex
