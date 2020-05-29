@@ -160,7 +160,8 @@ const Contacts = (state) => {
         };
 
         _renderContacts();
-    }, [createContact, editContact, showAmount, state.contacts.contacts]);
+    }, [createContact, editContact, showAmount, state.contacts.contacts,
+        state.props.companyId, state.props.entityId, state.props.entityName, state.props.entityType]);
 
     return ( _stateCheck() ?
         <div className='contactsWrapper'>

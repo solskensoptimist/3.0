@@ -53,6 +53,7 @@ export const completeEvent = async (payload) => {
  * @param payload.target - string - Only required/working when type === 'target'. Can be prospect id or deal id.
  */
 export const getEvents = async (payload) => {
+    console.log('payload', payload);
     if (payload.type !== 'last') {
         // Save search.
         store.dispatch({type: eventsActionTypes.SET_LAST_SEARCH, payload: payload});
@@ -167,7 +168,7 @@ const getEventsByTarget = async (payload) => {
         if (!payload || (payload && !payload.target)) {
             return console.error('Missing target in getEventsByTarget');
         }
-        let dealId;
+        let dealId = '';
         let prospectId;
 
         if (payload.target.length > 14) {

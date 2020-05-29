@@ -321,6 +321,13 @@ a {
     max-width: 100%;
     font-size: 14px; }
 
+.companyWrapper__company {
+  padding: 2%; }
+  .companyWrapper__company__content__item {
+    margin-bottom: 2%; }
+    .companyWrapper__company__content__item:last-of-type {
+      margin-bottom: 0; }
+
 .contactsWrapper {
   padding: 22px; }
   .contactsWrapper__contacts__content {

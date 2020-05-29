@@ -15,6 +15,11 @@ import WidgetHeader from 'components/shared/widget_header';
  * Render activities, I.E. all historic events.
  * Optional to include comments and 'moved' actions.
  * Can render activities based on a target (deal id or TS user id/orgnr), or based on current filter.
+ *
+ * @props.includeComments - bool - (optional)
+ * @props.includeMoved - bool - (optional)
+ * @props.target - string - Use when type === 'target': deal id / company org nr / TS user_id
+ * @props.type - string - 'target' / 'filter'
  */
 const Activities = (state) => {
     const amountIncrease = 5;
@@ -91,8 +96,18 @@ const Activities = (state) => {
 
             // Action.
             let action;
-            if (state.props.type === 'filter') {
-                // When we show activity based on filter, we show a detailed action.
+            // When target is the same as activity deal, we don't need to add extra info to row.
+            if (state.props.type === 'target' && activity.deal_id && state.props.target === activity.deal_id) {
+                if (activity.action && activity.action === 'move') {
+                    action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>;
+                } else if (activity.action) {
+                    action = <div>{activityHelper.getReadableActivity(activity.action)}</div>;
+                } else if (!activity.action && activity.id && activity.comment && activity.comment !== '') {
+                    isEditable = true;
+                    isRemovable = true;
+                    action = <div>{activityHelper.getReadableActivity('comment')}</div>;
+                }
+            } else {
                 if (activity.action && activity.action === 'move' && activity.phase && activity.target) {
                     // For move action we add phases.
                     action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>
@@ -119,18 +134,11 @@ const Activities = (state) => {
                     }
                 } else if (activity.action) {
                     // Action without deal name.
-                    action = <div>{activityHelper.getReadableActivity(activity.action)}</div>;
-                }
-            } else {
-                // For activity based on a target we don't need to add link to deal/prospect.
-                if (activity.action && activity.action === 'move') {
-                    action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>;
-                } else if (activity.action) {
-                    action = <div>{activityHelper.getReadableActivity(activity.action)}</div>;
-                } else if (!activity.action && activity.id && activity.comment && activity.comment !== '') {
-                    isEditable = true;
-                    isRemovable = true;
-                    action = <div>{activityHelper.getReadableActivity('comment')}</div>;
+                    if (activity.action === 'owner' && activity.deal_id) {
+                        action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.on.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal_id} key='deal'>{tc.deal.toLowerCase()}</NavLink></div>;
+                    } else {
+                        action = <div>{activityHelper.getReadableActivity(activity.action)}</div>;
+                    }
                 }
             }
 
@@ -163,7 +171,7 @@ const Activities = (state) => {
         };
 
         _renderActivities();
-    }, [includeComments, includeMoved, showAmount, state.activity.activityByFilter, state.activity.activityByTarget, state.props.type]);
+    }, [includeComments, includeMoved, showAmount, state.activity.activityByFilter, state.activity.activityByTarget, state.props.target, state.props.type]);
 
     return ( _stateCheck() ?
         <div className='activitiesWrapper'>
