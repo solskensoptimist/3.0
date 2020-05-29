@@ -7,5 +7,5 @@ export const showFlashMessage = (payload) => {
 
     return setTimeout(() => {
         store.dispatch({type: flashMessagesActionTypes.SET_SHOW_MESSAGE, payload: false});
-    }, 5000);
+    }, 7000); // Use same ms as we use in sass animation for class .__flashMessagesWrapper__flashMessages
 };

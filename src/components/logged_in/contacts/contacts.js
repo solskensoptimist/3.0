@@ -131,7 +131,6 @@ const Contacts = (state) => {
          * Save new contact from form.
          */
         const _saveNewContact = async (contact) => {
-            console.log('_saveNewContact', contact);
             setCreateContact(false);
             setEditContact(null);
 

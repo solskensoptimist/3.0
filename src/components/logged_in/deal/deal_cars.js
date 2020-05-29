@@ -18,7 +18,7 @@ const DealCars = (state) => {
     const [dataLength, setDataLength] = useState(null); // Used to know when we have rendered all rows.
     const [showAddCars, setShowAddCars] = useState(true); // Holds JSX content.
     const [showAmount, setShowAmount] = useState(amountIncrease);
-    const [minimize, setMinimize] = useState(true);
+    const [minimize, setMinimize] = useState(false);
 
     const _addCars = async () => {
         let cars = state.search.selectedCars.map((num) => num.id.toString());

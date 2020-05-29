@@ -1,8 +1,12 @@
 @keyframes slideFromBottom {
   0% {
     bottom: -100%; }
+  20% {
+    bottom: 0; }
+  80% {
+    bottom: 0; }
   100% {
-    bottom: 0; } }
+    bottom: -100%; } }
 .buttonRegular {
   background: #eeeeee;
   border: 1px solid #e0e0e0;
@@ -379,7 +383,7 @@ a {
             align-items: center;
             justify-content: space-between;
             max-width: calc(100% - (12px * 2));
-            border-bottom: 1px solid #757575;
+            border-bottom: 1px solid #9e9e9e;
             position: relative;
             margin-left: 24px;
             padding-left: 24px; }
@@ -1066,7 +1070,7 @@ a {
     z-index: 100;
     position: fixed;
     bottom: 0;
-    animation: slideFromBottom 2s;
+    animation: slideFromBottom 7s;
     max-width: 40%; }
 
 .footer {

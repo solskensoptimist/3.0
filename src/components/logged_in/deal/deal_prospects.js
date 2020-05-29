@@ -18,7 +18,7 @@ const DealProspects = (state) => {
     const [prospectRows, setProspectRows] = useState(null); // Holds JSX content.
     const [showAddProspect, setShowAddProspect] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
-    const [minimize, setMinimize] = useState(true);
+    const [minimize, setMinimize] = useState(false);
 
     const _addProspects = async () => {
         let prospects = state.search.selectedAll.map((num) => num.toString());

@@ -71,7 +71,7 @@ const getProspectInfo = async (payload) => {
             if (companyHelper.isValidOrgNr(id)) {
                 return await request({
                     method: 'get',
-                    url: '/company/' + id,
+                    url: '/company/companyBasicInfo/' + id,
                 });
             } else {
                 return await request({
@@ -107,18 +107,16 @@ const getProspectInfo = async (payload) => {
                     zip: person.zip ? person.zip : '',
                     zipMuncipality: person.zipMuncipality ? person.zipMuncipality : '',
                 };
-            } else if (num.company) {
-                return {
-                    address: num.company.address ? num.company.address : '',
-                    id: num.company.user_id ? num.company.user_id : '',
-                    name: num.company.name ? num.company.name : '',
-                    parentCompany: num.company.parentCompanyId ? num.company.parentCompanyId : '',
-                    type: 'company',
-                    zip: num.company.zip ? num.company.zip : '',
-                    zipMuncipality: num.company.zipMuncipality ? num.company.zipMuncipality : '',
-                };
             } else {
-                return false;
+                return {
+                    address: num.address ? num.address : '',
+                    id: num.user_id ? num.user_id : '',
+                    name: num.name ? num.name : '',
+                    parentCompany: num.parentCompanyId ? num.parentCompanyId : '',
+                    type: 'company',
+                    zip: num.zip ? num.zip : '',
+                    zipMuncipality: num.zipMuncipality ? num.zipMuncipality : '',
+                };
             }
         });
 
