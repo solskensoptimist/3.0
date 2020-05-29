@@ -49,29 +49,32 @@ export default (props) => {
     };
 
     useEffect(() => {
+        let contact = props.contact;
+
+        // To add empty input fields.
+        if (!contact.email.length) {
+            contact.email = [''];
+        }
+
+        if (!contact.tele.length) {
+            contact.tele = [''];
+        }
+
         setContactObj(props.contact);
     }, [props.contact]);
 
     return (
         <div className='contactsWrapper__contacts__content__contacts__item'>
-            <div className='contactsWrapper__contacts__content__contacts__item__headerCreate'>
-                <div className='contactsWrapper__contacts__content__contacts__item__header__left'>
-                    <Icon val='contact'/>
-                </div>
-                <div className='contactsWrapper__contacts__content__contacts__item__header__right'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__header__right__name'>
-                        <input onChange={_onInputChange} ref={contactNameInputRef} type='text' value={(contactObj.name) ? contactObj.name : ''}/>
-                    </div>
+            <div className='contactsWrapper__contacts__content__contacts__item__header'>
+                <div className='contactsWrapper__contacts__content__contacts__item__header__name'>
+                    <input onChange={_onInputChange} placeholder={tc.addName} ref={contactNameInputRef} type='text' value={(contactObj.name) ? contactObj.name : ''}/>
                 </div>
             </div>
             <div className='contactsWrapper__contacts__content__contacts__item__content'>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__left'>
-                        {tc.phone}:
-                    </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
                         {(contactObj.tele && contactObj.tele.length) ? contactObj.tele.map((num, i) => {
-                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactPhoneInputRefs.current[i] = el)} type='text' value={num}/>);
+                            return (<input key={i} onChange={_onInputChange} placeholder={tc.addPhone} ref={(el) => (contactPhoneInputRefs.current[i] = el)} type='text' value={num}/>);
                         }) : null}
                         <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__addField' onClick={() => {
                             setContactObj({
@@ -79,17 +82,14 @@ export default (props) => {
                                 tele: (Array.isArray(contactObj.tele)) ? contactObj.tele.concat(['']) : [''],
                             })
                         }}>
-                            <p>{tc.add}</p><Icon val='add'/>
+                            <Icon val='add'/>
                         </div>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__left'>
-                        {tc.mail}:
-                    </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
                         {(contactObj.email && contactObj.email.length) ? contactObj.email.map((num, i) => {
-                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactEmailInputRefs.current[i] = el)} type='text' value={num}/>);
+                            return (<input key={i} onChange={_onInputChange} placeholder={tc.addEmail} ref={(el) => (contactEmailInputRefs.current[i] = el)} type='text' value={num}/>);
                         }) : null}
                         <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__addField' onClick={() => {
                             setContactObj({
@@ -97,27 +97,23 @@ export default (props) => {
                                 email: (Array.isArray(contactObj.email)) ? contactObj.email.concat(['']) : [''],
                             })
                         }}>
-                            <p>{tc.add}</p><Icon val='add'/>
+                            <Icon val='add'/>
                         </div>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__left'>
-                        {tc.comment}:
-                    </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
-                        <input onChange={_onInputChange} ref={contactCommentInputRef} type='text' value={(contactObj.comment) ? contactObj.comment : ''}/>
+                        <input onChange={_onInputChange} placeholder={tc.addDescription} ref={contactCommentInputRef} type='text' value={(contactObj.comment) ? contactObj.comment : ''}/>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__left'>
-                        {tc.connectedTo}:
-                    </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__entities'>
                         {(contactObj.savedTo && contactObj.savedTo.length) ? contactObj.savedTo.map((num, i) => {
                             let connection;
-                            if (carHelper.isValidRegNumber(num.entityId) || companyHelper.isValidOrgNr(num.entityId)) {
-                                connection = num.entityName;
+                            if (carHelper.isValidRegNumber(num.entityId)) {
+                                connection = (num.entityName) ? num.entityName : num.entityId;
+                            } else if (companyHelper.isValidOrgNr(num.entityId)) {
+                                connection = (num.entityName) ? num.entityName : tc.company;
                             } else {
                                 connection = tc.deal;
                             }

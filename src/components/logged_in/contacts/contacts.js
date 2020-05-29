@@ -86,7 +86,7 @@ const Contacts = (state) => {
 
             // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
-                setContactRows(<p className='marginTop'>{tc.noContacts}</p>);
+                setContactRows(<p className='marginTopMedium'>{tc.noContacts}. {tc.contactHowTo}.</p>);
                 return setMinimize(true);
             } else {
                 setMinimize(false);

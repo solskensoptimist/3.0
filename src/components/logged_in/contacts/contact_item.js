@@ -15,16 +15,14 @@ export default (props) => {
     return(
         <div className='contactsWrapper__contacts__content__contacts__item'>
             <div className='contactsWrapper__contacts__content__contacts__item__header'>
-                <div className='contactsWrapper__contacts__content__contacts__item__header__left'>
+                <div className='contactsWrapper__contacts__content__contacts__item__header__icon'>
                     <Icon val='contact'/>
                 </div>
-                <div className='contactsWrapper__contacts__content__contacts__item__header__right'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__header__right__name'>
-                        {props.contact.name}
-                    </div>
-                    <div className='contactsWrapper__contacts__content__contacts__item__header__right__icon'>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.editContact}><Icon val='edit' onClick={() => {props.editContact(props.contact._id)}}/></Tooltip>
-                    </div>
+                <div className='contactsWrapper__contacts__content__contacts__item__header__name'>
+                    {props.contact.name}
+                </div>
+                <div className='contactsWrapper__contacts__content__contacts__item__header__edit'>
+                    <Tooltip horizontalDirection='left' tooltipContent={tc.editContact}><Icon val='edit' onClick={() => {props.editContact(props.contact._id)}}/></Tooltip>
                 </div>
             </div>
             <div className='contactsWrapper__contacts__content__contacts__item__content'>

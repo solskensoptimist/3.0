@@ -53,7 +53,6 @@ export const completeEvent = async (payload) => {
  * @param payload.target - string - Only required/working when type === 'target'. Can be prospect id or deal id.
  */
 export const getEvents = async (payload) => {
-    console.log('payload', payload);
     if (payload.type !== 'last') {
         // Save search.
         store.dispatch({type: eventsActionTypes.SET_LAST_SEARCH, payload: payload});

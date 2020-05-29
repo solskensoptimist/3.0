@@ -45,24 +45,16 @@ export default (props) => {
 
     return (
         <div className='contactsWrapper__contacts__content__contacts__item'>
-            <div className='contactsWrapper__contacts__content__contacts__item__headerEdit'>
-                <div className='contactsWrapper__contacts__content__contacts__item__header__left'>
-                    <Icon val='contact'/>
-                </div>
-                <div className='contactsWrapper__contacts__content__contacts__item__header__right'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__header__right__name'>
-                        <input onChange={_onInputChange} ref={contactCreateNameInputRef} type='text' value={(contactObj.name) ? contactObj.name : ''}/>
-                    </div>
+            <div className='contactsWrapper__contacts__content__contacts__item__header'>
+                <div className='contactsWrapper__contacts__content__contacts__item__header__name'>
+                    <input onChange={_onInputChange} placeholder={tc.addName} ref={contactCreateNameInputRef} type='text' value={(contactObj.name) ? contactObj.name : ''}/>
                 </div>
             </div>
             <div className='contactsWrapper__contacts__content__contacts__item__content'>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__left'>
-                        {tc.phone}:
-                    </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
                         {(contactObj.tele && contactObj.tele.length) ? contactObj.tele.map((num, i) => {
-                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactCreatePhoneInputRefs.current[i] = el)} type='text' value={num}/>);
+                            return (<input key={i} onChange={_onInputChange} placeholder={tc.addPhone} ref={(el) => (contactCreatePhoneInputRefs.current[i] = el)} type='text' value={num}/>);
                         }) : null}
                         <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__addField' onClick={() => {
                             setContactObj({
@@ -70,17 +62,14 @@ export default (props) => {
                                 tele: (Array.isArray(contactObj.tele)) ? contactObj.tele.concat(['']) : [''],
                             })
                         }}>
-                            <p>{tc.add}</p><Icon val='add'/>
+                            <Icon val='add'/>
                         </div>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__left'>
-                        {tc.mail}:
-                    </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
                         {(contactObj.email && contactObj.email.length) ? contactObj.email.map((num, i) => {
-                            return (<input key={i} onChange={_onInputChange} ref={(el) => (contactCreateEmailInputRefs.current[i] = el)} type='text' value={num}/>);
+                            return (<input key={i} onChange={_onInputChange} placeholder={tc.addEmail} ref={(el) => (contactCreateEmailInputRefs.current[i] = el)} type='text' value={num}/>);
                         }) : null}
                         <div className='contactsWrapper__contacts__content__contacts__item__content__row__right__addField' onClick={() => {
                             setContactObj({
@@ -88,16 +77,13 @@ export default (props) => {
                                 email: (Array.isArray(contactObj.email)) ? contactObj.email.concat(['']) : [''],
                             })
                         }}>
-                            <p>{tc.add}</p><Icon val='add'/>
+                            <Icon val='add'/>
                         </div>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
-                    <div className='contactsWrapper__contacts__content__contacts__item__content__row__left'>
-                        {tc.comment}:
-                    </div>
                     <div className='contactsWrapper__contacts__content__contacts__item__content__row__right'>
-                        <input onChange={_onInputChange} ref={contactCreateCommentInputRef} type='text' value={(contactObj.comment) ? contactObj.comment : ''}/>
+                        <input onChange={_onInputChange} placeholder={tc.addDescription} ref={contactCreateCommentInputRef} type='text' value={(contactObj.comment) ? contactObj.comment : ''}/>
                     </div>
                 </div>
                 <div className='contactsWrapper__contacts__content__contacts__item__content__row'>
