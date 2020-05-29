@@ -45,7 +45,7 @@ export default (props) => {
 
     return (
         <div className='contactsWrapper__contacts__content__contacts__item'>
-            <div className='contactsWrapper__contacts__content__contacts__item__header'>
+            <div className='contactsWrapper__contacts__content__contacts__item__headerEdit'>
                 <div className='contactsWrapper__contacts__content__contacts__item__header__left'>
                     <Icon val='contact'/>
                 </div>

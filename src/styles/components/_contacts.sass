@@ -17,8 +17,7 @@
           flex-shrink: 0
           min-width: 0
           margin: $paddingBig $paddingBig 0 0
-          padding: $paddingMedium $paddingMedium $paddingMedium ($paddingMedium *2)
-          background: $grey-50
+          padding-left: $paddingMedium
           word-break: break-word
           &:nth-child(3n)
             margin-right: 0
@@ -29,19 +28,26 @@
             width: 100%
             margin-bottom: 4px
             border: 1px solid $grey-300
-            background: white
+            background: $grey-100
             padding: ($paddingSmall / 2) $paddingSmall
+          &__headerCreate
+            @extend .contactsWrapper__contacts__content__contacts__item__header
+            background: transparent !important
+          &__headerEdit
+            @extend .contactsWrapper__contacts__content__contacts__item__header
+            background: transparent !important
           &__header
             display: flex
             justify-content: flex-start
             position: relative
-            height: calc(50px - (#{$paddingMedium} / 2))
+            height: calc(44px - (#{$paddingMedium} / 2))
+            background: $grey-50
             &__left
               position: absolute
-              top: -2px
+              top: -6px
               left: -$paddingMedium
               border-radius: 50%
-              border: 1px solid $colorTertiary-200
+              border: 1px solid $grey-600
               background: white
               display: flex
               align-items: center
@@ -50,7 +56,7 @@
               height: 48px
               z-index: 3
               svg
-                fill: $colorTertiary-200
+                fill: $grey-600
                 width: 26px
                 height: 26px
             &__right
@@ -58,22 +64,21 @@
               display: flex
               align-items: center
               justify-content: space-between
-              max-width: calc(100% - (#{$paddingMedium} * 3))
-              border-bottom: 1px solid $colorTertiary-200
+              max-width: calc(100% - (#{$paddingMedium} * 2))
+              border-bottom: 1px solid $grey-600
               position: relative
-              margin-left: $paddingMedium * 3
-              padding-left: $paddingMedium
+              margin-left: $paddingMedium * 2
+              padding-left: $paddingMedium * 2
               &__name
                 flex-grow: 1
                 white-space: nowrap
                 overflow: hidden
                 text-overflow: ellipsis
-                text-transform: uppercase
                 font-weight: 600
                 font-size: 12px
               &__icon
                 visibility: hidden
-                margin-left: $paddingMedium
+                margin: 0 $paddingMedium
                 svg
                   fill: $colorLink
                   width: 18px
@@ -82,7 +87,7 @@
                   &:hover
                     fill: $colorLinkHover
           &__content
-            margin-top: $paddingBig
+            margin: $paddingBig
             &__row
               display: flex
               align-items: flex-start
@@ -134,8 +139,8 @@
                 justify-content: space-between
                 margin-top: $paddingBig
                 svg
-                  width: 36px
-                  height: 36px
+                  width: 30px
+                  height: 30px
                   cursor: pointer
                   fill: $colorLink
                   &:hover

@@ -334,8 +334,7 @@ a {
         flex-shrink: 0;
         min-width: 0;
         margin: 22px 22px 0 0;
-        padding: 12px 12px 12px 24px;
-        background: #fafafa;
+        padding-left: 12px;
         word-break: break-word; }
         .contactsWrapper__contacts__content__contacts__item:nth-child(3n) {
           margin-right: 0; }
@@ -345,19 +344,24 @@ a {
           width: 100%;
           margin-bottom: 4px;
           border: 1px solid #e0e0e0;
-          background: white;
+          background: #f5f5f5;
           padding: 4px 8px; }
-        .contactsWrapper__contacts__content__contacts__item__header {
+        .contactsWrapper__contacts__content__contacts__item__headerCreate {
+          background: transparent !important; }
+        .contactsWrapper__contacts__content__contacts__item__headerEdit {
+          background: transparent !important; }
+        .contactsWrapper__contacts__content__contacts__item__header, .contactsWrapper__contacts__content__contacts__item__headerCreate, .contactsWrapper__contacts__content__contacts__item__headerEdit {
           display: flex;
           justify-content: flex-start;
           position: relative;
-          height: calc(50px - (12px / 2)); }
+          height: calc(44px - (12px / 2));
+          background: #fafafa; }
           .contactsWrapper__contacts__content__contacts__item__header__left {
             position: absolute;
-            top: -2px;
+            top: -6px;
             left: -12px;
             border-radius: 50%;
-            border: 1px solid #80cbc4;
+            border: 1px solid #757575;
             background: white;
             display: flex;
             align-items: center;
@@ -366,7 +370,7 @@ a {
             height: 48px;
             z-index: 3; }
             .contactsWrapper__contacts__content__contacts__item__header__left svg {
-              fill: #80cbc4;
+              fill: #757575;
               width: 26px;
               height: 26px; }
           .contactsWrapper__contacts__content__contacts__item__header__right {
@@ -374,22 +378,21 @@ a {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: calc(100% - (12px * 3));
-            border-bottom: 1px solid #80cbc4;
+            max-width: calc(100% - (12px * 2));
+            border-bottom: 1px solid #757575;
             position: relative;
-            margin-left: 36px;
-            padding-left: 12px; }
+            margin-left: 24px;
+            padding-left: 24px; }
             .contactsWrapper__contacts__content__contacts__item__header__right__name {
               flex-grow: 1;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-              text-transform: uppercase;
               font-weight: 600;
               font-size: 12px; }
             .contactsWrapper__contacts__content__contacts__item__header__right__icon {
               visibility: hidden;
-              margin-left: 12px; }
+              margin: 0 12px; }
               .contactsWrapper__contacts__content__contacts__item__header__right__icon svg {
                 fill: #00B4CC;
                 width: 18px;
@@ -398,7 +401,7 @@ a {
                 .contactsWrapper__contacts__content__contacts__item__header__right__icon svg:hover {
                   fill: #616161; }
         .contactsWrapper__contacts__content__contacts__item__content {
-          margin-top: 22px; }
+          margin: 22px; }
           .contactsWrapper__contacts__content__contacts__item__content__row {
             display: flex;
             align-items: flex-start;
@@ -449,8 +452,8 @@ a {
               justify-content: space-between;
               margin-top: 22px; }
               .contactsWrapper__contacts__content__contacts__item__content__row__buttons svg {
-                width: 36px;
-                height: 36px;
+                width: 30px;
+                height: 30px;
                 cursor: pointer;
                 fill: #00B4CC; }
                 .contactsWrapper__contacts__content__contacts__item__content__row__buttons svg:hover {

@@ -87,7 +87,7 @@ export default {
     gender: 'Kön',
     genderNotProvided: 'Kön ej angivet',
     handleCars: 'Hantera fordon som är kopplade till affären',
-    handleContacts: 'Redigera kontaktpersoner',
+    handleContacts: 'Hantera kopplade kontaktpersoner',
     handleFiles: 'Hantera uppladdade filer',
     handleProspects: 'Hantera prospekt som är kopplade till affären',
     hideConnectCars: 'Dölj koppla fordon',
