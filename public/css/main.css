@@ -372,7 +372,7 @@ a {
             justify-content: center;
             width: 48px;
             height: 48px;
-            z-index: 3; }
+            z-index: 2; }
             .contactsWrapper__contacts__content__contacts__item__header__left svg {
               fill: #757575;
               width: 26px;
@@ -419,13 +419,15 @@ a {
             .contactsWrapper__contacts__content__contacts__item__content__row__right {
               flex-grow: 1; }
               .contactsWrapper__contacts__content__contacts__item__content__row__right__entities {
-                display: flex; }
+                display: flex;
+                align-items: flex-start;
+                flex-wrap: wrap; }
                 .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity {
                   display: flex;
                   align-items: center;
-                  margin-left: 12px; }
-                  .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity:first-of-type {
-                    margin-left: 0; }
+                  margin-right: 12px; }
+                  .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity:last-of-type {
+                    margin-right: 0; }
                   .contactsWrapper__contacts__content__contacts__item__content__row__right__entities__entity svg {
                     width: 14px;
                     height: 14px;
@@ -1067,7 +1069,7 @@ a {
     color: white;
     border-radius: 4px 4px 0 0;
     padding: 12px 22px;
-    z-index: 100;
+    z-index: 30;
     position: fixed;
     bottom: 0;
     animation: slideFromBottom 7s;

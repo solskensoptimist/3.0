@@ -35,6 +35,7 @@ export default {
     cold: 'Kall',
     comment: 'Kommentar',
     comments: 'Kommentarer',
+    company: 'Företag',
     companyInfo: 'Företagsinformation',
     complete: 'Utförd',
     completeEvent: 'Aktivitet utförd',

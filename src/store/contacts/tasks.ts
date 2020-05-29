@@ -15,7 +15,7 @@ import companyHelper from 'shared_helpers/company_helper';
  */
 export const addEntityToContacts = async (payload) => {
     try {
-        if (!payload || (payload && !payload.contacts) || (payload && !payload.entityId) || (payload && !payload.type)) {
+        if (!payload || (payload && !payload.contacts) || (payload && !payload.entityId) || (payload && !payload.entityType)) {
             return console.error('Missing params in addEntityToContact.');
         }
 
@@ -35,7 +35,7 @@ export const addEntityToContacts = async (payload) => {
             }
 
             if (payload.entityType === 'company' && !payload.entityName) {
-                throw new Error('Mssing entityName for entityType company in addEntitToContacts.');
+                throw new Error('Missing entityName for entityType company in addEntitToContacts.');
             }
 
             if (payload.entityType === 'company') {

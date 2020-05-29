@@ -43,7 +43,7 @@ const Contacts = (state) => {
             return;
         }
 
-        return await addEntityToContacts({contacts: state.search.selectedContacts, entityId: state.props.entityId, type: state.props.type});
+        return await addEntityToContacts({contacts: state.search.selectedContacts, entityId: state.props.entityId, entityType: state.props.entityType});
     };
 
     const _stateCheck = () => {
@@ -140,14 +140,14 @@ const Contacts = (state) => {
                     companyId: state.props.companyId,
                     entityId: state.props.entityId,
                     entityName: (state.props.entityName) ? state.props.entityName : state.props.entityId,
-                    entityType: state.props.type,
+                    entityType: state.props.entityType,
                 }];
             } else if (companyHelper.isValidOrgNr(state.props.entityId)) {
                 contact.savedTo = [{
                     companyId: state.props.entityId,
                     entityId: state.props.entityId,
                     entityName: state.props.entityName,
-                    entityType: state.props.type,
+                    entityType: state.props.entityType,
                 }];
             } else {
                 contact.savedTo = [{

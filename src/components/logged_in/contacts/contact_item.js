@@ -60,9 +60,9 @@ export default (props) => {
                         {(props.contact.savedTo && props.contact.savedTo.length) && props.contact.savedTo.map((num, i) => {
                             let link;
                             if (carHelper.isValidRegNumber(num.entityId)) {
-                                link = <NavLink exact to={'/bil/' + num.entityId} key={i}>{num.entityName}</NavLink>;
+                                link = <NavLink exact to={'/bil/' + num.entityId} key={i}>{(num.entityName) ? num.entityName : num.entityId}</NavLink>;
                             } else if (companyHelper.isValidOrgNr(num.entityId)) {
-                                link = <NavLink exact to={'/foretag/' + num.entityId} key={i}>{num.entityName}</NavLink>;
+                                link = <NavLink exact to={'/foretag/' + num.entityId} key={i}>{(num.entityName) ? num.entityName : tc.company}</NavLink>;
                             } else {
                                 link = <NavLink exact to={'/affar/' + num.entityId} key={i}>{tc.deal}</NavLink>;
                             }
