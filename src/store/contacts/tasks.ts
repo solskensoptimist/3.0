@@ -109,7 +109,7 @@ export const getContacts = async (payload) => {
 };
 
 /**
- * Remove a contact completely.
+ * Remove a footer_contact completely.
  *
  * @param payload.id - string - Contact id.
  */
@@ -176,13 +176,13 @@ export const removeEntityFromContact = async (payload) => {
 };
 
 /**
- * Save a new contact.
+ * Save a new footer_contact.
  *
  * Note:
  * 'savedTo' array holds entity objects with the properties below.
  * (It has been a little confusing historically, and not really setup for what is has been trying to do.
  * So from now on, we're not gonna save companyId or entityName for when entity is a deal.)
- * An entity can be a car, company or deal. It's not possible to save a contact to a person, but you can save a contact to a car where the user is a person.
+ * An entity can be a car, company or deal. It's not possible to save a footer_contact to a person, but you can save a footer_contact to a car where the user is a person.
  * companyId - for company this is the company org nr / for car we save user id for the vehicle here / for deal we don't save companyId.
  * entityType - 'deal' / 'company' / 'car'.
  * entityId - company org nr / deal id / car reg nr.
@@ -268,9 +268,9 @@ export const saveNewContact = async (payload) => {
 
 
 /**
- * Update a new contact
+ * Update a new footer_contact
  *
- * @param payload.id - string - Id for contact.
+ * @param payload.id - string - Id for footer_contact.
  *
  * @param payload.data.comment - string
  * @param payload.data.email - array

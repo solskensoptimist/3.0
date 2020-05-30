@@ -21,10 +21,10 @@ import Tooltip from 'components/shared/tooltip/tooltip';
  * Render a deal view.
  */
 const Deal = (state) => {
+    const {id} = useParams();
     const [editDeal, setEditDeal] = useState(false);
     const [dealObj, setDealObj] = useState({});
     const [showComment, setShowComment] = useState(false);
-    const {id} = useParams();
     const dealDescriptionInputRef = useRef(null);
     const dealNameInputRef = useRef(null);
     const dealPotentialInputRef = useRef(null);

@@ -4,7 +4,7 @@ import Icon from 'components/shared/icon';
 import Tooltip from 'components/shared/tooltip';
 
 /**
- * Render a form to create contact.
+ * Render a form to create footer_contact.
  *
  * @param props.cancelCreate
  * @param props.saveContact

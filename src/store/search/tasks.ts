@@ -130,7 +130,7 @@ const getCarSuggestionsBasedOnTargetDebounced = async (payload) => {
 
 
 /**
- * Get contact suggestions.
+ * Get footer_contact suggestions.
  *
  * @param payload.q
  */

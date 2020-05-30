@@ -1,6 +1,6 @@
 import {commentActionTypes} from './actions';
 
-interface PopupState {
+interface CommentState {
     added: string | null,
     comment: string | null,
     dealer_id: number | null,
@@ -9,7 +9,7 @@ interface PopupState {
     user_id: number | null,
 }
 
-const initialState: PopupState = {
+const initialState: CommentState = {
     added: null,
     comment: null,
     dealer_id: null,

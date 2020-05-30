@@ -1,7 +1,7 @@
 import React  from 'react';
 import Breadcrumbs from './breadcrumbs';
-import CompanyInfo from './company_info';
-import Contact from './contact';
+import FooterCompanyInfo from './footer_company_info';
+import FooterContact from './footer_contact';
 
 /**
  * Footer component.
@@ -12,11 +12,11 @@ export default () => {
             <div className='footer__item footer__breadcrumbsWrapper'>
                 <Breadcrumbs />
             </div>
-            <div className='footer__item footer__companyInfoWrapper'>
-                <CompanyInfo />
+            <div className='footer__item footer__footerCompanyInfoWrapper'>
+                <FooterCompanyInfo />
             </div>
-            <div className='footer__item footer__contactWrapper'>
-                <Contact />
+            <div className='footer__item footer__footerContactWrapper'>
+                <FooterContact />
             </div>
         </div>
     );

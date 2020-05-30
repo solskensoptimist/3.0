@@ -7,8 +7,8 @@ import Icon from 'components/shared/icon';
 import Tooltip from 'components/shared/tooltip';
 
 /**
- * Render a contact item.
- * @param props.contact
+ * Render a footer_contact item.
+ * @param props.footer_contact
  * @param props.editContact
  */
 export default (props) => {

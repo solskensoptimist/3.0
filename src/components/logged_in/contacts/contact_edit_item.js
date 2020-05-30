@@ -6,10 +6,10 @@ import Icon from 'components/shared/icon';
 import Tooltip from 'components/shared/tooltip';
 
 /**
- * Render a contact item in edit mode.
+ * Render a footer_contact item in edit mode.
  *
  * @param props.cancelEdit
- * @param props.contact
+ * @param props.footer_contact
  * @param props.removeContact
  * @param props.removeEntityFromContact
  * @param props.saveChanges

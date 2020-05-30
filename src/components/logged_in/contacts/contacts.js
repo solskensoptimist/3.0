@@ -29,7 +29,7 @@ const Contacts = (state) => {
     const amountIncrease = 6;
     const [dataLength, setDataLength] = useState(null); // Used to know when we have rendered all rows.
     const [contactRows, setContactRows] = useState(null); // Holds JSX content.
-    const [editContact, setEditContact] = useState(null); // Id for contact being edited.
+    const [editContact, setEditContact] = useState(null); // Id for footer_contact being edited.
     const [showAddContacts, setShowAddContacts] = useState(true);
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [createContact, setCreateContact] = useState(false);
@@ -51,21 +51,21 @@ const Contacts = (state) => {
     };
 
     /**
-     * Completely remove a contact.
+     * Completely remove a footer_contact.
      */
     const _removeContact = async (id) => {
         return await removeContact({id: id});
     };
 
     /**
-     * Remove an entity from a contact.
+     * Remove an entity from a footer_contact.
      */
     const _removeEntityFromContact = async (payload) => {
         return await removeEntityFromContact({id: payload.id, entityId: payload.entityId});
     };
 
     /**
-     * Save changes for contact that is being edited.
+     * Save changes for footer_contact that is being edited.
      */
     const _updateContact = async (contact) => {
         setCreateContact(false);
@@ -79,7 +79,7 @@ const Contacts = (state) => {
 
     useEffect(() => {
         /**
-         * Set contact rows to render.
+         * Set footer_contact rows to render.
          */
         const _renderContacts = () => {
             let data = state.contacts.contacts;
@@ -128,13 +128,13 @@ const Contacts = (state) => {
         };
 
         /**
-         * Save new contact from form.
+         * Save new footer_contact from form.
          */
         const _saveNewContact = async (contact) => {
             setCreateContact(false);
             setEditContact(null);
 
-            // Add current entity to the new contact.
+            // Add current entity to the new footer_contact.
             if (carHelper.isValidRegNumber(state.props.entityId)) {
                 contact.savedTo = [{
                     companyId: state.props.companyId,

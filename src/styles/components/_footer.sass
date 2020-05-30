@@ -1,6 +1,6 @@
 .footer
   background: transparent
-  color: $colorTextLight-2
+  color: white
   padding: $paddingGreat
   display: flex
   justify-content: space-between
@@ -18,41 +18,44 @@
     margin-right: $paddingGreat
     &:last-of-type
       margin-right: 0
-  &__breadcrumbsWrapper
-    .breadcrumbs
-      flex-grow: 1
-      &__content
-        margin-top: $paddingBig * 1.5
-        a, span
-          padding: $paddingSmall $paddingBig
-          text-decoration: none
-        a, span
-          position: relative
-          background: $colorPrimary-800
-          color: $colorTextLight-2
-          &:after, &:before
-            left: 100%
-            top: 50%
-            border: solid transparent
-            content: ''
-            height: 0
-            width: 0
-            position: absolute
-            pointer-events: none
-          &:after
-            border-left-color: $colorPrimary-800
-            border-width: 15px
-            margin-top: -15px
-        a
-          z-index: 2
-        span
-          z-index: 1
-          background: $colorPrimary-700
-          &:after
-            border-left-color: $colorPrimary-700
-  &__contactWrapper
-    .contact
-      flex-grow: 1
-  &__companyInfoWrapper
-    .companyInfo
-      flex-grow: 1
+
+.breadcrumbsWrapper
+  flex-grow: 1
+  &__breadcrumbs
+    &__content
+      margin-top: $paddingBig * 1.5
+      a, span
+        padding: $paddingSmall $paddingBig
+        text-decoration: none
+      a, span
+        position: relative
+        background: $colorPrimary-800
+        color: white
+        &:after, &:before
+          left: 100%
+          top: 50%
+          border: solid transparent
+          content: ''
+          height: 0
+          width: 0
+          position: absolute
+          pointer-events: none
+        &:after
+          border-left-color: $colorPrimary-800
+          border-width: 15px
+          margin-top: -15px
+      a
+        z-index: 2
+      span
+        z-index: 1
+        background: $colorPrimary-700
+        &:after
+          border-left-color: $colorPrimary-700
+
+.footerContactWrapper
+  flex-grow: 1
+  &__footerContact
+
+.footerCompanyInfoWrapper
+  flex-grow: 1
+  &__footerCompanyInfo

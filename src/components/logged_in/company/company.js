@@ -1,23 +1,37 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-// import moment from 'moment';
+import {getCompany} from 'store/company/tasks';
 import Activities from 'components/logged_in/activities';
 // import Comment from 'components/logged_in/comment';
-// import Contacts from 'components/logged_in/contacts';
+import Contacts from 'components/logged_in/contacts';
 import CompanyInfo from './company_info';
 import Events from 'components/logged_in/events';
 import Fleet from 'components/logged_in/fleet';
-import Contacts from "../contacts/contacts";
-// import Loading from 'components/shared/loading';
+import Loading from 'components/shared/loading';
 // import Icon from 'components/shared/icon';
 // import Popup from 'components/shared/popup';
 // import Tooltip from 'components/shared/tooltip/tooltip';
 
 const Company = (state) => {
-    let {id} = useParams();
+    const {id} = useParams();
+    const [companyObj, setCompanyObj] = useState({});
 
-    return (
+    const _stateCheck = () => {
+        return (companyObj && Object.keys(companyObj).length > 0 && state && state.company && state.company.company && Object.keys(state.company.company).length);
+    };
+
+    useEffect(() => {
+        if (state.company && state.company.company) {
+            setCompanyObj(state.company.company);
+        }
+    }, [state.company]);
+
+    useEffect(() => {
+        getCompany({id: id});
+    }, [id]);
+
+    return ( _stateCheck() ?
         <div className='companyWrapper'>
             <div className='companyWrapper__company'>
                 <div className='companyWrapper__company__header'>
@@ -52,7 +66,8 @@ const Company = (state) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> :
+        <Loading />
     );
 };
 

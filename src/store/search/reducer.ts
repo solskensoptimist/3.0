@@ -4,7 +4,7 @@ interface SearchState {
     searchSuggestions: Array<object>,
     selectedAll: Array<object>, // Holds selected prospects (private person user ids or org numbers)
     selectedCars: Array<object>, // Holds selected car reg numbers.
-    selectedContacts: Array<object>, // Holds selected contact objects.
+    selectedContacts: Array<object>, // Holds selected footer_contact objects.
     selectedKoncernCompanies: Array<object>, // Holds selected koncern companies (org numbers).
 }
 
