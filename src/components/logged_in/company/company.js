@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getCompany} from 'store/company/tasks';
@@ -15,17 +15,10 @@ import Loading from 'components/shared/loading';
 
 const Company = (state) => {
     const {id} = useParams();
-    const [companyObj, setCompanyObj] = useState({});
 
     const _stateCheck = () => {
-        return (companyObj && Object.keys(companyObj).length > 0 && state && state.company && state.company.company && Object.keys(state.company.company).length);
+        return (state && state.company && state.company.company && Object.keys(state.company.company).length);
     };
-
-    useEffect(() => {
-        if (state.company && state.company.company) {
-            setCompanyObj(state.company.company); // <---- Här ska jag bara sätta de properties vi ska kunna redigera.
-        }
-    }, [state.company]);
 
     useEffect(() => {
         getCompany({id: id});

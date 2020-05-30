@@ -1,14 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import Icon from 'components/shared/icon';
+import Loading from 'components/shared/loading';
 import Tooltip from 'components/shared/tooltip';
 import WidgetHeader from 'components/shared/widget_header';
 
 const CompanyInfo = (state) => {
+    const [emails, setEmails] = useState([]);
     const [minimize, setMinimize] = useState(false);
+    const [phoneNumbers, setPhoneNumbers] = useState([]);
 
-    return (
+    const _stateCheck = () => {
+        return (emails && phoneNumbers && state && state.company && state.company.company && Object.keys(state.company.company).length);
+    };
+
+    useEffect(() => {
+        if (state.company && state.company.company) {
+            setEmails(state.company.company.emails);
+            setPhoneNumbers(state.company.company.phoneNumbers);
+        }
+    }, [state.company]);
+
+    return ( _stateCheck() ?
         <div className='companyInfoWrapper'>
             <div className='companyInfoWrapper__companyInfo'>
                 <div className='companyInfoWrapper__companyInfo__header'>
@@ -33,7 +47,8 @@ const CompanyInfo = (state) => {
                 </div>
                 }
             </div>
-        </div>
+        </div> :
+        <Loading/>
     );
 };
 
