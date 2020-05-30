@@ -81,15 +81,15 @@ const getProspectInfo = async (payload) => {
             }
         });
 
-        const data = await Promise.all(prospectPromises);
+        const data: any = await Promise.all(prospectPromises);
 
-        if (!data) {
-            console.error('Error in getProspectInfo');
+        if (!data || data instanceof Error) {
+            console.error('Error in getProspectInfo', data);
             return [];
         }
 
         let prospectInfo = data.map((num: any) => {
-            if (num.person && num.person.length) {
+            if (num && num.person && num.person.length) {
                 const person = num.person[0].person;
                 let name;
                 if (!person.name || person.name === '') {
@@ -107,7 +107,7 @@ const getProspectInfo = async (payload) => {
                     zip: person.zip ? person.zip : '',
                     zipMuncipality: person.zipMuncipality ? person.zipMuncipality : '',
                 };
-            } else {
+            } else if (num) {
                 return {
                     address: num.address ? num.address : '',
                     id: num.user_id ? num.user_id : '',

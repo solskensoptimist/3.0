@@ -84,8 +84,11 @@ const SearchSelect = (state) => {
         if (typeof state.props.save === 'function') {
             await state.props.save();
         }
+        if (inputSelectAllRef && inputSelectAllRef.current) {
+            inputSelectAllRef.current.value = '';
+        }
         setSearchValue('');
-        inputSelectAllRef.current.value = '';
+
         return resetSelected({type: 'all'});
     };
 

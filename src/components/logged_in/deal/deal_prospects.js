@@ -21,11 +21,11 @@ const DealProspects = (state) => {
     const [minimize, setMinimize] = useState(false);
 
     const _addProspects = async () => {
-        let prospects = state.search.selectedAll.map((num) => num.toString());
+        let prospects = state.search.selectedAll.map((num) => num.id.toString());
         if (Array.isArray(state.deal.deal.prospects)) {
-            prospects = state.deal.deal.prospects.concat(state.search.selectedAll);
+            prospects = state.deal.deal.prospects.concat(prospects);
         } else {
-            prospects = [].concat(state.search.selectedAll);
+            prospects = [].concat(prospects);
         }
 
         return await updateDeal({prospects: prospects});
