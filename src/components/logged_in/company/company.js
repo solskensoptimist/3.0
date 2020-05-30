@@ -23,7 +23,7 @@ const Company = (state) => {
 
     useEffect(() => {
         if (state.company && state.company.company) {
-            setCompanyObj(state.company.company);
+            setCompanyObj(state.company.company); // <---- Här ska jag bara sätta de properties vi ska kunna redigera.
         }
     }, [state.company]);
 
@@ -53,7 +53,7 @@ const Company = (state) => {
                         <CompanyInfo/>
                     </div>
                     <div className='companyWrapper__company__content__item'>
-                        <Contacts entityId={id}  entityType='company'/>
+                        <Contacts entityId={id}  entityName={state.company.company.name} entityType='company'/>
                     </div>
                     <div className='companyWrapper__company__content__item'>
                         <Fleet type='current'/>
