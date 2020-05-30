@@ -96,8 +96,9 @@ const Activities = (state) => {
 
             // Action.
             let action;
-            // When target is the same as activity deal, we don't need to add extra info to row.
-            if (state.props.type === 'target' && activity.deal_id && state.props.target === activity.deal_id) {
+            // When target is the same as the actions target, we don't need to add extra info to row.
+            if (state.props.type === 'target' && (activity.deal_id && state.props.target === activity.deal_id)
+                && activity.target && state.props.target === activity.target) {
                 if (activity.action && activity.action === 'move') {
                     action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>;
                 } else if (activity.action) {
@@ -124,10 +125,13 @@ const Activities = (state) => {
                     } else if (!activity.deal && activity.target && activity.target.toString().length < 13) {
                         // No deal, add prospect link.
                         if (companyHelper.isValidOrgNr(activity.target)) {
-                            action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/foretag/' + activity.target} key='foretag'>{tc.oneProspect}</NavLink></div>;
+                            action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/foretag/' + activity.target} key='foretag'>{tc.oneProspect.toLowerCase()}</NavLink></div>;
                         } else {
-                            action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/person/' + activity.target} key='person'>{tc.oneProspect}</NavLink></div>;
+                            action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/person/' + activity.target} key='person'>{tc.oneProspect.toLowerCase()}</NavLink></div>;
                         }
+                    } else if (!activity.deal && activity.target && activity.target.toString().length > 13) {
+                        // Target is deal, but we don't have deal name.
+                        action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/affar/' + activity.target} key='affar'>{tc.deal.toLowerCase()}</NavLink></div>;
                     } else {
                         // Catch comments without deal link or prospect link (should not exist).
                         action = <div>{activityHelper.getReadableActivity('comment')}</div>;

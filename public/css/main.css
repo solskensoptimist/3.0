@@ -71,7 +71,7 @@
 .marginTopMedium {
   margin-top: 12px; }
 
-.paperSheet, .activitiesWrapper, .contactsWrapper, .dealProspectsWrapper, .dealCarsWrapper, .dealFilesWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .newsWrapper {
+.paperSheet, .activitiesWrapper, .companyInfoWrapper, .contactsWrapper, .dealProspectsWrapper, .dealCarsWrapper, .dealFilesWrapper, .eventsCalendarWrapper, .eventsFlowWrapper, .fleetWrapper, .newsWrapper {
   background: white;
   border: 1px solid #eeeeee; }
 
@@ -348,6 +348,11 @@ a {
     .companyWrapper__company__content__item:last-of-type {
       margin-bottom: 0; }
 
+.companyInfoWrapper {
+  padding: 22px; }
+  .companyInfoWrapper__companyInfo__header {
+    margin-bottom: 22px; }
+
 .contactsWrapper {
   padding: 22px; }
   .contactsWrapper__contacts__header {
@@ -399,6 +404,8 @@ a {
             display: flex;
             align-items: center;
             margin-right: 12px; }
+            .contactsWrapper__contacts__content__contacts__item__header__icon svg {
+              fill: #bdbdbd; }
           .contactsWrapper__contacts__content__contacts__item__header__name {
             flex-grow: 1;
             display: flex;
@@ -1086,6 +1093,11 @@ a {
     bottom: 0;
     animation: slideFromBottom 7s;
     max-width: 40%; }
+
+.fleetWrapper {
+  padding: 22px; }
+  .fleetWrapper__fleet__header {
+    margin-bottom: 22px; }
 
 .footer {
   background: transparent;

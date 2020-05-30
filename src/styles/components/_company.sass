@@ -1,3 +1,4 @@
+// Company component
 .companyWrapper
   &__company
     padding: $paddingGrid
@@ -7,3 +8,12 @@
         margin-bottom: $paddingGrid
         &:last-of-type
           margin-bottom: 0
+
+// CompanyInfo component
+.companyInfoWrapper
+  @extend .paperSheet
+  padding: $paddingBig
+  &__companyInfo
+    &__header
+      margin-bottom: $paddingBig
+    &__content

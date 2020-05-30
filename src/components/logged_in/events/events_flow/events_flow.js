@@ -60,7 +60,7 @@ const EventsFlow = (state) => {
 
             // Action
             let action;
-            if (state.props.target) {
+            if (state.props.target && state.props.target === event.dealId) {
                 // Showing events for specific target, no link needed.
                 action = <div>{activityHelper.getReadableActivity(event.action)}</div>;
             } else {
