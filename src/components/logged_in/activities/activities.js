@@ -96,7 +96,7 @@ const Activities = (state) => {
 
             // Action.
             let action;
-            // When target is the same as the actions target, we don't need to add extra info to row.
+            // When target is the same as the activity target, we don't need to add a link to target.
             if (state.props.type === 'target' && (activity.deal_id && state.props.target === activity.deal_id)
                 && activity.target && state.props.target === activity.target) {
                 if (activity.action && activity.action === 'move') {
@@ -115,7 +115,7 @@ const Activities = (state) => {
                 } else if (activity.action && activity.deal && activity.deal.name) {
                     // For these we add a link to deal.
                     action = <div>{activityHelper.getReadableActivity(activity.action)} {activityHelper.getPreposition(activity.action).toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
-                } else if (!activity.action && activity.id && activity.comment && activity.comment !== '') {
+                } else if (!activity.action && activity.comment && activity.comment !== '') {
                     // No action, this is a comment.
                     isEditable = true;
                     isRemovable = true;
@@ -133,7 +133,7 @@ const Activities = (state) => {
                         // Target is deal, but we don't have deal name.
                         action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/affar/' + activity.target} key='affar'>{tc.deal.toLowerCase()}</NavLink></div>;
                     } else {
-                        // Catch comments without deal link or prospect link (should not exist).
+                        // Catch comments without deal link or prospect link.
                         action = <div>{activityHelper.getReadableActivity('comment')}</div>;
                     }
                 } else if (activity.action) {
