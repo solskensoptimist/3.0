@@ -1,7 +1,7 @@
 import React  from 'react';
 import Navigation from './navigation';
 import User from './user';
-import Logotype from 'components/shared/logotype/logotype';
+import Logotype from 'components/logotype/logotype';
 
 export default () => {
     return (

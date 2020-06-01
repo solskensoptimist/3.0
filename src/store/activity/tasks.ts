@@ -1,7 +1,7 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {activityActionTypes} from './actions';
-import {eventsActionTypes} from "../events/actions";
+import {eventsActionTypes} from 'store/events/actions';
 
 /**
  * Get activity main func.

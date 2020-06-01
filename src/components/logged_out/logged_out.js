@@ -1,10 +1,10 @@
 import React  from "react";
 import {Switch, Route} from "react-router-dom";
-import Footer from 'components/shared/footer';
+import Footer from 'components/footer';
 import Header from './header';
-import Login from './login/';
-import Service from './service/';
-import Team from './team/';
+import Login from 'components/login/';
+import Service from 'components/service/';
+import Team from 'components/team/';
 
 /**
  * Main component for logged out components.

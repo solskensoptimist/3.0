@@ -1,8 +1,8 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import {tc} from 'helpers';
-import Icon from 'components/shared/icon';
-import Search from 'components/logged_in/search';
+import Icon from 'components/icon';
+import Search from 'components/search';
 
 /**
  * Navigation_logged_in component.

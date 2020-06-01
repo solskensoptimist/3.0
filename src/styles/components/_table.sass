@@ -1,0 +1,25 @@
+.tableWrapper
+  width: 100%
+  table
+    border-spacing: 0
+    border: 1px solid $grey-300
+    width: 100%
+    tr
+      background: white
+      &:last-child
+        td
+          border-bottom: 0
+      &:nth-child(even)
+        background: $grey-50
+    th
+      background: $grey-50
+      font-weight: 600
+    th, td
+      margin: 0
+      padding: 0.5rem
+      border-bottom: 1px solid $grey-300
+      border-right: 1px solid $grey-300
+      &:last-child
+        border-right: 0
+    .selection
+      text-align: center

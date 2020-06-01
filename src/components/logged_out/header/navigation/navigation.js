@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import {tc} from 'helpers';
-import Icon from 'components/shared/icon';
+import Icon from 'components/icon';
 
 /**
  * Navigation component.

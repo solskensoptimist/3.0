@@ -1,7 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import LoggedIn from 'components/logged_in';
 import LoggedOut from 'components/logged_out';
-import {connect} from "react-redux";
 
 /**
  * Root component.

@@ -13,6 +13,7 @@
     "history": "^4.10.1",
     "link-module-alias": "^1.2.0",
     "moment": "^2.24.0",
+    "namor": "^2.0.2",
     "nls": "git+ssh://git@gitlab.com:bilprospekt/bilp-shared/bilprospekt-nls.git",
     "ramda": "^0.26.1",
     "react": "^16.12.0",
@@ -21,8 +22,10 @@
     "react-router-dom": "^5.1.2",
     "react-s3-uploader": "^4.9.2",
     "react-scripts": "3.3.0",
+    "react-table": "^7.1.0",
     "redux": "^4.0.4",
     "shared_helpers": "git+ssh://git@gitlab.com:bilprospekt/bilp-shared/bilprospekt-shared-helpers.git",
+    "styled-components": "^5.1.1",
     "typescript": "3.7.2",
     "underscore": "^1.9.1"
   },

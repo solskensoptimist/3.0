@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {tc} from 'helpers'
-import Icon from 'components/shared/icon';
-import Popup from 'components/shared/popup';
-import Settings from 'components/logged_in/settings/settings';
-import Tooltip from 'components/shared/tooltip';
+import Icon from 'components/icon';
+import Popup from 'components/popup';
+import Settings from 'components/settings';
+import Tooltip from 'components/tooltip';
 
 const User = (state) => {
     const [showSettings, setShowSettings] = useState(false);

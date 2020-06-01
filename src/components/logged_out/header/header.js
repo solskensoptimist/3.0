@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from './navigation';
-import Logotype from "components/shared/logotype/logotype";
+import Logotype from "components/logotype";
 
 export default () => {
     return (

@@ -1,21 +1,21 @@
 import React from 'react';
 import {Switch, Route} from "react-router-dom";
-import Agile from './agile/';
-import Activity from './activity/';
-import Analyse from './analyse/';
-import Car from './car/';
-import Company from './company/';
-import Deal from './deal/';
-import Footer from 'components/shared/footer';
-import FlashMessages from 'components/logged_in/flash_messages';
+import Agile from 'components/agile/';
+import Activity from 'components/activity/';
+import Analyse from 'components/analyse/';
+import Car from 'components/car/';
+import Company from 'components/company/';
+import Deal from 'components/deal/';
+import Footer from 'components/footer';
+import FlashMessages from 'components/flash_messages';
 import Header from './header';
-import Home from './home/';
-import List from './list/';
-import Lists from './lists/';
-import Person from './person/';
-import Prospect from './prospect/';
-import ProspectResult from './prospect_result';
-import SearchResults from './search_results';
+import Home from 'components/home/';
+import List from 'components/list/';
+import Lists from 'components/lists/';
+import Person from 'components/person/';
+import Prospect from 'components/prospect/';
+import ProspectResult from 'components/prospect_result';
+import SearchResults from 'components/search_results';
 
 /**
  * Main component for logged in components.
