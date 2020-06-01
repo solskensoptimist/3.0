@@ -117,8 +117,12 @@ const getProspectInfo = async (payload) => {
                     zip: num.zip ? num.zip : '',
                     zipMuncipality: num.zipMuncipality ? num.zipMuncipality : '',
                 };
+            } else {
+                return null;
             }
         });
+
+        prospectInfo = prospectInfo.filter((num) => !!(num));
 
         prospectInfo = prospectInfo.sort((a: any, b: any) => {
             if ( a.name < b.name){

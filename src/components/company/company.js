@@ -44,10 +44,10 @@ const Company = (state) => {
                         <Contacts entityId={id}  entityName={state.company.company.name} entityType='company'/>
                     </div>
                     <div className='companyWrapper__company__content__item'>
-                        <Fleet type='current'/>
+                        <Fleet prospectId={state.company.company.user_id} />
                     </div>
                     <div className='companyWrapper__company__content__item'>
-                        <Fleet type='historic'/>
+                        <Fleet historic={true} prospectId={state.company.company.user_id} />
                     </div>
                     <div className='companyWrapper__company__content__item'>
                         <Activities includeComments={true} includeMoved={true} target={id} type='target'/>

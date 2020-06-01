@@ -1732,7 +1732,8 @@ svg.active {
         background: #fafafa; }
     .tableWrapper table th {
       background: #fafafa;
-      font-weight: 600; }
+      font-weight: 600;
+      font-size: 11px; }
     .tableWrapper table th, .tableWrapper table td {
       margin: 0;
       padding: 0.5rem;
@@ -1742,6 +1743,9 @@ svg.active {
         border-right: 0; }
     .tableWrapper table .selection {
       text-align: center; }
+      .tableWrapper table .selection input[type=checkbox] {
+        width: 11px;
+        height: 11px; }
 
 .tooltipWrapper {
   position: relative; }
