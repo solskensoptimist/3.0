@@ -4,6 +4,7 @@ import {tc} from 'helpers';
 import {NavLink} from 'react-router-dom';
 import {updateDeal} from 'store/deal/tasks';
 import Icon from 'components/icon';
+import InfoBox from 'components/info_box';
 import Loading from 'components/loading';
 import Search from 'components/search';
 import Tooltip from 'components/tooltip';
@@ -46,8 +47,10 @@ const DealProspects = (state) => {
 
             // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
-                setProspectRows(<p>{tc.noProspects}</p>);
+                setProspectRows([]);
                 return setMinimize(true);
+            } else {
+                setMinimize(false);
             }
 
             // Set data length before slice.
@@ -121,9 +124,15 @@ const DealProspects = (state) => {
                             <Search type='all' save={_addProspects}/>
                         </div>
                         }
-                        <div className='dealProspectsWrapper__dealProspects__content__prospects'>
-                            {prospectRows}
-                        </div>
+                        {(prospectRows && prospectRows.length) ?
+                            <div className='dealProspectsWrapper__dealProspects__content__prospects'>
+                                {prospectRows}
+                            </div> :
+                            <InfoBox>
+                                <p>{tc.noProspects}.</p>
+                                <p>{tc.prospectsHowTo}</p>
+                            </InfoBox>
+                        }
                     </div>
                 }
             </div>

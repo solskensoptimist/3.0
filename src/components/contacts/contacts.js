@@ -8,6 +8,7 @@ import ContactItem from './contact_item';
 import ContactCreateItem from './contact_create_item';
 import ContactEditItem from './contact_edit_item';
 import Icon from 'components/icon';
+import InfoBox from 'components/info_box';
 import Loading from 'components/loading';
 import Search from 'components/search';
 import Tooltip from 'components/tooltip';
@@ -86,7 +87,7 @@ const Contacts = (state) => {
 
             // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
-                setContactRows(<p className='marginTopMedium'>{tc.noContacts}. {tc.contactHowTo}.</p>);
+                setContactRows([]);
                 return setMinimize(true);
             } else {
                 setMinimize(false);
@@ -160,8 +161,9 @@ const Contacts = (state) => {
         };
 
         _renderContacts();
-    }, [createContact, editContact, showAmount, state.contacts.contacts,
-        state.props.companyId, state.props.entityId, state.props.entityName, state.props.entityType]);
+    }, [createContact, editContact, showAmount,
+        state.contacts.contacts, state.props.companyId,
+        state.props.entityId, state.props.entityName, state.props.entityType]);
 
     return ( _stateCheck() ?
         <div className='contactsWrapper'>
@@ -193,9 +195,15 @@ const Contacts = (state) => {
                         <Search type='contacts' save={_addEntityToContacts}/>
                     </div>
                     }
-                    <div className='contactsWrapper__contacts__content__contacts'>
-                        {contactRows}
-                    </div>
+                    {(contactRows && contactRows.length) ?
+                        <div className='contactsWrapper__contacts__content__contacts'>
+                            {contactRows}
+                        </div> :
+                        <InfoBox>
+                            <p>{tc.noContacts}.</p>
+                            <p>{tc.contactHowTo}</p>
+                        </InfoBox>
+                    }
                 </div>
                 }
             </div>

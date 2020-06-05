@@ -22,6 +22,7 @@ import Tooltip from 'components/tooltip';
  */
 const Deal = (state) => {
     const {id} = useParams();
+    const [dataIsCollected, setDataIsCollected] = useState(false);
     const [editDeal, setEditDeal] = useState(false);
     const [dealObj, setDealObj] = useState({});
     const [showComment, setShowComment] = useState(false);
@@ -157,11 +158,17 @@ const Deal = (state) => {
     };
 
     const _stateCheck = () => {
-        return (dealObj && Object.keys(dealObj).length > 0 && state && state.deal && state.deal.deal && Object.keys(state.deal.deal).length);
+        return (dataIsCollected && dealObj && Object.keys(dealObj).length > 0 && state && state.deal && state.deal.deal && Object.keys(state.deal.deal).length);
     };
 
     useEffect(() => {
-        getDeal({id: id});
+        const getData = async () => {
+            await getDeal({id: id});
+            // We use this flag to prevent sub components to retrieve information for previous deal in store.
+            setDataIsCollected(true);
+        };
+
+        getData();
     }, [id]);
 
     useEffect(() => {
@@ -193,7 +200,7 @@ const Deal = (state) => {
                         <div className='dealWrapper__deal__header__top__right'>
                             {!editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}><Icon val='comment' onClick={() => {setShowComment(true)}}/></Tooltip>}
                             {!editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.openInAgile}><Icon val='agile' onClick={_openInAgile}/></Tooltip>}
-                            {!editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}><Icon val='edit' onClick={() => {setEditDeal(true)}}/></Tooltip>}
+                            {(!editDeal && state.user.info.id === state.deal.deal.user_id) && <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}><Icon val='edit' onClick={() => {setEditDeal(true)}}/></Tooltip>}
                             {editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {
                                 setEditDeal(false)
                                 _setDealObjFromStore();

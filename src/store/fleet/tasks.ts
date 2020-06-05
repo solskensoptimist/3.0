@@ -13,11 +13,19 @@ import {fleetActionTypes} from './actions';
  */
 export const getFleet = async (payload) => {
     try {
-
         if (!payload || (payload && !payload.prospectId)) {
             return console.error('Missing params in getFleet:\n' + payload);
         } else {
-            payload.prospectId = payload.prospectid.toString();
+            payload.prospectId = payload.prospectId.toString();
+        }
+
+        // No pagination, empty fleets.
+        if (!payload.page || payload.noPagination) {
+            if (payload.historic) {
+                store.dispatch({type: fleetActionTypes.SET_FLEET_HISTORIC, payload: {}});
+            } else {
+                store.dispatch({type: fleetActionTypes.SET_FLEET, payload: {}});
+            }
         }
 
         const historic = payload.historic ? '/historic/' : '';

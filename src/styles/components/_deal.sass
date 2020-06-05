@@ -270,53 +270,60 @@
   padding: $paddingBig
   &__dealFiles
     &__content
-      display: flex
-      justify-content: flex-start
-      align-items: center
-      flex-wrap: wrap
-      &__file
-        margin-top: $paddingBig
+      margin-top: $paddingBig
+      &__files
         display: flex
-        align-items: center
         justify-content: flex-start
-        margin-left: $paddingBig
-        border-left: 1px solid $grey-300
-        padding-left: $paddingBig
-        flex-basis: calc(25% - ((3 * #{$paddingBig}) / 4))
-        min-width: 0
-        &:hover
-          .dealFilesWrapper__dealFiles__content__file__icon
-            display: none
-          .dealFilesWrapper__dealFiles__content__file__remove
-            display: flex
-        &:first-of-type
-          margin-left: 0
-          border-left: 0
-          padding-left: 0
-        &:nth-child(5n)
-          margin-left: 0
-          border-left: 0
-          padding-left: 0
-        svg
-          width: 14px
-          height: 14px
-        &__icon
-          margin-right: $paddingSmall
+        align-items: center
+        flex-wrap: wrap
+        padding: 0 $paddingBig $paddingBig $paddingBig
+        background: $grey-100
+        &__file
+          margin-top: $paddingBig
           display: flex
           align-items: center
-          justify-content: center
-          svg
-            fill: $colorInformatory
-        p
-          flex-grow: 1
-        &__remove
-          @extend .dealFilesWrapper__dealFiles__content__file__icon
-          display: none
+          justify-content: flex-start
+          margin-left: $paddingBig
+          border-left: 1px solid $grey-300
+          padding-left: $paddingBig
+          flex-basis: calc(25% - ((3 * #{$paddingBig}) / 4))
+          min-width: 0
           &:hover
-            svg
-              fill: $colorLinkHover
+            .dealFilesWrapper__dealFiles__content__files__file__icon
+              display: none
+            .dealFilesWrapper__dealFiles__content__files__file__remove
+              display: flex
+          &:first-of-type
+            margin-left: 0
+            border-left: 0
+            padding-left: 0
+          &:nth-child(5n)
+            margin-left: 0
+            border-left: 0
+            padding-left: 0
           svg
-            fill: $colorLink
-            cursor: pointer
-        a
-          margin-left: $paddingGreat
+            width: 14px
+            height: 14px
+          &__icon
+            margin-right: $paddingSmall
+            display: flex
+            align-items: center
+            justify-content: center
+            svg
+              fill: $colorInformatory
+          p
+            flex-grow: 1
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+          &__remove
+            @extend .dealFilesWrapper__dealFiles__content__files__file__icon
+            display: none
+            &:hover
+              svg
+                fill: $colorLinkHover
+            svg
+              fill: $colorLink
+              cursor: pointer
+          a
+            margin-left: $paddingBig

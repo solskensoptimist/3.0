@@ -79,6 +79,9 @@ export const getContacts = async (payload) => {
             return console.error('Missing params in getContacts.');
         }
 
+        store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: []});
+        store.dispatch({type: contactsActionTypes.SET_ENTITY_ID, payload: payload.entityId});
+
         let data: any = {};
         if (companyHelper.isValidOrgNr(payload.entityId)) {
             data.companyId = payload.entityId;
@@ -95,8 +98,6 @@ export const getContacts = async (payload) => {
 
         // Make sure to clear out faulty values.
         contacts = contacts.filter((num) => num);
-
-        store.dispatch({type: contactsActionTypes.SET_ENTITY_ID, payload: payload.entityId});
 
         if (!contacts || contacts instanceof Error) {
             return store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: []});

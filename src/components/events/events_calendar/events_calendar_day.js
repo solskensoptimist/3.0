@@ -27,6 +27,7 @@ export default (props) => {
         const icon = <Icon val={num.action} />;
         const event = activityHelper.getReadableActivity(num.action);
         const fillerText = activityHelper.getPreposition(num.action);
+        const name = (num.name) ? num.name : tc.noName;
 
         return (
             <div key={num._id} className='dayWrapper__eventsWrapper__events__event'>
@@ -35,7 +36,7 @@ export default (props) => {
                         {icon}
                     </div>
                     <div key={num._id} className='dayWrapper__eventsWrapper__events__event__info'>
-                        <p><span className='highlight'>{event}</span> {fillerText} {num.name}</p>
+                        <p><span className='highlight'>{event}</span> {fillerText.toLowerCase()} {name}</p>
                         <Icon val='navigateNext'/>
                     </div>
                 </NavLink>

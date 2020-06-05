@@ -4,6 +4,7 @@ import {tc} from 'helpers';
 import {updateDeal} from 'store/deal/tasks';
 import ReactS3Uploader from 'react-s3-uploader';
 import Icon from 'components/icon';
+import InfoBox from 'components/info_box';
 import Loading from 'components/loading';
 import Tooltip from 'components/tooltip';
 import WidgetHeader from 'components//widget_header';
@@ -59,7 +60,7 @@ const DealFiles = (state) => {
 
             // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
-                setFileRows(<p className='marginTopBig'>{tc.noFiles}</p>);
+                setFileRows([]);
                 return setMinimize(true);
             } else {
                 setMinimize(false);
@@ -82,9 +83,9 @@ const DealFiles = (state) => {
 
         const _renderFileItem = (file) => {
             return(
-                <div className='dealFilesWrapper__dealFiles__content__file' key={file.original_name}>
-                    <div className='dealFilesWrapper__dealFiles__content__file__icon'><Icon val='file'/></div>
-                    <div className='dealFilesWrapper__dealFiles__content__file__remove'><Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon onClick={() => {_removeFile(file)}} val='remove'/></Tooltip></div>
+                <div className='dealFilesWrapper__dealFiles__content__files__file' key={file.original_name}>
+                    <div className='dealFilesWrapper__dealFiles__content__files__file__icon'><Icon val='file'/></div>
+                    <div className='dealFilesWrapper__dealFiles__content__files__file__remove'><Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon onClick={() => {_removeFile(file)}} val='remove'/></Tooltip></div>
                     <p>{file.original_name}</p>
                     <a href={`https://s3.eu-central-1.amazonaws.com/bilp-test/${file.s3_filename}`} target='_blank' rel='noopener noreferrer'><Tooltip horizontalDirection='left' tooltipContent={tc.download}><Icon val='download'/></Tooltip></a>
                 </div>
@@ -118,7 +119,15 @@ const DealFiles = (state) => {
                     </div>
                     {!minimize &&
                     <div className='dealFilesWrapper__dealFiles__content'>
-                        {fileRows}
+                        {(fileRows && fileRows.length) ?
+                            <div className='dealFilesWrapper__dealFiles__content__files'>
+                                {fileRows}
+                            </div> :
+                            <InfoBox>
+                                <p>{tc.noFiles}.</p>
+                                <p>{tc.filesHowTo}</p>
+                            </InfoBox>
+                        }
                     </div>
                     }
                     <div className='hidden'>

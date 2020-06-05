@@ -8,10 +8,11 @@ import _ from 'underscore';
 /**
  * Retrieve one deal.
  *
+ * @param payload - string
  * @param payload.id - string
- * @param payload.noProspectInfo - bool (mostly used after a deal update)
+ * @param prospectInfo - bool - Mostly used after a deal update. Use this flag when we already have a deal in state and want to retrieve changes, but prospects hasn't changed so no new prospectInfo is needed.
  */
-export const getDeal = async (payload) => {
+export const getDeal = async (payload, prospectInfo = true) => {
     try {
         if (!payload || (payload && !payload.id)) {
             return console.error('Missing params in getDeal');
@@ -29,6 +30,10 @@ export const getDeal = async (payload) => {
             return store.dispatch({ type: dealActionTypes.SET_DEAL, payload: {}});
         }
 
+        if (deal && !deal.name) {
+            deal.name = tc.noName;
+        }
+
         // Set deal, before getting complementary information.
         store.dispatch({ type: dealActionTypes.SET_DEAL, payload: deal});
 
@@ -43,7 +48,7 @@ export const getDeal = async (payload) => {
         }
 
         // Get prospects info.
-        if (!payload.noProspectInfo) {
+        if (prospectInfo) {
             const prospectInfo = await getProspectInfo({ids: deal.prospects});
             store.dispatch({ type: dealActionTypes.SET_PROSPECT_INFO, payload: prospectInfo});
         }
@@ -217,7 +222,7 @@ export const updateDeal = async (payload) => {
         }
 
         // Deal owner.
-        if (payload.hasOwnProperty('user_id') && payload.user_id.length) {
+        if (payload.hasOwnProperty('user_id') && payload.user_id !== '') {
             // Adjust updated deal obj.
             params.prev_user_id = Number(dealInScope.user_id);
             params.user_id = Number(payload.user_id);
@@ -257,12 +262,11 @@ export const updateDeal = async (payload) => {
             return console.error('Error in updateDeal, promise chain fail.');
         }
 
-        if (payload.prospects && payload.prospects.length) {
+        if (payload.hasOwnProperty('prospects')) {
             await getDeal({id: dealInScope._id});
             return showFlashMessage(tc.dealWasUpdated);
         } else {
-            // Retrieving prospect info is somewhat slow, so try and avoid when unnecessary.
-            await getDeal({id: dealInScope._id, noProspectInfo: true});
+            await getDeal({id: dealInScope._id}, false); // No new prospectInfo necessary.
             return showFlashMessage(tc.dealWasUpdated);
         }
     } catch (err) {

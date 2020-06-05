@@ -2,7 +2,6 @@
 .companyWrapper
   &__company
     padding: $paddingGrid
-    &__header
     &__content
       &__item
         margin-bottom: $paddingGrid
@@ -14,6 +13,18 @@
   @extend .paperSheet
   padding: $paddingBig
   &__companyInfo
-    &__header
     &__content
       margin-top: $paddingBig
+      padding: 0
+      display: flex
+      flex-wrap: wrap
+      &__item
+        margin: 2px 2px 0 0
+        flex-basis: calc(25% - ((3 * 2px) / 4))
+        padding: $paddingMedium
+        word-break: break-word
+        background: $grey-100
+        &:nth-child(4n)
+          margin-right: 0
+        p.companyInfoLabel
+          font-weight: 600

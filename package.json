@@ -21,7 +21,6 @@
     "react-router-dom": "^5.1.2",
     "react-s3-uploader": "^4.9.2",
     "react-scripts": "3.3.0",
-    "react-table": "^7.1.0",
     "redux": "^4.0.4",
     "shared_helpers": "git+ssh://git@gitlab.com:bilprospekt/bilp-shared/bilprospekt-shared-helpers.git",
     "typescript": "3.7.2",

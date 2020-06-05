@@ -65,7 +65,7 @@ const EventsFlow = (state) => {
                 action = <div>{activityHelper.getReadableActivity(event.action)}</div>;
             } else {
                 // Add a link to action description.
-                action = <div>{activityHelper.getReadableActivity(event.action)} {activityHelper.getPreposition(event.action).toLowerCase()} <NavLink exact to={'/affar/' + event.dealId} key='affar'>{event.name}</NavLink></div>
+                action = <div>{activityHelper.getReadableActivity(event.action)} {activityHelper.getPreposition(event.action).toLowerCase()} <NavLink exact to={'/affar/' + event.dealId} key='affar'>{(event.name) ? event.name : tc.noName}</NavLink></div>
             }
 
             // Comment

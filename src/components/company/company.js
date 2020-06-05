@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getCompany} from 'store/company/tasks';
@@ -15,13 +15,20 @@ import Loading from 'components/loading';
 
 const Company = (state) => {
     const {id} = useParams();
+    const [dataIsCollected, setDataIsCollected] = useState(false);
 
     const _stateCheck = () => {
-        return (state && state.company && state.company.company && Object.keys(state.company.company).length);
+        return (dataIsCollected && state && state.company && state.company.company && Object.keys(state.company.company).length);
     };
 
     useEffect(() => {
-        getCompany({id: id});
+        const getData = async () => {
+            await getCompany({id: id});
+            // We use this flag to prevent sub components to retrieve information for previous company in store.
+            setDataIsCollected(true);
+        };
+
+        getData();
     }, [id]);
 
     return ( _stateCheck() ?

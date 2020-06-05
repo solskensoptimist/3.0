@@ -18,39 +18,39 @@ const Fleet = (state) => {
     const [fleet, setFleet] = useState({});
     const [minimize, setMinimize] = useState(false);
 
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: tc.model,
-                accessor: 'real_model',
-            },
-            {
-                Header: tc.brand,
-                accessor: 'brand',
-            },
-            {
-                Header: tc.type,
-                accessor: 'type'
-            },
-            {
-                Header: tc.regNumber,
-                accessor: 'reg_number',
-            },
-            {
-                Header: tc.dateAcquired,
-                accessor: 'date_acquired',
-            },
-            {
-                Header: tc.dateSold,
-                accessor: 'date_sold',
-            },
-            {
-                Header: tc.boughtPlace,
-                accessor: 'seller_name'
-            },
-        ],
-        []
-    );
+    // const columns = React.useMemo(
+    //     () => [
+    //         {
+    //             Header: tc.model,
+    //             accessor: 'real_model',
+    //         },
+    //         {
+    //             Header: tc.brand,
+    //             accessor: 'brand',
+    //         },
+    //         {
+    //             Header: tc.type,
+    //             accessor: 'type'
+    //         },
+    //         {
+    //             Header: tc.regNumber,
+    //             accessor: 'reg_number',
+    //         },
+    //         {
+    //             Header: tc.dateAcquired,
+    //             accessor: 'date_acquired',
+    //         },
+    //         {
+    //             Header: tc.dateSold,
+    //             accessor: 'date_sold',
+    //         },
+    //         {
+    //             Header: tc.boughtPlace,
+    //             accessor: 'seller_name'
+    //         },
+    //     ],
+    //     []
+    // );
 
     const _stateCheck = () => {
         return !!(fleet && Object.keys(fleet).length);
@@ -67,9 +67,15 @@ const Fleet = (state) => {
     }, [state.props]);
 
     useEffect(() => {
-        if (state.props.historic && state && state.fleet && state.fleet.fleetHistoric && state.fleet.fleetHistoric) {
+        if (state.props.historic && state && state.fleet && state.fleet.fleetHistoric && state.fleet.fleetHistoric && state.fleet.fleetHistoric.data) {
+            if (!state.fleet.fleetHistoric.data.length) {
+                setMinimize(true);
+            }
             setFleet(state.fleet.fleetHistoric);
-        } else if (state && state.fleet && state.fleet.fleet && state.fleet.fleet) {
+        } else if (state && state.fleet && state.fleet.fleet && state.fleet.fleet && state.fleet.fleet.data) {
+            if (!state.fleet.fleet.data.length) {
+                setMinimize(true);
+            }
             setFleet(state.fleet.fleet);
         }
     }, [state, state.props]);
@@ -81,30 +87,31 @@ const Fleet = (state) => {
                     <WidgetHeader
                         iconVal='car'
                         dashboard={
-                            minimize ?
-                                <>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
-                                </> :
-                                <>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
-                                </>
+                            (fleet.data && fleet.data.length) ?
+                                minimize ?
+                                    <>
+                                        <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
+                                    </> :
+                                    <>
+                                        <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
+                                    </> :
+                                null
                         }
                         headline={(state.props.historic) ? tc.fleetHistoric : tc.fleet}
                         headlineSub={
+                            (fleet.data && fleet.data.length) ?
                             (fleet.total && fleet.amount)
-                                ?
-                                    fleet.total + ' ' + tc.vehicle.toLowerCase() + ' ' + tc.showing.toLowerCase() + ' ' + fleet.amount + ' st'
-                                :
-                                    '0 ' + tc.vehicle.toLowerCase() + ' ' + tc.showing.toLowerCase() + ' 0 st'
+                                    ?
+                                        fleet.total + ' ' + tc.vehicle.toLowerCase() + ' ' + tc.showing.toLowerCase() + ' ' + fleet.amount + ' st'
+                                    :
+                                        '0 ' + tc.vehicle.toLowerCase() + ' ' + tc.showing.toLowerCase() + ' 0 st' :
+                                tc.noVehicles
                         }
                     />
                 </div>
-                {!minimize &&
+                {(!minimize && fleet.data && fleet.data.length) &&
                 <div className='fleetWrapper__fleet__content'>
-                    {(fleet.data && fleet.data.length) ?
-                        <Table columns={columns} data={fleet.data} /> :
-                        <p>{tc.noFleetData}</p>
-                    }
+                    <Table propsData={fleet.data}/>
                 </div>
                 }
             </div>

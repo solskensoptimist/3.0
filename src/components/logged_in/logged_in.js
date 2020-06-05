@@ -10,6 +10,7 @@ import Footer from 'components/footer';
 import FlashMessages from 'components/flash_messages';
 import Header from './header';
 import Home from 'components/home/';
+import Koncern from 'components/koncern/';
 import List from 'components/list/';
 import Lists from 'components/lists/';
 import Person from 'components/person/';
@@ -33,6 +34,7 @@ export default () => {
                         <Route exact path='/bearbeta' component={Agile} />
                         <Route exact path='/bil/:regNr' component={Car} />
                         <Route exact path='/foretag/:id' component={Company} />
+                        <Route exact path='/koncern/:id' component={Koncern} />
                         <Route exact path='/listor' component={Lists} />
                         <Route exact path='/lista/:id' component={List} />
                         <Route exact path='/person/:id' component={Person} />
