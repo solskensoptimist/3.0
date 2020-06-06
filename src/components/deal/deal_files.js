@@ -124,7 +124,7 @@ const DealFiles = (state) => {
                                 {fileRows}
                             </div> :
                             <InfoBox>
-                                <p>{tc.noFiles}.</p>
+                                <h4>{tc.noFiles}.</h4>
                                 <p>{tc.filesHowTo}</p>
                             </InfoBox>
                         }

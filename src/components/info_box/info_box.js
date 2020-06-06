@@ -8,9 +8,7 @@ export default (props) => {
                 <div className='infoBoxWrapper__infoBox__icon'>
                     <Icon val='info'/>
                 </div>
-                <div className='infoBoxWrapper__infoBox__content'>
-                    {props.children}
-                </div>
+                {props.children}
             </div>
         </div>
     );

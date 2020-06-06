@@ -129,7 +129,7 @@ const DealProspects = (state) => {
                                 {prospectRows}
                             </div> :
                             <InfoBox>
-                                <p>{tc.noProspects}.</p>
+                                <h4>{tc.noProspects}.</h4>
                                 <p>{tc.prospectsHowTo}</p>
                             </InfoBox>
                         }

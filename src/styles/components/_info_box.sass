@@ -1,22 +1,26 @@
 .infoBoxWrapper
   &__infoBox
     background: $grey-100
-    padding: $paddingMedium $paddingMedium
-    display: flex
+    padding: $paddingMedium
+    color: $colorTextLight
     &__icon
-      margin-right: $paddingMedium
+      width: 24px
+      height: 24px
+      border-radius: 50%
+      background: white
+      float: right
+      margin: 0 0 $paddingMedium $paddingMedium
+      display: flex
+      align-items: center
+      justify-content: center
       svg
         fill: $colorInformatory
-        width: 22px
-        height: 22px
-    &__content
-      color: $colorTextLight
-      display: flex
-      flex-direction: column
-      flex-wrap: wrap
-      flex-grow: 1
-      align-items: flex-start
-      p
-        margin-bottom: 4px
-        &:last-child
-          margin-bottom: 0
+        width: 26px
+        height: 26px
+    h4
+      margin-bottom: $paddingSmall
+      text-transform: none
+    p
+      margin-bottom: $paddingSmall
+      &:last-child
+        margin-bottom: 0

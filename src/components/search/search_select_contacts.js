@@ -86,7 +86,9 @@ const SearchSelect = (state) => {
             await state.props.save();
         }
         setSearchValue('');
-        inputSelectContactsRef.current.value = '';
+        if (inputSelectContactsRef && inputSelectContactsRef.current) {
+            inputSelectContactsRef.current.value = '';
+        }
         return resetSelected({type: 'contacts'});
     };
 

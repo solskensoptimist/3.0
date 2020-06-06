@@ -175,7 +175,7 @@ export default {
     prices: 'Priser',
     prospect: 'Prospektera',
     prospects: 'Prospekt',
-    prospectsHowTo: 'Sök upp och koppla prospekt med hjälp av sökrutan. Ta bort kopplingen till ett prospekt genom att klikcka på papperskorgen som visas när musen förs över en rad.',
+    prospectsHowTo: 'Sök upp och koppla prospekt med hjälp av sökrutan. Ta bort kopplingen till ett prospekt genom att klicka på papperskorgen som visas när musen förs över en rad.',
     regarding: 'Gällande',
     regret: 'Återställ',
     regNumber: 'Registreringsnummer',
