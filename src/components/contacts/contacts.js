@@ -96,6 +96,11 @@ const Contacts = (state) => {
             // Set data length before slice.
             setDataLength(data.length);
 
+            // Sort sticky contacts first.
+            data = data.sort((a, b) => {
+                return a.sticky ? -1 : 1;
+            });
+
             // Show more rows every time user click load icon.
             data = state.contacts.contacts.slice(0, showAmount);
 
@@ -119,7 +124,7 @@ const Contacts = (state) => {
                 } else {
                     return (
                         <React.Fragment key={i}>
-                            <ContactItem contact={num} editContact={() => {setEditContact(num._id)}}/>
+                            <ContactItem contact={num} editContact={() => {setEditContact(num._id)}} sticky={num.sticky}/>
                         </React.Fragment>
                     );
                 }

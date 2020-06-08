@@ -71,7 +71,7 @@ const CompanyInfo = (state) => {
     const _renderEmails = () => {
         return (emails && emails.length) ? emails.map((num, i) => {
             if (!num.new && !num.id && num.hasOwnProperty('value')) {
-                // Render existing values, non-editable.
+                // Render existing values, non editable.
                 return (
                     <div className='companyInfoWrapper__companyInfo__content__item__field' key={i}>
                         <p>{num.value}</p>
@@ -104,6 +104,8 @@ const CompanyInfo = (state) => {
                         <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {_removeValue(num, 'email')}}/></Tooltip>
                     </div>
                 );
+            } else {
+                return null;
             }
         }) : null
     };
@@ -112,7 +114,7 @@ const CompanyInfo = (state) => {
     const _renderPhoneNumbers = () => {
         return (phoneNumbers && phoneNumbers.length) ? phoneNumbers.map((num, i) => {
             if (!num.new && !num.id && num.hasOwnProperty('value')) {
-                // Render existing values, non-editable.
+                // Render existing values, non editable.
                 return (
                     <div className='companyInfoWrapper__companyInfo__content__item__field' key={i}>
                         <p>{num.value}</p>
@@ -145,6 +147,8 @@ const CompanyInfo = (state) => {
                         <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {_removeValue(num, 'phone')}}/></Tooltip>
                     </div>
                 );
+            } else {
+                return null;
             }
         }) : null
     };

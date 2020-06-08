@@ -369,8 +369,8 @@ a {
       .companyInfoWrapper__companyInfo__content__item svg {
         color: #00B4CC;
         cursor: pointer;
-        width: 18px;
-        height: 18px; }
+        width: 14px;
+        height: 14px; }
         .companyInfoWrapper__companyInfo__content__item svg:hover {
           fill: #616161; }
       .companyInfoWrapper__companyInfo__content__item__field, .companyInfoWrapper__companyInfo__content__item__editField {
@@ -445,13 +445,15 @@ a {
           .contactsWrapper__contacts__content__contacts__item__header svg {
             width: 16px;
             height: 16px; }
-          .contactsWrapper__contacts__content__contacts__item__header__icon {
+          .contactsWrapper__contacts__content__contacts__item__header__icon, .contactsWrapper__contacts__content__contacts__item__header__stickyIcon {
             display: flex;
             align-items: center;
             margin-right: 12px; }
-            .contactsWrapper__contacts__content__contacts__item__header__icon svg {
+            .contactsWrapper__contacts__content__contacts__item__header__icon svg, .contactsWrapper__contacts__content__contacts__item__header__stickyIcon svg {
               fill: #bdbdbd; }
-          .contactsWrapper__contacts__content__contacts__item__header__name {
+          .contactsWrapper__contacts__content__contacts__item__header__stickyIcon svg {
+            fill: #ffc107; }
+          .contactsWrapper__contacts__content__contacts__item__header__name, .contactsWrapper__contacts__content__contacts__item__header__stickyName {
             flex-grow: 1;
             display: flex;
             align-items: center;
@@ -462,6 +464,8 @@ a {
             text-transform: uppercase;
             font-weight: 600;
             font-size: 12px; }
+          .contactsWrapper__contacts__content__contacts__item__header__stickyName {
+            color: #ffc107; }
           .contactsWrapper__contacts__content__contacts__item__header__edit {
             visibility: hidden;
             display: flex;
@@ -568,7 +572,7 @@ a {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin-bottom: 44px; }
+      margin: 12px 0 22px 0; }
       .dealWrapper__deal__header__top__left {
         flex-shrink: 1; }
         .dealWrapper__deal__header__top__left h4 {
