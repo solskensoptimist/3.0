@@ -31,6 +31,24 @@ export const companyReducer = (state = initialState, action) => {
                 supertemp: action.payload.supertemp,
             }
         }
+        case companyActionTypes.SET_COMPANY_EMAILS: {
+            return {
+                ...state,
+                company: {
+                    ...state.company,
+                    emails: action.payload,
+                }
+            }
+        }
+        case companyActionTypes.SET_COMPANY_PHONENUMBERS: {
+            return {
+                ...state,
+                company: {
+                    ...state.company,
+                    phoneNumbers: action.payload,
+                }
+            }
+        }
         default: {
             return state;
         }

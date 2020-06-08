@@ -358,13 +358,46 @@ a {
     .companyInfoWrapper__companyInfo__content__item {
       margin: 2px 2px 0 0;
       flex-basis: calc(25% - ((3 * 2px) / 4));
+      max-width: calc(25% - ((3 * 2px) / 4));
       padding: 12px;
       word-break: break-word;
       background: #f5f5f5; }
       .companyInfoWrapper__companyInfo__content__item:nth-child(4n) {
         margin-right: 0; }
-      .companyInfoWrapper__companyInfo__content__item p.companyInfoLabel {
+      .companyInfoWrapper__companyInfo__content__item__companyInfoLabel {
         font-weight: 600; }
+      .companyInfoWrapper__companyInfo__content__item svg {
+        color: #00B4CC;
+        cursor: pointer;
+        width: 18px;
+        height: 18px; }
+        .companyInfoWrapper__companyInfo__content__item svg:hover {
+          fill: #616161; }
+      .companyInfoWrapper__companyInfo__content__item__field, .companyInfoWrapper__companyInfo__content__item__editField {
+        display: flex;
+        align-items: center; }
+        .companyInfoWrapper__companyInfo__content__item__field p, .companyInfoWrapper__companyInfo__content__item__editField p {
+          flex-grow: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+        .companyInfoWrapper__companyInfo__content__item__field input, .companyInfoWrapper__companyInfo__content__item__editField input {
+          flex-grow: 1;
+          border: 0;
+          border-bottom: 1px solid #e0e0e0;
+          padding: 4px;
+          background: white; }
+        .companyInfoWrapper__companyInfo__content__item__field svg, .companyInfoWrapper__companyInfo__content__item__editField svg {
+          margin-left: 12px;
+          display: none; }
+        .companyInfoWrapper__companyInfo__content__item__field:hover svg, .companyInfoWrapper__companyInfo__content__item__editField:hover svg {
+          display: inline; }
+      .companyInfoWrapper__companyInfo__content__item__addField {
+        margin-top: 4px;
+        display: flex;
+        align-items: center; }
+      .companyInfoWrapper__companyInfo__content__item__editField svg {
+        display: inline; }
 
 .contactsWrapper {
   padding: 22px; }

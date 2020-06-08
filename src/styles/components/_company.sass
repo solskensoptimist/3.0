@@ -21,10 +21,46 @@
       &__item
         margin: 2px 2px 0 0
         flex-basis: calc(25% - ((3 * 2px) / 4))
+        max-width: calc(25% - ((3 * 2px) / 4))
         padding: $paddingMedium
         word-break: break-word
         background: $grey-100
         &:nth-child(4n)
           margin-right: 0
-        p.companyInfoLabel
+        &__companyInfoLabel
           font-weight: 600
+        svg
+          color: $colorLink
+          cursor: pointer
+          width: 18px
+          height: 18px
+          &:hover
+            fill: $colorLinkHover
+        &__field
+          display: flex
+          align-items: center
+          p
+            flex-grow: 1
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+          input
+            flex-grow: 1
+            border: 0
+            border-bottom: 1px solid $grey-300
+            padding: 4px
+            background: white
+          svg
+            margin-left: $paddingMedium
+            display: none
+          &:hover
+            svg
+              display: inline
+        &__addField
+          margin-top: 4px
+          display: flex
+          align-items: center
+        &__editField
+          @extend .companyInfoWrapper__companyInfo__content__item__field
+          svg
+            display: inline

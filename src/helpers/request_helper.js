@@ -1,4 +1,5 @@
 import axios from 'axios';
+import stripHtml from 'string-strip-html';
 
 /**
  * Helper to make requests.
@@ -19,10 +20,19 @@ export const request = async (payload) => {
             withCredentials: true // Important for authentication to backend.
         };
 
-        if (payload.method === 'get' || payload.method === 'delete') {
-            Object.assign(params, {params: payload.data});
-        } else {
-            Object.assign(params, {data: payload.data});
+        if (payload.data && Object.keys(payload.data).length) {
+            // Strip out html elements from strings.
+            for (const prop in payload.data) {
+                if (typeof payload.data[prop] === 'string') {
+                    payload.data[prop] = stripHtml(payload.data[prop]);
+                }
+            }
+
+            if (payload.method === 'get' || payload.method === 'delete') {
+                Object.assign(params, {params: payload.data});
+            } else {
+                Object.assign(params, {data: payload.data});
+            }
         }
 
         const res = await axios(params);
@@ -52,7 +62,16 @@ export const requestWithBody = async (payload) => {
             withCredentials: true // Important for authentication to backend.
         };
 
-        Object.assign(params, {data: payload.data});
+        if (payload.data && Object.keys(payload.data).length) {
+            // Strip out html elements from strings.
+            for (const prop in payload.data) {
+                if (typeof payload.data[prop] === 'string') {
+                    payload.data[prop] = stripHtml(payload.data[prop]);
+                }
+            }
+
+            Object.assign(params, {data: payload.data});
+        }
 
         const res = await axios(params);
 
