@@ -347,7 +347,9 @@ a {
     display: flex;
     justify-content: space-between;
     font-size: 16px;
-    margin: 12px 0 1.2% 0; }
+    margin: 12px 0 1.2% 0;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 12px; }
     .companyWrapper__company__header h3, .companyWrapper__company__header .dealWrapper__deal__header__top__left input.name, .dealWrapper__deal__header__top__left .companyWrapper__company__header input.name {
       margin-bottom: 8px; }
     .companyWrapper__company__header h4 {
@@ -359,7 +361,11 @@ a {
       font-weight: 400;
       color: #757575; }
     .companyWrapper__company__header__left {
-      flex-shrink: 1; }
+      flex-grow: 1; }
+      .companyWrapper__company__header__left__responsible {
+        display: flex; }
+        .companyWrapper__company__header__left__responsible h5 {
+          margin-right: 4px; }
     .companyWrapper__company__header__right {
       margin-left: 44px;
       display: flex;
@@ -882,7 +888,8 @@ a {
 
 .dropdownWrapper {
   position: relative;
-  width: 100%; }
+  width: 100%;
+  max-width: 300px; }
   .dropdownWrapper__dropdown__downArrow, .dropdownWrapper__dropdown__upArrow {
     margin-left: 12px;
     width: 0;
@@ -901,7 +908,8 @@ a {
     background: white;
     display: flex;
     align-items: center;
-    justify-content: space-between; }
+    justify-content: space-between;
+    min-height: 36px; }
   .dropdownWrapper__dropdown__headerHighlight {
     background: #ffe082;
     border: 0; }

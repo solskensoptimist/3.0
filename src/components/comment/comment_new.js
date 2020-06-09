@@ -30,6 +30,7 @@ export default (props) => {
                     <WidgetHeader
                         iconVal='edit'
                         headline={tc.addComment}
+                        headlineSub={props.headline ? props.headline : null}
                     />
                 </div>
                 <div className='commentWrapper__comment__content'>

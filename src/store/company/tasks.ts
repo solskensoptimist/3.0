@@ -115,10 +115,10 @@ export const getCompany = async (payload) => {
  * @param payload.entityId
  * @param payload.responsibleUserId
  */
-export const setResponsible = async (payload) => {
+export const setResponsibility = async (payload) => {
     try {
         if (!payload || (payload && !payload.entityId) || (payload && !payload.responsibleUserId)) {
-            return console.error('Missing params in setResponsible.');
+            return console.error('Missing params in setResponsibility.');
         }
 
         const data = await request({
@@ -136,6 +136,6 @@ export const setResponsible = async (payload) => {
 
         return store.dispatch({type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: data});
     } catch (err) {
-        return console.error('Error in setResponsible:\n' + err);
+        return console.error('Error in setResponsibility:\n' + err);
     }
 };

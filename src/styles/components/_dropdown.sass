@@ -1,6 +1,7 @@
 .dropdownWrapper
   position: relative
   width: 100%
+  max-width: 300px
   &__dropdown
     &__downArrow
       margin-left: $paddingMedium
@@ -22,6 +23,7 @@
       display: flex
       align-items: center
       justify-content: space-between
+      min-height: 36px
     &__headerHighlight
       @extend .dropdownWrapper__dropdown__header
       background: $colorHighLight

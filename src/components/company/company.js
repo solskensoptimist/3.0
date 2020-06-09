@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getCompany, setResponsible} from 'store/company/tasks';
+import {getCompany, setResponsibility} from 'store/company/tasks';
 import {tc} from 'helpers';
 import Activities from 'components/activities';
 import ColleaguesDropdown from 'components/colleagues_dropdown';
@@ -24,7 +24,7 @@ const Company = (state) => {
 
     const _saveResponsible = async () => {
         setChangeResponsible(false);
-        return await setResponsible({entityId: state.company.company.user_id, responsibleUserId: responsibleObj.responsibleUserId});
+        return await setResponsibility({entityId: state.company.company.user_id, responsibleUserId: responsibleObj.responsibleUserId});
     };
 
     const _stateCheck = () => {
@@ -34,13 +34,23 @@ const Company = (state) => {
     useEffect(() => {
         const getData = async () => {
             await getCompany({id: id});
-            // We use this flag to prevent sub components to retrieve information for previous company in store.
+            // This flag is to prevent sub components to retrieve information for previous company in store.
             setDataIsCollected(true);
-            setResponsibleObj(state.company.responsible);
         };
 
         getData();
-    }, [id, state.company.responsible]);
+    }, [id]);
+
+    useEffect(() => {
+        if (state.company.responsible) {
+            setResponsibleObj(state.company.responsible);
+        } else {
+            setResponsibleObj({
+                responsibleUserId: null,
+                responsibleUserName: '',
+            });
+        }
+    }, [state.company.responsible]);
 
     return ( _stateCheck() ?
         <div className='companyWrapper'>
@@ -49,16 +59,21 @@ const Company = (state) => {
                     <div className='companyWrapper__company__header__left'>
                         <h4>{tc.company}</h4>
                         <h3>{state.company.company.name}</h3>
-                        {changeResponsible ?
-                            <ColleaguesDropdown activeId={responsibleObj.responsibleUserId} activeName={responsibleObj.responsibleUserName} onClick={(id, name) => {
-                                setResponsibleObj({
-                                    ...responsibleObj,
-                                    responsibleUserId: id,
-                                    responsibleUserName: name,
-                                });
-                            }}/> :
-                            <h5>{tc.responsible}: {responsibleObj.responsibleUserName}</h5>
-                        }
+                        <div className='companyWrapper__company__header__left__responsible'>
+                            <h5>{tc.owner}:</h5>
+                            {changeResponsible ?
+                                <ColleaguesDropdown activeId={responsibleObj.responsibleUserId}
+                                    activeName={responsibleObj.responsibleUserName}
+                                    onClick={(id, name) => {
+                                        setResponsibleObj({
+                                            ...responsibleObj,
+                                            responsibleUserId: id,
+                                            responsibleUserName: name,
+                                        });
+                                    }}/> :
+                                <h5>{responsibleObj.responsibleUserName}</h5>
+                            }
+                        </div>
                     </div>
                     <div className='companyWrapper__company__header__right'>
                         {!changeResponsible &&
@@ -94,7 +109,17 @@ const Company = (state) => {
                         {changeResponsible &&
                             <div className='companyWrapper__company__header__right__iconHolder'>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}>
-                                    <Icon val='clear' onClick={() => {setChangeResponsible(false)}}/>
+                                    <Icon val='clear' onClick={() => {
+                                        if (state.company.responsible) {
+                                            setResponsibleObj(state.company.responsible);
+                                        } else {
+                                            setResponsibleObj({
+                                                responsibleUserId: null,
+                                                responsibleUserName: '',
+                                            });
+                                        }
+                                        setChangeResponsible(false)
+                                    }}/>
                                 </Tooltip>
                             </div>
                         }
@@ -108,7 +133,7 @@ const Company = (state) => {
                     </div>
                 </div>
                 <div className='companyWrapper__company__content'>
-                    {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
+                    {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} headline={tc.oneProspect + ': ' + state.company.company.name} target={id} type='new'/></Popup>}
                     <div className='companyWrapper__company__content__item'>
                         <Events target={id} type='target' view='flow'/>
                     </div>

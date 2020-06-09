@@ -7,6 +7,15 @@ import Tooltip from 'components/tooltip';
 
 /**
  * Render an activity row for Activities component.
+ *
+ * @param props.action
+ * @param props.comment
+ * @param props.date
+ * @param props.icon
+ * @param props.id
+ * @param props.isEditable
+ * @param props.isRemovable
+ * @param props.user
  */
 export default (props) => {
     const [showEditComment, setShowEditComment] = useState(false);

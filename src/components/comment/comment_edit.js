@@ -45,6 +45,7 @@ const CommentEdit = (state) => {
                     <WidgetHeader
                         iconVal='edit'
                         headline={tc.editComment}
+                        headlineSub={state.props.headline ? state.props.headline : null}
                     />
                 </div>
                 <div className='commentWrapper__comment__content'>

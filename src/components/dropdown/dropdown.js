@@ -44,7 +44,7 @@ export const Dropdown = (props) => {
         >
             <div className='dropdownWrapper__dropdown'>
                 <div className={props.highlight ? 'dropdownWrapper__dropdown__headerHighlight' : 'dropdownWrapper__dropdown__header'}>
-                    {props.displayValue}
+                    <p>{props.displayValue}</p>
                     <div className={showDropdown ? 'dropdownWrapper__dropdown__upArrow' : 'dropdownWrapper__dropdown__downArrow'}/>
                 </div>
                 {showDropdown &&

@@ -167,7 +167,7 @@ const Deal = (state) => {
                     </div>
                     <div className='dealWrapper__deal__header__bottom'>
                         <div className='dealWrapper__deal__header__bottom__item'>
-                            <h4>{tc.responsible}</h4>
+                            <h4>{tc.owner}</h4>
                             {editDeal ?
                                 <ColleaguesDropdown activeId={dealObj.user_id} activeName={dealObj.userName} onClick={(id, name) => {
                                     setDealObj({
@@ -215,7 +215,7 @@ const Deal = (state) => {
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
-                    {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} target={id} type='new'/></Popup>}
+                    {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} headline={tc.deal + ': ' + dealObj.name} target={id} type='new'/></Popup>}
                     <div className='dealWrapper__deal__content__item'>
                         <Events target={id} type='target' view='flow'/>
                     </div>
