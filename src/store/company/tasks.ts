@@ -84,19 +84,58 @@ export const getCompany = async (payload) => {
             return console.error('Missing params in getCompany');
         }
 
-        const company = await request({
+        const company = [await request({
             method: 'get',
             url: '/company/' + payload.id,
-        });
+        })];
 
-        if (!company || company instanceof Error) {
-            console.error('No data in getCompany', company);
-            return store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: {}});
+        const responsible = [await request({
+            method: 'get',
+            url: '/responsibility/' + payload.id,
+        })];
+
+        const data = await Promise.all(company.concat(responsible));
+
+        if (!data || data instanceof Error) {
+            console.error('No data in getCompany', data);
+            store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: {}});
+            return store.dispatch({ type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: {}});
         }
 
-        await store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: company});
-        return;
+        store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: data[0]});
+        return store.dispatch({ type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: data[1]});
     } catch(err) {
-        return console.error('Error in getCompany:', err);
+        return console.error('Error in getCompany:\n' + err);
+    }
+};
+
+/**
+ * Set responsible user for company.
+ *
+ * @param payload.entityId
+ * @param payload.responsibleUserId
+ */
+export const setResponsible = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.entityId) || (payload && !payload.responsibleUserId)) {
+            return console.error('Missing params in setResponsible.');
+        }
+
+        const data = await request({
+            data: {
+                entityId: payload.entityId.toString(),
+                responsibleUserId: Number(payload.responsibleUserId),
+            },
+            method: 'post',
+            url: '/responsibility/',
+        });
+
+        if (!data || data instanceof Error) {
+            return console.error('Could not change responsibility:\n' + data);
+        }
+
+        return store.dispatch({type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: data});
+    } catch (err) {
+        return console.error('Error in setResponsible:\n' + err);
     }
 };

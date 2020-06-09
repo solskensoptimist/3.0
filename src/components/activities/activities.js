@@ -150,7 +150,7 @@ const Activities = (state) => {
             const comment = (activity.comment) ? activity.comment : null;
 
             // Date
-            const date = (activity.date_created) ? moment(activity.date_created).format('LL HH:mm') : null;
+            const date = (activity.date_created) ? moment(new Date(activity.date_created)).format('LL HH:mm') : null;
 
             // Id.
             let id;

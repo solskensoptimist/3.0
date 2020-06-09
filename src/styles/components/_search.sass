@@ -16,22 +16,22 @@
                 padding: $paddingMedium ($paddingMedium * 1.5)
                 border: 0
                 width: 100%
-                font-size: 16px
+                font-size: $fontSizeStandard2
                 border-bottom: 1px solid $grey-300
                 background: $grey-100
                 margin-right: $paddingBig
                 &::placeholder
                     color: $grey-400
-                    font-size: 13px
+                    font-size: $fontSizeStandard
                 &:-ms-input-placeholder
                     color: $grey-400
-                    font-size: 13px
+                    font-size: $fontSizeStandard
                 &::-ms-input-placeholder
                     color: $grey-400
-                    font-size: 13px
+                    font-size: $fontSizeStandard
                 &::-webkit-input-placeholder
                     color: $grey-400
-                    font-size: 13px
+                    font-size: $fontSizeStandard
                 &:focus
                     outline-width: 0
         &__content
@@ -45,7 +45,7 @@
             &__searchResult
                 &__item
                     color: $colorLink
-                    font-size: 15px
+                    font-size: $fontSizeStandard1
                     padding: $paddingBig $paddingBig 0 $paddingBig
                     cursor: pointer
                     &:last-of-type
@@ -79,7 +79,7 @@
                 display: flex
                 justify-content: center
                 align-items: center
-                font-size: 18px
+                font-size: $fontSizeStandard3
                 font-weight: 600
                 &:hover
                     background: $colorLinkHover
@@ -99,7 +99,7 @@
                 &__title
                     h4
                         color: $colorInformatory
-                        font-size: 12px
+                        font-size: $fontSizeStandard-1
                         margin-bottom: $paddingMedium
                 &__input
                     display: flex
@@ -117,20 +117,20 @@
                         padding: $paddingMedium ($paddingMedium * 1.5)
                         border: 2px solid $colorInformatory
                         width: 100%
-                        font-size: 13px
+                        font-size: $fontSizeStandard
                         height: 44px
                         &::placeholder
                             color: $grey-400
-                            font-size: 12px
+                            font-size: $fontSizeStandard-1
                         &:-ms-input-placeholder
                             color: $grey-400
-                            font-size: 12px
+                            font-size: $fontSizeStandard-1
                         &::-ms-input-placeholder
                             color: $grey-400
-                            font-size: 12px
+                            font-size: $fontSizeStandard-1
                         &::-webkit-input-placeholder
                             color: $grey-400
-                            font-size: 12px
+                            font-size: $fontSizeStandard-1
             &__bottom
                 position: relative
                 &__searchResult
@@ -143,7 +143,7 @@
                     @extend .shadowRegular
                     &__item
                         color: $colorTextLight
-                        font-size: 15px
+                        font-size: $fontSizeStandard1
                         margin: $paddingMedium $paddingMedium 0 $paddingMedium
                         cursor: pointer
                         display: flex
@@ -191,7 +191,7 @@
                     padding: $paddingSmall
                     display: flex
                     align-items: center
-                    font-size: 11px
+                    font-size: $fontSizeStandard-2
                     &:first-of-type
                         margin-left: 0
                     svg

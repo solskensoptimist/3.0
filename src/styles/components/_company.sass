@@ -2,6 +2,40 @@
 .companyWrapper
   &__company
     padding: $paddingGrid
+    &__header
+      display: flex
+      justify-content: space-between
+      font-size: $fontSizeStandard2
+      margin: $paddingMedium 0 $paddingGrid 0
+      h3
+        @extend .headlineVeryLarge
+        margin-bottom: $paddingSmall
+      h4
+        font-size: $fontSizeStandard-1
+        color: $colorTextLight-2
+        margin-bottom: $paddingSmall
+      h5
+        text-transform: none
+        font-weight: 400
+        color: $grey-600
+      &__left
+        flex-shrink: 1
+      &__right
+        margin-left: $paddingGreat
+        display: flex
+        justify-content: flex-end
+        align-items: flex-end
+        &__iconHolder
+          margin-left: $paddingBig
+          &:first-of-type
+            margin-left: 0
+          svg
+            @extend .iconStyleCircleClick
+          svg.active
+            fill: white !important
+            background: $colorLink !important
+            &:hover
+              background: $colorLinkHover !important
     &__content
       &__item
         margin-bottom: $paddingGrid

@@ -6,6 +6,7 @@ interface CompanyState {
     fleet: object | null,
     koncern: object | null,
     koncernDeals: Array<object> | null,
+    responsible: object | null,
     supertemp: Array<object> | null,
 }
 
@@ -15,6 +16,7 @@ const initialState: CompanyState = {
     fleet: null,
     koncern: null,
     koncernDeals: null,
+    responsible: null,
     supertemp: null,
 };
 
@@ -47,6 +49,12 @@ export const companyReducer = (state = initialState, action) => {
                     ...state.company,
                     phoneNumbers: action.payload,
                 }
+            }
+        }
+        case companyActionTypes.SET_COMPANY_RESPONSIBLE: {
+            return {
+                ...state,
+                responsible: action.payload,
             }
         }
         default: {

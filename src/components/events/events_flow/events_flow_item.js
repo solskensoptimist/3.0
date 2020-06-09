@@ -36,7 +36,7 @@ export default (props) => {
             <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item'>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon'><span className='iconHolder'>{props.icon}</span></div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__date'>
-                    <span><span className='label'>{tc.time}:</span>{moment(props.date).format('LL HH:mm')}</span>
+                    <span><span className='label'>{tc.time}:</span>{moment(new Date(props.date)).format('LL HH:mm')}</span>
                     {additionalDateInfo}
                 </div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__action'><span className='label'>{tc.action}:</span>{props.action}</div>

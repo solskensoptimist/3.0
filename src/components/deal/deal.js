@@ -5,12 +5,13 @@ import {getDeal, updateDeal} from 'store/deal/tasks';
 import {dealHelper, tc} from 'helpers';
 import moment from 'moment';
 import Activities from 'components/activities';
+import ColleaguesDropdown from 'components/colleagues_dropdown';
 import Comment from 'components/comment';
 import Contacts from 'components/contacts';
 import DealCars from './deal_cars';
 import DealFiles from './deal_files';
 import DealProspects from './deal_prospects';
-import {Dropdown, DropdownItem, DropdownItemDelimiter} from 'components/dropdown';
+import {Dropdown, DropdownItem} from 'components/dropdown';
 import Events from 'components/events';
 import Loading from 'components/loading';
 import Icon from 'components/icon';
@@ -41,80 +42,6 @@ const Deal = (state) => {
 
     const _openInAgile = () => {
         console.log('Öppna i Bearbeta');
-    };
-
-    const _renderColleagueList = () => {
-        let colleagues = [];
-
-        if (state && state.user && state.user.connections && state.user.connections.length) {
-            // Render colleagues with dealer name delimiter, first the users own dealer...
-            colleagues = [<DropdownItemDelimiter key={state.user.info.dealerName} label={state.user.info.dealerName}/>];
-            colleagues = colleagues.concat(state.user.colleagues.map((user, i) => {
-                return(
-                    <DropdownItem
-                        active={dealObj.user_id === user.id}
-                        key={user.id}
-                        label={user.name}
-                        onClick={() => {
-                            setDealObj({
-                                ...dealObj,
-                                user_id: user.id,
-                                userName: user.name
-                            });
-                        }}
-                    />
-                );
-            }));
-
-            // ...then the connections.
-            colleagues = colleagues.concat(state.user.connections.map((dealer, i) => {
-                const items = [];
-                items.push(
-                    <DropdownItemDelimiter key={dealer.name} label={dealer.name}/>
-                );
-                dealer.users.forEach((user) => {
-                    items.push(
-                        <DropdownItem
-                            active={dealObj.user_id === user.id}
-                            key={user.id}
-                            label={user.name}
-                            onClick={() => {
-                                setDealObj({
-                                    ...dealObj,
-                                    user_id: user.id,
-                                    userName: user.name
-                                });
-                            }}
-                        />
-                    );
-                });
-                return items;
-            }));
-        } else {
-            colleagues = state.user.colleagues.map((user, i) => {
-                // Render colleagues without delimiter.
-                return (
-                    <DropdownItem
-                        active={dealObj.user_id === user.id}
-                        key={user.id}
-                        label={user.name}
-                        onClick={() => {
-                            setDealObj({
-                                ...dealObj,
-                                user_id: user.id,
-                                userName: user.name
-                            });
-                        }}
-                    />
-                );
-            })
-        }
-
-        return (
-            <Dropdown displayValue={dealObj.userName} highlight={true}>
-                {colleagues}
-            </Dropdown>
-        );
     };
 
     const _renderMaturityList = () => {
@@ -198,21 +125,57 @@ const Deal = (state) => {
                             }
                         </div>
                         <div className='dealWrapper__deal__header__top__right'>
-                            {!editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}><Icon val='comment' onClick={() => {setShowComment(true)}}/></Tooltip>}
-                            {!editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.openInAgile}><Icon val='agile' onClick={_openInAgile}/></Tooltip>}
-                            {(!editDeal && state.user.info.id === state.deal.deal.user_id) && <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}><Icon val='edit' onClick={() => {setEditDeal(true)}}/></Tooltip>}
-                            {editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {
-                                setEditDeal(false)
-                                _setDealObjFromStore();
-                            }}/></Tooltip> }
-                            {editDeal && <Tooltip horizontalDirection='left' tooltipContent={tc.saveChanges}><Icon active={true} val='save' onClick={_saveChanges}/></Tooltip>}
+                            {!editDeal &&
+                                <div className='dealWrapper__deal__header__top__right__iconHolder'>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}>
+                                        <Icon val='comment' onClick={() => {setShowComment(true)}}/>
+                                    </Tooltip>
+                                </div>
+                                }
+                            {!editDeal &&
+                                <div className='dealWrapper__deal__header__top__right__iconHolder'>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.openInAgile}>
+                                        <Icon val='agile' onClick={_openInAgile}/>
+                                    </Tooltip>
+                                </div>
+                            }
+                            {(!editDeal && state.user.info.id === state.deal.deal.user_id) &&
+                                <div className='dealWrapper__deal__header__top__right__iconHolder'>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}>
+                                        <Icon val='edit' onClick={() => {setEditDeal(true)}}/>
+                                    </Tooltip>
+                                </div>
+                            }
+                            {editDeal &&
+                                 <div className='dealWrapper__deal__header__top__right__iconHolder'>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}>
+                                        <Icon val='clear' onClick={() => {
+                                            setEditDeal(false);
+                                            _setDealObjFromStore();
+                                        }}/>
+                                    </Tooltip>
+                                 </div>
+                             }
+                            {editDeal &&
+                                <div className='dealWrapper__deal__header__top__right__iconHolder'>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.saveChanges}>
+                                        <Icon active={true} val='save' onClick={_saveChanges}/>
+                                    </Tooltip>
+                                </div>
+                            }
                         </div>
                     </div>
                     <div className='dealWrapper__deal__header__bottom'>
                         <div className='dealWrapper__deal__header__bottom__item'>
                             <h4>{tc.responsible}</h4>
                             {editDeal ?
-                                _renderColleagueList() :
+                                <ColleaguesDropdown activeId={dealObj.user_id} activeName={dealObj.userName} onClick={(id, name) => {
+                                    setDealObj({
+                                        ...dealObj,
+                                        user_id: id,
+                                        userName: name
+                                    });
+                                }}/> :
                                 <p>{dealObj.userName}</p>
                             }
                         </div>
@@ -233,7 +196,7 @@ const Deal = (state) => {
                         </div>
                         <div className='dealWrapper__deal__header__bottom__item'>
                             <h4>{tc.lastUpdate}</h4>
-                            <p>{moment(state.deal.deal.updated).fromNow()}</p>
+                            <p>{moment(new Date(state.deal.deal.updated)).fromNow()}</p>
                         </div>
                         <div className='dealWrapper__deal__header__bottom__item'>
                             <h4>{tc.potential}</h4>
