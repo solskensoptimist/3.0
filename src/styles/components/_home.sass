@@ -1,2 +1,12 @@
 .homeWrapper
-  @extend .grid2Columns1Row
+  &__home
+    &__content
+      @extend .grid2Columns1Row
+      &__item
+        margin-top: $paddingGrid
+        @extend .paperSheet
+        padding: $paddingBig
+        &:nth-child(1)
+          margin-top: 0
+        &:nth-child(2)
+          margin-top: 0

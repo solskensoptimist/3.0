@@ -161,7 +161,15 @@ const Company = (state) => {
                 </div>
                 <div className='companyWrapper__company__content'>
                     {showComment && <Comment close={() => {setShowComment(false)}} headline={tc.oneProspect + ': ' + state.company.company.name} target={id} type='new'/>}
-                    {showCreateDeal && <CreateDeal close={() => {setShowCreateDeal(false)}} headline={tc.with + ' ' + tc.connection.toLowerCase() + ' ' + tc.to.toLowerCase() + ' ' + state.company.company.name}/>}
+                    {showCreateDeal &&
+                        <CreateDeal close={() => {setShowCreateDeal(false)}}
+                            headline={tc.with + ' ' + tc.connection.toLowerCase() + ' ' + tc.to.toLowerCase() + ' ' + state.company.company.name}
+                            koncern={!!(state.company.company.parentCompanyId && state.company.company.parentCompanyId.length)}
+                            prospects={[{id: state.company.company.user_id, name: state.company.company.name}]}
+                            target={state.company.company.user_id}
+                            type='company'
+                        />
+                    }
                     <div className='companyWrapper__company__content__item'>
                         <Events target={id} type='target' view='flow'/>
                     </div>

@@ -1,0 +1,38 @@
+.createDealWrapper
+  &__createDeal
+    &__content
+      margin: $paddingBig 0
+      &__section
+        display: flex
+        flex-wrap: wrap
+        margin-bottom: $paddingBig
+        border-bottom: 1px solid $grey-300
+        padding-bottom: $paddingMedium
+        &:last-of-type
+          margin-bottom: 0
+          border-bottom: 0
+          padding-bottom: 0
+        h5
+          width: 100%
+          margin-bottom: $paddingMedium
+          color: $colorTextLight
+        span.chip
+          background: $grey-100
+          padding: 4px
+          margin-left: 4px
+          display: flex
+          align-items: center
+          svg
+            margin-left: 4px
+            fill: $colorTextMain
+            width: 14px
+            height: 14px
+        &__item
+          margin-top: ($paddingSmall * 2)
+          margin-left: $paddingSmall
+          flex-basis: calc(50% - #{$paddingSmall})
+          &:nth-child(2), &:nth-child(3)
+            margin-top: 0
+          &:nth-child(even)
+            margin-left: 0
+            margin-right: $paddingSmall

@@ -91,13 +91,13 @@
     &__content
       &__item
         margin-bottom: $paddingGrid
+        @extend .paperSheet
+        padding: $paddingBig
         &:last-of-type
           margin-bottom: 0
 
 // CompanyInfo component
 .companyInfoWrapper
-  @extend .paperSheet
-  padding: $paddingBig
   &__companyInfo
     &__content
       margin-top: $paddingBig

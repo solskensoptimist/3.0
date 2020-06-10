@@ -24,7 +24,7 @@ export const createDeal = async (payload) => {
         //     data: {
         //         cars: payload.cars ? payload.cars : [],
         //         comments: '', // Deprecated property
-        //         contacts: payload.contacts ? payload.contacts : [],
+        //         contacts: [], // Deprecated property
         //         description: payload.description ? payload.description : '',
         //         maturity: payload.maturity ? payload.maturity : null,
         //         name: payload.name ? payload.name : null,
@@ -40,6 +40,12 @@ export const createDeal = async (payload) => {
         //     showFlashMessage(tc.couldNotCreateDeal);
         //     console.error('Could not create deal:\n' + data);
         // }
+
+        /*
+        if (payload.contacts && payload.contacts.length) {
+        }
+        // Här ska vi göra ett extra anrop och lägga till contacts till denna deals entityId...
+         */
 
         // Ska vi använda callback eller hur uppdaterar jag data?
         // parameter, reloadAgile standard true?

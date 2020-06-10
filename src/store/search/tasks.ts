@@ -164,11 +164,11 @@ const getContactSuggestionsDebounced = async (payload) => {
  * Return suggestions for koncern companies.
  *
  * @param payload.q
- * @param payload.targetId - The company, doesn't have to be parent company, can be a company within a koncern.
+ * @param payload.target - The companyorg nr, doesn't have to be parent company, can be a company within a koncern.
  */
 const getKoncernCompaniesSuggestionsDebounced = async (payload) => {
     try {
-        if (!payload || (payload && !payload.q) || (payload && !payload.targetId)) {
+        if (!payload || (payload && !payload.q) || (payload && !payload.target)) {
             return console.error('Missing params in getKoncernCompanySuggestionsDebounced');
         }
 
@@ -176,7 +176,7 @@ const getKoncernCompaniesSuggestionsDebounced = async (payload) => {
 
         let data = await request({
             method: 'get',
-            url: '/api/koncern/' + payload.targetId,
+            url: '/api/koncern/' + payload.target,
         });
 
         if (data && data.structure && data.structure.length) {

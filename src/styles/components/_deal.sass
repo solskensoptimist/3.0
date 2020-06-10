@@ -80,6 +80,8 @@
     &__content
       &__item
         margin-bottom: $paddingGrid
+        @extend .paperSheet
+        padding: $paddingBig
         &:last-of-type
           margin-bottom: 0
       &__itemsContainer
@@ -96,8 +98,6 @@
 
 // DealProspects component.
 .dealProspectsWrapper
-  @extend .paperSheet
-  padding: $paddingBig
   &__dealProspects
     &__content
       display: flex
@@ -185,8 +185,6 @@
 
 // DealCars component
 .dealCarsWrapper
-  @extend .paperSheet
-  padding: $paddingBig
   &__dealCars
     &__content
       display: flex
@@ -274,8 +272,6 @@
 
 // DealFiles component
 .dealFilesWrapper
-  @extend .paperSheet
-  padding: $paddingBig
   &__dealFiles
     &__content
       margin-top: $paddingBig
