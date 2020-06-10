@@ -71,7 +71,7 @@
 .marginTopMedium {
   margin-top: 12px; }
 
-.paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer, .homeWrapper__home__content__item {
+.paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer > div, .homeWrapper__home__content__item {
   background: white;
   border: 1px solid #eeeeee; }
 
@@ -737,16 +737,18 @@ a {
         align-items: center; }
         .dealWrapper__deal__header__bottom__item:last-of-type {
           margin-right: 0; }
-  .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer {
+  .dealWrapper__deal__content__item {
     margin-bottom: 1.2%;
     padding: 22px; }
-    .dealWrapper__deal__content__item:last-of-type, .dealWrapper__deal__content__itemsContainer:last-of-type {
+    .dealWrapper__deal__content__item:last-of-type {
       margin-bottom: 0; }
   .dealWrapper__deal__content__itemsContainer {
+    margin-bottom: 1.2%;
     display: flex;
     align-items: flex-start;
     justify-content: space-between; }
     .dealWrapper__deal__content__itemsContainer > div {
+      padding: 22px;
       flex-basis: 50%; }
       .dealWrapper__deal__content__itemsContainer > div:nth-child(1) {
         margin-right: 0.6%; }

@@ -85,11 +85,13 @@
         &:last-of-type
           margin-bottom: 0
       &__itemsContainer
-        @extend .dealWrapper__deal__content__item
+        margin-bottom: $paddingGrid
         display: flex
         align-items: flex-start
         justify-content: space-between
         > div
+          @extend .paperSheet
+          padding: $paddingBig
           flex-basis: 50%
           &:nth-child(1)
             margin-right: ($paddingGrid / 2)
