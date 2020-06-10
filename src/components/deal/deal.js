@@ -15,7 +15,6 @@ import {Dropdown, DropdownItem} from 'components/dropdown';
 import Events from 'components/events';
 import Loading from 'components/loading';
 import Icon from 'components/icon';
-import Popup from 'components/popup';
 import Tooltip from 'components/tooltip';
 
 /**
@@ -120,7 +119,7 @@ const Deal = (state) => {
                         <div className='dealWrapper__deal__header__top__left'>
                             <h4>{tc.deal}</h4>
                             {editDeal ?
-                                <input className='name' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={(dealObj.name) ? dealObj.name : ''}/> :
+                                <input className='large' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={(dealObj.name) ? dealObj.name : ''}/> :
                                 <h3>{state.deal.deal.name}</h3>
                             }
                         </div>
@@ -167,7 +166,7 @@ const Deal = (state) => {
                     </div>
                     <div className='dealWrapper__deal__header__bottom'>
                         <div className='dealWrapper__deal__header__bottom__item'>
-                            <h4>{tc.owner}</h4>
+                            <h5>{tc.owner}:</h5>
                             {editDeal ?
                                 <ColleaguesDropdown activeId={dealObj.user_id} activeName={dealObj.userName} onClick={(id, name) => {
                                     setDealObj({
@@ -180,42 +179,42 @@ const Deal = (state) => {
                             }
                         </div>
                         <div className='dealWrapper__deal__header__bottom__item'>
-                            <h4>{tc.descriptionDeal}</h4>
+                            <h5>{tc.description}:</h5>
                             {editDeal ?
-                                <input className='name' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={(dealObj.description) ? dealObj.description : ''}/> :
+                                <input className='medium' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={(dealObj.description) ? dealObj.description : ''}/> :
                                 <p>{dealObj.description}</p>
                             }
                         </div>
                         <div className='dealWrapper__deal__header__bottom__item'>
-                            <h4>{tc.status}</h4>
+                            <h5>{tc.status}:</h5>
                             <p>{dealHelper.getReadablePhase(state.deal.deal.phase)}</p>
                         </div>
                         <div className='dealWrapper__deal__header__bottom__item'>
-                            <h4>{tc.savedInList}</h4>
+                            <h5>{tc.savedInList}:</h5>
                             <p>{state.deal.listName}</p>
                         </div>
                         <div className='dealWrapper__deal__header__bottom__item'>
-                            <h4>{tc.lastUpdate}</h4>
+                            <h5>{tc.lastUpdate}:</h5>
                             <p>{moment(new Date(state.deal.deal.updated)).fromNow()}</p>
                         </div>
                         <div className='dealWrapper__deal__header__bottom__item'>
-                            <h4>{tc.potential}</h4>
+                            <h5>{tc.potential}:</h5>
                             {editDeal ?
-                                <input className='name' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/> :
+                                <input className='small' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/> :
                                 <p>{dealObj.potential}</p>
                             }
                         </div>
                         <div className='dealWrapper__deal__header__bottom__item'>
-                            <h4>{tc.maturity}</h4>
+                            <h5>{tc.maturity}:</h5>
                             {editDeal ?
                                 _renderMaturityList() :
-                                dealHelper.getMaturityName(dealObj.maturity)
+                                <p>{dealHelper.getMaturityName(dealObj.maturity)}</p>
                             }
                         </div>
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
-                    {showComment && <Popup close={() => {setShowComment(false)}} size='small'><Comment close={() => {setShowComment(false)}} headline={tc.deal + ': ' + dealObj.name} target={id} type='new'/></Popup>}
+                    {showComment && <Comment close={() => {setShowComment(false)}} headline={tc.deal + ': ' + dealObj.name} target={id} type='new'/>}
                     <div className='dealWrapper__deal__content__item'>
                         <Events target={id} type='target' view='flow'/>
                     </div>

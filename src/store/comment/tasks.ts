@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request} from 'helpers';
+import {request, requestWithBody} from 'helpers';
 import {commentActionTypes} from './actions';
 import {getActivity} from 'store/activity/tasks';
 
@@ -43,9 +43,9 @@ export const removeComment = async (payload) => {
     }
 
     try {
-        const comment = await request({
+        const comment = await requestWithBody({
             data: {
-                comment_id: payload.id,
+                comment_id: payload.id.toString(),
             },
             method: 'delete',
             url: '/comments/',

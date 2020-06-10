@@ -45,7 +45,7 @@
 .hidden {
   display: none; }
 
-.iconStyleCircle, .iconStyleCircleClick, .companyWrapper__company__header__right__iconHolder svg, .dealWrapper__deal__header__top__right svg, .searchMainWrapper__searchMain__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
+.iconStyleCircle, .iconStyleCircleClick, .companyWrapper__company__header__top__right svg, .dealWrapper__deal__header__top__right svg, .searchMainWrapper__searchMain__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -58,11 +58,11 @@
   width: 38px !important;
   height: 38px !important; }
 
-.iconStyleCircleClick, .companyWrapper__company__header__right__iconHolder svg, .dealWrapper__deal__header__top__right svg, .searchMainWrapper__searchMain__header svg {
+.iconStyleCircleClick, .companyWrapper__company__header__top__right svg, .dealWrapper__deal__header__top__right svg, .searchMainWrapper__searchMain__header svg {
   fill: white !important;
   background: #bdbdbd !important;
   cursor: pointer !important; }
-  .iconStyleCircleClick:hover, .companyWrapper__company__header__right__iconHolder svg:hover, .dealWrapper__deal__header__top__right svg:hover, .searchMainWrapper__searchMain__header svg:hover {
+  .iconStyleCircleClick:hover, .companyWrapper__company__header__top__right svg:hover, .dealWrapper__deal__header__top__right svg:hover, .searchMainWrapper__searchMain__header svg:hover {
     background: #616161 !important; }
 
 .marginTopBig {
@@ -138,13 +138,13 @@ h2 {
   font-weight: 600;
   text-transform: uppercase; }
 
-h3, .dealWrapper__deal__header__top__left input.name {
+h3, .companyWrapper__company__header input.large, .dealWrapper__deal__header input.large {
   font-size: 18px;
   line-height: 22px;
   font-weight: 600;
   text-transform: uppercase; }
 
-h3.sectionHeading, .dealWrapper__deal__header__top__left input.sectionHeading.name {
+h3.sectionHeading, .companyWrapper__company__header input.sectionHeading.large, .dealWrapper__deal__header input.sectionHeading.large {
   font-size: 18px;
   text-transform: none;
   font-weight: normal; }
@@ -165,7 +165,7 @@ h5 {
   color: #212121; }
   .headlineMain h2, .widgetHeaderWrapper__widgetHeader__left__right h2 {
     font-weight: 600; }
-  .headlineMain h3, .widgetHeaderWrapper__widgetHeader__left__right h3, .headlineMain .dealWrapper__deal__header__top__left input.name, .dealWrapper__deal__header__top__left .headlineMain input.name, .widgetHeaderWrapper__widgetHeader__left__right .dealWrapper__deal__header__top__left input.name, .dealWrapper__deal__header__top__left .widgetHeaderWrapper__widgetHeader__left__right input.name {
+  .headlineMain h3, .widgetHeaderWrapper__widgetHeader__left__right h3, .headlineMain .companyWrapper__company__header input.large, .companyWrapper__company__header .headlineMain input.large, .widgetHeaderWrapper__widgetHeader__left__right .companyWrapper__company__header input.large, .companyWrapper__company__header .widgetHeaderWrapper__widgetHeader__left__right input.large, .headlineMain .dealWrapper__deal__header input.large, .dealWrapper__deal__header .headlineMain input.large, .widgetHeaderWrapper__widgetHeader__left__right .dealWrapper__deal__header input.large, .dealWrapper__deal__header .widgetHeaderWrapper__widgetHeader__left__right input.large {
     font-size: 14px;
     font-weight: normal;
     color: #9e9e9e;
@@ -173,7 +173,7 @@ h5 {
     line-height: 22px;
     display: inline; }
 
-.headlineVeryLarge, .companyWrapper__company__header h3, .dealWrapper__deal__header__top__left h3, .dealWrapper__deal__header__top__left input.name {
+.headlineVeryLarge, .companyWrapper__company__header h3, .companyWrapper__company__header input.large, .dealWrapper__deal__header h3, .dealWrapper__deal__header input.large {
   font-size: 38px;
   text-transform: none; }
 
@@ -344,14 +344,11 @@ a {
 .companyWrapper__company {
   padding: 1.2%; }
   .companyWrapper__company__header {
+    margin-bottom: 1.2%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     font-size: 16px;
-    margin: 12px 0 1.2% 0;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 12px; }
-    .companyWrapper__company__header h3, .companyWrapper__company__header .dealWrapper__deal__header__top__left input.name, .dealWrapper__deal__header__top__left .companyWrapper__company__header input.name {
-      margin-bottom: 8px; }
+    border-bottom: 1px solid #e0e0e0; }
     .companyWrapper__company__header h4 {
       font-size: 12px;
       color: #bdbdbd;
@@ -359,27 +356,73 @@ a {
     .companyWrapper__company__header h5 {
       text-transform: none;
       font-weight: 400;
-      color: #757575; }
-    .companyWrapper__company__header__left {
-      flex-grow: 1; }
-      .companyWrapper__company__header__left__responsible {
-        display: flex; }
-        .companyWrapper__company__header__left__responsible h5 {
-          margin-right: 4px; }
-    .companyWrapper__company__header__right {
-      margin-left: 44px;
+      font-size: 12px;
+      color: #9e9e9e;
+      margin-right: 4px; }
+    .companyWrapper__company__header p {
+      font-size: 12px; }
+    .companyWrapper__company__header a {
+      font-size: 12px; }
+    .companyWrapper__company__header span.dealLink {
+      margin-left: 8px; }
+      .companyWrapper__company__header span.dealLink:first-of-type {
+        margin-left: 0; }
+    .companyWrapper__company__header input {
+      background: #ffe082;
+      border: 0;
+      width: 100%;
+      font-size: 12px;
+      color: #212121;
+      padding: 8px; }
+    .companyWrapper__company__header input.large {
+      background: transparent;
+      padding: 0; }
+      .companyWrapper__company__header input.large:first-line {
+        background: #ffe082; }
+    .companyWrapper__company__header input.medium {
+      max-width: 150px; }
+    .companyWrapper__company__header input.small {
+      max-width: 60px; }
+    .companyWrapper__company__header .dropdownWrapper {
+      max-width: 200px; }
+    .companyWrapper__company__header__top {
+      flex-grow: 1;
       display: flex;
-      justify-content: flex-end;
-      align-items: flex-end; }
-      .companyWrapper__company__header__right__iconHolder {
-        margin-left: 22px; }
-        .companyWrapper__company__header__right__iconHolder:first-of-type {
-          margin-left: 0; }
-        .companyWrapper__company__header__right__iconHolder svg.active {
+      align-items: flex-end;
+      justify-content: space-between;
+      margin: 12px 0 12px 0; }
+      .companyWrapper__company__header__top__left {
+        flex-grow: 1; }
+      .companyWrapper__company__header__top__right {
+        margin-left: 44px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center; }
+        .companyWrapper__company__header__top__right__iconHolder {
+          margin-left: 22px; }
+          .companyWrapper__company__header__top__right__iconHolder:first-of-type {
+            margin-left: 0; }
+        .companyWrapper__company__header__top__right svg.active {
           fill: white !important;
           background: #00B4CC !important; }
-          .companyWrapper__company__header__right__iconHolder svg.active:hover {
+          .companyWrapper__company__header__top__right svg.active:hover {
             background: #616161 !important; }
+    .companyWrapper__company__header__bottom {
+      flex-grow: 1;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap; }
+      .companyWrapper__company__header__bottom__item {
+        margin-right: 22px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center; }
+        .companyWrapper__company__header__bottom__item:last-of-type {
+          margin-right: 0; }
+        .companyWrapper__company__header__bottom__item__dealsHolder {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap; }
   .companyWrapper__company__content__item {
     margin-bottom: 1.2%; }
     .companyWrapper__company__content__item:last-of-type {
@@ -595,31 +638,46 @@ a {
     margin-bottom: 1.2%;
     display: flex;
     flex-direction: column;
-    font-size: 16px; }
+    font-size: 16px;
+    border-bottom: 1px solid #e0e0e0; }
+    .dealWrapper__deal__header h4 {
+      font-size: 12px;
+      color: #bdbdbd;
+      margin-bottom: 8px; }
+    .dealWrapper__deal__header h5 {
+      text-transform: none;
+      font-weight: 400;
+      font-size: 12px;
+      color: #9e9e9e;
+      margin-right: 4px; }
+    .dealWrapper__deal__header p {
+      font-size: 12px; }
     .dealWrapper__deal__header input {
       background: #ffe082;
       border: 0;
       width: 100%;
-      font-size: 16px;
+      font-size: 12px;
       color: #212121;
       padding: 8px; }
+    .dealWrapper__deal__header input.large {
+      background: transparent;
+      padding: 0; }
+      .dealWrapper__deal__header input.large:first-line {
+        background: #ffe082; }
+    .dealWrapper__deal__header input.medium {
+      max-width: 150px; }
+    .dealWrapper__deal__header input.small {
+      max-width: 60px; }
+    .dealWrapper__deal__header .dropdownWrapper {
+      max-width: 200px; }
     .dealWrapper__deal__header__top {
       flex-grow: 1;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin: 12px 0 22px 0; }
+      margin: 12px 0 12px 0; }
       .dealWrapper__deal__header__top__left {
-        flex-shrink: 1; }
-        .dealWrapper__deal__header__top__left h4 {
-          font-size: 12px;
-          color: #bdbdbd;
-          margin-bottom: 8px; }
-        .dealWrapper__deal__header__top__left input.name {
-          background: transparent;
-          padding: 0; }
-          .dealWrapper__deal__header__top__left input.name:first-line {
-            background: #ffe082; }
+        flex-grow: 1; }
       .dealWrapper__deal__header__top__right {
         margin-left: 44px;
         display: flex;
@@ -638,18 +696,12 @@ a {
       flex-grow: 1;
       display: flex;
       justify-content: flex-start;
-      flex-wrap: wrap;
-      border-bottom: 1px solid #e0e0e0; }
-      .dealWrapper__deal__header__bottom h4 {
-        font-size: 12px;
-        color: #bdbdbd;
-        margin-bottom: 0; }
+      flex-wrap: wrap; }
       .dealWrapper__deal__header__bottom__item {
-        margin-right: 33px;
-        margin-bottom: 22px;
-        max-width: 20%;
-        flex-wrap: wrap;
-        min-width: 0; }
+        margin-right: 22px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center; }
         .dealWrapper__deal__header__bottom__item:last-of-type {
           margin-right: 0; }
   .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer {

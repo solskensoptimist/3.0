@@ -205,7 +205,7 @@ const Contacts = (state) => {
                             {contactRows}
                         </div> :
                         <InfoBox>
-                            <h4>{tc.noContacts}.</h4>
+                            <h4>{tc.noContacts}</h4>
                             <p>{tc.contactHowTo}</p>
                         </InfoBox>
                     }

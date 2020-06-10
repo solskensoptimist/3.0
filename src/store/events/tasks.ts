@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request} from 'helpers';
+import {request, requestWithBody} from 'helpers';
 import {eventsActionTypes} from './actions';
 import {getActivity} from 'store/activity/tasks'
 import _ from 'underscore';
@@ -12,19 +12,19 @@ import moment from 'moment';
  * @param payload.eventId
  */
 export const completeEvent = async (payload) => {
-    if (!payload || (payload && !payload.eventId)) {
-        return console.error('Missing params in completeEvent');
-    }
-
-    const event = store.getState().events.events.find((num) => {
-        return num._id === payload.eventId;
-    });
-
-    if (!event || (event && !event.action) || (event && !event.dealId)) {
-        return console.error('Could not find event in completeEvent');
-    }
-
     try {
+        if (!payload || (payload && !payload.eventId)) {
+            return console.error('Missing params in completeEvent');
+        }
+
+        const event = store.getState().events.events.find((num) => {
+            return num._id === payload.eventId;
+        });
+
+        if (!event || (event && !event.action) || (event && !event.dealId)) {
+            return console.error('Could not find event in completeEvent');
+        }
+
         const action = await request({
             data: {
                 action: event.action,
@@ -308,7 +308,7 @@ export const removeEvent = async (payload) => {
     }
 
     try {
-        const event = await request({
+        const data = await requestWithBody({
             data: {
                 dealId: payload.dealId,
                 eventId: payload.eventId,
@@ -317,8 +317,8 @@ export const removeEvent = async (payload) => {
             url: '/deals/events/',
         });
 
-        if (event && event instanceof Error) {
-            return console.error('Error in removeEvent');
+        if (data && data instanceof Error) {
+            return console.error('Error in removeEvent:\n' + data);
         }
 
         // Update activities and events

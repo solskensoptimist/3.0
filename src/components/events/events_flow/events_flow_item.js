@@ -4,7 +4,6 @@ import moment from 'moment';
 import EventsFlowItemComplete from './events_flow_item_complete';
 import EventsFlowItemRemove from './events_flow_item_remove';
 import Icon from 'components/icon';
-import Popup from 'components/popup';
 import Tooltip from 'components/tooltip';
 
 /**
@@ -47,8 +46,8 @@ export default (props) => {
                     {<Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {setShowRemoveEvent(true)}}/></Tooltip>}
                 </div>
             </div>
-            {showCompleteEvent && <Popup close={() => {setShowCompleteEvent(false)}} size='small'><EventsFlowItemComplete close={() => {setShowCompleteEvent(false)}} eventId={props.eventId}/></Popup>}
-            {showRemoveEvent && <Popup close={() => {setShowRemoveEvent(false)}} size='small'><EventsFlowItemRemove close={() => {setShowRemoveEvent(false)}} dealId={props.dealId} eventId={props.eventId}/></Popup>}
+            {showCompleteEvent && <EventsFlowItemComplete close={() => {setShowCompleteEvent(false)}} eventId={props.eventId}/>}
+            {showRemoveEvent && <EventsFlowItemRemove close={() => {setShowRemoveEvent(false)}} dealId={props.dealId} eventId={props.eventId}/>}
         </div>
     );
 };

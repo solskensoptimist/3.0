@@ -5,6 +5,7 @@ import {userLogout} from 'store/user/tasks';
 import {tc} from 'helpers';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
+import Popup from 'components/popup';
 import WidgetHeader from 'components/widget_header';
 
 /**
@@ -60,58 +61,60 @@ const Settings = (state) =>  {
     }, []);
 
     return _stateCheck() ? (
-        <div className='settingsWrapper'>
-            <div className='settingsWrapper__settings'>
-                <div className='settingsWrapper__settings__header'>
-                    <WidgetHeader
-                        iconVal='settings'
-                        headline={tc.settings}
-                    />
-                </div>
-                <div className='settingsWrapper__settings__content'>
-                    <div className='settingsWrapper__settings__content__item'>
-                        <div className='settingsWrapper__settings__content__item__small'>
-                            <div className='settingsWrapper__settings__content__item__small__label'>
-                                <h5>{tc.emailNotifications}</h5>
-                            </div>
-                            <div className='settingsWrapper__settings__content__item__small__content'>
-                                {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail}/> : <Icon val='toggleOff' onClick={_toggleEmail}/>}
-                            </div>
-                        </div>
-                        <div className='settingsWrapper__settings__content__item__small'>
-                            <div className='settingsWrapper__settings__content__item__small__label'>
-                                <h5>{tc.emailNotifications}</h5>
-                            </div>
-                            <div className='settingsWrapper__settings__content__item__small__content'>
-                                {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail} /> : <Icon val='toggleOff' onClick={_toggleEmail}/>}
-                            </div>
-                        </div>
+        <Popup close={state.props.close} size='medium'>
+            <div className='settingsWrapper'>
+                <div className='settingsWrapper__settings'>
+                    <div className='settingsWrapper__settings__header'>
+                        <WidgetHeader
+                            iconVal='settings'
+                            headline={tc.settings}
+                        />
                     </div>
-                    <div className='settingsWrapper__settings__content__item'>
-                        <div className='settingsWrapper__settings__content__item__full'>
-                            <div className='settingsWrapper__settings__content__item__full__label'>
-                                <h5>{tc.createNewPassword}</h5>
+                    <div className='settingsWrapper__settings__content'>
+                        <div className='settingsWrapper__settings__content__item'>
+                            <div className='settingsWrapper__settings__content__item__small'>
+                                <div className='settingsWrapper__settings__content__item__small__label'>
+                                    <h5>{tc.emailNotifications}</h5>
+                                </div>
+                                <div className='settingsWrapper__settings__content__item__small__content'>
+                                    {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail}/> : <Icon val='toggleOff' onClick={_toggleEmail}/>}
+                                </div>
                             </div>
-                            <div className='settingsWrapper__settings__content__item__full__content'>
-                                <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
-                                <input type='password' placeholder='Återupprepa lösenord' ref={passwordRef2} />
-                                {showPasswordHint && <div className='settingsWrapper__settings__content__item__hint'>{passwordHint}</div>}
-                                <div className='settingsWrapper__settings__content__item__button' onClick={_savePassword}>{tc.savePassword}</div>
+                            <div className='settingsWrapper__settings__content__item__small'>
+                                <div className='settingsWrapper__settings__content__item__small__label'>
+                                    <h5>{tc.emailNotifications}</h5>
+                                </div>
+                                <div className='settingsWrapper__settings__content__item__small__content'>
+                                    {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail} /> : <Icon val='toggleOff' onClick={_toggleEmail}/>}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='settingsWrapper__settings__content__item'>
-                        <div className='settingsWrapper__settings__content__item__full'>
-                            <div className='settingsWrapper__settings__content__item__full__content'>
-                                <div className='settingsWrapper__settings__content__item__button' onClick={userLogout}>
-                                    {tc.logout}
+                        <div className='settingsWrapper__settings__content__item'>
+                            <div className='settingsWrapper__settings__content__item__full'>
+                                <div className='settingsWrapper__settings__content__item__full__label'>
+                                    <h5>{tc.createNewPassword}</h5>
+                                </div>
+                                <div className='settingsWrapper__settings__content__item__full__content'>
+                                    <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
+                                    <input type='password' placeholder='Återupprepa lösenord' ref={passwordRef2} />
+                                    {showPasswordHint && <div className='settingsWrapper__settings__content__item__hint'>{passwordHint}</div>}
+                                    <div className='settingsWrapper__settings__content__item__button' onClick={_savePassword}>{tc.savePassword}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='settingsWrapper__settings__content__item'>
+                            <div className='settingsWrapper__settings__content__item__full'>
+                                <div className='settingsWrapper__settings__content__item__full__content'>
+                                    <div className='settingsWrapper__settings__content__item__button' onClick={userLogout}>
+                                        {tc.logout}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Popup>
     ) : (
         <Loading />
     );

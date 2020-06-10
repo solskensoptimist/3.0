@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {tc} from 'helpers';
 import {saveComment} from 'store/comment/tasks';
+import Popup from 'components/popup';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
 
@@ -15,31 +16,31 @@ export default (props) => {
     };
 
     const _saveComment = async () => {
+        props.close();
         if (commentNewTextRef && commentNewTextRef.current && commentNewTextRef.current.value) {
             await saveComment({comment: commentNewTextRef.current.value, target: props.target});
-        }
-        if (props.close && typeof props.close === 'function') {
-            props.close();
         }
     };
 
     return (
-        <div className='commentWrapper'>
-            <div className='commentWrapper__comment'>
-                <div className='commentWrapper__comment__header'>
-                    <WidgetHeader
-                        iconVal='edit'
-                        headline={tc.addComment}
-                        headlineSub={props.headline ? props.headline : null}
-                    />
-                </div>
-                <div className='commentWrapper__comment__content'>
-                    <textarea onChange={_onChange} ref={commentNewTextRef} value={text}/>
-                </div>
-                <div className='commentWrapper__comment__footer'>
-                    <WidgetFooter save={_saveComment}/>
+        <Popup close={props.close} size='small'>
+            <div className='commentWrapper'>
+                <div className='commentWrapper__comment'>
+                    <div className='commentWrapper__comment__header'>
+                        <WidgetHeader
+                            iconVal='edit'
+                            headline={tc.addComment}
+                            headlineSub={props.headline ? props.headline : null}
+                        />
+                    </div>
+                    <div className='commentWrapper__comment__content'>
+                        <textarea onChange={_onChange} ref={commentNewTextRef} value={text}/>
+                    </div>
+                    <div className='commentWrapper__comment__footer'>
+                        <WidgetFooter save={_saveComment}/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Popup>
     );
 };

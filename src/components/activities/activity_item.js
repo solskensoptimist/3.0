@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {tc} from 'helpers';
 import Comment from 'components/comment';
 import Icon from 'components/icon';
-import Popup from 'components/popup';
 import Tooltip from 'components/tooltip';
 
 /**
@@ -34,8 +33,8 @@ export default (props) => {
                     {props.isRemovable && <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {setShowRemoveComment(true)}}/></Tooltip>}
                 </div>
             </div>
-            {showEditComment && <Popup close={()=> {setShowEditComment(false)}} size='small'><Comment close={()=> {setShowEditComment(false)}} id={props.id} type='edit'/></Popup>}
-            {showRemoveComment && <Popup close={()=> {setShowRemoveComment(false)}} size='small'><Comment close={()=> {setShowRemoveComment(false)}} id={props.id} type='remove'/></Popup>}
+            {showEditComment && <Comment close={()=> {setShowEditComment(false)}} id={props.id} type='edit'/>}
+            {showRemoveComment && <Comment close={()=> {setShowRemoveComment(false)}} id={props.id} type='remove'/>}
         </div>
     );
 };

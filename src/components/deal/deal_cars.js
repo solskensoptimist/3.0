@@ -125,7 +125,7 @@ const DealCars = (state) => {
                                 {carRows}
                             </div> :
                             <InfoBox>
-                                <h4>{tc.noVehicles}.</h4>
+                                <h4>{tc.noVehicles}</h4>
                                 <p>{tc.carsHowTo}</p>
                             </InfoBox>
 

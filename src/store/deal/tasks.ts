@@ -8,7 +8,7 @@ import _ from 'underscore';
 /**
  * Retrieve one deal.
  *
- * @param payload - string
+ * @param payload
  * @param payload.id - string
  * @param prospectInfo - bool - Mostly used after a deal update. Use this flag when we already have a deal in state and want to retrieve changes, but prospects hasn't changed so no new prospectInfo is needed.
  */
