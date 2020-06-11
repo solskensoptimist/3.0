@@ -11,7 +11,6 @@ import Popup from 'components/popup';
 import Search from 'components/search';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
-import {updateDeal} from "store/deal/tasks";
 
 /**
  * Render a component where user can create a new deal.
@@ -21,7 +20,7 @@ import {updateDeal} from "store/deal/tasks";
  * If target is provided and state.props.koncern === true user have the possibility to add specific cars from koncern fleet to deal.
  * If target is provided and state.props.koncern === true user have the possibility to add companies from within that koncern to deal.
  *
- * @param state.props.close - func - Function to close component.
+ * @param state.props.close - func - Function to close component. Send param true when deal is created.
  * @param state.props.headline - string (optional) - If sub headline is wanted.
  * @param state.props.koncern - bool (optional) - If target is a company org nr and type === 'company' and the company is part of a koncern, this should be set to true.
  * @param state.props.target - string (optional) - Company org nr | person user id.
@@ -157,9 +156,8 @@ const CreateDeal = (state) => {
     };
 
     const _saveDeal = async () => {
-        console.log('Spara detta objekt: ', newDealObj);
-        state.props.close();
-        // return await createDeal();
+        await createDeal(newDealObj);
+        return state.props.close(true);
     };
 
     const _startFileUpload = () => {
@@ -214,40 +212,44 @@ const CreateDeal = (state) => {
                                 </div> : null
                             }
                             <div className='createDealWrapper__createDeal__content__item'>
-                                <div className='createDealWrapper__createDeal__content__item__label'>{tc.prospects}:</div>
-                                {
-                                    newDealObj.prospects.length ? newDealObj.prospects.map((num, i) => {
-                                            if (num.id.toString() === state.props.target.toString()) {
-                                                return (
-                                                    <div className='createDealWrapper__createDeal__content__item__chip' key={i}>
-                                                        {num.name}
-                                                    </div>
-                                                );
-                                            } else {
-                                                return (
-                                                    <div className='createDealWrapper__createDeal__content__item__chip' key={i}>
-                                                        {num.name}
-                                                        <Icon val='clear' onClick={() => {_removeProspectFromDealObj(num.id)}}/>
-                                                    </div>
-                                                );
-                                            }
-                                        }) :
-                                        <div className='createDealWrapper__createDeal__content__item__info'>{tc.noProspects}</div>
-                                }
+                                <div className='createDealWrapper__createDeal__content__item__chipholder'>
+                                    <div className='createDealWrapper__createDeal__content__item__chipholder__label'>{tc.prospects}:</div>
+                                    {
+                                        newDealObj.prospects.length ? newDealObj.prospects.map((num, i) => {
+                                                if (num.id.toString() === state.props.target.toString()) {
+                                                    return (
+                                                        <div className='createDealWrapper__createDeal__content__item__chipholder__chip' key={i}>
+                                                            {num.name}
+                                                        </div>
+                                                    );
+                                                } else {
+                                                    return (
+                                                        <div className='createDealWrapper__createDeal__content__item__chipholder__chip' key={i}>
+                                                            {num.name}
+                                                            <Icon val='clear' onClick={() => {_removeProspectFromDealObj(num.id)}}/>
+                                                        </div>
+                                                    );
+                                                }
+                                            }) :
+                                            <div className='createDealWrapper__createDeal__content__item__chipholder__info'>{tc.noProspectConnections}</div>
+                                    }
+                                </div>
                             </div>
                             <div className='createDealWrapper__createDeal__content__item'>
-                                <div className='createDealWrapper__createDeal__content__item__label'>{tc.files}:</div>
-                                {
-                                    newDealObj.files.length ? newDealObj.files.map((num, i) => {
-                                        return (
-                                            <div className='createDealWrapper__createDeal__content__item__chip' key={i}>
-                                                {num.original_name}
-                                                <Icon val='clear' onClick={() => {_removeFileFromDealObj(num.s3_filename)}}/>
-                                            </div>
-                                        );
-                                    }) :
-                                    <div className='createDealWrapper__createDeal__content__item__info'>{tc.noFiles}</div>
-                                }
+                                <div className='createDealWrapper__createDeal__content__item__chipholder'>
+                                    <div className='createDealWrapper__createDeal__content__item__chipholder__label'>{tc.files}:</div>
+                                    {
+                                        newDealObj.files.length ? newDealObj.files.map((num, i) => {
+                                            return (
+                                                <div className='createDealWrapper__createDeal__content__item__chipholder__chip' key={i}>
+                                                    {num.original_name}
+                                                    <Icon val='clear' onClick={() => {_removeFileFromDealObj(num.s3_filename)}}/>
+                                                </div>
+                                            );
+                                        }) :
+                                        <div className='createDealWrapper__createDeal__content__item__chipholder__info'>{tc.noFiles}</div>
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div className='createDealWrapper__createDeal__content__right'>
@@ -270,39 +272,43 @@ const CreateDeal = (state) => {
                             </div>
                             {(state.props.target && state.props.koncern) &&
                                 <div className='createDealWrapper__createDeal__content__item'>
-                                    <div
-                                        className='createDealWrapper__createDeal__content__item__label'>{tc.vehicles}:
+                                    <div className='createDealWrapper__createDeal__content__item__chipholder'>
+                                        <div
+                                            className='createDealWrapper__createDeal__content__item__chipholder__label'>{tc.vehicles}:
+                                        </div>
+                                        {
+                                            newDealObj.cars.length ? newDealObj.cars.map((num, i) => {
+                                                    return (
+                                                        <div className='createDealWrapper__createDeal__content__chipholder__item__chip'
+                                                             key={i}>
+                                                            {num.name}
+                                                            <Icon val='clear' onClick={() => {
+                                                                _removeCarFromDealObj(num.id)
+                                                            }}/>
+                                                        </div>
+                                                    );
+                                                }) :
+                                                <div
+                                                    className='createDealWrapper__createDeal__content__item__chipholder__info'>{tc.noVehicleConnections}</div>
+                                        }
                                     </div>
-                                    {
-                                        newDealObj.cars.length ? newDealObj.cars.map((num, i) => {
-                                                return (
-                                                    <div className='createDealWrapper__createDeal__content__item__chip'
-                                                         key={i}>
-                                                        {num.name}
-                                                        <Icon val='clear' onClick={() => {
-                                                            _removeCarFromDealObj(num.id)
-                                                        }}/>
-                                                    </div>
-                                                );
-                                            }) :
-                                            <div
-                                                className='createDealWrapper__createDeal__content__item__info'>{tc.noVehicles}</div>
-                                    }
                                 </div>
                             }
                             <div className='createDealWrapper__createDeal__content__item'>
-                                <div className='createDealWrapper__createDeal__content__item__label'>{tc.contacts}:</div>
-                                {
-                                    newDealObj.contacts.length ? newDealObj.contacts.map((num, i) => {
-                                        return (
-                                            <div className='createDealWrapper__createDeal__content__item__chip' key={i}>
-                                                {num.name}
-                                                <Icon val='clear' onClick={() => {_removeContactFromDealObj(num.id)}}/>
-                                            </div>
-                                        );
-                                    }) :
-                                    <div className='createDealWrapper__createDeal__content__item__info'>{tc.noContacts}</div>
-                                }
+                                <div className='createDealWrapper__createDeal__content__item__chipholder'>
+                                    <div className='createDealWrapper__createDeal__content__item__chipholder__label'>{tc.contacts}:</div>
+                                    {
+                                        newDealObj.contacts.length ? newDealObj.contacts.map((num, i) => {
+                                            return (
+                                                <div className='createDealWrapper__createDeal__content__item__chipholder__chip' key={i}>
+                                                    {num.name}
+                                                    <Icon val='clear' onClick={() => {_removeContactFromDealObj(num.id)}}/>
+                                                </div>
+                                            );
+                                        }) :
+                                        <div className='createDealWrapper__createDeal__content__item__chipholder__info'>{tc.noContactConnections}</div>
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div className='hidden'>

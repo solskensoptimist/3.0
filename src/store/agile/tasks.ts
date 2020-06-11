@@ -1,54 +1,51 @@
-import {store} from 'store';
+// import {store} from 'store';
 import {request, tc} from 'helpers';
-import {agileActionTypes} from './actions';
+// import {agileActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
+import {addEntityToContacts} from 'store/contacts/tasks';
 
 /**
  * Create a deal
  *
- * @param payload....
+ * @param payload.cars
+ * @param payload.contacts
+ * @param payload.description
+ * @param payload.files
+ * @param payload.maturity
+ * @param payload.prospects
+ * @param payload.user_id
  */
 export const createDeal = async (payload) => {
     try {
-        // cars: []
-        // comments: ""
-        // contacts: [{_id: "-1", name: "Martin Styf", tele: ["031-3821700"], email: [], comment: "Befattningshavare",…},…]
-        // description: "Beskrivning av aggär"
-        // maturity: 3
-        // name: "Namnet"
-        // phase: "idle"
-        // prospects: ["5566524301"]
-        // responsible: null
+        const data = await request({
+            data: {
+                cars: payload.cars ? payload.cars : [],
+                comments: '', // Deprecated property
+                contacts: [], // Deprecated property
+                description: payload.description ? payload.description : '',
+                maturity: payload.maturity ? payload.maturity : null,
+                name: payload.name ? payload.name : null,
+                phase: 'idle',
+                prospects: payload.prospects ? payload.prospects : [],
+                responsible: payload.responsible ? payload.responsible : null,
+            },
+            method: 'post',
+            url: '/deals/',
+        });
 
-        // const data = await request({
-        //     data: {
-        //         cars: payload.cars ? payload.cars : [],
-        //         comments: '', // Deprecated property
-        //         contacts: [], // Deprecated property
-        //         description: payload.description ? payload.description : '',
-        //         maturity: payload.maturity ? payload.maturity : null,
-        //         name: payload.name ? payload.name : null,
-        //         phase: 'idle',
-        //         prospects: payload.prospects ? payload.prospects : [],
-        //         responsible: payload.responsible ? payload.responsible : null,
-        //     },
-        //     method: 'post',
-        //     url: '/deals/',
-        // });
-
-        // if (!data || data instanceof Error) {
-        //     showFlashMessage(tc.couldNotCreateDeal);
-        //     console.error('Could not create deal:\n' + data);
-        // }
-
-        /*
-        if (payload.contacts && payload.contacts.length) {
+        if (!data || data instanceof Error) {
+            showFlashMessage(tc.couldNotCreateDeal);
+            console.error('Could not create deal:\n' + data);
         }
-        // Här ska vi göra ett extra anrop och lägga till contacts till denna deals entityId...
-         */
 
-        // Ska vi använda callback eller hur uppdaterar jag data?
-        // parameter, reloadAgile standard true?
+        // If contacts was provided, add deal id to these contacts.
+        if (payload.contacts && payload.contacts.length && data._id) {
+            await addEntityToContacts({
+                contacts: payload.contacts,
+                entityId: data._id,
+                entityType: 'deal',
+            })
+        }
 
         return showFlashMessage(tc.dealWasCreated);
     } catch(err) {

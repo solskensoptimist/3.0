@@ -16,19 +16,26 @@
         margin-top: $paddingSmall
         &:nth-child(1)
           margin-top: 0
-        &__label
-          margin-right: $paddingSmall
-          display: flex
-          align-items: center
-          padding-top: ($paddingSmall / 2)
-        &__info
-          display: flex
-          align-items: center
-          font-style: italic
-          color: $colorTextLight-1
-          padding-top: ($paddingSmall / 2)
-        &__chip
-          @extend .chip
         button
           @extend .buttonRegular
           width: 100%
+        &__chipholder
+          background: $grey-100
+          padding: 0 $paddingSmall $paddingSmall $paddingSmall
+          flex-grow: 1
+          display: flex
+          flex-wrap: wrap
+          &__label
+            margin-right: $paddingSmall
+            display: flex
+            align-items: center
+            margin-top: $paddingSmall
+          &__info
+            display: flex
+            align-items: center
+            font-style: italic
+            color: $colorTextLight-1
+            margin-top: $paddingSmall
+          &__chip
+            @extend .chipInformatory
+            margin: $paddingSmall $paddingSmall 0 0

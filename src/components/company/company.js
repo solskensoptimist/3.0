@@ -164,7 +164,14 @@ const Company = (state) => {
                 <div className='companyWrapper__company__content'>
                     {showComment && <Comment close={() => {setShowComment(false)}} headline={tc.oneProspect + ': ' + state.company.company.name} target={id} type='new'/>}
                     {showCreateDeal &&
-                        <CreateDeal close={() => {setShowCreateDeal(false)}}
+                        <CreateDeal close={async (dealCreated) => {
+                                if (dealCreated){
+                                    setShowCreateDeal(false);
+                                    return await getCompany({id: id})
+                                } else {
+                                    return setShowCreateDeal(false);
+                                }
+                            }}
                             headline={tc.with + ' ' + tc.connection.toLowerCase() + ' ' + tc.to.toLowerCase() + ' ' + state.company.company.name}
                             koncern={!!(state.company.company.parentCompanyId && state.company.company.parentCompanyId.length)}
                             prospects={[{id: state.company.company.user_id.toString(), name: state.company.company.name}]}

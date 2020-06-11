@@ -102,6 +102,21 @@ export const getCompany = async (payload) => {
             return store.dispatch({ type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: {}});
         }
 
+        // Sort deals on name.
+        if (data[0] && data[0].deals) {
+            data[0].deals = data[0].deals.sort((a: any, b: any) => {
+                if (!a.name || a.name.length === 0) {
+                    return -1;
+                } else if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                    return -1;
+                } else if ( a.name.toLowerCase() > b.name.toLowerCase()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+
         store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: data[0]});
         return store.dispatch({ type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: data[1]});
     } catch(err) {

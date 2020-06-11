@@ -48,6 +48,15 @@
     &:hover
       fill: $colorLinkHover
 
+.chipInformatory
+  @extend .chip
+  background: $colorInformatoryDark
+  color: white
+  svg
+    fill: white
+    &:hover
+      fill: $colorLinkHover
+
 .grid2Columns1Row
   display: grid
   grid-template-columns: calc(50% - (#{$paddingGrid} / 2)) calc(50% - (#{$paddingGrid} / 2))
