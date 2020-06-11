@@ -75,7 +75,7 @@
 .hidden {
   display: none; }
 
-.iconStyleCircle, .iconStyleCircleClick, .companyWrapper__company__header__top__right svg, .dealWrapper__deal__header__top__right svg, .searchMainWrapper__searchMain__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
+.iconStyleCircle, .iconStyleCircleClick, .companyWrapper__company__header__right svg, .dealWrapper__deal__header__right svg, .searchMainWrapper__searchMain__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -88,11 +88,11 @@
   width: 38px !important;
   height: 38px !important; }
 
-.iconStyleCircleClick, .companyWrapper__company__header__top__right svg, .dealWrapper__deal__header__top__right svg, .searchMainWrapper__searchMain__header svg {
+.iconStyleCircleClick, .companyWrapper__company__header__right svg, .dealWrapper__deal__header__right svg, .searchMainWrapper__searchMain__header svg {
   fill: white !important;
   background: #bdbdbd !important;
   cursor: pointer !important; }
-  .iconStyleCircleClick:hover, .companyWrapper__company__header__top__right svg:hover, .dealWrapper__deal__header__top__right svg:hover, .searchMainWrapper__searchMain__header svg:hover {
+  .iconStyleCircleClick:hover, .companyWrapper__company__header__right svg:hover, .dealWrapper__deal__header__right svg:hover, .searchMainWrapper__searchMain__header svg:hover {
     background: #616161 !important; }
 
 .marginTopBig {
@@ -385,7 +385,6 @@ a {
   .companyWrapper__company__header {
     margin-bottom: 1.2%;
     display: flex;
-    flex-direction: column;
     font-size: 16px;
     border-bottom: 1px solid #e0e0e0; }
     .companyWrapper__company__header h4 {
@@ -411,44 +410,40 @@ a {
       border: 0;
       width: 100%;
       color: #212121; }
-    .companyWrapper__company__header__top {
+    .companyWrapper__company__header__left {
       flex-grow: 1;
+      display: flex;
+      flex-direction: column; }
+      .companyWrapper__company__header__left__top {
+        flex-grow: 1;
+        margin: 12px 0 12px 0; }
+      .companyWrapper__company__header__left__bottom {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap; }
+        .companyWrapper__company__header__left__bottom__item {
+          margin-right: 22px;
+          margin-bottom: 8px;
+          display: flex;
+          align-items: center; }
+          .companyWrapper__company__header__left__bottom__item__dealsHolder {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap; }
+    .companyWrapper__company__header__right {
       display: flex;
       align-items: flex-end;
-      justify-content: space-between;
-      margin: 12px 0 12px 0; }
-      .companyWrapper__company__header__top__left {
-        flex-grow: 1; }
-      .companyWrapper__company__header__top__right {
-        margin-left: 44px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center; }
-        .companyWrapper__company__header__top__right__iconHolder {
-          margin-left: 22px; }
-          .companyWrapper__company__header__top__right__iconHolder:first-of-type {
-            margin-left: 0; }
-        .companyWrapper__company__header__top__right svg.active {
-          fill: white !important;
-          background: #00B4CC !important; }
-          .companyWrapper__company__header__top__right svg.active:hover {
-            background: #616161 !important; }
-    .companyWrapper__company__header__bottom {
-      flex-grow: 1;
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: wrap; }
-      .companyWrapper__company__header__bottom__item {
-        margin-right: 22px;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center; }
-        .companyWrapper__company__header__bottom__item:last-of-type {
-          margin-right: 0; }
-        .companyWrapper__company__header__bottom__item__dealsHolder {
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap; }
+      padding-bottom: 8px; }
+      .companyWrapper__company__header__right__iconHolder {
+        margin-left: 22px; }
+        .companyWrapper__company__header__right__iconHolder:first-of-type {
+          margin-left: 0; }
+      .companyWrapper__company__header__right svg.active {
+        fill: white !important;
+        background: #00B4CC !important; }
+        .companyWrapper__company__header__right svg.active:hover {
+          background: #616161 !important; }
   .companyWrapper__company__content__item {
     margin-bottom: 1.2%;
     padding: 22px; }
@@ -678,7 +673,8 @@ a {
       padding: 0 8px 8px 8px;
       flex-grow: 1;
       display: flex;
-      flex-wrap: wrap; }
+      flex-wrap: wrap;
+      min-height: 44px; }
       .createDealWrapper__createDeal__content__item__chipholder__label {
         margin-right: 8px;
         display: flex;
@@ -698,7 +694,6 @@ a {
   .dealWrapper__deal__header {
     margin-bottom: 1.2%;
     display: flex;
-    flex-direction: column;
     font-size: 16px;
     border-bottom: 1px solid #e0e0e0; }
     .dealWrapper__deal__header h4 {
@@ -728,40 +723,36 @@ a {
       max-width: 60px; }
     .dealWrapper__deal__header .dropdownWrapper {
       max-width: 200px; }
-    .dealWrapper__deal__header__top {
+    .dealWrapper__deal__header__left {
       flex-grow: 1;
+      display: flex;
+      flex-direction: column; }
+      .dealWrapper__deal__header__left__top {
+        flex-grow: 1;
+        margin: 12px 0 12px 0; }
+      .dealWrapper__deal__header__left__bottom {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap; }
+        .dealWrapper__deal__header__left__bottom__item {
+          margin-right: 22px;
+          margin-bottom: 8px;
+          display: flex;
+          align-items: center; }
+    .dealWrapper__deal__header__right {
       display: flex;
       align-items: flex-end;
-      justify-content: space-between;
-      margin: 12px 0 12px 0; }
-      .dealWrapper__deal__header__top__left {
-        flex-grow: 1; }
-      .dealWrapper__deal__header__top__right {
-        margin-left: 44px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center; }
-        .dealWrapper__deal__header__top__right__iconHolder {
-          margin-left: 22px; }
-          .dealWrapper__deal__header__top__right__iconHolder:first-of-type {
-            margin-left: 0; }
-        .dealWrapper__deal__header__top__right svg.active {
-          fill: white !important;
-          background: #00B4CC !important; }
-          .dealWrapper__deal__header__top__right svg.active:hover {
-            background: #616161 !important; }
-    .dealWrapper__deal__header__bottom {
-      flex-grow: 1;
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: wrap; }
-      .dealWrapper__deal__header__bottom__item {
-        margin-right: 22px;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center; }
-        .dealWrapper__deal__header__bottom__item:last-of-type {
-          margin-right: 0; }
+      padding-bottom: 8px; }
+      .dealWrapper__deal__header__right__iconHolder {
+        margin-left: 22px; }
+        .dealWrapper__deal__header__right__iconHolder:first-of-type {
+          margin-left: 0; }
+      .dealWrapper__deal__header__right svg.active {
+        fill: white !important;
+        background: #00B4CC !important; }
+        .dealWrapper__deal__header__right svg.active:hover {
+          background: #616161 !important; }
   .dealWrapper__deal__content__item {
     margin-bottom: 1.2%;
     padding: 22px; }

@@ -4,7 +4,6 @@
     &__header
       margin-bottom: $paddingGrid
       display: flex
-      flex-direction: column
       font-size: $fontSizeStandard2
       border-bottom: 1px solid $grey-300
       h3
@@ -38,42 +37,38 @@
         max-width: 60px
       .dropdownWrapper
         max-width: 200px
-      &__top
+      &__left
         flex-grow: 1
+        display: flex
+        flex-direction: column
+        &__top
+          flex-grow: 1
+          margin: $paddingMedium 0 $paddingMedium 0
+        &__bottom
+          flex-grow: 1
+          display: flex
+          justify-content: flex-start
+          flex-wrap: wrap
+          &__item
+            margin-right: $paddingBig
+            margin-bottom: $paddingSmall
+            display: flex
+            align-items: center
+      &__right
         display: flex
         align-items: flex-end
-        justify-content: space-between
-        margin: $paddingMedium 0 $paddingMedium 0
-        &__left
-          flex-grow: 1
-        &__right
-          margin-left: $paddingGreat
-          display: flex
-          justify-content: flex-end
-          align-items: center
-          &__iconHolder
-            margin-left: $paddingBig
-            &:first-of-type
-              margin-left: 0
-          svg
-            @extend .iconStyleCircleClick
-          svg.active
-            fill: white !important
-            background: $colorLink !important
-            &:hover
-              background: $colorLinkHover !important
-      &__bottom
-        flex-grow: 1
-        display: flex
-        justify-content: flex-start
-        flex-wrap: wrap
-        &__item
-          margin-right: $paddingBig
-          margin-bottom: $paddingMedium
-          display: flex
-          align-items: center
-          &:last-of-type
-            margin-right: 0
+        padding-bottom: $paddingSmall
+        &__iconHolder
+          margin-left: $paddingBig
+          &:first-of-type
+            margin-left: 0
+        svg
+          @extend .iconStyleCircleClick
+        svg.active
+          fill: white !important
+          background: $colorLink !important
+          &:hover
+            background: $colorLinkHover !important
     &__content
       &__item
         margin-bottom: $paddingGrid

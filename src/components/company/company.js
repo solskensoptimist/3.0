@@ -57,90 +57,33 @@ const Company = (state) => {
         <div className='companyWrapper'>
             <div className='companyWrapper__company'>
                 <div className='companyWrapper__company__header'>
-                    <div className='companyWrapper__company__header__top'>
-                        <div className='companyWrapper__company__header__top__left'>
+                    <div className='companyWrapper__company__header__left'>
+                        <div className='companyWrapper__company__header__left__top'>
                             <h4>{tc.company}</h4>
                             <h3>{state.company.company.name}</h3>
                         </div>
-                        <div className='companyWrapper__company__header__top__right'>
-                            {!changeResponsible &&
-                                <div className='companyWrapper__company__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}>
-                                        <Icon val='comment' onClick={() => {
-                                            setShowComment(true)
-                                        }}/>
-                                    </Tooltip>
-                                </div>
-                            }
-                            {!changeResponsible &&
-                                <div className='companyWrapper__company__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.addToList}>
-                                        <Icon val='list' onClick={() => {console.log('spara i lista, ska skötas av tasks/lists')}}/>
-                                    </Tooltip>
-                                </div>
-                            }
-                            {!changeResponsible &&
-                                <div className='companyWrapper__company__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.createNewDeal}>
-                                        <Icon val='add' onClick={() => {setShowCreateDeal(true)}}/>
-                                    </Tooltip>
-                                </div>
-                            }
-                            {!changeResponsible &&
-                                <div className='companyWrapper__company__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.changeOwner}>
-                                        <Icon val='edit' onClick={() => {setChangeResponsible(true)}}/>
-                                    </Tooltip>
-                                </div>
-                            }
-                            {changeResponsible &&
-                                <div className='companyWrapper__company__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}>
-                                        <Icon val='clear' onClick={() => {
-                                            if (state.company.responsible) {
-                                                setResponsibleObj(state.company.responsible);
-                                            } else {
-                                                setResponsibleObj({
-                                                    responsibleUserId: null,
-                                                    responsibleUserName: '',
-                                                });
-                                            }
-                                            setChangeResponsible(false)
-                                        }}/>
-                                    </Tooltip>
-                                </div>
-                            }
-                            {changeResponsible &&
-                                <div className='companyWrapper__company__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.save}>
-                                        <Icon active={true} val='save' onClick={() => {_saveResponsible()}}/>
-                                    </Tooltip>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    <div className='companyWrapper__company__header__bottom'>
-                        <div className='companyWrapper__company__header__bottom__item'>
-                            <h5>{tc.owner}:</h5>
-                            {changeResponsible ?
-                                <ColleaguesDropdown
-                                    activeId={responsibleObj.responsibleUserId}
-                                    activeName={responsibleObj.responsibleUserName}
-                                    highlight={true}
-                                    onClick={(id, name) => {
-                                        setResponsibleObj({
-                                            ...responsibleObj,
-                                            responsibleUserId: id,
-                                            responsibleUserName: name,
-                                        });
-                                    }}/> :
-                                <p>{responsibleObj.responsibleUserName}</p>
-                            }
-                        </div>
-                        <div className='companyWrapper__company__header__bottom__item'>
-                            <h5>{tc.partOfDeals}:</h5>
-                            {(state.company.deals && state.company.deals.length) &&
-                                <div className='companyWrapper__company__header__bottom__item__dealsHolder'>
+                        <div className='companyWrapper__company__header__left__bottom'>
+                            <div className='companyWrapper__company__header__left__bottom__item'>
+                                <h5>{tc.owner}:</h5>
+                                {changeResponsible ?
+                                    <ColleaguesDropdown
+                                        activeId={responsibleObj.responsibleUserId}
+                                        activeName={responsibleObj.responsibleUserName}
+                                        highlight={true}
+                                        onClick={(id, name) => {
+                                            setResponsibleObj({
+                                                ...responsibleObj,
+                                                responsibleUserId: id,
+                                                responsibleUserName: name,
+                                            });
+                                        }}/> :
+                                    <p>{responsibleObj.responsibleUserName}</p>
+                                }
+                            </div>
+                            <div className='companyWrapper__company__header__left__bottom__item'>
+                                <h5>{tc.partOfDeals}:</h5>
+                                {(state.company.deals && state.company.deals.length) &&
+                                <div className='companyWrapper__company__header__left__bottom__item__dealsHolder'>
                                     {state.company.deals.map((num, i) => {
                                         if (num._id) {
                                             if (i === state.company.deals.length - 1) {
@@ -157,8 +100,65 @@ const Company = (state) => {
                                         }
                                     })}
                                 </div>
-                            }
+                                }
+                            </div>
                         </div>
+                    </div>
+                    <div className='companyWrapper__company__header__right'>
+                        {!changeResponsible &&
+                        <div className='companyWrapper__company__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}>
+                                <Icon val='comment' onClick={() => {
+                                    setShowComment(true)
+                                }}/>
+                            </Tooltip>
+                        </div>
+                        }
+                        {!changeResponsible &&
+                        <div className='companyWrapper__company__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.addToList}>
+                                <Icon val='list' onClick={() => {console.log('spara i lista, ska skötas av tasks/lists')}}/>
+                            </Tooltip>
+                        </div>
+                        }
+                        {!changeResponsible &&
+                        <div className='companyWrapper__company__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.createNewDeal}>
+                                <Icon val='add' onClick={() => {setShowCreateDeal(true)}}/>
+                            </Tooltip>
+                        </div>
+                        }
+                        {!changeResponsible &&
+                        <div className='companyWrapper__company__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.changeOwner}>
+                                <Icon val='edit' onClick={() => {setChangeResponsible(true)}}/>
+                            </Tooltip>
+                        </div>
+                        }
+                        {changeResponsible &&
+                        <div className='companyWrapper__company__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}>
+                                <Icon val='clear' onClick={() => {
+                                    if (state.company.responsible) {
+                                        setResponsibleObj(state.company.responsible);
+                                    } else {
+                                        setResponsibleObj({
+                                            responsibleUserId: null,
+                                            responsibleUserName: '',
+                                        });
+                                    }
+                                    setChangeResponsible(false)
+                                }}/>
+                            </Tooltip>
+                        </div>
+                        }
+                        {changeResponsible &&
+                        <div className='companyWrapper__company__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.save}>
+                                <Icon active={true} val='save' onClick={() => {_saveResponsible()}}/>
+                            </Tooltip>
+                        </div>
+                        }
                     </div>
                 </div>
                 <div className='companyWrapper__company__content'>

@@ -115,106 +115,106 @@ const Deal = (state) => {
         <div className='dealWrapper'>
             <div className='dealWrapper__deal'>
                 <div className='dealWrapper__deal__header'>
-                    <div className='dealWrapper__deal__header__top'>
-                        <div className='dealWrapper__deal__header__top__left'>
+                    <div className='dealWrapper__deal__header__left'>
+                        <div className='dealWrapper__deal__header__left__top'>
                             <h4>{tc.deal}</h4>
                             {editDeal ?
                                 <input className='large' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={(dealObj.name) ? dealObj.name : ''}/> :
                                 <h3>{state.deal.deal.name}</h3>
                             }
                         </div>
-                        <div className='dealWrapper__deal__header__top__right'>
-                            {!editDeal &&
-                                <div className='dealWrapper__deal__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}>
-                                        <Icon val='comment' onClick={() => {setShowComment(true)}}/>
-                                    </Tooltip>
-                                </div>
+                        <div className='dealWrapper__deal__header__left__bottom'>
+                            <div className='dealWrapper__deal__header__left__bottom__item'>
+                                <h5>{tc.owner}:</h5>
+                                {editDeal ?
+                                    <ColleaguesDropdown
+                                        activeId={dealObj.user_id}
+                                        activeName={dealObj.userName}
+                                        highlight={true}
+                                        onClick={(id, name) => {
+                                            setDealObj({
+                                                ...dealObj,
+                                                user_id: id,
+                                                userName: name
+                                            });
+                                        }}/> :
+                                    <p>{dealObj.userName}</p>
                                 }
-                            {!editDeal &&
-                                <div className='dealWrapper__deal__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.openInAgile}>
-                                        <Icon val='agile' onClick={_openInAgile}/>
-                                    </Tooltip>
-                                </div>
-                            }
-                            {(!editDeal && state.user.info.id === state.deal.deal.user_id) &&
-                                <div className='dealWrapper__deal__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}>
-                                        <Icon val='edit' onClick={() => {setEditDeal(true)}}/>
-                                    </Tooltip>
-                                </div>
-                            }
-                            {editDeal &&
-                                 <div className='dealWrapper__deal__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}>
-                                        <Icon val='clear' onClick={() => {
-                                            setEditDeal(false);
-                                            _setDealObjFromStore();
-                                        }}/>
-                                    </Tooltip>
-                                 </div>
-                             }
-                            {editDeal &&
-                                <div className='dealWrapper__deal__header__top__right__iconHolder'>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.saveChanges}>
-                                        <Icon active={true} val='save' onClick={_saveChanges}/>
-                                    </Tooltip>
-                                </div>
-                            }
+                            </div>
+                            <div className='dealWrapper__deal__header__left__bottom__item'>
+                                <h5>{tc.description}:</h5>
+                                {editDeal ?
+                                    <input className='medium' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={(dealObj.description) ? dealObj.description : ''}/> :
+                                    <p>{dealObj.description}</p>
+                                }
+                            </div>
+                            <div className='dealWrapper__deal__header__left__bottom__item'>
+                                <h5>{tc.status}:</h5>
+                                <p>{dealHelper.getReadablePhase(state.deal.deal.phase)}</p>
+                            </div>
+                            <div className='dealWrapper__deal__header__left__bottom__item'>
+                                <h5>{tc.savedInList}:</h5>
+                                <p>{state.deal.listName}</p>
+                            </div>
+                            <div className='dealWrapper__deal__header__left__bottom__item'>
+                                <h5>{tc.lastUpdate}:</h5>
+                                <p>{moment(new Date(state.deal.deal.updated)).fromNow()}</p>
+                            </div>
+                            <div className='dealWrapper__deal__header__bottom__item'>
+                                <h5>{tc.potential}:</h5>
+                                {editDeal ?
+                                    <input className='small' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/> :
+                                    <p>{dealObj.potential}</p>
+                                }
+                            </div>
+                            <div className='dealWrapper__deal__header__left__bottom__item'>
+                                <h5>{tc.maturity}:</h5>
+                                {editDeal ?
+                                    _renderMaturityList() :
+                                    <p>{dealHelper.getMaturityName(dealObj.maturity)}</p>
+                                }
+                            </div>
                         </div>
                     </div>
-                    <div className='dealWrapper__deal__header__bottom'>
-                        <div className='dealWrapper__deal__header__bottom__item'>
-                            <h5>{tc.owner}:</h5>
-                            {editDeal ?
-                                <ColleaguesDropdown
-                                    activeId={dealObj.user_id}
-                                    activeName={dealObj.userName}
-                                    highlight={true}
-                                    onClick={(id, name) => {
-                                    setDealObj({
-                                        ...dealObj,
-                                        user_id: id,
-                                        userName: name
-                                    });
-                                }}/> :
-                                <p>{dealObj.userName}</p>
-                            }
+                    <div className='dealWrapper__deal__header__right'>
+                        {!editDeal &&
+                        <div className='dealWrapper__deal__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.addComment}>
+                                <Icon val='comment' onClick={() => {setShowComment(true)}}/>
+                            </Tooltip>
                         </div>
-                        <div className='dealWrapper__deal__header__bottom__item'>
-                            <h5>{tc.description}:</h5>
-                            {editDeal ?
-                                <input className='medium' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={(dealObj.description) ? dealObj.description : ''}/> :
-                                <p>{dealObj.description}</p>
-                            }
+                        }
+                        {!editDeal &&
+                        <div className='dealWrapper__deal__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.openInAgile}>
+                                <Icon val='agile' onClick={_openInAgile}/>
+                            </Tooltip>
                         </div>
-                        <div className='dealWrapper__deal__header__bottom__item'>
-                            <h5>{tc.status}:</h5>
-                            <p>{dealHelper.getReadablePhase(state.deal.deal.phase)}</p>
+                        }
+                        {(!editDeal && state.user.info.id === state.deal.deal.user_id) &&
+                        <div className='dealWrapper__deal__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.editDeal}>
+                                <Icon val='edit' onClick={() => {setEditDeal(true)}}/>
+                            </Tooltip>
                         </div>
-                        <div className='dealWrapper__deal__header__bottom__item'>
-                            <h5>{tc.savedInList}:</h5>
-                            <p>{state.deal.listName}</p>
+                        }
+                        {editDeal &&
+                        <div className='dealWrapper__deal__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}>
+                                <Icon val='clear' onClick={() => {
+                                    setEditDeal(false);
+                                    _setDealObjFromStore();
+                                }}/>
+                            </Tooltip>
                         </div>
-                        <div className='dealWrapper__deal__header__bottom__item'>
-                            <h5>{tc.lastUpdate}:</h5>
-                            <p>{moment(new Date(state.deal.deal.updated)).fromNow()}</p>
+                        }
+                        {editDeal &&
+                        <div className='dealWrapper__deal__header__right__iconHolder'>
+                            <Tooltip horizontalDirection='left' tooltipContent={tc.saveChanges}>
+                                <Icon active={true} val='save' onClick={_saveChanges}/>
+                            </Tooltip>
                         </div>
-                        <div className='dealWrapper__deal__header__bottom__item'>
-                            <h5>{tc.potential}:</h5>
-                            {editDeal ?
-                                <input className='small' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/> :
-                                <p>{dealObj.potential}</p>
-                            }
-                        </div>
-                        <div className='dealWrapper__deal__header__bottom__item'>
-                            <h5>{tc.maturity}:</h5>
-                            {editDeal ?
-                                _renderMaturityList() :
-                                <p>{dealHelper.getMaturityName(dealObj.maturity)}</p>
-                            }
-                        </div>
+                        }
                     </div>
                 </div>
                 <div className='dealWrapper__deal__content'>
