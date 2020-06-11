@@ -58,7 +58,7 @@ export default {
     connectContacts: 'Koppla kontaktpersoner',
     connectedTo: 'Kopplad till',
     connection: 'Koppling',
-    connectKoncernCompanies: 'Koppla koncern-företag',
+    connectKoncernCompanies: 'Koppla företag inom koncern',
     connectProspects: 'Koppla prospekt',
     contact: 'Kontakt',
     contacts: 'Kontaktpersoner',

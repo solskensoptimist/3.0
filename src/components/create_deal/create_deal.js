@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {createDeal} from 'store/agile/tasks';
+import ReactS3Uploader from 'react-s3-uploader';
 import {dealHelper, tc} from 'helpers';
 import {connect} from 'react-redux';
 import {Dropdown, DropdownItem} from 'components/dropdown';
@@ -10,19 +11,20 @@ import Popup from 'components/popup';
 import Search from 'components/search';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
+import {updateDeal} from "store/deal/tasks";
 
 /**
  * Render a component where user can create a new deal.
+ *
  * If target is provided, that prospect is included in the deal, otherwise it starts with an empty deal.
  * User always have the possibility to search for prospects to att to deal.
- * If target is provided user have the possibility to add cars from that targets fleet to deal.
- * If target is provided and state.props.type === 'company' and state.props.koncern === true user have the possibility to add companies from within that koncern to deal.
+ * If target is provided and state.props.koncern === true user have the possibility to add specific cars from koncern fleet to deal.
+ * If target is provided and state.props.koncern === true user have the possibility to add companies from within that koncern to deal.
  *
  * @param state.props.close - func - Function to close component.
  * @param state.props.headline - string (optional) - If sub headline is wanted.
  * @param state.props.koncern - bool (optional) - If target is a company org nr and type === 'company' and the company is part of a koncern, this should be set to true.
  * @param state.props.target - string (optional) - Company org nr | person user id.
- * @param state.props.type - string (optional) - 'company' | 'person'
  */
 const CreateDeal = (state) => {
     const [newDealObj, setNewDealObj] = useState({
@@ -85,6 +87,17 @@ const CreateDeal = (state) => {
         })
     };
 
+    const _finishUpload = async (e, f) => {
+        console.log('Gör klart finishupload');
+        setNewDealObj({
+            ...newDealObj,
+            files: newDealObj.files.concat([{
+                s3_filename: e.filename,
+                original_name: f.name,
+            }])
+        });
+    };
+
     const _onInputChange = () => {
         setNewDealObj({
             ...newDealObj,
@@ -108,10 +121,10 @@ const CreateDeal = (state) => {
         });
     };
 
-    const _removeFileFromDealObj = (id) => {
+    const _removeFileFromDealObj = (s3_filename) => {
         setNewDealObj({
             ...newDealObj,
-            files: newDealObj.files.filter((num) => num.id !== id),
+            files: newDealObj.files.filter((num) => num.s3_filename !== s3_filename),
         });
     };
 
@@ -149,8 +162,16 @@ const CreateDeal = (state) => {
         // return await createDeal();
     };
 
+    const _startFileUpload = () => {
+        document.querySelector('#s3Uploader').click();
+    };
+
     const _stateCheck = () => {
         return !!(state && state.props && state.search && newDealObj && Object.keys(newDealObj).length);
+    };
+
+    const _uploadError = (message) => {
+        console.error('S3 file upload error:', message);
     };
 
     return (_stateCheck() ?
@@ -220,8 +241,8 @@ const CreateDeal = (state) => {
                                     newDealObj.files.length ? newDealObj.files.map((num, i) => {
                                         return (
                                             <div className='createDealWrapper__createDeal__content__item__chip' key={i}>
-                                                {num.name}
-                                                <Icon val='clear' onClick={() => {_removeFileFromDealObj(num.id)}}/>
+                                                {num.original_name}
+                                                <Icon val='clear' onClick={() => {_removeFileFromDealObj(num.s3_filename)}}/>
                                             </div>
                                         );
                                     }) :
@@ -237,9 +258,9 @@ const CreateDeal = (state) => {
                                 {_renderMaturityList()}
                             </div>
                             <div className='createDealWrapper__createDeal__content__item'>
-                                <button>{tc.uploadFile}</button>
+                                <button onClick={_startFileUpload}>{tc.uploadFile}</button>
                             </div>
-                            {state.props.target ?
+                            {(state.props.koncern && state.props.target) ?
                                 <div className='createDealWrapper__createDeal__content__item'>
                                     <Search target={state.props.target} type='cars' save={_addSelectedCarsToDealObj}/>
                                 </div> : null
@@ -247,20 +268,28 @@ const CreateDeal = (state) => {
                             <div className='createDealWrapper__createDeal__content__item'>
                                 <Search type='contacts' save={_addSelectedContactsToDealObj}/>
                             </div>
-                            <div className='createDealWrapper__createDeal__content__item'>
-                                <div className='createDealWrapper__createDeal__content__item__label'>{tc.vehicles}:</div>
-                                {
-                                    newDealObj.cars.length ? newDealObj.cars.map((num, i) => {
-                                        return (
-                                            <div className='createDealWrapper__createDeal__content__item__chip' key={i}>
-                                                {num.name}
-                                                <Icon val='clear' onClick={() => {_removeCarFromDealObj(num.id)}}/>
-                                            </div>
-                                        );
-                                    }) :
-                                    <div className='createDealWrapper__createDeal__content__item__info'>{tc.noVehicles}</div>
-                                }
-                            </div>
+                            {(state.props.target && state.props.koncern) &&
+                                <div className='createDealWrapper__createDeal__content__item'>
+                                    <div
+                                        className='createDealWrapper__createDeal__content__item__label'>{tc.vehicles}:
+                                    </div>
+                                    {
+                                        newDealObj.cars.length ? newDealObj.cars.map((num, i) => {
+                                                return (
+                                                    <div className='createDealWrapper__createDeal__content__item__chip'
+                                                         key={i}>
+                                                        {num.name}
+                                                        <Icon val='clear' onClick={() => {
+                                                            _removeCarFromDealObj(num.id)
+                                                        }}/>
+                                                    </div>
+                                                );
+                                            }) :
+                                            <div
+                                                className='createDealWrapper__createDeal__content__item__info'>{tc.noVehicles}</div>
+                                    }
+                                </div>
+                            }
                             <div className='createDealWrapper__createDeal__content__item'>
                                 <div className='createDealWrapper__createDeal__content__item__label'>{tc.contacts}:</div>
                                 {
@@ -275,6 +304,15 @@ const CreateDeal = (state) => {
                                     <div className='createDealWrapper__createDeal__content__item__info'>{tc.noContacts}</div>
                                 }
                             </div>
+                        </div>
+                        <div className='hidden'>
+                            <ReactS3Uploader
+                                id='s3Uploader'
+                                signingUrl='/s3/sign'
+                                onFinish={_finishUpload}
+                                onError={_uploadError}
+                                contentDisposition='auto'
+                            />
                         </div>
                     </div>
                     <div className='createDealWrapper__createDeal__footer'>

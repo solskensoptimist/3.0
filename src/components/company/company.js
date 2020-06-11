@@ -169,7 +169,6 @@ const Company = (state) => {
                             koncern={!!(state.company.company.parentCompanyId && state.company.company.parentCompanyId.length)}
                             prospects={[{id: state.company.company.user_id.toString(), name: state.company.company.name}]}
                             target={state.company.company.user_id}
-                            type='company'
                         />
                     }
                     <div className='companyWrapper__company__content__item'>
