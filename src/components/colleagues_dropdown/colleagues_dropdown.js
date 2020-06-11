@@ -6,9 +6,10 @@ import Loading from 'components/loading';
 /**
  * Render a dropdown list of user colleagues. Can be used when setting owner of a deal, company etc.
  *
- * @param state.props.activeId - User id that is currently active.
- * @param state.props.activeId - Name that should be displayed at top.
- * @param state.props.onClick - When choosing a colleague, always sends back id and name as params.
+ * @param state.props.activeId - number - User id that is currently active.
+ * @param state.props.activeName - string - Name that should be displayed at top.
+ * @param state.props.highlight - bool (optional) - If we want top row highlighted, as when in edit mode.
+ * @param state.props.onClick - func - When choosing a colleague, always sends back id and name as params.
  */
 const ColleaguesDropdown = (state) => {
 
@@ -66,7 +67,7 @@ const ColleaguesDropdown = (state) => {
         }
 
         return (
-            <Dropdown displayValue={state.props.activeName} highlight={true}>
+            <Dropdown displayValue={state.props.activeName} highlight={state.props.highlight}>
                 {colleagues}
             </Dropdown>
         );

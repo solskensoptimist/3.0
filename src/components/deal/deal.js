@@ -168,7 +168,11 @@ const Deal = (state) => {
                         <div className='dealWrapper__deal__header__bottom__item'>
                             <h5>{tc.owner}:</h5>
                             {editDeal ?
-                                <ColleaguesDropdown activeId={dealObj.user_id} activeName={dealObj.userName} onClick={(id, name) => {
+                                <ColleaguesDropdown
+                                    activeId={dealObj.user_id}
+                                    activeName={dealObj.userName}
+                                    highlight={true}
+                                    onClick={(id, name) => {
                                     setDealObj({
                                         ...dealObj,
                                         user_id: id,

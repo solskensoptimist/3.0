@@ -1,23 +1,25 @@
 .buttonRegular
-  background: $grey-200
+  background: $grey-100
   border: 1px solid $grey-300
   color: $colorTextMain
   display: flex
   align-items: center
-  text-transform: uppercase
+  text-transform: none
   font-size: $fontSizeStandard-1
   justify-content: center
   cursor: pointer
   padding: $paddingSmall $paddingBig
   &:hover
-    background: $grey-300
+    background: $colorLinkHover
+    border-color: $colorLinkHover
+    color: white
 
 .buttonSave
   background: $colorPrimary-500
   color: white
   display: flex
   align-items: center
-  text-transform: uppercase
+  text-transform: none
   font-size: $fontSizeStandard-1
   justify-content: center
   cursor: pointer
@@ -25,6 +27,26 @@
   border: 0
   &:hover
     background: $colorLinkHover
+
+.chip
+  border-radius: 4px
+  background: $grey-100
+  color: $grey-600
+  padding: ($paddingSmall / 2) $paddingSmall
+  display: flex
+  align-items: center
+  font-size: $fontSizeStandard-2
+  margin: 0 $paddingSmall $paddingSmall 0
+  &:last-of-type
+    margin-right: 0
+  svg
+    width: 14px
+    height: 14px
+    fill: $colorLink
+    margin-left: $paddingSmall
+    cursor: pointer
+    &:hover
+      fill: $colorLinkHover
 
 .grid2Columns1Row
   display: grid

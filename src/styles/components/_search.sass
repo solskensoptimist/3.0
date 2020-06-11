@@ -179,29 +179,13 @@
             display: flex
             justify-content: space-between
             align-items: flex-start
+            margin-top: $paddingSmall
             &__chips
                 flex-grow: 1
                 display: flex
                 flex-wrap: wrap
                 &__item
-                    border-radius: 4px
-                    background: $grey-100
-                    color: $grey-600
-                    margin: $paddingSmall 0 0$paddingSmall
-                    padding: $paddingSmall
-                    display: flex
-                    align-items: center
-                    font-size: $fontSizeStandard-2
-                    &:first-of-type
-                        margin-left: 0
-                    svg
-                        width: 14px
-                        height: 14px
-                        fill: $colorLink
-                        margin-left: $paddingSmall
-                        cursor: pointer
-                        &:hover
-                            fill: $colorLinkHover
+                    @extend .chip
             &__save
                 margin: $paddingSmall 0 0 $paddingMedium
                 @extend .buttonSave

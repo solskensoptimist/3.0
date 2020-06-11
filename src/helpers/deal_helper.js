@@ -13,7 +13,9 @@ export const dealHelper = {
     },
     getMaturityName: (id) => {
         const arr = dealHelper.getMaturityList().filter((num) => (Number(id) === num.id));
-        if (arr && arr[0] && arr[0].name) {
+        if (id === null) {
+            return tc.maturity;
+        } else if (arr && arr[0] && arr[0].name) {
             return arr[0].name;
         } else {
             return '';

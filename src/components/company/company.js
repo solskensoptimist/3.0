@@ -123,8 +123,10 @@ const Company = (state) => {
                         <div className='companyWrapper__company__header__bottom__item'>
                             <h5>{tc.owner}:</h5>
                             {changeResponsible ?
-                                <ColleaguesDropdown activeId={responsibleObj.responsibleUserId}
+                                <ColleaguesDropdown
+                                    activeId={responsibleObj.responsibleUserId}
                                     activeName={responsibleObj.responsibleUserName}
+                                    highlight={true}
                                     onClick={(id, name) => {
                                         setResponsibleObj({
                                             ...responsibleObj,
@@ -165,7 +167,7 @@ const Company = (state) => {
                         <CreateDeal close={() => {setShowCreateDeal(false)}}
                             headline={tc.with + ' ' + tc.connection.toLowerCase() + ' ' + tc.to.toLowerCase() + ' ' + state.company.company.name}
                             koncern={!!(state.company.company.parentCompanyId && state.company.company.parentCompanyId.length)}
-                            prospects={[{id: state.company.company.user_id, name: state.company.company.name}]}
+                            prospects={[{id: state.company.company.user_id.toString(), name: state.company.company.name}]}
                             target={state.company.company.user_id}
                             type='company'
                         />

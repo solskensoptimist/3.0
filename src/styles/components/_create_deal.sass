@@ -2,37 +2,33 @@
   &__createDeal
     &__content
       margin: $paddingBig 0
-      &__section
+      display: flex
+      &__left
+        flex-basis: calc(50% - (#{$paddingSmall} / 2))
+        margin-right: ($paddingSmall / 2)
+      &__right
+        margin-left: ($paddingSmall / 2)
+        flex-basis: calc(50% - (#{$paddingSmall} / 2))
+      &__item
         display: flex
+        align-items: flex-start
         flex-wrap: wrap
-        margin-bottom: $paddingBig
-        border-bottom: 1px solid $grey-300
-        padding-bottom: $paddingMedium
-        &:last-of-type
-          margin-bottom: 0
-          border-bottom: 0
-          padding-bottom: 0
-        h5
-          width: 100%
-          margin-bottom: $paddingMedium
-          color: $colorTextLight
-        span.chip
-          background: $grey-100
-          padding: 4px
-          margin-left: 4px
+        margin-top: $paddingSmall
+        &:nth-child(1)
+          margin-top: 0
+        &__label
+          margin-right: $paddingSmall
           display: flex
           align-items: center
-          svg
-            margin-left: 4px
-            fill: $colorTextMain
-            width: 14px
-            height: 14px
-        &__item
-          margin-top: ($paddingSmall * 2)
-          margin-left: $paddingSmall
-          flex-basis: calc(50% - #{$paddingSmall})
-          &:nth-child(2), &:nth-child(3)
-            margin-top: 0
-          &:nth-child(even)
-            margin-left: 0
-            margin-right: $paddingSmall
+          padding-top: ($paddingSmall / 2)
+        &__info
+          display: flex
+          align-items: center
+          font-style: italic
+          color: $colorTextLight-1
+          padding-top: ($paddingSmall / 2)
+        &__chip
+          @extend .chip
+        button
+          @extend .buttonRegular
+          width: 100%
