@@ -42,7 +42,7 @@ const DealFiles = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!(state && state.deal && state.deal.deal && state.deal.deal.meta && state.deal.deal.meta.files);
+        return !!(state && state.deal && state.deal.deal && state.deal.deal.meta && state.deal.deal.meta.files && state.user && state.user.info);
     };
 
     const _uploadError = (message) => {
@@ -83,7 +83,7 @@ const DealFiles = (state) => {
 
         const _renderFileItem = (file) => {
             return(
-                <div className='dealFilesWrapper__dealFiles__content__files__file' key={file.original_name}>
+                <div className={(state.user.info.id === state.deal.deal.user_id) ? 'dealFilesWrapper__dealFiles__content__files__file' : 'dealFilesWrapper__dealFiles__content__files__fileNoRemove'} key={file.original_name}>
                     <div className='dealFilesWrapper__dealFiles__content__files__file__icon'><Icon val='file'/></div>
                     <div className='dealFilesWrapper__dealFiles__content__files__file__remove'><Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon onClick={() => {_removeFile(file)}} val='remove'/></Tooltip></div>
                     <p>{file.original_name}</p>
@@ -107,7 +107,7 @@ const DealFiles = (state) => {
                                         <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
                                     </> :
                                     <>
-                                        <Tooltip horizontalDirection='left' tooltipContent={tc.uploadFile}><Icon val='add' onClick={() => {_startUpload()}}/></Tooltip>
+                                        {(state.user.info.id === state.deal.deal.user_id) && <Tooltip horizontalDirection='left' tooltipContent={tc.uploadFile}><Icon val='add' onClick={() => {_startUpload()}}/></Tooltip>}
                                         {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
                                         {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
                                         <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
@@ -149,6 +149,7 @@ const DealFiles = (state) => {
 const MapStateToProps = (state) => {
     return {
         deal: state.deal,
+        user: state.user,
     };
 };
 

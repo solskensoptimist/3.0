@@ -12,6 +12,8 @@ import WidgetHeader from 'components/widget_header';
 
 /**
  * This component renders a list of cars, based on store.deal.deal.cars.
+ *
+ * @param state.props.isRemovable - bool
  */
 const DealCars = (state) => {
     const amountIncrease = 4;
@@ -70,7 +72,7 @@ const DealCars = (state) => {
 
         const _renderCarItem = (regNr, firstItem) => {
             return (
-                <div className='dealCarsWrapper__dealCars__content__cars__item'>
+                <div className={state.props.isRemovable ? 'dealCarsWrapper__dealCars__content__cars__item' : 'dealCarsWrapper__dealCars__content__cars__itemNoRemove'}>
                     <div className='dealCarsWrapper__dealCars__content__cars__item__icon'>
                         <div className='dealCarsWrapper__dealCars__content__cars__item__icon__visible'>{<Icon val='car'/>}</div>
                         <div className='dealCarsWrapper__dealCars__content__cars__item__icon__hidden'><Tooltip horizontalDirection='right' verticalDirection={firstItem ? 'bottom' : 'top'}  tooltipContent={tc.removeCar}><Icon val='remove' onClick={async () => {return await _removeCar(regNr)}}/></Tooltip></div>
@@ -89,7 +91,7 @@ const DealCars = (state) => {
         };
 
         _renderCars();
-    }, [showAmount, state.deal.deal.cars]);
+    }, [showAmount, state.deal.deal.cars, state.props]);
 
     return ( _stateCheck() ?
             <div className='dealCarsWrapper'>
@@ -139,10 +141,12 @@ const DealCars = (state) => {
 };
 
 
-const MapStateToProps = (state) => {
+const MapStateToProps = (state, props) => {
     return {
         deal: state.deal,
+        props: props,
         search: state.search,
+        user: state.user,
     };
 };
 

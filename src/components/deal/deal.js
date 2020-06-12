@@ -229,8 +229,8 @@ const Deal = (state) => {
                         <Contacts entityId={state.deal.deal._id} entityType='deal'/>
                     </div>
                     <div className='dealWrapper__deal__content__itemsContainer'>
-                        <DealProspects/>
-                        <DealCars/>
+                        <DealProspects isRemovable={state.user.info.id === state.deal.deal.user_id}/>
+                        <DealCars isRemovable={state.user.info.id === state.deal.deal.user_id}/>
                     </div>
                     <div className='dealWrapper__deal__content__item'>
                         <Activities includeComments={true} includeMoved={true} target={id} type='target'/>

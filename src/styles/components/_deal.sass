@@ -164,6 +164,13 @@
             min-width: 0
             svg
               fill: $colorLink
+        &__itemNoRemove
+          @extend .dealCarsWrapper__dealCars__content__cars__item
+          &:hover // Same as item, but no remove icon for this class
+            .dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible
+              display: inline
+            .dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden
+              display: none
       &__search
         flex-basis: calc(50% - (#{$paddingBig} / 2))
         flex-grow: 0
@@ -251,6 +258,13 @@
             min-width: 0
             svg
               fill: $colorLink
+        &__itemNoRemove
+          @extend .dealCarsWrapper__dealCars__content__cars__item
+          &:hover // Same as item, but no remove icon for this class
+            .dealCarsWrapper__dealCars__content__cars__item__icon__visible
+              display: inline
+            .dealCarsWrapper__dealCars__content__cars__item__icon__hidden
+              display: none
       &__search
         flex-basis: calc(50% - (#{$paddingBig} / 2))
         flex-grow: 0
@@ -325,3 +339,10 @@
               cursor: pointer
           a
             margin-left: $paddingBig
+        &__fileNoRemove
+          @extend .dealFilesWrapper__dealFiles__content__files__file
+          &:hover // Same as file, but no remove icon for this class
+            .dealFilesWrapper__dealFiles__content__files__file__icon
+              display: flex
+            .dealFilesWrapper__dealFiles__content__files__file__remove
+              display: none

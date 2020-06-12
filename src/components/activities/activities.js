@@ -117,8 +117,8 @@ const Activities = (state) => {
                     action = <div>{activityHelper.getReadableActivity(activity.action)} {activityHelper.getPreposition(activity.action).toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
                 } else if (!activity.action && activity.comment && activity.comment !== '') {
                     // No action, this is a comment.
-                    isEditable = true;
-                    isRemovable = true;
+                    isEditable = (state.user.info.id === activity.user_id);
+                    isRemovable = (state.user.info.id === activity.user_id);
                     if (activity.deal && activity.deal.name) {
                         // Add deal link to deal.
                         action = <div>{activityHelper.getReadableActivity('comment')} {tc.onDeal.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>;
@@ -175,7 +175,7 @@ const Activities = (state) => {
         };
 
         _renderActivities();
-    }, [includeComments, includeMoved, showAmount, state.activity.activityByFilter, state.activity.activityByTarget, state.props.target, state.props.type]);
+    }, [includeComments, includeMoved, showAmount, state.activity.activityByFilter, state.activity.activityByTarget, state.props.target, state.props.type, state.user]);
 
     return ( _stateCheck() ?
         <div className='activitiesWrapper'>
@@ -216,6 +216,7 @@ const MapStateToProps = (state, props) => {
         activity: state.activity,
         comment: state.comment,
         props: props,
+        user: state.user
     };
 };
 

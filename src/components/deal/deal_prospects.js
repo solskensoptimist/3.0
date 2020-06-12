@@ -12,6 +12,8 @@ import WidgetHeader from 'components/widget_header';
 
 /**
  * This component renders a list of prospects, based on store.deal.prospectsInfo.
+ *
+ * @param state.props.isRemovable - bool
  */
 const DealProspects = (state) => {
     const amountIncrease = 4;
@@ -70,7 +72,7 @@ const DealProspects = (state) => {
 
         const _renderProspectItem = (prospect, firstItem) => {
             return (
-                <div className='dealProspectsWrapper__dealProspects__content__prospects__item'>
+                <div className={state.props.isRemovable ? 'dealProspectsWrapper__dealProspects__content__prospects__item' : 'dealProspectsWrapper__dealProspects__content__prospects__itemNoRemove'}>
                     <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon'>
                         <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__visible'>{(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}</div>
                         <div className='dealProspectsWrapper__dealProspects__content__prospects__item__icon__hidden'><Tooltip horizontalDirection='right' verticalDirection={firstItem ? 'bottom' : 'top'} tooltipContent={tc.removeProspect}><Icon val='remove' onClick={async () => {return await _removeProspect(prospect.id)}}/></Tooltip></div>
@@ -93,7 +95,7 @@ const DealProspects = (state) => {
         if (state.deal && state.deal.prospectInfo) {
             _renderProspects();
         }
-    }, [showAmount, state.deal]);
+    }, [showAmount, state.deal, state.props]);
 
     return ( _stateCheck() ?
         <div className='dealProspectsWrapper'>
@@ -142,9 +144,10 @@ const DealProspects = (state) => {
 };
 
 
-const MapStateToProps = (state) => {
+const MapStateToProps = (state, props) => {
     return {
         deal: state.deal,
+        props: props,
         search: state.search,
     };
 };
