@@ -45,6 +45,8 @@ export const getDeal = async (payload, prospectInfo = true) => {
             });
             const listName = (list && !(list instanceof Error)) ? list.name : '';
             store.dispatch({ type: dealActionTypes.SET_LIST_NAME, payload: listName});
+        } else {
+            store.dispatch({ type: dealActionTypes.SET_LIST_NAME, payload: null});
         }
 
         // Get prospects info.

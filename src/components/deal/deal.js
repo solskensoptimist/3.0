@@ -160,7 +160,7 @@ const Deal = (state) => {
                                 <h5>{tc.lastUpdate}:</h5>
                                 <p>{moment(new Date(state.deal.deal.updated)).fromNow()}</p>
                             </div>
-                            <div className='dealWrapper__deal__header__bottom__item'>
+                            <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.potential}:</h5>
                                 {editDeal ?
                                     <input className='small' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/> :

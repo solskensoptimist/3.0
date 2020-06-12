@@ -550,7 +550,7 @@ a {
           .contactsWrapper__contacts__content__contacts__item__header__icon svg, .contactsWrapper__contacts__content__contacts__item__header__stickyIcon svg {
             fill: #bdbdbd; }
         .contactsWrapper__contacts__content__contacts__item__header__stickyIcon svg {
-          fill: #ffc107; }
+          fill: #ffb300; }
         .contactsWrapper__contacts__content__contacts__item__header__name, .contactsWrapper__contacts__content__contacts__item__header__stickyName {
           flex-grow: 1;
           display: flex;
@@ -563,7 +563,7 @@ a {
           font-weight: 600;
           font-size: 12px; }
         .contactsWrapper__contacts__content__contacts__item__header__stickyName {
-          color: #ffc107; }
+          color: #ffb300; }
         .contactsWrapper__contacts__content__contacts__item__header__edit {
           visibility: hidden;
           display: flex;
@@ -968,7 +968,7 @@ a {
         align-items: center;
         justify-content: center; }
         .dealFilesWrapper__dealFiles__content__files__file__icon svg, .dealFilesWrapper__dealFiles__content__files__file__remove svg {
-          fill: #ffc107; }
+          fill: #ffb300; }
       .dealFilesWrapper__dealFiles__content__files__file p {
         flex-grow: 1;
         overflow: hidden;
@@ -1046,9 +1046,9 @@ a {
       width: 14px;
       height: 14px; }
   .dropdownItemWrapper__dropdownItemActive {
-    color: #ffc107; }
+    color: #ffb300; }
     .dropdownItemWrapper__dropdownItemActive svg {
-      fill: #ffc107; }
+      fill: #ffb300; }
 
 .dropdownItemDelimiterWrapper {
   margin-top: 22px; }
@@ -1416,7 +1416,7 @@ svg.active {
     align-items: center;
     justify-content: center; }
     .infoBoxWrapper__infoBox__icon svg {
-      fill: #ffc107;
+      fill: #ffb300;
       width: 26px;
       height: 26px; }
   .infoBoxWrapper__infoBox h4 {
@@ -1760,7 +1760,7 @@ svg.active {
     background: #f5f5f5;
     padding: 12px; }
     .searchSelectWrapper__searchSelect__header__top__title h4 {
-      color: #ffc107;
+      color: #ffb300;
       font-size: 12px;
       margin-bottom: 12px; }
     .searchSelectWrapper__searchSelect__header__top__input {
@@ -1768,7 +1768,7 @@ svg.active {
       align-items: center;
       justify-content: flex-start; }
       .searchSelectWrapper__searchSelect__header__top__input svg {
-        background: #ffc107;
+        background: #ffb300;
         fill: white;
         height: 44px;
         width: 34px;
@@ -1777,7 +1777,7 @@ svg.active {
         background: white;
         color: #616161;
         padding: 12px 18px;
-        border: 2px solid #ffc107;
+        border: 2px solid #ffb300;
         width: 100%;
         font-size: 13px;
         height: 44px; }

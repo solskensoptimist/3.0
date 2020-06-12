@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {createDeal} from 'store/agile/tasks';
 import ReactS3Uploader from 'react-s3-uploader';
 import {dealHelper, tc} from 'helpers';
@@ -26,18 +26,7 @@ import WidgetHeader from 'components/widget_header';
  * @param state.props.target - string (optional) - Company org nr | person user id.
  */
 const CreateDeal = (state) => {
-    const [newDealObj, setNewDealObj] = useState({
-        cars: (state.props.cars && Array.isArray(state.props.cars)) ? state.props.cars : [],
-        contacts: [],
-        description: '',
-        files: [],
-        maturity: null,
-        name: '',
-        prospects: (state.props.prospects && Array.isArray(state.props.prospects)) ? state.props.prospects : [],
-        responsible: null,
-        user_id: state.user.info.id,
-        userName: state.user.info.name,
-    });
+    const [newDealObj, setNewDealObj] = useState({});
     const newDealDescriptionInputRef = useRef(null);
     const newDealNameInputRef = useRef(null);
     const newDealPotentialInputRef = useRef(null);
@@ -87,7 +76,6 @@ const CreateDeal = (state) => {
     };
 
     const _finishUpload = async (e, f) => {
-        console.log('Gör klart finishupload');
         setNewDealObj({
             ...newDealObj,
             files: newDealObj.files.concat([{
@@ -172,6 +160,22 @@ const CreateDeal = (state) => {
         console.error('S3 file upload error:', message);
     };
 
+    useEffect(() => {
+        if (state.props && state.user && state.user.info) {
+            setNewDealObj({
+                cars: (state.props.cars && Array.isArray(state.props.cars)) ? state.props.cars : [],
+                contacts: [],
+                description: '',
+                files: [],
+                maturity: null,
+                name: '',
+                prospects: (state.props.prospects && Array.isArray(state.props.prospects)) ? state.props.prospects : [],
+                user_id: state.user.info.id,
+                userName: state.user.info.name,
+            });
+        }
+    }, [state.props, state.user]);
+
     return (_stateCheck() ?
         <Popup close={state.props.close} size='big'>
             <div className='createDealWrapper'>
@@ -186,10 +190,10 @@ const CreateDeal = (state) => {
                     <div className='createDealWrapper__createDeal__content'>
                         <div className='createDealWrapper__createDeal__content__left'>
                             <div className='createDealWrapper__createDeal__content__item'>
-                                <input onChange={_onInputChange} placeholder={tc.dealName} ref={newDealNameInputRef} type='text' value={newDealObj.name}/>
+                                <input onChange={_onInputChange} placeholder={tc.dealName} ref={newDealNameInputRef} type='text' value={newDealObj.name || ''}/>
                             </div>
                             <div className='createDealWrapper__createDeal__content__item'>
-                                <input onChange={_onInputChange} placeholder={tc.dealPotential} ref={newDealPotentialInputRef} type='text' value={newDealObj.potential}/>
+                                <input onChange={_onInputChange} placeholder={tc.dealPotential} ref={newDealPotentialInputRef} type='text' value={newDealObj.potential || ''}/>
                             </div>
                             <div className='createDealWrapper__createDeal__content__item'>
                                 <ColleaguesDropdown
@@ -254,7 +258,7 @@ const CreateDeal = (state) => {
                         </div>
                         <div className='createDealWrapper__createDeal__content__right'>
                             <div className='createDealWrapper__createDeal__content__item'>
-                                <input onChange={_onInputChange} placeholder={tc.description} ref={newDealDescriptionInputRef} type='text' value={newDealObj.description}/>
+                                <input onChange={_onInputChange} placeholder={tc.description} ref={newDealDescriptionInputRef} type='text' value={newDealObj.description || ''}/>
                             </div>
                             <div className='createDealWrapper__createDeal__content__item'>
                                 {_renderMaturityList()}

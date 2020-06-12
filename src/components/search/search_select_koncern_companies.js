@@ -165,7 +165,7 @@ const SearchSelect = (state) => {
                             {_renderChips()}
                         </div>
                         <div className='searchSelectWrapper__searchSelect__content__save' onClick={_saveSelected}>
-                            {tc.save}
+                            {tc.add}
                         </div>
                     </div>
                     }
