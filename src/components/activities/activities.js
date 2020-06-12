@@ -117,8 +117,7 @@ const Activities = (state) => {
                     action = <div>{activityHelper.getReadableActivity(activity.action)} {activityHelper.getPreposition(activity.action).toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
                 } else if (!activity.action && activity.comment && activity.comment !== '') {
                     // No action, this is a comment.
-                    isEditable = (state.user.info.id === activity.user_id);
-                    isRemovable = (state.user.info.id === activity.user_id);
+                    isEditable = (state.user.info.id === activity.user_id); // Comments can be edited, but only when created by the user.
                     if (activity.deal && activity.deal.name) {
                         // Add deal link to deal.
                         action = <div>{activityHelper.getReadableActivity('comment')} {tc.onDeal.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>;
@@ -171,7 +170,7 @@ const Activities = (state) => {
             // User
             const user = (activity.user && activity.user !== '') ? activity.user : tc.unknown;
 
-            return <ActivityItem action={action} comment={comment} date={date} id={id} icon={icon} isEditable={isEditable} isRemovable={isRemovable} user={user}/>;
+            return <ActivityItem action={action} comment={comment} date={date} id={id} icon={icon} isEditable={isEditable} user={user}/>;
         };
 
         _renderActivities();

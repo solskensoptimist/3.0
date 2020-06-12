@@ -233,6 +233,7 @@ const mapEvents = (payload) => {
                 dealId : num._id,
                 prospects: num.prospects,
                 user: num.userName,
+                user_id: num.user_id,
             }))
         );
     }, []);

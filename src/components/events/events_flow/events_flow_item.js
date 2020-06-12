@@ -42,8 +42,8 @@ export default (props) => {
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__comment'><span className='label'>{tc.comment}:</span>{props.comment}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__user'><span className='label'>{tc.user}:</span>{props.user}</div>
                 <div className='eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit'>
-                    {<Tooltip horizontalDirection='left' tooltipContent={tc.complete}><Icon val='complete' onClick={() => {setShowCompleteEvent(true)}}/></Tooltip>}
-                    {<Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {setShowRemoveEvent(true)}}/></Tooltip>}
+                    {props.isEditable && <Tooltip horizontalDirection='left' tooltipContent={tc.complete}><Icon val='complete' onClick={() => {setShowCompleteEvent(true)}}/></Tooltip>}
+                    {props.isEditable && <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {setShowRemoveEvent(true)}}/></Tooltip>}
                 </div>
             </div>
             {showCompleteEvent && <EventsFlowItemComplete close={() => {setShowCompleteEvent(false)}} eventId={props.eventId}/>}

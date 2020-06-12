@@ -86,11 +86,11 @@ const EventsFlow = (state) => {
             // User
             const user = (event.user && event.user !== '') ? event.user : tc.unknown;
 
-            return <EventsFlowItem action={action} comment={comment} date={date} dealId={dealId} eventId={eventId} icon={icon} user={user}/>;
+            return <EventsFlowItem action={action} comment={comment} date={date} dealId={dealId} eventId={eventId} icon={icon} isEditable={(state.user.info.id === event.user_id)} user={user}/>;
         };
 
         _renderEvents();
-    }, [showAmount, state.events, state.props.target]);
+    }, [showAmount, state.events, state.props.target, state.user]);
 
     return ( _stateCheck() ?
         <div className={(state.props.small) ? 'eventsFlowWrapper small' : 'eventsFlowWrapper'}>

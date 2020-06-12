@@ -13,7 +13,6 @@ import Tooltip from 'components/tooltip';
  * @param props.icon
  * @param props.id
  * @param props.isEditable
- * @param props.isRemovable
  * @param props.user
  */
 export default (props) => {
@@ -30,7 +29,7 @@ export default (props) => {
                 <div className='activitiesWrapper__activities__content__itemWrapper__item__user'><span className='label'>{tc.user}:</span>{props.user}</div>
                 <div className='activitiesWrapper__activities__content__itemWrapper__item__edit'>
                     {props.isEditable && <Tooltip horizontalDirection='left' tooltipContent={tc.edit}><Icon val='edit' onClick={() => {setShowEditComment(true)}}/></Tooltip> }
-                    {props.isRemovable && <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {setShowRemoveComment(true)}}/></Tooltip>}
+                    {props.isEditable && <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {setShowRemoveComment(true)}}/></Tooltip>}
                 </div>
             </div>
             {showEditComment && <Comment close={()=> {setShowEditComment(false)}} id={props.id} type='edit'/>}

@@ -93,7 +93,7 @@ const DealFiles = (state) => {
         };
 
         _renderFiles();
-    }, [showAmount, state.deal.deal.meta.files]);
+    }, [showAmount, state.deal.deal, state.user]);
 
     return ( _stateCheck() ?
             <div className='dealFilesWrapper'>
