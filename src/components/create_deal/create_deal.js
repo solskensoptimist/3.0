@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createDeal} from 'store/agile/tasks';
 import ReactS3Uploader from 'react-s3-uploader';
+import carHelper from 'shared_helpers/car_helper';
 import {dealHelper, tc} from 'helpers';
 import {connect} from 'react-redux';
 import {Dropdown, DropdownItem} from 'components/dropdown';
@@ -65,13 +66,29 @@ const CreateDeal = (state) => {
     };
 
     const _addSelectedProspectsToDealObj = () => {
-        const selected = state.search.selectedAll.filter((num) => {
-            return !(newDealObj.prospects.find((x) => x.id === num.id));
+
+        const cars = [];
+        const prospects = [];
+
+        // selectedAll can contain prospects aswll as car reg numbers, so we need to put them in the correct array for deal.
+        state.search.selectedAll.forEach((num) => {
+            if (carHelper.isValidRegNumber(num.id)) {
+                // No duplicates.
+                if (!(newDealObj.cars.find((x) => x.id === num.id))) {
+                    cars.push(num);
+                }
+            } else {
+                // No duplicates.
+                if (!(newDealObj.prospects.find((x) => x.id === num.id))) {
+                    prospects.push(num);
+                }
+            }
         });
 
         setNewDealObj({
             ...newDealObj,
-            prospects: newDealObj.prospects.concat(selected),
+            cars: newDealObj.cars.concat(cars),
+            prospects: newDealObj.prospects.concat(prospects),
         })
     };
 
@@ -283,7 +300,7 @@ const CreateDeal = (state) => {
                                         {
                                             newDealObj.cars.length ? newDealObj.cars.map((num, i) => {
                                                     return (
-                                                        <div className='createDealWrapper__createDeal__content__chipholder__item__chip'
+                                                        <div className='createDealWrapper__createDeal__content__item__chipholder__chip'
                                                              key={i}>
                                                             {num.name}
                                                             <Icon val='clear' onClick={() => {

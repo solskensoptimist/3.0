@@ -17,7 +17,8 @@
   font-size: 12px;
   justify-content: center;
   cursor: pointer;
-  padding: 8px 22px; }
+  padding: 8px 22px;
+  white-space: nowrap; }
   .buttonRegular:hover, .createDealWrapper__createDeal__content__item button:hover {
     background: #616161;
     border-color: #616161;
@@ -33,7 +34,8 @@
   justify-content: center;
   cursor: pointer;
   padding: 8px 22px;
-  border: 0; }
+  border: 0;
+  white-space: nowrap; }
   .buttonSave:hover, .searchSelectWrapper__searchSelect__content__save:hover, .settingsWrapper__settings__content__item__button:hover, .widgetFooterWrapper__widgetFooter button:hover {
     background: #616161; }
 
