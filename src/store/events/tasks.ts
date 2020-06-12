@@ -14,7 +14,7 @@ import moment from 'moment';
 export const completeEvent = async (payload) => {
     try {
         if (!payload || (payload && !payload.eventId)) {
-            return console.error('Missing params in completeEvent');
+            return console.error('Missing params in completeEvent:\n' + payload);
         }
 
         const event = store.getState().events.events.find((num) => {
@@ -305,7 +305,7 @@ const mapEvents = (payload) => {
  */
 export const removeEvent = async (payload) => {
     if (!payload || (payload && !payload.dealId) || (payload && !payload.eventId)) {
-        return console.error('Missing params in removeEvent');
+        return console.error('Missing params in removeEvent:\n' + payload);
     }
 
     try {

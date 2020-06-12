@@ -8,7 +8,7 @@ import Company from 'components/company/';
 import Deal from 'components/deal/';
 import Footer from 'components/footer';
 import FlashMessages from 'components/flash_messages';
-import Header from './header';
+import Header from 'components/header';
 import Home from 'components/home/';
 import Koncern from 'components/koncern/';
 import List from 'components/list/';
@@ -24,24 +24,24 @@ import SearchResults from 'components/search_results';
 export default () => {
     return (
         <>
-            <Header />
+            <Header loggedIn={true}/>
             <div className='contentWrapper'>
                 <div className='contentWrapper__content'>
                     <Switch>
-                        <Route exact path='/affar/:id' component={Deal} />
-                        <Route exact path='/aktivitet' component={Activity} />
-                        <Route exact path='/analysera' component={Analyse} />
-                        <Route exact path='/bearbeta' component={Agile} />
-                        <Route exact path='/bil/:regNr' component={Car} />
-                        <Route exact path='/foretag/:id' component={Company} />
-                        <Route exact path='/koncern/:id' component={Koncern} />
-                        <Route exact path='/listor' component={Lists} />
-                        <Route exact path='/lista/:id' component={List} />
-                        <Route exact path='/person/:id' component={Person} />
-                        <Route exact path='/prospektera' component={Prospect} />
-                        <Route exact path='/prospektera/resultat' component={ProspectResult} />
-                        <Route exact path='/sok/:q' component={SearchResults} />
-                        <Route component={Home} />
+                        <Route exact path='/affar/:id' component={Deal}/>
+                        <Route exact path='/aktivitet' component={Activity}/>
+                        <Route exact path='/analysera' component={Analyse}/>
+                        <Route exact path='/bearbeta' component={Agile}/>
+                        <Route exact path='/bil/:regNr' component={Car}/>
+                        <Route exact path='/foretag/:id' component={Company}/>
+                        <Route exact path='/koncern/:id' component={Koncern}/>
+                        <Route exact path='/listor' component={Lists}/>
+                        <Route exact path='/lista/:id' component={List}/>
+                        <Route exact path='/person/:id' component={Person}/>
+                        <Route exact path='/prospektera' component={Prospect}/>
+                        <Route exact path='/prospektera/resultat' component={ProspectResult}/>
+                        <Route exact path='/sok/:q' component={SearchResults}/>
+                        <Route component={Home}/>
                     </Switch>
                 </div>
             </div>

@@ -1682,6 +1682,19 @@ svg.active {
 .popupWrapper .smallPopup {
   width: 36% !important; }
 
+.saveToListWrapper__saveToList__content {
+  margin-top: 22px; }
+  .saveToListWrapper__saveToList__content__menu {
+    display: flex;
+    width: 100%;
+    margin-bottom: 12px; }
+    .saveToListWrapper__saveToList__content__menu__item {
+      margin-right: 22px;
+      cursor: pointer;
+      color: #00B4CC; }
+      .saveToListWrapper__saveToList__content__menu__item:hover {
+        color: #616161; }
+
 .searchMainWrapper {
   margin-left: 22px;
   width: 70%;

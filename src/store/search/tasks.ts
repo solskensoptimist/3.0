@@ -12,7 +12,7 @@ import {debounce }from 'debounce';
 const getAllSuggestionsDebounced = async (payload) => {
     try {
         if (!payload || (payload && !payload.q)) {
-            return console.error('Missing params in getAllSugestionsDebounced');
+            return console.error('Missing params in getAllSugestionsDebounced:\n' + payload);
         }
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
 
@@ -43,7 +43,7 @@ const getAllSuggestionsDebounced = async (payload) => {
 const getCarSuggestionsBasedOnRegNumberDebounced = async (payload) => {
     try {
         if (!payload || (payload && !payload.q)) {
-            return console.error('Missing params in getCarSuggestionsBasedOnRegNumberDebounced');
+            return console.error('Missing params in getCarSuggestionsBasedOnRegNumberDebounced:\n' + payload);
         }
 
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
@@ -88,7 +88,7 @@ const getCarSuggestionsBasedOnRegNumberDebounced = async (payload) => {
 const getCarSuggestionsBasedOnTargetDebounced = async (payload) => {
     try {
         if (!payload || (payload && !payload.q)) {
-            return console.error('Missing params in getCarSuggestionsBasedOnTargetDebounced ');
+            return console.error('Missing params in getCarSuggestionsBasedOnTargetDebounced:\n' + payload);
         }
 
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
@@ -137,7 +137,7 @@ const getCarSuggestionsBasedOnTargetDebounced = async (payload) => {
 const getContactSuggestionsDebounced = async (payload) => {
     try {
         if (!payload || (payload && !payload.q)) {
-            return console.error('Missing params in getContactsSuggestionsDebounced');
+            return console.error('Missing params in getContactsSuggestionsDebounced:\n' + payload);
         }
 
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});
@@ -169,7 +169,7 @@ const getContactSuggestionsDebounced = async (payload) => {
 const getKoncernCompaniesSuggestionsDebounced = async (payload) => {
     try {
         if (!payload || (payload && !payload.q) || (payload && !payload.target)) {
-            return console.error('Missing params in getKoncernCompanySuggestionsDebounced');
+            return console.error('Missing params in getKoncernCompanySuggestionsDebounced:\n' + payload);
         }
 
         store.dispatch({type: searchActionTypes.SET_SEARCH_SUGGESTIONS, payload: []});

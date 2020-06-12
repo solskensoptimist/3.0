@@ -19,10 +19,10 @@ import {showFlashMessage} from 'store/flash_messages/tasks';
 export const addEditRemoveCompanyEmailPhone = async (payload) => {
     // Check that params is correct.
     if ((payload.type !== 'email' && payload.type !== 'phone') || !payload.action || !payload.prospectId || !payload.hasOwnProperty('value')) {
-        return console.error('Missing params in addEditRemovePhoneEmail');
+        return console.error('Missing params in addEditRemovePhoneEmail:\n' + payload);
     }
     if ((payload.action === 'delete' || payload.action === 'edit') && !payload.id) {
-        return console.error('Missing params in addEditRemovePhoneEmail');
+        return console.error('Missing params in addEditRemovePhoneEmail:\n' + payload);
     }
 
     let existingData = (payload.type === 'email') ? store.getState().company.company.emails : store.getState().company.company.phoneNumbers;
@@ -81,7 +81,7 @@ export const addEditRemoveCompanyEmailPhone = async (payload) => {
 export const getCompany = async (payload) => {
     try {
         if (!payload || (payload && !payload.id)) {
-            return console.error('Missing params in getCompany');
+            return console.error('Missing params in getCompany:\n' + payload);
         }
 
         const company = [await request({
@@ -133,7 +133,7 @@ export const getCompany = async (payload) => {
 export const setResponsibility = async (payload) => {
     try {
         if (!payload || (payload && !payload.entityId) || (payload && !payload.responsibleUserId)) {
-            return console.error('Missing params in setResponsibility.');
+            return console.error('Missing params in setResponsibility:\n' + payload);
         }
 
         const data = await request({

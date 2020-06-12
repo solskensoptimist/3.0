@@ -15,7 +15,7 @@ import _ from 'underscore';
 export const getDeal = async (payload, prospectInfo = true) => {
     try {
         if (!payload || (payload && !payload.id)) {
-            return console.error('Missing params in getDeal');
+            return console.error('Missing params in getDeal:\n' + payload);
         }
 
         // Get deal info.
@@ -166,7 +166,7 @@ const getProspectInfo = async (payload) => {
 export const updateDeal = async (payload) => {
     try {
         if (!payload) {
-            return console.error('Missing params in updateDeal');
+            return console.error('Missing params in updateDeal:\n' + payload);
         }
 
         const dealInScope = store.getState().deal.deal;

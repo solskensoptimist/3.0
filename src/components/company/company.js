@@ -13,6 +13,7 @@ import Events from 'components/events';
 import Fleet from 'components/fleet';
 import Loading from 'components/loading';
 import Icon from 'components/icon';
+import SaveToList from 'components/save_to_list';
 import Tooltip from 'components/tooltip';
 
 const Company = (state) => {
@@ -22,6 +23,7 @@ const Company = (state) => {
     const [responsibleObj, setResponsibleObj] = useState({});
     const [showComment, setShowComment] = useState(false);
     const [showCreateDeal, setShowCreateDeal] = useState(false);
+    const [showSaveToList, setShowSaveToList] = useState(false);
 
     const _saveResponsible = async () => {
         setChangeResponsible(false);
@@ -117,7 +119,7 @@ const Company = (state) => {
                         {!changeResponsible &&
                         <div className='companyWrapper__company__header__right__iconHolder'>
                             <Tooltip horizontalDirection='left' tooltipContent={tc.addToList}>
-                                <Icon val='list' onClick={() => {console.log('spara i lista, ska skötas av tasks/lists')}}/>
+                                <Icon val='list' onClick={() => {setShowSaveToList(true)}}/>
                             </Tooltip>
                         </div>
                         }
@@ -162,22 +164,6 @@ const Company = (state) => {
                     </div>
                 </div>
                 <div className='companyWrapper__company__content'>
-                    {showComment && <Comment close={() => {setShowComment(false)}} headline={tc.oneProspect + ': ' + state.company.company.name} target={id} type='new'/>}
-                    {showCreateDeal &&
-                        <CreateDeal close={async (dealCreated) => {
-                                if (dealCreated){
-                                    setShowCreateDeal(false);
-                                    return await getCompany({id: id})
-                                } else {
-                                    return setShowCreateDeal(false);
-                                }
-                            }}
-                            headline={tc.with + ' ' + tc.connection.toLowerCase() + ' ' + tc.to.toLowerCase() + ' ' + state.company.company.name}
-                            koncern={!!(state.company.company.parentCompanyId && state.company.company.parentCompanyId.length)}
-                            prospects={[{id: state.company.company.user_id.toString(), name: state.company.company.name}]}
-                            target={state.company.company.user_id}
-                        />
-                    }
                     <div className='companyWrapper__company__content__item'>
                         <Events target={id} type='target' view='flow'/>
                     </div>
@@ -196,6 +182,37 @@ const Company = (state) => {
                     <div className='companyWrapper__company__content__item'>
                         <Activities includeComments={true} includeMoved={true} target={id} type='target'/>
                     </div>
+                    {showComment &&
+                        <Comment
+                            close={() => {setShowComment(false)}}
+                            headline={tc.oneProspect + ': ' + state.company.company.name}
+                            target={id}
+                            type='new'
+                        />
+                    }
+                    {showCreateDeal &&
+                        <CreateDeal
+                            close={async (dealCreated) => {
+                                // If deal is created we reload company data.
+                                if (dealCreated){
+                                    setShowCreateDeal(false);
+                                    return await getCompany({id: id})
+                                } else {
+                                    return setShowCreateDeal(false);
+                                }
+                            }}
+                            headline={tc.with + ' ' + tc.connection.toLowerCase() + ' ' + tc.to.toLowerCase() + ' ' + state.company.company.name}
+                            koncern={!!(state.company.company.parentCompanyId && state.company.company.parentCompanyId.length)}
+                            prospects={[{id: state.company.company.user_id.toString(), name: state.company.company.name}]}
+                            target={state.company.company.user_id}
+                        />
+                    }
+                    {showSaveToList &&
+                        <SaveToList
+                            close={() => {setShowSaveToList(false)}}
+                            prospects={[state.company.company.user_id]}
+                        />
+                    }
                 </div>
             </div>
         </div> :

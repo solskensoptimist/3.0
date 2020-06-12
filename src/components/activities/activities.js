@@ -92,9 +92,8 @@ const Activities = (state) => {
          */
         const _renderActivityItem = (activity) => {
             let isEditable = false;
-            let isRemovable = false;
 
-            // Action.
+            // Action. (This cluster of an if statement is just to make the action look nice, with some added text and link to prospect/deal.)
             let action;
             // When target is the same as the activity target, we don't need to add a link to target.
             if (state.props.type === 'target' && (activity.deal_id && state.props.target === activity.deal_id)
@@ -104,8 +103,7 @@ const Activities = (state) => {
                 } else if (activity.action) {
                     action = <div>{activityHelper.getReadableActivity(activity.action)}</div>;
                 } else if (!activity.action && activity.id && activity.comment && activity.comment !== '') {
-                    isEditable = true;
-                    isRemovable = true;
+                    isEditable = (state.user.info.id === activity.user_id); // Can be edited, but only when created by the user.
                     action = <div>{activityHelper.getReadableActivity('comment')}</div>;
                 }
             } else {
@@ -117,7 +115,7 @@ const Activities = (state) => {
                     action = <div>{activityHelper.getReadableActivity(activity.action)} {activityHelper.getPreposition(activity.action).toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
                 } else if (!activity.action && activity.comment && activity.comment !== '') {
                     // No action, this is a comment.
-                    isEditable = (state.user.info.id === activity.user_id); // Comments can be edited, but only when created by the user.
+                    isEditable = (state.user.info.id === activity.user_id); // Can be edited, but only when created by the user.
                     if (activity.deal && activity.deal.name) {
                         // Add deal link to deal.
                         action = <div>{activityHelper.getReadableActivity('comment')} {tc.onDeal.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>;

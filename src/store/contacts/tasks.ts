@@ -16,7 +16,7 @@ import companyHelper from 'shared_helpers/company_helper';
 export const addEntityToContacts = async (payload) => {
     try {
         if (!payload || (payload && !payload.contacts) || (payload && !payload.entityId) || (payload && !payload.entityType)) {
-            return console.error('Missing params in addEntityToContact.');
+            return console.error('Missing params in addEntityToContact:\n' + payload);
         }
 
         const promises = await payload.contacts.map(async (contact) => {
@@ -76,7 +76,7 @@ export const addEntityToContacts = async (payload) => {
 export const getContacts = async (payload) => {
     try {
         if (!payload || (payload && !payload.entityId)) {
-            return console.error('Missing params in getContacts.');
+            return console.error('Missing params in getContacts:\n' + payload);
         }
 
         store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: []});
@@ -117,7 +117,7 @@ export const getContacts = async (payload) => {
 export const removeContact = async (payload) => {
     try {
         if (!payload || (payload && !payload.id)) {
-            return console.error('Missing params in removeContact.');
+            return console.error('Missing params in removeContact:\n' + payload);
         }
 
         const deletedContact = await request({
@@ -152,7 +152,7 @@ export const removeContact = async (payload) => {
 export const removeEntityFromContact = async (payload) => {
     try {
         if (!payload || (payload && !payload.id) || (payload && !payload.entityId)) {
-            return console.error('Missing params in removeEntityFromContact.');
+            return console.error('Missing params in removeEntityFromContact:\n' + payload);
         }
 
         const updated = await requestWithBody({
@@ -199,7 +199,7 @@ export const removeEntityFromContact = async (payload) => {
 export const saveNewContact = async (payload) => {
     try {
         if (!payload) {
-            return console.error('Missing params in saveNewContact.');
+            return console.error('Missing params in saveNewContact:\n' + payload);
         }
 
         // Add properties to entity objects where missing.
@@ -282,7 +282,7 @@ export const saveNewContact = async (payload) => {
 export const updateContact = async (payload) => {
     try {
         if (!payload || !payload.id || !payload.data) {
-            return console.error('Missing params in updateContact.');
+            return console.error('Missing params in updateContact:\n' + payload);
         }
 
         const updated = await request({

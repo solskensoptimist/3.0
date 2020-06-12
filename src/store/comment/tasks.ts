@@ -10,7 +10,7 @@ import {getActivity} from 'store/activity/tasks';
  */
 export const getComment = async (payload) => {
     if (!payload || (payload && !payload.id)) {
-        return console.error('Missing params in getComment');
+        return console.error('Missing params in getComment:\n' + payload);
     }
 
     try {
@@ -39,7 +39,7 @@ export const getComment = async (payload) => {
  */
 export const removeComment = async (payload) => {
     if (!payload || (payload && !payload.id)) {
-        return console.error('Missing params in removeComment');
+        return console.error('Missing params in removeComment:\n' + payload);
     }
 
     try {
@@ -72,7 +72,7 @@ export const removeComment = async (payload) => {
  */
 export const saveComment = async (payload) => {
     if (!payload || (payload && !payload.target) || (payload && !payload.comment)) {
-        return console.error('Missing params in saveComment');
+        return console.error('Missing params in saveComment:\n' + payload);
     }
 
     try {
@@ -106,7 +106,7 @@ export const saveComment = async (payload) => {
  */
 export const updateComment = async (payload) => {
     if (!payload || (payload && !payload.id) || (payload && !payload.comment)) {
-        return console.error('Missing params in updateComment');
+        return console.error('Missing params in updateComment:\n' + payload);
     }
 
     try {
