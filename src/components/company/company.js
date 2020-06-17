@@ -210,7 +210,7 @@ const Company = (state) => {
                     {showSaveToList &&
                         <SaveToList
                             close={() => {setShowSaveToList(false)}}
-                            prospects={[state.company.company.user_id]}
+                            prospects={[state.company.company.user_id.toString()]}
                         />
                     }
                 </div>

@@ -1,35 +1,85 @@
 .tableWrapper
   width: 100%
-  table
-    border-spacing: 0
-    border: 1px solid $grey-300
-    width: 100%
-    tr
-      background: white
-      &:last-child
-        td
-          border-bottom: 0
-      &:nth-child(even)
-        background: $grey-50
-    th
-      margin: 0
-      padding: 0.5rem
-      background: $grey-50
-      font-weight: 600
-      font-size: $fontSizeStandard-2
-      border-bottom: 1px solid $grey-400
-      border-right: 1px solid $grey-300
-      &:last-child
-        border-right: 0
-    td
-      margin: 0
-      padding: 0.5rem
-      border-bottom: 1px solid $grey-300
-      border-right: 1px solid $grey-300
-      &:last-child
-        border-right: 0
-    .selection
-      text-align: center
-      input[type=checkbox]
-        width: 11px
-        height: 11px
+  &__table
+    &__content
+      // Adjustments to material-ui table.
+      table
+        min-width: 650px
+        width: 100%
+        border-bottom: 1px solid $grey-300
+        thead
+          tr
+            th
+              color: $colorTextDark !important
+              font-size: $fontSizeStandard-2
+              padding: ($paddingSmall * 1.5)
+              &:last-child
+                border-right: 0
+        tbody
+          tr
+            background: white
+            &:last-child
+              td
+                border-bottom: 0
+            td
+              border-right: 1px solid $grey-300
+              background: $grey-50
+              color: $colorTextLight !important
+              font-size: $fontSizeStandard-2
+              padding: ($paddingSmall * 1.5)
+              &:first-child
+                border-left: 1px solid $grey-300
+          .MuiTableRow-hover
+            &:hover
+              background: white
+        svg
+          width: 16px
+          height: 16px
+          fill: $colorTextLight-1
+        .MuiTableSortLabel-root
+          display: flex
+          align-items: center
+          justify-content: space-between
+          width: 100%
+          svg
+            width: 14px
+            height: 14px
+        .Mui-checked
+          svg
+            fill: $colorLink
+        .MuiCheckbox-indeterminate
+          svg
+            fill: $colorLink
+        .MuiCheckbox-root
+          display: flex
+          align-items: center
+          justify-content: center
+        .MuiIconButton-root
+          padding: 0
+          &:hover
+            background-color: transparent
+            svg
+              fill: $colorLinkHover
+
+      // Adjustments to pagination component
+      .MuiTablePagination-root
+        color: $colorTextLight-1
+        svg
+          fill: $colorLink
+          width: 16px
+          height: 16px
+        .MuiIconButton-root
+          &:hover
+            background: transparent
+            svg
+              fill: $colorLinkHover
+        .Mui-disabled
+          svg
+            fill: $colorTextLight-1
+        .MuiSelect-root
+          font-size: $fontSizeStandard-1
+        svg.MuiSelect-icon
+          width: 24px
+          height: 24px
+        .MuiTypography-body2
+          font-size: $fontSizeStandard-1

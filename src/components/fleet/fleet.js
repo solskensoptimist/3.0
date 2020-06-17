@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {tc} from 'helpers';
+import {tableHelper, tc} from 'helpers';
 import {connect} from 'react-redux';
 import {getFleet} from 'store/fleet/tasks';
 import Icon from 'components/icon';
@@ -100,18 +100,18 @@ const Fleet = (state) => {
                         headline={(state.props.historic) ? tc.fleetHistoric : tc.fleet}
                         headlineSub={
                             (fleet.data && fleet.data.length) ?
-                            (fleet.total && fleet.amount)
+                                (fleet.total && fleet.amount)
                                     ?
                                         fleet.total + ' ' + tc.vehicle.toLowerCase() + ' ' + tc.showing.toLowerCase() + ' ' + fleet.amount + ' st'
                                     :
                                         '0 ' + tc.vehicle.toLowerCase() + ' ' + tc.showing.toLowerCase() + ' 0 st' :
-                                tc.noVehicles
+                            tc.noVehicles
                         }
                     />
                 </div>
                 {(!minimize && fleet.data && fleet.data.length) &&
                 <div className='fleetWrapper__fleet__content'>
-                    <Table propsData={fleet.data}/>
+                    <Table columns={tableHelper.getFleetColumns(state.props.historic)} linkRows={true} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
                 </div>
                 }
             </div>
