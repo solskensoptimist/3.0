@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request} from 'helpers';
+import {request, requestWithBody} from 'helpers';
 import {fleetActionTypes} from './actions';
 
 /**
@@ -30,15 +30,13 @@ export const getFleet = async (payload) => {
 
         const historic = payload.historic ? '/historic/' : '';
 
-        const data = await request({
+        const data = await requestWithBody({
             data: {
                 koncern: payload.koncern ? 1 : 0,
                 noPagination: payload.noPagination ? 1 : 0,
                 props: {
                     filter: store.getState().filter ? store.getState().filter : {},
                     page: payload.page || 0,
-                    // sort: this.sort || false,
-                    // search: this.search || null,
                     columns: store.getState().fleet.columns || null,
                 }
             },

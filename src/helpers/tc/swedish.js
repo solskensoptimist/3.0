@@ -145,6 +145,7 @@ export default {
     koncernCompany: 'Koncernbolag',
     lastUpdate: 'Senast uppdaterad',
     lb: 'Lastbil',
+    listName: 'Namn på lista',
     lists: 'Listor',
     load: 'Ladda fler',
     login: 'Inloggning',

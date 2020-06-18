@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {saveProspectsToList} from 'store/lists/tasks';
 import {getLists} from 'store/lists/tasks';
 import {tableHelper, tc} from 'helpers';
+import TextField from '@material-ui/core/TextField';
 import Loading from 'components/loading';
 import Popup from 'components/popup';
 import WidgetFooter from 'components/widget_footer';
@@ -16,13 +17,15 @@ import Table from 'components/table';
  */
 const SaveToList = (state) => {
     const [lists, setLists] = useState([]);
-    const [listName, setListName] = useState('hejsan');
+    const [listName, setListName] = useState('');
     const [showExisting, setShowExisting] = useState(true);
 
     const _saveToList = async () => {
         if (showExisting) {
+            state.props.close();
             return await saveProspectsToList({lists: lists, prospectIds: state.props.prospects});
         } else {
+            state.props.close();
             return await saveProspectsToList({name: listName, prospectIds: state.props.prospects});
         }
     };
@@ -52,7 +55,9 @@ const SaveToList = (state) => {
                         </div>
                         {showExisting ?
                             <Table columns={tableHelper.getListsColumns()} onSelect={(arr) => {setLists(arr)}} rows={tableHelper.getListsRows(state.lists.lists)}/> :
-                            <div>Skapa ny lista med material-ui textfield komponent.</div>
+                            <div className='saveToListWrapper__saveToList__content__newList'>
+                                <TextField id='standard-basic' label={tc.listName} onChange={(e) => {setListName(e.target.value)}}/>
+                            </div>
                         }
                     </div>
                     <div className='saveToListWrapper__saveToList__footer'>
