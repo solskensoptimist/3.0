@@ -1947,8 +1947,8 @@ svg.active {
 .tableWrapper {
   width: 100%; }
   .tableWrapper__table__content table {
-    min-width: 500px;
-    max-width: calc(100% - 12px);
+    min-width: 550px;
+    max-width: calc(100% - 1px);
     border-bottom: 1px solid #e0e0e0;
     background: white; }
     .tableWrapper__table__content table thead tr th {
