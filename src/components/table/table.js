@@ -242,29 +242,35 @@ export default (props) => {
                                     })}
                             </TableBody>
                         </Table>
-                        <TextField id='standard-basic' label={tc.search} onChange={(e) => {setQuery(e.target.value)}} />
-                        <FormControl>
-                            <InputLabel id='select-column-search-label'>{tc.chooseColumn}</InputLabel>
-                            <Select
-                                labelId='select-column-search-label'
-                                id='select-column-search'
-                                value={searchColumn}
-                                onChange={(e) => {setSearchColumn(e.target.value)}}
-                            >
-                                {props.columns.map((column) => {
-                                    return <MenuItem key={column.id} value={column.id}>{column.label}</MenuItem>;
-                                })}
-                            </Select>{searchColumn}
-                        </FormControl>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25]}
-                            component='div'
-                            count={props.rows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onChangePage={handleChangePage}
-                            onChangeRowsPerPage={handleChangeRowsPerPage}
-                        />
+                        <div className='tableWrapper__table__footer'>
+                            <div className='tableWrapper__table__footer__left'>
+                                <TextField id='standard-basic' label={tc.search} onChange={(e) => {setQuery(e.target.value)}} />
+                                <FormControl>
+                                    <InputLabel id='select-column-search-label'>{tc.chooseColumn}</InputLabel>
+                                    <Select
+                                        labelId='select-column-search-label'
+                                        id='select-column-search'
+                                        value={searchColumn}
+                                        onChange={(e) => {setSearchColumn(e.target.value)}}
+                                    >
+                                        {props.columns.map((column) => {
+                                            return <MenuItem key={column.id} value={column.id}>{column.label}</MenuItem>;
+                                        })}
+                                    </Select>{searchColumn}
+                                </FormControl>
+                            </div>
+                            <div className='tableWrapper__table__footer__right'>
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 25]}
+                                    component='div'
+                                    count={props.rows.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onChangePage={handleChangePage}
+                                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                                />
+                            </div>
+                        </div>
                     </TableContainer>
                 </div>
             </div>

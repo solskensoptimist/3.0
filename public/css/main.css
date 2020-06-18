@@ -1946,6 +1946,8 @@ svg.active {
 
 .tableWrapper {
   width: 100%; }
+  .tableWrapper__table__content .MuiTableContainer-root {
+    overflow-y: hidden; }
   .tableWrapper__table__content table {
     min-width: 550px;
     max-width: calc(100% - 1px);
@@ -1994,25 +1996,28 @@ svg.active {
         background-color: transparent; }
         .tableWrapper__table__content table .MuiIconButton-root:hover svg {
           fill: #616161; }
-  .tableWrapper__table__content .MuiTablePagination-root {
-    color: #9e9e9e; }
-    .tableWrapper__table__content .MuiTablePagination-root svg {
-      fill: #00B4CC;
-      width: 16px;
-      height: 16px; }
-    .tableWrapper__table__content .MuiTablePagination-root .MuiIconButton-root:hover {
-      background: transparent; }
-      .tableWrapper__table__content .MuiTablePagination-root .MuiIconButton-root:hover svg {
-        fill: #616161; }
-    .tableWrapper__table__content .MuiTablePagination-root .Mui-disabled svg {
-      fill: #9e9e9e; }
-    .tableWrapper__table__content .MuiTablePagination-root .MuiSelect-root {
-      font-size: 12px; }
-    .tableWrapper__table__content .MuiTablePagination-root svg.MuiSelect-icon {
-      width: 24px;
-      height: 24px; }
-    .tableWrapper__table__content .MuiTablePagination-root .MuiTypography-body2 {
-      font-size: 12px; }
+  .tableWrapper__table__footer {
+    display: flex;
+    justify-content: space-between; }
+    .tableWrapper__table__footer .MuiTablePagination-root {
+      color: #9e9e9e; }
+      .tableWrapper__table__footer .MuiTablePagination-root svg {
+        fill: #00B4CC;
+        width: 16px;
+        height: 16px; }
+      .tableWrapper__table__footer .MuiTablePagination-root .MuiIconButton-root:hover {
+        background: transparent; }
+        .tableWrapper__table__footer .MuiTablePagination-root .MuiIconButton-root:hover svg {
+          fill: #616161; }
+      .tableWrapper__table__footer .MuiTablePagination-root .Mui-disabled svg {
+        fill: #9e9e9e; }
+      .tableWrapper__table__footer .MuiTablePagination-root .MuiSelect-root {
+        font-size: 12px; }
+      .tableWrapper__table__footer .MuiTablePagination-root svg.MuiSelect-icon {
+        width: 24px;
+        height: 24px; }
+      .tableWrapper__table__footer .MuiTablePagination-root .MuiTypography-body2 {
+        font-size: 12px; }
 
 .tooltipWrapper {
   position: relative; }
