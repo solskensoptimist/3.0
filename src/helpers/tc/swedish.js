@@ -49,6 +49,7 @@ export default {
     changeOwner: 'Ändra ansvarig',
     changedOwner: 'Ändrad ansvarig',
     changesSaved: 'Ändringar sparade',
+    chooseColumn: 'Välj kolumn',
     cold: 'Kall',
     comment: 'Kommentar',
     comments: 'Kommentarer',

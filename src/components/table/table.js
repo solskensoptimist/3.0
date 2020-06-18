@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
+import {tc} from 'helpers';
 import history from '../../router_history';
 import Tooltip from 'components/tooltip';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,7 +15,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import {tc} from "helpers";
+import TextField from '@material-ui/core/TextField';
 
 /**
  * Table component.
@@ -63,6 +68,8 @@ export default (props) => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
+    const [query, setQuery] = React.useState('');
+    const [searchColumn, setSearchColumn] = React.useState('');
     const [selected, setSelected] = React.useState([]);
 
     const handleChangePage = (event, newPage) => {
@@ -190,7 +197,7 @@ export default (props) => {
                         <Table aria-label='table' size='small'>
                             {renderTableHead()}
                             <TableBody>
-                                {stableSort(props.rows, getComparator(order, orderBy))
+                                {stableSort(props.rows, getComparator(order, orderBy), searchColumn, query)
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row, index) => {
                                         const isItemSelected = isSelected(row.id);
@@ -235,6 +242,20 @@ export default (props) => {
                                     })}
                             </TableBody>
                         </Table>
+                        <TextField id='standard-basic' label={tc.search} onChange={(e) => {setQuery(e.target.value)}} />
+                        <FormControl>
+                            <InputLabel id='select-column-search-label'>{tc.chooseColumn}</InputLabel>
+                            <Select
+                                labelId='select-column-search-label'
+                                id='select-column-search'
+                                value={searchColumn}
+                                onChange={(e) => {setSearchColumn(e.target.value)}}
+                            >
+                                {props.columns.map((column) => {
+                                    return <MenuItem key={column.id} value={column.id}>{column.label}</MenuItem>;
+                                })}
+                            </Select>{searchColumn}
+                        </FormControl>
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25]}
                             component='div'
@@ -276,7 +297,16 @@ const getComparator = (order, orderBy) => {
 /**
  * Helper function.
  */
-const stableSort = (array, comparator) => {
+const stableSort = (array, comparator, column, query) => {
+    // First filter on search query.
+    if (column && column.length && query && query.length) {
+        try {
+            array = array.filter((row) => row[column].includes(query));
+        } catch {
+            console.error('Could not filter table on search query');
+        }
+    }
+
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
