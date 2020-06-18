@@ -102,9 +102,9 @@ const Fleet = (state) => {
                             (fleet.data && fleet.data.length) ?
                                 (fleet.total && fleet.amount)
                                     ?
-                                        fleet.total + ' ' + tc.vehicle.toLowerCase() + ' ' + tc.showing.toLowerCase() + ' ' + fleet.amount + ' st'
+                                        `${tc.showing} ${fleet.total} ${tc.vehicle.toLowerCase()} ${tc.of.toLowerCase()} ${fleet.amount} ${tc.total.toLowerCase()}`
                                     :
-                                        '0 ' + tc.vehicle.toLowerCase() + ' ' + tc.showing.toLowerCase() + ' 0 st' :
+                                        `${tc.showing} 0 ${tc.vehicle.toLowerCase()} ${tc.of.toLowerCase()} 0 ${tc.total.toLowerCase()}` :
                             tc.noVehicles
                         }
                     />

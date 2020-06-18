@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import history from '../../router_history';
+import Tooltip from 'components/tooltip';
 import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,13 +10,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import {tc} from "helpers";
 
 /**
  * Table component.
  *
  * Rows can be selectable (but not when rows are linked).
- * Cells can be editable.
  * Rows can be navigation links (but not when rows are selectable).
+ * Cells can be editable.
+ * Cells can have a hover effect, if so that property should be an object with a 'content' and a 'hover' property.
  *
  * Two examples on how to use this component, first with rows that are links, second with selectable rows:
  *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} linkRows={true} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
@@ -33,6 +36,11 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
  *          { id: 'brand', numeric: false, label: 'Märke' },
  *          { id: 'reg_number', numeric: false, label: 'Registreringsnummer' },
  *      ];
+ *      Example 3 (used with example 3 for rows): [
+ *          { id: 'name', numeric: false, label: 'Namn' },
+ *          { id: 'zipMuncipality', numeric: false, label: 'Ort' },
+ *          { id: 'activity', numeric: false, label: 'Aktivitet' },
+ *      ];
  *  @param props.rows - array
  *      Example 1 (rows are selectable): [
  *          {id: '123abc', name: 'Sockerkaka', calories: 100, fat: 50},
@@ -40,8 +48,12 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
  *          {id: '789bnm', name: 'Havrekaka', calories: 100, fat: 50},
  *      ];
  *      Example 2 (rows are links): [
- *          {reg_number: 'abc123', brand: 'HONDA', url: '/bil/abc123'}, // Example with url.
+ *          {reg_number: 'abc123', brand: 'HONDA', url: '/bil/abc123'},
  *          {reg_number: 'rty456', brand: 'VOLOV', url: '/bil/rty456'},
+ *      ];
+ *      Example 3 (rows are links, and activity-property have hover effect.): [
+ *          {name: 'Kvinna 28', zipMuncipality: 'Motala', url: '/person/4567812', activity: {content: <Icon val='list'>, hover: <div>Detta prospekt finns i 2 listor</div>}},
+ *          {name: 'Man 54', zipMuncipality: 'helsingborg', url: '/person/6956896', activity: {content: <Icon val='list'>, hover: <div>Detta prospekt finns i 4 listor</div>}},
  *      ];
  *   Note that every object must have an 'id' property with a unique value when props.onSelect is a function.
  *   Note that every object must have a 'url' property with a route value when props.linkRows === true.
@@ -109,7 +121,18 @@ export default (props) => {
             if (prop !== 'id' && prop !== 'url') {
                 index++;
                 const column = props.columns.find((column) => column.id === prop);
-                rows.push(<TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`}>{row[prop]}</TableCell>);
+                if (typeof row[prop] === 'object' && row[prop] !== null && row[prop].content && row[prop].hover) {
+                    // Add hover hover effect to this cell.
+                    rows.push(
+                        <TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`}>
+                            <Tooltip horizontalDirection='right' tooltipContent={row[prop].hover}>
+                                {row[prop].content}
+                            </Tooltip>
+                        </TableCell>
+                    );
+                } else {
+                    rows.push(<TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`}>{row[prop]}</TableCell>);
+                }
             }
         }
 
@@ -174,6 +197,7 @@ export default (props) => {
                                         const labelId = `enhanced-table-checkbox-${index}`;
 
                                         if (props.linkRows && row.url) {
+                                            // Row is link.
                                             return (
                                                 <TableRow
                                                     hover
@@ -185,6 +209,7 @@ export default (props) => {
                                                 </TableRow>
                                             );
                                         } else {
+                                            // Row is selectable.
                                             return (
                                                 <TableRow
                                                     hover

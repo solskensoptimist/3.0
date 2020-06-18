@@ -4,9 +4,10 @@
     &__content
       // Adjustments to material-ui table.
       table
-        min-width: 650px
-        width: 100%
+        min-width: 500px
+        max-width: calc(100% - #{$paddingMedium})
         border-bottom: 1px solid $grey-300
+        background: white
         thead
           tr
             th
@@ -17,21 +18,19 @@
                 border-right: 0
         tbody
           tr
-            background: white
             &:last-child
               td
                 border-bottom: 0
             td
               border-right: 1px solid $grey-300
-              background: $grey-50
-              color: $colorTextLight !important
+              color: $colorTextMain !important
               font-size: $fontSizeStandard-2
               padding: ($paddingSmall * 1.5)
               &:first-child
                 border-left: 1px solid $grey-300
           .MuiTableRow-hover
             &:hover
-              background: white
+              background: $grey-50 !important
         svg
           width: 16px
           height: 16px
