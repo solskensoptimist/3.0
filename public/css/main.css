@@ -162,6 +162,15 @@
     background: #bdbdbd;
     border-radius: 6px; }
 
+.tableCellIconHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .tableCellIconHolder .tooltipWrapper {
+    margin-left: 4px; }
+    .tableCellIconHolder .tooltipWrapper:first-of-type {
+      margin-left: 0; }
+
 h1 {
   font-size: 26px;
   line-height: 30px;

@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {saveProspectsToList} from 'store/lists/tasks';
-import {tc} from 'helpers';
+import {getLists} from 'store/lists/tasks';
+import {tableHelper, tc} from 'helpers';
 import Loading from 'components/loading';
 import Popup from 'components/popup';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
+import Table from 'components/table';
 
 /**
  * Render a component that saves prospect ids to a new or existing list.
@@ -13,15 +15,25 @@ import WidgetHeader from 'components/widget_header';
  * @param state.props.prospects - array - Array with prospect ids.
  */
 const SaveToList = (state) => {
+    const [lists, setLists] = useState([]);
+    const [listName, setListName] = useState('hejsan');
     const [showExisting, setShowExisting] = useState(true);
 
     const _saveToList = async () => {
-        return await saveProspectsToList({list: {}, prospects: state.props.prospects});
+        if (showExisting) {
+            return await saveProspectsToList({lists: lists, prospectIds: state.props.prospects});
+        } else {
+            return await saveProspectsToList({name: listName, prospectIds: state.props.prospects});
+        }
     };
 
     const _stateCheck = () => {
         return !!(state && state.props && state.lists);
     };
+
+    useEffect(() => {
+        getLists();
+    }, []);
 
     return ( _stateCheck() ?
         <Popup close={state.props.close} size='big'>
@@ -39,8 +51,8 @@ const SaveToList = (state) => {
                             <div className='saveToListWrapper__saveToList__content__menu__item'  onClick={() => {setShowExisting(false)}}>{tc.createNewList}</div>
                         </div>
                         {showExisting ?
-                            <div>Rendera existerande listor mha tabell-komponent.</div> :
-                            <div>Skapa ny lista</div>
+                            <Table columns={tableHelper.getListsColumns()} onSelect={(arr) => {setLists(arr)}} rows={tableHelper.getListsRows(state.lists.lists)}/> :
+                            <div>Skapa ny lista med material-ui textfield komponent.</div>
                         }
                     </div>
                     <div className='saveToListWrapper__saveToList__footer'>

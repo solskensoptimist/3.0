@@ -19,8 +19,8 @@ const Lists = (state) => {
 
                 </div>
                 <div className='listsWrapper__lists__content'>
-                    {state.lists.lists.map((list) => {
-                            return <p>{list.name}</p>
+                    {state.lists.lists.map((list, i) => {
+                            return <p key={i}>{list.name}</p>
                         })}
                 </div>
             </div> :

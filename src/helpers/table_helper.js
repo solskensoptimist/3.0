@@ -1,5 +1,9 @@
+import React from 'react';
+import Icon from 'components/icon';
+import Tooltip from 'components/tooltip';
 import {tc} from 'helpers';
 import {vehicleHelper} from 'helpers';
+import moment from 'moment';
 
 /**
  * These methods help us format data to use in Table component.
@@ -38,6 +42,42 @@ export const tableHelper = {
         } else {
             return [];
         }
+    },
+    getListsColumns: () => {
+        return [
+            {id: 'name', numeric: false, label: tc.name},
+            {id: 'total', numeric: true, label: tc.amount},
+            {id: 'created', numeric: false, label: tc.created},
+            {id: 'ordered', numeric: false, label: tc.ordered},
+            {id: 'creatorName', numeric: false, label: tc.createdBy},
+            {id: 'dealerName', numeric: false, label: tc.company},
+        ];
+    },
+    getListsRows: (rows) => {
+        // created, ordered (tooltip),
+        const columns = tableHelper.getListsColumns();
+        return rows.map((row) => {
+            const obj = {};
+            columns.forEach((column) => {
+                if (column.id === 'created') {
+                    obj[column.id] = moment(new Date(row[column.id])).format('YYYY-MM-DD');
+                } else if (column.id === 'ordered') {
+                    obj[column.id] =
+                        <div className='tableCellIconHolder'>
+                            {row.order && <Tooltip horizontalDirection='right' tooltipContent={tc.orderedName}><Icon val='person'/></Tooltip>}
+                            {row.phoneOrder && <Tooltip horizontalDirection='right' tooltipContent={tc.orderedPhone}><Icon val='phone'/></Tooltip>}
+                            {row.orderMailings && <Tooltip horizontalDirection='right' tooltipContent={tc.orderedMailings}><Icon val='mail'/></Tooltip>}
+                            {row.orderCompany && <Tooltip horizontalDirection='right' tooltipContent={tc.orderedCompany}><Icon val='company'/></Tooltip>}
+                        </div>
+                } else {
+                    obj[column.id] = row[column.id];
+                }
+
+                obj.id = row._id;
+            });
+
+            return obj;
+        });
     },
 };
 

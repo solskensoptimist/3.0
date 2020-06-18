@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {tc} from 'helpers';
 import history from '../../router_history';
-import Tooltip from 'components/tooltip';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -23,14 +22,13 @@ import TextField from '@material-ui/core/TextField';
  * Rows can be selectable (but not when rows are linked).
  * Rows can be navigation links (but not when rows are selectable).
  * Cells can be editable.
- * Cells can have a hover effect, if so that property should be an object with a 'content' and a 'hover' property.
  *
  * Two examples on how to use this component, first with rows that are links, second with selectable rows:
- *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} linkRows={true} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
  *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} onSelect={_onSelect} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
+ *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} linkRows={true} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
  *
- * @param props.linkRows - bool (optional) - Set to true when we want every row to be a navigational link. If so, every row object must have a 'url' property with a route value.
- * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. If so, every row object must have an 'id' property with a unique value.
+ * @param props.linkRows - bool (optional) - Set to true when we want every row to be a navigational link. Note that every row object must have a 'url' property with a route value.
+ * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. Note that every row object must have an 'id' property with a unique value.
  * @param props.columns - array
  *      Example 1 (used with example 1 for rows): [
  *          { id: 'name', numeric: false, label: 'Dessert (100g serving)' },
@@ -40,11 +38,6 @@ import TextField from '@material-ui/core/TextField';
  *      Example 2 (used with example 2 for rows): [
  *          { id: 'brand', numeric: false, label: 'Märke' },
  *          { id: 'reg_number', numeric: false, label: 'Registreringsnummer' },
- *      ];
- *      Example 3 (used with example 3 for rows): [
- *          { id: 'name', numeric: false, label: 'Namn' },
- *          { id: 'zipMuncipality', numeric: false, label: 'Ort' },
- *          { id: 'activity', numeric: false, label: 'Aktivitet' },
  *      ];
  *  @param props.rows - array
  *      Example 1 (rows are selectable): [
@@ -56,12 +49,6 @@ import TextField from '@material-ui/core/TextField';
  *          {reg_number: 'abc123', brand: 'HONDA', url: '/bil/abc123'},
  *          {reg_number: 'rty456', brand: 'VOLOV', url: '/bil/rty456'},
  *      ];
- *      Example 3 (rows are links, and activity-property have hover effect.): [
- *          {name: 'Kvinna 28', zipMuncipality: 'Motala', url: '/person/4567812', activity: {content: <Icon val='list'>, hover: <div>Detta prospekt finns i 2 listor</div>}},
- *          {name: 'Man 54', zipMuncipality: 'helsingborg', url: '/person/6956896', activity: {content: <Icon val='list'>, hover: <div>Detta prospekt finns i 4 listor</div>}},
- *      ];
- *   Note that every object must have an 'id' property with a unique value when props.onSelect is a function.
- *   Note that every object must have a 'url' property with a route value when props.linkRows === true.
  */
 export default (props) => {
     const [page, setPage] = useState(0);
@@ -128,18 +115,7 @@ export default (props) => {
             if (prop !== 'id' && prop !== 'url') {
                 index++;
                 const column = props.columns.find((column) => column.id === prop);
-                if (typeof row[prop] === 'object' && row[prop] !== null && row[prop].content && row[prop].hover) {
-                    // Add hover hover effect to this cell.
-                    rows.push(
-                        <TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`}>
-                            <Tooltip horizontalDirection='right' tooltipContent={row[prop].hover}>
-                                {row[prop].content}
-                            </Tooltip>
-                        </TableCell>
-                    );
-                } else {
-                    rows.push(<TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`}>{row[prop]}</TableCell>);
-                }
+                rows.push(<TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`}>{row[prop]}</TableCell>);
             }
         }
 

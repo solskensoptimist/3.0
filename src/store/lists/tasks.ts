@@ -1,6 +1,8 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {listsActionTypes} from './actions';
+import {showFlashMessage} from 'store/flash_messages/tasks';
+import {tc} from 'helpers';
 
 /**
  * Get lists for user.
@@ -41,17 +43,44 @@ export const getLists = async (payload) => {
 /**
  * Save prospect to a new or existing list.
  *
- * @param payload.list - object
- * @param payload.prospects - array
+ * @param payload.name - string - Name of new list.
+ * @param payload.lists - array - Ids of existing lists.
+ * @param payload.prospectIds - array - Prospects ids.
  */
 export const saveProspectsToList = async (payload) => {
     try {
-        if (!payload || (payload && !payload.list) || (payload && !payload.prospects) || (payload && payload.prospects && !payload.prospects.length)) {
-            return console.error('Missing params in saveProspectsToList:\n' + payload);
+        if (!payload || (payload && !payload.name && !payload.lists) || (payload && (!payload.prospectIds || !payload.prospectIds.length))) {
+            console.error('Missing params in saveProspectsToList:\n' + payload);
+            return showFlashMessage(tc.couldNotSaveToList);
         }
 
-        console.log('saveProspectsToList', payload);
+        let data;
 
+        if (payload.name && payload.name.length) {
+            data = await request({
+                data: {
+                    name: payload.name,
+                    prospect_ids: payload.propspectIds,
+                },
+                method: 'post',
+                url: '/lists/',
+            });
+        } else {
+            data = await request({
+                data: {
+                    lists: payload.lists,
+                    prospect_ids: payload.prospectIds,
+                },
+                method: 'post',
+                url: '/lists/append/',
+            });
+        }
+
+        if (! data || data instanceof Error) {
+            return console.error('Could not save prospects to list:\n' + data);
+        }
+
+        return showFlashMessage(tc.savedInList)
     } catch (err) {
         return console.error('Error in saveProspectsToList:\n' + err);
     }
