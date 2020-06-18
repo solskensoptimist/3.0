@@ -1735,10 +1735,10 @@ svg.active {
   .searchMainWrapper__searchMain__content {
     position: absolute;
     top: calc(100% + 2px);
-    right: 0;
+    left: 0;
     background: white;
     z-index: 5;
-    width: 100%; }
+    width: calc(100% - (38px + 22px)); }
     .searchMainWrapper__searchMain__content__searchResult__item {
       color: #00B4CC;
       font-size: 14px;

@@ -37,10 +37,10 @@
         &__content
             position: absolute
             top: calc(100% + 2px)
-            right: 0
+            left: 0
             background: white
             z-index: 5
-            width: 100%
+            width: calc(100% - (#{$iconSizeBig} + #{$paddingBig}))
             @extend .shadowRegular
             &__searchResult
                 &__item
