@@ -7,6 +7,10 @@
     bottom: 0; }
   100% {
     bottom: -100%; } }
+.activeInputField {
+  border: 0 !important;
+  border-bottom: 1px solid #00B4CC !important; }
+
 .buttonRegular, .createDealWrapper__createDeal__content__item button {
   background: #f5f5f5;
   border: 1px solid #e0e0e0;
@@ -1039,7 +1043,6 @@ a {
     border: 0; }
   .dropdownWrapper__dropdown__content {
     z-index: 10;
-    min-width: 100%;
     max-width: 300px;
     max-height: 300px;
     overflow-y: auto;
@@ -1982,7 +1985,7 @@ svg.active {
     .tableWrapper__table__content table svg {
       width: 16px;
       height: 16px;
-      fill: #9e9e9e; }
+      fill: #bdbdbd; }
     .tableWrapper__table__content table .MuiTableSortLabel-root {
       display: flex;
       align-items: center;
@@ -2008,25 +2011,50 @@ svg.active {
   .tableWrapper__table__footer {
     display: flex;
     justify-content: space-between; }
-    .tableWrapper__table__footer .MuiTablePagination-root {
-      color: #9e9e9e; }
-      .tableWrapper__table__footer .MuiTablePagination-root svg {
-        fill: #00B4CC;
-        width: 16px;
-        height: 16px; }
-      .tableWrapper__table__footer .MuiTablePagination-root .MuiIconButton-root:hover {
-        background: transparent; }
-        .tableWrapper__table__footer .MuiTablePagination-root .MuiIconButton-root:hover svg {
-          fill: #616161; }
-      .tableWrapper__table__footer .MuiTablePagination-root .Mui-disabled svg {
-        fill: #9e9e9e; }
-      .tableWrapper__table__footer .MuiTablePagination-root .MuiSelect-root {
-        font-size: 12px; }
-      .tableWrapper__table__footer .MuiTablePagination-root svg.MuiSelect-icon {
-        width: 24px;
-        height: 24px; }
-      .tableWrapper__table__footer .MuiTablePagination-root .MuiTypography-body2 {
-        font-size: 12px; }
+    .tableWrapper__table__footer__left {
+      display: flex;
+      align-items: center; }
+      .tableWrapper__table__footer__left input {
+        margin: 8px 0;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid #e0e0e0;
+        width: 160px;
+        padding: 4px; }
+        .tableWrapper__table__footer__left input:hover {
+          border-color: #00B4CC; }
+      .tableWrapper__table__footer__left .MuiFormControl-root {
+        margin: 8px; }
+        .tableWrapper__table__footer__left .MuiFormControl-root label {
+          font-size: 12px;
+          white-space: nowrap; }
+    .tableWrapper__table__footer__right {
+      display: flex;
+      align-items: center; }
+      .tableWrapper__table__footer__right__rowsPerPage {
+        color: #9e9e9e; }
+        .tableWrapper__table__footer__right__rowsPerPage__option, .tableWrapper__table__footer__right__rowsPerPage__optionActive {
+          margin-left: 8px;
+          cursor: pointer;
+          color: #00B4CC; }
+          .tableWrapper__table__footer__right__rowsPerPage__option:hover, .tableWrapper__table__footer__right__rowsPerPage__optionActive:hover {
+            color: #616161; }
+        .tableWrapper__table__footer__right__rowsPerPage__optionActive {
+          color: #616161; }
+      .tableWrapper__table__footer__right .MuiTablePagination-root {
+        color: #9e9e9e; }
+        .tableWrapper__table__footer__right .MuiTablePagination-root svg {
+          fill: #00B4CC;
+          width: 16px;
+          height: 16px; }
+        .tableWrapper__table__footer__right .MuiTablePagination-root .MuiIconButton-root:hover {
+          background: transparent; }
+          .tableWrapper__table__footer__right .MuiTablePagination-root .MuiIconButton-root:hover svg {
+            fill: #616161; }
+        .tableWrapper__table__footer__right .MuiTablePagination-root .Mui-disabled svg {
+          fill: #9e9e9e; }
+        .tableWrapper__table__footer__right .MuiTablePagination-root .MuiTypography-body2 {
+          font-size: 13px; }
 
 .tooltipWrapper {
   position: relative; }

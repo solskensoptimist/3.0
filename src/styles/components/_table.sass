@@ -4,7 +4,7 @@
     &__content
       .MuiTableContainer-root
         overflow-y: hidden
-      // Adjustments to material-ui table.
+      // Material-ui table.
       table
         min-width: 550px
         max-width: calc(100% - 1px)
@@ -36,7 +36,7 @@
         svg
           width: 16px
           height: 16px
-          fill: $colorTextLight-1
+          fill: $colorTextLight-2
         .MuiTableSortLabel-root
           display: flex
           align-items: center
@@ -64,25 +64,57 @@
     &__footer
       display: flex
       justify-content: space-between
-      // Adjustments to pagination component
-      .MuiTablePagination-root
-        color: $colorTextLight-1
-        svg
-          fill: $colorLink
-          width: 16px
-          height: 16px
-        .MuiIconButton-root
+      &__left
+        display: flex
+        align-items: center
+        input
+          margin: $paddingSmall 0
+          background: transparent
+          border: 0
+          border-bottom: 1px solid $grey-300
+          width: 160px
+          padding: 4px
           &:hover
-            background: transparent
-            svg
-              fill: $colorLinkHover
-        .Mui-disabled
+            border-color: $colorLink
+        .MuiFormControl-root
+          margin: $paddingSmall
+          label
+            font-size: $fontSizeStandard-1
+            white-space: nowrap
+      &__right
+        display: flex
+        align-items: center
+        &__rowsPerPage
+          color: $colorTextLight-1
+          &__option
+            margin-left: $paddingSmall
+            cursor: pointer
+            color: $colorLink
+            &:hover
+              color: $colorLinkHover
+          &__optionActive
+            @extend .tableWrapper__table__footer__right__rowsPerPage__option
+            color: $colorLinkHover
+        .MuiTablePagination-root
+          color: $colorTextLight-1
           svg
-            fill: $colorTextLight-1
-        .MuiSelect-root
-          font-size: $fontSizeStandard-1
-        svg.MuiSelect-icon
-          width: 24px
-          height: 24px
-        .MuiTypography-body2
-          font-size: $fontSizeStandard-1
+            fill: $colorLink
+            width: 16px
+            height: 16px
+          .MuiIconButton-root
+            &:hover
+              background: transparent
+              svg
+                fill: $colorLinkHover
+          .Mui-disabled
+            svg
+              fill: $colorTextLight-1
+          .MuiTypography-body2
+            font-size: $fontSizeStandard
+          //.MuiSelect-root
+          //  font-size: $fontSizeStandard-1
+          //svg.MuiSelect-icon
+          //  width: 24px
+          //  height: 24px
+          //.MuiTypography-body2
+          //  font-size: $fontSizeStandard-1

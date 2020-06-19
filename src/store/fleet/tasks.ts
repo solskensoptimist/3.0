@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {request, requestWithBody} from 'helpers';
+import {requestWithBody} from 'helpers';
 import {fleetActionTypes} from './actions';
 
 /**

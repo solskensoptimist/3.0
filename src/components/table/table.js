@@ -2,10 +2,6 @@ import React, {useState} from 'react';
 import {tc} from 'helpers';
 import history from '../../router_history';
 import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,7 +10,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import TextField from '@material-ui/core/TextField';
 
 /**
  * Table component.
@@ -56,7 +51,7 @@ export default (props) => {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [query, setQuery] = React.useState('');
-    const [searchColumn, setSearchColumn] = React.useState('');
+    //const [searchColumn, setSearchColumn] = React.useState('');
     const [selected, setSelected] = React.useState([]);
 
     const handleChangePage = (event, newPage) => {
@@ -173,7 +168,7 @@ export default (props) => {
                         <Table aria-label='table' size='small'>
                             {renderTableHead()}
                             <TableBody>
-                                {stableSort(props.rows, getComparator(order, orderBy), searchColumn, query)
+                                {stableSort(props.rows, getComparator(order, orderBy), query)
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row, index) => {
                                         const isItemSelected = isSelected(row.id);
@@ -218,36 +213,38 @@ export default (props) => {
                                     })}
                             </TableBody>
                         </Table>
-                        <div className='tableWrapper__table__footer'>
-                            <div className='tableWrapper__table__footer__left'>
-                                <TextField id='standard-basic' label={tc.search} onChange={(e) => {setQuery(e.target.value)}} />
-                                <FormControl>
-                                    <InputLabel id='select-column-search-label'>{tc.chooseColumn}</InputLabel>
-                                    <Select
-                                        labelId='select-column-search-label'
-                                        id='select-column-search'
-                                        value={searchColumn}
-                                        onChange={(e) => {setSearchColumn(e.target.value)}}
-                                    >
-                                        {props.columns.map((column) => {
-                                            return <MenuItem key={column.id} value={column.id}>{column.label}</MenuItem>;
-                                        })}
-                                    </Select>{searchColumn}
-                                </FormControl>
-                            </div>
-                            <div className='tableWrapper__table__footer__right'>
-                                <TablePagination
-                                    rowsPerPageOptions={[5, 10, 25]}
-                                    component='div'
-                                    count={props.rows.length}
-                                    rowsPerPage={rowsPerPage}
-                                    page={page}
-                                    onChangePage={handleChangePage}
-                                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                                />
-                            </div>
-                        </div>
                     </TableContainer>
+                </div>
+                <div className='tableWrapper__table__footer'>
+                    <div className='tableWrapper__table__footer__left'>
+                        <input className={(query && query.length) ? 'activeInputField' : null} type='text' placeholder={tc.placeholderSearchTable} onChange={(e) => {setQuery(e.target.value)}} value={query}/>
+                    </div>
+                    <div className='tableWrapper__table__footer__right'>
+                        <div className='tableWrapper__table__footer__right__rowsPerPage'>
+                            {tc.rowsPerPage}:
+                            <span className={(rowsPerPage === 5) ?
+                                'tableWrapper__table__footer__right__rowsPerPage__optionActive' :
+                                'tableWrapper__table__footer__right__rowsPerPage__option'}
+                                  onClick={() => {setRowsPerPage(5)}}>5</span>
+                            <span className={(rowsPerPage === 10) ?
+                                'tableWrapper__table__footer__right__rowsPerPage__optionActive' :
+                                'tableWrapper__table__footer__right__rowsPerPage__option'}
+                                  onClick={() => {setRowsPerPage(10)}}>10</span>
+                            <span className={(rowsPerPage === 25) ?
+                                'tableWrapper__table__footer__right__rowsPerPage__optionActive' :
+                                'tableWrapper__table__footer__right__rowsPerPage__option'}
+                                  onClick={() => {setRowsPerPage(25)}}>25</span>
+                        </div>
+                        <TablePagination
+                            rowsPerPageOptions={[null]}
+                            component='div'
+                            count={props.rows.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onChangePage={handleChangePage}
+                            onChangeRowsPerPage={handleChangeRowsPerPage}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -279,11 +276,20 @@ const getComparator = (order, orderBy) => {
 /**
  * Helper function.
  */
-const stableSort = (array, comparator, column, query) => {
+const stableSort = (array, comparator, query) => {
     // First filter on search query.
-    if (column && column.length && query && query.length) {
+    if (query && query.length) {
         try {
-            array = array.filter((row) => row[column].includes(query));
+            array = array.filter((row) => {
+                let hit = false;
+                for (const prop in row) {
+                    if (typeof row[prop] === 'string' && row[prop].toLowerCase().includes(query.toLowerCase())) {
+                        hit = true;
+                    }
+                }
+
+                return hit;
+            });
         } catch {
             console.error('Could not filter table on search query');
         }
