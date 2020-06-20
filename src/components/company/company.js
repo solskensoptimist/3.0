@@ -45,7 +45,7 @@ const Company = (state) => {
     }, [id]);
 
     useEffect(() => {
-        if (state.company.responsible) {
+        if (state.company && state.company.responsible) {
             setResponsibleObj(state.company.responsible);
         } else {
             setResponsibleObj({
@@ -203,14 +203,14 @@ const Company = (state) => {
                             }}
                             headline={tc.with + ' ' + tc.connection.toLowerCase() + ' ' + tc.to.toLowerCase() + ' ' + state.company.company.name}
                             koncern={!!(state.company.company.parentCompanyId && state.company.company.parentCompanyId.length)}
-                            prospects={[{id: state.company.company.user_id.toString(), name: state.company.company.name}]}
-                            target={state.company.company.user_id}
+                            prospects={[{id: id, name: state.company.company.name}]}
+                            target={id}
                         />
                     }
                     {showSaveToList &&
                         <SaveToList
                             close={() => {setShowSaveToList(false)}}
-                            prospects={[state.company.company.user_id]}
+                            prospects={[id]}
                         />
                     }
                 </div>

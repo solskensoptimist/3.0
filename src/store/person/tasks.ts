@@ -1,7 +1,7 @@
 import {store} from 'store';
-import {request, tc} from 'helpers';
+import {prospectHelper, request} from 'helpers';
 import {personActionTypes} from './actions';
-import {showFlashMessage} from 'store/flash_messages/tasks';
+//import {showFlashMessage} from 'store/flash_messages/tasks';
 
 
 /**
@@ -32,17 +32,24 @@ export const getPerson = async (payload) => {
 
         const data = await Promise.all(person.concat(responsible, deals));
 
-        if (!data || data instanceof Error) {
+        if (!data || data instanceof Error || !data.length) {
             console.error('No data in getPerson', data);
             store.dispatch({ type: personActionTypes.SET_PERSON, payload: {}});
-            return store.dispatch({ type: personActionTypes.SET_PERSON_RESPONSIBLE, payload: {}});
+            store.dispatch({ type: personActionTypes.SET_PERSON_RESPONSIBLE, payload: {}});
+            return store.dispatch({ type: personActionTypes.SET_PERSON_DEALS, payload: []});
         }
 
-        console.log('deals', data[2]);
+        let resultPerson = (data[0].person && data[0].person[0]) ? data[0].person[0] : {};
+        const resultResponsible = (data[1]) ? data[1] : {};
+        let resultDeals = (data[2]) ? data[2] : [];
+
+        if (!resultPerson.person.name || !resultPerson.person.name.length) {
+            resultPerson.person.name = prospectHelper.buildPersonDefaultName(resultPerson.person.gender, resultPerson.person.birthYear, resultPerson.person.zipMuncipality);
+        }
 
         // Sort deals on name.
-        if (data[2] && data[2].deals) {
-            data[2].deals = data[2].deals.sort((a: any, b: any) => {
+        if (resultDeals && resultDeals.length) {
+            resultDeals = resultDeals.sort((a: any, b: any) => {
                 if (!a.name || a.name.length === 0) {
                     return -1;
                 } else if (a.name.toLowerCase() < b.name.toLowerCase()) {
@@ -55,9 +62,9 @@ export const getPerson = async (payload) => {
             });
         }
 
-        store.dispatch({ type: personActionTypes.SET_PERSON, payload: data[0]});
-        store.dispatch({ type: personActionTypes.SET_PERSON_RESPONSIBLE, payload: data[1]});
-        return store.dispatch({ type: personActionTypes.SET_PERSON_DEALS, payload: data[2]});
+        store.dispatch({ type: personActionTypes.SET_PERSON, payload: resultPerson});
+        store.dispatch({ type: personActionTypes.SET_PERSON_RESPONSIBLE, payload: resultResponsible});
+        return store.dispatch({ type: personActionTypes.SET_PERSON_DEALS, payload: resultDeals});
     } catch(err) {
         return console.error('Error in getPerson:\n' + err);
     }
