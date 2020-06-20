@@ -206,6 +206,7 @@ export default {
     partOfDeals: 'Koppling till affärer',
     partOfKoncern: 'Ingår i en koncern',
     pb: 'Personbil',
+    personInfo: 'Personinformation',
     phone: 'Telefon',
     phoneNumbers: 'Telefonnummer',
     placeholderSearchAll: 'Sök person, företag eller registreringsnummer',

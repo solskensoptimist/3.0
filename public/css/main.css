@@ -107,7 +107,7 @@
 .marginTopMedium {
   margin-top: 12px; }
 
-.paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer > div, .homeWrapper__home__content__item {
+.paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer > div, .homeWrapper__home__content__item, .personWrapper__person__content__item {
   background: white;
   border: 1px solid #eeeeee; }
 
@@ -1680,6 +1680,14 @@ svg.active {
       background: #f5f5f5;
       padding: 8px;
       font-size: 11px; }
+
+.personWrapper__person {
+  padding: 1.2%; }
+  .personWrapper__person__content__item {
+    margin-bottom: 1.2%;
+    padding: 22px; }
+    .personWrapper__person__content__item:last-of-type {
+      margin-bottom: 0; }
 
 .popupWrapper {
   background: rgba(0, 0, 0, 0.2);
