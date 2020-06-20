@@ -219,23 +219,26 @@ export default (props) => {
                     <div className='tableWrapper__table__footer__left'>
                         <input className={(query && query.length) ? 'activeInputField' : null} type='text' placeholder={tc.placeholderSearchTable} onChange={(e) => {setQuery(e.target.value)}} value={query}/>
                     </div>
-                    <div className='tableWrapper__table__footer__right'>
-                        <div className='tableWrapper__table__footer__right__rowsPerPage'>
+                    <div className='tableWrapper__table__footer__middle'>
+                        <div className='tableWrapper__table__footer__middle__rowsPerPage'>
                             {tc.rowsPerPage}:
                             <span className={(rowsPerPage === 5) ?
-                                'tableWrapper__table__footer__right__rowsPerPage__optionActive' :
-                                'tableWrapper__table__footer__right__rowsPerPage__option'}
+                                'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
+                                'tableWrapper__table__footer__middle__rowsPerPage__option'}
                                   onClick={() => {setRowsPerPage(5)}}>5</span>
                             <span className={(rowsPerPage === 10) ?
-                                'tableWrapper__table__footer__right__rowsPerPage__optionActive' :
-                                'tableWrapper__table__footer__right__rowsPerPage__option'}
+                                'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
+                                'tableWrapper__table__footer__middle__rowsPerPage__option'}
                                   onClick={() => {setRowsPerPage(10)}}>10</span>
                             <span className={(rowsPerPage === 25) ?
-                                'tableWrapper__table__footer__right__rowsPerPage__optionActive' :
-                                'tableWrapper__table__footer__right__rowsPerPage__option'}
+                                'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
+                                'tableWrapper__table__footer__middle__rowsPerPage__option'}
                                   onClick={() => {setRowsPerPage(25)}}>25</span>
                         </div>
+                    </div>
+                    <div className='tableWrapper__table__footer__right'>
                         <TablePagination
+                            labelDisplayedRows={({from, to, count}) => `${from} - ${to} ${tc.of.toLowerCase()} ${count}`}
                             rowsPerPageOptions={[null]}
                             component='div'
                             count={props.rows.length}
@@ -279,20 +282,16 @@ const getComparator = (order, orderBy) => {
 const stableSort = (array, comparator, query) => {
     // First filter on search query.
     if (query && query.length) {
-        try {
-            array = array.filter((row) => {
-                let hit = false;
-                for (const prop in row) {
-                    if (typeof row[prop] === 'string' && row[prop].toLowerCase().includes(query.toLowerCase())) {
-                        hit = true;
-                    }
+        array = array.filter((row) => {
+            let hit = false;
+            for (const prop in row) {
+                if (typeof row[prop] === 'string' && row[prop].toLowerCase().includes(query.toLowerCase())) {
+                    hit = true;
                 }
+            }
 
-                return hit;
-            });
-        } catch {
-            console.error('Could not filter table on search query');
-        }
+            return hit;
+        });
     }
 
     const stabilizedThis = array.map((el, index) => [el, index]);

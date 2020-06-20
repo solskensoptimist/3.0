@@ -15,7 +15,7 @@
             th
               color: $colorTextDark !important
               font-size: $fontSizeStandard-2
-              padding: ($paddingSmall * 1.5)
+              padding: 4px $paddingSmall
               &:last-child
                 border-right: 0
         tbody
@@ -27,7 +27,7 @@
               border-right: 1px solid $grey-300
               color: $colorTextLight !important
               font-size: $fontSizeStandard-2
-              padding: ($paddingSmall * 1.5)
+              padding: $paddingSmall
               &:first-child
                 border-left: 1px solid $grey-300
           .MuiTableRow-hover
@@ -81,9 +81,10 @@
           label
             font-size: $fontSizeStandard-1
             white-space: nowrap
-      &__right
+      &__middle
         display: flex
         align-items: center
+        margin: 0 $paddingBig
         &__rowsPerPage
           color: $colorTextLight-1
           &__option
@@ -93,8 +94,11 @@
             &:hover
               color: $colorLinkHover
           &__optionActive
-            @extend .tableWrapper__table__footer__right__rowsPerPage__option
+            @extend .tableWrapper__table__footer__middle__rowsPerPage__option
             color: $colorLinkHover
+      &__right
+        display: flex
+        align-items: center
         .MuiTablePagination-root
           color: $colorTextLight-1
           svg
@@ -111,6 +115,8 @@
               fill: $colorTextLight-1
           .MuiTypography-body2
             font-size: $fontSizeStandard
+          .MuiTablePagination-actions
+            margin-left: $paddingSmall
           //.MuiSelect-root
           //  font-size: $fontSizeStandard-1
           //svg.MuiSelect-icon
