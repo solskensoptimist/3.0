@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {saveProspectsToList} from 'store/lists/tasks';
 import {getLists} from 'store/lists/tasks';
 import {tableHelper, tc} from 'helpers';
-import TextField from '@material-ui/core/TextField';
 import Loading from 'components/loading';
 import Popup from 'components/popup';
 import WidgetFooter from 'components/widget_footer';
@@ -56,7 +55,7 @@ const SaveToList = (state) => {
                         {showExisting ?
                             <Table columns={tableHelper.getListsColumns()} onSelect={(arr) => {setLists(arr)}} rows={tableHelper.getListsRows(state.lists.lists)}/> :
                             <div className='saveToListWrapper__saveToList__content__newList'>
-                                <TextField id='standard-basic' label={tc.listName} onChange={(e) => {setListName(e.target.value)}}/>
+                                <input placeholder={tc.listName} onChange={(e) => {setListName(e.target.value)}}/>
                             </div>
                         }
                     </div>

@@ -175,6 +175,15 @@
     .tableCellIconHolder .tooltipWrapper:first-of-type {
       margin-left: 0; }
 
+.whiteInputField, .tableWrapper__table__footer__left input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
+  width: 160px;
+  padding: 4px; }
+  .whiteInputField:hover, .tableWrapper__table__footer__left input:hover {
+    border-color: #00B4CC; }
+
 h1 {
   font-size: 26px;
   line-height: 30px;
@@ -1711,6 +1720,12 @@ svg.active {
       color: #00B4CC; }
       .saveToListWrapper__saveToList__content__menu__item:hover {
         color: #616161; }
+  .saveToListWrapper__saveToList__content__newList {
+    display: flex;
+    align-items: center;
+    width: 30%; }
+    .saveToListWrapper__saveToList__content__newList input {
+      margin-left: 8px; }
 
 .searchMainWrapper {
   margin-left: 22px;
@@ -2015,14 +2030,7 @@ svg.active {
       display: flex;
       align-items: center; }
       .tableWrapper__table__footer__left input {
-        margin: 8px 0;
-        background: transparent;
-        border: 0;
-        border-bottom: 1px solid #e0e0e0;
-        width: 160px;
-        padding: 4px; }
-        .tableWrapper__table__footer__left input:hover {
-          border-color: #00B4CC; }
+        margin: 8px 0; }
       .tableWrapper__table__footer__left .MuiFormControl-root {
         margin: 8px; }
         .tableWrapper__table__footer__left .MuiFormControl-root label {

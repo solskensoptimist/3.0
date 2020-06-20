@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useParams} from 'react-router-dom';
+import {getPerson} from 'store/person/tasks';
 
 /**
  * Render person view.
  */
 const Person = (state) => {
     const {id} = useParams();
+
+    useEffect(() => {
+        getPerson({id: id});
+    }, [id]);
 
     return (
         <div className='personWrapper'>

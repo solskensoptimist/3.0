@@ -16,8 +16,6 @@ export default (props) => {
         const _closePopup = (e) => {
             if (popupRef && popupRef.current) {
                 const node = ReactDOM.findDOMNode(popupRef.current);
-                console.log('node', node);
-                console.log('e.target', e.target);
                 if (node && !node.contains(e.target)) {
                     props.close();
                 }

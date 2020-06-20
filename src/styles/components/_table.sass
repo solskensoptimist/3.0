@@ -69,13 +69,7 @@
         align-items: center
         input
           margin: $paddingSmall 0
-          background: transparent
-          border: 0
-          border-bottom: 1px solid $grey-300
-          width: 160px
-          padding: 4px
-          &:hover
-            border-color: $colorLink
+          @extend .whiteInputField
         .MuiFormControl-root
           margin: $paddingSmall
           label
@@ -117,10 +111,3 @@
             font-size: $fontSizeStandard
           .MuiTablePagination-actions
             margin-left: $paddingSmall
-          //.MuiSelect-root
-          //  font-size: $fontSizeStandard-1
-          //svg.MuiSelect-icon
-          //  width: 24px
-          //  height: 24px
-          //.MuiTypography-body2
-          //  font-size: $fontSizeStandard-1
