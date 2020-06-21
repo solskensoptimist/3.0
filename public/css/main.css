@@ -121,7 +121,7 @@
 
 .paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer > div, .homeWrapper__home__content__item, .personWrapper__person__content__item {
   background: white;
-  border: 1px solid #eeeeee; }
+  border: 1px solid #e0e0e0; }
 
 .pointer {
   cursor: pointer; }
@@ -419,10 +419,9 @@ a {
 .companyWrapper__company {
   padding: 1.2%; }
   .companyWrapper__company__header {
-    margin-bottom: 1.2%;
+    margin-bottom: 4px;
     display: flex;
-    font-size: 16px;
-    border-bottom: 1px solid #e0e0e0; }
+    font-size: 16px; }
     .companyWrapper__company__header h4 {
       font-size: 12px;
       color: #bdbdbd;
@@ -728,10 +727,9 @@ a {
 .dealWrapper__deal {
   padding: 1.2%; }
   .dealWrapper__deal__header {
-    margin-bottom: 1.2%;
+    margin-bottom: 4px;
     display: flex;
-    font-size: 16px;
-    border-bottom: 1px solid #e0e0e0; }
+    font-size: 16px; }
     .dealWrapper__deal__header h4 {
       font-size: 12px;
       color: #bdbdbd;
@@ -1691,10 +1689,9 @@ svg.active {
 .personWrapper__person {
   padding: 1.2%; }
   .personWrapper__person__header {
-    margin-bottom: 1.2%;
+    margin-bottom: 4px;
     display: flex;
-    font-size: 16px;
-    border-bottom: 1px solid #e0e0e0; }
+    font-size: 16px; }
     .personWrapper__person__header h4 {
       font-size: 12px;
       color: #bdbdbd;
