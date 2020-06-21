@@ -86,7 +86,7 @@
   align-items: center !important;
   justify-content: center !important;
   padding: 8px !important;
-  fill: #9e9e9e !important;
+  fill: #757575 !important;
   background: #eeeeee !important;
   border-radius: 50% !important;
   cursor: default !important;
@@ -452,7 +452,7 @@ a {
       flex-direction: column; }
       .companyWrapper__company__header__left__top {
         flex-grow: 1;
-        margin: 12px 0 12px 0; }
+        margin: 12px 0 22px 0; }
       .companyWrapper__company__header__left__bottom {
         flex-grow: 1;
         display: flex;
@@ -765,7 +765,7 @@ a {
       flex-direction: column; }
       .dealWrapper__deal__header__left__top {
         flex-grow: 1;
-        margin: 12px 0 12px 0; }
+        margin: 12px 0 22px 0; }
       .dealWrapper__deal__header__left__bottom {
         flex-grow: 1;
         display: flex;
@@ -1650,12 +1650,12 @@ svg.active {
         font-size: 12px;
         font-weight: 400; }
         .navigationWrapper__navigation__left a:hover {
-          background: #fafafa;
+          background: #f5f5f5;
           color: #616161; }
           .navigationWrapper__navigation__left a:hover svg {
             fill: #616161; }
         .navigationWrapper__navigation__left a.active {
-          background: #fafafa;
+          background: #f5f5f5;
           color: #616161; }
           .navigationWrapper__navigation__left a.active svg {
             fill: #616161; }
@@ -1724,7 +1724,7 @@ svg.active {
       flex-direction: column; }
       .personWrapper__person__header__left__top {
         flex-grow: 1;
-        margin: 12px 0 12px 0; }
+        margin: 12px 0 22px 0; }
       .personWrapper__person__header__left__bottom {
         flex-grow: 1;
         display: flex;
