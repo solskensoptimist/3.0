@@ -64,7 +64,7 @@
       fill: #616161; }
 
 .chipInformatory, .createDealWrapper__createDeal__content__item__chipholder__chip {
-  background: #ffb300;
+  background: #ffc107;
   color: white; }
   .chipInformatory svg, .createDealWrapper__createDeal__content__item__chipholder__chip svg {
     fill: white; }
@@ -100,6 +100,18 @@
   cursor: pointer !important; }
   .iconStyleCircleClick:hover, .companyWrapper__company__header__right svg:hover, .dealWrapper__deal__header__right svg:hover, .personWrapper__person__header__right svg:hover, .searchMainWrapper__searchMain__header svg:hover {
     background: #616161 !important; }
+
+.iconStyleInformatory, .activitiesWrapper__activities__content__itemWrapper__item span.iconHolder, .eventsFlowWrapper__eventsFlow__content__itemWrapper__item span.iconHolder {
+  background: #ffc107;
+  border-radius: 50%;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .iconStyleInformatory svg, .activitiesWrapper__activities__content__itemWrapper__item span.iconHolder svg, .eventsFlowWrapper__eventsFlow__content__itemWrapper__item span.iconHolder svg {
+    fill: white;
+    width: 12px;
+    height: 12px; }
 
 .marginTopBig {
   margin-top: 22px; }
@@ -219,9 +231,9 @@ h5 {
   text-transform: uppercase; }
 
 .headlineMain, .widgetHeaderWrapper__widgetHeader__left__right {
-  color: #212121; }
+  color: #616161; }
   .headlineMain h2, .widgetHeaderWrapper__widgetHeader__left__right h2 {
-    font-weight: 600; }
+    font-weight: 700; }
   .headlineMain h3, .widgetHeaderWrapper__widgetHeader__left__right h3, .headlineMain .dealWrapper__deal__header input.large, .dealWrapper__deal__header .headlineMain input.large, .widgetHeaderWrapper__widgetHeader__left__right .dealWrapper__deal__header input.large, .dealWrapper__deal__header .widgetHeaderWrapper__widgetHeader__left__right input.large {
     font-size: 14px;
     font-weight: normal;
@@ -231,8 +243,9 @@ h5 {
     display: inline; }
 
 .headlineVeryLarge, .companyWrapper__company__header h3, .dealWrapper__deal__header h3, .dealWrapper__deal__header input.large, .personWrapper__person__header h3 {
-  font-size: 38px;
-  text-transform: none; }
+  font-size: 42px;
+  text-transform: none;
+  font-weight: 700; }
 
 .italic {
   font-style: italic;
@@ -343,10 +356,6 @@ a {
       border-bottom: 1px solid #eeeeee; }
       .activitiesWrapper__activities__content__itemWrapper__item:hover .activitiesWrapper__activities__content__itemWrapper__item__edit {
         visibility: visible; }
-      .activitiesWrapper__activities__content__itemWrapper__item svg {
-        width: 18px;
-        height: 18px;
-        fill: #bdbdbd; }
       .activitiesWrapper__activities__content__itemWrapper__item strong {
         font-weight: 600; }
       .activitiesWrapper__activities__content__itemWrapper__item span.label {
@@ -577,7 +586,7 @@ a {
           .contactsWrapper__contacts__content__contacts__item__header__icon svg, .contactsWrapper__contacts__content__contacts__item__header__stickyIcon svg {
             fill: #bdbdbd; }
         .contactsWrapper__contacts__content__contacts__item__header__stickyIcon svg {
-          fill: #ffb300; }
+          fill: #ffc107; }
         .contactsWrapper__contacts__content__contacts__item__header__name, .contactsWrapper__contacts__content__contacts__item__header__stickyName {
           flex-grow: 1;
           display: flex;
@@ -590,7 +599,7 @@ a {
           font-weight: 600;
           font-size: 12px; }
         .contactsWrapper__contacts__content__contacts__item__header__stickyName {
-          color: #ffb300; }
+          color: #ffc107; }
         .contactsWrapper__contacts__content__contacts__item__header__edit {
           visibility: hidden;
           display: flex;
@@ -1003,7 +1012,7 @@ a {
         align-items: center;
         justify-content: center; }
         .dealFilesWrapper__dealFiles__content__files__file__icon svg, .dealFilesWrapper__dealFiles__content__files__file__remove svg {
-          fill: #ffb300; }
+          fill: #ffc107; }
       .dealFilesWrapper__dealFiles__content__files__file p, .dealFilesWrapper__dealFiles__content__files__fileNoRemove p {
         flex-grow: 1;
         overflow: hidden;
@@ -1053,11 +1062,13 @@ a {
   .dropdownWrapper__dropdown__content {
     z-index: 10;
     max-width: 300px;
+    min-width: 100%;
     max-height: 300px;
     overflow-y: auto;
     background: white;
     position: absolute;
-    top: 100%; }
+    top: 100%;
+    left: 0; }
 
 .dropdownItemWrapper {
   padding: 8px 12px;
@@ -1084,9 +1095,9 @@ a {
       width: 14px;
       height: 14px; }
   .dropdownItemWrapper__dropdownItemActive {
-    color: #ffb300; }
+    color: #ffc107; }
     .dropdownItemWrapper__dropdownItemActive svg {
-      fill: #ffb300; }
+      fill: #ffc107; }
 
 .dropdownItemDelimiterWrapper {
   margin-top: 22px; }
@@ -1201,10 +1212,6 @@ a {
       border-bottom: 1px solid #eeeeee; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item:hover .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit {
         visibility: visible; }
-      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item svg {
-        width: 18px;
-        height: 18px;
-        fill: #bdbdbd; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item strong {
         font-weight: 600; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item span.label {
@@ -1301,7 +1308,7 @@ a {
   fill: #81c784 !important; }
 
 .withinAWeek .additionalDate svg {
-  fill: #ffd54f !important; }
+  fill: #ffc107 !important; }
 
 .flashMessagesWrapper {
   position: fixed;
@@ -1310,7 +1317,7 @@ a {
   display: flex;
   justify-content: center; }
   .flashMessagesWrapper__flashMessages {
-    background: #ffb300;
+    background: #ffc107;
     color: white;
     border-radius: 4px 4px 0 0;
     padding: 12px 22px;
@@ -1454,7 +1461,7 @@ svg.active {
     align-items: center;
     justify-content: center; }
     .infoBoxWrapper__infoBox__icon svg {
-      fill: #ffb300;
+      fill: #ffc107;
       width: 26px;
       height: 26px; }
   .infoBoxWrapper__infoBox h4 {
@@ -1887,7 +1894,7 @@ svg.active {
     background: #f5f5f5;
     padding: 12px; }
     .searchSelectWrapper__searchSelect__header__top__title h4 {
-      color: #ffb300;
+      color: #ffc107;
       font-size: 12px;
       margin-bottom: 12px; }
     .searchSelectWrapper__searchSelect__header__top__input {
@@ -1895,7 +1902,7 @@ svg.active {
       align-items: center;
       justify-content: flex-start; }
       .searchSelectWrapper__searchSelect__header__top__input svg {
-        background: #ffb300;
+        background: #ffc107;
         fill: white;
         height: 44px;
         width: 34px;
@@ -1904,7 +1911,7 @@ svg.active {
         background: white;
         color: #616161;
         padding: 12px 18px;
-        border: 2px solid #ffb300;
+        border: 2px solid #ffc107;
         width: 100%;
         font-size: 13px;
         height: 44px; }

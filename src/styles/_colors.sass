@@ -228,7 +228,7 @@ $teal-A400: #1de9b6
 $teal-A700: #00bfa5
 
 
-// Site rules
+// Site main colors
 $colorPrimary-50: #9DDEE7
 $colorPrimary-100: #7FD5E0
 $colorPrimary-200: #60CCDA
@@ -239,56 +239,6 @@ $colorPrimary-600: #00A2BB
 $colorPrimary-700: #008EA8
 $colorPrimary-800: #007993
 $colorPrimary-900: #00637A
-
-//$colorPrimary-100: #BDC3F1
-//$colorPrimary-200: #98A5E7
-//$colorPrimary-300: #7489DC
-//$colorPrimary-400: #5270D0
-//$colorPrimary-500: #315AC2
-//$colorPrimary-600: #2A4AB1
-//$colorPrimary-700: #233C9F
-//$colorPrimary-800: #1D2F8D
-//$colorPrimary-900: #17237B
-
-//$colorPrimary-100: #e7cdff
-//$colorPrimary-200: #d6adff
-//$colorPrimary-300: #b26fff
-//$colorPrimary-400: #8d36ff
-//$colorPrimary-500: #8A1DFF
-//$colorPrimary-600: #6d14df
-//$colorPrimary-700: #600ebf
-//$colorPrimary-800: #52099f
-//$colorPrimary-900: #440680
-
-//$colorSecondary-100: #80E1F3
-//$colorSecondary-200: #60D5E9
-//$colorSecondary-300: #40C6DC
-//$colorSecondary-400: #20B6CC
-//$colorSecondary-500: #09A3BA
-//$colorSecondary-600: #009AB1
-//$colorSecondary-700: #0090A7
-//$colorSecondary-800: #008399
-//$colorSecondary-900: #00768A
-
-//$colorSecondary-100: #FA99E6
-//$colorSecondary-200: #F273D8
-//$colorSecondary-300: #E54DC8
-//$colorSecondary-400: #D626B5
-//$colorSecondary-500: #C200A0
-//$colorSecondary-600: #BF009B
-//$colorSecondary-700: #BA0095
-//$colorSecondary-800: #B3008E
-//$colorSecondary-900: #AA0086
-
-//$colorSecondary-100: #80E1F3
-//$colorSecondary-200: #60D5E9
-//$colorSecondary-300: #40C6DC
-//$colorSecondary-400: #20B6CC
-//$colorSecondary-500: #09A3BA
-//$colorSecondary-600: #009AB1
-//$colorSecondary-700: #0090A7
-//$colorSecondary-800: #008399
-//$colorSecondary-900: #00768A
 
 $colorSecondary-50: $amber-50
 $colorSecondary-100: $amber-100
@@ -305,17 +255,6 @@ $colorSecondary-A200: $amber-A200
 $colorSecondary-A400: $amber-A400
 $colorSecondary-A700: $amber-A700
 
-//$colorTertiary-50: #F4C2B0
-//$colorTertiary-100: #F2AF97
-//$colorTertiary-200: #F09C7E
-//$colorTertiary-300: #EE8864
-//$colorTertiary-400: #EE754A
-//$colorTertiary-500: #ED612F
-//$colorTertiary-600: #E45623
-//$colorTertiary-700: #D94B18
-//$colorTertiary-800: #C6410E
-//$colorTertiary-900: #B33706
-
 $colorTertiary-50:   #DFF3EC
 $colorTertiary-100:  #ACE0D1
 $colorTertiary-200:  #ACE0D1
@@ -327,6 +266,7 @@ $colorTertiary-700:  #4C9D8E
 $colorTertiary-800:  #43897C
 $colorTertiary-900:  #39766A
 
+// Text
 $colorTextMain: $grey-700
 $colorTextDark: $grey-900
 $colorTextDark-1: $grey-800
@@ -334,19 +274,20 @@ $colorTextLight: $grey-600
 $colorTextLight-1: $grey-500
 $colorTextLight-2: $grey-400
 
-$colorEventPassedDate: $deep-orange-200
-$colorEventWithinOneDay: $green-300
-$colorEventWithinAWeek: $amber-300
-
-//$colorLink: $colorSecondary-300
+// Links
 $colorLink: $colorPrimary-500
-$colorLinkLight: $colorPrimary-300
-$colorLinkDark: $colorPrimary-700
 $colorLinkHover: $colorTextMain
-$colorInformatory: $colorSecondary-600
+
+// Informatory colors
+$colorInformatory: $colorSecondary-500
 $colorHighLight: $colorSecondary-200
 
-//$backgroundSite: radial-gradient(circle at top right, $colorSecondary-200, $colorSecondary-300, $colorPrimary-400)
+// Event time limits
+$colorEventPassedDate: $deep-orange-200
+$colorEventWithinOneDay: $green-300
+$colorEventWithinAWeek: $colorInformatory
+
+// Backgrounds
 $backgroundSite: radial-gradient(circle at top right, $colorPrimary-500, $colorPrimary-300, $colorPrimary-600)
 $backgroundPrimaryColors: linear-gradient(to right, $colorPrimary-400, $colorPrimary-600)
 $backgroundSecondaryColors: linear-gradient($colorSecondary-300, $colorSecondary-400)

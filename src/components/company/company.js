@@ -79,7 +79,7 @@ const Company = (state) => {
                                                 responsibleUserName: name,
                                             });
                                         }}/> :
-                                    <p>{responsibleObj.responsibleUserName}</p>
+                                    <p>{responsibleObj.responsibleUserName ? responsibleObj.responsibleUserName : <span className='italic'>{tc.noOwner}</span>}</p>
                                 }
                             </div>
                             <div className='companyWrapper__company__header__left__bottom__item'>

@@ -113,10 +113,6 @@
           &:hover
             .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__edit
               visibility: visible
-          svg
-            width: 18px
-            height: 18px
-            fill: $grey-400
           strong
             font-weight: 600
           span.label
@@ -124,6 +120,8 @@
             font-size: $fontSizeStandard-2
             color: $colorTextLight-1
             margin-right: $paddingSmall
+          span.iconHolder
+            @extend .iconStyleInformatory
           &__icon
             flex-basis: 2%
             border-right: 1px solid $grey-200
