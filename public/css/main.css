@@ -419,7 +419,7 @@ a {
 .companyWrapper__company {
   padding: 1.2%; }
   .companyWrapper__company__header {
-    margin-bottom: 4px;
+    margin-bottom: 1.2%;
     display: flex;
     font-size: 16px; }
     .companyWrapper__company__header h4 {
@@ -727,7 +727,7 @@ a {
 .dealWrapper__deal {
   padding: 1.2%; }
   .dealWrapper__deal__header {
-    margin-bottom: 4px;
+    margin-bottom: 1.2%;
     display: flex;
     font-size: 16px; }
     .dealWrapper__deal__header h4 {
@@ -1689,7 +1689,7 @@ svg.active {
 .personWrapper__person {
   padding: 1.2%; }
   .personWrapper__person__header {
-    margin-bottom: 4px;
+    margin-bottom: 1.2%;
     display: flex;
     font-size: 16px; }
     .personWrapper__person__header h4 {
