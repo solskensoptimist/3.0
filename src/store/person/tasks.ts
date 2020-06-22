@@ -100,3 +100,32 @@ export const setResponsibility = async (payload) => {
     //     return console.error('Error in setResponsibility:\n' + err);
     // }
 };
+
+/**
+ * Toggle GDPR consent regarding a vehicle user for a dealer.
+ *
+ * @param payload.id - string - Id of vehicle user.
+ */
+export const toggleConsent = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.id)) {
+            return console.error('Missing params in toggleConsent.');
+        }
+
+        const data = await request({
+            data: {
+                user_id: payload.id,
+            },
+            method: 'post',
+            url: '/privatePerson/toggleConsent/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Could not toggle consent in toggleConsent:\n' + data);
+        }
+
+        return store.dispatch({ type: personActionTypes.SET_PERSON_CONSENT, payload: (data === 1)});
+    } catch (err) {
+        return console.error('Error in toggleConsent:\n' + err);
+    }
+};

@@ -53,7 +53,7 @@ const Company = (state) => {
                 responsibleUserName: '',
             });
         }
-    }, [state.company.responsible]);
+    }, [state.company]);
 
     return ( _stateCheck() ?
         <div className='companyWrapper'>

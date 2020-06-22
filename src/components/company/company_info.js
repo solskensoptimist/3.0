@@ -9,6 +9,9 @@ import Loading from 'components/loading';
 import Tooltip from 'components/tooltip';
 import WidgetHeader from 'components/widget_header';
 
+/**
+ * Company information component.
+ */
 const CompanyInfo = (state) => {
     const [emails, setEmails] = useState([]);
     const [minimize, setMinimize] = useState(false);

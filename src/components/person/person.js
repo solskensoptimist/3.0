@@ -56,7 +56,7 @@ const Person = (state) => {
                 responsibleUserName: '',
             });
         }
-    }, [state.person.responsible]);
+    }, [state.person]);
 
     return (_stateCheck() ?
         <div className='personWrapper'>

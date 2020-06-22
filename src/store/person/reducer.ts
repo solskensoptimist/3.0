@@ -25,6 +25,15 @@ export const personReducer = (state = initialState, action) => {
                 supertemp: action.payload.supertemp,
             }
         }
+        case personActionTypes.SET_PERSON_CONSENT: {
+            return {
+                ...state,
+                person: {
+                    ...state.person,
+                    consent: action.payload,
+                },
+            }
+        }
         case personActionTypes.SET_PERSON_DEALS: {
             return {
                 ...state,
@@ -34,7 +43,7 @@ export const personReducer = (state = initialState, action) => {
         case personActionTypes.SET_PERSON_EMAILS: {
             return {
                 ...state,
-                company: {
+                person: {
                     ...state.person,
                     emails: action.payload,
                 }
@@ -43,7 +52,7 @@ export const personReducer = (state = initialState, action) => {
         case personActionTypes.SET_PERSON_PHONENUMBERS: {
             return {
                 ...state,
-                company: {
+                person: {
                     ...state.person,
                     phoneNumbers: action.payload,
                 }

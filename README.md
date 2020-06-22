@@ -14,11 +14,13 @@ npm start
 
 #### Application structure brainstorm and notes
 
+Overall philosophy: let the components handle rendering, let store (and tasks in store) handle the data flow, and where applicable let helpers do stuff that is an obvious helper task (such as mapping table columns). Try and make it easy to change components, styling and functionality in the future, I.E. create shared styles and shared components where applicable.
+
 We shouldn't need to import redux dispatcher to components (via mapDispatchToProps). Instead put all functions that touch store state (and use dispatcher) from store/subdomain/tasks.ts. tasks.ts should handle all tasks that affect that domain of the store state. I.E. store/user/tasks.ts handles everything that affects state.user.
 
-We should map redux state to components wherever we need it, we should try and limit the use of props as much as we can. This way we can reuse components in different places. Try and keep them clean and not dependent of other components (disregarding subcomponents of course). I.E. we should be able to use <Events/> everywhere on the site.
+We should map redux state to components wherever we need it, we should try and limit the use of props as much as we can. This way we can reuse components in different places. Try and keep them clean and not dependent of other components (disregarding pure subcomponents of course). I.E. we should be able to use <Events/> everywhere on the site.
 
-Since we use redux store everywhere we should try and keep the use of local state in components to a minimal. It should of course be used where a component need to store a state that we should not have in redux. But we should not retrieve state from store and save it in a local component state.
+Since we use redux store everywhere we should try and keep the use of local state in components to a minimal. It should of course be used where a component need to store a state that we should not have in redux. But we should not retrieve state from store and save it in a local component state if not necessary.
 
 We use typescript in /store.
 
