@@ -85,28 +85,30 @@ const Person = (state) => {
                                     <p>{responsibleObj.responsibleUserName ? responsibleObj.responsibleUserName : <span className='italic'>{tc.noOwner}</span>}</p>
                                 }
                             </div>
-                            <div className='personWrapper__person__header__left__bottom__item'>
-                                <h5>{tc.partOfDeals}:</h5>
-                                {(state.person.deals && state.person.deals.length) &&
-                                <div className='personWrapper__person__header__left__bottom__item__dealsHolder'>
-                                    {state.person.deals.map((num, i) => {
-                                        if (num._id) {
-                                            if (i === state.person.deals.length - 1) {
-                                                return (
-                                                    <span className='dealLink' key={i}><NavLink exact to={'/affar/' + num._id}>{num.name ? num.name : tc.deal}</NavLink></span>
-                                                );
+                            {!changeResponsible &&
+                                <div className='personWrapper__person__header__left__bottom__item'>
+                                    <h5>{tc.partOfDeals}:</h5>
+                                    {(state.person.deals && state.person.deals.length) &&
+                                    <div className='personWrapper__person__header__left__bottom__item__dealsHolder'>
+                                        {state.person.deals.map((num, i) => {
+                                            if (num._id) {
+                                                if (i === state.person.deals.length - 1) {
+                                                    return (
+                                                        <span className='dealLink' key={i}><NavLink exact to={'/affar/' + num._id}>{num.name ? num.name : tc.deal}</NavLink></span>
+                                                    );
+                                                } else {
+                                                    return (
+                                                        <span className='dealLink' key={i}><NavLink exact to={'/affar/' + num._id}>{num.name ? num.name : tc.deal}</NavLink>,</span>
+                                                    );
+                                                }
                                             } else {
-                                                return (
-                                                    <span className='dealLink' key={i}><NavLink exact to={'/affar/' + num._id}>{num.name ? num.name : tc.deal}</NavLink>,</span>
-                                                );
+                                                return null;
                                             }
-                                        } else {
-                                            return null;
-                                        }
-                                    })}
+                                        })}
+                                    </div>
+                                    }
                                 </div>
-                                }
-                            </div>
+                            }
                         </div>
                     </div>
                     <div className='personWrapper__person__header__right'>

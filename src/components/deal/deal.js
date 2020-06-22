@@ -148,18 +148,24 @@ const Deal = (state) => {
                                     <p>{dealObj.description}</p>
                                 }
                             </div>
-                            <div className='dealWrapper__deal__header__left__bottom__item'>
-                                <h5>{tc.status}:</h5>
-                                <p>{dealHelper.getReadablePhase(state.deal.deal.phase)}</p>
-                            </div>
-                            <div className='dealWrapper__deal__header__left__bottom__item'>
-                                <h5>{tc.savedInList}:</h5>
-                                <p>{state.deal.listName}</p>
-                            </div>
-                            <div className='dealWrapper__deal__header__left__bottom__item'>
-                                <h5>{tc.lastUpdate}:</h5>
-                                <p>{moment(new Date(state.deal.deal.updated)).fromNow()}</p>
-                            </div>
+                            {!editDeal &&
+                                <div className='dealWrapper__deal__header__left__bottom__item'>
+                                    <h5>{tc.status}:</h5>
+                                    <p>{dealHelper.getReadablePhase(state.deal.deal.phase)}</p>
+                                </div>
+                            }
+                            {!editDeal &&
+                                <div className='dealWrapper__deal__header__left__bottom__item'>
+                                    <h5>{tc.savedInList}:</h5>
+                                    <p>{state.deal.listName}</p>
+                                </div>
+                            }
+                            {!editDeal &&
+                                <div className='dealWrapper__deal__header__left__bottom__item'>
+                                    <h5>{tc.lastUpdate}:</h5>
+                                    <p>{moment(new Date(state.deal.deal.updated)).fromNow()}</p>
+                                </div>
+                            }
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.potential}:</h5>
                                 {editDeal ?
