@@ -37,7 +37,7 @@ export default (props) => {
                     </div>
                     <div key={num._id} className='dayWrapper__eventsWrapper__events__event__info'>
                         <p><span className='highlight'>{event}</span> {fillerText.toLowerCase()} {name}</p>
-                        <Icon val='navigateNext'/>
+                        <Icon val='navigate'/>
                     </div>
                 </NavLink>
             </div>)

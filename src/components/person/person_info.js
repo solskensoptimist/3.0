@@ -248,13 +248,14 @@ const Person = (state) => {
                         </div>
                         <div className='personInfoWrapper__personInfo__content__item'>
                             <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.address}</p>
-                            <p>{(state.person.person.address ? state.person.person.address : null)}, {(state.person.person.zip ? state.person.person.zip : null)}, {(state.person.person.zipMuncipality ? state.person.person.zipMuncipality : null)}</p>
+                            <p>{(state.person.person.address ? state.person.person.address : null)}</p>
+                            <p>{(state.person.person.zip ? state.person.person.zip : null)} {(state.person.person.zipMuncipality ? state.person.person.zipMuncipality : null)}</p>
                         </div>
                         <div className='personInfoWrapper__personInfo__content__item'>
                             <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.phoneNumbers}</p>
                             {_renderPhoneNumbers()}
                             <div className='personInfoWrapper__personInfo__content__item__addField'>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.addPhone}>
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.addPhone}>
                                     <Icon val='add' onClick={() => {
                                         setPhoneNumbers((Array.isArray(phoneNumbers)) ? phoneNumbers.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
                                     }}/>
