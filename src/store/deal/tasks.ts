@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {prospectHelper, request, tc} from 'helpers';
+import {personHelper, request, tc} from 'helpers';
 import {dealActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import companyHelper from 'shared_helpers/company_helper';
@@ -100,7 +100,7 @@ const getProspectInfo = async (payload) => {
                 const person = num.person[0].person;
                 let name;
                 if (!person.name || person.name === '') {
-                    name = prospectHelper.buildPersonDefaultName(person.gender, person.birthYear);
+                    name = personHelper.buildPersonDefaultName(person.gender, person.birthYear);
                 } else {
                     name = person.name;
                 }

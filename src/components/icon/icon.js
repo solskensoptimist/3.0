@@ -54,7 +54,7 @@ import {
     ToggleOff,
     ToggleOn,
     Tune,
-    VisibilityOff,
+    Visibility,
     Work,
     ZoomOutMap,
 } from '@material-ui/icons';
@@ -139,8 +139,6 @@ export default (props) => {
             return <Reorder className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'file':
             return <InsertDriveFile className={props.active ? 'active' : null} onClick={onClick}/>;
-        case 'hide':
-            return <VisibilityOff className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'home':
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'info':
@@ -203,6 +201,8 @@ export default (props) => {
             return <Search className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'settings':
             return <Settings className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'supertemp':
+            return <Visibility className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'team':
             return <Group className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'testride':

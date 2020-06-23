@@ -14,6 +14,7 @@ import {listsReducer} from 'store/lists/reducer';
 import {personReducer} from 'store/person/reducer';
 import {prospectReducer} from 'store/prospect/reducer';
 import {searchReducer} from 'store/search/reducer';
+import {supertempReducer} from 'store/supertemp/reducer';
 import {settingsReducer} from 'store/settings/reducer';
 import {userReducer} from 'store/user/reducer';
 
@@ -34,6 +35,7 @@ const reducer = combineReducers({
     person: personReducer,
     prospect: prospectReducer,
     search: searchReducer,
+    supertemp: supertempReducer,
     settings: settingsReducer,
     user: userReducer,
 });

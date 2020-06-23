@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {getDashboardSettings} from 'store/settings/tasks';
 import Events from 'components/events';
 import News from 'components/news';
+import SupertempWidget from 'components/supertemp_widget';
 
 const Dashboard = (state) => {
     const [widgets, setWidgets] = useState([]);
@@ -15,8 +16,8 @@ const Dashboard = (state) => {
      */
 
 
-    const _renderWidget = (type, i) => {
-        switch (type.toLowerCase()) {
+    const _renderWidget = (widget, i) => {
+        switch (widget.type.toLowerCase()) {
             case 'notifications':
                 return  (
                     <div className='dashboardWrapper__dashboard__content__item' key={i}>
@@ -31,10 +32,9 @@ const Dashboard = (state) => {
                     </div>
                 );
             case 'monitorlist':
-                // Return supertemp widget when built...
                 return (
                     <div className='dashboardWrapper__dashboard__content__item' key={i}>
-                        <Events small={true} type='all' view='calendar'/>
+                        <SupertempWidget {...widget}/>
                     </div>
                 );
             case 'news':
@@ -51,7 +51,7 @@ const Dashboard = (state) => {
     const _renderWidgetsLeft = () => {
         return widgets.map((widget, i) => {
             if (i % 2 === 0) {
-                return _renderWidget(widget.type, i);
+                return _renderWidget(widget, i);
             } else {
                 return null;
             }
@@ -61,7 +61,7 @@ const Dashboard = (state) => {
     const _renderWidgetsRight = () => {
         return widgets.map((widget, i) => {
             if (i % 2 !== 0) {
-                return _renderWidget(widget.type, i);
+                return _renderWidget(widget, i);
             } else {
                 return null;
             }

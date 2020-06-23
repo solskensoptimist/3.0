@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {prospectHelper, request, tc} from 'helpers';
+import {personHelper, request, tc} from 'helpers';
 import {personActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 
@@ -43,7 +43,7 @@ export const getPerson = async (payload) => {
         let resultDeals = (data[2]) ? data[2] : [];
 
         if (!resultPerson.person.name || !resultPerson.person.name.length) {
-            resultPerson.person.name = prospectHelper.buildPersonDefaultName(resultPerson.person.gender, resultPerson.person.birthYear, resultPerson.person.zipMuncipality);
+            resultPerson.person.name = personHelper.buildPersonDefaultName(resultPerson.person.gender, resultPerson.person.birthYear, resultPerson.person.zipMuncipality);
         }
 
         // Sort deals on name.

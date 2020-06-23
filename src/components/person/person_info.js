@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {showFlashMessage} from 'store/flash_messages/tasks';
-import {prospectHelper, tc} from 'helpers';
+import {personHelper, tc} from 'helpers';
 import {updatePersonInformation} from 'store/person/tasks';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
@@ -235,8 +235,8 @@ const Person = (state) => {
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.save}><Icon val='save' onClick={() => {_addValue({value: name}, 'name')}}/></Tooltip>
                                 </div>
                             }
-                            <p>{(state.person.person.gender ? prospectHelper.getGenderString(state.person.person.gender) : tc.dataMissing)}</p>
-                            <p>{state.person.person.birthYear ? <>{prospectHelper.getAgeString(state.person.person.birthYear)} {tc.years.toLowerCase()}</> : tc.dataMissing}</p>
+                            <p>{(state.person.person.gender ? personHelper.getGenderString(state.person.person.gender) : tc.dataMissing)}</p>
+                            <p>{state.person.person.birthYear ? <>{personHelper.getAgeString(state.person.person.birthYear)} {tc.years.toLowerCase()}</> : tc.dataMissing}</p>
                         </div>
                         <div className='personInfoWrapper__personInfo__content__item'>
                             <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.address}</p>

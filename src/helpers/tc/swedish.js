@@ -254,6 +254,8 @@ export default {
     sold: 'Såld',
     ss: 'Snöskoter',
     status: 'Status',
+    subscription: 'Bevakning',
+    supertemp: 'Fordon ute för försäljning',
     sv: 'Släpvagn',
     team: 'Team',
     theDeal: 'Affären',
