@@ -79,6 +79,32 @@ export const tableHelper = {
             return obj;
         });
     },
+    getSupertempWidgetColumns: () => {
+        return [
+            {id: 'name', numeric: false, label: tc.vehicleUser},
+            {id: 'brand', numeric: false, label: tc.brand},
+            {id: 'submitted', numeric: false, label: tc.submitted},
+        ];
+    },
+    getSupertempWidgetRows: (rows) => {
+        const columns = tableHelper.getSupertempWidgetColumns();
+        return rows.map((row) => {
+            const obj = {};
+            columns.forEach((column) => {
+                if (column.id === 'submitted') {
+                    obj[column.id] = moment(new Date(row.supertemp.added)).fromNow();
+                } else if (column.id === 'name') {
+                    obj[column.id] = row.name.fullName;
+                } else {
+                    obj[column.id] = row[column.id];
+                }
+
+                obj.url = `/bil/${row.reg_number}`
+            });
+
+            return obj;
+        });
+    },
 };
 
 const getFleetRowsCurrent = (rows) => {

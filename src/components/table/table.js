@@ -14,15 +14,14 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 /**
  * Table component.
  *
- * Rows can be selectable (but not when rows are linked).
- * Rows can be navigation links (but not when rows are selectable).
- * Cells can be editable.
+ * Rows can be selectable (but not when rows are linked), if so provied onSelect function.
+ * Rows can be navigation links (but not when rows are selectable), if so each row has to have a url property.
+ * TODO: make cells editable...
  *
  * Two examples on how to use this component, first with rows that are links, second with selectable rows:
  *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} onSelect={_onSelect} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
- *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} linkRows={true} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
+ *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
  *
- * @param props.linkRows - bool (optional) - Set to true when we want every row to be a navigational link. Note that every row object must have a 'url' property with a route value.
  * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. Note that every row object must have an 'id' property with a unique value.
  * @param props.columns - array
  *      Example 1 (used with example 1 for rows): [
@@ -44,10 +43,11 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
  *          {reg_number: 'abc123', brand: 'HONDA', url: '/bil/abc123'},
  *          {reg_number: 'rty456', brand: 'VOLOV', url: '/bil/rty456'},
  *      ];
+ *  @param props.rowsPerPage - number (optional)
  */
 export default (props) => {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPage ? props.rowsPerPage : 10);
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [query, setQuery] = React.useState('');
@@ -174,7 +174,7 @@ export default (props) => {
                                         const isItemSelected = isSelected(row.id);
                                         const labelId = `enhanced-table-checkbox-${index}`;
 
-                                        if (props.linkRows && row.url) {
+                                        if (!props.onSelect && row.url) {
                                             // Row is link.
                                             return (
                                                 <TableRow

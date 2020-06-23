@@ -1,0 +1,60 @@
+// Supertemp component
+.supertempWrapper
+  &__supertemp
+    &__content
+
+// Supertemp widget component
+.supertempWidgetWrapper
+  &__supertempWidget
+    &__content
+      margin-top: $paddingBig
+      &__info
+        display: flex
+        margin-bottom: $paddingBig
+        p
+          text-transform: lowercase
+        h4
+          text-transform: none
+          font-weight: 400
+          font-size: 16px
+        h4.supertempWidgetEmphasize
+          background: $grey-50
+          border: 1px solid $grey-200
+          color: $colorInformatory
+          border-radius: 50%
+          font-size: 22px
+          height: 40px
+          width: 40px
+          margin: $paddingMedium 0
+          display: flex
+          align-items: center
+          justify-content: center
+        &__left
+          flex-basis: calc(50% - #{$paddingMedium})
+          margin-right: $paddingMedium
+          display: flex
+          flex-direction: column
+          align-items: center
+          justify-content: center
+        &__right
+          flex-basis: calc(50% - #{$paddingMedium})
+          margin-left: $paddingMedium
+          display: flex
+          flex-direction: column
+          align-items: center
+          justify-content: center
+      &__navigate
+        display: flex
+        justify-content: flex-end
+        margin-top: $paddingSmall
+        a
+          display: flex
+          align-items: center
+          &:hover
+            svg
+              fill: $colorLinkHover
+          svg
+            fill: $colorLink
+            width: 16px
+            height: 16px
+            margin-left: $paddingSmall

@@ -22,7 +22,7 @@ export const getSupertempData = async (payload) => {
 
         // Format criterias for backend.
         const criterias = prospectHelper.getSearchVariables(payload.criterias);
-        criterias.pageSize = 5;
+        criterias.pageSize = 25;
         criterias.sort = {
             type: 'published',
             direction: 'DESC'

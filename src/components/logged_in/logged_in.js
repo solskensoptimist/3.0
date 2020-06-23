@@ -17,6 +17,7 @@ import Person from 'components/person/';
 import Prospect from 'components/prospect/';
 import ProspectResult from 'components/prospect_result';
 import SearchResults from 'components/search_results';
+import Supertemp from 'components/supertemp';
 
 /**
  * Main component for logged in components.
@@ -41,6 +42,7 @@ export default () => {
                         <Route exact path='/prospektera' component={Prospect}/>
                         <Route exact path='/prospektera/resultat' component={ProspectResult}/>
                         <Route exact path='/sok/:q' component={SearchResults}/>
+                        <Route exact path='/supertemp/:id' component={Supertemp}/>
                         <Route component={Dashboard}/>
                     </Switch>
                 </div>

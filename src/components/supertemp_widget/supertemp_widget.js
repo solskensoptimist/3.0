@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {getSupertempData} from 'store/supertemp/tasks';
+import {NavLink} from 'react-router-dom';
+import {tableHelper, tc} from 'helpers';
+import Icon from 'components/icon';
 import Loading from 'components/loading';
+import Tooltip from 'components/tooltip';
+import Table from 'components/table';
 import WidgetHeader from 'components/widget_header';
-import Tooltip from "../tooltip/tooltip";
-import {tc} from "helpers";
-import Icon from "../icon/icon";
 
 export const SupertempWidget = (state) => {
     const [data, setData] = useState(null);
     const [minimize, setMinimize] = useState(false);
+
+    const _navigateSupertemp = () => {
+
+    };
 
     const _stateCheck = () => {
         return !!(data);
@@ -38,7 +44,25 @@ export const SupertempWidget = (state) => {
                 </div>
                 {!minimize &&
                     <div className='supertempWidgetWrapper__supertempWidget__content'>
-                        {data && data.total && data.total.amount}
+                    <div className='supertempWidgetWrapper__supertempWidget__content__info'>
+                        <div className='supertempWidgetWrapper__supertempWidget__content__info__left'>
+                            <h4>{tc.supertempLast24Hours_1}</h4>
+                            <h4 className='supertempWidgetEmphasize'>0</h4>
+                            <p>{tc.supertempLast24Hours_2}</p>
+                        </div>
+                        <div className='supertempWidgetWrapper__supertempWidget__content__info__right'>
+                            <h4>{tc.supertempHandle_1}</h4>
+                            <h4 className='supertempWidgetEmphasize'>72</h4>
+                            <p>{tc.supertempHandle_2}</p>
+                        </div>
+                    </div>
+                        <Table columns={tableHelper.getSupertempWidgetColumns()} linkRows={true} rows={tableHelper.getSupertempWidgetRows(data.items)} rowsPerPage={5}/>
+                        <div className='supertempWidgetWrapper__supertempWidget__content__navigate'>
+                            <NavLink exact to={`/supertemp/${state.props._id}`}>
+                                <h5>{tc.exploreProspects}</h5>
+                                <Icon val='navigate'/>
+                            </NavLink>
+                        </div>
                     </div>
                 }
             </div>

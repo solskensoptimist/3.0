@@ -6,12 +6,16 @@
       &__left
         flex-basis: calc(50% - (#{$paddingGrid} / 2))
         margin-right: ($paddingGrid / 2)
+        > div
+          &:first-child
+            margin-top: 0
       &__right
         flex-basis: calc(50% - (#{$paddingGrid} / 2))
         margin-left: ($paddingGrid / 2)
+        > div
+          &:first-child
+            margin-top: 0
       &__item
         margin-top: $paddingGrid
         @extend .paperSheet
         padding: $paddingBig
-        &:first-child(1)
-          margin-top: 0

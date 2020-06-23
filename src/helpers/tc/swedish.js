@@ -1,3 +1,5 @@
+import {tc} from "./index";
+
 export default {
     aboutUs: 'Om oss',
     acquiredAges: 'Innehavstid',
@@ -117,6 +119,7 @@ export default {
     eventsCalendar: 'Kalendervy',
     eventsFlow: 'Flödesvy',
     existingLists: 'Existerande listor',
+    exploreProspects: 'Undersök prospekt',
     female: 'Kvinna',
     files: 'Filer',
     filesHowTo: 'Ladda upp filer med hjälp av plustecknet. Ta bort filer genom att klicka på papperskorgen som visas när muspekaren förs över en fil.',
@@ -254,8 +257,13 @@ export default {
     sold: 'Såld',
     ss: 'Snöskoter',
     status: 'Status',
+    submitted: 'Utlagd',
     subscription: 'Bevakning',
     supertemp: 'Fordon ute för försäljning',
+    supertempHandle_1: 'Totalt finns det',
+    supertempHandle_2: 'Brukare som ska byta fordon kvar att hantera',
+    supertempLast24Hours_1: 'Senast dygnet har',
+    supertempLast24Hours_2: 'Brukare lagt ut fordon till försäljning',
     sv: 'Släpvagn',
     team: 'Team',
     theDeal: 'Affären',
@@ -281,6 +289,7 @@ export default {
     valueCannotBeEmpty: 'Värde kan ej vara tomt',
     vehicle: 'Fordon',
     vehicles: 'Fordon',
+    vehicleUser: 'Brukare',
     veryHot: 'Stekhet',
     visit: 'Kundbesök',
     visitingAddress: 'Besöksadress',
