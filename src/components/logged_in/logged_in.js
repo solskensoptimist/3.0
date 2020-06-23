@@ -5,11 +5,11 @@ import Activity from 'components/activity/';
 import Analyse from 'components/analyse/';
 import Car from 'components/car/';
 import Company from 'components/company/';
+import Dashboard from 'components/dashboard/';
 import Deal from 'components/deal/';
 import Footer from 'components/footer';
 import FlashMessages from 'components/flash_messages';
 import Header from 'components/header';
-import Home from 'components/home/';
 import Koncern from 'components/koncern/';
 import List from 'components/list/';
 import Lists from 'components/lists/';
@@ -41,7 +41,7 @@ export default () => {
                         <Route exact path='/prospektera' component={Prospect}/>
                         <Route exact path='/prospektera/resultat' component={ProspectResult}/>
                         <Route exact path='/sok/:q' component={SearchResults}/>
-                        <Route component={Home}/>
+                        <Route component={Dashboard}/>
                     </Switch>
                 </div>
             </div>

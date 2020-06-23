@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {saveProspectsToList} from 'store/lists/tasks';
 import {getLists} from 'store/lists/tasks';
@@ -18,6 +18,7 @@ const SaveToList = (state) => {
     const [lists, setLists] = useState([]);
     const [listName, setListName] = useState('');
     const [showExisting, setShowExisting] = useState(true);
+    const newListNameInputRef = useRef(null);
 
     const _saveToList = async () => {
         if (showExisting) {
@@ -37,6 +38,12 @@ const SaveToList = (state) => {
         getLists();
     }, []);
 
+    useEffect(() => {
+        if (!showExisting) {
+            newListNameInputRef && newListNameInputRef.current && newListNameInputRef.current.focus();
+        }
+    }, [showExisting]);
+
     return ( _stateCheck() ?
         <Popup close={state.props.close} size='big'>
             <div className='saveToListWrapper'>
@@ -55,7 +62,7 @@ const SaveToList = (state) => {
                         {showExisting ?
                             <Table columns={tableHelper.getListsColumns()} onSelect={(arr) => {setLists(arr)}} rows={tableHelper.getListsRows(state.lists.lists)}/> :
                             <div className='saveToListWrapper__saveToList__content__newList'>
-                                <input placeholder={tc.listName} onChange={(e) => {setListName(e.target.value)}}/>
+                                <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={newListNameInputRef}/>
                             </div>
                         }
                     </div>

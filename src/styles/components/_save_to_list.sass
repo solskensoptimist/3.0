@@ -14,7 +14,13 @@
             color: $colorLinkHover
       &__newList
         display: flex
-        align-items: center
-        width: 30%
+        align-items: flex-end
+        width: 100%
+        margin-bottom: $paddingMedium
+        p
+          margin-right: $paddingMedium
+          white-space: nowrap
         input
-          margin-left: $paddingSmall
+          @extend .activeInputField
+          width: 30%
+          padding: 2px
