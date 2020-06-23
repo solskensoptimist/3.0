@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
+import Icon from 'components/icon';
 
 /**
  * Dropdown component, should be used with <DropdownItem>.
@@ -45,7 +46,8 @@ export const Dropdown = (props) => {
             <div className='dropdownWrapper__dropdown'>
                 <div className={props.highlight ? 'dropdownWrapper__dropdown__headerHighlight' : 'dropdownWrapper__dropdown__header'}>
                     <p>{props.displayValue}</p>
-                    <div className={showDropdown ? 'dropdownWrapper__dropdown__upArrow' : 'dropdownWrapper__dropdown__downArrow'}/>
+                    {showDropdown ? <Icon val='upArrow'/> : <Icon val='downArrow'/>}
+                    {/*<div className={showDropdown ? 'dropdownWrapper__dropdown__upArrow' : 'dropdownWrapper__dropdown__downArrow'}/>*/}
                 </div>
                 {showDropdown &&
                 <div className='dropdownWrapper__dropdown__content'>

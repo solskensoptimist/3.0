@@ -4,13 +4,45 @@ import {settingsActionTypes} from "store/settings/actions";
 import SettingsHelper from 'shared_helpers/settings_helper';
 
 /**
+ * Get settings for dashboard.
+ */
+export const getDashboardSettings = async () => {
+    try {
+        const data = await request({
+            method: 'get',
+            url: '/dashboard/',
+        });
+
+        if (!data || data instanceof Error) {
+            return console.error('Could not get dashboard settings:\n' + data);
+        }
+
+        if (data.data && data.data.length) {
+            data.data = data.data.sort((a: any, b: any) => {
+                if ( a.position < b.position){
+                    return -1;
+                } else if ( a.position > b.position){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+
+        return store.dispatch({type: settingsActionTypes.SET_DASHBOARD_SETTINGS, payload: data});
+    } catch (err) {
+        return console.error('Error in getDashboardSettings:\n' + err);
+    }
+};
+
+/**
  * Get settings for logged in user.
  */
 export const getSettings = async () => {
     try {
         const data = await request({
             method: 'get',
-            url: '/settings',
+            url: '/settings/',
         });
 
         if (!data || data instanceof Error) {

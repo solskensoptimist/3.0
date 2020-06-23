@@ -1,12 +1,17 @@
 .dashboardWrapper
   &__dashboard
     &__content
-      @extend .grid2Columns1Row
+      padding: $paddingGrid
+      display: flex
+      &__left
+        flex-basis: calc(50% - (#{$paddingGrid} / 2))
+        margin-right: ($paddingGrid / 2)
+      &__right
+        flex-basis: calc(50% - (#{$paddingGrid} / 2))
+        margin-left: ($paddingGrid / 2)
       &__item
         margin-top: $paddingGrid
         @extend .paperSheet
         padding: $paddingBig
-        &:nth-child(1)
-          margin-top: 0
-        &:nth-child(2)
+        &:first-child(1)
           margin-top: 0

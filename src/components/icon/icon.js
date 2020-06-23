@@ -2,6 +2,8 @@ import React from 'react';
 import {
     Add,
     Apartment,
+    ArrowDropDown,
+    ArrowDropUp,
     AttachMoney,
     Assignment,
     BarChart,
@@ -123,6 +125,8 @@ export default (props) => {
             return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_post':
             return <ContactMail className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'downArrow':
+            return <ArrowDropDown className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'download':
             return <GetApp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'edit':
@@ -211,6 +215,8 @@ export default (props) => {
             return <ToggleOff className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'toggleOn':
             return <ToggleOn className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'upArrow':
+            return <ArrowDropUp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'user':
             return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'valuation':
