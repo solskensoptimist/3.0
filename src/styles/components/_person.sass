@@ -48,6 +48,12 @@
             margin-bottom: $paddingSmall
             display: flex
             align-items: center
+            svg
+              width: 24px
+              height: 24px
+              fill: $colorLink
+              &:hover
+                fill: $colorLinkHover
             &__dealsHolder
               display: flex
               align-items: center
@@ -94,12 +100,6 @@
           margin-right: 0
         &__personInfoLabel
           font-weight: 600
-        &__consent
-          display: flex
-          svg
-            width: 24px !important
-            height: 24px !important
-            margin-top: 4px !important
         svg
           color: $colorLink
           cursor: pointer

@@ -217,6 +217,7 @@ export default {
     placeholderSearchKoncernCompanies: 'Sök företag inom koncern',
     placeholderSearchContacts: 'Sök kontakt',
     placeholderSearchTable: 'Sök i tabell',
+    person: 'Person',
     postAddress: 'Utdelningsadress',
     potential: 'Potential',
     prices: 'Priser',

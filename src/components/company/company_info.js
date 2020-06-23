@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {tc} from 'helpers';
 import {NavLink} from 'react-router-dom';
-import {addEditRemoveCompanyEmailPhone} from 'store/company/tasks';
+import {updateCompanyInformation} from 'store/company/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
@@ -49,7 +49,7 @@ const CompanyInfo = (state) => {
 
         setCurrentEmailEdit(null);
         setCurrentPhoneEdit(null);
-        return await addEditRemoveCompanyEmailPhone({
+        return await updateCompanyInformation({
             action: 'add',
             prospectId: state.company.company.user_id,
             type: type,
@@ -61,12 +61,12 @@ const CompanyInfo = (state) => {
     const _removeValue = async (obj, type) => {
         setCurrentEmailEdit(null);
         setCurrentPhoneEdit(null);
-        return await addEditRemoveCompanyEmailPhone({
+        return await updateCompanyInformation({
             action: 'delete',
             id: obj.id,
             prospectId: state.company.company.user_id,
             type: type,
-            value: '',
+            value: null,
         });
     };
 
@@ -169,7 +169,7 @@ const CompanyInfo = (state) => {
 
         setCurrentEmailEdit(null);
         setCurrentPhoneEdit(null);
-        return await addEditRemoveCompanyEmailPhone({
+        return await updateCompanyInformation({
             action: 'edit',
             id: obj.id,
             prospectId: state.company.company.user_id,

@@ -49,6 +49,15 @@ export const personReducer = (state = initialState, action) => {
                 }
             }
         }
+        case personActionTypes.SET_PERSON_NAME: {
+            return {
+                ...state,
+                person: {
+                    ...state.person,
+                    name: action.payload,
+                }
+            }
+        }
         case personActionTypes.SET_PERSON_PHONENUMBERS: {
             return {
                 ...state,

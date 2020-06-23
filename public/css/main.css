@@ -1733,6 +1733,12 @@ svg.active {
           margin-bottom: 8px;
           display: flex;
           align-items: center; }
+          .personWrapper__person__header__left__bottom__item svg {
+            width: 24px;
+            height: 24px;
+            fill: #00B4CC; }
+            .personWrapper__person__header__left__bottom__item svg:hover {
+              fill: #616161; }
           .personWrapper__person__header__left__bottom__item__dealsHolder {
             display: flex;
             align-items: center;
@@ -1772,12 +1778,6 @@ svg.active {
       margin-right: 0; }
     .personInfoWrapper__personInfo__content__item__personInfoLabel {
       font-weight: 600; }
-    .personInfoWrapper__personInfo__content__item__consent {
-      display: flex; }
-      .personInfoWrapper__personInfo__content__item__consent svg {
-        width: 24px !important;
-        height: 24px !important;
-        margin-top: 4px !important; }
     .personInfoWrapper__personInfo__content__item svg {
       color: #00B4CC;
       cursor: pointer;
@@ -1859,7 +1859,7 @@ svg.active {
 
 .searchMainWrapper {
   margin-left: 22px;
-  width: 70%;
+  width: 60%;
   position: relative; }
   .searchMainWrapper__searchMain__header {
     display: flex;

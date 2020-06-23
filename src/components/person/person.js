@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {NavLink, useParams} from 'react-router-dom';
 import {tc} from 'helpers';
-import {getPerson} from 'store/person/tasks';
+import {getPerson, setResponsibility, toggleConsent} from 'store/person/tasks';
 import Activities from 'components/activities';
 import ColleaguesDropdown from 'components/colleagues_dropdown';
 import Comment from 'components/comment';
@@ -29,8 +29,7 @@ const Person = (state) => {
 
     const _saveResponsible = async () => {
         setChangeResponsible(false);
-        console.log('Spara responsible', responsibleObj);
-        //return await setResponsibility({entityId: state.company.company.user_id, responsibleUserId: responsibleObj.responsibleUserId});
+        return await setResponsibility({entityId: state.person.person.user_id, responsibleUserId: responsibleObj.responsibleUserId});
     };
 
     const _stateCheck = () => {
@@ -85,6 +84,19 @@ const Person = (state) => {
                                     <p>{responsibleObj.responsibleUserName ? responsibleObj.responsibleUserName : <span className='italic'>{tc.noOwner}</span>}</p>
                                 }
                             </div>
+                            {!changeResponsible &&
+                                <div className='personWrapper__person__header__left__bottom__item'>
+                                    <h5>{tc.gdprConsent}:</h5>
+                                    {state.person.person.consent ?
+                                        <Tooltip horizontalDirection='right' tooltipContent={tc.gdprConsentInfo}>
+                                            <Icon onClick={() => {toggleConsent({id: state.person.person.user_id})}} val='check'/>
+                                        </Tooltip> :
+                                        <Tooltip horizontalDirection='right' tooltipContent={tc.gdprConsentInfo}>
+                                            <Icon onClick={() => {toggleConsent({id: state.person.person.user_id})}} val='checkbox'/>
+                                        </Tooltip>
+                                    }
+                                </div>
+                            }
                             {!changeResponsible &&
                                 <div className='personWrapper__person__header__left__bottom__item'>
                                     <h5>{tc.partOfDeals}:</h5>

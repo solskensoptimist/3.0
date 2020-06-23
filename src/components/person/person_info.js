@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {prospectHelper, tc} from 'helpers';
-import {toggleConsent} from 'store/person/tasks';
+import {updatePersonInformation} from 'store/person/tasks';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
 import Tooltip from 'components/tooltip';
@@ -17,6 +17,7 @@ const Person = (state) => {
     const [currentEmailEdit, setCurrentEmailEdit] = useState(null);
     const [currentPhoneEdit, setCurrentPhoneEdit] = useState(null);
     const [name, setName] = useState(null);
+    const [nameEdit, setNameEdit] = useState(false);
     const [phoneNumbers, setPhoneNumbers] = useState([]);
     const personInfoEmailsInputRefs = useRef([]);
     const personInfoNameInputRef = useRef(null);
@@ -30,13 +31,14 @@ const Person = (state) => {
 
         setCurrentEmailEdit(null);
         setCurrentPhoneEdit(null);
-        console.log('ADD: Bygg funktion för att addEditRemovePersonEmailPhone', type, obj.value);
-        // return await addEditRemoveCompanyEmailPhone({
-        //     action: 'add',
-        //     prospectId: state.company.company.user_id,
-        //     type: type,
-        //     value: obj.value,
-        // });
+        setNameEdit(false);
+
+        return await updatePersonInformation({
+            action: 'add',
+            prospectId: state.person.person.user_id,
+            type: type,
+            value: obj.value,
+        });
     };
 
     // Set value from input ref to name.
@@ -70,16 +72,15 @@ const Person = (state) => {
     const _removeValue = async (obj, type) => {
         setCurrentEmailEdit(null);
         setCurrentPhoneEdit(null);
-        console.log('REMOVE: Bygg funktion för att addEditRemovePersonEmailPhone', type, obj.id);
-        // Om det gäller name ska vi inte behöva obj.id...
+        setNameEdit(false);
 
-        // return await addEditRemoveCompanyEmailPhone({
-        //     action: 'delete',
-        //     id: obj.id,
-        //     prospectId: state.company.company.user_id,
-        //     type: type,
-        //     value: '',
-        // });
+        return await updatePersonInformation({
+            action: 'delete',
+            id: obj.id ? obj.id : null,
+            prospectId: state.person.person.user_id,
+            type: type,
+            value: null,
+        });
     };
 
     // Render emails rows.
@@ -180,14 +181,14 @@ const Person = (state) => {
 
         setCurrentEmailEdit(null);
         setCurrentPhoneEdit(null);
-        console.log('UPDATE: Bygg funktion för att addEditRemovePersonEmailPhone', type, obj.id, obj.value);
-        // return await addEditRemoveCompanyEmailPhone({
-        //     action: 'edit',
-        //     id: obj.id,
-        //     prospectId: state.company.company.user_id,
-        //     type: type,
-        //     value: obj.value,
-        // });
+
+        return await updatePersonInformation({
+            action: 'edit',
+            id: obj.id,
+            prospectId: state.person.person.user_id,
+            type: type,
+            value: obj.value,
+        });
     };
 
     useEffect(() => {
@@ -195,6 +196,7 @@ const Person = (state) => {
             // Deep clone.
             setEmails(JSON.parse(JSON.stringify(state.person.person.emails)));
             setPhoneNumbers(JSON.parse(JSON.stringify(state.person.person.phoneNumbers)));
+            setName((state.person.person.name) ? JSON.parse(JSON.stringify(state.person.person.name)) : '');
         }
     }, [state.person]);
 
@@ -220,31 +222,21 @@ const Person = (state) => {
                     {!minimize &&
                     <div className='personInfoWrapper__personInfo__content'>
                         <div className='personInfoWrapper__personInfo__content__item'>
-                            <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.name}</p>
-                            <p>{(state.person.person.name) ? state.person.person.name : tc.dataMissing}</p>
-                            {name !== null &&
+                            <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.person}</p>
+                            {!nameEdit ?
+                                <div className='personInfoWrapper__personInfo__content__item__field'>
+                                    <p>{name}</p>
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.edit}><Icon val='edit' onClick={() => {setNameEdit(true)}}/></Tooltip>
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {_removeValue({}, 'name')}}/></Tooltip>
+                                </div> :
                                 <div className='personInfoWrapper__personInfo__content__item__editField'>
                                     <input onChange={() => {_onNameInputChange()}} placeholder={tc.addName} ref={personInfoNameInputRef} type='text' value={name}/>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {setName(null)}}/></Tooltip>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.save}><Icon val='save' onClick={() => {_updateValue({value: name}, 'name')}}/></Tooltip>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.remove}><Icon val='remove' onClick={() => {_removeValue({}, 'name')}}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.cancel}><Icon val='clear' onClick={() => {setNameEdit(false)}}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.save}><Icon val='save' onClick={() => {_addValue({value: name}, 'name')}}/></Tooltip>
                                 </div>
                             }
-                            <div className='personInfoWrapper__personInfo__content__item__addField'>
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.addName}>
-                                    <Icon val='add' onClick={() => {
-                                        setName('');
-                                    }}/>
-                                </Tooltip>
-                            </div>
-                        </div>
-                        <div className='personInfoWrapper__personInfo__content__item'>
-                            <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.gender}</p>
                             <p>{(state.person.person.gender ? prospectHelper.getGenderString(state.person.person.gender) : tc.dataMissing)}</p>
-                        </div>
-                        <div className='personInfoWrapper__personInfo__content__item'>
-                            <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.age}</p>
-                            <p>{state.person.person.birthYear ? prospectHelper.getAgeString(state.person.person.birthYear) : tc.dataMissing}</p>
+                            <p>{state.person.person.birthYear ? <>{prospectHelper.getAgeString(state.person.person.birthYear)} {tc.years.toLowerCase()}</> : tc.dataMissing}</p>
                         </div>
                         <div className='personInfoWrapper__personInfo__content__item'>
                             <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.address}</p>
@@ -271,19 +263,6 @@ const Person = (state) => {
                                         setEmails((Array.isArray(emails)) ? emails.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
                                     }}/>
                                 </Tooltip>
-                            </div>
-                        </div>
-                        <div className='personInfoWrapper__personInfo__content__item'>
-                            <p className='personInfoWrapper__personInfo__content__item__personInfoLabel'>{tc.gdprConsent}</p>
-                            <div className='personInfoWrapper__personInfo__content__item__consent'>
-                                {state.person.person.consent ?
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.gdprConsentInfo}>
-                                        <Icon onClick={() => {toggleConsent({id: state.person.person.user_id})}} val='check'/>
-                                    </Tooltip> :
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.gdprConsentInfo}>
-                                        <Icon onClick={() => {toggleConsent({id: state.person.person.user_id})}} val='checkbox'/>
-                                    </Tooltip>
-                                }
                             </div>
                         </div>
                     </div>
