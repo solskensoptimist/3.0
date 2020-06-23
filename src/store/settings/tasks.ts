@@ -18,6 +18,19 @@ export const getDashboardSettings = async () => {
         }
 
         if (data.data && data.data.length) {
+            let hit = false;
+            // Remove multiple leads widgets with this l33t filtering.
+            data.data = data.data.filter((num) =>  {
+                if (hit && num.type === 'leads') {
+                    return null;
+                }
+                if (!hit && num.type === 'leads') {
+                    hit = true;
+                }
+                return num;
+            });
+
+            // Sort on position.
             data.data = data.data.sort((a: any, b: any) => {
                 if ( a.position < b.position){
                     return -1;
