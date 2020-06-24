@@ -111,7 +111,7 @@ const Fleet = (state) => {
                 </div>
                 {(!minimize && fleet.data && fleet.data.length) &&
                 <div className='fleetWrapper__fleet__content'>
-                    <Table columns={tableHelper.getFleetColumns(state.props.historic)} linkRows={true} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
+                    <Table columns={tableHelper.getFleetColumns(state.props.historic)} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
                 </div>
                 }
             </div>

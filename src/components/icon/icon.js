@@ -26,6 +26,7 @@ import {
     Group,
     Help,
     Info,
+    Highlight,
     History,
     Home,
     InsertDriveFile,
@@ -143,6 +144,8 @@ export default (props) => {
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'info':
             return <Info className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'leads':
+            return <Highlight className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'link':
             return <Link className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'linkOff':

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {getDashboardSettings} from 'store/settings/tasks';
 import Events from 'components/events';
+import LeadsWidget from 'components/leads_widget';
 import News from 'components/news';
 import SupertempWidget from 'components/supertemp_widget';
 
@@ -25,10 +26,9 @@ const Dashboard = (state) => {
                     </div>
                 );
             case 'leads':
-                // Return leads widget when built...
                 return (
                     <div className='dashboardWrapper__dashboard__content__item' key={i}>
-                        <Events small={true} type='all' view='calendar'/>
+                        <LeadsWidget/>
                     </div>
                 );
             case 'monitorlist':

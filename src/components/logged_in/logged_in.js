@@ -11,6 +11,7 @@ import Footer from 'components/footer';
 import FlashMessages from 'components/flash_messages';
 import Header from 'components/header';
 import Koncern from 'components/koncern/';
+import Leads from 'components/leads/';
 import List from 'components/list/';
 import Lists from 'components/lists/';
 import Person from 'components/person/';
@@ -36,8 +37,9 @@ export default () => {
                         <Route exact path='/bil/:regNr' component={Car}/>
                         <Route exact path='/foretag/:id' component={Company}/>
                         <Route exact path='/koncern/:id' component={Koncern}/>
-                        <Route exact path='/listor' component={Lists}/>
+                        <Route exact path='/leads' component={Leads}/>
                         <Route exact path='/lista/:id' component={List}/>
+                        <Route exact path='/listor' component={Lists}/>
                         <Route exact path='/person/:id' component={Person}/>
                         <Route exact path='/prospektera' component={Prospect}/>
                         <Route exact path='/prospektera/resultat' component={ProspectResult}/>

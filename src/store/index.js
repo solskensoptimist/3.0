@@ -10,6 +10,7 @@ import {filterReducer} from 'store/filter/reducer';
 import {fleetReducer} from 'store/fleet/reducer';
 import {flashMessagesReducer} from 'store/flash_messages/reducer';
 import {groupsReducer} from 'store/groups/reducer';
+import {leadsReducer} from 'store/leads/reducer';
 import {listsReducer} from 'store/lists/reducer';
 import {personReducer} from 'store/person/reducer';
 import {prospectReducer} from 'store/prospect/reducer';
@@ -31,6 +32,7 @@ const reducer = combineReducers({
     fleet: fleetReducer,
     flashMessages: flashMessagesReducer,
     groups: groupsReducer,
+    leads: leadsReducer,
     lists: listsReducer,
     person: personReducer,
     prospect: prospectReducer,

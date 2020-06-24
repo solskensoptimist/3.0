@@ -43,6 +43,32 @@ export const tableHelper = {
             return [];
         }
     },
+    getLeadsWidgetColumns: () => {
+        return [
+            {id: 'name', numeric: false, label: tc.name},
+            {id: 'leadsType', numeric: false, label: tc.leadsType},
+            {id: 'received', numeric: false, label: tc.received},
+        ];
+    },
+    getLeadsWidgetRows: (rows) => {
+        const columns = tableHelper.getLeadsWidgetColumns();
+        return rows.map((row) => {
+            const obj = {};
+            columns.forEach((column) => {
+                if (column.id === 'received') {
+                    let date = row._id.toString().substring(0,8);
+                    date = new Date( parseInt( date, 16 ) * 1000);
+                    obj[column.id] = moment(date).fromNow();
+                } else if (column.id === 'name') {
+                    obj[column.id] = row.fullName;
+                } else {
+                    obj[column.id] = row[column.id];
+                }
+            });
+
+            return obj;
+        });
+    },
     getListsColumns: () => {
         return [
             {id: 'name', numeric: false, label: tc.name},

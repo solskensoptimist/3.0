@@ -1468,6 +1468,57 @@ svg.active {
     .infoBoxWrapper__infoBox p:last-child {
       margin-bottom: 0; }
 
+.leadsWidgetWrapper__leadsWidget__content {
+  margin-top: 22px; }
+  .leadsWidgetWrapper__leadsWidget__content__info {
+    display: flex;
+    margin-bottom: 22px; }
+    .leadsWidgetWrapper__leadsWidget__content__info p {
+      text-transform: lowercase; }
+    .leadsWidgetWrapper__leadsWidget__content__info h4 {
+      text-transform: none;
+      font-weight: 400;
+      font-size: 16px; }
+    .leadsWidgetWrapper__leadsWidget__content__info h4.leadsWidgetEmphasize {
+      background: #ffc107;
+      color: white;
+      border-radius: 50%;
+      font-size: 20px;
+      height: 46px;
+      width: 46px;
+      margin: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+    .leadsWidgetWrapper__leadsWidget__content__info__left {
+      flex-basis: calc(50% - 12px);
+      margin-right: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; }
+    .leadsWidgetWrapper__leadsWidget__content__info__right {
+      flex-basis: calc(50% - 12px);
+      margin-left: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; }
+  .leadsWidgetWrapper__leadsWidget__content__navigate {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px; }
+    .leadsWidgetWrapper__leadsWidget__content__navigate a {
+      display: flex;
+      align-items: center; }
+      .leadsWidgetWrapper__leadsWidget__content__navigate a:hover svg {
+        fill: #616161; }
+      .leadsWidgetWrapper__leadsWidget__content__navigate a svg {
+        fill: #00B4CC;
+        width: 16px;
+        height: 16px;
+        margin-left: 8px; }
+
 .loadingWrapper, .loadingWrapperFull {
   width: 100%;
   height: 100%;
@@ -2168,13 +2219,12 @@ svg.active {
       font-weight: 400;
       font-size: 16px; }
     .supertempWidgetWrapper__supertempWidget__content__info h4.supertempWidgetEmphasize {
-      background: #fafafa;
-      border: 1px solid #eeeeee;
-      color: #ffc107;
+      background: #ffc107;
+      color: white;
       border-radius: 50%;
-      font-size: 22px;
-      height: 40px;
-      width: 40px;
+      font-size: 20px;
+      height: 46px;
+      width: 46px;
       margin: 12px 0;
       display: flex;
       align-items: center;
@@ -2211,9 +2261,10 @@ svg.active {
 .tableWrapper {
   width: 100%; }
   .tableWrapper__table__content .MuiTableContainer-root {
-    overflow-y: hidden; }
+    overflow-y: hidden;
+    width: calc(100% + 1px); }
   .tableWrapper__table__content table {
-    min-width: 550px;
+    min-width: 520px;
     max-width: calc(100% - 1px);
     border-bottom: 1px solid #e0e0e0;
     background: white; }
