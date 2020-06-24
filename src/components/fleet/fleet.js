@@ -11,46 +11,13 @@ import WidgetHeader from 'components/widget_header';
 /**
  * Render a fleet table.
  *
- * @param state.props.historic - bool - Get historic fleet or current.
+ * @param state.props.historic - bool (optional) - Get historic fleet or current.
+ * @param state.props.koncern - bool (optional) - Get fleet for koncern.
  * @param state.props.prospectId - string - TS user id to get fleet for.
  */
 const Fleet = (state) => {
     const [fleet, setFleet] = useState({});
     const [minimize, setMinimize] = useState(false);
-
-    // const columns = React.useMemo(
-    //     () => [
-    //         {
-    //             Header: tc.model,
-    //             accessor: 'real_model',
-    //         },
-    //         {
-    //             Header: tc.brand,
-    //             accessor: 'brand',
-    //         },
-    //         {
-    //             Header: tc.type,
-    //             accessor: 'type'
-    //         },
-    //         {
-    //             Header: tc.regNumber,
-    //             accessor: 'reg_number',
-    //         },
-    //         {
-    //             Header: tc.dateAcquired,
-    //             accessor: 'date_acquired',
-    //         },
-    //         {
-    //             Header: tc.dateSold,
-    //             accessor: 'date_sold',
-    //         },
-    //         {
-    //             Header: tc.boughtPlace,
-    //             accessor: 'seller_name'
-    //         },
-    //     ],
-    //     []
-    // );
 
     const _stateCheck = () => {
         return !!(fleet && Object.keys(fleet).length);
@@ -58,8 +25,8 @@ const Fleet = (state) => {
 
     useEffect(() => {
         getFleet({
-            // koncern: '',
-            historic: !!(state.props.historic),
+            koncern: !!state.props.koncern,
+            historic: !!state.props.historic,
             // noPagination: '',
             // page: '',
             prospectId: state.props.prospectId,

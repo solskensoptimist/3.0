@@ -35,7 +35,7 @@ export const getCompany = async (payload) => {
         // Sort deals on name.
         if (data[0] && data[0].deals) {
             data[0].deals = data[0].deals.sort((a: any, b: any) => {
-                if (!a.name || a.name.length === 0) {
+                if (!a.name || a.name.length === 0 || !b.name) {
                     return -1;
                 } else if (a.name.toLowerCase() < b.name.toLowerCase()) {
                     return -1;

@@ -80,7 +80,6 @@ export const tableHelper = {
         ];
     },
     getListsRows: (rows) => {
-        // created, ordered (tooltip),
         const columns = tableHelper.getListsColumns();
         return rows.map((row) => {
             const obj = {};

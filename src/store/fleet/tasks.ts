@@ -1,5 +1,5 @@
 import {store} from 'store';
-import {requestWithBody} from 'helpers';
+import {request} from 'helpers';
 import {fleetActionTypes} from './actions';
 
 /**
@@ -30,10 +30,10 @@ export const getFleet = async (payload) => {
 
         const historic = payload.historic ? '/historic/' : '';
 
-        const data = await requestWithBody({
+        const data = await request({
             data: {
                 koncern: payload.koncern ? 1 : 0,
-                noPagination: payload.noPagination ? 1 : 0,
+                noPagination: 1,
                 props: {
                     filter: store.getState().filter ? store.getState().filter : {},
                     page: payload.page || 0,
