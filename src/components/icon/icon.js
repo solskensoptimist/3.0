@@ -30,6 +30,7 @@ import {
     History,
     Home,
     InsertDriveFile,
+    Language,
     LibraryBooks,
     Link,
     LinkOff,
@@ -144,6 +145,8 @@ export default (props) => {
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'info':
             return <Info className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'koncern':
+            return <Language className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'leads':
             return <Highlight className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'link':

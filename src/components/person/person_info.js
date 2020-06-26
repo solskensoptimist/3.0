@@ -216,7 +216,7 @@ const Person = (state) => {
                                     </>
                             }
                             headline={tc.info}
-                            headlineSub={tc.personInfo}
+                            headlineSub={tc.aboutPerson}
                         />
                     </div>
                     {!minimize &&

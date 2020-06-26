@@ -202,7 +202,7 @@ const CompanyInfo = (state) => {
                                 </>
                         }
                         headline={tc.info}
-                        headlineSub={tc.companyInfo}
+                        headlineSub={tc.aboutCompany}
                     />
                 </div>
                 {!minimize &&

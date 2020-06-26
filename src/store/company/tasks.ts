@@ -55,6 +55,84 @@ export const getCompany = async (payload) => {
 };
 
 /**
+ * Get data for koncern view.
+ * Gets company data but also some extra stuff like fleet summary and koncern info.
+ *
+ * @param payload.id
+ */
+export const getKoncern = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.id)) {
+            return console.error('Missing params in getKoncern:\n' + payload);
+        }
+
+        const company = [await request({
+            method: 'get',
+            url: '/company/' + payload.id,
+        })];
+
+        const responsible = [await request({
+            method: 'get',
+            url: '/responsibility/' + payload.id,
+        })];
+
+        const koncern = [await request({
+            method: 'get',
+            url: '/api/koncern/' + payload.id,
+        })];
+
+        const data = await Promise.all(company.concat(responsible, koncern));
+
+        if (!data || data instanceof Error) {
+            console.error('No data in getKoncern', data);
+            store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: {}});
+            return store.dispatch({ type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: {}});
+        }
+
+        if (data[0].koncern && typeof data[0].koncern === 'object') {
+            data[0].koncern = Object.assign(data[0].koncern, data[2]);
+        }
+
+        // Sort deals on name.
+        if (data[0] && data[0].deals) {
+            data[0].deals = data[0].deals.sort((a: any, b: any) => {
+                if (!a.name || a.name.length === 0 || !b.name) {
+                    return -1;
+                } else if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                    return -1;
+                } else if ( a.name.toLowerCase() > b.name.toLowerCase()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+
+        if (data[0].koncern && data[0].koncern.structure && data[0].koncern.structure.length) {
+            const companyIds = data[0].koncern.structure.map((num) => num.id);
+            const fleetSummary = [await request({
+                method: 'get',
+                url: '/fleet/summary/' + companyIds,
+            })];
+
+            const fleetSummaryHistoric = [await request({
+                method: 'get',
+                url: '/fleet/summary/' + companyIds + '/history',
+            })];
+
+            const fleetData = await Promise.all(fleetSummary.concat(fleetSummaryHistoric));
+            data[0].koncern.fleetSummary = fleetData[0];
+            data[0].koncern.fleetSummaryHistoric = fleetData[1];
+        }
+
+        store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: data[0]});
+        return store.dispatch({ type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: data[1]});
+    } catch(err) {
+        return console.error('Error in getKoncern:\n' + err);
+    }
+};
+
+/**
  * Set responsible user for company.
  *
  * @param payload.entityId
