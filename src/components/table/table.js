@@ -14,8 +14,8 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 /**
  * Table component.
  *
- * Rows can be selectable (but not when rows are linked), if so provied onSelect function.
- * Rows can be navigation links (but not when rows are selectable), if so each row has to have a url property.
+ * Rows can be selectable, if so provide onSelect function and id property for every row.
+ * Rows can be navigation links, if so each row has to have a url property.
  * TODO: make cells editable...
  *
  * Two examples on how to use this component, first with rows that are links, second with selectable rows:
@@ -51,7 +51,6 @@ export default (props) => {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [query, setQuery] = React.useState('');
-    //const [searchColumn, setSearchColumn] = React.useState('');
     const [selected, setSelected] = React.useState([]);
 
     const handleChangePage = (event, newPage) => {
@@ -174,42 +173,34 @@ export default (props) => {
                                         const isItemSelected = isSelected(row.id);
                                         const labelId = `enhanced-table-checkbox-${index}`;
 
-                                        if (!props.onSelect && row.url) {
-                                            // Row is link.
-                                            return (
-                                                <TableRow
-                                                    hover
-                                                    className='pointer'
-                                                    onClick={() => {history.push(row.url)}}
-                                                    key={`${row[Object.keys(row)[0]]}${index}`}
-                                                >
-                                                    {renderCellsForRow(row)}
-                                                </TableRow>
-                                            );
-                                        } else {
-                                            // Row is selectable.
-                                            return (
-                                                <TableRow
-                                                    hover
-                                                    onClick={(event) => handleClick(event, row.id)}
-                                                    role='checkbox'
-                                                    aria-checked={isItemSelected}
-                                                    tabIndex={-1}
-                                                    key={`${row[Object.keys(row)[0]]}${index}`}
-                                                    selected={isItemSelected}
-                                                >
-                                                    {(props.onSelect && typeof props.onSelect === 'function' && row.id) &&
-                                                        <TableCell>
-                                                            <Checkbox
-                                                                checked={isItemSelected}
-                                                                inputProps={{ 'aria-labelledby': labelId }}
-                                                            />
-                                                        </TableCell>
+                                        return (
+                                            <TableRow
+                                                hover
+                                                onClick={() => {
+                                                    if (row.url) {
+                                                        return history.push(row.url);
                                                     }
-                                                    {renderCellsForRow(row)}
-                                                </TableRow>
-                                            );
-                                        }
+                                                }}
+                                                aria-checked={isItemSelected}
+                                                tabIndex={-1}
+                                                key={`${row[Object.keys(row)[0]]}${index}`}
+                                                selected={isItemSelected}
+                                            >
+                                                {(props.onSelect && typeof props.onSelect === 'function' && row.id) &&
+                                                    <TableCell>
+                                                        <Checkbox
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                return handleClick(e, row.id);
+                                                            }}
+                                                            checked={isItemSelected}
+                                                            inputProps={{ 'aria-labelledby': labelId }}
+                                                        />
+                                                    </TableCell>
+                                                }
+                                                {renderCellsForRow(row)}
+                                            </TableRow>
+                                        );
                                     })}
                             </TableBody>
                         </Table>

@@ -17,7 +17,6 @@ import {addEntityToContacts} from 'store/contacts/tasks';
  */
 export const createDeal = async (payload) => {
     try {
-        console.log('payload', payload);
         const data = await request({
             data: {
                 cars: payload.cars ? payload.cars : [],

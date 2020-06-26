@@ -86,24 +86,24 @@ const Koncern= (state) => {
                                 {!changeResponsible &&
                                 <div className='companyWrapper__company__header__left__bottom__item'>
                                     <h5>{tc.partOfDeals}:</h5>
-                                    {(state.company.deals && state.company.deals.length) &&
-                                    <div className='companyWrapper__company__header__left__bottom__item__dealsHolder'>
-                                        {state.company.deals.map((num, i) => {
-                                            if (num._id) {
-                                                if (i === state.company.deals.length - 1) {
-                                                    return (
-                                                        <span className='dealLink' key={i}><NavLink exact to={'/affar/' + num._id}>{num.name ? num.name : tc.deal}</NavLink></span>
-                                                    );
+                                    {(state.company.deals && state.company.deals.length) ?
+                                        <div className='companyWrapper__company__header__left__bottom__item__dealsHolder'>
+                                            {state.company.deals.map((num, i) => {
+                                                if (num._id) {
+                                                    if (i === state.company.deals.length - 1) {
+                                                        return (
+                                                            <span className='dealLink' key={i}><NavLink exact to={'/affar/' + num._id}>{num.name ? num.name : tc.deal}</NavLink></span>
+                                                        );
+                                                    } else {
+                                                        return (
+                                                            <span className='dealLink' key={i}><NavLink exact to={'/affar/' + num._id}>{num.name ? num.name : tc.deal}</NavLink>,</span>
+                                                        );
+                                                    }
                                                 } else {
-                                                    return (
-                                                        <span className='dealLink' key={i}><NavLink exact to={'/affar/' + num._id}>{num.name ? num.name : tc.deal}</NavLink>,</span>
-                                                    );
+                                                    return null;
                                                 }
-                                            } else {
-                                                return null;
-                                            }
-                                        })}
-                                    </div>
+                                            })}
+                                        </div> : <p><span className='italic'>{tc.noDeals}</span></p>
                                     }
                                 </div>
                                 }

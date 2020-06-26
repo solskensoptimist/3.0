@@ -43,6 +43,82 @@ export const tableHelper = {
             return [];
         }
     },
+    getKoncernStructureColumns: () => {
+        return [
+            {id: 'name', numeric: false, label: tc.name},
+            {id: 'numberOfCars', numeric: true, label: tc.total},
+            {id: 'numberOfCarsATV', numeric: true, label: tc.ATV},
+            {id: 'numberOfCarsBU', numeric: true, label: tc.BU},
+            {id: 'numberOfCarsHB', numeric: true, label: tc.HB},
+            {id: 'numberOfCarsHV', numeric: true, label: tc.HV},
+            {id: 'numberOfCarsLB', numeric: true, label: tc.LB},
+            {id: 'numberOfCarsMC', numeric: true, label: tc.MC},
+            {id: 'numberOfCarsPB', numeric: true, label: tc.PB},
+            {id: 'numberOfCarsSS', numeric: true, label: tc.SS},
+            {id: 'numberOfCarsSV', numeric: true, label: tc.SV},
+            {id: 'numberOfCarsTLB', numeric: true, label: tc.TLB},
+        ];
+    },
+    getKoncernStructureRows: (structure, total) => {
+        if (!structure || structure.length === 0) {
+            return [];
+        }
+        /*
+        Här behöver vi mappa igenom structure. Beroende på om det finns underbolag och hur djupt in i strukturen
+        vi är så ska vi ändra på namn.
+        Men annars så ska alla värden bara returneras.
+         */
+        const columns = tableHelper.getKoncernStructureColumns();
+        // name ska fixas till... och numberOfCars ska ha en parentes med procent
+        // även id för varje row
+        return structure.map((row) => {
+            const obj = {};
+            columns.forEach((column) => {
+                if (column.id === 'numberOfCars') {
+                    // Add percent.
+                    if (row[column.id] === 0) {
+                        obj[column.id] = row[column.id];
+                    } else {
+                        const share = Math.round(row[column.id] / total * 100);
+                        obj[column.id] = `${row[column.id]} (${share}%)`;
+                    }
+                } else if (column.id === 'name') {
+                    // Adjust name based on level.
+                    let space;
+                    switch (row.level) {
+                        case 1:
+                            space = '\t';
+                            break;
+                        case 2:
+                            space = '\t\t';
+                            break;
+                        case 3:
+                            space = '\t\t\t';
+                            break;
+                        case 4:
+                            space = '\t\t\t\t';
+                            break;
+                        case 5:
+                            space = '\t\t\t\t\t';
+                            break;
+                        case 6:
+                            space = '\t\t\t\t\t\t';
+                            break;
+                        default:
+                            space = '';
+                    }
+                    obj[column.id] = `${space}${row[column.id]}`;
+                } else {
+                    obj[column.id] = (!row[column.id] && row[column.id] !== 0) ? tc.dataMissing : row[column.id];
+                }
+            });
+
+            obj.id = row.id;
+            obj.url = '/foretag/' + row.id;
+
+            return obj;
+        });
+    },
     getLeadsWidgetColumns: () => {
         return [
             {id: 'name', numeric: false, label: tc.name},

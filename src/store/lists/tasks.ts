@@ -56,8 +56,6 @@ export const saveProspectsToList = async (payload) => {
 
         let data;
 
-        console.log(payload);
-
         if (payload.name && payload.name.length) {
             data = await request({
                 data: {

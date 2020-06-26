@@ -35,9 +35,9 @@ export const getFleet = async (payload) => {
                 koncern: payload.koncern ? 1 : 0,
                 noPagination: 1,
                 props: {
-                    filter: store.getState().filter ? store.getState().filter : {},
+                    filter: {},
                     page: payload.page || 0,
-                    columns: store.getState().fleet.columns || null,
+                    columns: null,
                 }
             },
             method: 'get',
