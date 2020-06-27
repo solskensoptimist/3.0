@@ -14,8 +14,8 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 /**
  * Table component.
  *
- * Rows can be selectable, if so provide onSelect function and id property for every row.
- * Rows can be navigation links, if so each row has to have a url property.
+ * Rows can be selectable, if so provide onSelect function and 'id' property for every row.
+ * If a row have a 'url' property the row is going to be a navigation link.
  * TODO: make cells editable...
  *
  * Two examples on how to use this component, first with rows that are links, second with selectable rows:
@@ -33,7 +33,8 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
  *          { id: 'brand', numeric: false, label: 'Märke' },
  *          { id: 'reg_number', numeric: false, label: 'Registreringsnummer' },
  *      ];
- *  @param props.rows - array
+ * @param props.preSelectedRows - array (optional) - Array with ids for rows that should be selected from start.
+ * @param props.rows - array
  *      Example 1 (rows are selectable): [
  *          {id: '123abc', name: 'Sockerkaka', calories: 100, fat: 50},
  *          {id: '456qwe', name: 'Chokladboll', calories: 200, fat: 100},
@@ -43,7 +44,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
  *          {reg_number: 'abc123', brand: 'HONDA', url: '/bil/abc123'},
  *          {reg_number: 'rty456', brand: 'VOLOV', url: '/bil/rty456'},
  *      ];
- *  @param props.rowsPerPage - number (optional)
+ * @param props.rowsPerPage - number (optional)
  */
 export default (props) => {
     const [page, setPage] = useState(0);
@@ -51,7 +52,7 @@ export default (props) => {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [query, setQuery] = React.useState('');
-    const [selected, setSelected] = React.useState([]);
+    const [selected, setSelected] = React.useState(props.preSelectedRows ? props.preSelectedRows : []);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

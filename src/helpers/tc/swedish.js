@@ -23,6 +23,8 @@ export default {
     agile: 'Bearbeta',
     allActivitiesAllIncludingComments: 'Alla händelser och kommentarer',
     amount: 'Antal',
+    amountKoncernCompanies: 'Antal koncernbolag',
+    amountVehicles: 'Antal fordon',
     analyse: 'Analysera',
     analysis: 'Behovsanalys',
     and: 'Och',

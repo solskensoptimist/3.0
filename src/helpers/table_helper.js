@@ -59,30 +59,31 @@ export const tableHelper = {
             {id: 'numberOfCarsTLB', numeric: true, label: tc.TLB},
         ];
     },
-    getKoncernStructureRows: (structure, total) => {
+    getKoncernStructureRows: (structure, total, disabledRows) => {
         if (!structure || structure.length === 0) {
             return [];
         }
-        /*
-        Här behöver vi mappa igenom structure. Beroende på om det finns underbolag och hur djupt in i strukturen
-        vi är så ska vi ändra på namn.
-        Men annars så ska alla värden bara returneras.
-         */
+
         const columns = tableHelper.getKoncernStructureColumns();
-        // name ska fixas till... och numberOfCars ska ha en parentes med procent
-        // även id för varje row
         return structure.map((row, i) => {
             const obj = {};
             columns.forEach((column) => {
                 if (column.id === 'numberOfCars') {
-                    // Add percent.
-                    if (row[column.id] === 0) {
-                        obj[column.id] = row[column.id];
+                    if (disabledRows.includes(row.id)) {
+                        // Row is disabled, don't show any value.
+                        obj[column.id] = '';
                     } else {
-                        const share = Math.round(row[column.id] / total * 100);
-                        obj[column.id] = `${row[column.id]} (${share}%)`;
+                        if (row[column.id] === 0) {
+                            // Value is 0, don't add percentage.
+                            obj[column.id] = row[column.id];
+                        } else {
+                            // Add percentage.
+                            const share = Math.round(row[column.id] / total * 100);
+                            obj[column.id] = `${row[column.id]} (${share}%)`;
+                        }
                     }
                 } else if (column.id === 'name') {
+                    // Add divs with classes based on row level aswell as level of next row.
                     const nextRow = structure[i + 1];
                     let space;
                     switch (row.level) {
