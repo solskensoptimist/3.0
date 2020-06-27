@@ -16,6 +16,8 @@ const KoncernStructure = (state) => {
         // Denna är inte klar... kan man ha raderna som selected per default?
         // Får jag skriva något eget för det..?
 
+        // DENNA ÄR EJ KORREKT... UPPDATERA ÄVEN STRUKTUR OCH GÖR RADER UTGRÅADE MM...
+
         if (arr.length) {
             // Filter on selected
             let numberOfCars = 0;

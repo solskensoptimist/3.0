@@ -71,7 +71,7 @@ export const tableHelper = {
         const columns = tableHelper.getKoncernStructureColumns();
         // name ska fixas till... och numberOfCars ska ha en parentes med procent
         // även id för varje row
-        return structure.map((row) => {
+        return structure.map((row, i) => {
             const obj = {};
             columns.forEach((column) => {
                 if (column.id === 'numberOfCars') {
@@ -83,31 +83,49 @@ export const tableHelper = {
                         obj[column.id] = `${row[column.id]} (${share}%)`;
                     }
                 } else if (column.id === 'name') {
-                    // Adjust name based on level.
+                    const nextRow = structure[i + 1];
                     let space;
                     switch (row.level) {
                         case 1:
-                            space = '\t';
+                            space = <div className={(nextRow && nextRow.level === row.level) ?
+                                'koncernStructureItem__koncernStructureSameLevel1' :
+                                'koncernStructureItem__koncernStructureLevel1'
+                            }/>;
                             break;
                         case 2:
-                            space = '\t\t';
+                            space = <div className={(nextRow && nextRow.level === row.level) ?
+                                'koncernStructureItem__koncernStructureSameLevel2' :
+                                'koncernStructureItem__koncernStructureLevel2'
+                            }/>;
                             break;
                         case 3:
-                            space = '\t\t\t';
+                            space = <div className={(nextRow && nextRow.level === row.level) ?
+                                'koncernStructureItem__koncernStructureSameLevel3' :
+                                'koncernStructureItem__koncernStructureLevel3'
+                            }/>;
                             break;
                         case 4:
-                            space = '\t\t\t\t';
+                            space = <div className={(nextRow && nextRow.level === row.level) ?
+                                'koncernStructureItem__koncernStructureSameLevel4' :
+                                'koncernStructureItem__koncernStructureLevel4'
+                            }/>;
                             break;
                         case 5:
-                            space = '\t\t\t\t\t';
+                            space = <div className={(nextRow && nextRow.level === row.level) ?
+                                'koncernStructureItem__koncernStructureSameLevel5' :
+                                'koncernStructureItem__koncernStructureLevel5'
+                            }/>;
                             break;
                         case 6:
-                            space = '\t\t\t\t\t\t';
+                            space = <div className={(nextRow && nextRow.level === row.level) ?
+                                'koncernStructureItem__koncernStructureSameLevel6' :
+                                'koncernStructureItem__koncernStructureLevel6'
+                            }/>;
                             break;
                         default:
                             space = '';
                     }
-                    obj[column.id] = `${space}${row[column.id]}`;
+                    obj[column.id] = <div className='koncernStructureItem'>{space}{row[column.id]}</div>
                 } else {
                     obj[column.id] = (!row[column.id] && row[column.id] !== 0) ? tc.dataMissing : row[column.id];
                 }

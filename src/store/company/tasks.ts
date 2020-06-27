@@ -108,6 +108,10 @@ export const getKoncern = async (payload) => {
             });
         }
 
+        store.dispatch({ type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: data[1]});
+        // Set company data before fleet summary to let frontend start render.
+        store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: data[0]});
+
         if (data[0].koncern && data[0].koncern.structure && data[0].koncern.structure.length) {
             const companyIds = data[0].koncern.structure.map((num) => num.id);
             const fleetSummary = [await request({
@@ -125,8 +129,7 @@ export const getKoncern = async (payload) => {
             data[0].koncern.fleetSummaryHistoric = fleetData[1];
         }
 
-        store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: data[0]});
-        return store.dispatch({ type: companyActionTypes.SET_COMPANY_RESPONSIBLE, payload: data[1]});
+        return store.dispatch({ type: companyActionTypes.SET_COMPANY, payload: data[0]});
     } catch(err) {
         return console.error('Error in getKoncern:\n' + err);
     }

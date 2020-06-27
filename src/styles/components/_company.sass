@@ -135,3 +135,61 @@
   &__companyStructure
     &__content
       margin-top: $paddingBig
+      .koncernStructureItem
+        display: flex
+        &__koncernStructureLevel1
+          margin-right: calc(4px + #{$paddingMedium})
+          margin-left: $paddingMedium
+          position: relative
+          &:after
+            position: absolute
+            top: 0
+            content: ''
+            display: block
+            width: $paddingMedium
+            height: 50%
+            border-left: 1px solid $grey-600
+            border-bottom: 1px solid $grey-600
+        &__koncernStructureLevel2
+          @extend .koncernStructureItem__koncernStructureLevel1
+          margin-left: $paddingMedium * 2
+        &__koncernStructureLevel3
+          @extend .koncernStructureItem__koncernStructureLevel1
+          margin-left: $paddingMedium * 3
+        &__koncernStructureLevel4
+          @extend .koncernStructureItem__koncernStructureLevel1
+          margin-left: $paddingMedium * 4
+        &__koncernStructureLevel5
+          @extend .koncernStructureItem__koncernStructureLevel1
+          margin-left: $paddingMedium * 5
+        &__koncernStructureLevel6
+          @extend .koncernStructureItem__koncernStructureLevel1
+          margin-left: $paddingMedium * 6
+        &__koncernStructureSameLevel1
+          margin-right: calc(4px + #{$paddingMedium})
+          margin-left: $paddingMedium
+          border-left: 1px solid $grey-600
+          position: relative
+          &:after
+            border-bottom: 1px solid $grey-600
+            position: absolute
+            top: 50%
+            content: ''
+            display: block
+            width: $paddingMedium
+            height: 1px
+        &__koncernStructureSameLevel2
+          @extend .koncernStructureItem__koncernStructureSameLevel1
+          margin-left: $paddingMedium * 2
+        &__koncernStructureSameLevel3
+          @extend .koncernStructureItem__koncernStructureSameLevel1
+          margin-left: $paddingMedium * 3
+        &__koncernStructureSameLevel4
+          @extend .koncernStructureItem__koncernStructureSameLevel1
+          margin-left: $paddingMedium * 4
+        &__koncernStructureSameLevel5
+          @extend .koncernStructureItem__koncernStructureSameLevel1
+          margin-left: $paddingMedium * 5
+        &__koncernStructureSameLevel6
+          @extend .koncernStructureItem__koncernStructureSameLevel1
+          margin-left: $paddingMedium * 6

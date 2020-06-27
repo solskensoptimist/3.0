@@ -530,6 +530,54 @@ a {
 
 .companyStructureWrapper__companyStructure__content {
   margin-top: 22px; }
+  .companyStructureWrapper__companyStructure__content .koncernStructureItem {
+    display: flex; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel1, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel2, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel3, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel4, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel5, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel6 {
+      margin-right: calc(4px + 12px);
+      margin-left: 12px;
+      position: relative; }
+      .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel1:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel2:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel3:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel4:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel5:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel6:after {
+        position: absolute;
+        top: 0;
+        content: "";
+        display: block;
+        width: 12px;
+        height: 50%;
+        border-left: 1px solid #757575;
+        border-bottom: 1px solid #757575; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel2 {
+      margin-left: 24px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel3 {
+      margin-left: 36px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel4 {
+      margin-left: 48px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel5 {
+      margin-left: 60px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureLevel6 {
+      margin-left: 72px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel1, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel2, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel3, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel4, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel5, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel6 {
+      margin-right: calc(4px + 12px);
+      margin-left: 12px;
+      border-left: 1px solid #757575;
+      position: relative; }
+      .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel1:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel2:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel3:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel4:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel5:after, .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel6:after {
+        border-bottom: 1px solid #757575;
+        position: absolute;
+        top: 50%;
+        content: "";
+        display: block;
+        width: 12px;
+        height: 1px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel2 {
+      margin-left: 24px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel3 {
+      margin-left: 36px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel4 {
+      margin-left: 48px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel5 {
+      margin-left: 60px; }
+    .companyStructureWrapper__companyStructure__content .koncernStructureItem__koncernStructureSameLevel6 {
+      margin-left: 72px; }
 
 .contactsWrapper__contacts__content {
   display: flex;
@@ -2283,8 +2331,7 @@ svg.active {
       border-right: 1px solid #e0e0e0;
       color: #757575 !important;
       font-size: 11px;
-      padding: 8px;
-      white-space: pre; }
+      padding: 8px; }
       .tableWrapper__table__content table tbody tr td:first-child {
         border-left: 1px solid #e0e0e0; }
     .tableWrapper__table__content table tbody .MuiTableRow-hover:hover {
