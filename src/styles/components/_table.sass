@@ -31,6 +31,16 @@
               padding: $paddingSmall
               &:first-child
                 border-left: 1px solid $grey-300
+              .tableCellIconHolder
+                display: flex
+                align-items: center
+                justify-content: center
+                .tooltipWrapper
+                  margin-left: 4px
+                  &:first-of-type
+                    margin-left: 0
+                  svg.active
+                    fill: $colorTextLight !important
           .MuiTableRow-hover
             &:hover
               background: $grey-100 !important

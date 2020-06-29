@@ -8,33 +8,47 @@ import {tc} from 'helpers';
  * Get lists for user.
  *
  * @param payload.archived - bool - If set to true, get archived lists.
+ * @param payload.filter - Not used as of now, will be used in /aktivitet when filter component is built.
  */
 export const getLists = async (payload) => {
     try {
         const data = await request({
             data: {
-                // page: this.page,
-                // sort: sort,
-                // filter: this.filter,
+                filter: (payload && payload.filter) ? payload.filter : null,
                 archived: (payload && payload.archived) ? payload.archived : false,
             },
             method: 'get',
             url: '/lists/',
         });
 
-        if (!data || (data && !data.data)) {
-            return;
+        if (!data || (data && !data.data) || (data && data.data && !data.data.length)) {
+            return store.dispatch({type: listsActionTypes.SET_LISTS, payload: {lists: []}});
         }
 
         if (data instanceof Error) {
             return console.error('Error in getLists:\n' + data);
         }
 
-        const result = {
-            lists: data.data,
-        };
+        let lists = data.data;
+        store.dispatch({type: listsActionTypes.SET_LISTS, payload: {lists: lists}});
 
-        return store.dispatch({type: listsActionTypes.SET_LISTS, payload: result});
+        // Retrieve order information for each list, do this in the background since it's heavy lifting.
+        const orderInformation = await request({
+            data: {
+                listIds: lists.map((num) => num._id),
+            },
+            method: 'get',
+            url: '/lists/getOrderHistory/',
+        });
+
+        lists.map((list) => {
+            const orderDataObj = orderInformation.filter((num) => num._id === list._id);
+            list.availableOrderData = orderDataObj[0].availableOrderData;
+            list.orderHistory = orderDataObj[0].orderHistory;
+            return list;
+        });
+
+        return store.dispatch({type: listsActionTypes.SET_LISTS, payload: {lists: lists}});
     } catch (err) {
         return console.error('Error in getLists:\n' + err);
     }

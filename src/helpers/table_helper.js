@@ -176,18 +176,65 @@ export const tableHelper = {
     },
     getListsRows: (rows) => {
         const columns = tableHelper.getListsColumns();
-        return rows.map((row) => {
+        return rows.map((row, i) => {
+            const verticalDirection = (i > 2) ? 'top' : 'bottom';
             const obj = {};
             columns.forEach((column) => {
                 if (column.id === 'created') {
                     obj[column.id] = moment(new Date(row[column.id])).format('YYYY-MM-DD');
                 } else if (column.id === 'ordered') {
+                    if (row.name === 'testnamn 4') {
+                        console.log('orderHistory testnamn 4', row.orderHistory);
+                    }
+                    if (row.name === 'khjgg') {
+                        console.log('orderHistory khjgg', row.orderHistory);
+                    }
                     obj[column.id] =
                         <div className='tableCellIconHolder'>
-                            {row.order && <Tooltip horizontalDirection='right' tooltipContent={tc.orderedName}><Icon val='person'/></Tooltip>}
-                            {row.phoneOrder && <Tooltip horizontalDirection='right' tooltipContent={tc.orderedPhone}><Icon val='phone'/></Tooltip>}
-                            {row.orderMailings && <Tooltip horizontalDirection='right' tooltipContent={tc.orderedMailings}><Icon val='mail'/></Tooltip>}
-                            {row.orderCompany && <Tooltip horizontalDirection='right' tooltipContent={tc.orderedCompany}><Icon val='company'/></Tooltip>}
+                            {
+                                (row.orderHistory && row.orderHistory.name && row.orderHistory.name.isPending) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForNameOrder} verticalDirection={verticalDirection}><Icon val='person'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.name && row.orderHistory.name.isAvailable && !row.orderHistory.name.isPending) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.orderedName} verticalDirection={verticalDirection}><Icon active={true} val='person'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.name && !row.orderHistory.name.isAvailable && !row.orderHistory.name.isPending && row.orderHistory.name.isDelivered) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldNameOrder} verticalDirection={verticalDirection}><Icon val='person'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.phone && row.orderHistory.phone.isPending) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForPhoneOrder} verticalDirection={verticalDirection}><Icon val='phone'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.phone && row.orderHistory.phone.isAvailable && !row.orderHistory.phone.isPending) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.orderedPhone} verticalDirection={verticalDirection}><Icon active={true} val='phone'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.phone && !row.orderHistory.phone.isAvailable && !row.orderHistory.phone.isPending && row.orderHistory.phone.isDelivered) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldPhoneOrder} verticalDirection={verticalDirection}><Icon val='phone'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.mailings && row.orderHistory.mailings.isPending) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForMailingsOrder} verticalDirection={verticalDirection}><Icon val='mail'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.mailings && !row.orderHistory.mailings.isPending && row.orderHistory.mailings.isDelivered) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.orderedMailings} verticalDirection={verticalDirection}><Icon active={true} val='mail'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.company && row.orderHistory.company.isPending) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForCompanyOrder} verticalDirection={verticalDirection}><Icon val='company'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.company && row.orderHistory.company.isAvailable && !row.orderHistory.company.isPending) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.orderedCompany} verticalDirection={verticalDirection}><Icon active={true} val='company'/></Tooltip>
+                            }
+                            {
+                                (row.orderHistory && row.orderHistory.company && !row.orderHistory.company.isAvailable && !row.orderHistory.company.isPending && row.orderHistory.company.isDelivered) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldCompanyOrder} verticalDirection={verticalDirection}><Icon val='company'/></Tooltip>
+                            }
                         </div>
                 } else {
                     obj[column.id] = row[column.id];

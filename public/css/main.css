@@ -172,15 +172,6 @@
     background: #bdbdbd;
     border-radius: 6px; }
 
-.tableCellIconHolder {
-  display: flex;
-  align-items: center;
-  justify-content: center; }
-  .tableCellIconHolder .tooltipWrapper {
-    margin-left: 4px; }
-    .tableCellIconHolder .tooltipWrapper:first-of-type {
-      margin-left: 0; }
-
 .whiteInputField, .tableWrapper__table__footer__left input {
   background: transparent;
   border: 0;
@@ -2334,6 +2325,16 @@ svg.active {
       padding: 8px; }
       .tableWrapper__table__content table tbody tr td:first-child {
         border-left: 1px solid #e0e0e0; }
+      .tableWrapper__table__content table tbody tr td .tableCellIconHolder {
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .tableWrapper__table__content table tbody tr td .tableCellIconHolder .tooltipWrapper {
+          margin-left: 4px; }
+          .tableWrapper__table__content table tbody tr td .tableCellIconHolder .tooltipWrapper:first-of-type {
+            margin-left: 0; }
+          .tableWrapper__table__content table tbody tr td .tableCellIconHolder .tooltipWrapper svg.active {
+            fill: #757575 !important; }
     .tableWrapper__table__content table tbody .MuiTableRow-hover:hover {
       background: #f5f5f5 !important; }
     .tableWrapper__table__content table svg {
