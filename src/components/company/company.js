@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {NavLink, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getCompany, setResponsibility} from 'store/company/tasks';
+import colors from '../../styles/_colors.scss';
+import {RoughNotation} from "react-rough-notation";
 import {tc} from 'helpers';
 import Activities from 'components/activities';
 import ColleaguesDropdown from 'components/colleagues_dropdown';
@@ -68,17 +70,19 @@ const Company = (state) => {
                             <div className='companyWrapper__company__header__left__bottom__item'>
                                 <h5>{tc.owner}:</h5>
                                 {changeResponsible ?
-                                    <ColleaguesDropdown
-                                        activeId={responsibleObj.responsibleUserId}
-                                        activeName={responsibleObj.responsibleUserName}
-                                        highlight={true}
-                                        onClick={(id, name) => {
-                                            setResponsibleObj({
-                                                ...responsibleObj,
-                                                responsibleUserId: id,
-                                                responsibleUserName: name,
-                                            });
-                                        }}/> :
+                                    <RoughNotation color={colors.informatory} type='underline' show={changeResponsible} strokeWidth={2}>
+                                        <ColleaguesDropdown
+                                            activeId={responsibleObj.responsibleUserId}
+                                            activeName={responsibleObj.responsibleUserName}
+                                            transparent={true}
+                                            onClick={(id, name) => {
+                                                setResponsibleObj({
+                                                    ...responsibleObj,
+                                                    responsibleUserId: id,
+                                                    responsibleUserName: name,
+                                                });
+                                            }}/>
+                                    </RoughNotation> :
                                     <p>{responsibleObj.responsibleUserName ? responsibleObj.responsibleUserName : <span className='italic'>{tc.noOwner}</span>}</p>
                                 }
                             </div>

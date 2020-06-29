@@ -8,7 +8,7 @@ import Loading from 'components/loading';
  *
  * @param state.props.activeId - number - User id that is currently active.
  * @param state.props.activeName - string - Name that should be displayed at top.
- * @param state.props.highlight - bool (optional) - If we want top row highlighted, as when in edit mode.
+ * @param state.props.transparent - bool (optional) - If we want top row transparent.
  * @param state.props.onClick - func - When choosing a colleague, always sends back id and name as params.
  */
 const ColleaguesDropdown = (state) => {
@@ -67,7 +67,7 @@ const ColleaguesDropdown = (state) => {
         }
 
         return (
-            <Dropdown displayValue={state.props.activeName} highlight={state.props.highlight}>
+            <Dropdown displayValue={state.props.activeName} transparent={state.props.transparent}>
                 {colleagues}
             </Dropdown>
         );

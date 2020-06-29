@@ -2,6 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal, updateDeal} from 'store/deal/tasks';
+import colors from '../../styles/_colors.scss';
+import {RoughNotation} from "react-rough-notation";
 import {dealHelper, tc} from 'helpers';
 import moment from 'moment';
 import Activities from 'components/activities';
@@ -45,7 +47,7 @@ const Deal = (state) => {
 
     const _renderMaturityList = () => {
         return (
-            <Dropdown displayValue={dealHelper.getMaturityName(dealObj.maturity)} highlight={true}>
+            <Dropdown displayValue={dealHelper.getMaturityName(dealObj.maturity)} transparent={true}>
                 {dealHelper.getMaturityList().map((num) => {
                     return(
                         <DropdownItem
@@ -119,7 +121,9 @@ const Deal = (state) => {
                         <div className='dealWrapper__deal__header__left__top'>
                             <h4>{tc.deal}</h4>
                             {editDeal ?
-                                <input className='large' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={(dealObj.name) ? dealObj.name : ''}/> :
+                                <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={3}>
+                                    <input className='large' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={(dealObj.name) ? dealObj.name : ''}/>
+                                </RoughNotation> :
                                 <h3>{state.deal.deal.name}</h3>
                             }
                         </div>
@@ -127,25 +131,29 @@ const Deal = (state) => {
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.owner}:</h5>
                                 {editDeal ?
-                                    <ColleaguesDropdown
-                                        activeId={dealObj.user_id}
-                                        activeName={dealObj.userName}
-                                        highlight={true}
-                                        onClick={(id, name) => {
-                                            setDealObj({
-                                                ...dealObj,
-                                                user_id: id,
-                                                userName: name
-                                            });
-                                        }}/> :
+                                    <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
+                                        <ColleaguesDropdown
+                                            activeId={dealObj.user_id}
+                                            activeName={dealObj.userName}
+                                            transparent={true}
+                                            onClick={(id, name) => {
+                                                setDealObj({
+                                                    ...dealObj,
+                                                    user_id: id,
+                                                    userName: name
+                                                });
+                                            }}/>
+                                    </RoughNotation> :
                                     <p>{dealObj.userName}</p>
                                 }
                             </div>
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.description}:</h5>
                                 {editDeal ?
-                                    <input className='medium' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={(dealObj.description) ? dealObj.description : ''}/> :
-                                    <p>{dealObj.description}</p>
+                                    <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
+                                        <input className='medium' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={(dealObj.description) ? dealObj.description : ''}/>
+                                    </RoughNotation> :
+                                        <p>{dealObj.description}</p>
                                 }
                             </div>
                             {!editDeal &&
@@ -169,14 +177,18 @@ const Deal = (state) => {
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.potential}:</h5>
                                 {editDeal ?
-                                    <input className='small' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/> :
+                                    <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
+                                        <input className='small' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/>
+                                    </RoughNotation> :
                                     <p>{dealObj.potential}</p>
                                 }
                             </div>
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.maturity}:</h5>
                                 {editDeal ?
-                                    _renderMaturityList() :
+                                    <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
+                                        { _renderMaturityList()}
+                                    </RoughNotation> :
                                     <p>{dealHelper.getMaturityName(dealObj.maturity)}</p>
                                 }
                             </div>

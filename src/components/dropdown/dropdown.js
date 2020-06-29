@@ -7,7 +7,7 @@ import Icon from 'components/icon';
  *
  * props.children - Should be array of <DropdownItem>.
  * props.displayValue - If we want a value to be displayed at top (such as active value, placeholder etc...)
- * props.highlight - If we want to highlight display value (useful when in edit mode).
+ * props.transparent - If we want the holder to be transparent.
  */
 export const Dropdown = (props) => {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -44,10 +44,9 @@ export const Dropdown = (props) => {
              ref={dropdownRef}
         >
             <div className='dropdownWrapper__dropdown'>
-                <div className={props.highlight ? 'dropdownWrapper__dropdown__headerHighlight' : 'dropdownWrapper__dropdown__header'}>
+                <div className={props.transparent ? 'dropdownWrapper__dropdown__headerTransparent' : 'dropdownWrapper__dropdown__header'}>
                     <p>{props.displayValue}</p>
                     {showDropdown ? <Icon val='upArrow'/> : <Icon val='downArrow'/>}
-                    {/*<div className={showDropdown ? 'dropdownWrapper__dropdown__upArrow' : 'dropdownWrapper__dropdown__downArrow'}/>*/}
                 </div>
                 {showDropdown &&
                 <div className='dropdownWrapper__dropdown__content'>

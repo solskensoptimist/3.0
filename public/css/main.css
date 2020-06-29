@@ -1,3 +1,6 @@
+:export {
+  informatory: #ffc107; }
+
 @keyframes slideFromBottom {
   0% {
     bottom: -100%; }
@@ -94,18 +97,6 @@
   cursor: pointer !important; }
   .iconStyleCircleClick:hover, .companyWrapper__company__header__right svg:hover, .dealWrapper__deal__header__right svg:hover, .personWrapper__person__header__right svg:hover, .searchMainWrapper__searchMain__header svg:hover {
     background: #616161 !important; }
-
-.iconStyleInformatory, .activitiesWrapper__activities__content__itemWrapper__item span.iconHolder, .eventsFlowWrapper__eventsFlow__content__itemWrapper__item span.iconHolder {
-  background: #ffc107;
-  border-radius: 50%;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center; }
-  .iconStyleInformatory svg, .activitiesWrapper__activities__content__itemWrapper__item span.iconHolder svg, .eventsFlowWrapper__eventsFlow__content__itemWrapper__item span.iconHolder svg {
-    fill: white;
-    width: 12px;
-    height: 12px; }
 
 .marginTopBig {
   margin-top: 22px; }
@@ -348,6 +339,10 @@ a {
         font-size: 11px;
         color: #9e9e9e;
         margin-right: 8px; }
+      .activitiesWrapper__activities__content__itemWrapper__item span.iconHolder svg {
+        fill: #ffc107;
+        width: 18px;
+        height: 18px; }
       .activitiesWrapper__activities__content__itemWrapper__item__icon {
         flex-basis: 2%;
         border-right: 1px solid #eeeeee;
@@ -426,7 +421,7 @@ a {
       .companyWrapper__company__header span.dealLink:first-of-type {
         margin-left: 0; }
     .companyWrapper__company__header input {
-      background: #ffe082;
+      background: transparent;
       border: 0;
       width: 100%;
       color: #212121; }
@@ -796,14 +791,13 @@ a {
     .dealWrapper__deal__header p {
       font-size: 12px; }
     .dealWrapper__deal__header input {
-      background: #ffe082;
+      background: transparent;
       border: 0;
       color: #212121; }
     .dealWrapper__deal__header input.large {
       background: transparent;
-      padding: 0; }
-      .dealWrapper__deal__header input.large:first-line {
-        background: #ffe082; }
+      padding: 0;
+      width: 50%; }
     .dealWrapper__deal__header input.medium {
       max-width: 150px; }
     .dealWrapper__deal__header input.small {
@@ -1087,7 +1081,7 @@ a {
   position: relative;
   width: 100%;
   min-width: 120px; }
-  .dropdownWrapper__dropdown__header, .dropdownWrapper__dropdown__headerHighlight {
+  .dropdownWrapper__dropdown__header, .dropdownWrapper__dropdown__headerTransparent {
     padding: 5px 12px;
     color: #212121;
     border: 1px solid #e0e0e0;
@@ -1097,13 +1091,13 @@ a {
     align-items: center;
     justify-content: space-between;
     min-height: 36px; }
-    .dropdownWrapper__dropdown__header svg, .dropdownWrapper__dropdown__headerHighlight svg {
+    .dropdownWrapper__dropdown__header svg, .dropdownWrapper__dropdown__headerTransparent svg {
       width: 26px;
       height: 26px;
       margin-left: 12px;
       fill: #212121; }
-  .dropdownWrapper__dropdown__headerHighlight {
-    background: #ffe082;
+  .dropdownWrapper__dropdown__headerTransparent {
+    background: transparent;
     border: 0; }
   .dropdownWrapper__dropdown__content {
     z-index: 10;
@@ -1265,6 +1259,10 @@ a {
         font-size: 11px;
         color: #9e9e9e;
         margin-right: 8px; }
+      .eventsFlowWrapper__eventsFlow__content__itemWrapper__item span.iconHolder svg {
+        fill: #ffc107;
+        width: 18px;
+        height: 18px; }
       .eventsFlowWrapper__eventsFlow__content__itemWrapper__item__icon {
         flex-basis: 2%;
         border-right: 1px solid #eeeeee;
@@ -1707,12 +1705,12 @@ svg.active {
   align-items: stretch;
   background: white;
   width: 100%;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #eeeeee;
   padding: 0 12px; }
   .menuWrapper__menu__item {
     display: flex;
     align-items: center;
-    margin-left: 12px;
+    margin-left: 22px;
     padding: 4px 12px;
     cursor: pointer;
     color: #757575; }
@@ -1730,16 +1728,16 @@ svg.active {
       margin-right: 8px; }
     .menuWrapper__menu__item .dropdownWrapper {
       min-width: 0; }
-    .menuWrapper__menu__item .dropdownWrapper__dropdown__header, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerHighlight {
+    .menuWrapper__menu__item .dropdownWrapper__dropdown__header, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent {
       border: 0;
       background: transparent;
       color: #757575;
       padding: 0; }
-      .menuWrapper__menu__item .dropdownWrapper__dropdown__header:hover, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerHighlight:hover {
+      .menuWrapper__menu__item .dropdownWrapper__dropdown__header:hover, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent:hover {
         color: #616161; }
-        .menuWrapper__menu__item .dropdownWrapper__dropdown__header:hover svg, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerHighlight:hover svg {
+        .menuWrapper__menu__item .dropdownWrapper__dropdown__header:hover svg, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent:hover svg {
           fill: #616161; }
-      .menuWrapper__menu__item .dropdownWrapper__dropdown__header svg, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerHighlight svg {
+      .menuWrapper__menu__item .dropdownWrapper__dropdown__header svg, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent svg {
         fill: #757575;
         width: 22px;
         height: 22px;
@@ -1857,7 +1855,7 @@ svg.active {
       .personWrapper__person__header span.dealLink:first-of-type {
         margin-left: 0; }
     .personWrapper__person__header input {
-      background: #ffe082;
+      background: transparent;
       border: 0;
       width: 100%;
       color: #212121; }

@@ -28,7 +28,10 @@
             color: $colorTextLight-1
             margin-right: $paddingSmall
           span.iconHolder
-            @extend .iconStyleInformatory
+            svg
+              fill: $colorInformatory
+              width: 18px
+              height: 18px
           &__icon
             flex-basis: 2%
             border-right: 1px solid $grey-200

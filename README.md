@@ -1,6 +1,6 @@
 #### FYI
 
-If you experience problem with paths after installment of a module, run 'npm install' so aliases is set.
+If you experience problem with paths after installment of a module, run 'npm install' again so aliases is set.
 
 To run this during development some small fixes is required in bilprospekt-2.0 backend. For now you can simply pull branch '3.0' and do 'npm install' in backend.
 
