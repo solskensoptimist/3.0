@@ -6,6 +6,7 @@ import {
     ArrowDropUp,
     AttachMoney,
     Assignment,
+    Autorenew,
     BarChart,
     Check,
     CheckBoxOutlineBlank,
@@ -207,6 +208,8 @@ export default (props) => {
             return <Search className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'settings':
             return <Settings className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'subscription':
+            return <Autorenew className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'supertemp':
             return <Visibility className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'team':

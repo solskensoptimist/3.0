@@ -169,7 +169,7 @@ export const tableHelper = {
             {id: 'name', numeric: false, label: tc.name},
             {id: 'total', numeric: true, label: tc.amount},
             {id: 'created', numeric: false, label: tc.created},
-            {id: 'ordered', numeric: false, label: tc.ordered},
+            {id: 'complement', numeric: false, label: tc.complement},
             {id: 'creatorName', numeric: false, label: tc.createdBy},
             {id: 'dealerName', numeric: false, label: tc.company},
         ];
@@ -182,13 +182,7 @@ export const tableHelper = {
             columns.forEach((column) => {
                 if (column.id === 'created') {
                     obj[column.id] = moment(new Date(row[column.id])).format('YYYY-MM-DD');
-                } else if (column.id === 'ordered') {
-                    if (row.name === 'testnamn 4') {
-                        console.log('orderHistory testnamn 4', row.orderHistory);
-                    }
-                    if (row.name === 'khjgg') {
-                        console.log('orderHistory khjgg', row.orderHistory);
-                    }
+                } else if (column.id === 'complement') {
                     obj[column.id] =
                         <div className='tableCellIconHolder'>
                             {
@@ -234,6 +228,14 @@ export const tableHelper = {
                             {
                                 (row.orderHistory && row.orderHistory.company && !row.orderHistory.company.isAvailable && !row.orderHistory.company.isPending && row.orderHistory.company.isDelivered) &&
                                 <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldCompanyOrder} verticalDirection={verticalDirection}><Icon val='company'/></Tooltip>
+                            }
+                            {
+                                (row.meta && row.meta.subscription_ids && row.meta.subscription_ids.length) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.subscription} verticalDirection={verticalDirection}><Icon active={true} val='subscription'/></Tooltip>
+                            }
+                            {
+                                (row.meta && (!row.meta.subscription_ids || (row.meta.subscription_ids && !row.meta.subscription_ids.length)) && row.meta.criterias && Object.keys(row.meta.criterias).length) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.subscriptionPossible} verticalDirection={verticalDirection}><Icon val='subscription'/></Tooltip>
                             }
                         </div>
                 } else {

@@ -35,7 +35,7 @@ export const SupertempWidget = (state) => {
                         dashboard={minimize ? <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
                         iconVal='supertemp'
                         headline={tc.supertemp}
-                        headlineSub={`${tc.subscription}: ${state.props.name}`}
+                        headlineSub={`${tc.monitoring}: ${state.props.name}`}
                     />
                 </div>
                 {!minimize &&
