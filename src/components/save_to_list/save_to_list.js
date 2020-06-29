@@ -60,7 +60,11 @@ const SaveToList = (state) => {
                             <div className='saveToListWrapper__saveToList__content__menu__item'  onClick={() => {setShowExisting(false)}}>{tc.createNewList}</div>
                         </div>
                         {showExisting ?
-                            <Table columns={tableHelper.getListsColumns()} onSelect={(arr) => {setLists(arr)}} rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}/> :
+                            <Table
+                                columns={tableHelper.getListsColumns()}
+                                onSelect={(arr) => {setLists(arr)}}
+                                rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
+                            /> :
                             <div className='saveToListWrapper__saveToList__content__newList'>
                                 <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={newListNameInputRef}/>
                             </div>

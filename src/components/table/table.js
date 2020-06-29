@@ -94,11 +94,17 @@ export default (props) => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = props.rows.map((n) => n.id);
-            setSelected(newSelecteds);
-            return;
+            const newSelected = props.rows.map((n) => n.id);
+            setSelected(newSelected);
+            if (props.onSelect && typeof props.onSelect === 'function') {
+                props.onSelect(newSelected);
+            }
+        } else {
+            setSelected([]);
+            if (props.onSelect && typeof props.onSelect === 'function') {
+                props.onSelect([]);
+            }
         }
-        setSelected([]);
     };
 
     const isSelected = (id) => selected.indexOf(id) !== -1;
