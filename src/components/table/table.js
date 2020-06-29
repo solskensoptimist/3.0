@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {tc} from 'helpers';
 import history from '../../router_history';
+import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +11,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+
+const useStyles = makeStyles({
+    body: {
+        cursor: 'pointer',
+    },
+});
 
 /**
  * Table component.
@@ -53,6 +60,7 @@ export default (props) => {
     const [orderBy, setOrderBy] = React.useState('calories');
     const [query, setQuery] = React.useState('');
     const [selected, setSelected] = React.useState(props.preSelectedRows ? props.preSelectedRows : []);
+    const classes = useStyles();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -173,7 +181,7 @@ export default (props) => {
                     <TableContainer>
                         <Table aria-label='table' size='small'>
                             {renderTableHead()}
-                            <TableBody>
+                            <TableBody className={props.rows[0].url ? classes.body : null}>
                                 {stableSort(props.rows, getComparator(order, orderBy), query)
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row, index) => {
