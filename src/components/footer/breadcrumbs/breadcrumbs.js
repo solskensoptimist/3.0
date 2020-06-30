@@ -10,6 +10,7 @@ const routes = {
     analysera: 'Analysera',
     bearbeta: 'Bearbeta',
     bil: 'Bil',
+    bilprospekt: 'Bilprospekt',
     foretag: 'Företag',
     hem: 'Hem',
     inloggning: 'Inloggning',
@@ -23,7 +24,7 @@ const routes = {
     supertemp: 'Bevakning',
     sok: 'Sökning',
     team: 'Team',
-    varTjanst: 'Vår tjänst',
+    vagnparksanalys: 'Vagnparksanalys',
 };
 
 /**
@@ -77,7 +78,7 @@ const Breadcrumbs = (state) => {
 
                                     {/* For index routes, when logged in and logged out. */}
                                     {(pathnames.length === 0 && state.user && state.user.info && state.user.info.id) && <span key='hem'>{routes['hem']}</span>}
-                                    {(pathnames.length === 0 && (!state.user || !state.user.info || !state.user.info.id)) && <span key='varTjanst'>{routes['varTjanst']}</span>}
+                                    {(pathnames.length === 0 && (!state.user || !state.user.info || !state.user.info.id)) && <span key='bilprospekt'>{routes['bilprospekt']}</span>}
                                 </div>
                             );
                         }}

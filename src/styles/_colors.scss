@@ -296,5 +296,11 @@ $backgroundLightGrey: linear-gradient(to left, $grey-100, $grey-200);
 $backgroundDarkGrey: linear-gradient(to right, $grey-700, $grey-800);
 
 :export {
+  chartColor1: $colorPrimary-200;
+  chartColor2: $colorTertiary-200;
+  chartColor3: $colorSecondary-200;
+  chartColor4: $deep-orange-200;
+  chartColor5: $green-200;
+  chartColor6: $purple-200;
   informatory: $colorInformatory;
 }

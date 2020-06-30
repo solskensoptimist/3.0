@@ -72,7 +72,7 @@ const Person = (state) => {
                             <div className='personWrapper__person__header__left__bottom__item'>
                                 <h5>{tc.owner}:</h5>
                                 {changeResponsible ?
-                                    <RoughNotation color={colors.informatory} type='underline' show={changeResponsible} strokeWidth={2}>
+                                    <RoughNotation animationDuration={500} color={colors.informatory} type='underline' show={changeResponsible} strokeWidth={2}>
                                         <ColleaguesDropdown
                                             activeId={responsibleObj.responsibleUserId}
                                             activeName={responsibleObj.responsibleUserName}

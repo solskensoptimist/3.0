@@ -1,10 +1,9 @@
-import React  from "react";
-import {tc} from 'helpers';
+import React  from 'react';
 
 export default () => {
     return (
         <div>
-            {tc.ourService}
+            Vår tjänst...
         </div>
     );
 };

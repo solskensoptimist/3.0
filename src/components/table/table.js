@@ -181,7 +181,7 @@ export default (props) => {
                     <TableContainer>
                         <Table aria-label='table' size='small'>
                             {renderTableHead()}
-                            <TableBody className={props.rows[0].url ? classes.body : null}>
+                            <TableBody className={(props.rows && props.rows[0] && props.rows[0].url) ? classes.body : null}>
                                 {stableSort(props.rows, getComparator(order, orderBy), query)
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row, index) => {

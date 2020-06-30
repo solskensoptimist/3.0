@@ -1,13 +1,11 @@
 import {store} from 'store';
 import {request} from 'helpers';
-import {fleetActionTypes} from './actions';
+import {fleetAnalysisActionTypes} from './actions';
 
 /**
  * Fetch fleet.
  *
- * @param payload.historic - bool - If we want historic fleet.
  * @param payload.koncern - bool - If we want fleet for koncern.
- * @param payload.page - number - Page number.
  * @param payload.prospectId - string - TS user id to fetch data for.
  */
 export const getFleet = async (payload) => {
@@ -18,13 +16,10 @@ export const getFleet = async (payload) => {
             payload.prospectId = payload.prospectId.toString();
         }
 
-        if (payload.historic) {
-            store.dispatch({type: fleetActionTypes.SET_FLEET_HISTORIC, payload: {}});
-        } else {
-            store.dispatch({type: fleetActionTypes.SET_FLEET, payload: {}});
+        // No pagination, empty fleets.
+        if (!payload.page || payload.noPagination) {
+            store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET, payload: {}});
         }
-
-        const historic = payload.historic ? '/historic/' : '';
 
         const data = await request({
             data: {
@@ -37,31 +32,23 @@ export const getFleet = async (payload) => {
                 }
             },
             method: 'get',
-            url: '/fleet/' + payload.prospectId + historic,
+            url: '/fleet/' + payload.prospectId,
         });
 
         if (!data || data instanceof Error || !data.results) {
             console.log('No data in getFleet', data);
-            if (payload.historic) {
-                return store.dispatch({type: fleetActionTypes.SET_FLEET_HISTORIC, payload: []});
-            } else {
-                return store.dispatch({type: fleetActionTypes.SET_FLEET, payload: []});
-            }
+            return store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET, payload: []});
         }
 
         const result = {
             amount: data.results.length,
             data: data.results,
-            gotAllData: !!(data.gotAllData),
+            gotAllData: data.gotAllData,
             target: payload.prospectId,
             total: data.total,
         };
 
-        if (payload.historic) {
-            return store.dispatch({type: fleetActionTypes.SET_FLEET_HISTORIC, payload: result});
-        } else {
-            return store.dispatch({type: fleetActionTypes.SET_FLEET, payload: result});
-        }
+        return store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET, payload: result});
     } catch (err) {
         return console.error('Error in getFleet:\n' + err);
     }

@@ -41,8 +41,9 @@ import {
     NavigateBefore,
     NavigateNext,
     PermContactCalendar,
-    PhoneAndroid,
     Person,
+    PhoneAndroid,
+    Poll,
     Refresh,
     Reorder,
     Replay,
@@ -98,6 +99,8 @@ export default (props) => {
             return <CheckBoxOutlineBlank className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'check':
             return <Check className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'chart':
+            return <Poll className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'clear':
             return <Clear className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'comment':
@@ -186,8 +189,6 @@ export default (props) => {
             return <Description className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'other':
             return <Help className={props.active ? 'active' : null} onClick={onClick}/>;
-        case 'ourService':
-            return <Work className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'owner':
             return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'phone':
@@ -206,6 +207,8 @@ export default (props) => {
             return <Save className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'search':
             return <Search className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'service':
+            return <Work className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'settings':
             return <Settings className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'subscription':

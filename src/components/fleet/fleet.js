@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {tableHelper, tc} from 'helpers';
 import {connect} from 'react-redux';
+import history from '../../router_history';
 import {getFleet} from 'store/fleet/tasks';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
@@ -27,14 +28,12 @@ const Fleet = (state) => {
         getFleet({
             koncern: !!state.props.koncern,
             historic: !!state.props.historic,
-            // noPagination: '',
-            // page: '',
             prospectId: state.props.prospectId,
         });
     }, [state.props]);
 
     useEffect(() => {
-        if (state.props.historic && state && state.fleet && state.fleet.fleetHistoric && state.fleet.fleetHistoric && state.fleet.fleetHistoric.data) {
+        if (state.props.historic && state.fleet && state.fleet.fleetHistoric && state.fleet.fleetHistoric && state.fleet.fleetHistoric.data) {
             if (!state.fleet.fleetHistoric.data.length) {
                 setMinimize(true);
             }
@@ -45,7 +44,7 @@ const Fleet = (state) => {
             }
             setFleet(state.fleet.fleet);
         }
-    }, [state, state.props]);
+    }, [state]);
 
     return ( _stateCheck() ?
         <div className='fleetWrapper'>
@@ -60,6 +59,7 @@ const Fleet = (state) => {
                                         <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
                                     </> :
                                     <>
+                                        {!state.props.historic && <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToFleetAnalysis}><Icon val='navigate' onClick={() => {history.push('/vagnparksanalys/' + state.props.prospectId)}}/></Tooltip>}
                                         <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
                                     </> :
                                 null

@@ -9,6 +9,7 @@ import Dashboard from 'components/dashboard/';
 import Deal from 'components/deal/';
 import Footer from 'components/footer';
 import FlashMessages from 'components/flash_messages';
+import FleetAnalysis from 'components/fleet_analysis';
 import Header from 'components/header';
 import Koncern from 'components/koncern/';
 import Leads from 'components/leads/';
@@ -45,6 +46,7 @@ export default () => {
                         <Route exact path='/prospektera/resultat' component={ProspectResult}/>
                         <Route exact path='/sok/:q' component={SearchResults}/>
                         <Route exact path='/supertemp/:id' component={Supertemp}/>
+                        <Route exact path='/vagnparksanalys/:id' component={FleetAnalysis}/>
                         <Route component={Dashboard}/>
                     </Switch>
                 </div>

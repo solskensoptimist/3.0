@@ -121,7 +121,7 @@ const Deal = (state) => {
                         <div className='dealWrapper__deal__header__left__top'>
                             <h4>{tc.deal}</h4>
                             {editDeal ?
-                                <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={3}>
+                                <RoughNotation animationDuration={500} color={colors.informatory} type='underline' show={editDeal} strokeWidth={3}>
                                     <input className='large' onChange={_onInputChange} ref={dealNameInputRef} type='text' value={(dealObj.name) ? dealObj.name : ''}/>
                                 </RoughNotation> :
                                 <h3>{state.deal.deal.name}</h3>
@@ -131,7 +131,7 @@ const Deal = (state) => {
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.owner}:</h5>
                                 {editDeal ?
-                                    <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
+                                    <RoughNotation animationDuration={500} color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
                                         <ColleaguesDropdown
                                             activeId={dealObj.user_id}
                                             activeName={dealObj.userName}
@@ -150,7 +150,7 @@ const Deal = (state) => {
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.description}:</h5>
                                 {editDeal ?
-                                    <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
+                                    <RoughNotation animationDuration={500} color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
                                         <input className='medium' onChange={_onInputChange} ref={dealDescriptionInputRef} type='text' value={(dealObj.description) ? dealObj.description : ''}/>
                                     </RoughNotation> :
                                         <p>{dealObj.description}</p>
@@ -177,7 +177,7 @@ const Deal = (state) => {
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.potential}:</h5>
                                 {editDeal ?
-                                    <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
+                                    <RoughNotation animationDuration={500} color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
                                         <input className='small' onChange={_onInputChange} ref={dealPotentialInputRef} type='text' value={(dealObj.potential) ? dealObj.potential : ''}/>
                                     </RoughNotation> :
                                     <p>{dealObj.potential}</p>
@@ -186,7 +186,7 @@ const Deal = (state) => {
                             <div className='dealWrapper__deal__header__left__bottom__item'>
                                 <h5>{tc.maturity}:</h5>
                                 {editDeal ?
-                                    <RoughNotation color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
+                                    <RoughNotation animationDuration={500} color={colors.informatory} type='underline' show={editDeal} strokeWidth={2}>
                                         { _renderMaturityList()}
                                     </RoughNotation> :
                                     <p>{dealHelper.getMaturityName(dealObj.maturity)}</p>
