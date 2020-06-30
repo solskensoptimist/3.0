@@ -44,67 +44,43 @@ const FleetAnalysisCharts = (state) => {
                 </div>
                 {!minimize &&
                     <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content'>
-                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item'>
+                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__itemThird'>
                             <Chart
-                                chartType='Bar'
+                                chartType='PieChart'
                                 loader={<Loading/>}
-                                data={chartHelper.getBrands(state.fleetAnalysis.fleet.data)}
+                                data={chartHelper.getVehicleTypes(state.fleetAnalysis.fleet.data)}
                                 options={{
-                                    colors: [colors.chartColor1],
-                                    bars: 'horizontal',
-                                    title: tc.brands,
-                                    chartArea: { width: '30%' },
-                                    hAxis: {
-                                        title: chartHelper.getBrandsAxes().hAxis,
-                                        minValue: 0,
-                                    },
-                                    vAxis: {
-                                        title: chartHelper.getBrandsAxes().vAxis,
-                                    },
+                                    colors: [colors.chartColor1, colors.chartColor2, colors.chartColor3, colors.chartColor4, colors.chartColor5, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
+                                    is3D: true,
+                                    title: tc.vehicleTypes,
                                 }}
                             />
                         </div>
-                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item'>
+                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__itemThird'>
                             <Chart
-                                chartType='Bar'
+                                chartType='PieChart'
                                 loader={<Loading/>}
-                                data={chartHelper.getBrands(state.fleetAnalysis.fleet.data)}
+                                data={chartHelper.getNew(state.fleetAnalysis.fleet.data)}
                                 options={{
-                                    colors: [colors.chartColor2],
-                                    bars: 'horizontal',
-                                    title: tc.brands,
-                                    chartArea: { width: '30%' },
-                                    hAxis: {
-                                        title: chartHelper.getBrandsAxes().hAxis,
-                                        minValue: 0,
-                                    },
-                                    vAxis: {
-                                        title: chartHelper.getBrandsAxes().vAxis,
-                                    },
+                                    colors: [colors.chartColor3, colors.chartColor2, colors.chartColor1, colors.chartColor5, colors.chartColor4, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
+                                    is3D: true,
+                                    title: tc.bought,
                                 }}
                             />
                         </div>
-                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item'>
+                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__itemThird'>
                             <Chart
-                                chartType='Bar'
+                                chartType='PieChart'
                                 loader={<Loading/>}
-                                data={chartHelper.getBrands(state.fleetAnalysis.fleet.data)}
+                                data={chartHelper.getFinancedBy(state.fleetAnalysis.fleet.data)}
                                 options={{
-                                    colors: [colors.chartColor3],
-                                    bars: 'horizontal',
-                                    title: tc.brands,
-                                    chartArea: { width: '30%' },
-                                    hAxis: {
-                                        title: chartHelper.getBrandsAxes().hAxis,
-                                        minValue: 0,
-                                    },
-                                    vAxis: {
-                                        title: chartHelper.getBrandsAxes().vAxis,
-                                    },
+                                    colors: [colors.chartColor2, colors.chartColor1, colors.chartColor3, colors.chartColor4, colors.chartColor5, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
+                                    is3D: true,
+                                    title: tc.financedBy,
                                 }}
                             />
                         </div>
-                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item'>
+                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__itemHalf'>
                             <Chart
                                 chartType='Bar'
                                 loader={<Loading/>}
@@ -113,7 +89,7 @@ const FleetAnalysisCharts = (state) => {
                                     colors: [colors.chartColor4],
                                     bars: 'horizontal',
                                     title: tc.brands,
-                                    chartArea: { width: '30%' },
+                                    chartArea: {width: '30%' },
                                     hAxis: {
                                         title: chartHelper.getBrandsAxes().hAxis,
                                         minValue: 0,
@@ -124,42 +100,22 @@ const FleetAnalysisCharts = (state) => {
                                 }}
                             />
                         </div>
-                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item'>
+                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__itemHalf'>
                             <Chart
                                 chartType='Bar'
                                 loader={<Loading/>}
-                                data={chartHelper.getBrands(state.fleetAnalysis.fleet.data)}
+                                data={chartHelper.getModels(state.fleetAnalysis.fleet.data)}
                                 options={{
                                     colors: [colors.chartColor5],
                                     bars: 'horizontal',
                                     title: tc.brands,
-                                    chartArea: { width: '30%' },
+                                    chartArea: {width: '30%'},
                                     hAxis: {
-                                        title: chartHelper.getBrandsAxes().hAxis,
+                                        title: chartHelper.getModelsAxes().hAxis,
                                         minValue: 0,
                                     },
                                     vAxis: {
-                                        title: chartHelper.getBrandsAxes().vAxis,
-                                    },
-                                }}
-                            />
-                        </div>
-                        <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item'>
-                            <Chart
-                                chartType='Bar'
-                                loader={<Loading/>}
-                                data={chartHelper.getBrands(state.fleetAnalysis.fleet.data)}
-                                options={{
-                                    colors: [colors.chartColor6],
-                                    bars: 'horizontal',
-                                    title: tc.brands,
-                                    chartArea: { width: '30%' },
-                                    hAxis: {
-                                        title: chartHelper.getBrandsAxes().hAxis,
-                                        minValue: 0,
-                                    },
-                                    vAxis: {
-                                        title: chartHelper.getBrandsAxes().vAxis,
+                                        title: chartHelper.getModelsAxes().vAxis,
                                     },
                                 }}
                             />

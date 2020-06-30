@@ -18,9 +18,9 @@
       display: flex
       flex-wrap: wrap
       background: $grey-100
-      padding: $paddingSmall
-      &__item
-        flex-basis: calc(33.33% - ((#{$paddingSmall} / 3) * 2))
+      padding: 0 0 $paddingSmall $paddingSmall
+      &__itemHalf
+        flex-basis: calc(50% - #{$paddingSmall})
         flex-grow: 0
         flex-shrink: 0
         min-width: 0
@@ -29,7 +29,13 @@
         padding: $paddingMedium
         overflow: hidden
         background: white
-        &:nth-child(1), &:nth-child(2), &:nth-child(3)
-          margin-top: 0
-        &:nth-child(3n)
-          margin-right: 0
+      &__itemThird
+        flex-basis: calc(33.33% - #{$paddingSmall})
+        flex-grow: 0
+        flex-shrink: 0
+        min-width: 0
+        margin-top: $paddingSmall
+        margin-right: $paddingSmall
+        padding: $paddingMedium
+        overflow: hidden
+        background: white

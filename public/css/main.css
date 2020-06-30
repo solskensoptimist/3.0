@@ -1,10 +1,14 @@
 :export {
-  chartColor1: #60CCDA;
-  chartColor2: #ACE0D1;
-  chartColor3: #ffe082;
-  chartColor4: #ffab91;
-  chartColor5: #a5d6a7;
-  chartColor6: #ce93d8;
+  chartColor1: #90a4ae;
+  chartColor2: #ce93d8;
+  chartColor3: #60CCDA;
+  chartColor4: #a5d6a7;
+  chartColor5: #bcaaa4;
+  chartColor6: #ffe082;
+  chartColor7: #9fa8da;
+  chartColor8: #9ccc65;
+  chartColor9: #78909c;
+  chartColor10: #ffca28;
   informatory: #ffc107; }
 
 @keyframes slideFromBottom {
@@ -1393,9 +1397,9 @@ a {
   display: flex;
   flex-wrap: wrap;
   background: #f5f5f5;
-  padding: 8px; }
-  .fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item {
-    flex-basis: calc(33.33% - ((8px / 3) * 2));
+  padding: 0 0 8px 8px; }
+  .fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__itemHalf {
+    flex-basis: calc(50% - 8px);
     flex-grow: 0;
     flex-shrink: 0;
     min-width: 0;
@@ -1404,10 +1408,16 @@ a {
     padding: 12px;
     overflow: hidden;
     background: white; }
-    .fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item:nth-child(1), .fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item:nth-child(2), .fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item:nth-child(3) {
-      margin-top: 0; }
-    .fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__item:nth-child(3n) {
-      margin-right: 0; }
+  .fleetAnalysisChartsWrapper__fleetAnalysisCharts__content__itemThird {
+    flex-basis: calc(33.33% - 8px);
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 0;
+    margin-top: 8px;
+    margin-right: 8px;
+    padding: 12px;
+    overflow: hidden;
+    background: white; }
 
 .footer {
   background: transparent;
