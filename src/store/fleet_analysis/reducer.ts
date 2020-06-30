@@ -3,19 +3,19 @@ import {fleetAnalysisActionTypes} from './actions';
 // This reducer holds the same data as fleet.
 // We use a separare reducer for fleet analyze to let components update state without affecting each other.
 interface fleetAnalysisState {
-    fleet: object| null,
+    fleetAnalysis: object| null,
 }
 
 const initialState: fleetAnalysisState = {
-    fleet: null,
+    fleetAnalysis: null,
 };
 
 export const fleetAnalysisReducer = (state = initialState, action) => {
     switch(action.type) {
-        case fleetAnalysisActionTypes.SET_FLEET: {
+        case fleetAnalysisActionTypes.SET_FLEET_ANALYSIS: {
             return {
                 ...state,
-                fleet: action.payload,
+                fleetAnalysis: action.payload,
             }
         }
         default: {

@@ -43,9 +43,9 @@ export const getFleet = async (payload) => {
         if (!data || data instanceof Error || !data.results) {
             console.log('No data in getFleet', data);
             if (payload.historic) {
-                return store.dispatch({type: fleetActionTypes.SET_FLEET_HISTORIC, payload: []});
+                return store.dispatch({type: fleetActionTypes.SET_FLEET_HISTORIC, payload: {}});
             } else {
-                return store.dispatch({type: fleetActionTypes.SET_FLEET, payload: []});
+                return store.dispatch({type: fleetActionTypes.SET_FLEET, payload: {}});
             }
         }
 
