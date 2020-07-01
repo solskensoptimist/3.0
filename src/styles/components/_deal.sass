@@ -2,30 +2,11 @@
   &__deal
     padding: $paddingGrid
     &__header
-      margin-bottom: $paddingGrid
-      display: flex
-      font-size: $fontSizeStandard2
-      h3
-        @extend .headlineVeryLarge
-      h4
-        font-size: $fontSizeStandard-1
-        color: $colorTextLight-2
-        margin-bottom: $paddingSmall
-      h5
-        text-transform: none
-        font-weight: 400
-        font-size: $fontSizeStandard-1
-        color: $colorTextLight-1
-        margin-right: 4px
-      p
-        font-size: $fontSizeStandard-1
-      input
-        background: transparent
-        border: 0
-        color: $colorTextDark
+      @extend .largeHeader
       input.large
-        @extend .headlineVeryLarge
-        @extend h3
+        font-size: $fontSizeStandard8
+        text-transform: none
+        font-weight: 700
         background: transparent
         padding: 0
         width: 50%
@@ -41,7 +22,7 @@
         flex-direction: column
         &__top
           flex-grow: 1
-          margin: $paddingMedium 0 $paddingBig 0
+          margin: $paddingMedium 0
         &__bottom
           flex-grow: 1
           display: flex

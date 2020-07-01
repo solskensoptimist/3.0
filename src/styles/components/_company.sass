@@ -3,41 +3,14 @@
   &__company
     padding: $paddingGrid
     &__header
-      margin-bottom: $paddingGrid
-      display: flex
-      font-size: $fontSizeStandard2
-      h3
-        @extend .headlineVeryLarge
-      h4
-        font-size: $fontSizeStandard-1
-        color: $colorTextLight-2
-        margin-bottom: $paddingSmall
-      h5
-        text-transform: none
-        font-weight: 400
-        font-size: $fontSizeStandard-1
-        color: $colorTextLight-1
-        margin-right: 4px
-      p
-        font-size: $fontSizeStandard-1
-      a
-        font-size: $fontSizeStandard-1
-      span.dealLink
-        margin-left: $paddingSmall
-        &:first-of-type
-          margin-left: 0
-      input
-        background: transparent
-        border: 0
-        width: 100%
-        color: $colorTextDark
+      @extend .largeHeader
       &__left
         flex-grow: 1
         display: flex
         flex-direction: column
         &__top
           flex-grow: 1
-          margin: $paddingMedium 0 $paddingBig 0
+          margin: $paddingMedium 0
         &__bottom
           flex-grow: 1
           display: flex

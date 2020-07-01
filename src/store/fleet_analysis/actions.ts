@@ -1,3 +1,4 @@
 export const fleetAnalysisActionTypes = {
     SET_FLEET_ANALYSIS: 'SET_FLEET_ANALYSIS',
+    SET_FLEET_ANALYSIS_HISTORIC: 'SET_FLEET_ANALYSIS_HISTORIC',
 };

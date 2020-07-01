@@ -33,12 +33,12 @@ const Fleet = (state) => {
     }, [state.props]);
 
     useEffect(() => {
-        if (state.props.historic && state.fleet && state.fleet.fleetHistoric && state.fleet.fleetHistoric && state.fleet.fleetHistoric.data) {
+        if (state.props.historic && state.fleet && state.fleet.fleetHistoric && state.fleet.fleetHistoric.data) {
             if (!state.fleet.fleetHistoric.data.length) {
                 setMinimize(true);
             }
             setFleet(state.fleet.fleetHistoric);
-        } else if (state && state.fleet && state.fleet.fleet && state.fleet.fleet && state.fleet.fleet.data) {
+        } else if (!state.props.historic && state.fleet && state.fleet.fleet && state.fleet.fleet.data) {
             if (!state.fleet.fleet.data.length) {
                 setMinimize(true);
             }
@@ -59,7 +59,7 @@ const Fleet = (state) => {
                                         <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
                                     </> :
                                     <>
-                                        {(!state.props.historic && !window.location.pathname.includes('vagnparksanalys')) && <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToFleetAnalysis}><Icon val='navigate' onClick={() => {history.push('/vagnparksanalys/' + state.props.prospectId)}}/></Tooltip>}
+                                        {(!window.location.pathname.includes('vagnparksanalys')) && <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToFleetAnalysis}><Icon val='navigate' onClick={() => {history.push('/vagnparksanalys/' + state.props.prospectId)}}/></Tooltip>}
                                         <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
                                     </> :
                                 null

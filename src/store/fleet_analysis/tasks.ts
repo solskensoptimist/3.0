@@ -5,6 +5,7 @@ import {fleetAnalysisActionTypes} from './actions';
 /**
  * Fetch fleet analysis data.
  *
+ * @param payload.historic - bool - Get historic fleet data.
  * @param payload.prospectId - string - TS user id to fetch data for.
  */
 export const getFleetAnalysis = async (payload) => {
@@ -15,19 +16,29 @@ export const getFleetAnalysis = async (payload) => {
             payload.prospectId = payload.prospectId.toString();
         }
 
-        store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS, payload: {}});
+        if (payload.historic) {
+            store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS_HISTORIC, payload: {}});
+        } else {
+            store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS, payload: {}});
+        }
+
+        const historic = payload.historic ? '/historic/' : '';
 
         const data = await request({
             data: {
                 koncern: 0,
             },
             method: 'get',
-            url: '/fleet/carAnalyse/' + payload.prospectId,
+            url: '/fleet/carAnalyse/' + payload.prospectId + historic,
         });
 
         if (!data || data instanceof Error) {
             console.log('No data in getFleetAnalysis', data);
-            return store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS, payload: {}});
+            if (payload.historic) {
+                return store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS_HISTORIC, payload: {}});
+            } else {
+                return store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS, payload: {}});
+            }
         }
 
         // Remap data from (old) backend to suit Google charts.
@@ -42,9 +53,15 @@ export const getFleetAnalysis = async (payload) => {
             new: chartHelper.remapArrays2(data.new, tc.new, tc.amount),
             regYear: chartHelper.remapArrays1(data.regYear, tc.regYear, tc.amount),
             total: data.total,
+            target: payload.prospectId,
+            historic: !!payload.historic,
         };
 
-        return store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS, payload: result});
+        if (payload.historic) {
+            return store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS_HISTORIC, payload: result});
+        } else {
+            return store.dispatch({type: fleetAnalysisActionTypes.SET_FLEET_ANALYSIS, payload: result});
+        }
     } catch (err) {
         return console.error('Error in getFleetAnalysis:\n' + err);
     }

@@ -2,6 +2,23 @@
 .fleetAnalysisWrapper
   &__fleetAnalysis
     padding: $paddingGrid
+    &__header
+      @extend .largeHeader
+      &__left
+        margin-right: $paddingBig
+      &__right
+        display: flex
+        align-items: flex-end
+        &__button
+          cursor: pointer
+          color: $colorLink
+          margin-left: $paddingMedium
+        &:first-of-type
+          margin-left: 0
+        &:hover
+          color: $colorLinkHover
+        .activeButton
+          color: $colorLinkHover
     &__content
       &__item
         margin-bottom: $paddingGrid
