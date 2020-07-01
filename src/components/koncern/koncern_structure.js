@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
+import {Table} from 'components/table';
 import Loading from 'components/loading';
-import Table from 'components/table';
 import WidgetHeader from 'components/widget_header';
 import Tooltip from "../tooltip/tooltip";
 import Icon from "../icon/icon";
@@ -80,7 +80,7 @@ const KoncernStructure = (state) => {
                             onSelect={_onSelect}
                             rows={tableHelper.getKoncernStructureRows(structure, total, disabledRows)}
                             preSelectedRows={structure.map((num) => num.id)}
-                            rowsPerPage={50}
+                            rowsPerPage={100}
                         />
                     </div>
                 }

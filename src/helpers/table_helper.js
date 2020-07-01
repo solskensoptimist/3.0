@@ -6,7 +6,9 @@ import {vehicleHelper} from 'helpers';
 import moment from 'moment';
 
 /**
- * These methods help us format data to use in Table component.
+ * These methods help us format data for use in Table component.
+ *
+ * Keep id for columns consistent with what is sent from backend, since that is what we send back to sort on columns.
  */
 export const tableHelper = {
     getFleetColumns: (historic) => {

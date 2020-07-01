@@ -1366,7 +1366,10 @@ a {
     .fleetAnalysisWrapper__fleetAnalysis__header__right__button {
       cursor: pointer;
       color: #00B4CC;
-      margin-left: 12px; }
+      margin-left: 22px;
+      display: flex;
+      align-items: center;
+      font-size: 13px; }
     .fleetAnalysisWrapper__fleetAnalysis__header__right:first-of-type {
       margin-left: 0; }
     .fleetAnalysisWrapper__fleetAnalysis__header__right:hover {

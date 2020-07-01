@@ -1,16 +1,20 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {fleetActionTypes} from './actions';
+import {debounce }from 'debounce';
 
 /**
  * Fetch fleet.
  *
  * @param payload.historic - bool - If we want historic fleet.
  * @param payload.koncern - bool - If we want fleet for koncern.
+ * @param payload.sorting - object - {order: 'desc' | 'asc', orderBy: 'column_name'}
+ * @param payload.query - string - Search query.
  * @param payload.page - number - Page number.
  * @param payload.prospectId - string - TS user id to fetch data for.
+ * @param payload.rowsPerPage - number - Rows per page.
  */
-export const getFleet = async (payload) => {
+const getFleetDebounced = async (payload) => {
     try {
         if (!payload || (payload && !payload.prospectId)) {
             return console.error('Missing params in getFleet:\n' + payload);
@@ -24,20 +28,20 @@ export const getFleet = async (payload) => {
             store.dispatch({type: fleetActionTypes.SET_FLEET, payload: {}});
         }
 
-        const historic = payload.historic ? '/historic/' : '';
-
         const data = await request({
             data: {
+                historic: payload.historic ? 1 : 0,
                 koncern: payload.koncern ? 1 : 0,
-                noPagination: 1,
-                props: {
-                    filter: {},
-                    page: payload.page || 0,
-                    columns: null,
-                }
+                rowsPerPage: payload.rowsPerPage ? payload.rowsPerPage : 10,
+                sort: payload.sorting ? payload.sorting : {
+                    order: payload.order ? payload.order : 'desc',
+                    orderBy: payload.orderBy ? payload.orderBy : null,
+                },
+                page: payload.page || 0,
+                query: (payload.query && payload.query.length) ? payload.query : null,
             },
             method: 'get',
-            url: '/fleet/' + payload.prospectId + historic,
+            url: '/fleet/3.0/paginated/'+ payload.prospectId,
         });
 
         if (!data || data instanceof Error || !data.results) {
@@ -50,9 +54,8 @@ export const getFleet = async (payload) => {
         }
 
         const result = {
-            amount: data.results.length,
+            amount: data.amount,
             data: data.results,
-            gotAllData: !!(data.gotAllData),
             target: payload.prospectId,
             total: data.total,
         };
@@ -66,3 +69,6 @@ export const getFleet = async (payload) => {
         return console.error('Error in getFleet:\n' + err);
     }
 };
+
+// Debounced (mostly because of search function).
+export const getFleet = debounce(getFleetDebounced, 200);

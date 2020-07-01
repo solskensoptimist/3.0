@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {getSupertempData} from 'store/supertemp/tasks';
 import {NavLink} from 'react-router-dom';
 import {tableHelper, tc} from 'helpers';
+import {Table} from 'components/table';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
 import Tooltip from 'components/tooltip';
-import Table from 'components/table';
 import WidgetHeader from 'components/widget_header';
 
 export const SupertempWidget = (state) => {

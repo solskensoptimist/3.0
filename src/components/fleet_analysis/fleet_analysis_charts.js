@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {tc} from 'helpers';
-import {getFleetAnalysis} from 'store/fleet_analysis/tasks';
-import {connect} from 'react-redux';
 import {Chart} from 'react-google-charts';
 import colors from '../../styles/_colors.scss';
 import Icon from 'components/icon';
@@ -12,41 +10,33 @@ import WidgetHeader from 'components/widget_header';
 /**
  * Render some charts for fleet data.
  *
- * @param state.props.historic - bool - Historic fleet data.
- * @param state.props.prospectId - string - TS user id.
+ * @param props.data - object - Fleet analysis data.
+ * @param props.historic - bool - Historic or not.
  */
-const FleetAnalysisCharts = (state) => {
-    const [fleetAnalysis, setFleetAnalysis] = useState({});
+export default (props) => {
     const [minimize, setMinimize] = useState(false);
 
-    const _stateCheck = () => {
-        return !!(fleetAnalysis && Object.keys(fleetAnalysis).length && fleetAnalysis.historic === !!state.props.historic && fleetAnalysis.target === state.props.prospectId);
-    };
-
     useEffect(() => {
-        getFleetAnalysis({
-            historic: state.props.historic,
-            prospectId: state.props.prospectId
-        });
-    }, [state.props]);
+        setMinimize((props.data.total.total === 0));
+    }, [props.data]);
 
-    useEffect(() => {
-        if (state.props.historic && state.fleetAnalysis && state.fleetAnalysis.fleetAnalysisHistoric && Object.keys(state.fleetAnalysis.fleetAnalysisHistoric).length) {
-            setFleetAnalysis(state.fleetAnalysis.fleetAnalysisHistoric);
-        } else if (!state.props.historic && state && state.fleetAnalysis && state.fleetAnalysis.fleetAnalysis && Object.keys(state.fleetAnalysis.fleetAnalysis).length) {
-            setFleetAnalysis(state.fleetAnalysis.fleetAnalysis);
-        }
-    }, [state]);
-
-    return (_stateCheck() ?
+    return (
         <div className='fleetAnalysisChartsWrapper'>
             <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts'>
                 <div className='fleetAnalysisChartsWrapper__fleetAnalysisCharts__header'>
                     <WidgetHeader
-                        dashboard={minimize ? <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip> : <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
+                        dashboard={
+                            <>
+                                {(minimize && (props.data.total.total !== 0)) && <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>}
+                                {(!minimize && (props.data.total.total !== 0)) && <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>}
+                            </>
+                        }
                         iconVal='chart'
-                        headline={(state.props.historic) ? tc.fleetAnalysisChartsHistoric : tc.fleetAnalysisCharts}
-                        headlineSub={`${tc.total} ${fleetAnalysis.total.total} ${tc.vehicles.toLowerCase()}`}
+                        headline={(props.historic) ? tc.fleetAnalysisChartsHistoric : tc.fleetAnalysisCharts}
+                        headlineSub={((props.data.total.total === 0)) ?
+                            tc.noVehicles :
+                            `${tc.total} ${props.data.total.total} ${tc.vehicles.toLowerCase()}`
+                        }
                     />
                 </div>
                 {!minimize &&
@@ -55,7 +45,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='PieChart'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.carType}
+                                data={props.data.carType}
                                 options={{
                                     colors: [colors.chartColor1, colors.chartColor2, colors.chartColor3, colors.chartColor4, colors.chartColor5, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
                                     is3D: true,
@@ -67,7 +57,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='PieChart'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.new}
+                                data={props.data.new}
                                 options={{
                                     colors: [colors.chartColor3, colors.chartColor2, colors.chartColor1, colors.chartColor5, colors.chartColor4, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
                                     is3D: true,
@@ -79,7 +69,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='PieChart'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.finance}
+                                data={props.data.finance}
                                 options={{
                                     colors: [colors.chartColor2, colors.chartColor1, colors.chartColor3, colors.chartColor4, colors.chartColor5, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
                                     is3D: true,
@@ -91,7 +81,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='Bar'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.brands}
+                                data={props.data.brands}
                                 options={{
                                     colors: [colors.chartColor4],
                                     bars: 'horizontal',
@@ -111,7 +101,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='Bar'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.models}
+                                data={props.data.models}
                                 options={{
                                     colors: [colors.chartColor5],
                                     bars: 'horizontal',
@@ -131,7 +121,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='Bar'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.carYear}
+                                data={props.data.carYear}
                                 options={{
                                     colors: [colors.chartColor6],
                                     bars: 'horizontal',
@@ -151,7 +141,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='Bar'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.regYear}
+                                data={props.data.regYear}
                                 options={{
                                     colors: [colors.chartColor7],
                                     bars: 'horizontal',
@@ -171,7 +161,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='Bar'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.kaross}
+                                data={props.data.kaross}
                                 options={{
                                     colors: [colors.chartColor1],
                                     bars: 'horizontal',
@@ -191,7 +181,7 @@ const FleetAnalysisCharts = (state) => {
                             <Chart
                                 chartType='Bar'
                                 loader={<Loading/>}
-                                data={fleetAnalysis.boughtPlace}
+                                data={props.data.boughtPlace}
                                 options={{
                                     colors: [colors.chartColor2],
                                     bars: 'horizontal',
@@ -210,19 +200,7 @@ const FleetAnalysisCharts = (state) => {
                     </div>
                 }
             </div>
-        </div> :
-        <Loading/>
+        </div>
     );
 };
-
-const MapStateToProps = (state, props) => {
-    return {
-        fleetAnalysis: state.fleetAnalysis,
-        props: props,
-    };
-};
-
-export default connect(
-    MapStateToProps,
-)(FleetAnalysisCharts);
 

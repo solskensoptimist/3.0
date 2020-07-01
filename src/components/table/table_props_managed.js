@@ -19,62 +19,48 @@ const useStyles = makeStyles({
 });
 
 /**
- * Table component.
- * This is a stand alone component, I.E. pagination, search and sorting is not provided through props.
- * So all the rows has to be is provided.
- * If you need a table that handles pagination through backend use component <TablePropsManaged>.
+ * Table component with props to manage pagination, rowsPerPage, search and sorting.
+ * Other than that, basically the same as <Table>.
  *
- * A lot happening in this component but really it's sweet and simple.
- * Send in columns and rows in the correct format and you're basically there.
+ * Use this component when amount of rows could possibly be too many to save in local storage (like for example in /prospektera/resultat), I.E. 500+ rows or something like that.
+ * Make a backend call for every nextPage/prevPage to provide new rows.
+ * Which means filter on search query is done backend aswell (optional to provide props.search).
+ * And sorting on columns is also done backend, if props.sort is provided.
  *
  * Rows can be selectable, if so provide onSelect function and 'id' property for every row.
  * If a row have a 'url' property the row is going to be a navigation link.
  * TODO: make cells editable...
  *
- * Two examples on how to use this component, first with rows that are links, second with selectable rows:
- *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} onSelect={_onSelect} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
- *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
- *
  * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. Note that every row object must have an 'id' property with a unique value.
- * @param props.columns - array
- *      Example 1 (used with example 1 for rows): [
- *          { id: 'name', numeric: false, label: 'Dessert (100g serving)' },
- *          { id: 'calories', numeric: true, label: 'Calories' },
- *          { id: 'fat', numeric: true, label: 'Fat (g)' },
- *      ];
- *      Example 2 (used with example 2 for rows): [
- *          { id: 'brand', numeric: false, label: 'Märke' },
- *          { id: 'reg_number', numeric: false, label: 'Registreringsnummer' },
- *      ];
+ * @param props.columns - array - See <Table> for columns example.
+ * @param props.pageChange - func - Called when page changes.
  * @param props.preSelectedRows - array (optional) - Array with ids for rows that should be selected from start.
- * @param props.rows - array
- *      Example 1 (rows are selectable): [
- *          {id: '123abc', name: 'Sockerkaka', calories: 100, fat: 50},
- *          {id: '456qwe', name: 'Chokladboll', calories: 200, fat: 100},
- *          {id: '789bnm', name: 'Havrekaka', calories: 100, fat: 50},
- *      ];
- *      Example 2 (rows are links): [
- *          {reg_number: 'abc123', brand: 'HONDA', url: '/bil/abc123'},
- *          {reg_number: 'rty456', brand: 'VOLOV', url: '/bil/rty456'},
- *      ];
- * @param props.rowsPerPage - number (optional)
+ * @param props.rows - array - See <Table> for rows example.
+ * @param props.rowsPerPage - number - Rows per page.
+ * @param props.rowsPerPageChange - func - When rows per page changes.
+ * @param props.search - func (optional) - Called when search input have value.
+ * @param props.sort - func - Called when a column header is clicked.
+ * @param props.total - number - Number of rows total.
  */
-export const TableComponent = (props) => {
+export const TablePropsManaged = (props) => {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPage ? props.rowsPerPage : 10);
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('');
+    const [orderBy, setOrderBy] = React.useState('calories');
     const [query, setQuery] = React.useState('');
     const [selected, setSelected] = React.useState(props.preSelectedRows ? props.preSelectedRows : []);
     const classes = useStyles();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
+        if (typeof props.pageChange === 'function') {
+            props.pageChange(newPage);
+        }
     };
 
     const handleChangeRowsPerPage = event => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
+        if (props.rowsPerPageChange === 'function') {
+            props.rowsPerPageChange(parseInt(event.target.value, 10));
+        }
     };
 
     const handleSelect = (event, id) => {
@@ -95,6 +81,7 @@ export const TableComponent = (props) => {
         }
 
         setSelected(newSelected);
+
         if (props.onSelect && typeof props.onSelect === 'function') {
             props.onSelect(newSelected);
         }
@@ -104,6 +91,9 @@ export const TableComponent = (props) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
+        if (typeof props.sort === 'function') {
+            props.sort({order: isAsc ? 'desc' : 'asc', orderBy: property});
+        }
     };
 
     const handleSelectAll = (event) => {
@@ -146,14 +136,14 @@ export const TableComponent = (props) => {
             <TableHead>
                 <TableRow>
                     {(props.onSelect && typeof props.onSelect === 'function') &&
-                        <TableCell>
-                            <Checkbox
-                                indeterminate={selected.length > 0 && selected.length < props.rows.length}
-                                checked={props.rows.length > 0 && selected.length === props.rows.length}
-                                onChange={handleSelectAll}
-                                inputProps={{ 'aria-label': 'select all' }}
-                            />
-                        </TableCell>
+                    <TableCell>
+                        <Checkbox
+                            indeterminate={selected.length > 0 && selected.length < props.rows.length}
+                            checked={props.rows.length > 0 && selected.length === props.rows.length}
+                            onChange={handleSelectAll}
+                            inputProps={{ 'aria-label': 'select all' }}
+                        />
+                    </TableCell>
                     }
                     {props.columns.map((headCell) => (
                         <TableCell
@@ -188,9 +178,7 @@ export const TableComponent = (props) => {
                         <Table aria-label='table' size='small'>
                             {renderTableHead()}
                             <TableBody className={(props.rows && props.rows[0] && props.rows[0].url) ? classes.body : null}>
-                                {stableSort(props.rows, getComparator(order, orderBy), query)
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row, index) => {
+                                {props.rows.map((row, index) => {
                                         const isItemSelected = isSelected(row.id);
                                         const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -208,16 +196,16 @@ export const TableComponent = (props) => {
                                                 selected={isItemSelected}
                                             >
                                                 {(props.onSelect && typeof props.onSelect === 'function' && row.id) &&
-                                                    <TableCell>
-                                                        <Checkbox
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                return handleSelect(e, row.id);
-                                                            }}
-                                                            checked={isItemSelected}
-                                                            inputProps={{ 'aria-labelledby': labelId }}
-                                                        />
-                                                    </TableCell>
+                                                <TableCell>
+                                                    <Checkbox
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            return handleSelect(e, row.id);
+                                                        }}
+                                                        checked={isItemSelected}
+                                                        inputProps={{ 'aria-labelledby': labelId }}
+                                                    />
+                                                </TableCell>
                                                 }
                                                 {renderCellsForRow(row)}
                                             </TableRow>
@@ -229,36 +217,48 @@ export const TableComponent = (props) => {
                 </div>
                 <div className='tableWrapper__table__footer'>
                     <div className='tableWrapper__table__footer__left'>
-                        <input className={(query && query.length) ? 'activeInputField' : null} type='text' placeholder={tc.placeholderSearchTable} onChange={(e) => {setQuery(e.target.value)}} value={query}/>
+                        {(typeof props.search === 'function') &&
+                            <input
+                                className={(query && query.length) ? 'activeInputField' : null} type='text'
+                                placeholder={tc.placeholderSearchTable}
+                                onChange={(e) => {
+                                    props.search(e.target.value);
+                                    setQuery(e.target.value);
+                                }}
+                                value={query}
+                            />
+                        }
                     </div>
                     <div className='tableWrapper__table__footer__middle'>
-                        <div className='tableWrapper__table__footer__middle__rowsPerPage'>
-                            {tc.rowsPerPage}:
-                            <span className={(rowsPerPage === 5) ?
-                                'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
-                                'tableWrapper__table__footer__middle__rowsPerPage__option'}
-                                  onClick={() => {setRowsPerPage(5)}}>5</span>
-                            <span className={(rowsPerPage === 10) ?
-                                'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
-                                'tableWrapper__table__footer__middle__rowsPerPage__option'}
-                                  onClick={() => {setRowsPerPage(10)}}>10</span>
-                            <span className={(rowsPerPage === 25) ?
-                                'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
-                                'tableWrapper__table__footer__middle__rowsPerPage__option'}
-                                  onClick={() => {setRowsPerPage(25)}}>25</span>
-                            <span className={(rowsPerPage === 50) ?
-                                'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
-                                'tableWrapper__table__footer__middle__rowsPerPage__option'}
-                                  onClick={() => {setRowsPerPage(50)}}>50</span>
-                        </div>
+                        {(typeof props.rowsPerPageChange === 'function') &&
+                            <div className='tableWrapper__table__footer__middle__rowsPerPage'>
+                                {tc.rowsPerPage}:
+                                <span className={(props.rowsPerPage === 5) ?
+                                    'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
+                                    'tableWrapper__table__footer__middle__rowsPerPage__option'}
+                                      onClick={() => {props.rowsPerPageChange(5)}}>5</span>
+                                <span className={(props.rowsPerPage === 10) ?
+                                    'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
+                                    'tableWrapper__table__footer__middle__rowsPerPage__option'}
+                                      onClick={() => {props.rowsPerPageChange(10)}}>10</span>
+                                <span className={(props.rowsPerPage === 25) ?
+                                    'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
+                                    'tableWrapper__table__footer__middle__rowsPerPage__option'}
+                                      onClick={() => {props.rowsPerPageChange(25)}}>25</span>
+                                <span className={(props.rowsPerPage === 50) ?
+                                    'tableWrapper__table__footer__middle__rowsPerPage__optionActive' :
+                                    'tableWrapper__table__footer__middle__rowsPerPage__option'}
+                                      onClick={() => {props.rowsPerPageChange(50)}}>50</span>
+                            </div>
+                        }
                     </div>
                     <div className='tableWrapper__table__footer__right'>
                         <TablePagination
                             labelDisplayedRows={({from, to, count}) => `${from} - ${to} ${tc.of.toLowerCase()} ${count}`}
                             rowsPerPageOptions={[null]}
                             component='div'
-                            count={props.rows.length}
-                            rowsPerPage={rowsPerPage}
+                            count={props.total}
+                            rowsPerPage={props.rowsPerPage}
                             page={page}
                             onChangePage={handleChangePage}
                             onChangeRowsPerPage={handleChangeRowsPerPage}
@@ -270,51 +270,51 @@ export const TableComponent = (props) => {
     );
 };
 
-/**
- * Helper function.
- */
-const descendingComparator = (a, b, orderBy) => {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-};
+// /**
+//  * Helper function.
+//  */
+// const descendingComparator = (a, b, orderBy) => {
+//     if (b[orderBy] < a[orderBy]) {
+//         return -1;
+//     }
+//     if (b[orderBy] > a[orderBy]) {
+//         return 1;
+//     }
+//     return 0;
+// };
 
-/**
- * Helper function.
- */
-const getComparator = (order, orderBy) => {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-};
+// /**
+//  * Helper function.
+//  */
+// const getComparator = (order, orderBy) => {
+//     return order === 'desc'
+//         ? (a, b) => descendingComparator(a, b, orderBy)
+//         : (a, b) => -descendingComparator(a, b, orderBy);
+// };
 
-/**
- * Helper function.
- */
-const stableSort = (array, comparator, query) => {
-    // First filter on search query.
-    if (query && query.length) {
-        array = array.filter((row) => {
-            let hit = false;
-            for (const prop in row) {
-                if (typeof row[prop] === 'string' && row[prop].toLowerCase().includes(query.toLowerCase())) {
-                    hit = true;
-                }
-            }
-
-            return hit;
-        });
-    }
-
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) return order;
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-};
+// /**
+//  * Helper function.
+//  */
+// const stableSort = (array, comparator, query) => {
+//     // First filter on search query.
+//     if (query && query.length) {
+//         array = array.filter((row) => {
+//             let hit = false;
+//             for (const prop in row) {
+//                 if (typeof row[prop] === 'string' && row[prop].toLowerCase().includes(query.toLowerCase())) {
+//                     hit = true;
+//                 }
+//             }
+//
+//             return hit;
+//         });
+//     }
+//
+//     const stabilizedThis = array.map((el, index) => [el, index]);
+//     stabilizedThis.sort((a, b) => {
+//         const order = comparator(a[0], b[0]);
+//         if (order !== 0) return order;
+//         return a[1] - b[1];
+//     });
+//     return stabilizedThis.map((el) => el[0]);
+// };

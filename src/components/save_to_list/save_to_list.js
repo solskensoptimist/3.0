@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {saveProspectsToList} from 'store/lists/tasks';
 import {getLists} from 'store/lists/tasks';
 import {tableHelper, tc} from 'helpers';
+import {Table} from 'components/table';
 import Loading from 'components/loading';
 import Popup from 'components/popup';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
-import Table from 'components/table';
 
 /**
  * Render a component that saves prospect ids to a new or existing list.
