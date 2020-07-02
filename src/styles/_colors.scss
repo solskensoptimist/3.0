@@ -295,7 +295,7 @@ $colorDarkGreyBackground: $grey-500;
 $colorDarkDarkGreyBackground: $grey-800;
 // not done...
 
-// Exported variables used in components.
+// Exported variables used in components (hence the .scss file).
 :export {
   chartColor1: $deep-orange-300;
   chartColor2: $deep-orange-500;

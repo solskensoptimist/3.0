@@ -10,7 +10,7 @@ const AppHolder = (state) => {
     useEffect(() => {
         // Styling for Verendus users.
         if (state.user && state.user.info && state.user.info.verendus_dealer === 1) {
-            import('./verendus.css').then().catch((err) => console.error('Could not load custom CSS', err));
+            import('./styles/verendus.css').then().catch((err) => console.error('Could not load custom CSS', err));
         }
     }, [state.user]);
 
