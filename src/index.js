@@ -8,6 +8,7 @@ import * as serviceWorker from './service_worker';
 import history from './router_history';
 import moment from 'moment';
 
+
 // Setup moment to use swedish time.
 require('moment/locale/sv');
 moment.updateLocale('sv', {

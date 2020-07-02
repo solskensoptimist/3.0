@@ -50,7 +50,7 @@ const getUserConnections = async () => {
  */
 export const userLogin = async (credentials) => {
     try {
-        const user = await request({
+        let user = await request({
             data: credentials,
             method: 'post',
             url: '/login',
@@ -61,10 +61,8 @@ export const userLogin = async (credentials) => {
         }
 
         if (user instanceof Error) {
-            console.error('Error in userLogin:\n' + user);
+            return console.error('Error in userLogin:\n' + user);
         }
-
-        console.log('user', user);
 
         // Fix: Implement async redux actions, remove setTimeout below.
         store.dispatch({type: userActionTypes.SET_USER_INFO, payload: user});

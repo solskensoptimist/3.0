@@ -169,6 +169,7 @@ export default {
     iceCold: 'Iskall',
     idle: 'Prospekt',
     imgTextLogo: 'Bilprospekt logotyp',
+    imgTextLogoKundprospekt: 'Kundprospekt logotyp',
     info: 'Information',
     koncern: 'Koncern',
     koncernCompany: 'Koncernbolag',
