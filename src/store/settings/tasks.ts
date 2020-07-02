@@ -1,7 +1,9 @@
 import {store} from 'store';
 import {request} from 'helpers';
-import {settingsActionTypes} from "store/settings/actions";
+import {settingsActionTypes} from './actions';
+import {userActionTypes} from 'store/user/actions';
 import SettingsHelper from 'shared_helpers/settings_helper';
+import {showFlashMessage} from 'store/flash_messages/tasks';
 
 /**
  * Get settings for dashboard.
@@ -58,11 +60,8 @@ export const getSettings = async () => {
             url: '/settings/',
         });
 
-        if (!data || data instanceof Error) {
+        if (data instanceof Error) {
             return console.error('Error in getSettings:\n' + data);
-        }
-        if (data && !data.settings) {
-            return console.log('No settings data');
         }
 
         // Backend holds a lot of info we dont use in 3.0, only set email setting for now.
@@ -97,18 +96,55 @@ export const savePassword = async (payload) => {
 
 /**
  * Save new settings.
+ * This is only for the settings that is handled by the 'settings' field in user table.
+ * I.E. do not include 'dashboard' property or 'lang' property in payload.
  */
 export const saveSettings = async (payload) => {
     try {
         const settingBit = SettingsHelper.computeSettingBit(payload, true);
 
         await request({
-            data: { settings: settingBit },
+            data: {settings: settingBit},
             method: 'put',
             url: '/settings',
         });
 
         return await getSettings();
+    } catch (err) {
+        return console.error('Error in saveSettings:\n' + err);
+    }
+};
+
+/**
+ * Save new settings.
+ * This is only for the settings that is handled by the 'settings' field in user table.
+ * I.E. do not include 'dashboard' property or 'lang' property in payload.
+ */
+export const saveLanguage = async (payload) => {
+    try {
+        if (!payload || !payload.lang) {
+            return console.log('Missing params in saveLanguage');
+        }
+
+        const data = await request({
+            data: {
+                lang: payload.lang
+            },
+            method: 'put',
+            url: '/user/setLanguage/',
+        });
+
+        if (!data || data instanceof Error) {
+            return console.error('Could not update language:\n' + data);
+        }
+
+        store.dispatch({type: userActionTypes.SET_USER_LANG, payload: payload.lang});
+
+        if (payload.lang === 'swe') {
+            return showFlashMessage('För att ändra språk krävs en ny inloggning');
+        } else {
+            return showFlashMessage('Change of language requires a new login');
+        }
     } catch (err) {
         return console.error('Error in saveSettings:\n' + err);
     }

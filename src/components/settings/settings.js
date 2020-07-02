@@ -1,11 +1,12 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {connect} from 'react-redux';
-import {getSettings, savePassword, saveSettings} from 'store/settings/tasks';
+import {getSettings, saveLanguage, savePassword, saveSettings} from 'store/settings/tasks';
 import {userLogout} from 'store/user/tasks';
 import {tc} from 'helpers';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
 import Popup from 'components/popup';
+import Tooltip from 'components/tooltip';
 import WidgetHeader from 'components/widget_header';
 
 /**
@@ -15,6 +16,7 @@ import WidgetHeader from 'components/widget_header';
 const Settings = (state) =>  {
     const [passwordHint, setPasswordHint] = useState('');
     const [showPasswordHint, setShowPasswordHint] = useState(false);
+    const [lang, setLang] = useState(null);
     const passwordRef1 = useRef(null);
     const passwordRef2 = useRef(null);
 
@@ -44,21 +46,25 @@ const Settings = (state) =>  {
      * Settings retrieved?
      */
     const _stateCheck = () => {
-        return !!state && state.settings && state.settings.email !== null;
+        return !!(state.settings && state.settings.email !== null && lang);
     };
 
     /**
      * Toggle email notifications setting.
      */
-    const _toggleEmail = () => {
-        let payload = state.settings;
-        payload.email = !state.settings.email;
-        saveSettings(payload);
+    const _toggleEmail = async () => {
+        return await saveSettings({email: !state.settings.email});
     };
 
     useEffect(() => {
         getSettings();
     }, []);
+
+    useEffect(() => {
+        if (state.user.info) {
+            setLang(state.user.info.lang);
+        }
+    }, [state.user]);
 
     return _stateCheck() ? (
         <Popup close={state.props.close} size='medium'>
@@ -74,25 +80,36 @@ const Settings = (state) =>  {
                         <div className='settingsWrapper__settings__content__item'>
                             <div className='settingsWrapper__settings__content__item__small'>
                                 <div className='settingsWrapper__settings__content__item__small__label'>
-                                    <h5>{tc.emailNotifications}</h5>
+                                    <h5>{tc.emailNotifications}:</h5>
                                 </div>
                                 <div className='settingsWrapper__settings__content__item__small__content'>
-                                    {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail}/> : <Icon val='toggleOff' onClick={_toggleEmail}/>}
+                                    <Tooltip tooltipContent={`${tc.emailNotifications} ${tc.is.toLowerCase()} ${state.settings.email ? tc.activated.toLowerCase() : tc.disabled.toLowerCase()}`}>
+                                    {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail}/> : <Icon active={true} val='toggleOff' onClick={_toggleEmail}/>}
+                                    </Tooltip>
                                 </div>
                             </div>
                             <div className='settingsWrapper__settings__content__item__small'>
                                 <div className='settingsWrapper__settings__content__item__small__label'>
-                                    <h5>{tc.emailNotifications}</h5>
+                                    <h5>{tc.language}:</h5>
                                 </div>
                                 <div className='settingsWrapper__settings__content__item__small__content'>
-                                    {state.settings.email ? <Icon val='toggleOn' onClick={_toggleEmail} /> : <Icon val='toggleOff' onClick={_toggleEmail}/>}
+                                    <Tooltip tooltipContent={`${tc.chosenLanguage} ${tc.is.toLowerCase()} ${tc[lang].toLowerCase()}`}>
+                                        <div className='settingsWrapper__settings__content__item__small__content__flagHolder'>
+                                            <img src={__dirname + 'images/sweden.png'} alt={tc.chooseSwedishLanguage}/>
+                                            {(lang === 'swe') ? <Icon active={true} val='check'/> : <Icon onClick={() => {saveLanguage({lang: 'swe'})}} val='checkbox'/>}
+                                        </div>
+                                        <div className='settingsWrapper__settings__content__item__small__content__flagHolder'>
+                                            <img src={__dirname + 'images/united_kingdom.png'} alt={tc.chooseEnglishLanguage}/>
+                                            {(lang === 'en') ? <Icon active={true} val='check'/> : <Icon onClick={() => {saveLanguage({lang: 'en'})}} val='checkbox'/>}
+                                        </div>
+                                    </Tooltip>
                                 </div>
                             </div>
                         </div>
                         <div className='settingsWrapper__settings__content__item'>
                             <div className='settingsWrapper__settings__content__item__full'>
                                 <div className='settingsWrapper__settings__content__item__full__label'>
-                                    <h5>{tc.createNewPassword}</h5>
+                                    <h5>{tc.chooseNewPassword}:</h5>
                                 </div>
                                 <div className='settingsWrapper__settings__content__item__full__content'>
                                     <input type='password' placeholder='Skriv nytt lösenord' ref={passwordRef1} />
@@ -124,6 +141,7 @@ const MapStateToProps = (state, props) => {
     return {
         props: props,
         settings: state.settings,
+        user: state.user,
     };
 };
 

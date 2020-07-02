@@ -8,15 +8,6 @@
         margin-bottom: $paddingMedium
         &:last-of-type
           margin-bottom: 0
-        svg
-          width: 30px !important
-          height: 30px !important
-          fill: $colorLink !important
-          display: flex !important
-          align-items: center !important
-          cursor: pointer !important
-          &:hover
-            fill: $colorLinkHover !important
         h5
           color: $grey-600
           margin: 0 $paddingMedium 0 0
@@ -66,6 +57,33 @@
             align-self: center
           &__content
             align-self: center
+            display: flex
+            justify-content: space-between
+            align-items: center
+            svg
+              width: 30px !important
+              height: 30px !important
+              fill: $colorLink !important
+              cursor: pointer !important
+              &:hover
+                fill: $colorLinkHover !important
+            svg.active
+              fill: $colorTextLight !important
+            &__flagHolder
+              display: flex
+              align-items: center
+              flex-grow: 1
+              padding: 2px
+              margin-left: $paddingBig
+              &:first-of-type
+                margin-left: 0
+              svg
+                width: 18px !important
+                height: 18px !important
+                margin-left: 4px
+              img
+                width: 20px
+
 
 
 

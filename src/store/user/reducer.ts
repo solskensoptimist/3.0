@@ -32,6 +32,15 @@ export const userReducer = (state = initialState, action) => {
                 info: action.payload
             }
         }
+        case userActionTypes.SET_USER_LANG: {
+            return {
+                ...state,
+                info: {
+                    ...state.info,
+                    lang: action.payload
+                }
+            }
+        }
         default: {
             return state;
         }

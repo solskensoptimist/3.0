@@ -1,13 +1,13 @@
-import {store} from 'store';
 import english from './english';
 import swedish from './swedish';
+import {store} from 'store';
 
-const lang = store.getState().user.lang;
+const state = store.getState();
 let tc;
 
-if (lang) {
-    switch (lang.toLowerCase()) {
-        case 'sv':
+if (state && state.user && state.user.info) {
+    switch (state.user.info.lang.toLowerCase()) {
+        case 'swe':
             tc = swedish;
             break;
         case 'en':

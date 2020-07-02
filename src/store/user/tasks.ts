@@ -88,8 +88,8 @@ export const userLogout = async () => {
             url: '/logout',
         });
 
-        window.location.href = '/';
-        return store.dispatch({type: rootActionTypes.CLEAR_STATE});
+        store.dispatch({type: rootActionTypes.CLEAR_STATE});
+        return window.location.href = '/';
     } catch (err) {
         return console.error('Error in userLogout:\n' + err);
     }

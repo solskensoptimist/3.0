@@ -4,13 +4,15 @@
   width: 100%
   display: flex
   justify-content: center
+  z-index: 999
   &__flashMessages
-    background: $colorInformatory
+    background: $colorInformatoryDark
     color: white
     border-radius: 4px 4px 0 0
-    padding: $paddingMedium $paddingBig
-    z-index: 30
+    padding: $paddingMedium * 1.5 $paddingBig * 1.5
+    font-size: $fontSizeStandard2
+    z-index: 999
     position: fixed
     bottom: 0
-    animation: slideFromBottom 7s
+    animation: slideFromBottom 9s
     max-width: 40%
