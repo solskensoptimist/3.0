@@ -245,6 +245,7 @@ export const tableHelper = {
                 }
 
                 obj.id = row._id;
+                obj.url = '/lista/' + row._id;
             });
 
             return obj;

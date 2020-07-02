@@ -334,7 +334,7 @@ a {
     color: #616161; }
 
 .activityWrapper__activity__content {
-  padding: 12px; }
+  padding: 22px; }
   .activityWrapper__activity__content__item {
     margin-bottom: 12px;
     padding: 22px; }
@@ -1598,6 +1598,12 @@ svg.active {
         width: 16px;
         height: 16px;
         margin-left: 8px; }
+
+.listsWrapper__lists__content {
+  padding: 0;
+  background: white; }
+  .listsWrapper__lists__content__item {
+    padding: 22px; }
 
 .loadingWrapper, .loadingWrapperFull {
   width: 100%;

@@ -32,9 +32,6 @@ export default () => {
                     />
                 </div>
                 <div className='activityWrapper__activity__content'>
-                    <p>
-                        Här ska vi också rendera alla sparade pipeline widgets som finns i dashboard settings. Vi har tagit bort dom från förstasidan...?
-                    </p>
                     <div className='activityWrapper__activity__content__item'>
                         <Events type='filter' view='flow' />
                     </div>
