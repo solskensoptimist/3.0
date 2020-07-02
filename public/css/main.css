@@ -1743,10 +1743,10 @@ svg.active {
 .menuWrapper__menu {
   display: flex;
   align-items: stretch;
-  background: white;
+  background: #f5f5f5;
   width: 100%;
-  border-bottom: 1px solid #eeeeee;
-  padding: 0 12px; }
+  padding: 0 12px;
+  border-bottom: 2px solid white; }
   .menuWrapper__menu__item {
     display: flex;
     align-items: center;
@@ -2366,8 +2366,8 @@ svg.active {
     .tableWrapper__table__content table tbody .MuiTableRow-hover:hover {
       background: #f5f5f5 !important; }
     .tableWrapper__table__content table svg {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       fill: #bdbdbd; }
     .tableWrapper__table__content table .MuiTableSortLabel-root {
       display: flex;

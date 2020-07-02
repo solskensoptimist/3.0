@@ -25,10 +25,10 @@ import Icon from 'components/icon';
 export default (props) => {
     const _renderItems = () => {
         if (props.items && props.items.length) {
-            return props.items.map((num) => {
+            return props.items.map((num, i) => {
                 if (num.type === 'button') {
                     return (
-                        <div className='menuWrapper__menu__item'>
+                        <div className='menuWrapper__menu__item' key={i}>
                             <div className='menuWrapper__menu__item__button' onClick={num.onClick}>
                                 {num.icon ? <Icon val={num.icon}/> : null}
                                 {num.label}
@@ -37,7 +37,7 @@ export default (props) => {
                     );
                 } else if (num.type === 'dropdown') {
                     return (
-                        <div className='menuWrapper__menu__item'>
+                        <div className='menuWrapper__menu__item' key={i}>
                             {num.icon ? <Icon val={num.icon}/> : null}
                             <Dropdown displayValue={num.label} positionRight={true}>
                                 {num.items.map((item, i) => {
