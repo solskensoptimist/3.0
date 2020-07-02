@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {tc} from 'helpers';
 import {Chart} from 'react-google-charts';
 import colors from '../../styles/_colors.scss';
@@ -15,6 +15,16 @@ import WidgetHeader from 'components/widget_header';
  */
 export default (props) => {
     const [minimize, setMinimize] = useState(false);
+
+    const _removeGoogleErrors = () => {
+        var id_root = "google-visualization-errors-all-";
+        var index = 1;
+
+        while (document.getElementById(id_root + index.toString()) != null) {
+            document.getElementById(id_root + index.toString()).style.display = 'none';
+            index += 2;
+        }
+    };
 
     useEffect(() => {
         setMinimize((props.data.total.total === 0));
@@ -59,9 +69,9 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.new}
                                 options={{
-                                    colors: [colors.chartColor3, colors.chartColor2, colors.chartColor1, colors.chartColor5, colors.chartColor4, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
+                                    colors: [colors.chartColor4, colors.chartColor2, colors.chartColor1, colors.chartColor5, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
                                     is3D: true,
-                                    title: tc.bought,
+                                    title: tc.new,
                                 }}
                             />
                         </div>
@@ -83,7 +93,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.brands}
                                 options={{
-                                    colors: [colors.chartColor4],
+                                    colors: [colors.chartColor1],
                                     bars: 'horizontal',
                                     title: tc.brands,
                                     chartArea: {width: '30%' },
@@ -103,7 +113,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.models}
                                 options={{
-                                    colors: [colors.chartColor5],
+                                    colors: [colors.chartColor1],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},
@@ -123,7 +133,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.carYear}
                                 options={{
-                                    colors: [colors.chartColor6],
+                                    colors: [colors.chartColor1],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},
@@ -143,7 +153,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.regYear}
                                 options={{
-                                    colors: [colors.chartColor7],
+                                    colors: [colors.chartColor1],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},
@@ -183,7 +193,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.boughtPlace}
                                 options={{
-                                    colors: [colors.chartColor2],
+                                    colors: [colors.chartColor1],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},

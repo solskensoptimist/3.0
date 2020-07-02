@@ -1,14 +1,14 @@
 :export {
-  chartColor1: #ab90a1;
-  chartColor2: #85c9d0;
-  chartColor3: #d49bde;
-  chartColor4: #415177;
-  chartColor5: #40C4D5;
-  chartColor6: #a1e1ff;
-  chartColor7: #ffe082;
-  chartColor8: #ab47bc;
-  chartColor9: #90a4ae;
-  chartColor10: #ffca28;
+  chartColor1: #ff8a65;
+  chartColor2: #ff5722;
+  chartColor3: #ffd54f;
+  chartColor4: #ffc107;
+  chartColor5: #b0bec5;
+  chartColor6: #78909c;
+  chartColor7: #546e7a;
+  chartColor8: #81c784;
+  chartColor9: #4caf50;
+  chartColor10: #388e3c;
   informatory: #ffc107; }
 
 @keyframes slideFromBottom {
@@ -1364,6 +1364,7 @@ a {
     display: flex;
     align-items: flex-end; }
     .fleetAnalysisWrapper__fleetAnalysis__header__right__button {
+      white-space: nowrap;
       cursor: pointer;
       color: #00B4CC;
       margin-left: 22px;
@@ -1408,6 +1409,8 @@ a {
     padding: 12px;
     overflow: hidden;
     background: white; }
+.fleetAnalysisChartsWrapper__fleetAnalysisCharts div[id^='google-visualization-errors-all-'] {
+  display: none !important; }
 
 .footer {
   background: transparent;

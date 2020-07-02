@@ -50,16 +50,25 @@ export const TablePropsManaged = (props) => {
     const [selected, setSelected] = React.useState(props.preSelectedRows ? props.preSelectedRows : []);
     const classes = useStyles();
 
-    const handleChangePage = (event, newPage) => {
+    const handlePageChange = (event, newPage) => {
         setPage(newPage);
         if (typeof props.pageChange === 'function') {
             props.pageChange(newPage);
         }
     };
 
-    const handleChangeRowsPerPage = event => {
+    const handleRowsPerPageChange = event => {
         if (props.rowsPerPageChange === 'function') {
             props.rowsPerPageChange(parseInt(event.target.value, 10));
+        }
+    };
+
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+        if (typeof props.sort === 'function') {
+            props.sort({order: isAsc ? 'desc' : 'asc', orderBy: property});
         }
     };
 
@@ -84,15 +93,6 @@ export const TablePropsManaged = (props) => {
 
         if (props.onSelect && typeof props.onSelect === 'function') {
             props.onSelect(newSelected);
-        }
-    };
-
-    const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-        if (typeof props.sort === 'function') {
-            props.sort({order: isAsc ? 'desc' : 'asc', orderBy: property});
         }
     };
 
@@ -260,8 +260,8 @@ export const TablePropsManaged = (props) => {
                             count={props.total}
                             rowsPerPage={props.rowsPerPage}
                             page={page}
-                            onChangePage={handleChangePage}
-                            onChangeRowsPerPage={handleChangeRowsPerPage}
+                            onChangePage={handlePageChange}
+                            onChangeRowsPerPage={handleRowsPerPageChange}
                         />
                     </div>
                 </div>
@@ -269,52 +269,3 @@ export const TablePropsManaged = (props) => {
         </div>
     );
 };
-
-// /**
-//  * Helper function.
-//  */
-// const descendingComparator = (a, b, orderBy) => {
-//     if (b[orderBy] < a[orderBy]) {
-//         return -1;
-//     }
-//     if (b[orderBy] > a[orderBy]) {
-//         return 1;
-//     }
-//     return 0;
-// };
-
-// /**
-//  * Helper function.
-//  */
-// const getComparator = (order, orderBy) => {
-//     return order === 'desc'
-//         ? (a, b) => descendingComparator(a, b, orderBy)
-//         : (a, b) => -descendingComparator(a, b, orderBy);
-// };
-
-// /**
-//  * Helper function.
-//  */
-// const stableSort = (array, comparator, query) => {
-//     // First filter on search query.
-//     if (query && query.length) {
-//         array = array.filter((row) => {
-//             let hit = false;
-//             for (const prop in row) {
-//                 if (typeof row[prop] === 'string' && row[prop].toLowerCase().includes(query.toLowerCase())) {
-//                     hit = true;
-//                 }
-//             }
-//
-//             return hit;
-//         });
-//     }
-//
-//     const stabilizedThis = array.map((el, index) => [el, index]);
-//     stabilizedThis.sort((a, b) => {
-//         const order = comparator(a[0], b[0]);
-//         if (order !== 0) return order;
-//         return a[1] - b[1];
-//     });
-//     return stabilizedThis.map((el) => el[0]);
-// };

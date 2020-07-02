@@ -10,6 +10,7 @@
         display: flex
         align-items: flex-end
         &__button
+          white-space: nowrap
           cursor: pointer
           color: $colorLink
           margin-left: $paddingBig
@@ -59,3 +60,5 @@
         padding: $paddingMedium
         overflow: hidden
         background: white
+    div[id^='google-visualization-errors-all-'] // Hide google charts error messages
+      display: none !important

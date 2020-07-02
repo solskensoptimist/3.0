@@ -297,15 +297,25 @@ $backgroundDarkGrey: linear-gradient(to right, $grey-700, $grey-800);
 
 // Exported variables used in components.
 :export {
-  chartColor1: #ab90a1;
-  chartColor2: #85c9d0;
-  chartColor3: #d49bde;
-  chartColor4: #415177;
-  chartColor5: $colorPrimary-300;
-  chartColor6: #a1e1ff;
-  chartColor7: $colorSecondary-200;
-  chartColor8: $purple-400;
-  chartColor9: $blue-grey-300;
-  chartColor10: $amber-400;
+  //chartColor1: #ab90a1;
+  //chartColor2: #85c9d0;
+  //chartColor3: #d49bde;
+  //chartColor4: #415177;
+  //chartColor5: $colorPrimary-300;
+  //chartColor6: #a1e1ff;
+  //chartColor7: $colorSecondary-200;
+  //chartColor8: $purple-400;
+  //chartColor9: $blue-grey-300;
+  //chartColor10: $amber-400;
+  chartColor1: $deep-orange-300;
+  chartColor2: $deep-orange-500;
+  chartColor3: $amber-300;
+  chartColor4: $amber-500;
+  chartColor5: $blue-grey-200;
+  chartColor6: $blue-grey-400;
+  chartColor7: $blue-grey-600;
+  chartColor8: $green-300;
+  chartColor9: $green-500;
+  chartColor10: $green-700;
   informatory: $colorInformatory;
 }
