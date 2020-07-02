@@ -3,19 +3,20 @@ import {connect} from 'react-redux';
 import {getDashboardSettings} from 'store/settings/tasks';
 import Events from 'components/events';
 import LeadsWidget from 'components/leads_widget';
+import Menu from 'components/menu';
 import News from 'components/news';
 import SupertempWidget from 'components/supertemp_widget';
 
 const Dashboard = (state) => {
     const [widgets, setWidgets] = useState([]);
 
-    /*
-    Ha en funktion som gör att en widget hoppar upp eller ner ett steg.. detta påverkar positionen för den.
-    Behöver ny endpoint i backend för detta troligtvis..?
-    Ska vi visa upp pipeline widgets här..?
-    Hur ska de kunna ändra position, var ska knappen finnas? En undermeny?
-     */
+    const _minKnapp = () => {
+        console.log('Min knapp klickades');
+    };
 
+    const _mittDropdownItem = () => {
+        console.log('Mitt dropdownitem klickades');
+    };
 
     const _renderWidget = (widget, i) => {
         switch (widget.type.toLowerCase()) {
@@ -82,6 +83,17 @@ const Dashboard = (state) => {
     return (
         <div className='dashboardWrapper'>
             <div className='dashboardWrapper__dashboard'>
+                <div className='dashboardWrapper__dashboard__header'>
+                    <Menu items={[
+                        {label: 'Min knapp', onClick:_minKnapp, type: 'button'},
+                        {label: 'Min dropdown', type: 'dropdown', items: [
+                                {label: 'Dropdownitem nummer 1', onClick: _mittDropdownItem},
+                                {label: 'Dropdownitem nummer 2', onClick: _mittDropdownItem},
+                                {label: 'Dropdownitem nummer 3', onClick: _mittDropdownItem},
+                            ]}
+                    ]}
+                    />
+                </div>
                 <div className='dashboardWrapper__dashboard__content'>
                     <div className='dashboardWrapper__dashboard__content__left'>
                         {_renderWidgetsLeft()}

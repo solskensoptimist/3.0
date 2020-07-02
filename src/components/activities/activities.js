@@ -7,6 +7,7 @@ import {getActivity} from 'store/activity/tasks';
 import {NavLink} from 'react-router-dom';
 import ActivityItem from './activity_item';
 import Icon from 'components/icon';
+import InfoBox from 'components/info_box';
 import Loading from 'components/loading';
 import Tooltip from 'components/tooltip';
 import WidgetHeader from 'components/widget_header';
@@ -68,7 +69,12 @@ const Activities = (state) => {
 
             // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
-                setActivityRows(<p>{tc.noActivity}</p>);
+                setActivityRows(
+                    <InfoBox>
+                        <h4>{tc.noActivity}</h4>
+                        <p>{tc.noActivityWhy}</p>
+                    </InfoBox>
+                );
                 return setMinimize(true);
             }
 

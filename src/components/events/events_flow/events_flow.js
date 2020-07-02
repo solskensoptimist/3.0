@@ -5,6 +5,7 @@ import {NavLink} from 'react-router-dom';
 import {getEvents} from "store/events/tasks";
 import EventsFlowItem from './events_flow_item';
 import Icon from 'components/icon';
+import InfoBox from 'components/info_box';
 import Loading from 'components/loading';
 import Tooltip from 'components/tooltip';
 import WidgetHeader from 'components/widget_header';
@@ -33,7 +34,12 @@ const EventsFlow = (state) => {
 
             // If no data, minimize widget.
             if (!data || (data && data.length === 0)) {
-                setEventRows(<p>{tc.noEvents}</p>);
+                setEventRows(
+                    <InfoBox>
+                        <h4>{tc.noEvents}</h4>
+                        <p>{tc.noEventsWhy}</p>
+                    </InfoBox>
+                );
                 return setMinimize(true);
             } else {
                 setMinimize(false);

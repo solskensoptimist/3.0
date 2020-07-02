@@ -1757,7 +1757,7 @@ svg.active {
     display: flex;
     align-items: center;
     margin-left: 22px;
-    padding: 4px 12px;
+    padding: 4px 22px;
     cursor: pointer;
     color: #757575; }
     .menuWrapper__menu__item:first-of-type {
@@ -1790,7 +1790,7 @@ svg.active {
         margin-right: 0; }
     .menuWrapper__menu__item .dropdownWrapper__dropdown__content {
       top: 41px;
-      left: -12px;
+      left: -22px;
       padding: 0; }
     .menuWrapper__menu__item .dropdownItemWrapper {
       padding: 12px 22px;
