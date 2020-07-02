@@ -56,7 +56,7 @@ export default (props) => {
                                                 />
                                             );
                                         })}
-                                    </Dropdown>}
+                                    </Dropdown>
                                     {num.icon ? <Icon val={num.icon}/> : null}
                                 </>
                             }

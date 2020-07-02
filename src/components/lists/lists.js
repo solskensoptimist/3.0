@@ -6,7 +6,6 @@ import history from '../../router_history';
 import {Table} from 'components/table';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
-import WidgetHeader from 'components/widget_header';
 
 const Lists = (state) => {
     const [selectedLists, setSelectedLists] = useState([]);
@@ -64,19 +63,11 @@ const Lists = (state) => {
                 </div>
                 <div className='listsWrapper__lists__content'>
                     <div className='listsWrapper__lists__content__item'>
-                        <div className='listsWrapper__lists__content__item__header'>
-                            <WidgetHeader
-                                iconVal='lists'
-                                headline={tc.lists}
-                            />
-                        </div>
-                        <div className='listsWrapper__lists__content__item__content'>
-                            <Table
-                                columns={tableHelper.getListsColumns()}
-                                onSelect={(arr) => {setSelectedLists(state.lists.lists.filter((num) => arr.includes(num._id)))}}
-                                rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
-                            />
-                        </div>
+                        <Table
+                            columns={tableHelper.getListsColumns()}
+                            onSelect={(arr) => {setSelectedLists(state.lists.lists.filter((num) => arr.includes(num._id)))}}
+                            rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
+                        />
                     </div>
                 </div>
             </div>
