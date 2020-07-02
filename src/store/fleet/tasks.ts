@@ -14,7 +14,7 @@ import {debounce }from 'debounce';
  * @param payload.prospectId - string - TS user id to fetch data for.
  * @param payload.rowsPerPage - number - Rows per page.
  */
-const getFleetDebounced = async (payload) => {
+export const getFleet = async (payload) => {
     try {
         if (!payload || (payload && !payload.prospectId)) {
             return console.error('Missing params in getFleet:\n' + payload);
@@ -70,5 +70,5 @@ const getFleetDebounced = async (payload) => {
     }
 };
 
-// Debounced (mostly because of search function).
-export const getFleet = debounce(getFleetDebounced, 200);
+// Debounced (used for table search function in Fleet).
+export const getFleetDebounced = debounce(getFleet, 200);

@@ -288,25 +288,15 @@ $colorEventWithinAWeek: $colorInformatory;
 
 // Backgrounds
 $backgroundSite: radial-gradient(circle at top right, $colorPrimary-500, $colorPrimary-300, $colorPrimary-600);
-$backgroundPrimaryColors: linear-gradient(to right, $colorPrimary-400, $colorPrimary-600);
-$backgroundSecondaryColors: linear-gradient($colorSecondary-300, $colorSecondary-400);
-$backgroundTertiaryColors: linear-gradient($colorTertiary-500, $colorTertiary-700);
-$backgroundBrightGrey: linear-gradient(to left, white, $grey-50);
-$backgroundLightGrey: linear-gradient(to left, $grey-100, $grey-200);
-$backgroundDarkGrey: linear-gradient(to right, $grey-700, $grey-800);
+
+// Dark mode colors
+$colorDarkLightGreyBackground: $grey-300;
+$colorDarkGreyBackground: $grey-500;
+$colorDarkDarkGreyBackground: $grey-800;
+// not done...
 
 // Exported variables used in components.
 :export {
-  //chartColor1: #ab90a1;
-  //chartColor2: #85c9d0;
-  //chartColor3: #d49bde;
-  //chartColor4: #415177;
-  //chartColor5: $colorPrimary-300;
-  //chartColor6: #a1e1ff;
-  //chartColor7: $colorSecondary-200;
-  //chartColor8: $purple-400;
-  //chartColor9: $blue-grey-300;
-  //chartColor10: $amber-400;
   chartColor1: $deep-orange-300;
   chartColor2: $deep-orange-500;
   chartColor3: $amber-300;

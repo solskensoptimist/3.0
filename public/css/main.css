@@ -2478,9 +2478,14 @@ svg.active {
       .widgetHeaderWrapper__widgetHeader__right svg:hover {
         fill: #616161; }
 
-@media (max-width: 700px) {
-  .header {
-    display: flex;
-    flex-direction: column; } }
+@media (max-width: 900px) {
+  .navigationWrapper__navigation {
+    flex-direction: column;
+    width: 15%;
+    position: absolute;
+    left: 0;
+    z-index: 10; }
+    .navigationWrapper__navigation__left {
+      flex-direction: column; } }
 
 /*# sourceMappingURL=main.css.map */

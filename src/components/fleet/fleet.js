@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {tableHelper, tc} from 'helpers';
 import {connect} from 'react-redux';
 import history from '../../router_history';
-import {getFleet} from 'store/fleet/tasks';
+import {getFleet, getFleetDebounced} from 'store/fleet/tasks';
 import {TablePropsManaged} from 'components/table';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
@@ -67,7 +67,7 @@ const Fleet = (state) => {
 
     const _searchFleet = (newQuery) => {
         setQuery(newQuery);
-        getFleet({
+        getFleetDebounced({
             koncern: !!state.props.koncern,
             historic: !!state.props.historic,
             page: page,

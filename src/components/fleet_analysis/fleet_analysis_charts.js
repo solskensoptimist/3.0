@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {tc} from 'helpers';
 import {Chart} from 'react-google-charts';
 import colors from '../../styles/_colors.scss';
@@ -15,16 +15,6 @@ import WidgetHeader from 'components/widget_header';
  */
 export default (props) => {
     const [minimize, setMinimize] = useState(false);
-
-    const _removeGoogleErrors = () => {
-        var id_root = "google-visualization-errors-all-";
-        var index = 1;
-
-        while (document.getElementById(id_root + index.toString()) != null) {
-            document.getElementById(id_root + index.toString()).style.display = 'none';
-            index += 2;
-        }
-    };
 
     useEffect(() => {
         setMinimize((props.data.total.total === 0));

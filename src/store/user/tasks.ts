@@ -64,6 +64,8 @@ export const userLogin = async (credentials) => {
             console.error('Error in userLogin:\n' + user);
         }
 
+        console.log('user', user);
+
         // Fix: Implement async redux actions, remove setTimeout below.
         store.dispatch({type: userActionTypes.SET_USER_INFO, payload: user});
 
