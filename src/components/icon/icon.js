@@ -42,7 +42,7 @@ import {
     NavigateNext,
     PermContactCalendar,
     Person,
-    PhoneAndroid,
+    Phone,
     Poll,
     Refresh,
     Reorder,
@@ -92,7 +92,7 @@ export default (props) => {
         case 'analyze':
             return <BarChart className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'call':
-            return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <Phone className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'car':
             return <DriveEta className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'checkbox':
@@ -114,7 +114,7 @@ export default (props) => {
         case 'description':
             return <FormatQuote className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_call':
-            return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <Phone className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_email':
             return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_lose_price':
@@ -187,12 +187,14 @@ export default (props) => {
             return <LibraryBooks className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'offer':
             return <Description className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'orders':
+            return <Help className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'other':
             return <Help className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'owner':
             return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'phone':
-            return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <Phone className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'person':
             return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'price':
@@ -236,7 +238,7 @@ export default (props) => {
         case 'visit':
             return <Group className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'will_call':
-            return <PhoneAndroid className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <Phone className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'will_mail':
             return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'will_meeting':

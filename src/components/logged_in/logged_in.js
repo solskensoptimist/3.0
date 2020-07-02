@@ -1,11 +1,11 @@
 import React from 'react';
 import {Switch, Route} from "react-router-dom";
 import Agile from 'components/agile/';
-import Activity from 'components/activity/';
-import Analyse from 'components/analyse/';
+import Activity from 'components/activity';
+import Analyse from 'components/analyse';
 import Car from 'components/car/';
-import Company from 'components/company/';
-import Dashboard from 'components/dashboard/';
+import Company from 'components/company';
+import Dashboard from 'components/dashboard';
 import Deal from 'components/deal/';
 import Footer from 'components/footer';
 import FlashMessages from 'components/flash_messages';
@@ -13,10 +13,13 @@ import FleetAnalysis from 'components/fleet_analysis';
 import Header from 'components/header';
 import Koncern from 'components/koncern/';
 import Leads from 'components/leads/';
-import List from 'components/list/';
-import Lists from 'components/lists/';
+import List from 'components/list';
+import Lists from 'components/lists';
+import ListsArchived from 'components/lists_archived';
+import ListsSubscriptions from 'components/lists_subscriptions';
+import Orders from 'components/orders';
 import Person from 'components/person/';
-import Prospect from 'components/prospect/';
+import Prospect from 'components/prospect';
 import ProspectResult from 'components/prospect_result';
 import SearchResults from 'components/search_results';
 import Supertemp from 'components/supertemp';
@@ -41,9 +44,12 @@ export default () => {
                         <Route exact path='/leads' component={Leads}/>
                         <Route exact path='/lista/:id' component={List}/>
                         <Route exact path='/listor' component={Lists}/>
+                        <Route exact path='/listor/arkiverade' component={ListsArchived}/>
+                        <Route exact path='/listor/prenumerationer' component={ListsSubscriptions}/>
                         <Route exact path='/person/:id' component={Person}/>
                         <Route exact path='/prospektera' component={Prospect}/>
                         <Route exact path='/prospektera/resultat' component={ProspectResult}/>
+                        <Route exact path='/bestallningar' component={Orders}/>
                         <Route exact path='/sok/:q' component={SearchResults}/>
                         <Route exact path='/supertemp/:id' component={Supertemp}/>
                         <Route exact path='/vagnparksanalys/:id' component={FleetAnalysis}/>

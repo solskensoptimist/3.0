@@ -147,7 +147,7 @@
 .marginTopMedium {
   margin-top: 12px; }
 
-.paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dashboardWrapper__dashboard__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer > div, .fleetAnalysisWrapper__fleetAnalysis__content__item, .personWrapper__person__content__item {
+.paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dashboardWrapper__dashboard__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer > div, .fleetAnalysisWrapper__fleetAnalysis__content__item, .listsWrapper__lists__content__item, .personWrapper__person__content__item {
   background: white;
   border: 1px solid #e0e0e0; }
 
@@ -334,7 +334,7 @@ a {
     color: #616161; }
 
 .activityWrapper__activity__content {
-  padding: 22px; }
+  padding: 12px; }
   .activityWrapper__activity__content__item {
     margin-bottom: 12px;
     padding: 22px; }
@@ -1600,10 +1600,14 @@ svg.active {
         margin-left: 8px; }
 
 .listsWrapper__lists__content {
-  padding: 0;
-  background: white; }
+  padding: 12px; }
   .listsWrapper__lists__content__item {
+    margin-bottom: 12px;
     padding: 22px; }
+    .listsWrapper__lists__content__item:last-of-type {
+      margin-bottom: 0; }
+    .listsWrapper__lists__content__item__content {
+      margin-top: 22px; }
 
 .loadingWrapper, .loadingWrapperFull {
   width: 100%;
@@ -1753,53 +1757,67 @@ svg.active {
   width: 100%;
   padding: 0 12px;
   border-bottom: 2px solid white; }
-  .menuWrapper__menu__item {
+  .menuWrapper__menu__item, .menuWrapper__menu__item__disabled {
     display: flex;
     align-items: center;
-    margin-left: 22px;
+    margin-left: 12px;
     padding: 4px 22px;
     cursor: pointer;
-    color: #757575; }
-    .menuWrapper__menu__item:first-of-type {
+    color: #757575;
+    min-height: 44px; }
+    .menuWrapper__menu__item:first-of-type, .menuWrapper__menu__item__disabled:first-of-type {
       margin-left: 0; }
-    .menuWrapper__menu__item:hover {
+    .menuWrapper__menu__item:hover, .menuWrapper__menu__item__disabled:hover {
       background: #eeeeee;
       color: #616161; }
-      .menuWrapper__menu__item:hover svg {
+      .menuWrapper__menu__item:hover svg, .menuWrapper__menu__item__disabled:hover svg {
         fill: #616161; }
-    .menuWrapper__menu__item svg {
-      width: 12px;
-      height: 12px;
+    .menuWrapper__menu__item svg, .menuWrapper__menu__item__disabled svg {
+      width: 10px;
+      height: 10px;
       fill: #757575;
+      margin-left: 8px; }
+    .menuWrapper__menu__item span.listBullet, .menuWrapper__menu__item__disabled span.listBullet {
       margin-right: 8px; }
-    .menuWrapper__menu__item .dropdownWrapper {
+    .menuWrapper__menu__item .dropdownWrapper, .menuWrapper__menu__item__disabled .dropdownWrapper {
       min-width: 0; }
-    .menuWrapper__menu__item .dropdownWrapper__dropdown__header, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent {
+    .menuWrapper__menu__item .dropdownWrapper__dropdown__header, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__header, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__headerTransparent {
       border: 0;
       background: transparent;
       color: #757575;
       padding: 0; }
-      .menuWrapper__menu__item .dropdownWrapper__dropdown__header:hover, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent:hover {
+      .menuWrapper__menu__item .dropdownWrapper__dropdown__header:hover, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__header:hover, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent:hover, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__headerTransparent:hover {
         color: #616161; }
-        .menuWrapper__menu__item .dropdownWrapper__dropdown__header:hover svg, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent:hover svg {
+        .menuWrapper__menu__item .dropdownWrapper__dropdown__header:hover svg, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__header:hover svg, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent:hover svg, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__headerTransparent:hover svg {
           fill: #616161; }
-      .menuWrapper__menu__item .dropdownWrapper__dropdown__header svg, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent svg {
+      .menuWrapper__menu__item .dropdownWrapper__dropdown__header svg, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__header svg, .menuWrapper__menu__item .dropdownWrapper__dropdown__headerTransparent svg, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__headerTransparent svg {
         fill: #757575;
         width: 22px;
         height: 22px;
         margin-right: 0; }
-    .menuWrapper__menu__item .dropdownWrapper__dropdown__content {
+    .menuWrapper__menu__item .dropdownWrapper__dropdown__content, .menuWrapper__menu__item__disabled .dropdownWrapper__dropdown__content {
       top: 41px;
       left: -22px;
       padding: 0; }
-    .menuWrapper__menu__item .dropdownItemWrapper {
+    .menuWrapper__menu__item .dropdownItemWrapper, .menuWrapper__menu__item__disabled .dropdownItemWrapper {
       padding: 12px 22px;
       cursor: pointer; }
-      .menuWrapper__menu__item .dropdownItemWrapper:hover {
+      .menuWrapper__menu__item .dropdownItemWrapper:hover, .menuWrapper__menu__item__disabled .dropdownItemWrapper:hover {
         background: #f5f5f5;
         color: #616161; }
-      .menuWrapper__menu__item .dropdownItemWrapper svg {
+      .menuWrapper__menu__item .dropdownItemWrapper svg, .menuWrapper__menu__item__disabled .dropdownItemWrapper svg {
         display: none; }
+    .menuWrapper__menu__item__disabled {
+      color: #bdbdbd;
+      background: transparent;
+      cursor: default; }
+      .menuWrapper__menu__item__disabled:hover {
+        background: transparent;
+        color: #bdbdbd; }
+        .menuWrapper__menu__item__disabled:hover svg {
+          fill: #bdbdbd; }
+      .menuWrapper__menu__item__disabled svg {
+        fill: #bdbdbd; }
 
 .navigationWrapper {
   border-bottom: 1px solid #eeeeee;
@@ -2027,7 +2045,7 @@ svg.active {
 
 .searchMainWrapper {
   margin-left: 22px;
-  width: 60%;
+  width: 80%;
   position: relative; }
   .searchMainWrapper__searchMain__header {
     display: flex;

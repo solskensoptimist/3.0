@@ -87,10 +87,10 @@ const Dashboard = (state) => {
                     <Menu items={[
                         {label: 'Min knapp', onClick:_minKnapp, type: 'button'},
                         {label: 'Min dropdown', type: 'dropdown', items: [
-                                {label: 'Dropdownitem nummer 1', onClick: _mittDropdownItem},
-                                {label: 'Dropdownitem nummer 2', onClick: _mittDropdownItem},
-                                {label: 'Dropdownitem nummer 3', onClick: _mittDropdownItem},
-                            ]}
+                            {label: 'Dropdownitem nummer 1', onClick: _mittDropdownItem},
+                            {label: 'Dropdownitem nummer 2', onClick: _mittDropdownItem},
+                            {label: 'Dropdownitem nummer 3', onClick: _mittDropdownItem},
+                        ]}
                     ]}
                     />
                 </div>

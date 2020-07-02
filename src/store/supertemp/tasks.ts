@@ -4,7 +4,7 @@ import {supertempActionTypes} from './actions';
 import moment from 'moment';
 
 /**
- * Retrieve data for a supertemp  subscription.
+ * Retrieve data for a supertemp subscription.
  *
  * Users have different widget settings/objects saved in mongo collection 'dashboard'.
  * When these widgets have type 'monitorList' its a supertemp subscription.

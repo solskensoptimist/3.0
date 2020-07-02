@@ -11,15 +11,15 @@ export default () => {
         <div className='navigationWrapper'>
             <div className='navigationWrapper__navigation'>
                 <div className='navigationWrapper__navigation__left'>
-                    <NavLink exact to={'/'} key='bilprospekt'>
+                    <NavLink exact to={'/'}>
                         <Icon val='service'/>
                         {tc.whatIsBilprospekt}
                     </NavLink>
-                    <NavLink exact to={'/team'} key='team'>
+                    <NavLink exact to={'/team'}>
                         <Icon val='team'/>
                         {tc.theTeam}
                     </NavLink>
-                    <NavLink exact to={'/inloggning'} key='inloggning'>
+                    <NavLink exact to={'/inloggning'}>
                         <Icon val='login'/>
                         {tc.login}
                     </NavLink>

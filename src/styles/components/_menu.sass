@@ -9,10 +9,11 @@
     &__item
       display: flex
       align-items: center
-      margin-left: $paddingBig
+      margin-left: $paddingMedium
       padding: 4px $paddingBig
       cursor: pointer
       color: $colorTextLight
+      min-height: 44px
       &:first-of-type
         margin-left: 0
       &:hover
@@ -21,10 +22,13 @@
         svg
           fill: $colorLinkHover
       svg
-        width: 12px
-        height: 12px
+        width: 10px
+        height: 10px
         fill: $colorTextLight
+        margin-left: $paddingSmall
+      span.listBullet
         margin-right: $paddingSmall
+
       // Adjust the dropdown when it appears in menu
       .dropdownWrapper
         min-width: 0
@@ -54,3 +58,15 @@
           color: $colorLinkHover
         svg
           display: none
+      &__disabled
+        @extend .menuWrapper__menu__item
+        color: $colorTextLight-2
+        background: transparent
+        cursor: default
+        &:hover
+          background: transparent
+          color: $colorTextLight-2
+          svg
+            fill: $colorTextLight-2
+        svg
+          fill: $colorTextLight-2

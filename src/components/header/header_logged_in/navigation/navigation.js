@@ -12,27 +12,31 @@ export default () =>  {
         <div className='navigationWrapper'>
             <div className='navigationWrapper__navigation'>
                 <div className='navigationWrapper__navigation__left'>
-                    <NavLink exact to={'/'} key='hem'>
+                    <NavLink exact to={'/'}>
                         <Icon val='home'/>
                         {tc.home}
                     </NavLink>
-                    <NavLink exact to={'/aktivitet'} key='aktivitet'>
+                    <NavLink exact to={'/aktivitet'}>
                         <Icon val='activity'/>
                         {tc.activity}
                     </NavLink>
-                    <NavLink exact to={'/analysera'} key='analysera'>
+                    <NavLink exact to={'/analysera'}>
                         <Icon val='analyze'/>
                         {tc.analyse}
                     </NavLink>
-                    <NavLink exact to={'/bearbeta'} key='bearbeta'>
+                    <NavLink exact to={'/bearbeta'}>
                         <Icon val='agile'/>
                         {tc.agile}
                     </NavLink>
-                    <NavLink exact to={'/listor'} key='listor'>
+                    <NavLink exact to={'/bestallningar'}>
+                        <Icon val='orders'/>
+                        {tc.orders}
+                    </NavLink>
+                    <NavLink exact to={'/listor'}>
                         <Icon val='lists'/>
                         {tc.lists}
                     </NavLink>
-                    <NavLink exact to={'/prospektera'} key='prospektera'>
+                    <NavLink exact to={'/prospektera'}>
                         <Icon val='prospect'/>
                         {tc.prospect}
                     </NavLink>
