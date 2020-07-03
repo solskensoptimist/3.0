@@ -171,6 +171,7 @@ export const tableHelper = {
             {id: 'name', numeric: false, label: tc.name},
             {id: 'total', numeric: true, label: tc.amount},
             {id: 'created', numeric: false, label: tc.created},
+            {id: 'criterias', numeric: false, label: tc.searchCriterias},
             {id: 'complement', numeric: false, label: tc.complement},
             {id: 'creatorName', numeric: false, label: tc.createdBy},
             {id: 'dealerName', numeric: false, label: tc.company},
@@ -238,6 +239,14 @@ export const tableHelper = {
                             {
                                 (row.meta && (!row.meta.subscription_ids || (row.meta.subscription_ids && !row.meta.subscription_ids.length)) && row.meta.criterias && Object.keys(row.meta.criterias).length) &&
                                 <Tooltip horizontalDirection='right' tooltipContent={tc.subscriptionPossible} verticalDirection={verticalDirection}><Icon val='subscription'/></Tooltip>
+                            }
+                        </div>
+                } else if (column.id === 'criterias') {
+                    obj[column.id] =
+                        <div className='tableCellIconHolder'>
+                            {
+                                ((row.meta && row.meta.criterias && Object.keys(row.meta.criterias).length) || (row.meta && row.meta.buttonFields && row.meta.buttonFields.length)) &&
+                                <Tooltip horizontalDirection='right' tooltipContent={tc.listHaveSearchCriterias} verticalDirection={verticalDirection}><Icon active={true} val='check'/></Tooltip>
                             }
                         </div>
                 } else {

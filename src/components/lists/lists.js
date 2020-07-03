@@ -19,6 +19,7 @@ const Lists = (state) => {
     const mergeListsNameInputRef = useRef(null);
 
     const _archiveSelected = async () => {
+        setSelectedLists([]);
         return await archiveLists({listIds: selectedLists.map((num) => num._id)});
     };
     const _excelOutput = () => {
@@ -29,6 +30,7 @@ const Lists = (state) => {
         if (listName.length) {
             setShowMergeLists(false);
             await mergeLists({listIds: selectedLists.map((num) => num._id), name: listName});
+            setSelectedLists([]);
             return setListName('');
         } else {
             return showFlashMessage(tc.nameCannotBeEmpty);
@@ -41,6 +43,7 @@ const Lists = (state) => {
 
     const _removeLists = async () => {
         setShowRemoveLists(false);
+        setSelectedLists([]);
         return await removeLists({listIds: selectedLists.map((num) => num._id)});
     };
 
