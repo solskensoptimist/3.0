@@ -1,8 +1,41 @@
 import {store} from 'store';
-import {request} from 'helpers';
+import {request, requestWithBody} from 'helpers';
 import {listsActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {tc} from 'helpers';
+
+/**
+ * Archive a list of list ids.
+ *
+ * @param payload.listIds - array
+ */
+export const archiveLists = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.listIds) || (payload && payload.listIds && !payload.listIds.length)) {
+            return console.error('Missing params in archiveLists\n' + payload);
+        }
+
+        const data = await request({
+                data: {
+                    listIds: payload.listIds,
+                },
+            method: 'post',
+            url: '/lists/archive/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in archiveLists:\n' + data);
+        }
+
+        showFlashMessage(tc.listsHaveBeenArchived);
+
+        // Filter lists from state directly to prevent new backend call.
+        const newLists = store.getState().lists.lists.filter((num) => !payload.listIds.includes(num._id));
+        return store.dispatch({type: listsActionTypes.SET_LISTS, payload: newLists});
+    } catch (err) {
+        return console.error('Error in archiveLists:\n' + err);
+    }
+};
 
 /**
  * Get lists for user.
@@ -22,7 +55,7 @@ export const getLists = async (payload) => {
         });
 
         if (!data || (data && !data.data) || (data && data.data && !data.data.length)) {
-            return store.dispatch({type: listsActionTypes.SET_LISTS, payload: {lists: []}});
+            return store.dispatch({type: listsActionTypes.SET_LISTS, payload: []});
         }
 
         if (data instanceof Error) {
@@ -30,7 +63,7 @@ export const getLists = async (payload) => {
         }
 
         let lists = data.data;
-        store.dispatch({type: listsActionTypes.SET_LISTS, payload: {lists: lists}});
+        store.dispatch({type: listsActionTypes.SET_LISTS, payload: lists});
 
         // Retrieve order information for each list, do this in the background since it's heavy lifting.
         const orderInformation = await request({
@@ -48,9 +81,87 @@ export const getLists = async (payload) => {
             return list;
         });
 
-        return store.dispatch({type: listsActionTypes.SET_LISTS, payload: {lists: lists}});
+        return store.dispatch({type: listsActionTypes.SET_LISTS, payload: lists});
     } catch (err) {
         return console.error('Error in getLists:\n' + err);
+    }
+};
+
+/**
+ * Merges lists.
+ *
+ * @param payload.listIds - array
+ * @param payload.name - string
+ */
+export const mergeLists = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.name) || (payload && !payload.listIds) || (payload && payload.listIds && !payload.listIds.length) || (payload && payload.listIds && payload.listIds.length < 2)) {
+            return console.error('Missing params in mergeLists\n' + payload);
+        }
+
+        const data = await request({
+            data: {
+                lists: payload.listIds,
+                name: payload.name,
+            },
+            method: 'post',
+            url: '/lists/merge/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in mergeLists:\n' + data);
+        }
+
+        showFlashMessage(tc.listHaveBeenCreated);
+        return await getLists({});
+    } catch (err) {
+        return console.error('Error in removeLists:\n' + err);
+    }
+};
+
+
+/**
+ * Removes lists.
+ *
+ * @param payload.archived - bool - To know if the lists we remove is from archived lists or regular lists.
+ * @param payload.listIds - array
+ */
+export const removeLists = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.listIds) || (payload && payload.listIds && !payload.listIds.length)) {
+            return console.error('Missing params in removeLists\n' + payload);
+        }
+
+        const promises = await payload.listIds.map(async (id) => {
+            return await requestWithBody({
+                data: {
+                    list_id: id
+                },
+                method: 'delete',
+                url: '/lists/',
+            });
+        });
+
+        const data = await Promise.all(promises);
+
+        const invalidResults = data.filter((result) => (result instanceof Error));
+
+        if (invalidResults.length) {
+            showFlashMessage(tc.thereWasAProblem);
+            return console.error('Error in removeLists:\n' + data);
+        }
+
+        showFlashMessage(tc.listsHaveBeenRemoved);
+
+        if (payload.archived) {
+            const newLists = store.getState().lists.listsArchived.filter((num) => !payload.listIds.includes(num._id));
+            return store.dispatch({type: listsActionTypes.SET_LISTS_ARCHIVED, payload: newLists});
+        } else {
+            const newLists = store.getState().lists.lists.filter((num) => !payload.listIds.includes(num._id));
+            return store.dispatch({type: listsActionTypes.SET_LISTS, payload: newLists});
+        }
+    } catch (err) {
+        return console.error('Error in removeLists:\n' + err);
     }
 };
 

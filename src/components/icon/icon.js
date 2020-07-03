@@ -37,6 +37,7 @@ import {
     LinkOff,
     List,
     Mail,
+    MergeType,
     Minimize,
     NavigateBefore,
     NavigateNext,
@@ -173,6 +174,8 @@ export default (props) => {
             return <ZoomOutMap className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'meeting':
             return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'merge':
+            return <MergeType className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'minimize':
             return <Minimize className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'move':

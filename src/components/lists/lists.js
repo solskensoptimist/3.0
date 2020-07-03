@@ -1,32 +1,45 @@
-import React, {useEffect, useState} from 'react';
-import {getLists} from 'store/lists/tasks';
+import React, {useEffect, useRef, useState} from 'react';
+import {archiveLists, getLists, mergeLists, removeLists} from 'store/lists/tasks';
+import {showFlashMessage} from 'store/flash_messages/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
 import history from '../../router_history';
 import {Table} from 'components/table';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
+import Popup from 'components/popup';
+import WidgetFooter from 'components/widget_footer';
+import WidgetHeader from 'components/widget_header';
 
 const Lists = (state) => {
+    const [listName, setListName] = useState('');
     const [selectedLists, setSelectedLists] = useState([]);
+    const [showChooseName, setShowChooseName] = useState(false);
+    const newListNameInputRef = useRef(null);
 
-    const _archiveSelected = () => {
-        console.log('Arkivera listor');
+    const _archiveSelected = async () => {
+        return await archiveLists({listIds: selectedLists.map((num) => num._id)});
     };
     const _excelOutput = () => {
         console.log('Ladda ner excel');
     };
 
-    const _mergeLists = () => {
-        console.log('Slå ihop listor');
+    const _mergeLists = async () => {
+        if (listName.length) {
+            setShowChooseName(false);
+            await mergeLists({listIds: selectedLists.map((num) => num._id), name: listName});
+            return setListName('');
+        } else {
+            return showFlashMessage(tc.nameCannotBeEmpty);
+        }
     };
 
     const _recreateCriterias = () => {
         console.log('Återskapa kriterier');
     };
 
-    const _removeLists = () => {
-        console.log('Ta bort listor');
+    const _removeLists = async () => {
+        return await removeLists({listIds: selectedLists.map((num) => num._id)});
     };
 
     const _shareSelected = () => {
@@ -45,6 +58,12 @@ const Lists = (state) => {
         getLists({});
     }, []);
 
+    useEffect(() => {
+        if (showChooseName) {
+            newListNameInputRef && newListNameInputRef.current && newListNameInputRef.current.focus();
+        }
+    }, [showChooseName]);
+
     return ( _stateCheck() ?
         <div className='listsWrapper'>
             <div className='listsWrapper__lists'>
@@ -57,7 +76,7 @@ const Lists = (state) => {
                         {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: _excelOutput, type: 'button'},
                         {icon: 'navigate', label: tc.listSubscriptions, onClick: () => {history.push('listor/prenumerationer')}, type: 'button'},
                         {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: _removeLists, type: 'button'},
-                        {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: _mergeLists, type: 'button'},
+                        {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setShowChooseName(true)}, type: 'button'},
                         {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: _recreateCriterias, type: 'button'},
                     ]}
                     />
@@ -70,6 +89,26 @@ const Lists = (state) => {
                             rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
                         />
                     </div>
+                    {showChooseName &&
+                        <Popup close={() => {setShowChooseName(false)}} size='small'>
+                            <div className='listsChooseNameWrapper'>
+                                <div className='listsChooseNameWrapper__listsChooseName'>
+                                    <div className='listsChooseNameWrapper__listsChooseName__header'>
+                                        <WidgetHeader
+                                            iconVal='merge'
+                                            headline={tc.mergeLists}
+                                        />
+                                    </div>
+                                    <div className='listsChooseNameWrapper__listsChooseName__content'>
+                                        <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={newListNameInputRef}/>
+                                    </div>
+                                    <div className='listsChooseNameWrapper__listsChooseName__footer'>
+                                        <WidgetFooter save={_mergeLists}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </Popup>
+                    }
                 </div>
             </div>
         </div> :
