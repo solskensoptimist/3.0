@@ -51,6 +51,7 @@ const Lists = (state) => {
                 <div className='listsWrapper__lists__header'>
                     <Menu items={[
                         {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.archiveLists : tc.archiveList, onClick: _archiveSelected, type: 'button'},
+                        {icon: 'navigate', label: tc.archivedLists, onClick: () => {history.push('listor/arkiverade')}, type: 'button'},
                         {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.shareLists : tc.shareList, onClick: _shareSelected, type: 'button'},
                         {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: _splitSelected, type: 'button'},
                         {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: _excelOutput, type: 'button'},

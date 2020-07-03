@@ -147,7 +147,7 @@
 .marginTopMedium {
   margin-top: 12px; }
 
-.paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dashboardWrapper__dashboard__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer > div, .fleetAnalysisWrapper__fleetAnalysis__content__item, .personWrapper__person__content__item {
+.paperSheet, .activityWrapper__activity__content__item, .companyWrapper__company__content__item, .dashboardWrapper__dashboard__content__item, .dealWrapper__deal__content__item, .dealWrapper__deal__content__itemsContainer > div, .fleetAnalysisWrapper__fleetAnalysis__content__item, .listsWrapper__lists__content__item, .personWrapper__person__content__item {
   background: white;
   border: 1px solid #e0e0e0; }
 
@@ -1599,12 +1599,13 @@ svg.active {
         height: 16px;
         margin-left: 8px; }
 
-.listsWrapper__lists__content__item {
-  margin-bottom: 12px;
-  background: white;
-  padding: 22px; }
-  .listsWrapper__lists__content__item:last-of-type {
-    margin-bottom: 0; }
+.listsWrapper__lists__content {
+  padding: 12px; }
+  .listsWrapper__lists__content__item {
+    margin-bottom: 12px;
+    padding: 22px; }
+    .listsWrapper__lists__content__item:last-of-type {
+      margin-bottom: 0; }
 
 .loadingWrapper, .loadingWrapperFull {
   width: 100%;
@@ -1753,7 +1754,8 @@ svg.active {
   background: #f5f5f5;
   width: 100%;
   padding: 0 12px;
-  border-bottom: 2px solid white; }
+  border-bottom: 2px solid white;
+  flex-wrap: wrap; }
   .menuWrapper__menu__item, .menuWrapper__menu__item__disabled {
     display: flex;
     align-items: center;
@@ -1761,7 +1763,8 @@ svg.active {
     padding: 4px 22px;
     cursor: pointer;
     color: #757575;
-    min-height: 44px; }
+    min-height: 44px;
+    white-space: nowrap; }
     .menuWrapper__menu__item:first-of-type, .menuWrapper__menu__item__disabled:first-of-type {
       margin-left: 0; }
     .menuWrapper__menu__item:hover, .menuWrapper__menu__item__disabled:hover {

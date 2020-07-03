@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, Route} from 'react-router-dom';
 import {tc} from 'helpers';
 import Icon from 'components/icon';
 
@@ -11,18 +11,28 @@ export default () => {
         <div className='navigationWrapper'>
             <div className='navigationWrapper__navigation'>
                 <div className='navigationWrapper__navigation__left'>
-                    <NavLink exact to={'/'}>
-                        <Icon val='service'/>
-                        {tc.whatIsBilprospekt}
-                    </NavLink>
-                    <NavLink exact to={'/team'}>
-                        <Icon val='team'/>
-                        {tc.theTeam}
-                    </NavLink>
-                    <NavLink exact to={'/inloggning'}>
-                        <Icon val='login'/>
-                        {tc.login}
-                    </NavLink>
+                    <Route>
+                        {({ location }) => {
+                            const pathnames = location.pathname.split('/').filter(x => x.toLowerCase());
+
+                            return (
+                                <>
+                                    <NavLink className={(pathnames[0] === '') ? 'active' : ''} exact to={'/'}>
+                                        <Icon val='service'/>
+                                        {tc.whatIsBilprospekt}
+                                    </NavLink>
+                                    <NavLink className={(pathnames[0] === 'team') ? 'active' : ''} exact to={'/team'}>
+                                        <Icon val='team'/>
+                                        {tc.theTeam}
+                                    </NavLink>
+                                    <NavLink className={(pathnames[0] === 'inloggning') ? 'active' : ''} exact to={'/inloggning'}>
+                                        <Icon val='login'/>
+                                        {tc.login}
+                                    </NavLink>
+                                </>
+                            );
+                        }}
+                    </Route>
                 </div>
                 <div className='navigationWrapper__navigation__right'>
                 </div>

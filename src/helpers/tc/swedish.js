@@ -29,6 +29,7 @@ export default {
     analyse: 'Analysera',
     analysis: 'Behovsanalys',
     and: 'Och',
+    archivedLists: 'Arkiverade listor',
     archiveList: 'Arkivera lista',
     archiveLists: 'Arkivera listor',
     at: 'Hos',
