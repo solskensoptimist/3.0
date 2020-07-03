@@ -89,6 +89,7 @@ const Lists = (state) => {
                             columns={tableHelper.getListsColumns()}
                             onSelect={(arr) => {setSelectedLists(state.lists.lists.filter((num) => arr.includes(num._id)))}}
                             rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
+                            selected={selectedLists.map((num) => num._id)}
                         />
                     </div>
                     {showMergeLists &&

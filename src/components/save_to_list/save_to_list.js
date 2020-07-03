@@ -64,6 +64,7 @@ const SaveToList = (state) => {
                                 columns={tableHelper.getListsColumns()}
                                 onSelect={(arr) => {setLists(arr)}}
                                 rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
+                                selected={lists}
                             /> :
                             <div className='saveToListWrapper__saveToList__content__newList'>
                                 <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={newListNameInputRef}/>

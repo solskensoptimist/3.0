@@ -13,6 +13,7 @@ import Icon from "../icon/icon";
 const KoncernStructure = (state) => {
     const [disabledRows, setDisabledRows] = useState([]);
     const [minimize, setMinimize] = useState(false);
+    const [selected, setSelected] = useState([]);
     const [total, setTotal] = useState(null);
     const [structure, setStructure] = useState(null);
 
@@ -24,10 +25,12 @@ const KoncernStructure = (state) => {
         if (arr.length) {
             let numberOfCars = 0;
             let disabled = [];
+            let selected = [];
 
             structure.forEach((num) => {
                 if (arr.includes(num.id)) {
                     numberOfCars = numberOfCars + num.numberOfCars;
+                    selected.push(num.id);
                 } else {
                     disabled.push(num.id);
                 }
@@ -35,9 +38,11 @@ const KoncernStructure = (state) => {
 
             setTotal(numberOfCars);
             setDisabledRows(disabled);
+            setSelected(selected);
         } else {
             setTotal(0);
             setDisabledRows(structure.map((num) => num.id));
+            setSelected([]);
         }
     };
 
@@ -51,6 +56,7 @@ const KoncernStructure = (state) => {
         }
         if (state.company.koncern && state.company.koncern.structure) {
             setStructure(state.company.koncern.structure);
+            setSelected(state.company.koncern.structure.map((num) => num.id));
         }
     }, [state.company.koncern]);
 
@@ -79,7 +85,7 @@ const KoncernStructure = (state) => {
                             columns={tableHelper.getKoncernStructureColumns()}
                             onSelect={_onSelect}
                             rows={tableHelper.getKoncernStructureRows(structure, total, disabledRows)}
-                            preSelectedRows={structure.map((num) => num.id)}
+                            selected={selected}
                             rowsPerPage={100}
                         />
                     </div>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {tc} from 'helpers';
 import history from '../../router_history';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,14 +31,14 @@ const useStyles = makeStyles({
  * If a row have a 'url' property the row is going to be a navigation link.
  * TODO: make cells editable...
  *
- * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. Note that every row object must have an 'id' property with a unique value.
+ * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. Note that every row object must have an 'id' property with a unique value and you have to provide props.selected array.
  * @param props.columns - array - See <Table> for columns example.
  * @param props.pageChange - func - Called when page changes.
- * @param props.preSelectedRows - array (optional) - Array with ids for rows that should be selected from start.
  * @param props.rows - array - See <Table> for rows example.
  * @param props.rowsPerPage - number - Rows per page.
  * @param props.rowsPerPageChange - func - When rows per page changes.
  * @param props.search - func (optional) - Called when search input have value.
+ * @param props.selected - array (optional) - If we wanna use selection, provide array with selected ids.
  * @param props.sort - func - Called when a column header is clicked.
  * @param props.total - number - Number of rows total.
  */
@@ -47,7 +47,7 @@ export const TablePropsManaged = (props) => {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [query, setQuery] = React.useState('');
-    const [selected, setSelected] = React.useState(props.preSelectedRows ? props.preSelectedRows : []);
+    const [selected, setSelected] = React.useState([]);
     const classes = useStyles();
 
     const handlePageChange = (event, newPage) => {
@@ -89,8 +89,6 @@ export const TablePropsManaged = (props) => {
             );
         }
 
-        setSelected(newSelected);
-
         if (props.onSelect && typeof props.onSelect === 'function') {
             props.onSelect(newSelected);
         }
@@ -99,12 +97,10 @@ export const TablePropsManaged = (props) => {
     const handleSelectAll = (event) => {
         if (event.target.checked) {
             const newSelected = props.rows.map((n) => n.id);
-            setSelected(newSelected);
             if (props.onSelect && typeof props.onSelect === 'function') {
                 props.onSelect(newSelected);
             }
         } else {
-            setSelected([]);
             if (props.onSelect && typeof props.onSelect === 'function') {
                 props.onSelect([]);
             }
@@ -169,6 +165,10 @@ export const TablePropsManaged = (props) => {
             </TableHead>
         );
     };
+
+    useEffect(() => {
+        setSelected(props.selected ? props.selected : []);
+    }, [props.selected]);
 
     return (
         <div className='tableWrapper'>
