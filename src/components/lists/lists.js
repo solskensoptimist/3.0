@@ -14,8 +14,9 @@ import WidgetHeader from 'components/widget_header';
 const Lists = (state) => {
     const [listName, setListName] = useState('');
     const [selectedLists, setSelectedLists] = useState([]);
-    const [showChooseName, setShowChooseName] = useState(false);
-    const newListNameInputRef = useRef(null);
+    const [showMergeLists, setShowMergeLists] = useState(false);
+    const [showRemoveLists, setShowRemoveLists] = useState(false);
+    const mergeListsNameInputRef = useRef(null);
 
     const _archiveSelected = async () => {
         return await archiveLists({listIds: selectedLists.map((num) => num._id)});
@@ -26,7 +27,7 @@ const Lists = (state) => {
 
     const _mergeLists = async () => {
         if (listName.length) {
-            setShowChooseName(false);
+            setShowMergeLists(false);
             await mergeLists({listIds: selectedLists.map((num) => num._id), name: listName});
             return setListName('');
         } else {
@@ -39,6 +40,7 @@ const Lists = (state) => {
     };
 
     const _removeLists = async () => {
+        setShowRemoveLists(false);
         return await removeLists({listIds: selectedLists.map((num) => num._id)});
     };
 
@@ -59,10 +61,10 @@ const Lists = (state) => {
     }, []);
 
     useEffect(() => {
-        if (showChooseName) {
-            newListNameInputRef && newListNameInputRef.current && newListNameInputRef.current.focus();
+        if (showMergeLists) {
+            mergeListsNameInputRef && mergeListsNameInputRef.current && mergeListsNameInputRef.current.focus();
         }
-    }, [showChooseName]);
+    }, [showMergeLists]);
 
     return ( _stateCheck() ?
         <div className='listsWrapper'>
@@ -75,8 +77,8 @@ const Lists = (state) => {
                         {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: _splitSelected, type: 'button'},
                         {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: _excelOutput, type: 'button'},
                         {icon: 'navigate', label: tc.listSubscriptions, onClick: () => {history.push('listor/prenumerationer')}, type: 'button'},
-                        {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: _removeLists, type: 'button'},
-                        {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setShowChooseName(true)}, type: 'button'},
+                        {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setShowRemoveLists(true)}, type: 'button'},
+                        {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setShowMergeLists(true)}, type: 'button'},
                         {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: _recreateCriterias, type: 'button'},
                     ]}
                     />
@@ -89,25 +91,45 @@ const Lists = (state) => {
                             rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
                         />
                     </div>
-                    {showChooseName &&
-                        <Popup close={() => {setShowChooseName(false)}} size='small'>
-                            <div className='listsChooseNameWrapper'>
-                                <div className='listsChooseNameWrapper__listsChooseName'>
-                                    <div className='listsChooseNameWrapper__listsChooseName__header'>
+                    {showMergeLists &&
+                        <Popup close={() => {setShowMergeLists(false)}} size='small'>
+                            <div className='listsPopupWrapper'>
+                                <div className='listsPopupWrapper__listsPopup'>
+                                    <div className='listsPopupWrapper__listsPopup__header'>
                                         <WidgetHeader
                                             iconVal='merge'
                                             headline={tc.mergeLists}
                                         />
                                     </div>
-                                    <div className='listsChooseNameWrapper__listsChooseName__content'>
-                                        <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={newListNameInputRef}/>
+                                    <div className='listsPopupWrapper__listsPopup__content'>
+                                        <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={mergeListsNameInputRef}/>
                                     </div>
-                                    <div className='listsChooseNameWrapper__listsChooseName__footer'>
+                                    <div className='listsPopupWrapper__listsPopup__footer'>
                                         <WidgetFooter save={_mergeLists}/>
                                     </div>
                                 </div>
                             </div>
                         </Popup>
+                    }
+                    {showRemoveLists &&
+                    <Popup close={() => {setShowRemoveLists(false)}} size='small'>
+                        <div className='listsPopupWrapper'>
+                            <div className='listsPopupWrapper__listsPopup'>
+                                <div className='listsPopupWrapper__listsPopup__header'>
+                                    <WidgetHeader
+                                        iconVal='merge'
+                                        headline={tc.removeLists}
+                                    />
+                                </div>
+                                <div className='listsPopupWrapper__listsPopup__content'>
+                                    <p>{tc.removeEnsure}</p>
+                                </div>
+                                <div className='listsPopupWrapper__listsPopup__footer'>
+                                    <WidgetFooter remove={_removeLists}/>
+                                </div>
+                            </div>
+                        </div>
+                    </Popup>
                     }
                 </div>
             </div>

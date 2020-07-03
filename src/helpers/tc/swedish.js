@@ -255,6 +255,7 @@ export default {
     of: 'Av',
     offer: 'Offert',
     offert: 'Offert',
+    ok: 'OK',
     on: 'På',
     onDeal: 'På affär',
     oneProspect: 'Prospekt',
