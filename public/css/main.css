@@ -1786,6 +1786,10 @@ svg.active {
     color: #616161; }
     .menuWrapper__menu .menuItem:hover svg, .menuWrapper__menu .menuItem__disabled:hover svg, .menuWrapper__menu .menuItem__active:hover svg {
       fill: #616161; }
+    .menuWrapper__menu .menuItem:hover .dropdownWrapper__dropdown__header, .menuWrapper__menu .menuItem__disabled:hover .dropdownWrapper__dropdown__header, .menuWrapper__menu .menuItem__active:hover .dropdownWrapper__dropdown__header, .menuWrapper__menu .menuItem:hover .dropdownWrapper__dropdown__headerTransparent, .menuWrapper__menu .menuItem__disabled:hover .dropdownWrapper__dropdown__headerTransparent, .menuWrapper__menu .menuItem__active:hover .dropdownWrapper__dropdown__headerTransparent {
+      color: #616161; }
+      .menuWrapper__menu .menuItem:hover .dropdownWrapper__dropdown__header svg, .menuWrapper__menu .menuItem__disabled:hover .dropdownWrapper__dropdown__header svg, .menuWrapper__menu .menuItem__active:hover .dropdownWrapper__dropdown__header svg, .menuWrapper__menu .menuItem:hover .dropdownWrapper__dropdown__headerTransparent svg, .menuWrapper__menu .menuItem__disabled:hover .dropdownWrapper__dropdown__headerTransparent svg, .menuWrapper__menu .menuItem__active:hover .dropdownWrapper__dropdown__headerTransparent svg {
+        fill: #616161; }
   .menuWrapper__menu .menuItem svg, .menuWrapper__menu .menuItem__disabled svg, .menuWrapper__menu .menuItem__active svg {
     width: 10px;
     height: 10px;
@@ -1833,7 +1837,8 @@ svg.active {
     .menuWrapper__menu .menuItem__disabled svg {
       fill: #bdbdbd; }
   .menuWrapper__menu .menuItem__active {
-    background: #eeeeee; }
+    background: #eeeeee;
+    color: #757575; }
 
 .navigationWrapper {
   border-bottom: 1px solid #eeeeee;
@@ -2418,9 +2423,9 @@ svg.active {
         width: 14px;
         height: 14px; }
     .tableWrapper__table__content table .Mui-checked svg {
-      fill: #00B4CC; }
+      fill: #ffc107; }
     .tableWrapper__table__content table .MuiCheckbox-indeterminate svg {
-      fill: #00B4CC; }
+      fill: #ffc107; }
     .tableWrapper__table__content table .MuiCheckbox-root {
       display: flex;
       align-items: center;

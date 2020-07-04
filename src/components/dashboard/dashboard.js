@@ -86,7 +86,14 @@ const Dashboard = (state) => {
                                 label: 'Menyval 2',
                                 onClick: () => {},
                                 type: 'button',
-                            }
+                            },
+                            {
+                                label: 'My dropdown',
+                                items: [
+                                    {label: 'Dropdownitem nummer 1', onClick: () => {}},
+                                    {label: 'Dropdownitem nummer 2', onClick: () => {}}],
+                                type: 'dropdown'
+                            },
                         ]}
                     />
                 </div>
