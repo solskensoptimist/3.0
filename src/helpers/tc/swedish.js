@@ -359,6 +359,7 @@ export default {
     trash: 'Borttagen',
     type: 'Typ',
     unknown: 'Okänd',
+    undoArchive: 'Ångra arkivering',
     uploadFile: 'Ladda upp fil',
     used: 'Begagnad',
     user: 'Användare',

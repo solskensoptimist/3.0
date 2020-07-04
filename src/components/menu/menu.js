@@ -4,11 +4,11 @@ import Icon from 'components/icon';
 
 /**
  * Render a menu with items, or a navigational menu with a sub menu that holds items.
- * Object types can be: 'button' | 'dropdown' | 'nav'
- * Type 'nav' needs a unique id property.
- * Note that possibility exists to add an icon to item.
- * Also note that you can provide a 'disabled' property for buttons that will be shown, but disabled.
- * Provide active: true to nav object if it should be active by default.
+ * Item object types can be: 'button' | 'dropdown' | 'nav'.
+ * Type 'nav' can have a children array with items that is rendered in its own sub menu.
+ * Type 'nav' needs a unique id property and this type should not show up in its own children array.
+ * Possibility exists to provide an icon to item.
+ * Possibility exists to provide a 'disabled' property for buttons that will be shown, but disabled.
  *
  * @param props.items - array - Example: [
  *      {
@@ -17,7 +17,7 @@ import Icon from 'components/icon';
  *              {label: 'My button 1', onClick: func, type: 'button'},
  *              {label: 'My dropdown', items: [{label: 'Dropdownitem 1', onClick: func}, {label: 'Dropdownitem 2', onClick: func}], type: 'dropdown',},
  *          ],
- *          label: 'Sub navigation option',
+ *          label: 'Menu option 1',
  *          onClick: func,
  *          type: 'nav',
  *      },
@@ -27,9 +27,14 @@ import Icon from 'components/icon';
  *              {label: 'My button 1', onClick: func, type: 'button'},
  *              {label: 'My dropdown', items: [{label: 'Dropdownitem 1', onClick: func}, {label: 'Dropdownitem 2', onClick: func}], type: 'dropdown',},
  *          ],
- *          label: 'Sub navigation option 2',
+ *          label: 'Menu option 2',
  *          onClick: func,
  *          type: 'nav',
+ *      },
+ *      {
+ *          label: 'Menu option 3',
+ *          onClick: func,
+ *          type: 'button',
  *      },
  * ]
  */
@@ -65,7 +70,7 @@ export default (props) => {
                              }
                          }}
                          key={i}>
-                        <span className='listBullet'>&#8226;</span>
+                        {main && <span className='listBullet'>&#8226;</span>}
                         {num.label}
                         {num.icon ? <Icon val={num.icon}/> : null}
                     </div>
@@ -82,7 +87,7 @@ export default (props) => {
                     >
                         {num.disabled ?
                             <>
-                                <span className='listBullet'>&#8226;</span>
+                                {main && <span className='listBullet'>&#8226;</span>}
                                 {num.label}
                             </>
                             :
@@ -104,7 +109,7 @@ export default (props) => {
                         }
                     </div>
                 );
-            } else if (num.type === 'nav') {
+            } else if (main && num.type === 'nav') {
                 let className;
                 if (num.disabled) {
                     className = 'menuItem__disabled';

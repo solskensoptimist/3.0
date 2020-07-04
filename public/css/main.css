@@ -1609,6 +1609,8 @@ svg.active {
     padding: 22px; }
     .listsWrapper__lists__content__item:last-of-type {
       margin-bottom: 0; }
+    .listsWrapper__lists__content__item__header {
+      margin-bottom: 22px; }
 
 .listsPopupWrapper__listsPopup__content {
   margin: 22px 0;
