@@ -1,78 +1,165 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dropdown, DropdownItem} from 'components/dropdown';
 import Icon from 'components/icon';
 
 /**
- * Render a menu with items.
- * Define if items is buttons, dropdown etc.
+ * Render a menu with items, or a navigational menu with a sub menu that holds items.
+ * Object types can be: 'button' | 'dropdown' | 'nav'
+ * Type 'nav' needs a unique id property.
  * Note that possibility exists to add an icon to item.
  * Also note that you can provide a 'disabled' property for buttons that will be shown, but disabled.
+ * Provide active: true to nav object if it should be active by default.
  *
  * @param props.items - array - Example: [
  *      {
- *          disabled: true,
- *          label: 'My dropdown',
- *          items: [{label: 'Dropdownitem 1', onClick: func}, {label: 'Dropdownitem 2', onClick: func}],
- *          type: 'dropdown',
+ *          id: 1,
+ *          children: [
+ *              {label: 'My button 1', onClick: func, type: 'button'},
+ *              {label: 'My dropdown', items: [{label: 'Dropdownitem 1', onClick: func}, {label: 'Dropdownitem 2', onClick: func}], type: 'dropdown',},
+ *          ],
+ *          label: 'Sub navigation option',
+ *          onClick: func,
+ *          type: 'nav',
  *      },
  *      {
- *          icon: 'navigate',
- *          label: 'Listprenumerationer',
+ *          id: 2,
+ *          children: [
+ *              {label: 'My button 1', onClick: func, type: 'button'},
+ *              {label: 'My dropdown', items: [{label: 'Dropdownitem 1', onClick: func}, {label: 'Dropdownitem 2', onClick: func}], type: 'dropdown',},
+ *          ],
+ *          label: 'Sub navigation option 2',
  *          onClick: func,
- *          type: 'button',
- *      }
+ *          type: 'nav',
+ *      },
  * ]
  */
 export default (props) => {
-    const _renderItems = () => {
-        if (props.items && props.items.length) {
-            return props.items.map((num, i) => {
-                if (num.type === 'button') {
-                    return (
-                        <div className={num.disabled ? 'menuWrapper__menu__item__disabled' : 'menuWrapper__menu__item'} onClick={num.disabled ? null : num.onClick} key={i}>
-                            <span className='listBullet'>&#8226;</span>
-                            {num.label}
-                            {num.icon ? <Icon val={num.icon}/> : null}
-                        </div>
-                    );
-                } else if (num.type === 'dropdown') {
-                    return (
-                        <div className={num.disabled ? 'menuWrapper__menu__item__disabled' : 'menuWrapper__menu__item'} key={i}>
-                            {num.disabled ?
-                                <>
-                                    <span className='listBullet'>&#8226;</span>
-                                    {num.label}
-                                </>
-                            :
-                                <>
-                                    <span className='listBullet'>&#8226;</span>
-                                    <Dropdown displayValue={num.label} positionRight={true}>
-                                        {num.items.map((item, i) => {
-                                            return(
-                                                <DropdownItem
-                                                    key={i}
-                                                    label={item.label}
-                                                    onClick={item.onClick}
-                                                />
-                                            );
-                                        })}
-                                    </Dropdown>
-                                    {num.icon ? <Icon val={num.icon}/> : null}
-                                </>
-                            }
-                        </div>
-                    );
+    const [activeId, setActiveId] = useState((props.items && props.items.length && props.items.find((num) => num.active)) ? props.items.find((num) => num.active).id : null);
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        if (props.items.length) {
+            setItems(props.items.sort((a, b) => {
+                if ( a.label < b.label){
+                    return -1;
+                } else if ( a.name > b.name ){
+                    return 1;
                 } else {
-                    return null;
+                    return 0;
                 }
-            });
+            }));
+        }
+    }, [props.items]);
+
+    const _renderItems = (arr, main) => {
+        return arr.map((num, i) => {
+            if (num.type === 'button') {
+                return (
+                    <div className={num.disabled ? 'menuItem__disabled' : 'menuItem'}
+                         onClick={() => {
+                             if (!num.disabled && typeof num.onClick === 'function') {
+                                 num.onClick();
+                             }
+                             if (main) {
+                                 setActiveId(null);
+                             }
+                         }}
+                         key={i}>
+                        <span className='listBullet'>&#8226;</span>
+                        {num.label}
+                        {num.icon ? <Icon val={num.icon}/> : null}
+                    </div>
+                );
+            } else if (num.type === 'dropdown') {
+                return (
+                    <div className={num.disabled ? 'menuItem__disabled' : 'menuItem'}
+                         onClick={() => {
+                             if (main) {
+                                 setActiveId(null);
+                             }
+                         }}
+                         key={i}
+                    >
+                        {num.disabled ?
+                            <>
+                                <span className='listBullet'>&#8226;</span>
+                                {num.label}
+                            </>
+                            :
+                            <>
+                                <span className='listBullet'>&#8226;</span>
+                                <Dropdown displayValue={num.label} positionRight={true}>
+                                    {num.items.map((item, i) => {
+                                        return(
+                                            <DropdownItem
+                                                key={i}
+                                                label={item.label}
+                                                onClick={item.onClick}
+                                            />
+                                        );
+                                    })}
+                                </Dropdown>
+                                {num.icon ? <Icon val={num.icon}/> : null}
+                            </>
+                        }
+                    </div>
+                );
+            } else if (num.type === 'nav') {
+                let className;
+                if (num.disabled) {
+                    className = 'menuItem__disabled';
+                } else if (!num.disabled && num.id === activeId) {
+                    className = 'menuItem__active';
+                } else {
+                    className = 'menuItem';
+                }
+                return (
+                    <div className={className}
+                         onClick={() => {
+                             if (!num.disabled && typeof num.onClick === 'function') {
+                                 num.onClick();
+                             }
+                             setActiveId(num.id)}
+                         }
+                         key={i}
+                    >
+                        <span className='listBullet'>&#8226;</span>
+                        {num.label}
+                        {num.icon ? <Icon val={num.icon}/> : null}
+                    </div>
+                );
+            } else {
+                return null;
+            }
+        })
+    };
+
+    const _renderMain = () => {
+        if (items.length) {
+            return (
+                <div className='menuWrapper__menu__main'>
+                    {_renderItems(items, true)}
+                </div>
+            );
+        }
+    };
+
+    const _renderSub = () => {
+        const activeItem = items.find((num) => num.id === activeId);
+        if (activeItem && activeItem.children && activeItem.children.length) {
+            return (
+                <div className='menuWrapper__menu__sub'>
+                    {_renderItems(activeItem.children, false)}
+                </div>
+            );
         }
     };
 
     return (
         <div className='menuWrapper'>
             <div className='menuWrapper__menu'>
-                {_renderItems()}
+                {_renderMain()}
+                {_renderSub()}
             </div>
         </div>
     );

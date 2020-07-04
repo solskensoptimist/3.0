@@ -38,7 +38,7 @@ export const archiveLists = async (payload) => {
 };
 
 /**
- * Get lists for user.
+ * Get lists.
  *
  * @param payload.archived - bool - If set to true, get archived lists.
  * @param payload.filter - Not used as of now, will be used in /aktivitet when filter component is built.
@@ -55,7 +55,11 @@ export const getLists = async (payload) => {
         });
 
         if (!data || (data && !data.data) || (data && data.data && !data.data.length)) {
-            return store.dispatch({type: listsActionTypes.SET_LISTS, payload: []});
+            if (payload.archived) {
+                return store.dispatch({type: listsActionTypes.SET_LISTS_ARCHIVED, payload: []});
+            } else {
+                return store.dispatch({type: listsActionTypes.SET_LISTS, payload: []});
+            }
         }
 
         if (data instanceof Error) {
@@ -63,7 +67,11 @@ export const getLists = async (payload) => {
         }
 
         let lists = data.data;
-        store.dispatch({type: listsActionTypes.SET_LISTS, payload: lists});
+        if (payload.archived) {
+            store.dispatch({type: listsActionTypes.SET_LISTS_ARCHIVED, payload: lists});
+        } else {
+            store.dispatch({type: listsActionTypes.SET_LISTS, payload: lists});
+        }
 
         // Retrieve order information for each list, do this in the background since it's heavy lifting.
         const orderInformation = await request({
@@ -81,7 +89,11 @@ export const getLists = async (payload) => {
             return list;
         });
 
-        return store.dispatch({type: listsActionTypes.SET_LISTS, payload: lists});
+        if (payload.archived) {
+            return store.dispatch({type: listsActionTypes.SET_LISTS_ARCHIVED, payload: lists});
+        } else {
+            return store.dispatch({type: listsActionTypes.SET_LISTS, payload: lists});
+        }
     } catch (err) {
         return console.error('Error in getLists:\n' + err);
     }

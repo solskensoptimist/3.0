@@ -15,8 +15,6 @@ import Koncern from 'components/koncern/';
 import Leads from 'components/leads/';
 import List from 'components/list';
 import Lists from 'components/lists';
-import ListsArchived from 'components/lists_archived';
-import ListsSubscriptions from 'components/lists_subscriptions';
 import Orders from 'components/orders';
 import Person from 'components/person/';
 import Prospect from 'components/prospect';
@@ -44,8 +42,6 @@ export default () => {
                         <Route exact path='/leads' component={Leads}/>
                         <Route exact path='/lista/:id' component={List}/>
                         <Route exact path='/listor' component={Lists}/>
-                        <Route exact path='/listor/arkiverade' component={ListsArchived}/>
-                        <Route exact path='/listor/prenumerationer' component={ListsSubscriptions}/>
                         <Route exact path='/person/:id' component={Person}/>
                         <Route exact path='/prospektera' component={Prospect}/>
                         <Route exact path='/prospektera/resultat' component={ProspectResult}/>

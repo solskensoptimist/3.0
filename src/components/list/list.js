@@ -7,14 +7,6 @@ import Menu from 'components/menu';
 const List = (state) => {
     const {id} = useParams();
 
-    const _minKnapp = () => {
-        console.log('Min knapp klickades');
-    };
-
-    const _mittDropdownItem = () => {
-        console.log('Mitt dropdownitem klickades');
-    };
-
     const _stateCheck = () => {
         return true;
     };
@@ -24,12 +16,16 @@ const List = (state) => {
                 <div className='listsWrapper__lists'>
                     <div className='listsWrapper__lists__header'>
                         <Menu items={[
-                            {label: 'Min knapp', onClick:_minKnapp, type: 'button'},
-                            {label: 'Min dropdown', type: 'dropdown', items: [
-                                    {label: 'Dropdownitem 1', onClick: _mittDropdownItem},
-                                    {label: 'Dropdownitem 2', onClick: _mittDropdownItem},
-                                    {label: 'Dropdownitem 3', onClick: _mittDropdownItem},
-                                ]}
+                            {
+                                label: 'Menyval 1',
+                                onClick: () => {},
+                                type: 'button',
+                            },
+                            {
+                                label: 'Menyval 2',
+                                onClick: () => {},
+                                type: 'button',
+                            }
                         ]}
                         />
                     </div>

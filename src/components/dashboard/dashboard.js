@@ -10,14 +10,6 @@ import SupertempWidget from 'components/supertemp_widget';
 const Dashboard = (state) => {
     const [widgets, setWidgets] = useState([]);
 
-    const _minKnapp = () => {
-        console.log('Min knapp klickades');
-    };
-
-    const _mittDropdownItem = () => {
-        console.log('Mitt dropdownitem klickades');
-    };
-
     const _renderWidget = (widget, i) => {
         switch (widget.type.toLowerCase()) {
             case 'notifications':
@@ -85,13 +77,17 @@ const Dashboard = (state) => {
             <div className='dashboardWrapper__dashboard'>
                 <div className='dashboardWrapper__dashboard__header'>
                     <Menu items={[
-                        {label: 'Min knapp', onClick:_minKnapp, type: 'button'},
-                        {label: 'Min dropdown', type: 'dropdown', items: [
-                            {label: 'Dropdownitem nummer 1', onClick: _mittDropdownItem},
-                            {label: 'Dropdownitem nummer 2', onClick: _mittDropdownItem},
-                            {label: 'Dropdownitem nummer 3', onClick: _mittDropdownItem},
+                            {
+                                label: 'Menyval 1',
+                                onClick: () => {},
+                                type: 'button',
+                            },
+                            {
+                                label: 'Menyval 2',
+                                onClick: () => {},
+                                type: 'button',
+                            }
                         ]}
-                    ]}
                     />
                 </div>
                 <div className='dashboardWrapper__dashboard__content'>

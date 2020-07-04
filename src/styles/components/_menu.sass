@@ -1,13 +1,16 @@
 .menuWrapper
   &__menu
-    display: flex
-    align-items: stretch
-    background: $grey-100
-    width: 100%
-    padding: 0 $paddingGrid
-    border-bottom: 2px solid white
-    flex-wrap: wrap
-    &__item
+    &__main
+      display: flex
+      align-items: stretch
+      background: $grey-100
+      width: 100%
+      padding: 0 $paddingGrid
+      border-bottom: 2px solid white
+      flex-wrap: wrap
+    &__sub
+      @extend .menuWrapper__menu__main
+    .menuItem
       display: flex
       align-items: center
       margin-left: $paddingMedium
@@ -31,7 +34,7 @@
       span.listBullet
         margin-right: $paddingSmall
 
-      // Adjust the dropdown when it appears in menu
+      // Adjust the dropdown when it appears in menuItem
       .dropdownWrapper
         min-width: 0
       .dropdownWrapper__dropdown__header
@@ -61,7 +64,7 @@
         svg
           display: none
       &__disabled
-        @extend .menuWrapper__menu__item
+        @extend .menuItem
         color: $colorTextLight-2
         background: transparent
         cursor: default
@@ -72,3 +75,6 @@
             fill: $colorTextLight-2
         svg
           fill: $colorTextLight-2
+      &__active
+        @extend .menuItem
+        background: $grey-200
