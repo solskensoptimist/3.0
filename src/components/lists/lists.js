@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {archiveLists, getLists, mergeLists, removeLists} from 'store/lists/tasks';
+import {archiveLists, getLists, mergeLists, removeLists, splitList} from 'store/lists/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
@@ -52,9 +52,12 @@ const Lists = (state) => {
         console.log('Dela listor');
     };
 
-    const _splitList = (payload) => {
+    const _splitList = async (payload) => {
         setActivePopup('');
-        console.log('Klyv lista');
+        return await splitList({
+            listId: selectedLists[0]._id,
+            splits: payload,
+        });
     };
 
     const _stateCheck = () => {

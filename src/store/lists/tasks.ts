@@ -191,7 +191,7 @@ export const removeLists = async (payload) => {
  */
 export const saveProspectsToList = async (payload) => {
     try {
-        if (!payload || (payload && !payload.name && !payload.lists) || (payload && (!payload.prospectIds || !payload.prospectIds.length))) {
+        if (!payload || (payload && !payload.name && !payload.lists) || (payload && (!payload.prospectIds || (payload.prospectIds && !payload.prospectIds.length)))) {
             console.error('Missing params in saveProspectsToList:\n' + payload);
             return showFlashMessage(tc.couldNotSaveToList);
         }
@@ -225,5 +225,46 @@ export const saveProspectsToList = async (payload) => {
         return showFlashMessage(tc.savedInList)
     } catch (err) {
         return console.error('Error in saveProspectsToList:\n' + err);
+    }
+};
+
+/**
+ * Save list splits to new lists.
+ *
+ * @param payload.listId - string
+ * @param payload.splits - array - [{size: 4, name: "Ny lista släpvagnar 1"}, {size: 4, name: "Ny lista släpvagnar 2"}]
+ */
+export const splitList = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.listId) || (payload && (!payload.splits || (payload.splits && !payload.splits.length)))) {
+            console.error('Missing params in splitList:\n' + payload);
+            return showFlashMessage(tc.thereWasAProblem);
+        }
+
+        const splits = payload.splits.map((split) => {
+            return {
+                name: split.name,
+                size: split.size,
+                type: 'value',
+            }
+        });
+
+        const data = await request({
+            data: {
+                listId: payload.listId,
+                splits: splits,
+            },
+            method: 'post',
+            url: '/lists/split/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in splitList:\n' + data);
+        }
+
+        showFlashMessage(tc.listsHaveBeenCreated);
+        return await getLists({});
+    } catch (err) {
+        return console.error('Error in splitList:\n' + err);
     }
 };

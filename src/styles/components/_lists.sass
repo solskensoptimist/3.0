@@ -28,6 +28,26 @@
   &__splitList
     &__content
       margin: $paddingBig 0
+      .light
+        color: $colorTextLight-2
+      &__info
+        margin-bottom: $paddingBig
+        p
+          display: flex
+          span.label
+            margin-right: 4px
+            font-weight: 600
+      &__hint
+        display: flex
+        justify-content: center
+        margin-bottom: $paddingBig
+        &__box
+          max-width: 80%
+          font-size: $fontSizeStandard-2
+          background: $grey-50
+          padding: $paddingSmall
+          border-radius: 4px
+          border: 1px solid $grey-200
       &__row
         display: flex
         align-items: center
@@ -40,13 +60,13 @@
           &:disabled
             background: $grey-100
             color: $colorTextLight-2
-            border-color: $colorTextLight-2
+            border-color: transparent !important
         svg
-          fill: $colorTextLight-2 !important
+          fill: $grey-300 !important
           width: 14px
           height: 14px
           cursor: default
-        &__amount
+        &__size
           flex-basis: 10%
           margin-right: $paddingMedium
           display: flex
@@ -79,6 +99,11 @@
             &:hover
               fill: $colorLinkHover !important
       &__addRow
+        color: $colorLink
+        margin-top: $paddingBig
+        display: inline-block
         cursor: pointer
+        &:hover
+          color: $colorLinkHover
 
 
