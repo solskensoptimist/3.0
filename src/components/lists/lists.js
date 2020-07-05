@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {archiveLists, getLists, mergeLists, removeLists, splitList} from 'store/lists/tasks';
+import {archiveLists, getLists, mergeLists, removeLists, shareLists, splitList} from 'store/lists/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
@@ -8,6 +8,7 @@ import ListsSubscriptions from './lists_subscriptions';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
 import Popup from 'components/popup';
+import ShareLists from './share_lists';
 import SplitList from './split_list';
 import WidgetHeader from 'components/widget_header';
 import WidgetFooter from 'components/widget_footer';
@@ -19,9 +20,9 @@ const Lists = (state) => {
     const [selectedLists, setSelectedLists] = useState([]);
     const mergeListsNameInputRef = useRef(null);
 
-    const _archiveSelected = async () => {
-        setSelectedLists([]);
-        return await archiveLists({listIds: selectedLists.map((num) => num._id)});
+    const _archiveLists = async () => {
+        await archiveLists({listIds: selectedLists.map((num) => num._id)});
+        return setSelectedLists([]);
     };
     const _excelOutput = () => {
         console.log('Ladda ner excel');
@@ -44,19 +45,25 @@ const Lists = (state) => {
 
     const _removeLists = async () => {
         setActivePopup('');
-        setSelectedLists([]);
-        return await removeLists({listIds: selectedLists.map((num) => num._id)});
+        await removeLists({listIds: selectedLists.map((num) => num._id)});
+        return setSelectedLists([]);
     };
 
-    const _shareSelected = () => {
+    const _shareLists = async (userIds) => {
+        setActivePopup('');
         console.log('Dela listor');
+        await shareLists({
+            listIds: selectedLists.map((num) => num._id),
+            userIds: userIds,
+        });
+        return setSelectedLists([]);
     };
 
-    const _splitList = async (payload) => {
+    const _splitList = async (splits) => {
         setActivePopup('');
         return await splitList({
             listId: selectedLists[0]._id,
-            splits: payload,
+            splits: splits,
         });
     };
 
@@ -90,9 +97,9 @@ const Lists = (state) => {
                                 },
                                 type: 'nav',
                                 children: [
-                                    {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.archiveLists : tc.archiveList, onClick: _archiveSelected, type: 'button'},
-                                    {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.shareLists : tc.shareList, onClick: _shareSelected, type: 'button'},
-                                    {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: () => {setActivePopup('splitLists')}, type: 'button'},
+                                    {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.archiveLists : tc.archiveList, onClick: _archiveLists, type: 'button'},
+                                    {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.shareLists : tc.shareList, onClick: () => {setActivePopup('shareLists')}, type: 'button'},
+                                    {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: () => {setActivePopup('splitList')}, type: 'button'},
                                     {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: _excelOutput, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setActivePopup('removeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setActivePopup('mergeLists')}, type: 'button'},
@@ -208,7 +215,12 @@ const Lists = (state) => {
                             </div>
                         </Popup>
                     }
-                    {(activePopup === 'splitLists') &&
+                    {(activePopup === 'shareLists') &&
+                    <Popup close={() => {setActivePopup('')}} size='medium'>
+                        <ShareLists lists={selectedLists} save={_shareLists}/>
+                    </Popup>
+                    }
+                    {(activePopup === 'splitList') &&
                         <Popup close={() => {setActivePopup('')}} size='medium'>
                             <SplitList list={selectedLists[0]} save={_splitList}/>
                         </Popup>

@@ -23,6 +23,64 @@
       p
         white-space: nowrap
 
+.shareListsWrapper
+  &__shareLists
+    &__content
+      margin-top: $paddingBig
+      &__lists
+        display: flex
+        align-items: flex-start
+        margin-bottom: $paddingSmall
+        &__label
+          white-space: nowrap
+          margin-right: $paddingSmall
+          font-weight: 600
+        &__lists
+          flex-grow: 1
+          display: flex
+          align-items: center
+          flex-wrap: wrap
+      &__selectedUsers
+        display: flex
+        align-items: flex-start
+        margin-bottom: $paddingSmall
+        &__label
+          @extend .shareListsWrapper__shareLists__content__lists__label
+        &__users
+          flex-grow: 1
+          display: flex
+          align-items: center
+          flex-wrap: wrap
+      &__users
+        display: flex
+        flex-wrap: wrap
+        margin-bottom: $paddingBig
+        font-size: $fontSizeStandard1
+        &__dealer
+          font-size: $fontSizeStandard1
+          margin: $paddingMedium 0 $paddingSmall 0
+          flex-basis: 100%
+          font-weight: 600
+        &__user
+          display: flex
+          align-items: center
+          margin: 0 $paddingMedium $paddingSmall 0
+          &:last-of-type
+            margin-right: 0
+          svg
+            cursor: pointer
+            width: 14px
+            height: 14px
+            fill: $colorTextLight !important
+            margin-right: 4px
+            &:hover
+              fill: $colorLinkHover
+          svg.active
+            fill: $colorLink !important
+      .bullet
+        margin: 0 $paddingSmall
+        color: $colorTextLight-2
+
 // SplitList component
 .splitListWrapper
   &__splitList

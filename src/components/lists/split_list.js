@@ -304,16 +304,16 @@ export default (props) => {
                 {props.list.total > 1 ?
                     <div className='splitListWrapper__splitList__footer'>
                         <WidgetFooter save={() => {
-                            if (!info.validated) {
-                                // Should never happen, extra safe catch just in case.
-                                return setInfo({
-                                    ...info,
-                                    hint: tc.splitListInfo,
-                                });
-                            } else if (typeof props.save === 'function') {
-                                return props.save(splits);
-                            }
-                        }}
+                                if (!info.validated) {
+                                    // Should never happen, extra safe catch just in case.
+                                    return setInfo({
+                                        ...info,
+                                        hint: tc.splitListInfo,
+                                    });
+                                } else if (typeof props.save === 'function') {
+                                    return props.save(splits);
+                                }
+                            }}
                         />
                     </div> : null
                 }

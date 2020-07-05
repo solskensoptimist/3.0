@@ -229,6 +229,41 @@ export const saveProspectsToList = async (payload) => {
 };
 
 /**
+ * Share lists.
+ *
+ * @param payload.listIds - array
+ * @param payload.userIds - array
+ */
+export const shareLists = async (payload) => {
+    try {
+        console.log('shareLists', payload);
+        if (!payload || (payload && !payload.listIds) || (payload && payload.listIds && !payload.listIds.length) || (payload && !payload.userIds) || (payload && payload.userIds && !payload.userIds.length)) {
+            return console.error('Missing params in shareLists:\n' + payload);
+        }
+
+        // const data = await request({
+        //     data: {
+        //         listId: payload.listId,
+        //         splits: splits,
+        //     },
+        //     method: 'post',
+        //     url: '/lists/split/',
+        // });
+        //
+        // if (data instanceof Error) {
+        //     return console.error('Error in splitList:\n' + data);
+        // }
+        //
+        // showFlashMessage(tc.listsHaveBeenCreated);
+        // return await getLists({});
+        return showFlashMessage(tc.listsHaveBeenShared)
+    } catch (err) {
+        return console.error('Error in shareListst:\n' + err);
+    }
+};
+
+
+/**
  * Save list splits to new lists.
  *
  * @param payload.listId - string
