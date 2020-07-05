@@ -8,6 +8,7 @@ import {
     Assignment,
     Autorenew,
     BarChart,
+    CallSplit,
     Check,
     CheckBoxOutlineBlank,
     Clear,
@@ -216,6 +217,8 @@ export default (props) => {
             return <Work className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'settings':
             return <Settings className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'split':
+            return <CallSplit className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'subscription':
             return <Autorenew className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'supertemp':

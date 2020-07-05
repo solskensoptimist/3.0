@@ -8,15 +8,15 @@ import ListsSubscriptions from './lists_subscriptions';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
 import Popup from 'components/popup';
+import SplitList from './split_list';
 import WidgetHeader from 'components/widget_header';
 import WidgetFooter from 'components/widget_footer';
 
 const Lists = (state) => {
     const [listName, setListName] = useState('');
     const [activeContent, setActiveContent] = useState('listsRegular');
+    const [activePopup, setActivePopup] = useState('');
     const [selectedLists, setSelectedLists] = useState([]);
-    const [showMergeLists, setShowMergeLists] = useState(false);
-    const [showRemoveLists, setShowRemoveLists] = useState(false);
     const mergeListsNameInputRef = useRef(null);
 
     const _archiveSelected = async () => {
@@ -29,7 +29,7 @@ const Lists = (state) => {
 
     const _mergeLists = async () => {
         if (listName.length) {
-            setShowMergeLists(false);
+            setActivePopup('');
             await mergeLists({listIds: selectedLists.map((num) => num._id), name: listName});
             setSelectedLists([]);
             return setListName('');
@@ -43,7 +43,7 @@ const Lists = (state) => {
     };
 
     const _removeLists = async () => {
-        setShowRemoveLists(false);
+        setActivePopup('');
         setSelectedLists([]);
         return await removeLists({listIds: selectedLists.map((num) => num._id)});
     };
@@ -52,7 +52,8 @@ const Lists = (state) => {
         console.log('Dela listor');
     };
 
-    const _splitSelected = () => {
+    const _splitList = (payload) => {
+        setActivePopup('');
         console.log('Klyv lista');
     };
 
@@ -66,10 +67,10 @@ const Lists = (state) => {
     }, []);
 
     useEffect(() => {
-        if (showMergeLists) {
+        if (activePopup === 'mergeLists') {
             mergeListsNameInputRef && mergeListsNameInputRef.current && mergeListsNameInputRef.current.focus();
         }
-    }, [showMergeLists]);
+    }, [activePopup]);
 
     return ( _stateCheck() ?
         <div className='listsWrapper'>
@@ -88,10 +89,10 @@ const Lists = (state) => {
                                 children: [
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.archiveLists : tc.archiveList, onClick: _archiveSelected, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.shareLists : tc.shareList, onClick: _shareSelected, type: 'button'},
-                                    {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: _splitSelected, type: 'button'},
+                                    {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: () => {setActivePopup('splitLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: _excelOutput, type: 'button'},
-                                    {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setShowRemoveLists(true)}, type: 'button'},
-                                    {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setShowMergeLists(true)}, type: 'button'},
+                                    {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setActivePopup('removeLists')}, type: 'button'},
+                                    {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setActivePopup('mergeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: _recreateCriterias, type: 'button'},
                                 ],
                             },
@@ -121,7 +122,7 @@ const Lists = (state) => {
                     />
                 </div>
                 <div className='listsWrapper__lists__content'>
-                    {activeContent === 'listsRegular' &&
+                    {(activeContent === 'listsRegular') &&
                         <div className='listsWrapper__lists__content__item'>
                             <div className='listsWrapper__lists__content__item__header'>
                                 <WidgetHeader
@@ -139,7 +140,7 @@ const Lists = (state) => {
                             </div>
                         </div>
                     }
-                    {activeContent === 'listsArchived' &&
+                    {(activeContent === 'listsArchived') &&
                         <div className='listsWrapper__lists__content__item'>
                             <div className='listsWrapper__lists__content__item__header'>
                                 <WidgetHeader
@@ -157,52 +158,57 @@ const Lists = (state) => {
                             </div>
                         </div>
                     }
-                    {activeContent === 'listsSubscriptions' &&
+                    {(activeContent === 'listsSubscriptions') &&
                         <div className='listsWrapper__lists__content__item'>
                             <div className='listsWrapper__lists__content__item__header__content'>
                                 <ListsSubscriptions/>
                             </div>
                         </div>
                     }
-                    {showMergeLists &&
-                    <Popup close={() => {setShowMergeLists(false)}} size='small'>
-                        <div className='listsPopupWrapper'>
-                            <div className='listsPopupWrapper__listsPopup'>
-                                <div className='listsPopupWrapper__listsPopup__header'>
-                                    <WidgetHeader
-                                        iconVal='merge'
-                                        headline={tc.mergeLists}
-                                    />
-                                </div>
-                                <div className='listsPopupWrapper__listsPopup__content'>
-                                    <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={mergeListsNameInputRef}/>
-                                </div>
-                                <div className='listsPopupWrapper__listsPopup__footer'>
-                                    <WidgetFooter save={_mergeLists}/>
+                    {(activePopup === 'mergeLists') &&
+                        <Popup close={() => {setActivePopup('')}} size='small'>
+                            <div className='listsPopupWrapper'>
+                                <div className='listsPopupWrapper__listsPopup'>
+                                    <div className='listsPopupWrapper__listsPopup__header'>
+                                        <WidgetHeader
+                                            iconVal='merge'
+                                            headline={tc.mergeLists}
+                                        />
+                                    </div>
+                                    <div className='listsPopupWrapper__listsPopup__content'>
+                                        <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={mergeListsNameInputRef}/>
+                                    </div>
+                                    <div className='listsPopupWrapper__listsPopup__footer'>
+                                        <WidgetFooter save={_mergeLists}/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </Popup>
+                        </Popup>
                     }
-                    {showRemoveLists &&
-                    <Popup close={() => {setShowRemoveLists(false)}} size='small'>
-                        <div className='listsPopupWrapper'>
-                            <div className='listsPopupWrapper__listsPopup'>
-                                <div className='listsPopupWrapper__listsPopup__header'>
-                                    <WidgetHeader
-                                        iconVal='merge'
-                                        headline={tc.removeLists}
-                                    />
-                                </div>
-                                <div className='listsPopupWrapper__listsPopup__content'>
-                                    <p>{tc.removeEnsure}</p>
-                                </div>
-                                <div className='listsPopupWrapper__listsPopup__footer'>
-                                    <WidgetFooter remove={_removeLists}/>
+                    {(activePopup === 'removeLists') &&
+                        <Popup close={() => {setActivePopup('')}} size='small'>
+                            <div className='listsPopupWrapper'>
+                                <div className='listsPopupWrapper__listsPopup'>
+                                    <div className='listsPopupWrapper__listsPopup__header'>
+                                        <WidgetHeader
+                                            iconVal='merge'
+                                            headline={tc.removeLists}
+                                        />
+                                    </div>
+                                    <div className='listsPopupWrapper__listsPopup__content'>
+                                        <p>{tc.removeEnsure}</p>
+                                    </div>
+                                    <div className='listsPopupWrapper__listsPopup__footer'>
+                                        <WidgetFooter remove={_removeLists}/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </Popup>
+                        </Popup>
+                    }
+                    {(activePopup === 'splitLists') &&
+                        <Popup close={() => {setActivePopup('')}} size='medium'>
+                            <SplitList list={selectedLists[0]} save={_splitList}/>
+                        </Popup>
                     }
                 </div>
             </div>

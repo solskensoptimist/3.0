@@ -84,9 +84,14 @@ export const getLists = async (payload) => {
 
         lists.map((list) => {
             const orderDataObj = orderInformation.filter((num) => num._id === list._id);
-            list.availableOrderData = orderDataObj[0].availableOrderData;
-            list.orderHistory = orderDataObj[0].orderHistory;
-            return list;
+            return {
+                ...list,
+                availableOrderData: orderDataObj[0].availableOrderData,
+                orderHistory: orderDataObj[0].orderHistory,
+            }
+            // list.availableOrderData = orderDataObj[0].availableOrderData;
+            // list.orderHistory = orderDataObj[0].orderHistory;
+            // return list;
         });
 
         if (payload.archived) {

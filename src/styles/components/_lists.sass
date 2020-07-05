@@ -23,4 +23,62 @@
       p
         white-space: nowrap
 
+// SplitList component
+.splitListWrapper
+  &__splitList
+    &__content
+      margin: $paddingBig 0
+      &__row
+        display: flex
+        align-items: center
+        width: 100%
+        margin-top: $paddingMedium
+        &:first-of-type
+          margin-top: 0
+        input
+          @extend .activeInputField
+          &:disabled
+            background: $grey-100
+            color: $colorTextLight-2
+            border-color: $colorTextLight-2
+        svg
+          fill: $colorTextLight-2 !important
+          width: 14px
+          height: 14px
+          cursor: default
+        &__amount
+          flex-basis: 10%
+          margin-right: $paddingMedium
+          display: flex
+          justify-content: center
+          min-width: 0
+          input
+            text-align: center
+        &__touched
+          flex-basis: 10%
+          margin-right: $paddingMedium
+          display: flex
+          justify-content: center
+          min-width: 0
+          svg.active
+            fill: $colorInformatory !important
+            &:hover
+              fill: $colorInformatory !important
+        &__name
+          flex-grow: 1
+          margin-right: $paddingMedium
+          min-width: 0
+        &__remove
+          flex-basis: 10%
+          display: flex
+          justify-content: center
+          min-width: 0
+          svg.active
+            cursor: pointer
+            fill: $colorLink !important
+            &:hover
+              fill: $colorLinkHover !important
+      &__addRow
+        cursor: pointer
+
 
