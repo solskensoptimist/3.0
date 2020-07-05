@@ -364,6 +364,7 @@ export default {
     toggleMoved: 'Visa/dölj förflyttningar',
     toggleOff: 'Av',
     toggleOn: 'På',
+    tooFewProspectsInList: 'För litet antal prospekt i lista',
     total: 'Totalt',
     trash: 'Borttagen',
     type: 'Typ',

@@ -9,11 +9,11 @@ import WidgetFooter from 'components/widget_footer';
  * If a user manually adjusts the value for rows, we automatically calculate average value for the other rows.
  *
  * @param props.list - object - The list
- * @param props.save - func
+ * @param props.save - func - Here we return the list splits.
  */
 export default (props) => {
     const [info, setInfo] = useState({
-        hint: '',
+        hint: (props.list.total > 1) ? '' : tc.tooFewProspectsInList,
         validated: true,
     });
     const [splits, setSplits] = useState([]);
@@ -251,14 +251,14 @@ export default (props) => {
     };
 
     useEffect(() => {
-        if (props.list) {
+        if (props.list && props.list.total > 1) {
             setSplits([
                 {
-                    size: Math.round(+props.list.total / 2),
+                    size: Math.floor(props.list.total / 2),
                     name: props.list.name + ' 1',
                 },
                 {
-                    size: Math.round(+props.list.total / 2),
+                    size: props.list.total - (Math.floor(+props.list.total / 2)),
                     name: props.list.name + ' 2',
                 },
             ]);
@@ -275,40 +275,48 @@ export default (props) => {
                     />
                 </div>
                 <div className='splitListWrapper__splitList__content'>
-                    <div className='splitListWrapper__splitList__content__info'>
-                        <p><span className='label'>{tc.list}:</span><span>{props.list.name}</span></p>
-                        <p><span className='label'>{tc.amountProspects}:</span><span>{props.list.total} {tc.aPiece.toLowerCase()}</span></p>
-                    </div>
-                        {info.hint.length ?
-                            <div className='splitListWrapper__splitList__content__hint'>
-                                <div className='splitListWrapper__splitList__content__hint__box'>
-                                    {info.hint}
-                                </div>
-                            </div> : null
-                        }
-                    <div className='splitListWrapper__splitList__content__row'>
-                        <div className='splitListWrapper__splitList__content__row__size light'>{tc.amount}</div>
-                        <div className='splitListWrapper__splitList__content__row__touched light'>{tc.adjusted}</div>
-                        <div className='splitListWrapper__splitList__content__row__name light'>{tc.listName}</div>
-                        <div className='splitListWrapper__splitList__content__row__remove light'>{tc.remove}</div>
-                    </div>
-                    {_renderSplitRows()}
-                    <div className='splitListWrapper__splitList__content__addRow' onClick={_addSplit}>{tc.addRow}</div>
+                    {props.list.total > 1 ?
+                        <div className='splitListWrapper__splitList__content__info'>
+                            <p><span className='label'>{tc.list}:</span><span>{props.list.name}</span></p>
+                            <p><span className='label'>{tc.amountProspects}:</span><span>{props.list.total} {tc.aPiece.toLowerCase()}</span></p>
+                        </div> : null
+                    }
+                    {info.hint.length ?
+                        <div className='splitListWrapper__splitList__content__hint'>
+                            <div className='splitListWrapper__splitList__content__hint__box'>
+                                {info.hint}
+                            </div>
+                        </div> : null
+                    }
+                    {props.list.total > 1 ?
+                        <>
+                            <div className='splitListWrapper__splitList__content__row'>
+                                <div className='splitListWrapper__splitList__content__row__size light'>{tc.amount}</div>
+                                <div className='splitListWrapper__splitList__content__row__touched light'>{tc.adjusted}</div>
+                                <div className='splitListWrapper__splitList__content__row__name light'>{tc.listName}</div>
+                                <div className='splitListWrapper__splitList__content__row__remove light'>{tc.remove}</div>
+                            </div>
+                            {_renderSplitRows()}
+                            <div className='splitListWrapper__splitList__content__addRow' onClick={_addSplit}>{tc.addRow}</div>
+                        </> : null
+                    }
                 </div>
-                <div className='splitListWrapper__splitList__footer'>
-                    <WidgetFooter save={() => {
-                        if (!info.validated) {
-                            // Should never happen, extra safe catch just in case.
-                            return setInfo({
-                                ...info,
-                                hint: tc.splitListInfo,
-                            });
-                        } else if (typeof props.save === 'function') {
-                            return props.save(splits);
-                        }
-                    }}
-                    />
-                </div>
+                {props.list.total > 1 ?
+                    <div className='splitListWrapper__splitList__footer'>
+                        <WidgetFooter save={() => {
+                            if (!info.validated) {
+                                // Should never happen, extra safe catch just in case.
+                                return setInfo({
+                                    ...info,
+                                    hint: tc.splitListInfo,
+                                });
+                            } else if (typeof props.save === 'function') {
+                                return props.save(splits);
+                            }
+                        }}
+                        />
+                    </div> : null
+                }
             </div>
         </div>
     );
