@@ -236,27 +236,25 @@ export const saveProspectsToList = async (payload) => {
  */
 export const shareLists = async (payload) => {
     try {
-        console.log('shareLists', payload);
         if (!payload || (payload && !payload.listIds) || (payload && payload.listIds && !payload.listIds.length) || (payload && !payload.userIds) || (payload && payload.userIds && !payload.userIds.length)) {
             return console.error('Missing params in shareLists:\n' + payload);
         }
 
-        // const data = await request({
-        //     data: {
-        //         listId: payload.listId,
-        //         splits: splits,
-        //     },
-        //     method: 'post',
-        //     url: '/lists/split/',
-        // });
-        //
-        // if (data instanceof Error) {
-        //     return console.error('Error in splitList:\n' + data);
-        // }
-        //
-        // showFlashMessage(tc.listsHaveBeenCreated);
-        // return await getLists({});
-        return showFlashMessage(tc.listsHaveBeenShared)
+        const data = await request({
+            data: {
+                lists: payload.listIds,
+                users: payload.userIds,
+            },
+            method: 'post',
+            url: '/lists/share/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in shareLists:\n' + data);
+        }
+
+        showFlashMessage(tc.listsHaveBeenShared);
+        return await getLists({});
     } catch (err) {
         return console.error('Error in shareListst:\n' + err);
     }

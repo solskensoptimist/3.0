@@ -16,58 +16,134 @@ import WidgetFooter from 'components/widget_footer';
 const ShareLists = (state) => {
     const [users, setUsers] = useState([]);
 
-    const _renderUsers = () => {
-        let colleagues = [];
+    const _renderColleagues = () => {
         if (state.user.colleagues && state.user.colleagues.length) {
-            colleagues.push(
-                <div className='shareListsWrapper__shareLists__content__users__dealer' key={state.user.info.dealer_id}>
-                    {state.user.info.dealerName}
+            return (
+                <div>
+                    <div className='shareListsWrapper__shareLists__content__colleagues__dealer'>
+                        {state.user.info.dealerName}
+                    </div>
+                    <div className='shareListsWrapper__shareLists__content__colleagues__users'>
+                        <div className='shareListsWrapper__shareLists__content__colleagues__users__left'>
+                            {
+                                state.user.colleagues.map((num, i) => {
+                                    if (num.id !== state.user.info.id && i % 2 === 0) {
+                                        return (
+                                            <div className='shareListsWrapper__shareLists__content__colleagues__users__item'
+                                                 key={num.id}
+                                                 onClick={() => {
+                                                     if (users.find((x) => x.id === num.id)) {
+                                                         setUsers(users.filter((x) => x.id !== num.id));
+                                                     } else {
+                                                         setUsers(users.concat([num]))
+                                                     }
+                                                 }}
+                                            >
+                                                <Icon active={users.find((x) => x.id === num.id)} val={users.find((x) => x.id === num.id) ? 'check' : 'checkbox'}/>
+                                                {num.name}
+                                            </div>
+                                        );
+                                    } else {
+                                        return null;
+                                    }
+                                })
+                            }
+                        </div>
+                        <div className='shareListsWrapper__shareLists__content__colleagues__users__right'>
+                            {
+                                state.user.colleagues.map((num, i) => {
+                                    if (num.id !== state.user.info.id && i % 2 !== 0) {
+                                        return (
+                                            <div className='shareListsWrapper__shareLists__content__colleagues__users__item'
+                                                 key={num.id}
+                                                 onClick={() => {
+                                                     if (users.find((x) => x.id === num.id)) {
+                                                         setUsers(users.filter((x) => x.id !== num.id));
+                                                     } else {
+                                                         setUsers(users.concat([num]))
+                                                     }
+                                                 }}
+                                            >
+                                                <Icon active={users.find((x) => x.id === num.id)} val={users.find((x) => x.id === num.id) ? 'check' : 'checkbox'}/>
+                                                {num.name}
+                                            </div>
+                                        );
+                                    } else {
+                                        return null;
+                                    }
+                                })
+                            }
+                        </div>
+                    </div>
                 </div>
             );
-            state.user.colleagues.forEach((num) => {
-                if (num.id !== state.user.info.id) {
-                    colleagues.push(
-                        <div className='shareListsWrapper__shareLists__content__users__user' key={num.id}>
-                            <Icon active={users.find((x) => x.id === num.id)} val={users.find((x) => x.id === num.id) ? 'check' : 'checkbox'} onClick={() => {
-                                if (users.find((x) => x.id === num.id)) {
-                                    setUsers(users.filter((x) => x.id !== num.id));
-                                } else {
-                                    setUsers(users.concat([num]))
-                                }
-                            }}/>
-                            {num.name}
-                        </div>
-                    );
-                }
-            });
         }
+    };
 
-        let connections = [];
+    const _renderConnections = () => {
         if (state.user.connections && state.user.connections.length) {
-            state.user.connections.forEach((dealer) => {
-                connections.push(
-                    <div className='shareListsWrapper__shareLists__content__users__dealer' key={dealer.id}>
-                        {dealer.name}
+            return state.user.connections.map((dealer) => {
+                return(
+                    <div key={dealer.id}>
+                        <div className='shareListsWrapper__shareLists__content__colleagues__dealer'>
+                            {dealer.name}
+                        </div>
+                        <div className='shareListsWrapper__shareLists__content__colleagues__users'>
+                            <div className='shareListsWrapper__shareLists__content__colleagues__users__left'>
+                                {
+                                    dealer.users.map((num, i) => {
+                                        if (i % 2 === 0) {
+                                            return (
+                                                <div className='shareListsWrapper__shareLists__content__colleagues__users__item'
+                                                     key={num.id}
+                                                     onClick={() => {
+                                                         if (users.find((x) => x.id === num.id)) {
+                                                             setUsers(users.filter((x) => x.id !== num.id));
+                                                         } else {
+                                                             setUsers(users.concat([num]))
+                                                         }
+                                                     }}
+                                                >
+                                                    <Icon active={users.find((x) => x.id === num.id)} val={users.find((x) => x.id === num.id) ? 'check' : 'checkbox'}/>
+                                                    {num.name}
+                                                </div>
+                                            );
+                                        } else {
+                                            return null;
+                                        }
+                                    })
+                                }
+                            </div>
+                            <div className='shareListsWrapper__shareLists__content__colleagues__users__right'>
+                                {
+                                    dealer.users.map((num, i) => {
+                                        if (i % 2 !== 0) {
+                                            return (
+                                                <div className='shareListsWrapper__shareLists__content__colleagues__users__item'
+                                                    key={num.id}
+                                                    onClick={() => {
+                                                        if (users.find((x) => x.id === num.id)) {
+                                                            setUsers(users.filter((x) => x.id !== num.id));
+                                                        } else {
+                                                            setUsers(users.concat([num]))
+                                                        }
+                                                    }}
+                                                >
+                                                    <Icon active={users.find((x) => x.id === num.id)} val={users.find((x) => x.id === num.id) ? 'check' : 'checkbox'}/>
+                                                    {num.name}
+                                                </div>
+                                            );
+                                        } else {
+                                            return null;
+                                        }
+                                    })
+                                }
+                            </div>
+                        </div>
                     </div>
                 );
-                dealer.users.forEach((num) => {
-                    connections.push(
-                        <div className='shareListsWrapper__shareLists__content__users__user' key={num.id}>
-                            <Icon active={users.find((x) => x.id === num.id)} val={users.find((x) => x.id === num.id) ? 'check' : 'checkbox'} onClick={() => {
-                                if (users.find((x) => x.id === num.id)) {
-                                    setUsers(users.filter((x) => x.id !== num.id));
-                                } else {
-                                    setUsers(users.concat([num]))
-                                }
-                            }}/>
-                            {num.name}
-                        </div>
-                    );
-                });
             });
         }
-
-        return colleagues.concat(connections)
     };
 
     const _stateCheck = () => {
@@ -85,7 +161,7 @@ const ShareLists = (state) => {
                 </div>
                 <div className='shareListsWrapper__shareLists__content'>
                     <div className='shareListsWrapper__shareLists__content__lists'>
-                        <div className='shareListsWrapper__shareLists__content__lists__label'>{tc.lists}:</div>
+                        <div className='shareListsWrapper__shareLists__content__lists__label'>{(state.props.lists.length > 1) ? tc.lists : tc.list}:</div>
                         <div className='shareListsWrapper__shareLists__content__lists__lists'>
                             {state.props.lists.map((list, i) => {
                                 if (i === state.props.lists.length - 1) {
@@ -110,8 +186,9 @@ const ShareLists = (state) => {
                             </div>
                         </div> : null
                     }
-                    <div className='shareListsWrapper__shareLists__content__users'>
-                        {_renderUsers()}
+                    <div className='shareListsWrapper__shareLists__content__colleagues'>
+                        {_renderColleagues()}
+                        {_renderConnections()}
                     </div>
                 </div>
                 <div className='shareListsWrapper__shareLists__footer'>

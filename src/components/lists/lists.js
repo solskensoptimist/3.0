@@ -51,7 +51,6 @@ const Lists = (state) => {
 
     const _shareLists = async (userIds) => {
         setActivePopup('');
-        console.log('Dela listor');
         await shareLists({
             listIds: selectedLists.map((num) => num._id),
             userIds: userIds,
