@@ -74,6 +74,8 @@ export const getLists = async (payload) => {
         }
 
         // Retrieve order information for each list, do this in the background since it's heavy lifting.
+        // (Note that lists have 'orderCompany' property, 'orderMailings' property etc... but we do not rely on these.
+        // These properties have historically been set every time a user places an order, no matter if the order is canceled and/or delivered.)
         const orderInformation = await request({
             data: {
                 listIds: lists.map((num) => num._id),

@@ -173,6 +173,7 @@ export const tableHelper = {
             {id: 'created', numeric: false, label: tc.created},
             {id: 'criterias', numeric: false, label: tc.searchCriterias},
             {id: 'complement', numeric: false, label: tc.complement},
+            {id: 'sharedWith', numeric: false, label: tc.sharedWith},
             {id: 'creatorName', numeric: false, label: tc.createdBy},
             {id: 'dealerName', numeric: false, label: tc.company},
         ];
@@ -263,6 +264,24 @@ export const tableHelper = {
                                     : null
                             }
                         </div>
+                } else if (column.id === 'sharedWith') {
+                    if (row.userNames && row.userNames.length) {
+                        let string = '';
+                        row.userNames.forEach((num, i) => {
+                            if (i === row.userNames.length - 1) {
+                                string += num;
+                            } else {
+                                string += `${num}, `;
+                            }
+                        });
+
+                        obj[column.id] =
+                            <Tooltip horizontalDirection='right' tooltipContent={string} verticalDirection={verticalDirection}>
+                                <Icon active={true} val='team'/>
+                            </Tooltip>;
+                    } else {
+                        obj[column.id] = null;
+                    }
                 } else {
                     obj[column.id] = row[column.id];
                 }

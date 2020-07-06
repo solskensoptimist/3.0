@@ -337,6 +337,7 @@ export default {
     settingsPasswordHintEmpty: 'Lösenord kan ej vara tomma',
     settingsPasswordHintNotMatching: 'Lösenorden överensstämmer ej',
     settingsPasswordHintSaved: 'Nytt lösenord sparat',
+    sharedWith: 'Delad med',
     shareList: 'Dela lista',
     shareLists: 'Dela listor',
     shareWith: 'Dela med',
