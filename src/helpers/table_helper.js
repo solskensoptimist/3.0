@@ -189,64 +189,78 @@ export const tableHelper = {
                     obj[column.id] =
                         <div className='tableCellIconHolder'>
                             {
-                                (row.orderHistory && row.orderHistory.name && row.orderHistory.name.isPending) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForNameOrder} verticalDirection={verticalDirection}><Icon val='person'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.name && row.orderHistory.name.isPending) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForNameOrder} verticalDirection={verticalDirection}><Icon val='person'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.name && row.orderHistory.name.isAvailable && !row.orderHistory.name.isPending) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.orderedName} verticalDirection={verticalDirection}><Icon active={true} val='person'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.name && row.orderHistory.name.isAvailable && !row.orderHistory.name.isPending) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.orderedName} verticalDirection={verticalDirection}><Icon active={true} val='person'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.name && !row.orderHistory.name.isAvailable && !row.orderHistory.name.isPending && row.orderHistory.name.isDelivered) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldNameOrder} verticalDirection={verticalDirection}><Icon val='person'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.name && !row.orderHistory.name.isAvailable && !row.orderHistory.name.isPending && row.orderHistory.name.isDelivered) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldNameOrder} verticalDirection={verticalDirection}><Icon val='person'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.phone && row.orderHistory.phone.isPending) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForPhoneOrder} verticalDirection={verticalDirection}><Icon val='phone'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.phone && row.orderHistory.phone.isPending) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForPhoneOrder} verticalDirection={verticalDirection}><Icon val='phone'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.phone && row.orderHistory.phone.isAvailable && !row.orderHistory.phone.isPending) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.orderedPhone} verticalDirection={verticalDirection}><Icon active={true} val='phone'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.phone && row.orderHistory.phone.isAvailable && !row.orderHistory.phone.isPending) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.orderedPhone} verticalDirection={verticalDirection}><Icon active={true} val='phone'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.phone && !row.orderHistory.phone.isAvailable && !row.orderHistory.phone.isPending && row.orderHistory.phone.isDelivered) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldPhoneOrder} verticalDirection={verticalDirection}><Icon val='phone'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.phone && !row.orderHistory.phone.isAvailable && !row.orderHistory.phone.isPending && row.orderHistory.phone.isDelivered) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldPhoneOrder} verticalDirection={verticalDirection}><Icon val='phone'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.mailings && row.orderHistory.mailings.isPending) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForMailingsOrder} verticalDirection={verticalDirection}><Icon val='mail'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.mailings && row.orderHistory.mailings.isPending) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForMailingsOrder} verticalDirection={verticalDirection}><Icon val='mail'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.mailings && !row.orderHistory.mailings.isPending && row.orderHistory.mailings.isDelivered) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.orderedMailings} verticalDirection={verticalDirection}><Icon active={true} val='mail'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.mailings && !row.orderHistory.mailings.isPending && row.orderHistory.mailings.isDelivered) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.orderedMailings} verticalDirection={verticalDirection}><Icon active={true} val='mail'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.company && row.orderHistory.company.isPending) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForCompanyOrder} verticalDirection={verticalDirection}><Icon val='company'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.company && row.orderHistory.company.isPending) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.waitingForCompanyOrder} verticalDirection={verticalDirection}><Icon val='company'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.company && row.orderHistory.company.isAvailable && !row.orderHistory.company.isPending) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.orderedCompany} verticalDirection={verticalDirection}><Icon active={true} val='company'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.company && row.orderHistory.company.isAvailable && !row.orderHistory.company.isPending) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.orderedCompany} verticalDirection={verticalDirection}><Icon active={true} val='company'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.orderHistory && row.orderHistory.company && !row.orderHistory.company.isAvailable && !row.orderHistory.company.isPending && row.orderHistory.company.isDelivered) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldCompanyOrder} verticalDirection={verticalDirection}><Icon val='company'/></Tooltip>
+                                (row.orderHistory && row.orderHistory.company && !row.orderHistory.company.isAvailable && !row.orderHistory.company.isPending && row.orderHistory.company.isDelivered) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.haveOldCompanyOrder} verticalDirection={verticalDirection}><Icon val='company'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.meta && row.meta.subscription_ids && row.meta.subscription_ids.length) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.subscription} verticalDirection={verticalDirection}><Icon active={true} val='subscription'/></Tooltip>
+                                (row.meta && row.meta.subscription_ids && row.meta.subscription_ids.length) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.subscription} verticalDirection={verticalDirection}><Icon active={true} val='subscription'/></Tooltip>
+                                    : null
                             }
                             {
-                                (row.meta && (!row.meta.subscription_ids || (row.meta.subscription_ids && !row.meta.subscription_ids.length)) && row.meta.criterias && Object.keys(row.meta.criterias).length) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.subscriptionPossible} verticalDirection={verticalDirection}><Icon val='subscription'/></Tooltip>
+                                (row.meta && (!row.meta.subscription_ids || (row.meta.subscription_ids && !row.meta.subscription_ids.length)) && row.meta.criterias && Object.keys(row.meta.criterias).length) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.subscriptionPossible} verticalDirection={verticalDirection}><Icon val='subscription'/></Tooltip>
+                                    : null
                             }
                         </div>
                 } else if (column.id === 'criterias') {
                     obj[column.id] =
                         <div className='tableCellIconHolder'>
                             {
-                                ((row.meta && row.meta.criterias && Object.keys(row.meta.criterias).length) || (row.meta && row.meta.buttonFields && row.meta.buttonFields.length)) &&
-                                <Tooltip horizontalDirection='right' tooltipContent={tc.listHaveSearchCriterias} verticalDirection={verticalDirection}><Icon active={true} val='check'/></Tooltip>
+                                ((row.meta && row.meta.criterias && Object.keys(row.meta.criterias).length) || (row.meta && row.meta.buttonFields && row.meta.buttonFields.length)) ?
+                                    <Tooltip horizontalDirection='right' tooltipContent={tc.listHaveSearchCriterias} verticalDirection={verticalDirection}><Icon active={true} val='check'/></Tooltip>
+                                    : null
                             }
                         </div>
                 } else {
