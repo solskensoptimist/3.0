@@ -210,6 +210,7 @@ export default {
     lists: 'Listor',
     listsHaveBeenArchived: 'Listor har arkiverats',
     listsHaveBeenCreated: 'Listor har skapats',
+    listsHaveBeenMoved: 'Listor har flyttats',
     listsHaveBeenRemoved: 'Listor har tagits bort',
     listsHaveBeenShared: 'Listor har delats',
     load: 'Ladda fler',

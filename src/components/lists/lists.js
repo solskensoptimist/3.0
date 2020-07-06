@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {archiveLists, getLists, mergeLists, removeLists, shareLists, splitList} from 'store/lists/tasks';
+import {archiveLists, getLists, mergeLists, removeLists, shareLists, splitList, undoArchive} from 'store/lists/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
@@ -45,7 +45,10 @@ const Lists = (state) => {
 
     const _removeLists = async () => {
         setActivePopup('');
-        await removeLists({listIds: selectedLists.map((num) => num._id)});
+        await removeLists({
+            archived: (activeContent === 'listsArchived'),
+            listIds: selectedLists.map((num) => num._id),
+        });
         return setSelectedLists([]);
     };
 
@@ -60,19 +63,29 @@ const Lists = (state) => {
 
     const _splitList = async (splits) => {
         setActivePopup('');
-        return await splitList({
+        await splitList({
             listId: selectedLists[0]._id,
             splits: splits,
         });
+        return setSelectedLists([]);
     };
 
     const _stateCheck = () => {
         return !!(state && state.lists && state.lists.lists !== null);
     };
 
+    const _undoArchive = async () => {
+        setActivePopup('');
+        await undoArchive({
+            listIds: selectedLists.map((num) => num._id),
+        });
+        return setSelectedLists([]);
+    };
+
     useEffect(() => {
         getLists({});
         getLists({archived: true});
+        // <----------- HÄMTA LISTPRENUMERATIONS........
     }, []);
 
     useEffect(() => {
@@ -90,9 +103,10 @@ const Lists = (state) => {
                                 id: 1,
                                 active: true,
                                 label: tc.lists,
-                                onClick: () => {
+                                onClick: async () => {
                                     setSelectedLists([]);
                                     setActiveContent('listsRegular');
+                                    await getLists({});
                                 },
                                 type: 'nav',
                                 children: [
@@ -108,14 +122,15 @@ const Lists = (state) => {
                             {
                                 id: 2,
                                 label: tc.archivedLists,
-                                onClick: () => {
+                                onClick: async () => {
                                     setSelectedLists([]);
                                     setActiveContent('listsArchived');
+                                    await getLists({archived: true});
                                 },
                                 type: 'nav',
                                 children: [
-                                    {disabled: !(selectedLists.length), label: tc.undoArchive, onClick: () => {console.log('KLICK ÅNGRA ARKIVERING')}, type: 'button'},
-                                    {disabled: !(selectedLists.length), label: tc.removeList, onClick: () => {console.log('KLICK TA BORT')}, type: 'button'},
+                                    {disabled: !(selectedLists.length), label: tc.undoArchive, onClick: _undoArchive, type: 'button'},
+                                    {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setActivePopup('removeLists')}, type: 'button'},
                                 ],
                             },
                             {
@@ -124,6 +139,7 @@ const Lists = (state) => {
                                 onClick: () => {
                                     setSelectedLists([]);
                                     setActiveContent('listsSubscriptions');
+                                    // <----------- HÄMTA LISTPRENUMERATIONS........
                                 },
                                 type: 'nav',
                             }
@@ -201,7 +217,7 @@ const Lists = (state) => {
                                     <div className='listsPopupWrapper__listsPopup__header'>
                                         <WidgetHeader
                                             iconVal='merge'
-                                            headline={tc.removeLists}
+                                            headline={(selectedLists.length > 1) ? tc.removeLists : tc.removeList}
                                         />
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__content'>
@@ -215,9 +231,9 @@ const Lists = (state) => {
                         </Popup>
                     }
                     {(activePopup === 'shareLists') &&
-                    <Popup close={() => {setActivePopup('')}} size='medium'>
-                        <ShareLists lists={selectedLists} save={_shareLists}/>
-                    </Popup>
+                        <Popup close={() => {setActivePopup('')}} size='medium'>
+                            <ShareLists lists={selectedLists} save={_shareLists}/>
+                        </Popup>
                     }
                     {(activePopup === 'splitList') &&
                         <Popup close={() => {setActivePopup('')}} size='medium'>

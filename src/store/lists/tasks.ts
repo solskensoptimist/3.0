@@ -84,14 +84,9 @@ export const getLists = async (payload) => {
 
         lists.map((list) => {
             const orderDataObj = orderInformation.filter((num) => num._id === list._id);
-            return {
-                ...list,
-                availableOrderData: orderDataObj[0].availableOrderData,
-                orderHistory: orderDataObj[0].orderHistory,
-            }
-            // list.availableOrderData = orderDataObj[0].availableOrderData;
-            // list.orderHistory = orderDataObj[0].orderHistory;
-            // return list;
+            list.availableOrderData = orderDataObj[0].availableOrderData;
+            list.orderHistory = orderDataObj[0].orderHistory;
+            return list;
         });
 
         if (payload.archived) {
@@ -299,5 +294,35 @@ export const splitList = async (payload) => {
         return await getLists({});
     } catch (err) {
         return console.error('Error in splitList:\n' + err);
+    }
+};
+
+/**
+ * Move lists from archived to regular lists.
+ *
+ * @param payload.listIds - array
+ */
+export const undoArchive = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.listIds) || (payload && payload.listIds && !payload.listIds.length)) {
+            return console.error('Missing params in undoArchives:\n' + payload);
+        }
+
+        const data = await request({
+            data: {
+                listIds: payload.listIds,
+            },
+            method: 'post',
+            url: '/lists/undoArchive/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in undoArchive:\n' + data);
+        }
+
+        showFlashMessage(tc.listsHaveBeenMoved);
+        return await getLists({archived: true});
+    } catch (err) {
+        return console.error('Error in undoArchive:\n' + err);
     }
 };
