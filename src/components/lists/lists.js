@@ -1,10 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {archiveLists, getLists, mergeLists, removeLists, shareLists, splitList, undoArchive} from 'store/lists/tasks';
+import {archiveLists, getLists, getListsSubscriptions, mergeLists, removeLists, removeListsSubscriptions, shareLists, splitList, undoArchive} from 'store/lists/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
 import {Table} from 'components/table';
-import ListsSubscriptions from './lists_subscriptions';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
 import Popup from 'components/popup';
@@ -18,6 +17,7 @@ const Lists = (state) => {
     const [activeContent, setActiveContent] = useState('listsRegular');
     const [activePopup, setActivePopup] = useState('');
     const [selectedLists, setSelectedLists] = useState([]);
+    const [selectedSubscriptions, setSelectedSubscriptions] = useState([]);
     const mergeListsNameInputRef = useRef(null);
 
     const _archiveLists = async () => {
@@ -39,8 +39,12 @@ const Lists = (state) => {
         }
     };
 
-    const _recreateCriterias = () => {
-        console.log('Återskapa kriterier');
+    const _recreateCriterias = (payload) => {
+        if (payload.list) {
+            console.log('Recreate criteria for list: ' + selectedLists[0].name);
+        } else if (payload.subscription) {
+            console.log('Recreate criteria for subscription: ' + selectedSubscriptions[0].prefix_name);
+        }
     };
 
     const _removeLists = async () => {
@@ -50,6 +54,12 @@ const Lists = (state) => {
             listIds: selectedLists.map((num) => num._id),
         });
         return setSelectedLists([]);
+    };
+
+    const _removeListsSubscriptions = async () => {
+        setActivePopup('');
+        await removeListsSubscriptions({ids: selectedSubscriptions.map((num) => num._id)});
+        return setSelectedSubscriptions([]);
     };
 
     const _shareLists = async (userIds) => {
@@ -85,7 +95,7 @@ const Lists = (state) => {
     useEffect(() => {
         getLists({});
         getLists({archived: true});
-        // <----------- HÄMTA LISTPRENUMERATIONS........
+        getListsSubscriptions();
     }, []);
 
     useEffect(() => {
@@ -116,7 +126,7 @@ const Lists = (state) => {
                                     {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: _excelOutput, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setActivePopup('removeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setActivePopup('mergeLists')}, type: 'button'},
-                                    {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: _recreateCriterias, type: 'button'},
+                                    {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: () => {_recreateCriterias({list: true})}, type: 'button'},
                                 ],
                             },
                             {
@@ -135,13 +145,17 @@ const Lists = (state) => {
                             },
                             {
                                 id: 3,
-                                label: tc.listSubscriptions,
-                                onClick: () => {
+                                label: tc.listsSubscriptions,
+                                onClick: async () => {
                                     setSelectedLists([]);
                                     setActiveContent('listsSubscriptions');
-                                    // <----------- HÄMTA LISTPRENUMERATIONS........
+                                    await getListsSubscriptions();
                                 },
                                 type: 'nav',
+                                children: [
+                                    {disabled: !(selectedSubscriptions.length), label: (selectedSubscriptions.length > 1) ? tc.removeSubscriptions : tc.removeSubscription, onClick: () => {setActivePopup('removeListsSubscriptions')}, type: 'button'},
+                                    {disabled: !(selectedSubscriptions.length && selectedSubscriptions.length === 1), label: tc.recreateCriterias, onClick: () => {_recreateCriterias({subscription: true})}, type: 'button'},
+                                ],
                             }
                         ]}
                     />
@@ -184,11 +198,22 @@ const Lists = (state) => {
                         </div>
                     }
                     {(activeContent === 'listsSubscriptions') &&
-                        <div className='listsWrapper__lists__content__item'>
-                            <div className='listsWrapper__lists__content__item__header__content'>
-                                <ListsSubscriptions/>
-                            </div>
+                    <div className='listsWrapper__lists__content__item'>
+                        <div className='listsWrapper__lists__content__item__header'>
+                            <WidgetHeader
+                                iconVal='subscription'
+                                headline={tc.listsSubscriptions}
+                            />
                         </div>
+                        <div className='listsWrapper__lists__content__item__header__content'>
+                            <Table
+                                columns={tableHelper.getListsSubscriptionsColumns()}
+                                onSelect={(arr) => {setSelectedSubscriptions(state.lists.listsSubscriptions.filter((num) => arr.includes(num._id)))}}
+                                rows={tableHelper.getListsSubscriptionsRows((state.lists.listsSubscriptions && state.lists.listsSubscriptions.length) ? state.lists.listsSubscriptions : [])}
+                                selected={selectedSubscriptions.map((num) => num._id)}
+                            />
+                        </div>
+                    </div>
                     }
                     {(activePopup === 'mergeLists') &&
                         <Popup close={() => {setActivePopup('')}} size='small'>
@@ -216,7 +241,7 @@ const Lists = (state) => {
                                 <div className='listsPopupWrapper__listsPopup'>
                                     <div className='listsPopupWrapper__listsPopup__header'>
                                         <WidgetHeader
-                                            iconVal='merge'
+                                            iconVal='list'
                                             headline={(selectedLists.length > 1) ? tc.removeLists : tc.removeList}
                                         />
                                     </div>
@@ -225,6 +250,26 @@ const Lists = (state) => {
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__footer'>
                                         <WidgetFooter remove={_removeLists}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </Popup>
+                    }
+                    {(activePopup === 'removeListsSubscriptions') &&
+                        <Popup close={() => {setActivePopup('')}} size='small'>
+                            <div className='listsPopupWrapper'>
+                                <div className='listsPopupWrapper__listsPopup'>
+                                    <div className='listsPopupWrapper__listsPopup__header'>
+                                        <WidgetHeader
+                                            iconVal='subscription'
+                                            headline={(selectedSubscriptions.length > 1) ? tc.removeSubscriptions : tc.removeSubscription}
+                                        />
+                                    </div>
+                                    <div className='listsPopupWrapper__listsPopup__content'>
+                                        <p>{tc.removeEnsure}</p>
+                                    </div>
+                                    <div className='listsPopupWrapper__listsPopup__footer'>
+                                        <WidgetFooter remove={_removeListsSubscriptions}/>
                                     </div>
                                 </div>
                             </div>

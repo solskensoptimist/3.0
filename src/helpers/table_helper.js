@@ -260,6 +260,49 @@ export const tableHelper = {
             return obj;
         });
     },
+    getListsSubscriptionsColumns: () => {
+        return [
+            {id: 'prefix_name', numeric: false, label: tc.name},
+            {id: 'type', numeric: false, label: tc.subscriptionType},
+        ];
+    },
+    getListsSubscriptionsRows: (rows) => {
+        const columns = tableHelper.getListsSubscriptionsColumns();
+        return rows.map((row) => {
+            const obj = {};
+            columns.forEach((column) => {
+                if (column.id === 'type') {
+                    let types = [];
+                    if (row.subscription_flag & 1) {
+                        types.push(tc.excludeProspects);
+                    }
+                    if (row.subscription_flag & 2) {
+                        types.push(tc.nameAndAddress);
+                    }
+                    if (row.subscription_flag & 4) {
+                        types.push(tc.phoneNumbers);
+                    }
+
+                    let string = '';
+                    types.forEach((type, i) => {
+                        if (i === types.length - 1) {
+                            string += type;
+                        } else {
+                            string += `${type}, `;
+                        }
+                    });
+
+                    obj[column.id] = string;
+                } else {
+                    obj[column.id] = row[column.id];
+                }
+
+                obj.id = row._id;
+            });
+
+            return obj;
+        });
+    },
     getSupertempWidgetColumns: () => {
         return [
             {id: 'name', numeric: false, label: tc.vehicleUser},

@@ -99,6 +99,28 @@ export const getLists = async (payload) => {
     }
 };
 
+
+/**
+ * Get lists subscriptions.
+ */
+export const getListsSubscriptions = async () => {
+    try {
+        const data = await request({
+            method: 'get',
+            url: '/lists/subscriptions/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in getListsSubscriptions:\n' + data);
+        }
+
+        return store.dispatch({type: listsActionTypes.SET_LISTS_SUBSCRIPTIONS, payload: data});
+
+    } catch (err) {
+        return console.error('Error in getListsSubscriptions:\n' + err);
+    }
+};
+
 /**
  * Merges lists.
  *
@@ -174,6 +196,36 @@ export const removeLists = async (payload) => {
         }
     } catch (err) {
         return console.error('Error in removeLists:\n' + err);
+    }
+};
+
+/**
+ * Remove lists subscriptions.
+ *
+ * @param payload.ids - array - Lists subscriptions ids.
+ */
+export const removeListsSubscriptions = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.ids) || (payload && payload.ids && !payload.ids.length)) {
+            return console.error('Missing params in removeListsSubscriptions\n' + payload);
+        }
+
+        const data = await requestWithBody({
+            data: {
+                ids: payload.ids,
+            },
+            method: 'delete',
+            url: '/lists/subscriptions/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in removeListsSubscriptions s:\n' + data);
+        }
+
+        showFlashMessage(tc.listsSubscriptionsHaveBeenRemoved);
+        return await getListsSubscriptions();
+    } catch (err) {
+        return console.error('Error in removeListsSubscriptions :\n' + err);
     }
 };
 
