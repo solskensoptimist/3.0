@@ -4,6 +4,7 @@ import {showFlashMessage} from 'store/flash_messages/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
 import {Table} from 'components/table';
+import Icon from 'components/icon';
 import InfoBox from 'components/info_box';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
@@ -19,6 +20,7 @@ const Lists = (state) => {
     const [activePopup, setActivePopup] = useState('');
     const [selectedLists, setSelectedLists] = useState([]);
     const [selectedSubscriptions, setSelectedSubscriptions] = useState([]);
+    const [subscribeFlag, setSubscribeFlag] = useState(0);
     const mergeListsNameInputRef = useRef(null);
 
     const _archiveLists = async () => {
@@ -29,9 +31,10 @@ const Lists = (state) => {
     const _createListSubscription = async () => {
         setActivePopup('');
         await createListSubscription({
-            listIds: selectedLists,
-            subscribeFlag: 1 // <-------------- ÄNDRA DETTA
+            listIds: selectedLists.map((num) => num._id),
+            subscribeFlag: subscribeFlag
         });
+        setSubscribeFlag(0);
         return setSelectedLists([]);
     };
 
@@ -95,6 +98,18 @@ const Lists = (state) => {
         return !!(state && state.lists && state.lists.lists !== null && state.lists.listsArchived !== null && state.lists.listsSubscriptions !== null);
     };
 
+    const _toggleSubscribeFlagValue = (val) => {
+        let flag = subscribeFlag;
+        flag ^= val;
+
+        // Check if 4 (phone) is set without 2 (name & address)
+        if (flag & 4 && ~flag & 2) {
+            flag ^= 4; // Turn 4 off.
+        }
+
+        setSubscribeFlag(flag);
+    };
+
     const _undoArchive = async () => {
         setActivePopup('');
         await undoArchive({
@@ -114,12 +129,6 @@ const Lists = (state) => {
             mergeListsNameInputRef && mergeListsNameInputRef.current && mergeListsNameInputRef.current.focus();
         }
     }, [activePopup]);
-
-    useEffect(() => {
-        console.log('filter length', selectedLists.filter((list) => {
-            return !(list.meta && ((list.meta.criterias && Object.keys(list.meta.criterias).length) || (list.meta.buttonFields && list.meta.buttonFields.length)))
-        }).length);
-    }, [selectedLists]);
 
     return ( _stateCheck() ?
         <div className='listsWrapper'>
@@ -241,7 +250,7 @@ const Lists = (state) => {
                         : null
                     }
                     {(activePopup === 'createListSubscription') ?
-                        <Popup close={() => {setActivePopup('')}} size='small'>
+                        <Popup close={() => {setActivePopup('')}} size='medium'>
                             <div className='listsPopupWrapper'>
                                 <div className='listsPopupWrapper__listsPopup'>
                                     <div className='listsPopupWrapper__listsPopup__header'>
@@ -251,10 +260,46 @@ const Lists = (state) => {
                                         />
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__content'>
-                                        Rutor för att sätta flaggor, exkludera prospekt, och/eller namn/adress, och/eller telefon.(Se hur de gör i 2.0 för att sätta glaggor)
+                                        <div className='listsPopupWrapper__listsPopup__content__subscription'>
+                                            <div className='listsPopupWrapper__listsPopup__content__subscription__info'>
+                                                <p>{tc.listsSubscriptionsInfo1}</p>
+                                                <p>{tc.listsSubscriptionsInfo2}</p>
+                                            </div>
+                                            <div className='listsPopupWrapper__listsPopup__content__subscription__options'>
+                                                <div className={(subscribeFlag & 1) ?
+                                                    'listsPopupWrapper__listsPopup__content__subscription__options__optionActive' :
+                                                    'listsPopupWrapper__listsPopup__content__subscription__options__option'}
+                                                     onClick={() => {_toggleSubscribeFlagValue(1)}}
+                                                >
+                                                        <Icon val='excludeProspects'/>
+                                                        <h5>{tc.excludeProspects}</h5>
+                                                        <p>{tc.excludeProspectsSubscriptionInfo}</p>
+                                                </div>
+                                                <div className={(subscribeFlag & 2) ?
+                                                    'listsPopupWrapper__listsPopup__content__subscription__options__optionActive' :
+                                                    'listsPopupWrapper__listsPopup__content__subscription__options__option'}
+                                                     onClick={() => {_toggleSubscribeFlagValue(2)}}
+                                                >
+                                                    <Icon val='person'/>
+                                                    <h5>{tc.nameAndAddress}</h5>
+                                                    <p>{tc.nameAndAddressSubscriptionInfo}</p>
+                                                </div>
+                                                <div className={(subscribeFlag & 4) ?
+                                                    'listsPopupWrapper__listsPopup__content__subscription__options__optionActive' :
+                                                        (subscribeFlag & 2) ?
+                                                            'listsPopupWrapper__listsPopup__content__subscription__options__option' :
+                                                            'listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled'}
+                                                     onClick={() => {_toggleSubscribeFlagValue(4)}}
+                                                >
+                                                    <Icon val='phone'/>
+                                                    <h5>{tc.phoneNumbers}</h5>
+                                                    <p>{tc.phoneNumbersSubscriptionInfo}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__footer'>
-                                        <WidgetFooter save={_createListSubscription}/>
+                                        <WidgetFooter save={_createListSubscription} saveText={tc.create}/>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +316,7 @@ const Lists = (state) => {
                                         />
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__content'>
-                                        <p>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={mergeListsNameInputRef}/>
+                                        <p className='noWrap'>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={mergeListsNameInputRef}/>
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__footer'>
                                         <WidgetFooter save={_mergeLists}/>

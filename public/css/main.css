@@ -1619,8 +1619,56 @@ svg.active {
   align-items: center; }
   .listsPopupWrapper__listsPopup__content input {
     margin-left: 8px; }
-  .listsPopupWrapper__listsPopup__content p {
+  .listsPopupWrapper__listsPopup__content p.noWrap {
     white-space: nowrap; }
+  .listsPopupWrapper__listsPopup__content__subscription__info p {
+    margin-bottom: 12px; }
+  .listsPopupWrapper__listsPopup__content__subscription__options {
+    display: flex;
+    align-items: stretch; }
+    .listsPopupWrapper__listsPopup__content__subscription__options__option, .listsPopupWrapper__listsPopup__content__subscription__options__optionActive, .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled {
+      flex-basis: 33.33%;
+      margin-left: 12px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 0;
+      border: 1px solid #e0e0e0;
+      background: #f5f5f5;
+      border-radius: 2px;
+      cursor: pointer; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__option:first-of-type, .listsPopupWrapper__listsPopup__content__subscription__options__optionActive:first-of-type, .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled:first-of-type {
+        margin-left: 0; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__option:hover, .listsPopupWrapper__listsPopup__content__subscription__options__optionActive:hover, .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled:hover {
+        background: #eeeeee; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__option svg, .listsPopupWrapper__listsPopup__content__subscription__options__optionActive svg, .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled svg {
+        width: 22px;
+        height: 22px; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__option h5, .listsPopupWrapper__listsPopup__content__subscription__options__optionActive h5, .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled h5 {
+        margin: 22px 0 4px 0;
+        text-transform: none; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__option p, .listsPopupWrapper__listsPopup__content__subscription__options__optionActive p, .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled p {
+        text-align: center;
+        color: #757575;
+        font-size: 12px;
+        line-height: 18px; }
+    .listsPopupWrapper__listsPopup__content__subscription__options__optionActive {
+      border-color: #ffc107; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__optionActive:hover {
+        background: #f5f5f5; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__optionActive svg {
+        fill: #212121; }
+    .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled {
+      cursor: default;
+      background: #fafafa;
+      border-color: #f5f5f5; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled:hover {
+        background: #fafafa; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled svg {
+        fill: #9e9e9e; }
+      .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled h5, .listsPopupWrapper__listsPopup__content__subscription__options__optionDisabled p {
+        color: #9e9e9e; }
 
 .shareListsWrapper__shareLists__content {
   margin-top: 22px; }

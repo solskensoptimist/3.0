@@ -249,11 +249,6 @@ export const tableHelper = {
                                     <Tooltip horizontalDirection='right' tooltipContent={tc.subscription} verticalDirection={verticalDirection}><Icon active={true} val='subscription'/></Tooltip>
                                     : null
                             }
-                            {
-                                (row.meta && (!row.meta.subscription_ids || (row.meta.subscription_ids && !row.meta.subscription_ids.length)) && row.meta.criterias && Object.keys(row.meta.criterias).length) ?
-                                    <Tooltip horizontalDirection='right' tooltipContent={tc.subscriptionPossible} verticalDirection={verticalDirection}><Icon val='subscription'/></Tooltip>
-                                    : null
-                            }
                         </div>
                 } else if (column.id === 'criterias') {
                     obj[column.id] =
