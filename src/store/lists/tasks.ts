@@ -38,6 +38,38 @@ export const archiveLists = async (payload) => {
 };
 
 /**
+ * Create list subscription.
+ *
+ * @param payload.subscribeFlag - number
+ * @param payload.listIds - string
+ */
+export const createListSubscription = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.listIds) || (payload && payload.listIds && !payload.listIds.length) || (payload && !payload.subscribeFlag)) {
+            return console.error('Missing params in createListSubscription\n' + payload);
+        }
+
+        const data = await requestWithBody({
+            data: {
+                listIds: payload.listIds,
+                subscribeFlag: payload.subscribeFlag,
+            },
+            method: 'post',
+            url: '/lists/subscriptions/subscribe/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in createListSubscription:\n' + data);
+        }
+
+        showFlashMessage(tc.listsSubscriptionsHaveBeenCreated);
+        return await getListsSubscriptions();
+    } catch (err) {
+        return console.error('Error in createListSubscription:\n' + err);
+    }
+};
+
+/**
  * Get lists.
  *
  * @param payload.archived - bool - If set to true, get archived lists.
@@ -209,7 +241,7 @@ export const removeLists = async (payload) => {
 export const removeListsSubscriptions = async (payload) => {
     try {
         if (!payload || (payload && !payload.ids) || (payload && payload.ids && !payload.ids.length)) {
-            return console.error('Missing params in removeListsSubscriptions\n' + payload);
+            return console.error('Missing params in removeListsSubscriptions:\n' + payload);
         }
 
         const data = await requestWithBody({
@@ -221,13 +253,13 @@ export const removeListsSubscriptions = async (payload) => {
         });
 
         if (data instanceof Error) {
-            return console.error('Error in removeListsSubscriptions s:\n' + data);
+            return console.error('Error in removeListsSubscriptions:\n' + data);
         }
 
         showFlashMessage(tc.listsSubscriptionsHaveBeenRemoved);
         return await getListsSubscriptions();
     } catch (err) {
-        return console.error('Error in removeListsSubscriptions :\n' + err);
+        return console.error('Error in removeListsSubscriptions:\n' + err);
     }
 };
 

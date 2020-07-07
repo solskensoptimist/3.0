@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {archiveLists, getLists, getListsSubscriptions, mergeLists, removeLists, removeListsSubscriptions, shareLists, splitList, undoArchive} from 'store/lists/tasks';
+import {archiveLists, createListSubscription, getLists, getListsSubscriptions, mergeLists, removeLists, removeListsSubscriptions, shareLists, splitList, undoArchive} from 'store/lists/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
 import {Table} from 'components/table';
+import InfoBox from 'components/info_box';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
 import Popup from 'components/popup';
@@ -24,6 +25,16 @@ const Lists = (state) => {
         await archiveLists({listIds: selectedLists.map((num) => num._id)});
         return setSelectedLists([]);
     };
+
+    const _createListSubscription = async () => {
+        setActivePopup('');
+        await createListSubscription({
+            listIds: selectedLists,
+            subscribeFlag: 1 // <-------------- ÄNDRA DETTA
+        });
+        return setSelectedLists([]);
+    };
+
     const _excelOutput = () => {
         console.log('Ladda ner excel');
     };
@@ -81,7 +92,7 @@ const Lists = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!(state && state.lists && state.lists.lists !== null);
+        return !!(state && state.lists && state.lists.lists !== null && state.lists.listsArchived !== null && state.lists.listsSubscriptions !== null);
     };
 
     const _undoArchive = async () => {
@@ -103,6 +114,12 @@ const Lists = (state) => {
             mergeListsNameInputRef && mergeListsNameInputRef.current && mergeListsNameInputRef.current.focus();
         }
     }, [activePopup]);
+
+    useEffect(() => {
+        console.log('filter length', selectedLists.filter((list) => {
+            return !(list.meta && ((list.meta.criterias && Object.keys(list.meta.criterias).length) || (list.meta.buttonFields && list.meta.buttonFields.length)))
+        }).length);
+    }, [selectedLists]);
 
     return ( _stateCheck() ?
         <div className='listsWrapper'>
@@ -127,6 +144,7 @@ const Lists = (state) => {
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setActivePopup('removeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setActivePopup('mergeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: () => {_recreateCriterias({list: true})}, type: 'button'},
+                                    {disabled: !(selectedLists.length && selectedLists.filter((list) => !(list.meta && ((list.meta.criterias && Object.keys(list.meta.criterias).length) || (list.meta.buttonFields && list.meta.buttonFields.length)))).length === 0), label: (selectedLists.length > 1) ? tc.createSubscriptions : tc.createSubscription, onClick: () => {setActivePopup('createListSubscription')}, type: 'button'},
                                 ],
                             },
                             {
@@ -161,7 +179,7 @@ const Lists = (state) => {
                     />
                 </div>
                 <div className='listsWrapper__lists__content'>
-                    {(activeContent === 'listsRegular') &&
+                    {(activeContent === 'listsRegular') ?
                         <div className='listsWrapper__lists__content__item'>
                             <div className='listsWrapper__lists__content__item__header'>
                                 <WidgetHeader
@@ -177,9 +195,9 @@ const Lists = (state) => {
                                     selected={selectedLists.map((num) => num._id)}
                                 />
                             </div>
-                        </div>
+                        </div> : null
                     }
-                    {(activeContent === 'listsArchived') &&
+                    {(activeContent === 'listsArchived') ?
                         <div className='listsWrapper__lists__content__item'>
                             <div className='listsWrapper__lists__content__item__header'>
                                 <WidgetHeader
@@ -195,27 +213,54 @@ const Lists = (state) => {
                                     selected={selectedLists.map((num) => num._id)}
                                 />
                             </div>
-                        </div>
+                        </div> : null
                     }
-                    {(activeContent === 'listsSubscriptions') &&
-                    <div className='listsWrapper__lists__content__item'>
-                        <div className='listsWrapper__lists__content__item__header'>
-                            <WidgetHeader
-                                iconVal='subscription'
-                                headline={tc.listsSubscriptions}
-                            />
-                        </div>
-                        <div className='listsWrapper__lists__content__item__header__content'>
-                            <Table
-                                columns={tableHelper.getListsSubscriptionsColumns()}
-                                onSelect={(arr) => {setSelectedSubscriptions(state.lists.listsSubscriptions.filter((num) => arr.includes(num._id)))}}
-                                rows={tableHelper.getListsSubscriptionsRows((state.lists.listsSubscriptions && state.lists.listsSubscriptions.length) ? state.lists.listsSubscriptions : [])}
-                                selected={selectedSubscriptions.map((num) => num._id)}
-                            />
-                        </div>
-                    </div>
+                    {(activeContent === 'listsSubscriptions') ?
+                        (state.lists.listsSubscriptions.length) ?
+                        <div className='listsWrapper__lists__content__item'>
+                            <div className='listsWrapper__lists__content__item__header'>
+                                <WidgetHeader
+                                    iconVal='subscription'
+                                    headline={tc.listsSubscriptions}
+                                />
+                            </div>
+                            <div className='listsWrapper__lists__content__item__header__content'>
+                                <Table
+                                    columns={tableHelper.getListsSubscriptionsColumns()}
+                                    onSelect={(arr) => {setSelectedSubscriptions(state.lists.listsSubscriptions.filter((num) => arr.includes(num._id)))}}
+                                    rows={tableHelper.getListsSubscriptionsRows((state.lists.listsSubscriptions && state.lists.listsSubscriptions.length) ? state.lists.listsSubscriptions : [])}
+                                    selected={selectedSubscriptions.map((num) => num._id)}
+                                />
+                            </div>
+                        </div> :
+                        <InfoBox>
+                            <h4>{tc.noListsSubscriptions}</h4>
+                            <p>{tc.noListsSubscriptionsWhy1}</p>
+                            <p>{tc.noListsSubscriptionsWhy2}</p>
+                        </InfoBox>
+                        : null
                     }
-                    {(activePopup === 'mergeLists') &&
+                    {(activePopup === 'createListSubscription') ?
+                        <Popup close={() => {setActivePopup('')}} size='small'>
+                            <div className='listsPopupWrapper'>
+                                <div className='listsPopupWrapper__listsPopup'>
+                                    <div className='listsPopupWrapper__listsPopup__header'>
+                                        <WidgetHeader
+                                            iconVal='subscription'
+                                            headline={(selectedLists.length > 1) ? tc.createSubscriptions : tc.createSubscription}
+                                        />
+                                    </div>
+                                    <div className='listsPopupWrapper__listsPopup__content'>
+                                        Rutor för att sätta flaggor, exkludera prospekt, och/eller namn/adress, och/eller telefon.(Se hur de gör i 2.0 för att sätta glaggor)
+                                    </div>
+                                    <div className='listsPopupWrapper__listsPopup__footer'>
+                                        <WidgetFooter save={_createListSubscription}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </Popup> : null
+                    }
+                    {(activePopup === 'mergeLists') ?
                         <Popup close={() => {setActivePopup('')}} size='small'>
                             <div className='listsPopupWrapper'>
                                 <div className='listsPopupWrapper__listsPopup'>
@@ -233,9 +278,9 @@ const Lists = (state) => {
                                     </div>
                                 </div>
                             </div>
-                        </Popup>
+                        </Popup> : null
                     }
-                    {(activePopup === 'removeLists') &&
+                    {(activePopup === 'removeLists') ?
                         <Popup close={() => {setActivePopup('')}} size='small'>
                             <div className='listsPopupWrapper'>
                                 <div className='listsPopupWrapper__listsPopup'>
@@ -253,9 +298,9 @@ const Lists = (state) => {
                                     </div>
                                 </div>
                             </div>
-                        </Popup>
+                        </Popup> : null
                     }
-                    {(activePopup === 'removeListsSubscriptions') &&
+                    {(activePopup === 'removeListsSubscriptions') ?
                         <Popup close={() => {setActivePopup('')}} size='small'>
                             <div className='listsPopupWrapper'>
                                 <div className='listsPopupWrapper__listsPopup'>
@@ -273,17 +318,17 @@ const Lists = (state) => {
                                     </div>
                                 </div>
                             </div>
-                        </Popup>
+                        </Popup> : null
                     }
-                    {(activePopup === 'shareLists') &&
+                    {(activePopup === 'shareLists') ?
                         <Popup close={() => {setActivePopup('')}} size='medium'>
                             <ShareLists lists={selectedLists} save={_shareLists}/>
-                        </Popup>
+                        </Popup> : null
                     }
-                    {(activePopup === 'splitList') &&
+                    {(activePopup === 'splitList') ?
                         <Popup close={() => {setActivePopup('')}} size='medium'>
                             <SplitList list={selectedLists[0]} save={_splitList}/>
-                        </Popup>
+                        </Popup> : null
                     }
                 </div>
             </div>
