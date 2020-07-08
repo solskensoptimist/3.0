@@ -261,6 +261,18 @@ const Lists = (state) => {
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__content'>
                                         <div className='listsPopupWrapper__listsPopup__content__subscription'>
+                                            <div className='listsPopupWrapper__listsPopup__content__subscription__lists'>
+                                                <div className='listsPopupWrapper__listsPopup__content__subscription__lists__left'>{(selectedLists.length > 1) ? tc.lists : tc.list}:</div>
+                                                <div className='listsPopupWrapper__listsPopup__content__subscription__lists__right'>
+                                                    {selectedLists.map((list, i) => {
+                                                        if (i === selectedLists.length - 1) {
+                                                            return <p key={i}>{list.name}</p>;
+                                                        } else {
+                                                            return <p key={i}>{list.name}<span className='bullet'>&#8226;</span></p>;
+                                                        }
+                                                    })}
+                                                </div>
+                                        </div>
                                             <div className='listsPopupWrapper__listsPopup__content__subscription__info'>
                                                 <p>{tc.listsSubscriptionsInfo1}</p>
                                                 <p>{tc.listsSubscriptionsInfo2}</p>

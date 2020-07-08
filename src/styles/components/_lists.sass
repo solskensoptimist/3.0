@@ -23,6 +23,18 @@
       p.noWrap
         white-space: nowrap
       &__subscription
+        &__lists
+          display: flex
+          margin-bottom: $paddingMedium
+          &__left
+            font-weight: 600
+            white-space: nowrap
+            margin-right: $paddingSmall
+          &__right
+            display: flex
+            span.bullet
+              margin: 0 $paddingSmall
+              color: $colorTextLight-2
         &__info
           p
             margin-bottom: $paddingMedium
@@ -59,8 +71,6 @@
           &__optionActive
             @extend .listsPopupWrapper__listsPopup__content__subscription__options__option
             border-color: $colorInformatory
-            &:hover
-              background: $grey-100
             svg
               fill: $colorTextDark
           &__optionDisabled
@@ -129,7 +139,7 @@
               height: 14px
               fill: $colorTextLight-1 !important
               margin-right: 4px
-      .bullet
+      span.bullet
         margin: 0 $paddingSmall
         color: $colorTextLight-2
 

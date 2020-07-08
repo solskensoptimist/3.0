@@ -55,6 +55,7 @@ import {
     Settings,
     SettingsOverscan,
     Share,
+    Star,
     SwapHoriz,
     Timeline,
     TrendingUp,
@@ -196,7 +197,7 @@ export default (props) => {
         case 'offer':
             return <Description className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'orders':
-            return <AttachMoney className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <Star className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'other':
             return <Help className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'owner':
