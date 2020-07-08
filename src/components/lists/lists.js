@@ -145,7 +145,7 @@ const Lists = (state) => {
                                     await getLists({});
                                 },
                                 type: 'nav',
-                                children: [
+                                children: (state.lists.lists.length) ? [
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.archiveLists : tc.archiveList, onClick: _archiveLists, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.shareLists : tc.shareList, onClick: () => {setActivePopup('shareLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: () => {setActivePopup('splitList')}, type: 'button'},
@@ -154,7 +154,7 @@ const Lists = (state) => {
                                     {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setActivePopup('mergeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: () => {_recreateCriterias({list: true})}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.filter((list) => !(list.meta && ((list.meta.criterias && Object.keys(list.meta.criterias).length) || (list.meta.buttonFields && list.meta.buttonFields.length)))).length === 0), label: (selectedLists.length > 1) ? tc.createListSubscriptions : tc.createListSubscription, onClick: () => {setActivePopup('createListSubscription')}, type: 'button'},
-                                ],
+                                ] : [],
                             },
                             {
                                 id: 2,
@@ -165,10 +165,10 @@ const Lists = (state) => {
                                     await getLists({archived: true});
                                 },
                                 type: 'nav',
-                                children: [
+                                children: (state.lists.listsArchived.length) ? [
                                     {disabled: !(selectedLists.length), label: tc.undoArchive, onClick: _undoArchive, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setActivePopup('removeLists')}, type: 'button'},
-                                ],
+                                ] : [],
                             },
                             {
                                 id: 3,
@@ -179,10 +179,10 @@ const Lists = (state) => {
                                     await getListsSubscriptions();
                                 },
                                 type: 'nav',
-                                children: [
+                                children: (state.lists.listsSubscriptions.length) ? [
                                     {disabled: !(selectedSubscriptions.length), label: (selectedSubscriptions.length > 1) ? tc.removeSubscriptions : tc.removeSubscription, onClick: () => {setActivePopup('removeListsSubscriptions')}, type: 'button'},
                                     {disabled: !(selectedSubscriptions.length && selectedSubscriptions.length === 1), label: tc.recreateCriterias, onClick: () => {_recreateCriterias({subscription: true})}, type: 'button'},
-                                ],
+                                ] : [],
                             }
                         ]}
                     />
@@ -197,12 +197,19 @@ const Lists = (state) => {
                                 />
                             </div>
                             <div className='listsWrapper__lists__content__item__header__content'>
-                                <Table
-                                    columns={tableHelper.getListsColumns()}
-                                    onSelect={(arr) => {setSelectedLists(state.lists.lists.filter((num) => arr.includes(num._id)))}}
-                                    rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
-                                    selected={selectedLists.map((num) => num._id)}
-                                />
+                                {(state.lists.lists.length) ?
+                                    <Table
+                                        columns={tableHelper.getListsColumns()}
+                                        onSelect={(arr) => {setSelectedLists(state.lists.lists.filter((num) => arr.includes(num._id)))}}
+                                        rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
+                                        selected={selectedLists.map((num) => num._id)}
+                                    /> :
+                                    <InfoBox>
+                                        <h4>{tc.noLists}</h4>
+                                        <p>{tc.noListsWhy}</p>
+                                    </InfoBox>
+
+                                }
                             </div>
                         </div> : null
                     }
@@ -215,12 +222,18 @@ const Lists = (state) => {
                                 />
                             </div>
                             <div className='listsWrapper__lists__content__item__header__content'>
-                                <Table
-                                    columns={tableHelper.getListsColumns()}
-                                    onSelect={(arr) => {setSelectedLists(state.lists.listsArchived.filter((num) => arr.includes(num._id)))}}
-                                    rows={tableHelper.getListsRows((state.lists.listsArchived && state.lists.listsArchived.length) ? state.lists.listsArchived : [])}
-                                    selected={selectedLists.map((num) => num._id)}
-                                />
+                                {state.lists.listsArchived.length ?
+                                    <Table
+                                        columns={tableHelper.getListsColumns()}
+                                        onSelect={(arr) => {setSelectedLists(state.lists.listsArchived.filter((num) => arr.includes(num._id)))}}
+                                        rows={tableHelper.getListsRows((state.lists.listsArchived && state.lists.listsArchived.length) ? state.lists.listsArchived : [])}
+                                        selected={selectedLists.map((num) => num._id)}
+                                    /> :
+                                    <InfoBox>
+                                        <h4>{tc.noListsArchived}</h4>
+                                        <p>{tc.noListsArchivedWhy}</p>
+                                    </InfoBox>
+                                }
                             </div>
                         </div> : null
                     }
