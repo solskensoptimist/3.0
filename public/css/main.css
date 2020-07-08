@@ -2003,7 +2003,7 @@ svg.active {
       margin-right: 0; }
   .menuWrapper__menu .menuItem .dropdownWrapper__dropdown__content, .menuWrapper__menu .menuItem__disabled .dropdownWrapper__dropdown__content, .menuWrapper__menu .menuItem__active .dropdownWrapper__dropdown__content {
     top: 41px;
-    left: -22px;
+    left: -44px;
     padding: 0; }
   .menuWrapper__menu .menuItem .dropdownItemWrapper, .menuWrapper__menu .menuItem__disabled .dropdownItemWrapper, .menuWrapper__menu .menuItem__active .dropdownItemWrapper {
     padding: 12px 22px;
