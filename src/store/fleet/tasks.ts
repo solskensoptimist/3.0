@@ -41,7 +41,7 @@ export const getFleet = async (payload) => {
                 query: (payload.query && payload.query.length) ? payload.query : null,
             },
             method: 'get',
-            url: '/fleet/3.0/paginated/'+ payload.prospectId,
+            url: '/fleet/new/paginated/'+ payload.prospectId,
         });
 
         if (!data || data instanceof Error || !data.results) {
