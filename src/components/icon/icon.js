@@ -28,6 +28,7 @@ import {
     Group,
     Help,
     Info,
+    InfoOutlined,
     Highlight,
     History,
     Home,
@@ -156,6 +157,8 @@ export default (props) => {
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'info':
             return <Info className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'infoOutlined':
+            return <InfoOutlined className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'koncern':
             return <Language className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'leads':

@@ -6,7 +6,7 @@ export default (props) => {
         <div className='infoBoxWrapper'>
             <div className='infoBoxWrapper__infoBox'>
                 <div className='infoBoxWrapper__infoBox__icon'>
-                    <Icon val='info'/>
+                    <Icon val='infoOutlined'/>
                 </div>
                 {props.children}
             </div>
