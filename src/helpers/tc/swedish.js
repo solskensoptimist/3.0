@@ -108,6 +108,8 @@ export default {
     create: 'Skapa',
     created: 'Skapad',
     createdBy: 'Skapad av',
+    createListSubscription: 'Skapa listprenumeration',
+    createListSubscriptions: 'Skapa listprenumerationer',
     createNewContact: 'Skapa ny kontakt',
     createNewDeal: 'Skapa ny affär',
     createNewList: 'Skapa ny lista',
