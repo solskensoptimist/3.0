@@ -5,6 +5,7 @@ import history from '../../router_history';
 import {getFleet, getFleetDebounced} from 'store/fleet/tasks';
 import {TablePropsManaged} from 'components/table';
 import Icon from 'components/icon';
+import Info from 'components/info';
 import Loading from 'components/loading';
 import Tooltip from 'components/tooltip';
 import WidgetHeader from 'components/widget_header';
@@ -12,12 +13,15 @@ import WidgetHeader from 'components/widget_header';
 /**
  * Render a fleet table.
  *
+ * When search is used a loading property is set to show Loading component until result from backend is set to store.
+ * When loading is not true and there is no rows in data, we show Info component.
+ *
  * @param state.props.historic - bool (optional) - Get historic fleet or current.
  * @param state.props.koncern - bool (optional) - Get fleet for koncern.
  * @param state.props.prospectId - string - TS user id to get fleet for.
  */
 const Fleet = (state) => {
-    const [fleet, setFleet] = useState({});
+    const [fleet, setFleet] = useState(null);
     const [minimize, setMinimize] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -62,7 +66,7 @@ const Fleet = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!(fleet && Object.keys(fleet).length);
+        return !!fleet;
     };
 
     const _searchFleet = (newQuery) => {
@@ -102,18 +106,18 @@ const Fleet = (state) => {
     }, [state.props]);
 
     useEffect(() => {
-        if (state.props.historic && state.fleet.fleetHistoric && state.fleet.fleetHistoric.data) {
-            if (!state.fleet.fleetHistoric.data.length) {
-                setMinimize(true);
-            }
+        if (state.props.historic && state.fleet.fleetHistoric) {
             setFleet(state.fleet.fleetHistoric);
-        } else if (!state.props.historic && state.fleet.fleet && state.fleet.fleet.data) {
-            if (!state.fleet.fleet.data.length) {
+            if (state.fleet.fleetHistoric.data && !state.fleet.fleetHistoric.data.length) {
                 setMinimize(true);
             }
+        } else if (!state.props.historic && state.fleet.fleet) {
             setFleet(state.fleet.fleet);
+            if (state.fleet.fleet.data && !state.fleet.fleet.data.length) {
+                setMinimize(true);
+            }
         }
-    }, [state]);
+    }, [state.fleet.fleet, state.fleet.fleetHistoric, state.props]);
 
     return ( _stateCheck() ?
         <div className='fleetWrapper'>
@@ -124,35 +128,45 @@ const Fleet = (state) => {
                         dashboard={
                             minimize ?
                                 <>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {
-                                        setMinimize(false)
-                                        _reloadData();
-                                    }}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
                                 </> :
                                 <>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.reload}><Icon val='regret' onClick={() => {_reloadData()}}/></Tooltip>
                                     {(!window.location.pathname.includes('vagnparksanalys')) && <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToFleetAnalysis}><Icon val='navigate' onClick={() => {history.push('/vagnparksanalys/' + state.props.prospectId)}}/></Tooltip>}
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
                                 </>
                         }
                         headline={(state.props.historic) ? tc.fleetHistoric : tc.fleet}
-                        headlineSub={
-                            (fleet.total && fleet.data && fleet.data.length) ? `${tc.total} ${fleet.total} ${tc.vehicles.toLowerCase()}` : tc.noVehicles
-                        }
+                        headlineSub={(fleet.loading) ? `${tc.loading}...` : (fleet.total === 0) ? tc.noVehicles : (fleet.total > 999) ? `${tc.showing} ${tc.maximum.toLowerCase()} 1000 ${tc.vehicles.toLowerCase()}` : `${tc.total} ${fleet.total} ${tc.vehicles.toLowerCase()}`}
                     />
                 </div>
-                {!minimize &&
-                    <div className='fleetWrapper__fleet__content'>
-                        <TablePropsManaged
-                            columns={tableHelper.getFleetColumns(state.props.historic)}
-                            pageChange={_pageChange}
-                            rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}
-                            rowsPerPage={rowsPerPage}
-                            rowsPerPageChange={_rowsPerPageChange}
-                            search={_searchFleet}
-                            sort={_sortFleet}
-                            total={fleet.total}
-                        />
-                    </div>
+                {!minimize ?
+                    <>
+                        {!fleet.loading ?
+                            <div className='fleetWrapper__fleet__content'>
+                            {(fleet.data && fleet.data.length) ?
+                                <TablePropsManaged
+                                    columns={tableHelper.getFleetColumns(state.props.historic)}
+                                    pageChange={_pageChange}
+                                    rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}
+                                    rowsPerPage={rowsPerPage}
+                                    rowsPerPageChange={_rowsPerPageChange}
+                                    search={_searchFleet}
+                                    sort={_sortFleet}
+                                    total={fleet.total}
+                                /> :
+                                <Info>
+                                    <h4>{tc.noFleet}</h4>
+                                    {fleet.query ?
+                                        <p>{`${tc.showing} 0 ${tc.of.toLowerCase()} ${fleet.total}. ${tc.toReset} ${tc.clickOn.toLowerCase()} ${tc.reload.toLowerCase()}.`}</p> :
+                                        <p>{tc.noFleetWhy}</p>
+                                    }
+                                </Info>
+                            }
+                            </div> :
+                            <Loading/>
+                        }
+                    </> : null
                 }
             </div>
         </div> :

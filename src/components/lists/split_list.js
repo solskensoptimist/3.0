@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {tc} from 'helpers';
 import Icon from 'components/icon';
+import Info from 'components/info';
 import WidgetHeader from 'components/widget_header';
 import WidgetFooter from 'components/widget_footer';
 
@@ -282,11 +283,10 @@ export default (props) => {
                         </div> : null
                     }
                     {info.hint.length ?
-                        <div className='splitListWrapper__splitList__content__hint'>
-                            <div className='splitListWrapper__splitList__content__hint__box'>
-                                {info.hint}
-                            </div>
-                        </div> : null
+                        <Info>
+                            <h4>{tc.thereWasAProblem}</h4>
+                            <p>{info.hint}</p>
+                        </Info> : null
                     }
                     {props.list.total > 1 ?
                         <>

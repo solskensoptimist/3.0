@@ -215,7 +215,7 @@ export const removeLists = async (payload) => {
         const invalidResults = data.filter((result) => (result instanceof Error));
 
         if (invalidResults.length) {
-            showFlashMessage(tc.thereWasAProblem);
+            showFlashMessage(tc.thereWasAProblemContactCustomerService);
             return console.error('Error in removeLists:\n' + data);
         }
 
@@ -352,7 +352,7 @@ export const splitList = async (payload) => {
     try {
         if (!payload || (payload && !payload.listId) || (payload && (!payload.splits || (payload.splits && !payload.splits.length)))) {
             console.error('Missing params in splitList:\n' + payload);
-            return showFlashMessage(tc.thereWasAProblem);
+            return showFlashMessage(tc.thereWasAProblemContactCustomerService);
         }
 
         const splits = payload.splits.map((split) => {

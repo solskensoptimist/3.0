@@ -23,9 +23,9 @@ export const getFleet = async (payload) => {
         }
 
         if (payload.historic) {
-            store.dispatch({type: fleetActionTypes.SET_FLEET_HISTORIC, payload: {}});
+            store.dispatch({type: fleetActionTypes.SET_FLEET_HISTORIC_LOADING, payload: true});
         } else {
-            store.dispatch({type: fleetActionTypes.SET_FLEET, payload: {}});
+            store.dispatch({type: fleetActionTypes.SET_FLEET_LOADING, payload: true});
         }
 
         const data = await request({
@@ -56,6 +56,7 @@ export const getFleet = async (payload) => {
         const result = {
             amount: data.amount,
             data: data.results,
+            query: payload.query ? payload.query : null,
             target: payload.prospectId,
             total: data.total,
         };

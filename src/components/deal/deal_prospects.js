@@ -4,7 +4,7 @@ import {tc} from 'helpers';
 import {NavLink} from 'react-router-dom';
 import {updateDeal} from 'store/deal/tasks';
 import Icon from 'components/icon';
-import InfoBox from 'components/info_box';
+import Info from 'components/info';
 import Loading from 'components/loading';
 import Search from 'components/search';
 import Tooltip from 'components/tooltip';
@@ -130,10 +130,10 @@ const DealProspects = (state) => {
                             <div className='dealProspectsWrapper__dealProspects__content__prospects'>
                                 {prospectRows}
                             </div> :
-                            <InfoBox>
+                            <Info>
                                 <h4>{tc.noProspects}</h4>
                                 <p>{tc.prospectsHowTo}</p>
-                            </InfoBox>
+                            </Info>
                         }
                     </div>
                 }

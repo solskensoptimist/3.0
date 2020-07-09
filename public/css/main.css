@@ -1526,12 +1526,11 @@ a {
 svg.active {
   fill: #616161 !important; }
 
-.infoBoxWrapper__infoBox {
+.infoWrapper__info {
   background: #fef4e7;
   padding: 22px;
-  color: #613e11;
-  border: 1px solid #f0dac2; }
-  .infoBoxWrapper__infoBox__icon {
+  color: #613e11; }
+  .infoWrapper__info__icon {
     width: 24px;
     height: 24px;
     float: right;
@@ -1539,17 +1538,17 @@ svg.active {
     display: flex;
     align-items: center;
     justify-content: center; }
-    .infoBoxWrapper__infoBox__icon svg {
+    .infoWrapper__info__icon svg {
       fill: #f3a44a;
       width: 26px;
       height: 26px; }
-  .infoBoxWrapper__infoBox h4 {
+  .infoWrapper__info h4 {
     margin-bottom: 8px;
     text-transform: none;
     font-size: 18px; }
-  .infoBoxWrapper__infoBox p {
+  .infoWrapper__info p {
     margin-bottom: 8px; }
-    .infoBoxWrapper__infoBox p:last-child {
+    .infoWrapper__info p:last-child {
       margin-bottom: 0; }
 
 .leadsWidgetWrapper__leadsWidget__content {

@@ -4,7 +4,7 @@ import {tc} from 'helpers';
 import {updateDeal} from 'store/deal/tasks';
 import ReactS3Uploader from 'react-s3-uploader';
 import Icon from 'components/icon';
-import InfoBox from 'components/info_box';
+import Info from 'components/info';
 import Loading from 'components/loading';
 import Tooltip from 'components/tooltip';
 import WidgetHeader from 'components//widget_header';
@@ -123,10 +123,10 @@ const DealFiles = (state) => {
                             <div className='dealFilesWrapper__dealFiles__content__files'>
                                 {fileRows}
                             </div> :
-                            <InfoBox>
+                            <Info>
                                 <h4>{tc.noFiles}</h4>
                                 <p>{tc.filesHowTo}</p>
-                            </InfoBox>
+                            </Info>
                         }
                     </div>
                     }

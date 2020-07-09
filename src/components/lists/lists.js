@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
 import {Table} from 'components/table';
 import Icon from 'components/icon';
-import InfoBox from 'components/info_box';
+import Info from 'components/info';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
 import Popup from 'components/popup';
@@ -204,10 +204,10 @@ const Lists = (state) => {
                                         rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
                                         selected={selectedLists.map((num) => num._id)}
                                     /> :
-                                    <InfoBox>
+                                    <Info>
                                         <h4>{tc.noLists}</h4>
                                         <p>{tc.noListsWhy}</p>
-                                    </InfoBox>
+                                    </Info>
 
                                 }
                             </div>
@@ -229,10 +229,10 @@ const Lists = (state) => {
                                         rows={tableHelper.getListsRows((state.lists.listsArchived && state.lists.listsArchived.length) ? state.lists.listsArchived : [])}
                                         selected={selectedLists.map((num) => num._id)}
                                     /> :
-                                    <InfoBox>
+                                    <Info>
                                         <h4>{tc.noListsArchived}</h4>
                                         <p>{tc.noListsArchivedWhy}</p>
-                                    </InfoBox>
+                                    </Info>
                                 }
                             </div>
                         </div> : null
@@ -253,11 +253,11 @@ const Lists = (state) => {
                                         rows={tableHelper.getListsSubscriptionsRows((state.lists.listsSubscriptions && state.lists.listsSubscriptions.length) ? state.lists.listsSubscriptions : [])}
                                         selected={selectedSubscriptions.map((num) => num._id)}
                                     /> :
-                                    <InfoBox>
+                                    <Info>
                                         <h4>{tc.noListsSubscriptions}</h4>
                                         <p>{tc.noListsSubscriptionsWhy1}</p>
                                         <p>{tc.noListsSubscriptionsWhy2}</p>
-                                    </InfoBox>
+                                    </Info>
                                 }
                             </div>
                         </div> : null

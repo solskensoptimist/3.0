@@ -8,7 +8,7 @@ import ContactItem from './contact_item';
 import ContactCreateItem from './contact_create_item';
 import ContactEditItem from './contact_edit_item';
 import Icon from 'components/icon';
-import InfoBox from 'components/info_box';
+import Info from 'components/info';
 import Loading from 'components/loading';
 import Search from 'components/search';
 import Tooltip from 'components/tooltip';
@@ -204,10 +204,10 @@ const Contacts = (state) => {
                         <div className='contactsWrapper__contacts__content__contacts'>
                             {contactRows}
                         </div> :
-                        <InfoBox>
+                        <Info>
                             <h4>{tc.noContacts}</h4>
                             <p>{tc.contactHowTo}</p>
-                        </InfoBox>
+                        </Info>
                     }
                 </div>
                 }
