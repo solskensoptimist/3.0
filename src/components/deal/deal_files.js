@@ -20,35 +20,6 @@ const DealFiles = (state) => {
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
-    const _finishUpload = async (e, f) => {
-        let files;
-        if (Array.isArray(state.deal.deal.meta.files)) {
-            files = state.deal.deal.meta.files.concat([{
-                s3_filename: e.filename,
-                original_name: f.name,
-            }]);
-        } else {
-            files = [{
-                s3_filename: e.filename,
-                original_name: f.name,
-            }];
-        }
-
-        return await updateDeal({files: files});
-    };
-
-    const _startUpload = () => {
-        document.querySelector('#s3Uploader').click();
-    };
-
-    const _stateCheck = () => {
-        return !!(state && state.deal && state.deal.deal && state.deal.deal.meta && state.deal.deal.meta.files && state.user && state.user.info);
-    };
-
-    const _uploadError = (message) => {
-        console.error('S3 file upload error:', message);
-    };
-
     useEffect(() => {
         const _removeFile = async (file) => {
             const files = state.deal.deal.meta.files.filter((num) => num.s3_filename !== file.s3_filename);
@@ -94,6 +65,35 @@ const DealFiles = (state) => {
 
         _renderFiles();
     }, [showAmount, state.deal.deal, state.user]);
+
+    const _finishUpload = async (e, f) => {
+        let files;
+        if (Array.isArray(state.deal.deal.meta.files)) {
+            files = state.deal.deal.meta.files.concat([{
+                s3_filename: e.filename,
+                original_name: f.name,
+            }]);
+        } else {
+            files = [{
+                s3_filename: e.filename,
+                original_name: f.name,
+            }];
+        }
+
+        return await updateDeal({files: files});
+    };
+
+    const _startUpload = () => {
+        document.querySelector('#s3Uploader').click();
+    };
+
+    const _stateCheck = () => {
+        return !!(state && state.deal && state.deal.deal && state.deal.deal.meta && state.deal.deal.meta.files && state.user && state.user.info);
+    };
+
+    const _uploadError = (message) => {
+        console.error('S3 file upload error:', message);
+    };
 
     return ( _stateCheck() ?
             <div className='dealFilesWrapper'>

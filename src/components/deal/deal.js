@@ -32,6 +32,30 @@ const Deal = (state) => {
     const dealNameInputRef = useRef(null);
     const dealPotentialInputRef = useRef(null);
 
+    useEffect(() => {
+        const getData = async () => {
+            await getDeal({id: id});
+            // We use this flag to prevent sub components to retrieve information for previous deal in store.
+            setDataIsCollected(true);
+        };
+
+        getData();
+    }, [id]);
+
+    useEffect(() => {
+        if (state.deal && state.deal.deal) {
+            // Set properties that we should be able to edit. Make sure they correlate to params in updateDeal.
+            setDealObj({
+                description: state.deal.deal.description,
+                maturity: state.deal.deal.maturity,
+                name: state.deal.deal.name,
+                potential: state.deal.deal.potential,
+                user_id: state.deal.deal.user_id,
+                userName: state.deal.deal.userName, // This is for frontend display, when changing user we only send user id.
+            });
+        }
+    }, [state.deal]);
+
     const _onInputChange = () => {
         setDealObj({
             ...dealObj,
@@ -88,30 +112,6 @@ const Deal = (state) => {
     const _stateCheck = () => {
         return (dataIsCollected && dealObj && Object.keys(dealObj).length > 0 && state && state.deal && state.deal.deal && Object.keys(state.deal.deal).length);
     };
-
-    useEffect(() => {
-        const getData = async () => {
-            await getDeal({id: id});
-            // We use this flag to prevent sub components to retrieve information for previous deal in store.
-            setDataIsCollected(true);
-        };
-
-        getData();
-    }, [id]);
-
-    useEffect(() => {
-        if (state.deal && state.deal.deal) {
-            // Set properties that we should be able to edit. Make sure they correlate to params in updateDeal.
-            setDealObj({
-                description: state.deal.deal.description,
-                maturity: state.deal.deal.maturity,
-                name: state.deal.deal.name,
-                potential: state.deal.deal.potential,
-                user_id: state.deal.deal.user_id,
-                userName: state.deal.deal.userName, // This is for frontend display, when changing user we only send user id.
-            });
-        }
-    }, [state.deal]);
 
     return ( _stateCheck() ?
         <div className='dealWrapper'>

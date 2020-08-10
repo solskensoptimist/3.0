@@ -112,7 +112,7 @@ export const getLists = async (payload) => {
             data: {
                 listIds: lists.map((num) => num._id),
             },
-            method: 'get',
+            method: 'post',
             url: '/lists/getOrderHistory/',
         });
 

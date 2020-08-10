@@ -20,6 +20,16 @@ const SaveToList = (state) => {
     const [showExisting, setShowExisting] = useState(true);
     const newListNameInputRef = useRef(null);
 
+    useEffect(() => {
+        getLists();
+    }, []);
+
+    useEffect(() => {
+        if (!showExisting) {
+            newListNameInputRef && newListNameInputRef.current && newListNameInputRef.current.focus();
+        }
+    }, [showExisting]);
+
     const _saveToList = async () => {
         if (showExisting) {
             state.props.close();
@@ -33,16 +43,6 @@ const SaveToList = (state) => {
     const _stateCheck = () => {
         return !!(state && state.props && state.lists);
     };
-
-    useEffect(() => {
-        getLists();
-    }, []);
-
-    useEffect(() => {
-        if (!showExisting) {
-            newListNameInputRef && newListNameInputRef.current && newListNameInputRef.current.focus();
-        }
-    }, [showExisting]);
 
     return ( _stateCheck() ?
         <Popup close={state.props.close} size='big'>

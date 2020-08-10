@@ -10,6 +10,17 @@ import SupertempWidget from 'components/supertemp_widget';
 const Dashboard = (state) => {
     const [widgets, setWidgets] = useState([]);
 
+    useEffect(() => {
+        getDashboardSettings();
+    }, []);
+
+    useEffect(() => {
+        // We dont show pipeline widgets on dashboard anymore.
+        const data = state.settings.dashboard.data.filter((num) => num.type !== 'pipeline');
+
+        setWidgets(data);
+    }, [state.settings.dashboard]);
+
     const _renderWidget = (widget, i) => {
         switch (widget.type.toLowerCase()) {
             case 'notifications':
@@ -60,17 +71,6 @@ const Dashboard = (state) => {
             }
         });
     };
-
-    useEffect(() => {
-        getDashboardSettings();
-    }, []);
-
-    useEffect(() => {
-        // We dont show pipeline widgets on dashboard anymore.
-        const data = state.settings.dashboard.data.filter((num) => num.type !== 'pipeline');
-
-        setWidgets(data);
-    }, [state.settings.dashboard]);
 
     return (
         <div className='dashboardWrapper'>

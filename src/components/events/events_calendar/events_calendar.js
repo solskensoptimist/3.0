@@ -13,6 +13,13 @@ import Tooltip from 'components/tooltip';
 const EventsCalendar = (state) => {
     const [minimize, setMinimize] = useState(false);
 
+    useEffect(() => {
+        getEvents({
+            target: (state.props && state.props.target) ? state.props.target : null,
+            type:  state.props.type,
+        });
+    }, [state.props]);
+
     const _renderDays = () => {
         const days = [];
 
@@ -93,13 +100,6 @@ const EventsCalendar = (state) => {
             type: state.props.type,
         });
     };
-
-    useEffect(() => {
-        getEvents({
-            target: (state.props && state.props.target) ? state.props.target : null,
-            type:  state.props.type,
-        });
-    }, [state.props]);
 
     return ( _stateCheck() ?
         <div className='eventsCalendarWrapper'>

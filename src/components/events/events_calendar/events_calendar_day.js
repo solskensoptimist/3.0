@@ -19,6 +19,23 @@ export default (props) => {
     const classnameWrapper = (props.events && props.events.length) ? 'dayWrapper hasEvent' : 'dayWrapper';
     const classnameDay = (props.hasPassed) ? 'day passed' : 'day';
 
+    useEffect(() => {
+        /**
+         * When clicking outside events box, close it.
+         */
+        const _unmountEvents = (e) => {
+            if (eventsRef && eventsRef.current) {
+                const node = ReactDOM.findDOMNode(eventsRef.current);
+                if (node && !node.contains(e.target)) {
+                    _closeEvents();
+                }
+            }
+        };
+
+        window.addEventListener('mousedown', _unmountEvents);
+        return () => window.removeEventListener('mousedown', _unmountEvents);
+    }, []);
+
     const _closeEvents = () => {
         setShowEvents(false);
     };
@@ -49,23 +66,6 @@ export default (props) => {
             setShowEvents(true);
         }
     };
-
-    useEffect(() => {
-        /**
-         * When clicking outside events box, close it.
-         */
-        const _unmountEvents = (e) => {
-            if (eventsRef && eventsRef.current) {
-                const node = ReactDOM.findDOMNode(eventsRef.current);
-                if (node && !node.contains(e.target)) {
-                    _closeEvents();
-                }
-            }
-        };
-
-        window.addEventListener('mousedown', _unmountEvents);
-        return () => window.removeEventListener('mousedown', _unmountEvents);
-    }, []);
 
     return (
         <div className={classnameWrapper} onClick={_openEvents}>

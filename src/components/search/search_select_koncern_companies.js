@@ -14,6 +14,51 @@ const SearchSelect = (state) => {
     const inputSelectKoncernCompaniesRef = useRef(null);
     const searchSelectKoncernCompaniesWrapperRef = useRef(null);
 
+    useEffect(() => {
+        // Reset selected array.
+        resetSelected({type: 'koncernCompanies'});
+        // Reset search suggestions.
+        resetSearch();
+
+        /**
+         * When clicking outside searchWrapper, reset search.
+         */
+        const _closeSearch = (e) => {
+            if (searchSelectKoncernCompaniesWrapperRef && searchSelectKoncernCompaniesWrapperRef.current) {
+                const node = ReactDOM.findDOMNode(searchSelectKoncernCompaniesWrapperRef.current);
+                if (node && !node.contains(e.target)) {
+                    if (inputSelectKoncernCompaniesRef.current && inputSelectKoncernCompaniesRef.current) {
+                        inputSelectKoncernCompaniesRef.current.value = '';
+                    }
+                    setSearchValue('');
+                }
+            }
+        };
+
+        /**
+         * Handle key press.r
+         */
+        const _handleKey = async (e) => {
+            if (e.keyCode === 27) {
+                if (inputSelectKoncernCompaniesRef.current && inputSelectKoncernCompaniesRef.current) {
+                    inputSelectKoncernCompaniesRef.current.value = '';
+                }
+                setSearchValue('');
+            }
+        };
+
+        window.addEventListener('mousedown', _closeSearch);
+        window.addEventListener('keydown', _handleKey);
+        return () => {
+            window.removeEventListener('mousedown', _closeSearch);
+            window.removeEventListener('keydown', _closeSearch);
+        };
+    }, []);
+
+    useEffect(() => {
+        setSelected(state.search.selectedKoncernCompanies);
+    }, [state.search.selectedKoncernCompanies]);
+
     /**
      * Handle input change.
      */
@@ -96,51 +141,6 @@ const SearchSelect = (state) => {
     const _toggleSelected = (payload) => {
         toggleSelected({obj: payload, type: 'koncernCompanies'});
     };
-
-    useEffect(() => {
-        // Reset selected array.
-        resetSelected({type: 'koncernCompanies'});
-        // Reset search suggestions.
-        resetSearch();
-
-        /**
-         * When clicking outside searchWrapper, reset search.
-         */
-        const _closeSearch = (e) => {
-            if (searchSelectKoncernCompaniesWrapperRef && searchSelectKoncernCompaniesWrapperRef.current) {
-                const node = ReactDOM.findDOMNode(searchSelectKoncernCompaniesWrapperRef.current);
-                if (node && !node.contains(e.target)) {
-                    if (inputSelectKoncernCompaniesRef.current && inputSelectKoncernCompaniesRef.current) {
-                        inputSelectKoncernCompaniesRef.current.value = '';
-                    }
-                    setSearchValue('');
-                }
-            }
-        };
-
-        /**
-         * Handle key press.r
-         */
-        const _handleKey = async (e) => {
-            if (e.keyCode === 27) {
-                if (inputSelectKoncernCompaniesRef.current && inputSelectKoncernCompaniesRef.current) {
-                    inputSelectKoncernCompaniesRef.current.value = '';
-                }
-                setSearchValue('');
-            }
-        };
-
-        window.addEventListener('mousedown', _closeSearch);
-        window.addEventListener('keydown', _handleKey);
-        return () => {
-            window.removeEventListener('mousedown', _closeSearch);
-            window.removeEventListener('keydown', _closeSearch);
-        };
-    }, []);
-
-    useEffect(() => {
-        setSelected(state.search.selectedKoncernCompanies);
-    }, [state.search.selectedKoncernCompanies]);
 
     return ( _stateCheck() ?
             <div className='searchSelectWrapper' ref={searchSelectKoncernCompaniesWrapperRef}>

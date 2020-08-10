@@ -7,7 +7,7 @@ export default {
     action: 'Händelse',
     activated: 'Aktiverat',
     activities: 'Aktiviteter',
-    activitiesComingUp: 'Ej utförda aktiviteter',
+    activitiesComingUp: 'Kommande aktiviteter',
     activity: 'Aktivitet',
     add: 'Lägg till',
     addComment: 'Lägg till kommentar',

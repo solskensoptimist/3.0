@@ -32,6 +32,22 @@ const CreateDeal = (state) => {
     const newDealNameInputRef = useRef(null);
     const newDealPotentialInputRef = useRef(null);
 
+    useEffect(() => {
+        if (state.props && state.user && state.user.info) {
+            setNewDealObj({
+                cars: (state.props.cars && Array.isArray(state.props.cars)) ? state.props.cars : [],
+                contacts: [],
+                description: '',
+                files: [],
+                maturity: null,
+                name: '',
+                prospects: (state.props.prospects && Array.isArray(state.props.prospects)) ? state.props.prospects : [],
+                user_id: state.user.info.id,
+                userName: state.user.info.name,
+            });
+        }
+    }, [state.props, state.user]);
+
     const _addSelectedCarsToDealObj = () => {
         const selected = state.search.selectedCars.filter((num) => {
             return !(newDealObj.cars.find((x) => x.id === num.id));
@@ -176,22 +192,6 @@ const CreateDeal = (state) => {
     const _uploadError = (message) => {
         console.error('S3 file upload error:', message);
     };
-
-    useEffect(() => {
-        if (state.props && state.user && state.user.info) {
-            setNewDealObj({
-                cars: (state.props.cars && Array.isArray(state.props.cars)) ? state.props.cars : [],
-                contacts: [],
-                description: '',
-                files: [],
-                maturity: null,
-                name: '',
-                prospects: (state.props.prospects && Array.isArray(state.props.prospects)) ? state.props.prospects : [],
-                user_id: state.user.info.id,
-                userName: state.user.info.name,
-            });
-        }
-    }, [state.props, state.user]);
 
     return (_stateCheck() ?
         <Popup close={state.props.close} size='big'>

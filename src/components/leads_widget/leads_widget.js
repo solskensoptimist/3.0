@@ -13,10 +13,6 @@ export const SupertempWidget = (state) => {
     const [data, setData] = useState(null);
     const [minimize, setMinimize] = useState(false);
 
-    const _stateCheck = () => {
-        return !!(data);
-    };
-
     useEffect(() => {
         getLeads({limit: 25})
     }, []);
@@ -26,6 +22,10 @@ export const SupertempWidget = (state) => {
             setData(state.leads.data);
         }
     }, [state.leads]);
+
+    const _stateCheck = () => {
+        return !!(data);
+    };
 
     return (_stateCheck() ?
             <div className='leadsWidgetWrapper'>

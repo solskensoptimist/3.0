@@ -13,10 +13,6 @@ export const SupertempWidget = (state) => {
     const [data, setData] = useState(null);
     const [minimize, setMinimize] = useState(false);
 
-    const _stateCheck = () => {
-        return !!(data);
-    };
-
     useEffect(() => {
         getSupertempData({id: state.props._id, criterias: state.props.data.criterias})
     }, [state.props]);
@@ -26,6 +22,10 @@ export const SupertempWidget = (state) => {
             setData(state.supertemp.subscriptions[state.props._id]);
         }
     }, [state.props._id, state.supertemp.subscriptions]);
+
+    const _stateCheck = () => {
+        return !!(data);
+    };
 
     return (_stateCheck() ?
         <div className='supertempWidgetWrapper'>

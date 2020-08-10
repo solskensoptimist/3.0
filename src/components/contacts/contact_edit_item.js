@@ -21,6 +21,21 @@ export default (props) => {
     const contactNameInputRef = useRef(null);
     const contactPhoneInputRefs = useRef([]);
 
+    useEffect(() => {
+        let contact = props.contact;
+
+        // To add empty input fields.
+        if (!contact.email.length) {
+            contact.email = [''];
+        }
+
+        if (!contact.tele.length) {
+            contact.tele = [''];
+        }
+
+        setContactObj(props.contact);
+    }, [props.contact]);
+
     const _onInputChange = () => {
         setContactObj({
             ...contactObj,
@@ -47,21 +62,6 @@ export default (props) => {
 
         props.saveChanges(contact);
     };
-
-    useEffect(() => {
-        let contact = props.contact;
-
-        // To add empty input fields.
-        if (!contact.email.length) {
-            contact.email = [''];
-        }
-
-        if (!contact.tele.length) {
-            contact.tele = [''];
-        }
-
-        setContactObj(props.contact);
-    }, [props.contact]);
 
     return (
         <div className='contactsWrapper__contacts__content__contacts__item'>

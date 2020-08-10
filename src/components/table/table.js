@@ -68,6 +68,10 @@ export const TableComponent = (props) => {
     const [selected, setSelected] = React.useState([]);
     const classes = useStyles();
 
+    useEffect(() => {
+        setSelected(props.selected ? props.selected : []);
+    }, [props.selected]);
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -176,10 +180,6 @@ export const TableComponent = (props) => {
             </TableHead>
         );
     };
-
-    useEffect(() => {
-        setSelected(props.selected ? props.selected : []);
-    }, [props.selected]);
 
     return (
         <div className='tableWrapper'>

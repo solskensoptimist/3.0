@@ -22,6 +22,21 @@ export default (props) => {
     const splitListAmountInputRefs = useRef([]);
     const splitListNameInputRefs = useRef([]);
 
+    useEffect(() => {
+        if (props.list && props.list.total > 1) {
+            setSplits([
+                {
+                    size: Math.floor(props.list.total / 2),
+                    name: props.list.name + ' 1',
+                },
+                {
+                    size: props.list.total - (Math.floor(+props.list.total / 2)),
+                    name: props.list.name + ' 2',
+                },
+            ]);
+        }
+    }, [props.list]);
+
     const _calculateSplits = (payload) => {
         let splitsCopy = splits.slice();
         let touchedCopy = touched.slice();
@@ -250,21 +265,6 @@ export default (props) => {
             });
         }
     };
-
-    useEffect(() => {
-        if (props.list && props.list.total > 1) {
-            setSplits([
-                {
-                    size: Math.floor(props.list.total / 2),
-                    name: props.list.name + ' 1',
-                },
-                {
-                    size: props.list.total - (Math.floor(+props.list.total / 2)),
-                    name: props.list.name + ' 2',
-                },
-            ]);
-        }
-    }, [props.list]);
 
     return (
         <div className='splitListWrapper'>

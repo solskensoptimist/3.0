@@ -20,6 +20,16 @@ const Settings = (state) =>  {
     const passwordRef1 = useRef(null);
     const passwordRef2 = useRef(null);
 
+    useEffect(() => {
+        getSettings();
+    }, []);
+
+    useEffect(() => {
+        if (state.user.info) {
+            setLang(state.user.info.lang);
+        }
+    }, [state.user]);
+
     /**
      * Save password.
      */
@@ -55,16 +65,6 @@ const Settings = (state) =>  {
     const _toggleEmail = async () => {
         return await saveSettings({email: !state.settings.email});
     };
-
-    useEffect(() => {
-        getSettings();
-    }, []);
-
-    useEffect(() => {
-        if (state.user.info) {
-            setLang(state.user.info.lang);
-        }
-    }, [state.user]);
 
     return _stateCheck() ? (
         <Popup close={state.props.close} size='medium'>

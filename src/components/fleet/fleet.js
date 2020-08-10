@@ -28,6 +28,30 @@ const Fleet = (state) => {
     const [query, setQuery] = useState(null);
     const [sorting, setSorting] = useState(null);
 
+    useEffect(() => {
+        getFleet({
+            koncern: !!state.props.koncern,
+            historic: !!state.props.historic,
+            page: 0,
+            prospectId: state.props.prospectId,
+            rowsPerPage: 10,
+        });
+    }, [state.props]);
+
+    useEffect(() => {
+        if (state.props.historic && state.fleet.fleetHistoric) {
+            setFleet(state.fleet.fleetHistoric);
+            if (state.fleet.fleetHistoric.data && !state.fleet.fleetHistoric.data.length) {
+                setMinimize(true);
+            }
+        } else if (!state.props.historic && state.fleet.fleet) {
+            setFleet(state.fleet.fleet);
+            if (state.fleet.fleet.data && !state.fleet.fleet.data.length) {
+                setMinimize(true);
+            }
+        }
+    }, [state.fleet.fleet, state.fleet.fleetHistoric, state.props]);
+
     const _pageChange = (newPage) => {
         setPage(newPage);
         getFleet({
@@ -94,30 +118,6 @@ const Fleet = (state) => {
             sorting: newSorting,
         });
     };
-
-    useEffect(() => {
-        getFleet({
-            koncern: !!state.props.koncern,
-            historic: !!state.props.historic,
-            page: 0,
-            prospectId: state.props.prospectId,
-            rowsPerPage: 10,
-        });
-    }, [state.props]);
-
-    useEffect(() => {
-        if (state.props.historic && state.fleet.fleetHistoric) {
-            setFleet(state.fleet.fleetHistoric);
-            if (state.fleet.fleetHistoric.data && !state.fleet.fleetHistoric.data.length) {
-                setMinimize(true);
-            }
-        } else if (!state.props.historic && state.fleet.fleet) {
-            setFleet(state.fleet.fleet);
-            if (state.fleet.fleet.data && !state.fleet.fleet.data.length) {
-                setMinimize(true);
-            }
-        }
-    }, [state.fleet.fleet, state.fleet.fleetHistoric, state.props]);
 
     return ( _stateCheck() ?
         <div className='fleetWrapper'>

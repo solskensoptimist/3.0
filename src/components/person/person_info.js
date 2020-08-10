@@ -23,6 +23,15 @@ const Person = (state) => {
     const personInfoNameInputRef = useRef(null);
     const personInfoPhoneInputRefs = useRef([]);
 
+    useEffect(() => {
+        if (state.person && state.person.person) {
+            // Deep clone.
+            setEmails(JSON.parse(JSON.stringify(state.person.person.emails)));
+            setPhoneNumbers(JSON.parse(JSON.stringify(state.person.person.phoneNumbers)));
+            setName((state.person.person.name) ? JSON.parse(JSON.stringify(state.person.person.name)) : '');
+        }
+    }, [state.person]);
+
     // Add phone or email.
     const _addValue = async (obj, type) => {
         if (!obj.value || (obj.value && obj.value === '')) {
@@ -190,15 +199,6 @@ const Person = (state) => {
             value: obj.value,
         });
     };
-
-    useEffect(() => {
-        if (state.person && state.person.person) {
-            // Deep clone.
-            setEmails(JSON.parse(JSON.stringify(state.person.person.emails)));
-            setPhoneNumbers(JSON.parse(JSON.stringify(state.person.person.phoneNumbers)));
-            setName((state.person.person.name) ? JSON.parse(JSON.stringify(state.person.person.name)) : '');
-        }
-    }, [state.person]);
 
     return (_stateCheck() ?
             <div className='personInfoWrapper'>

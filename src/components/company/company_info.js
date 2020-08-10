@@ -21,6 +21,14 @@ const CompanyInfo = (state) => {
     const companyInfoEmailsInputRefs = useRef([]);
     const companyInfoPhoneInputRefs = useRef([]);
 
+    useEffect(() => {
+        if (state.company && state.company.company) {
+            // Deep clone.
+            setEmails(JSON.parse(JSON.stringify(state.company.company.emails)));
+            setPhoneNumbers(JSON.parse(JSON.stringify(state.company.company.phoneNumbers)));
+        }
+    }, [state.company]);
+
     // Set value from input ref to emails array.
     const _onEmailInputChange = (id, index) => {
         setEmails(emails.map((num) => {
@@ -177,14 +185,6 @@ const CompanyInfo = (state) => {
             value: obj.value,
         });
     };
-
-    useEffect(() => {
-        if (state.company && state.company.company) {
-            // Deep clone.
-            setEmails(JSON.parse(JSON.stringify(state.company.company.emails)));
-            setPhoneNumbers(JSON.parse(JSON.stringify(state.company.company.phoneNumbers)));
-        }
-    }, [state.company]);
 
     return ( _stateCheck() ?
         <div className='companyInfoWrapper'>

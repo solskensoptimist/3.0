@@ -36,44 +36,6 @@ const Contacts = (state) => {
     const [createContact, setCreateContact] = useState(false);
     const [minimize, setMinimize] = useState(false);
 
-    /**
-     * Add current entity to contacts selected in search box.
-     */
-    const _addEntityToContacts = async () => {
-        if (!state.search.selectedContacts || !state.search.selectedContacts.length) {
-            return;
-        }
-
-        return await addEntityToContacts({contacts: state.search.selectedContacts, entityId: state.props.entityId, entityType: state.props.entityType});
-    };
-
-    const _stateCheck = () => {
-        return !!(state && state.contacts && state.contacts && state.contacts.contacts);
-    };
-
-    /**
-     * Completely remove a footer_contact.
-     */
-    const _removeContact = async (id) => {
-        return await removeContact({id: id});
-    };
-
-    /**
-     * Remove an entity from a footer_contact.
-     */
-    const _removeEntityFromContact = async (payload) => {
-        return await removeEntityFromContact({id: payload.id, entityId: payload.entityId});
-    };
-
-    /**
-     * Save changes for footer_contact that is being edited.
-     */
-    const _updateContact = async (contact) => {
-        setCreateContact(false);
-        setEditContact(null);
-        return await updateContact({id: contact._id, data: contact});
-    };
-
     useEffect(() => {
         getContacts({entityId: state.props.entityId});
     }, [state.props.entityId]);
@@ -169,6 +131,44 @@ const Contacts = (state) => {
     }, [createContact, editContact, showAmount,
         state.contacts.contacts, state.props.companyId,
         state.props.entityId, state.props.entityName, state.props.entityType]);
+
+    /**
+     * Add current entity to contacts selected in search box.
+     */
+    const _addEntityToContacts = async () => {
+        if (!state.search.selectedContacts || !state.search.selectedContacts.length) {
+            return;
+        }
+
+        return await addEntityToContacts({contacts: state.search.selectedContacts, entityId: state.props.entityId, entityType: state.props.entityType});
+    };
+
+    const _stateCheck = () => {
+        return !!(state && state.contacts && state.contacts && state.contacts.contacts);
+    };
+
+    /**
+     * Completely remove a footer_contact.
+     */
+    const _removeContact = async (id) => {
+        return await removeContact({id: id});
+    };
+
+    /**
+     * Remove an entity from a footer_contact.
+     */
+    const _removeEntityFromContact = async (payload) => {
+        return await removeEntityFromContact({id: payload.id, entityId: payload.entityId});
+    };
+
+    /**
+     * Save changes for footer_contact that is being edited.
+     */
+    const _updateContact = async (contact) => {
+        setCreateContact(false);
+        setEditContact(null);
+        return await updateContact({id: contact._id, data: contact});
+    };
 
     return ( _stateCheck() ?
         <div className='contactsWrapper'>

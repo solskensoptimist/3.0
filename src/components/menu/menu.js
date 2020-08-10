@@ -42,6 +42,36 @@ export default (props) => {
     const [activeId, setActiveId] = useState((props.items && props.items.length && props.items.find((num) => num.active)) ? props.items.find((num) => num.active).id : null);
     const [items, setItems] = useState([]);
 
+    useEffect(() => {
+        if (props.items.length) {
+            setItems(props.items.sort((a, b) => {
+                if ( a.label < b.label){
+                    return -1;
+                } else if ( a.label > b.label ){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }));
+        }
+
+        props.items.map((num) => {
+            if (num.children) {
+                num.children.sort((a, b) => {
+                    if ( a.label < b.label){
+                        return -1;
+                    } else if ( a.label > b.label ){
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
+            }
+            return num;
+        });
+
+    }, [props.items]);
+
     const _renderItems = (arr, main) => {
         return arr.map((num, i) => {
             if (num.type === 'button') {
@@ -145,36 +175,6 @@ export default (props) => {
             );
         }
     };
-
-    useEffect(() => {
-        if (props.items.length) {
-            setItems(props.items.sort((a, b) => {
-                if ( a.label < b.label){
-                    return -1;
-                } else if ( a.label > b.label ){
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }));
-        }
-
-        props.items.map((num) => {
-            if (num.children) {
-                num.children.sort((a, b) => {
-                    if ( a.label < b.label){
-                        return -1;
-                    } else if ( a.label > b.label ){
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                });
-            }
-            return num;
-        });
-
-    }, [props.items]);
 
     return (
         <div className='menuWrapper'>

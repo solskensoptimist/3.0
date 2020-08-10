@@ -17,6 +17,16 @@ const KoncernStructure = (state) => {
     const [total, setTotal] = useState(null);
     const [structure, setStructure] = useState(null);
 
+    useEffect(() => {
+        if (state.company.koncern && state.company.koncern.cars) {
+            setTotal(state.company.koncern.cars);
+        }
+        if (state.company.koncern && state.company.koncern.structure) {
+            setStructure(state.company.koncern.structure);
+            setSelected(state.company.koncern.structure.map((num) => num.id));
+        }
+    }, [state.company.koncern]);
+
     /**
      * Update which rows are selected - this affect state.total (amount to calculate percentages of),
      * and state.disabledRows (which rows to disable).
@@ -49,16 +59,6 @@ const KoncernStructure = (state) => {
     const _stateCheck = () => {
         return !!structure;
     };
-
-    useEffect(() => {
-        if (state.company.koncern && state.company.koncern.cars) {
-            setTotal(state.company.koncern.cars);
-        }
-        if (state.company.koncern && state.company.koncern.structure) {
-            setStructure(state.company.koncern.structure);
-            setSelected(state.company.koncern.structure.map((num) => num.id));
-        }
-    }, [state.company.koncern]);
 
     return (_stateCheck() ?
         <div className='companyStructureWrapper'>

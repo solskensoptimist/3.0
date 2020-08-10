@@ -23,21 +23,6 @@ const DealProspects = (state) => {
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
-    const _addProspects = async () => {
-        let prospects = state.search.selectedAll.map((num) => num.id.toString());
-        if (Array.isArray(state.deal.deal.prospects)) {
-            prospects = state.deal.deal.prospects.concat(prospects);
-        } else {
-            prospects = [].concat(prospects);
-        }
-
-        return await updateDeal({prospects: prospects});
-    };
-
-    const _stateCheck = () => {
-        return !!(state && state.deal && state.deal.prospectInfo);
-    };
-
     useEffect(() => {
         const _removeProspect = async (id) => {
             const prospects = state.deal.deal.prospects.filter((num) => num.toString() !== id.toString());
@@ -96,6 +81,21 @@ const DealProspects = (state) => {
             _renderProspects();
         }
     }, [showAmount, state.deal, state.props]);
+
+    const _addProspects = async () => {
+        let prospects = state.search.selectedAll.map((num) => num.id.toString());
+        if (Array.isArray(state.deal.deal.prospects)) {
+            prospects = state.deal.deal.prospects.concat(prospects);
+        } else {
+            prospects = [].concat(prospects);
+        }
+
+        return await updateDeal({prospects: prospects});
+    };
+
+    const _stateCheck = () => {
+        return !!(state && state.deal && state.deal.prospectInfo);
+    };
 
     return ( _stateCheck() ?
         <div className='dealProspectsWrapper'>

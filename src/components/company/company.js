@@ -27,15 +27,6 @@ const Company = (state) => {
     const [showCreateDeal, setShowCreateDeal] = useState(false);
     const [showSaveToList, setShowSaveToList] = useState(false);
 
-    const _saveResponsible = async () => {
-        setChangeResponsible(false);
-        return await setResponsibility({entityId: state.company.company.user_id, responsibleUserId: responsibleObj.responsibleUserId});
-    };
-
-    const _stateCheck = () => {
-        return (dataIsCollected && state && state.company && state.company.responsible && state.company.company && Object.keys(state.company.company).length);
-    };
-
     useEffect(() => {
         const getData = async () => {
             await getCompany({id: id});
@@ -56,6 +47,15 @@ const Company = (state) => {
             });
         }
     }, [state.company]);
+
+    const _saveResponsible = async () => {
+        setChangeResponsible(false);
+        return await setResponsibility({entityId: state.company.company.user_id, responsibleUserId: responsibleObj.responsibleUserId});
+    };
+
+    const _stateCheck = () => {
+        return (dataIsCollected && state && state.company && state.company.responsible && state.company.company && Object.keys(state.company.company).length);
+    };
 
     return ( _stateCheck() ?
         <div className='companyWrapper'>

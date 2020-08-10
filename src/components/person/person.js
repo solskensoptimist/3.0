@@ -29,15 +29,6 @@ const Person = (state) => {
     const [showCreateDeal, setShowCreateDeal] = useState(false);
     const [showSaveToList, setShowSaveToList] = useState(false);
 
-    const _saveResponsible = async () => {
-        setChangeResponsible(false);
-        return await setResponsibility({entityId: state.person.person.user_id, responsibleUserId: responsibleObj.responsibleUserId});
-    };
-
-    const _stateCheck = () => {
-        return !!(dataIsCollected && state && state.person && state.person.person);
-    };
-
     useEffect(() => {
         const getData = async () => {
             await getPerson({id: id});
@@ -58,6 +49,15 @@ const Person = (state) => {
             });
         }
     }, [state.person]);
+
+    const _saveResponsible = async () => {
+        setChangeResponsible(false);
+        return await setResponsibility({entityId: state.person.person.user_id, responsibleUserId: responsibleObj.responsibleUserId});
+    };
+
+    const _stateCheck = () => {
+        return !!(dataIsCollected && state && state.person && state.person.person);
+    };
 
     return (_stateCheck() ?
         <div className='personWrapper'>

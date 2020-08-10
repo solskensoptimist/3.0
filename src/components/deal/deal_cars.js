@@ -23,21 +23,6 @@ const DealCars = (state) => {
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
-    const _addCars = async () => {
-        let cars = state.search.selectedCars.map((num) => num.id.toString());
-        if (Array.isArray(state.deal.deal.cars)) {
-            cars = state.deal.deal.cars.concat(cars);
-        } else {
-            cars = [].concat(cars);
-        }
-
-        return await updateDeal({cars: cars});
-    };
-
-    const _stateCheck = () => {
-        return !!(state && state.deal && state.deal.deal && state.deal.deal.cars);
-    };
-
     useEffect(() => {
         const _removeCar = async (id) => {
             const cars = state.deal.deal.cars.filter((num) => num !== id);
@@ -92,6 +77,21 @@ const DealCars = (state) => {
 
         _renderCars();
     }, [showAmount, state.deal.deal.cars, state.props]);
+
+    const _addCars = async () => {
+        let cars = state.search.selectedCars.map((num) => num.id.toString());
+        if (Array.isArray(state.deal.deal.cars)) {
+            cars = state.deal.deal.cars.concat(cars);
+        } else {
+            cars = [].concat(cars);
+        }
+
+        return await updateDeal({cars: cars});
+    };
+
+    const _stateCheck = () => {
+        return !!(state && state.deal && state.deal.deal && state.deal.deal.cars);
+    };
 
     return ( _stateCheck() ?
             <div className='dealCarsWrapper'>

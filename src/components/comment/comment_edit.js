@@ -11,6 +11,15 @@ const CommentEdit = (state) => {
     const [text, setText] = useState('');
     const commentEditTextRef = useRef(null);
 
+    useEffect( () => {
+        const _getComment = async () => {
+            await getComment({id: state.props.id});
+            setText((state.comment.comment) ? state.comment.comment : '');
+        };
+
+        _getComment();
+    }, [state.comment.comment, state.props.id]);
+
     const _onChange = () => {
         if (commentEditTextRef && commentEditTextRef.current && commentEditTextRef.current.value) {
             setText(commentEditTextRef.current.value);
@@ -27,15 +36,6 @@ const CommentEdit = (state) => {
     const _stateCheck = () => {
         return !!(state && state.comment && state.comment.comment);
     };
-
-    useEffect( () => {
-        const _getComment = async () => {
-            await getComment({id: state.props.id});
-            setText((state.comment.comment) ? state.comment.comment : '');
-        };
-
-        _getComment();
-    }, [state.comment.comment, state.props.id]);
 
     return ( _stateCheck() ?
         <Popup close={state.props.close} size='small'>

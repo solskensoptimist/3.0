@@ -14,6 +14,51 @@ const SearchSelect = (state) => {
     const inputSelectCarsRef = useRef(null);
     const searchSelectCarsWrapperRef = useRef(null);
 
+    useEffect(() => {
+        // Reset selected array.
+        resetSelected({type: 'cars'});
+        // Reset search suggestions.
+        resetSearch();
+
+        /**
+         * When clicking outside searchWrapper, reset search.
+         */
+        const _closeSearch = (e) => {
+            if (searchSelectCarsWrapperRef && searchSelectCarsWrapperRef.current) {
+                const node = ReactDOM.findDOMNode(searchSelectCarsWrapperRef.current);
+                if (node && !node.contains(e.target)) {
+                    if (inputSelectCarsRef.current && inputSelectCarsRef.current) {
+                        inputSelectCarsRef.current.value = '';
+                    }
+                    setSearchValue('');
+                }
+            }
+        };
+
+        /**
+         * Handle key press.r
+         */
+        const _handleKey = async (e) => {
+            if (e.keyCode === 27) {
+                if (inputSelectCarsRef.current && inputSelectCarsRef.current) {
+                    inputSelectCarsRef.current.value = '';
+                }
+                setSearchValue('');
+            }
+        };
+
+        window.addEventListener('mousedown', _closeSearch);
+        window.addEventListener('keydown', _handleKey);
+        return () => {
+            window.removeEventListener('mousedown', _closeSearch);
+            window.removeEventListener('keydown', _closeSearch);
+        };
+    }, []);
+
+    useEffect(() => {
+        setSelected(state.search.selectedCars);
+    }, [state.search.selectedCars]);
+
     /**
      * Handle input change.
      */
@@ -100,51 +145,6 @@ const SearchSelect = (state) => {
     const _toggleSelected = (payload) => {
         toggleSelected({obj: payload, type: 'cars'});
     };
-
-    useEffect(() => {
-        // Reset selected array.
-        resetSelected({type: 'cars'});
-        // Reset search suggestions.
-        resetSearch();
-
-        /**
-         * When clicking outside searchWrapper, reset search.
-         */
-        const _closeSearch = (e) => {
-            if (searchSelectCarsWrapperRef && searchSelectCarsWrapperRef.current) {
-                const node = ReactDOM.findDOMNode(searchSelectCarsWrapperRef.current);
-                if (node && !node.contains(e.target)) {
-                    if (inputSelectCarsRef.current && inputSelectCarsRef.current) {
-                        inputSelectCarsRef.current.value = '';
-                    }
-                    setSearchValue('');
-                }
-            }
-        };
-
-        /**
-         * Handle key press.r
-         */
-        const _handleKey = async (e) => {
-            if (e.keyCode === 27) {
-                if (inputSelectCarsRef.current && inputSelectCarsRef.current) {
-                    inputSelectCarsRef.current.value = '';
-                }
-                setSearchValue('');
-            }
-        };
-
-        window.addEventListener('mousedown', _closeSearch);
-        window.addEventListener('keydown', _handleKey);
-        return () => {
-            window.removeEventListener('mousedown', _closeSearch);
-            window.removeEventListener('keydown', _closeSearch);
-        };
-    }, []);
-
-    useEffect(() => {
-        setSelected(state.search.selectedCars);
-    }, [state.search.selectedCars]);
 
     return ( _stateCheck() ?
             <div className='searchSelectWrapper' ref={searchSelectCarsWrapperRef}>

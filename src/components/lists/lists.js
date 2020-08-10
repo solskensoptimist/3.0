@@ -23,6 +23,18 @@ const Lists = (state) => {
     const [subscribeFlag, setSubscribeFlag] = useState(0);
     const mergeListsNameInputRef = useRef(null);
 
+    useEffect(() => {
+        getLists({});
+        getLists({archived: true});
+        getListsSubscriptions();
+    }, []);
+
+    useEffect(() => {
+        if (activePopup === 'mergeLists') {
+            mergeListsNameInputRef && mergeListsNameInputRef.current && mergeListsNameInputRef.current.focus();
+        }
+    }, [activePopup]);
+
     const _archiveLists = async () => {
         await archiveLists({listIds: selectedLists.map((num) => num._id)});
         return setSelectedLists([]);
@@ -117,18 +129,6 @@ const Lists = (state) => {
         });
         return setSelectedLists([]);
     };
-
-    useEffect(() => {
-        getLists({});
-        getLists({archived: true});
-        getListsSubscriptions();
-    }, []);
-
-    useEffect(() => {
-        if (activePopup === 'mergeLists') {
-            mergeListsNameInputRef && mergeListsNameInputRef.current && mergeListsNameInputRef.current.focus();
-        }
-    }, [activePopup]);
 
     return ( _stateCheck() ?
         <div className='listsWrapper'>

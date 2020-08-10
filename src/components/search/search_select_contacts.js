@@ -14,6 +14,49 @@ const SearchSelect = (state) => {
     const inputSelectContactsRef = useRef(null);
     const searchSelectContactsWrapperRef = useRef(null);
 
+    useEffect(() => {
+        // Reset selected array.
+        resetSelected({type: 'contacts'});
+        // Reset search suggestions.
+        resetSearch();
+
+        /**
+         * When clicking outside searchWrapper, reset search.
+         */
+        const _closeSearch = (e) => {
+            if (searchSelectContactsWrapperRef && searchSelectContactsWrapperRef.current) {
+                const node = ReactDOM.findDOMNode(searchSelectContactsWrapperRef.current);
+                if (node && !node.contains(e.target)) {
+                    if (inputSelectContactsRef.current && inputSelectContactsRef.current) {
+                        inputSelectContactsRef.current.value = '';
+                    }
+                    setSearchValue('');
+                }
+            }
+        };
+
+        /**
+         * Handle key press.r
+         */
+        const _handleKey = async (e) => {
+            if (e.keyCode === 27) {
+                setSearchValue('');
+                inputSelectContactsRef.current.value = '';
+            }
+        };
+
+        window.addEventListener('mousedown', _closeSearch);
+        window.addEventListener('keydown', _handleKey);
+        return () => {
+            window.removeEventListener('mousedown', _closeSearch);
+            window.removeEventListener('keydown', _closeSearch);
+        };
+    }, []);
+
+    useEffect(() => {
+        setSelected(state.search.selectedContacts);
+    }, [state.search.selectedContacts]);
+
     /**
      * Handle input change.
      */
@@ -99,49 +142,6 @@ const SearchSelect = (state) => {
     const _toggleSelected = (payload) => {
         toggleSelected({obj: payload, type: 'contacts'});
     };
-
-    useEffect(() => {
-        // Reset selected array.
-        resetSelected({type: 'contacts'});
-        // Reset search suggestions.
-        resetSearch();
-
-        /**
-         * When clicking outside searchWrapper, reset search.
-         */
-        const _closeSearch = (e) => {
-            if (searchSelectContactsWrapperRef && searchSelectContactsWrapperRef.current) {
-                const node = ReactDOM.findDOMNode(searchSelectContactsWrapperRef.current);
-                if (node && !node.contains(e.target)) {
-                    if (inputSelectContactsRef.current && inputSelectContactsRef.current) {
-                        inputSelectContactsRef.current.value = '';
-                    }
-                    setSearchValue('');
-                }
-            }
-        };
-
-        /**
-         * Handle key press.r
-         */
-        const _handleKey = async (e) => {
-            if (e.keyCode === 27) {
-                setSearchValue('');
-                inputSelectContactsRef.current.value = '';
-            }
-        };
-
-        window.addEventListener('mousedown', _closeSearch);
-        window.addEventListener('keydown', _handleKey);
-        return () => {
-            window.removeEventListener('mousedown', _closeSearch);
-            window.removeEventListener('keydown', _closeSearch);
-        };
-    }, []);
-
-    useEffect(() => {
-        setSelected(state.search.selectedContacts);
-    }, [state.search.selectedContacts]);
 
     return ( _stateCheck() ?
             <div className='searchSelectWrapper' ref={searchSelectContactsWrapperRef}>

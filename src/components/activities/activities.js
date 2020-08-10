@@ -31,14 +31,6 @@ const Activities = (state) => {
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
-    const _stateCheck = () => {
-        if (state.props.type === 'filter') {
-            return !!state && state.activity && state.activity.activityByFilter;
-        } else if (state.props.type === 'target') {
-            return !!state && state.activity && state.activity.activityByTarget;
-        }
-    };
-
     useEffect(() => {
         if (state.props.type === 'target' && state.props.target) {
             getActivity({target: state.props.target, type: 'target'});
@@ -179,6 +171,15 @@ const Activities = (state) => {
 
         _renderActivities();
     }, [includeComments, includeMoved, showAmount, state.activity.activityByFilter, state.activity.activityByTarget, state.props.target, state.props.type, state.user]);
+
+
+    const _stateCheck = () => {
+        if (state.props.type === 'filter') {
+            return !!state && state.activity && state.activity.activityByFilter;
+        } else if (state.props.type === 'target') {
+            return !!state && state.activity && state.activity.activityByTarget;
+        }
+    };
 
     return ( _stateCheck() ?
         <div className='activitiesWrapper'>

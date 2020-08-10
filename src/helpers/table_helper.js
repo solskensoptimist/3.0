@@ -271,7 +271,7 @@ export const tableHelper = {
                         });
 
                         obj[column.id] =
-                            <Tooltip horizontalDirection='right' tooltipContent={string} verticalDirection={verticalDirection}>
+                            <Tooltip horizontalDirection='left' tooltipContent={string} verticalDirection={verticalDirection}>
                                 <Icon active={true} val='team'/>
                             </Tooltip>;
                     } else {

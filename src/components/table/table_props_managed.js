@@ -50,6 +50,10 @@ export const TablePropsManaged = (props) => {
     const [selected, setSelected] = React.useState([]);
     const classes = useStyles();
 
+    useEffect(() => {
+        setSelected(props.selected ? props.selected : []);
+    }, [props.selected]);
+
     const handlePageChange = (event, newPage) => {
         setPage(newPage);
         if (typeof props.pageChange === 'function') {
@@ -165,10 +169,6 @@ export const TablePropsManaged = (props) => {
             </TableHead>
         );
     };
-
-    useEffect(() => {
-        setSelected(props.selected ? props.selected : []);
-    }, [props.selected]);
 
     return (
         <div className='tableWrapper'>

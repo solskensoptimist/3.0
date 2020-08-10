@@ -11,10 +11,6 @@ const FleetAnalysis = (state) => {
     const {id} = useParams();
     const [showHistoric, setShowHistoric] = useState(false);
 
-    const _stateCheck = () => {
-        return !!(state.fleetAnalysis && state.fleetAnalysis.fleetAnalysis && state.fleetAnalysis.fleetAnalysisHistoric && Object.keys(state.fleetAnalysis.fleetAnalysis).length && Object.keys(state.fleetAnalysis.fleetAnalysisHistoric).length);
-    };
-
     useEffect(() => {
         getFleetAnalysis({
             historic: false,
@@ -25,6 +21,10 @@ const FleetAnalysis = (state) => {
             prospectId: id
         });
     }, [id]);
+
+    const _stateCheck = () => {
+        return !!(state.fleetAnalysis && state.fleetAnalysis.fleetAnalysis && state.fleetAnalysis.fleetAnalysisHistoric && Object.keys(state.fleetAnalysis.fleetAnalysis).length && Object.keys(state.fleetAnalysis.fleetAnalysisHistoric).length);
+    };
 
     return (_stateCheck() ?
         <div className='fleetAnalysisWrapper'>

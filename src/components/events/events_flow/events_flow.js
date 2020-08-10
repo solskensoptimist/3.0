@@ -17,10 +17,6 @@ const EventsFlow = (state) => {
     const [showAmount, setShowAmount] = useState(amountIncrease);
     const [minimize, setMinimize] = useState(false);
 
-    const _stateCheck = () => {
-        return !!state.events;
-    };
-
     useEffect(() => {
         getEvents({
             target: (state.props && state.props.target) ? state.props.target : null,
@@ -97,6 +93,10 @@ const EventsFlow = (state) => {
 
         _renderEvents();
     }, [showAmount, state.events, state.props.target, state.user]);
+
+    const _stateCheck = () => {
+        return !!state.events;
+    };
 
     return ( _stateCheck() ?
         <div className={(state.props.small) ? 'eventsFlowWrapper small' : 'eventsFlowWrapper'}>

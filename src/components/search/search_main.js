@@ -16,6 +16,48 @@ const SearchMain = (state) => {
     const inputRefMain = useRef(null);
     const searchMainWrapperRef = useRef(null);
 
+    useEffect(() => {
+        inputRefMain && inputRefMain.current && inputRefMain.current.focus();
+
+        /**
+         * When clicking outside searchWrapper, close it.
+         */
+        const _closeSearch = (e) => {
+            if (searchMainWrapperRef && searchMainWrapperRef.current) {
+                const node = ReactDOM.findDOMNode(searchMainWrapperRef.current);
+                if (node && !node.contains(e.target)) {
+                    if (inputRefMain.current && inputRefMain.current) {
+                        inputRefMain.current.value = '';
+                    }
+                    setSearchValue('');
+                    setShowSearch(false);
+                }
+            }
+        };
+
+        /**
+         * Handle key press.
+         */
+        const _handleKey = async (e) => {
+            if (!showSearch) {
+                return null;
+            } else if (e.keyCode === 27) {
+                setSearchValue('');
+                inputRefMain.current.value = '';
+                setShowSearch(false);
+            } else if (e.keyCode === 13 && inputRefMain && inputRefMain.current && inputRefMain.current.value) {
+                return await _redirectSearch();
+            }
+        };
+
+        window.addEventListener('mousedown', _closeSearch);
+        window.addEventListener('keydown', _handleKey);
+        return () => {
+            window.removeEventListener('mousedown', _closeSearch);
+            window.removeEventListener('keydown', _closeSearch);
+        };
+    }, [showSearch]);
+
     /**
      * Handle input change.
      */
@@ -72,48 +114,6 @@ const SearchMain = (state) => {
     const _stateCheck = () => {
         return !!(searchValue !== undefined && state && state.search);
     };
-
-    useEffect(() => {
-        inputRefMain && inputRefMain.current && inputRefMain.current.focus();
-
-        /**
-         * When clicking outside searchWrapper, close it.
-         */
-        const _closeSearch = (e) => {
-            if (searchMainWrapperRef && searchMainWrapperRef.current) {
-                const node = ReactDOM.findDOMNode(searchMainWrapperRef.current);
-                if (node && !node.contains(e.target)) {
-                    if (inputRefMain.current && inputRefMain.current) {
-                        inputRefMain.current.value = '';
-                    }
-                    setSearchValue('');
-                    setShowSearch(false);
-                }
-            }
-        };
-
-        /**
-         * Handle key press.
-         */
-        const _handleKey = async (e) => {
-            if (!showSearch) {
-                return null;
-            } else if (e.keyCode === 27) {
-                setSearchValue('');
-                inputRefMain.current.value = '';
-                setShowSearch(false);
-            } else if (e.keyCode === 13 && inputRefMain && inputRefMain.current && inputRefMain.current.value) {
-                return await _redirectSearch();
-            }
-        };
-
-        window.addEventListener('mousedown', _closeSearch);
-        window.addEventListener('keydown', _handleKey);
-        return () => {
-            window.removeEventListener('mousedown', _closeSearch);
-            window.removeEventListener('keydown', _closeSearch);
-        };
-    }, [showSearch]);
 
     return ( _stateCheck() ?
         <div className='searchMainWrapper' ref={searchMainWrapperRef}>
