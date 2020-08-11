@@ -195,7 +195,7 @@ const Activities = (state) => {
                                 <>
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.toggleComments}><Icon active={includeComments} val='toggleComments' onClick={() => {setIncludeComments(!includeComments)}}/></Tooltip>
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.toggleMoved}><Icon active={includeMoved} val='toggleMoved' onClick={() => {setIncludeMoved(!includeMoved)}}/></Tooltip>
-                                    {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
+                                    {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.reset}><Icon val='reset' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
                                     {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
                                 </>

@@ -132,7 +132,7 @@ const Fleet = (state) => {
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.maximize}><Icon val='maximize' onClick={() => {setMinimize(false)}}/></Tooltip>
                                 </> :
                                 <>
-                                    <Tooltip horizontalDirection='left' tooltipContent={tc.reload}><Icon val='regret' onClick={() => {_reloadData()}}/></Tooltip>
+                                    <Tooltip horizontalDirection='left' tooltipContent={tc.reload}><Icon val='reset' onClick={() => {_reloadData()}}/></Tooltip>
                                     {(!window.location.pathname.includes('vagnparksanalys')) && <Tooltip horizontalDirection='left' tooltipContent={tc.navigateToFleetAnalysis}><Icon val='navigate' onClick={() => {history.push('/vagnparksanalys/' + state.props.prospectId)}}/></Tooltip>}
                                     <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
                                 </>

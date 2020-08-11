@@ -108,7 +108,7 @@ const DealFiles = (state) => {
                                     </> :
                                     <>
                                         {(state.user.info.id === state.deal.deal.user_id) && <Tooltip horizontalDirection='left' tooltipContent={tc.uploadFile}><Icon val='add' onClick={() => {_startUpload()}}/></Tooltip>}
-                                        {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.regret}><Icon val='regret' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
+                                        {(showAmount > amountIncrease) && <Tooltip horizontalDirection='left' tooltipContent={tc.reset}><Icon val='reset' onClick={() => {setShowAmount(amountIncrease)}}/></Tooltip>}
                                         {(showAmount < dataLength) && <Tooltip horizontalDirection='left' tooltipContent={tc.load}><Icon val='load' onClick={() => {setShowAmount(showAmount + amountIncrease)}}/></Tooltip>}
                                         <Tooltip horizontalDirection='left' tooltipContent={tc.minimize}><Icon val='minimize' onClick={() => {setMinimize(true)}}/></Tooltip>
                                     </>

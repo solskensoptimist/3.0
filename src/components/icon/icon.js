@@ -213,10 +213,10 @@ export default (props) => {
             return <AttachMoney className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'prospect':
             return <Tune className={props.active ? 'active' : null} onClick={onClick}/>;
-        case 'regret':
-            return <Replay className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'remove':
             return <Delete className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'reset':
+            return <Replay className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'save':
             return <Save className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'search':
