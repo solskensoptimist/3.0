@@ -240,28 +240,28 @@ const CompanyInfo = (state) => {
                     <div className='companyInfoWrapper__companyInfo__content__item'>
                         <p className='companyInfoWrapper__companyInfo__content__item__companyInfoLabel'>{tc.phoneNumbers}</p>
                         {_renderPhoneNumbers()}
-                        <div className='companyInfoWrapper__companyInfo__content__item__addField'>
-                            <Tooltip horizontalDirection='left' tooltipContent={tc.addPhone}>
-                                <Icon val='add' onClick={() => {
-                                    if (!phoneNumbers.find((num) => num.new)) {
+                        {(!phoneNumbers.find((num) => num.new)) ?
+                            <div className='companyInfoWrapper__companyInfo__content__item__addField'>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.addPhone}>
+                                    <Icon val='add' onClick={() => {
                                         setPhoneNumbers((Array.isArray(phoneNumbers)) ? phoneNumbers.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
-                                    }
-                                }}/>
-                            </Tooltip>
-                        </div>
+                                    }}/>
+                                </Tooltip>
+                            </div> : null
+                        }
                     </div>
                     <div className='companyInfoWrapper__companyInfo__content__item'>
                         <p className='companyInfoWrapper__companyInfo__content__item__companyInfoLabel'>{tc.email}</p>
                         {_renderEmails()}
-                        <div className='companyInfoWrapper__companyInfo__content__item__addField'>
-                            <Tooltip horizontalDirection='left' tooltipContent={tc.addEmail}>
-                                <Icon val='add' onClick={() => {
-                                    if (!emails.find((num) => num.new)) {
+                        {(!emails.find((num) => num.new)) ?
+                            <div className='companyInfoWrapper__companyInfo__content__item__addField'>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.addEmail}>
+                                    <Icon val='add' onClick={() => {
                                         setEmails((Array.isArray(emails)) ? emails.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
-                                    }
-                                }}/>
-                            </Tooltip>
-                        </div>
+                                    }}/>
+                                </Tooltip>
+                            </div> : null
+                        }
                     </div>
                 </div>
                 }

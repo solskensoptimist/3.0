@@ -33,6 +33,7 @@ const useStyles = makeStyles({
  *
  * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. Note that every row object must have an 'id' property with a unique value and you have to provide props.selected array.
  * @param props.columns - array - See <Table> for columns example.
+ * @param props.query - string - Search query.
  * @param props.pageChange - func - Called when page changes.
  * @param props.rows - array - See <Table> for rows example.
  * @param props.rowsPerPage - number - Rows per page.
@@ -46,13 +47,17 @@ export const TablePropsManaged = (props) => {
     const [page, setPage] = useState(0);
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
-    const [query, setQuery] = React.useState('');
+    const [query, setQuery] = React.useState(props.query ? props.query : '');
     const [selected, setSelected] = React.useState([]);
     const classes = useStyles();
 
     useEffect(() => {
         setSelected(props.selected ? props.selected : []);
     }, [props.selected]);
+
+    useEffect(() => {
+        setQuery(props.query ? props.query : '');
+    }, [props.query]);
 
     const handlePageChange = (event, newPage) => {
         setPage(newPage);
@@ -223,7 +228,6 @@ export const TablePropsManaged = (props) => {
                                 placeholder={tc.placeholderSearchTable}
                                 onChange={(e) => {
                                     props.search(e.target.value);
-                                    setQuery(e.target.value);
                                 }}
                                 value={query}
                             />

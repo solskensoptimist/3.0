@@ -41,13 +41,13 @@ const Fleet = (state) => {
     useEffect(() => {
         if (state.props.historic && state.fleet.fleetHistoric) {
             setFleet(state.fleet.fleetHistoric);
-            if (state.fleet.fleetHistoric.data && !state.fleet.fleetHistoric.data.length) {
-                setMinimize(true);
+            if (state.fleet.fleetHistoric.data) {
+                state.fleet.fleetHistoric.data.length === 0 ? setMinimize(true) : setMinimize(false);
             }
         } else if (!state.props.historic && state.fleet.fleet) {
             setFleet(state.fleet.fleet);
-            if (state.fleet.fleet.data && !state.fleet.fleet.data.length) {
-                setMinimize(true);
+            if (state.fleet.fleet.data) {
+                state.fleet.fleet.data.length === 0 ? setMinimize(true) : setMinimize(false);
             }
         }
     }, [state.fleet.fleet, state.fleet.fleetHistoric, state.props]);
@@ -66,6 +66,7 @@ const Fleet = (state) => {
     };
 
     const _reloadData = () => {
+        setQuery('');
         // Reload data clean.
         getFleet({
             koncern: !!state.props.koncern,
@@ -137,7 +138,19 @@ const Fleet = (state) => {
                                 </>
                         }
                         headline={(state.props.historic) ? tc.fleetHistoric : tc.fleet}
-                        headlineSub={(fleet.loading) ? `${tc.loading}...` : (fleet.total === 0) ? tc.noVehicles : (fleet.total > 999) ? `${tc.showing} ${tc.maximum.toLowerCase()} 1000 ${tc.vehicles.toLowerCase()}` : `${tc.total} ${fleet.total} ${tc.vehicles.toLowerCase()}`}
+                        headlineSub={(fleet.loading) ?
+                            `${tc.loading}...` :
+                            (fleet.data && fleet.data.length === 0) ?
+                                tc.noVehicles :
+                                (query && query.length) ?
+                                    `${tc.showing} ${tc.searchResult.toLowerCase()}: ${fleet.amount} ${tc.vehicles.toLowerCase()}` :
+                                    (fleet.amount === 1000 && state.props.historic) ?
+                                        `${tc.showing} ${tc.maximum.toLowerCase()} 1000 ${tc.vehicles.toLowerCase()}` :
+                                        (fleet.amount === 10000 && !state.props.historic) ?
+                                            `${tc.showing} ${tc.maximum.toLowerCase()} 10 000 ${tc.vehicles.toLowerCase()}` :
+                                            `${tc.total} ${fleet.total} ${tc.vehicles.toLowerCase()}`
+                        }
+
                     />
                 </div>
                 {!minimize ?
@@ -147,18 +160,19 @@ const Fleet = (state) => {
                             {(fleet.data && fleet.data.length) ?
                                 <TablePropsManaged
                                     columns={tableHelper.getFleetColumns(state.props.historic)}
+                                    query={query}
                                     pageChange={_pageChange}
                                     rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}
                                     rowsPerPage={rowsPerPage}
                                     rowsPerPageChange={_rowsPerPageChange}
                                     search={_searchFleet}
                                     sort={_sortFleet}
-                                    total={fleet.total}
+                                    total={fleet.amount}
                                 /> :
                                 <Info>
                                     <h4>{tc.noFleet}</h4>
                                     {fleet.query ?
-                                        <p>{`${tc.showing} 0 ${tc.of.toLowerCase()} ${fleet.total}. ${tc.toReset} ${tc.clickOn.toLowerCase()} ${tc.reload.toLowerCase()}.`}</p> :
+                                        <p>{`${tc.showing} 0 ${tc.of.toLowerCase()} ${fleet.amount}. ${tc.toReset} ${tc.clickOn.toLowerCase()} ${tc.reload.toLowerCase()}.`}</p> :
                                         <p>{tc.noFleetWhy}</p>
                                     }
                                 </Info>

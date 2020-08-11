@@ -356,6 +356,7 @@ export default {
     savePassword: 'Spara lösenord',
     search: 'Sök',
     searchCriterias: 'Sökkriterier',
+    searchResult: 'Sökresultat',
     sellerName: 'Inköpsplats',
     settings: 'Inställningar',
     settingsPasswordHintEmpty: 'Lösenord kan ej vara tomma',

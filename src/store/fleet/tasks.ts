@@ -56,7 +56,7 @@ export const getFleet = async (payload) => {
         const result = {
             amount: data.amount,
             data: data.results,
-            query: payload.query ? payload.query : null,
+            // query: payload.query,
             target: payload.prospectId,
             total: data.total,
         };
@@ -72,4 +72,4 @@ export const getFleet = async (payload) => {
 };
 
 // Debounced (used for table search function in Fleet).
-export const getFleetDebounced = debounce(getFleet, 200);
+export const getFleetDebounced = debounce(getFleet, 500);

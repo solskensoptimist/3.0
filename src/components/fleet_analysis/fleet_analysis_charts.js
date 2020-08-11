@@ -35,7 +35,9 @@ export default (props) => {
                         headline={(props.historic) ? tc.fleetAnalysisChartsHistoric : tc.fleetAnalysisCharts}
                         headlineSub={((props.data.total.total === 0)) ?
                             tc.noVehicles :
-                            `${tc.total} ${props.data.total.total} ${tc.vehicles.toLowerCase()}`
+                            (props.data.total.total === 1000 && props.historic) ?
+                                `${tc.showing} ${tc.maximum.toLowerCase()} 1000 ${tc.vehicles.toLowerCase()}` :
+                                `${tc.total} ${props.data.total.total} ${tc.vehicles.toLowerCase()}`
                         }
                     />
                 </div>
