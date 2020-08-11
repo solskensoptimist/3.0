@@ -249,7 +249,9 @@ const Person = (state) => {
                             <div className='personInfoWrapper__personInfo__content__item__addField'>
                                 <Tooltip horizontalDirection='right' tooltipContent={tc.addPhone}>
                                     <Icon val='add' onClick={() => {
-                                        setPhoneNumbers((Array.isArray(phoneNumbers)) ? phoneNumbers.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
+                                        if (!phoneNumbers.find((num) => num.new)) {
+                                            setPhoneNumbers((Array.isArray(phoneNumbers)) ? phoneNumbers.concat([{new: true, value: ''}]) : [{new: true, value: ''}]);
+                                        }
                                     }}/>
                                 </Tooltip>
                             </div>
@@ -260,7 +262,9 @@ const Person = (state) => {
                             <div className='personInfoWrapper__personInfo__content__item__addField'>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.addEmail}>
                                     <Icon val='add' onClick={() => {
-                                        setEmails((Array.isArray(emails)) ? emails.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
+                                        if (!emails.find((num) => num.new)) {
+                                            setEmails((Array.isArray(emails)) ? emails.concat([{new: true, value: ''}]) : [{new: true, value: ''}]);
+                                        }
                                     }}/>
                                 </Tooltip>
                             </div>

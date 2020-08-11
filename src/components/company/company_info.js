@@ -243,7 +243,9 @@ const CompanyInfo = (state) => {
                         <div className='companyInfoWrapper__companyInfo__content__item__addField'>
                             <Tooltip horizontalDirection='left' tooltipContent={tc.addPhone}>
                                 <Icon val='add' onClick={() => {
-                                    setPhoneNumbers((Array.isArray(phoneNumbers)) ? phoneNumbers.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
+                                    if (!phoneNumbers.find((num) => num.new)) {
+                                        setPhoneNumbers((Array.isArray(phoneNumbers)) ? phoneNumbers.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
+                                    }
                                 }}/>
                             </Tooltip>
                         </div>
@@ -254,7 +256,9 @@ const CompanyInfo = (state) => {
                         <div className='companyInfoWrapper__companyInfo__content__item__addField'>
                             <Tooltip horizontalDirection='left' tooltipContent={tc.addEmail}>
                                 <Icon val='add' onClick={() => {
-                                    setEmails((Array.isArray(emails)) ? emails.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
+                                    if (!emails.find((num) => num.new)) {
+                                        setEmails((Array.isArray(emails)) ? emails.concat([{new: true, value: ''}]) : [{new: true, value: ''}])
+                                    }
                                 }}/>
                             </Tooltip>
                         </div>
