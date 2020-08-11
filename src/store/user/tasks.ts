@@ -2,6 +2,8 @@ import {store} from 'store';
 import {request} from 'helpers';
 import {rootActionTypes} from "store/actions";
 import {userActionTypes} from "store/user/actions";
+import {getLists} from 'store/lists/tasks';
+import history from '../../router_history';
 
 /**
  * Get user colleagues on same dealer.
@@ -62,17 +64,14 @@ export const userLogin = async (credentials) => {
 
         if (user instanceof Error) {
             return console.error('Error in userLogin:\n' + user);
+        } else {
+            store.dispatch({type: userActionTypes.SET_USER_INFO, payload: user});
+            history.push('');
+            getUserColleagues();
+            getUserConnections();
+            getLists({});
+            return getLists({archived: true});
         }
-
-        // Fix: Implement async redux actions, remove setTimeout below.
-        store.dispatch({type: userActionTypes.SET_USER_INFO, payload: user});
-
-        await getUserColleagues();
-        await getUserConnections();
-
-        return setTimeout(() => {
-            window.location.href = '/';
-        }, 200);
     } catch (err) {
         return console.error('Error in userLogin:\n' + err);
     }
@@ -89,7 +88,7 @@ export const userLogout = async () => {
         });
 
         store.dispatch({type: rootActionTypes.CLEAR_STATE});
-        return window.location.href = '/';
+        return history.push('');
     } catch (err) {
         return console.error('Error in userLogout:\n' + err);
     }
