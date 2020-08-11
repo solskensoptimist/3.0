@@ -14,6 +14,7 @@ export const supertempReducer = (state = initialState, action) => {
             return {
                 ...state,
                 subscriptions: {
+                    ...state.subscriptions,
                     [action.payload.id]: action.payload.data,
                 },
             }

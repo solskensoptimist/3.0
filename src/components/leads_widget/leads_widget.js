@@ -14,7 +14,7 @@ export const SupertempWidget = (state) => {
     const [minimize, setMinimize] = useState(false);
 
     useEffect(() => {
-        getLeads({limit: 25})
+        getLeads({limit: 50})
     }, []);
 
     useEffect(() => {

@@ -11,8 +11,9 @@ import moment from 'moment';
  * We use search criterias from that widget object to make a search and then we save the result on the id for that widget object.
  * A user can have multiple supertemp subscriptions, so every search result is saved to its unique id.
  *
- * @param payload.criterias
- * @param payload.id
+ * @param payload.criterias - obj
+ * @param payload.id - string
+ * @param payload.limit - number - When we want to control max rows.
  */
 export const getSupertempData = async (payload) => {
     try {
@@ -22,7 +23,7 @@ export const getSupertempData = async (payload) => {
 
         // Format criterias for backend.
         const criterias = prospectHelper.getSearchVariables(payload.criterias);
-        criterias.pageSize = 25;
+        criterias.pageSize = payload.limit ? payload.limit : 10;
         criterias.sort = {
             type: 'published',
             direction: 'DESC'

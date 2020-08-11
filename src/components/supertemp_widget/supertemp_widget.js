@@ -14,7 +14,7 @@ export const SupertempWidget = (state) => {
     const [minimize, setMinimize] = useState(false);
 
     useEffect(() => {
-        getSupertempData({id: state.props._id, criterias: state.props.data.criterias})
+        getSupertempData({id: state.props._id, criterias: state.props.data.criterias, limit: 50})
     }, [state.props]);
 
     useEffect(() => {
@@ -43,16 +43,20 @@ export const SupertempWidget = (state) => {
                     <div className='supertempWidgetWrapper__supertempWidget__content__info'>
                         <div className='supertempWidgetWrapper__supertempWidget__content__info__left'>
                             <h4>{tc.supertempWidgetNew_1}</h4>
-                            <h4 className='supertempWidgetEmphasize'>0</h4>
+                            <h4 className='supertempWidgetEmphasize'>{data.latestBatch.count.total}</h4>
                             <p>{tc.supertempWidgetNew_2}</p>
                         </div>
                         <div className='supertempWidgetWrapper__supertempWidget__content__info__right'>
                             <h4>{tc.supertempWidgetHandle_1}</h4>
-                            <h4 className='supertempWidgetEmphasize'>72</h4>
+                            <h4 className='supertempWidgetEmphasize'>{data.total.total}</h4>
                             <p>{tc.supertempWidgetHandle_2}</p>
                         </div>
                     </div>
-                        <Table columns={tableHelper.getSupertempWidgetColumns()} rows={tableHelper.getSupertempWidgetRows(data.items)} rowsPerPage={5}/>
+                        <Table
+                            columns={tableHelper.getSupertempWidgetColumns()}
+                            rows={tableHelper.getSupertempWidgetRows(data.items)}
+                            rowsPerPage={5}
+                        />
                         <div className='supertempWidgetWrapper__supertempWidget__content__navigate'>
                             <NavLink exact to={`/supertemp/${state.props._id}`}>
                                 <h5>{tc.exploreProspects}</h5>
