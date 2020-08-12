@@ -216,7 +216,7 @@ const CompanyInfo = (state) => {
                         <p>{(state.company.company.user_id) ? state.company.company.user_id : tc.dataMissing}</p>
                     </div>
                     <div className='companyInfoWrapper__companyInfo__content__item'>
-                        <p className='companyInfoWrapper__companyInfo__content__item__companyInfoLabel'>{tc.branch}</p>
+                        <p className='companyInfoWrapper__companyInfo__content__item__companyInfoLabel'>{tc.lineOfBusiness}</p>
                         <p>{(state.company.company.finance && state.company.company.finance.abv_hgrupp) ? state.company.company.finance.abv_hgrupp : tc.dataMissing}</p>
                             <p>{(state.company.company.finance && state.company.company.finance.abv_ugrupp) ? state.company.company.finance.abv_ugrupp : null}</p>
                     </div>
