@@ -6,18 +6,26 @@
         &__section
           display: flex
           flex-wrap: wrap
+          margin-top: $paddingBig
+          background: $grey-100
+          padding: $paddingMedium
           &__header
             flex-basis: 100%
             display: flex
             align-items: center
-            margin: $paddingBig 0 $paddingSmall 0
             cursor: pointer
+            svg
+              width: 18px
+              height: 18px
+              margin-left: $paddingSmall
           &__item
             flex-basis: calc(50% - #{$paddingMedium})
             display: flex
             align-items: center
             color: $colorTextLight-1
             cursor: pointer
+            &:nth-child(2), &:nth-child(3)
+              margin-top: $paddingMedium
             &:nth-child(even)
               margin-right: ($paddingMedium / 2)
             &:nth-child(odd)

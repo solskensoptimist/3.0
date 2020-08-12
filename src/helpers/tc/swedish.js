@@ -175,7 +175,7 @@ export default {
     eventsCalendar: 'Kalendervy',
     eventsFlow: 'Flödesvy',
     excelOutput: 'Exceluttag',
-    excelSelectorsInfo: 'Notera att selektorer för senast genomförda nedladdning är markerade per automatik.',
+    excelSelectorsInfo: 'Markera selektorer och klicka på Ladda ned. Notera att selektorer för senast genomförda nedladdning är markerade per automatik.',
     excludeProspects: 'Exkludera prospekt',
     excludeProspectsSubscriptionInfo: 'Prenumerationen uppdateras bara med nytillkomna prospekt',
     existingLists: 'Existerande listor',

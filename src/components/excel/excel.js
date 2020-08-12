@@ -56,7 +56,7 @@ const Excel = (state) => {
                          }}
                     >
                         <h4>{excelHelper.getSectionHeading(prop)}</h4>
-                        <Icon val={hiddenSections.includes(prop) ? 'downArrow' : 'upArrow'}/>
+                        <Icon val={hiddenSections.includes(prop) ? 'rightArrow' : 'downArrow'}/>
                     </div>
                         {(!hiddenSections.includes(prop)) ?
                             excelHelper.getSelectors()[prop].map((num, i) => {
@@ -85,7 +85,7 @@ const Excel = (state) => {
     };
 
     return (
-        <Popup close={state.props.close} size='medium'>
+        <Popup close={state.props.close} size='big'>
             <div className='excelWrapper'>
                 <div className='excelWrapper__excel'>
                     <div className='excelWrapper__excel__header'>

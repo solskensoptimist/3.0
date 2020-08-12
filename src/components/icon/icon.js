@@ -4,6 +4,8 @@ import {
     Apartment,
     ArrowDropDown,
     ArrowDropUp,
+    ArrowLeft,
+    ArrowRight,
     AttachMoney,
     Assignment,
     Autorenew,
@@ -163,6 +165,8 @@ export default (props) => {
             return <Language className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'leads':
             return <Highlight className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'leftArrow':
+            return <ArrowLeft className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'link':
             return <Link className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'linkOff':
@@ -213,6 +217,8 @@ export default (props) => {
             return <AttachMoney className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'prospect':
             return <Tune className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'rightArrow':
+            return <ArrowRight className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'remove':
             return <Delete className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'reset':
