@@ -4,6 +4,7 @@ import {showFlashMessage} from 'store/flash_messages/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
 import {Table} from 'components/table';
+import Excel from 'components/excel';
 import Icon from 'components/icon';
 import Info from 'components/info';
 import Loading from 'components/loading';
@@ -48,10 +49,6 @@ const Lists = (state) => {
         });
         setSubscribeFlag(0);
         return setSelectedLists([]);
-    };
-
-    const _excelOutput = () => {
-        console.log('Ladda ner excel');
     };
 
     const _mergeLists = async () => {
@@ -149,7 +146,7 @@ const Lists = (state) => {
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.archiveLists : tc.archiveList, onClick: _archiveLists, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.shareLists : tc.shareList, onClick: () => {setActivePopup('shareLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: () => {setActivePopup('splitList')}, type: 'button'},
-                                    {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: _excelOutput, type: 'button'},
+                                    {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: () => {setActivePopup('excel')}, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setActivePopup('removeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setActivePopup('mergeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: () => {_recreateCriterias({list: true})}, type: 'button'},
@@ -329,6 +326,9 @@ const Lists = (state) => {
                                 </div>
                             </div>
                         </Popup> : null
+                    }
+                    {(activePopup === 'excel') ?
+                        <Excel close={() => {setActivePopup(null)}}/> : null
                     }
                     {(activePopup === 'mergeLists') ?
                         <Popup close={() => {setActivePopup('')}} size='small'>

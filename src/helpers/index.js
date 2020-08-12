@@ -1,6 +1,7 @@
 export {activityHelper} from './activity_helper';
 export {chartHelper} from './chart_helper';
 export {dealHelper} from './deal_helper';
+export {excelHelper} from './excel_helper';
 export {personHelper} from './person_helper';
 export {prospectHelper} from './prospect_helper';
 export {tableHelper} from './table_helper';

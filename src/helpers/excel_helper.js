@@ -1,7 +1,25 @@
 import {tc} from 'helpers';
 
 export const excelHelper = {
-    getListSelectors: () => {
+    getSectionHeading: (val) => {
+        switch(val) {
+            case 'carColumns':
+                return tc.vehicleInformation;
+            case 'contactColumns':
+                return tc.contact;
+            case 'techColumns':
+                return tc.techInformation;
+            case 'formatColumns':
+                return tc.format;
+            case 'userColumns':
+                return tc.vehicleUser;
+            case 'wheelColumns':
+                return tc.wheelData;
+            default:
+                return val;
+        }
+    },
+    getSelectors: () => {
         return {
             carColumns: [
                 {val: 'brand', label: tc.brand, active: false},
@@ -28,40 +46,9 @@ export const excelHelper = {
                 {val: 'contactName', label: tc.contactName, active: false},
                 {val: 'title', label: tc.contactTitle, active: false},
             ],
-            userColumns: [
-                {val: 'nameCompany', label: tc.companyName, active: false},
-                {val: 'forenamePerson', label: tc.firstNamePerson, active: false},
-                {val: 'surenamePerson', label: tc.surNamePerson, active: false},
-                {val: 'phone', label: tc.phone, active: false},
-                {val: 'address', label: tc.address, active: false},
-                {val: 'zip', label: tc.zipcode, active: false},
-                {val: 'zipMuncipality', label: tc.zipMuncipalityAllaBolag, active: false},
-                {val: 'city', label: tc.township, active: false},
-                {val: 'region', label: tc.county, active: false},
-                {val: 'age', label: tc.age, active: false},
-                {val: 'antanst_AB_X', label: tc.noEmployees, active: false},
-                {val: 'numberOfCarsHV', label: tc.numberOfCarsHV, active: false},
-                {val: 'numberOfCarsSV', label: tc.numberOfCarsSV, active: false},
-                {val: 'numberOfCarsHB', label: tc.numberOfCarsHB, active: false},
-                {val: 'numberOfCarsBU', label: tc.numberOfCarsBU, active: false},
-                {val: 'numberOfCarsTR', label: tc.numberOfCarsTR, active: false},
-                {val: 'numberOfCarsTLB', label: tc.numberOfCarsTLB, active: false},
-                {val: 'numberOfCarsLB', label: tc.numberOfCarsLB, active: false},
-                {val: 'numberOfCarsPB', label: tc.numberOfCarsPB, active: false},
-                {val: 'numberOfCars', label: tc.numberOfCars, active: false},
-                {val: 'abv_hgrupp', label: tc.lineOfBusiness + ' 1', active: false},
-                {val: 'abv_ugrupp', label: tc.lineOfBusiness + ' 2', active: false},
-                {val: 'netoms_AB_X', label: tc.turnover, active: false},
-                {val: 'orgNr', label: tc.orgNr, active: false},
-                {val: 'solid_NT_AB_X', label: tc.solidity, active: false},
-                {val: 'gender', label: tc.prospectType, active: false},
-                {val: 'mostCommonBrandBU', label: tc.mostCommonBrandBU, active: false},
-                {val: 'mostCommonBrandHB', label: tc.mostCommonBrandHB, active: false},
-                {val: 'mostCommonBrandSV', label: tc.mostCommonBrandSV, active: false},
-                {val: 'mostCommonBrandHV', label: tc.mostCommonBrandHV, active: false},
-                {val: 'mostCommonBrandTLB', label: tc.mostCommonBrandTLB, active: false},
-                {val: 'mostCommonBrandLB', label: tc.mostCommonBrandLB, active: false},
-                {val: 'mostCommonBrandPB', label: tc.mostCommonBrandPB, active: false},
+            formatColumns: [
+                {val: 'duplicateProspect', label: tc.duplicateProspect, active: false},
+                {val: 'removeProspectsWithoutNames', label: tc.removeProspectsWithoutNames, active: false},
             ],
             techColumns: [
                 {val: 'shaft_amount', label: tc.shaftAmount, active: false},
@@ -104,6 +91,41 @@ export const excelHelper = {
                 {val: 'co2_usage1', label: tc.co2Usage1, active: false},
                 {val: 'co2_usage2', label: tc.co2Usage2, active: false},
                 {val: 'co2_usage3', label: tc.co2Usage3, active: false},
+            ],
+            userColumns: [
+                {val: 'nameCompany', label: tc.companyName, active: false},
+                {val: 'forenamePerson', label: tc.firstNamePerson, active: false},
+                {val: 'surenamePerson', label: tc.surNamePerson, active: false},
+                {val: 'phone', label: tc.phone, active: false},
+                {val: 'address', label: tc.address, active: false},
+                {val: 'zip', label: tc.zipcode, active: false},
+                {val: 'zipMuncipality', label: tc.zipMuncipalityAllaBolag, active: false},
+                {val: 'city', label: tc.township, active: false},
+                {val: 'region', label: tc.county, active: false},
+                {val: 'age', label: tc.age, active: false},
+                {val: 'antanst_AB_X', label: tc.noEmployees, active: false},
+                {val: 'numberOfCarsHV', label: tc.numberOfCarsHV, active: false},
+                {val: 'numberOfCarsSV', label: tc.numberOfCarsSV, active: false},
+                {val: 'numberOfCarsHB', label: tc.numberOfCarsHB, active: false},
+                {val: 'numberOfCarsBU', label: tc.numberOfCarsBU, active: false},
+                {val: 'numberOfCarsTR', label: tc.numberOfCarsTR, active: false},
+                {val: 'numberOfCarsTLB', label: tc.numberOfCarsTLB, active: false},
+                {val: 'numberOfCarsLB', label: tc.numberOfCarsLB, active: false},
+                {val: 'numberOfCarsPB', label: tc.numberOfCarsPB, active: false},
+                {val: 'numberOfCars', label: tc.numberOfCars, active: false},
+                {val: 'abv_hgrupp', label: tc.lineOfBusiness + ' 1', active: false},
+                {val: 'abv_ugrupp', label: tc.lineOfBusiness + ' 2', active: false},
+                {val: 'netoms_AB_X', label: tc.turnover, active: false},
+                {val: 'orgNr', label: tc.orgNr, active: false},
+                {val: 'solid_NT_AB_X', label: tc.solidity, active: false},
+                {val: 'gender', label: tc.prospectType, active: false},
+                {val: 'mostCommonBrandBU', label: tc.mostCommonBrandBU, active: false},
+                {val: 'mostCommonBrandHB', label: tc.mostCommonBrandHB, active: false},
+                {val: 'mostCommonBrandSV', label: tc.mostCommonBrandSV, active: false},
+                {val: 'mostCommonBrandHV', label: tc.mostCommonBrandHV, active: false},
+                {val: 'mostCommonBrandTLB', label: tc.mostCommonBrandTLB, active: false},
+                {val: 'mostCommonBrandLB', label: tc.mostCommonBrandLB, active: false},
+                {val: 'mostCommonBrandPB', label: tc.mostCommonBrandPB, active: false},
             ],
             wheelColumns: [
                 {val: 'dack_fram', label: tc.tireFront, active: false},

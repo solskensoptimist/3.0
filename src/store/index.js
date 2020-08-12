@@ -6,6 +6,7 @@ import {companyReducer} from 'store/company/reducer';
 import {contactsReducer} from 'store/contacts/reducer';
 import {dealReducer} from 'store/deal/reducer';
 import {eventsReducer} from 'store/events/reducer';
+import {excelReducer} from 'store/excel/reducer';
 import {filterReducer} from 'store/filter/reducer';
 import {fleetReducer} from 'store/fleet/reducer';
 import {fleetAnalysisReducer} from 'store/fleet_analysis/reducer';
@@ -29,6 +30,7 @@ const reducer = combineReducers({
     contacts: contactsReducer,
     deal: dealReducer,
     events: eventsReducer,
+    excel: excelReducer,
     filter: filterReducer,
     fleet: fleetReducer,
     fleetAnalysis: fleetAnalysisReducer,
