@@ -1216,7 +1216,13 @@ a {
   .eventsCalendarWrapper__eventsCalendar__content .empty .day {
     content: "";
     background: transparent;
-    border-color: transparent; }
+    border-color: transparent;
+    padding: 1% 0 0 0; }
+    .eventsCalendarWrapper__eventsCalendar__content .empty .day__date {
+      font-size: 9px;
+      font-weight: 400;
+      color: #bdbdbd;
+      text-transform: uppercase; }
 
 .eventsFlowWrapper__eventsFlow__content {
   margin-top: 22px; }

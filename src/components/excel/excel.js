@@ -11,25 +11,10 @@ import WidgetHeader from 'components/widget_header';
  * Component used for excel download.
  *
  * @param state.props.close - func - Close component
- * @param state.props.type - string - We use this component in different places. <------- ANVÄNDS DETTA?!?!?!?!?!
  */
 const Excel = (state) => {
     const [activeSelectors, setActiveSelectors] = useState([]);
     const [hiddenSections, setHiddenSections] = useState([]);
-
-    /*
-    Flytta sektioer i rätt ordning. (format högst upp)
-
-    Gör sektioner utfällningsbara.
-
-    När vi gör uttag, döp om de olika til typ getExcelDataList, getExcelDataSupertemp...
-    så att vi tar bort proppen dataSource. Vi lägger in olika dataSource i de olika metoderna istället.
-    Kom ihåg att skicka med hela activeSelectors.
-
-    Just nu sätter jag bara ny selector när vi klickar på ladda ned, men ska vi spara det till databasen varje gång det klickas i?
-
-    Använd props.type beroende på listor eller prospektera resultat?
-     */
 
     useEffect(() => {
         if (state.excel.activeSelectors) {
@@ -41,11 +26,22 @@ const Excel = (state) => {
         getSavedExcelSelectors();
     }, []);
 
+    const download = () => {
+        // När görs check på om det är tillåtet att ladda ner antal rader? Det sker backend, men vi måste göra något bättre här....
+        // Bygg en ny check som kollar detta direkt här..?
+        // LÄGG DENNA CHECK DIREKT OCH RENDERA UT FELMEDDELANDE, visa inte ens selektorer om det inte kommer gå att ladda ner.
+        // Behöver även kolla på om man har möjlighet till excel, och/eller stora excel.
+        // När allt det är klart, kör nedladdning. Kolla var det ska skickas och vad som ska skickas med.
+        // Gör bara en för listor just nu. Behöver göra klart hur sökkriterier osv byggs upp innan vi gör den för prospektera/resultat.
+    };
+
     const _renderSelectors = () => {
         const sections = [];
+        let index = 0;
         for (const prop in excelHelper.getSelectors()) {
+            index++;
             sections.push(
-                <div className='excelWrapper__excel__content__selectors__section'>
+                <div className='excelWrapper__excel__content__selectors__section' key={index}>
                     <div className='excelWrapper__excel__content__selectors__section__header'
                          onClick={() => {
                              if (hiddenSections.includes(prop)) {
@@ -99,7 +95,7 @@ const Excel = (state) => {
                         {_renderSelectors()}
                     </div>
                     <div className='excelWrapper__excel__footer'>
-                        <WidgetFooter save={() => {console.log('Gör uttag')}} saveText={tc.download}/>
+                        <WidgetFooter save={download} saveText={tc.download}/>
                     </div>
                 </div>
             </div>

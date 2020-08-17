@@ -23,6 +23,15 @@ const EventsCalendar = (state) => {
     const _renderDays = () => {
         const days = [];
 
+        // Add weekday names.
+        tc.calendarWeekdays.forEach((num, ind) => {
+            days.push(
+                <React.Fragment key={ind * 500}>
+                    <EventsCalendarDayEmpty text={num}/>
+                </React.Fragment>
+            );
+        });
+
         // First, push empty days to calendar so weekdays get in right columns.
         const firstDay = state.events.month[Object.keys(state.events.month)[0]];
         let emptyDays = 0;
@@ -48,6 +57,7 @@ const EventsCalendar = (state) => {
             default:
                 emptyDays = 0;
         }
+        // Add empty boxes to adjust placement of first day.
         for (let index = 0; index < emptyDays; index++) {
             days.push(
                 <React.Fragment key={index + 100}>
