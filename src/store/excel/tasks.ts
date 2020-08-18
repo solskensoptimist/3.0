@@ -5,6 +5,7 @@ import {showFlashMessage} from 'store/flash_messages/tasks';
 import axios from 'axios';
 
 /**
+ * Converts lists to excel output.
  *
  * @param payload.listIds - array
  * @param payload.selectors - object - Columns with active values.
@@ -15,7 +16,7 @@ export const convertListsToExcel = async (payload) => {
             console.error('Missing params in convertListsToExcel ');
         }
 
-        // Format data that is sent...
+        // Format data that is sent to fit backend...
         let listsString = '';
         payload.listIds.forEach((id, i) => {
             if (i === payload.listIds.length - 1) {
@@ -52,8 +53,6 @@ export const convertListsToExcel = async (payload) => {
             method: 'post',
             url: '/lists/exportToExcel/',
         });
-
-        console.log('excelFile tillbaka', excelFile);
 
         if (excelFile instanceof Error) {
             console.error('Error in convertListsToExcel ', excelFile);

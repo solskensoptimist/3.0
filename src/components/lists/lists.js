@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {archiveLists, createListSubscription, getLists, getListsSubscriptions, mergeLists, removeLists, removeListsSubscriptions, shareLists, splitList, undoArchive} from 'store/lists/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
-import {isBlockExcelUser} from 'store/user/tasks';
+import {isBigExcelUser, isBlockExcelUser} from 'store/user/tasks';
 import {connect} from 'react-redux';
 import {tableHelper, tc} from 'helpers';
 import {Table} from 'components/table';
@@ -147,7 +147,15 @@ const Lists = (state) => {
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.archiveLists : tc.archiveList, onClick: _archiveLists, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.shareLists : tc.shareList, onClick: () => {setActivePopup('shareLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length === 1), label: tc.splitList, onClick: () => {setActivePopup('splitList')}, type: 'button'},
-                                    (!isBlockExcelUser()) && {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: () => {setActivePopup('excel')}, type: 'button'},
+                                    !(isBlockExcelUser()) && {disabled: !(selectedLists.length), label: tc.excelOutput, onClick: () => {
+                                            let rows = 0;
+                                            selectedLists.forEach((num) => rows = rows + num.size);
+                                            if (isBigExcelUser() || (!isBigExcelUser() && rows < 5000)) {
+                                                setActivePopup('excel');
+                                            } else {
+                                                showFlashMessage(tc.excelRowsLimit);
+                                            }
+                                        }, type: 'button'},
                                     {disabled: !(selectedLists.length), label: (selectedLists.length > 1) ? tc.removeLists : tc.removeList, onClick: () => {setActivePopup('removeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length > 1), label: tc.mergeLists, onClick: () => {setActivePopup('mergeLists')}, type: 'button'},
                                     {disabled: !(selectedLists.length && selectedLists.length === 1 && selectedLists[0].meta && selectedLists[0].meta.criterias && Object.keys(selectedLists[0].meta.criterias).length), label: tc.recreateCriterias, onClick: () => {_recreateCriterias({list: true})}, type: 'button'},

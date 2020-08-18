@@ -47,7 +47,7 @@ const getUserConnections = async () => {
 };
 
 export const isBigExcelUser = () => {
-    return !!(store.getState.user.info.status & userHelper.getBitFlags().BIG_EXCEL);
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().BIG_EXCEL);
 };
 
 export const isBlockExcelUser = () => {

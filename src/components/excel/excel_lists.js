@@ -52,13 +52,6 @@ const Excel = (state) => {
             }
         }
 
-        // När görs check på om det är tillåtet att ladda ner antal rader? Det sker backend, men vi måste göra något bättre här....
-        // Bygg en ny check som kollar detta direkt här..?
-        // LÄGG DENNA CHECK DIREKT OCH RENDERA UT FELMEDDELANDE, visa inte ens selektorer om det inte kommer gå att ladda ner.
-        // Behöver även kolla på om man har möjlighet till excel, och/eller stora excel.
-        // När allt det är klart, kör nedladdning. Kolla var det ska skickas och vad som ska skickas med.
-        // Gör bara en för listor just nu. Behöver göra klart hur sökkriterier osv byggs upp innan vi gör den för prospektera/resultat.
-
         if (typeof state.props.close === 'function') {
             state.props.close();
         }
@@ -142,8 +135,6 @@ const Excel = (state) => {
     };
 
     const _toggleSelector = (section, val) => {
-        console.log(section);
-        console.log(val);
         let selectorsCloned = JSON.parse(JSON.stringify(selectors));
 
         if (Array.isArray(selectorsCloned[section])) {
