@@ -168,7 +168,7 @@ export const tableHelper = {
     },
     getListsColumns: () => {
         return [
-            {id: 'name', numeric: false, label: tc.name},
+            {id: 'name', editable: true, numeric: false, label: tc.name},
             {id: 'total', numeric: true, label: tc.amount},
             {id: 'created', numeric: false, label: tc.created},
             {id: 'criterias', numeric: false, label: tc.searchCriterias},

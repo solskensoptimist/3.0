@@ -413,3 +413,43 @@ export const undoArchive = async (payload) => {
         return console.error('Error in undoArchive:\n' + err);
     }
 };
+
+/**
+ * Update name on list.
+ *
+ * @param payload.listId
+ * @param payload.name
+ */
+export const updateListName = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.listId) || (payload && !payload.name)) {
+            return console.error('Missing params in updateListName\n' + payload);
+        }
+
+        const data = await request({
+            data: {
+                listId: payload.listId,
+                name: payload.name,
+            },
+            method: 'post',
+            url: '/lists/changeName/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in updateListName:\n' + data);
+        }
+
+        // Update name in store directly to avoid new backend call.
+        let lists = store.getState().lists.lists;
+        lists.map((num) => {
+            if (num._id === payload.listId) {
+                num.name = payload.name;
+            }
+            return num;
+        });
+
+        return store.dispatch({type: listsActionTypes.SET_LISTS, payload: lists});
+    } catch (err) {
+        return console.error('Error in updateListName:\n' + err);
+    }
+};

@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {tc} from 'helpers';
 import history from '../../router_history';
 import { makeStyles } from '@material-ui/core/styles';
+import Icon from 'components/icon';
 import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -29,7 +30,8 @@ const useStyles = makeStyles({
  *
  * Rows can be selectable, if so provide onSelect function and 'id' property for every row.
  * If a row have a 'url' property the row is going to be a navigation link.
- * TODO: make cells editable...
+ *
+ * Cells can be editable. If so, set that column to editable: true. Also provide saveOnEdit function.
  *
  * Two examples on how to use this component, first with rows that are links, second with selectable rows:
  *      <Table columns={tableHelper.getFleetColumns(state.props.historic)} onSelect={_onSelect} rows={tableHelper.getFleetRows(fleet.data, state.props.historic)}/>
@@ -38,7 +40,7 @@ const useStyles = makeStyles({
  * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. Note that every row object must have an 'id' property with a unique value and you have to provide props.selected array.
  * @param props.columns - array
  *      Example 1 (used with example 1 for rows): [
- *          { id: 'name', numeric: false, label: 'Dessert (100g serving)' },
+ *          { id: 'name', editable: true, numeric: false, label: 'Dessert (100g serving)' },
  *          { id: 'calories', numeric: true, label: 'Calories' },
  *          { id: 'fat', numeric: true, label: 'Fat (g)' },
  *      ];
@@ -57,9 +59,12 @@ const useStyles = makeStyles({
  *          {reg_number: 'rty456', brand: 'VOLOV', url: '/bil/rty456'},
  *      ];
  * @param props.rowsPerPage - number (optional)
+ * @param props.saveOnEdit - func (optional) - To be provided if we have cells that are editable. Receives id for row, new value and column name.
  * @param props.selected - array (optional) - If we wanna use selection, provide array with selected ids.
  */
 export const TableComponent = (props) => {
+    const [editId, setEditId] = useState(null);
+    const [editValue, setEditValue] = useState(null);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPage ? props.rowsPerPage : 10);
     const [order, setOrder] = React.useState('asc');
@@ -67,6 +72,7 @@ export const TableComponent = (props) => {
     const [query, setQuery] = React.useState('');
     const [selected, setSelected] = React.useState([]);
     const classes = useStyles();
+    const editInputRefs = useRef([]);
 
     useEffect(() => {
         setSelected(props.selected ? props.selected : []);
@@ -124,18 +130,76 @@ export const TableComponent = (props) => {
 
     const isSelected = (id) => selected.indexOf(id) !== -1;
 
+    const _onInputChange = (key) => {
+        setEditValue(editInputRefs.current[key].value);
+    };
+
     const renderCellsForRow = (row) => {
         const rows = [];
         let index = 0;
         for (const prop in row) {
-            if (prop !== 'id' && prop !== 'url') {
+            const column = props.columns.find((column) => column.id === prop);
+            if (column && column.editable) {
                 index++;
-                const column = props.columns.find((column) => column.id === prop);
-                rows.push(<TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`}>{row[prop]}</TableCell>);
+                rows.push(
+                    <TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`} onClick={(e) => {e.stopPropagation();}}>
+                        {renderEditableCell(row[prop], row.id, prop)}
+                    </TableCell>
+                );
+            } else if (column && prop !== 'id' && prop !== 'url') {
+                index++;
+                rows.push(
+                    <TableCell align={column.numeric ? 'right' : 'left'} key={`${row[prop]}${index}`}>
+                        {row[prop]}
+                    </TableCell>
+                );
             }
         }
 
         return rows;
+    };
+
+    const renderEditableCell = (value, rowId, columnName) => {
+        const key = columnName + '-' + rowId;
+        return (
+            (editId === rowId) ?
+                <div className='editableCell'>
+                    <input type='text' onChange={() => {_onInputChange(key)}} ref={(el) => (editInputRefs.current[key] = el)} value={editValue}/>
+                    <div className='editableCell__icons'>
+                        <Icon onClick={(e) => {
+                            e.stopPropagation();
+                            if (typeof props.saveOnEdit=== 'function') {
+                                props.saveOnEdit(rowId, editValue, columnName);
+                            }
+                            setEditValue(null);
+                            setEditId(null);
+                        }}
+                              val='save'
+                        />
+                        <Icon onClick={(e) => {
+                            e.stopPropagation();
+                            setEditValue(null);
+                            setEditId(null);
+                        }}
+                              val='clear'
+                        />
+                    </div>
+                </div> :
+                <div className='editableCell'>
+                    <div className='editableCell__value'>{value}</div>
+                    <div className='editableCell__icon'>
+                        <Icon onClick={(e) => {
+                            e.stopPropagation();
+                            if (editId === null) {
+                                setEditId(rowId);
+                                setEditValue(value);
+                            }
+                        }}
+                              val='edit'
+                        />
+                    </div>
+                </div>
+        );
     };
 
     const renderTableHead = () => {

@@ -2653,6 +2653,33 @@ svg.active {
       padding: 8px; }
       .tableWrapper__table__content table tbody tr td:first-child {
         border-left: 1px solid #e0e0e0; }
+      .tableWrapper__table__content table tbody tr td .editableCell {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; }
+        .tableWrapper__table__content table tbody tr td .editableCell:hover .editableCell__icon {
+          display: inline; }
+        .tableWrapper__table__content table tbody tr td .editableCell__icon {
+          display: none; }
+        .tableWrapper__table__content table tbody tr td .editableCell__icons {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end; }
+        .tableWrapper__table__content table tbody tr td .editableCell svg {
+          fill: #00B4CC;
+          cursor: pointer;
+          margin-left: 8px; }
+          .tableWrapper__table__content table tbody tr td .editableCell svg:hover {
+            fill: #616161; }
+        .tableWrapper__table__content table tbody tr td .editableCell input {
+          padding: 0;
+          border: 0;
+          background: transparent;
+          font-size: 11px; }
+          .tableWrapper__table__content table tbody tr td .editableCell input::first-line {
+            background: #ffe082;
+            padding: 4px;
+            color: #212121; }
       .tableWrapper__table__content table tbody tr td .tableCellIconHolder {
         display: flex;
         align-items: center;

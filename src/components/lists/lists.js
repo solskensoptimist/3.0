@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {archiveLists, createListSubscription, getLists, getListsSubscriptions, mergeLists, removeLists, removeListsSubscriptions, shareLists, splitList, undoArchive} from 'store/lists/tasks';
+import {archiveLists, createListSubscription, getLists, getListsSubscriptions, mergeLists, removeLists, removeListsSubscriptions, shareLists, splitList, undoArchive, updateListName} from 'store/lists/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {isBigExcelUser, isBlockExcelUser} from 'store/user/tasks';
 import {connect} from 'react-redux';
@@ -84,6 +84,13 @@ const Lists = (state) => {
         setActivePopup('');
         await removeListsSubscriptions({ids: selectedSubscriptions.map((num) => num._id)});
         return setSelectedSubscriptions([]);
+    };
+
+    const _saveOnEdit = async (id, value, columnName) => {
+        // Check on column name if we want to edit cells in other columns in the future.
+        if (columnName === 'name') {
+            return await updateListName({listId: id, name: value});
+        }
     };
 
     const _shareLists = async (userIds) => {
@@ -208,6 +215,7 @@ const Lists = (state) => {
                                         columns={tableHelper.getListsColumns()}
                                         onSelect={(arr) => {setSelectedLists(state.lists.lists.filter((num) => arr.includes(num._id)))}}
                                         rows={tableHelper.getListsRows((state.lists.lists && state.lists.lists.length) ? state.lists.lists : [])}
+                                        saveOnEdit={_saveOnEdit}
                                         selected={selectedLists.map((num) => num._id)}
                                     /> :
                                     <Info>

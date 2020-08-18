@@ -31,6 +31,34 @@
               padding: $paddingSmall
               &:first-child
                 border-left: 1px solid $grey-300
+              .editableCell
+                display: flex
+                justify-content: space-between
+                align-items: center
+                &:hover
+                  .editableCell__icon
+                    display: inline
+                &__icon
+                  display: none
+                &__icons
+                  display: flex
+                  align-items: center
+                  justify-content: flex-end
+                svg
+                  fill: $colorLink
+                  cursor: pointer
+                  margin-left: $paddingSmall
+                  &:hover
+                    fill: $colorLinkHover
+                input
+                  padding: 0
+                  border: 0
+                  background: transparent
+                  font-size: $fontSizeStandard-2
+                  &::first-line
+                    background: $amber-200
+                    padding: 4px
+                    color: $colorTextDark
               .tableCellIconHolder
                 display: flex
                 align-items: center
