@@ -19,17 +19,17 @@ const ShareLists = (state) => {
     const _renderColleagues = () => {
         if (state.user.colleagues && state.user.colleagues.length) {
             return (
-                <div>
-                    <div className='shareListsWrapper__shareLists__content__colleagues__dealer'>
+                <div className='shareListsWrapper__shareLists__content__colleagues__dealer'>
+                    <div className='shareListsWrapper__shareLists__content__colleagues__dealer__dealerName'>
                         {state.user.info.dealerName}
                     </div>
-                    <div className='shareListsWrapper__shareLists__content__colleagues__users'>
-                        <div className='shareListsWrapper__shareLists__content__colleagues__users__left'>
+                    <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users'>
+                        <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users__left'>
                             {
                                 state.user.colleagues.map((num, i) => {
                                     if (num.id !== state.user.info.id && i % 2 === 0) {
                                         return (
-                                            <div className='shareListsWrapper__shareLists__content__colleagues__users__item'
+                                            <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users__item'
                                                  key={num.id}
                                                  onClick={() => {
                                                      if (users.find((x) => x.id === num.id)) {
@@ -49,12 +49,12 @@ const ShareLists = (state) => {
                                 })
                             }
                         </div>
-                        <div className='shareListsWrapper__shareLists__content__colleagues__users__right'>
+                        <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users__right'>
                             {
                                 state.user.colleagues.map((num, i) => {
                                     if (num.id !== state.user.info.id && i % 2 !== 0) {
                                         return (
-                                            <div className='shareListsWrapper__shareLists__content__colleagues__users__item'
+                                            <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users__item'
                                                  key={num.id}
                                                  onClick={() => {
                                                      if (users.find((x) => x.id === num.id)) {
@@ -84,17 +84,17 @@ const ShareLists = (state) => {
         if (state.user.connections && state.user.connections.length) {
             return state.user.connections.map((dealer) => {
                 return(
-                    <div key={dealer.id}>
-                        <div className='shareListsWrapper__shareLists__content__colleagues__dealer'>
+                    <div className='shareListsWrapper__shareLists__content__colleagues__dealer' key={dealer.id}>
+                        <div className='shareListsWrapper__shareLists__content__colleagues__dealer__dealerName'>
                             {dealer.name}
                         </div>
-                        <div className='shareListsWrapper__shareLists__content__colleagues__users'>
-                            <div className='shareListsWrapper__shareLists__content__colleagues__users__left'>
+                        <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users'>
+                            <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users__left'>
                                 {
                                     dealer.users.map((num, i) => {
                                         if (i % 2 === 0) {
                                             return (
-                                                <div className='shareListsWrapper__shareLists__content__colleagues__users__item'
+                                                <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users__item'
                                                      key={num.id}
                                                      onClick={() => {
                                                          if (users.find((x) => x.id === num.id)) {
@@ -114,12 +114,12 @@ const ShareLists = (state) => {
                                     })
                                 }
                             </div>
-                            <div className='shareListsWrapper__shareLists__content__colleagues__users__right'>
+                            <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users__right'>
                                 {
                                     dealer.users.map((num, i) => {
                                         if (i % 2 !== 0) {
                                             return (
-                                                <div className='shareListsWrapper__shareLists__content__colleagues__users__item'
+                                                <div className='shareListsWrapper__shareLists__content__colleagues__dealer__users__item'
                                                     key={num.id}
                                                     onClick={() => {
                                                         if (users.find((x) => x.id === num.id)) {

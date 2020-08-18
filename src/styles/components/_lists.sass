@@ -114,34 +114,38 @@
       &__colleagues
         margin-bottom: $paddingBig
         &__dealer
-          font-size: $fontSizeStandard2
-          margin: $paddingBig 0 $paddingSmall 0
-        &__users
-          display: flex
-          justify-content: space-between
-          &__left
-            flex-basis: 50%
-            margin-right: ($paddingBig / 2)
-          &__right
-            flex-basis: 50%
-            margin-left: ($paddingBig / 2)
-          &__item
+          background: $grey-100
+          padding: $paddingMedium
+          margin-top: 22px
+          &__dealerName
+            font-size: $fontSizeStandard2
+            margin-bottom: $paddingSmall
+          &__users
             display: flex
-            align-items: center
-            color: $colorTextLight-1
-            cursor: pointer
-            &:hover
-              color: $colorLink
+            justify-content: space-between
+            &__left
+              flex-basis: 50%
+              margin-right: ($paddingBig / 2)
+            &__right
+              flex-basis: 50%
+              margin-left: ($paddingBig / 2)
+            &__item
+              display: flex
+              align-items: center
+              color: $colorTextLight
+              cursor: pointer
+              &:hover
+                color: $colorLink
+                svg
+                  fill: $colorLink !important
               svg
-                fill: $colorLink !important
-            svg
-              width: 14px
-              height: 14px
-              fill: $colorTextLight-1 !important
-              margin-right: 4px
+                width: 14px
+                height: 14px
+                fill: $colorTextLight !important
+                margin-right: 4px
       span.bullet
         margin: 0 $paddingSmall
-        color: $colorTextLight-2
+        color: $colorTextLight-1
 
 // SplitList component
 .splitListWrapper

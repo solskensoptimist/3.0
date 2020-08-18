@@ -1769,34 +1769,38 @@ svg.active {
   .shareListsWrapper__shareLists__content__colleagues {
     margin-bottom: 22px; }
     .shareListsWrapper__shareLists__content__colleagues__dealer {
-      font-size: 16px;
-      margin: 22px 0 8px 0; }
-    .shareListsWrapper__shareLists__content__colleagues__users {
-      display: flex;
-      justify-content: space-between; }
-      .shareListsWrapper__shareLists__content__colleagues__users__left {
-        flex-basis: 50%;
-        margin-right: 11px; }
-      .shareListsWrapper__shareLists__content__colleagues__users__right {
-        flex-basis: 50%;
-        margin-left: 11px; }
-      .shareListsWrapper__shareLists__content__colleagues__users__item {
+      background: #f5f5f5;
+      padding: 12px;
+      margin-top: 22px; }
+      .shareListsWrapper__shareLists__content__colleagues__dealer__dealerName {
+        font-size: 16px;
+        margin-bottom: 8px; }
+      .shareListsWrapper__shareLists__content__colleagues__dealer__users {
         display: flex;
-        align-items: center;
-        color: #9e9e9e;
-        cursor: pointer; }
-        .shareListsWrapper__shareLists__content__colleagues__users__item:hover {
-          color: #00B4CC; }
-          .shareListsWrapper__shareLists__content__colleagues__users__item:hover svg {
-            fill: #00B4CC !important; }
-        .shareListsWrapper__shareLists__content__colleagues__users__item svg {
-          width: 14px;
-          height: 14px;
-          fill: #9e9e9e !important;
-          margin-right: 4px; }
+        justify-content: space-between; }
+        .shareListsWrapper__shareLists__content__colleagues__dealer__users__left {
+          flex-basis: 50%;
+          margin-right: 11px; }
+        .shareListsWrapper__shareLists__content__colleagues__dealer__users__right {
+          flex-basis: 50%;
+          margin-left: 11px; }
+        .shareListsWrapper__shareLists__content__colleagues__dealer__users__item {
+          display: flex;
+          align-items: center;
+          color: #757575;
+          cursor: pointer; }
+          .shareListsWrapper__shareLists__content__colleagues__dealer__users__item:hover {
+            color: #00B4CC; }
+            .shareListsWrapper__shareLists__content__colleagues__dealer__users__item:hover svg {
+              fill: #00B4CC !important; }
+          .shareListsWrapper__shareLists__content__colleagues__dealer__users__item svg {
+            width: 14px;
+            height: 14px;
+            fill: #757575 !important;
+            margin-right: 4px; }
   .shareListsWrapper__shareLists__content span.bullet {
     margin: 0 8px;
-    color: #bdbdbd; }
+    color: #9e9e9e; }
 
 .splitListWrapper__splitList__content {
   margin: 22px 0; }
