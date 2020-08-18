@@ -4,6 +4,7 @@ import {rootActionTypes} from "store/actions";
 import {userActionTypes} from "store/user/actions";
 import {getLists} from 'store/lists/tasks';
 import history from '../../router_history';
+import userHelper from 'shared_helpers/user_helper';
 
 /**
  * Get user colleagues on same dealer.
@@ -43,6 +44,50 @@ const getUserConnections = async () => {
     } catch (err) {
         return console.error('Error in getUserColleagues:\n' + err);
     }
+};
+
+export const isBigExcelUser = () => {
+    return !!(store.getState.user.info.status & userHelper.getBitFlags().BIG_EXCEL);
+};
+
+export const isBlockExcelUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().BLOCK_EXCEL);
+};
+
+export const isBuUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().BU_FLAG);
+};
+
+export const isHbUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().HB_FLAG);
+};
+
+export const isHvUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().HV_FLAG);
+};
+
+export const isLbUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().LB_FLAG);
+};
+
+export const isPbUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().PB_FLAG);
+};
+
+export const isSupertempUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().SUPERTEMP_FLAG);
+};
+
+export const isSvUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().SV_FLAG);
+};
+
+export const isTlbUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().TLB_FLAG);
+};
+
+export const isTrUser = () => {
+    return !!(store.getState().user.info.status & userHelper.getBitFlags().TR_FLAG);
 };
 
 /**

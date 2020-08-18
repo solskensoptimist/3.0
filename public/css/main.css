@@ -1345,6 +1345,10 @@ a {
 
 .excelWrapper__excel__content {
   margin: 22px 0; }
+  .excelWrapper__excel__content__lists {
+    margin-bottom: 8px; }
+    .excelWrapper__excel__content__lists span.list {
+      font-weight: 600; }
   .excelWrapper__excel__content__selectors__section {
     display: flex;
     flex-wrap: wrap;
@@ -1355,11 +1359,25 @@ a {
       flex-basis: 100%;
       display: flex;
       align-items: center;
-      cursor: pointer; }
-      .excelWrapper__excel__content__selectors__section__header svg {
-        width: 18px;
-        height: 18px;
-        margin-left: 8px; }
+      justify-content: space-between; }
+      .excelWrapper__excel__content__selectors__section__header__left {
+        display: flex;
+        align-items: center;
+        cursor: pointer; }
+        .excelWrapper__excel__content__selectors__section__header__left svg {
+          width: 18px;
+          height: 18px;
+          margin-left: 8px; }
+      .excelWrapper__excel__content__selectors__section__header__right {
+        display: flex;
+        align-items: center; }
+        .excelWrapper__excel__content__selectors__section__header__right svg {
+          width: 16px;
+          height: 16px;
+          fill: #00B4CC;
+          cursor: pointer; }
+          .excelWrapper__excel__content__selectors__section__header__right svg:hover {
+            fill: #616161; }
     .excelWrapper__excel__content__selectors__section__item, .excelWrapper__excel__content__selectors__section__item__active {
       flex-basis: calc(50% - 12px);
       display: flex;

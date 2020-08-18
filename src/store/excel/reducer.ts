@@ -1,19 +1,19 @@
 import {excelActionTypes} from './actions';
 
 interface ExcelState {
-    activeSelectors: Array<string>,
+    savedSelectors: Array<string>,
 }
 
 const initialState: ExcelState = {
-    activeSelectors: [],
+    savedSelectors: [],
 };
 
 export const excelReducer = (state = initialState, action) => {
     switch(action.type) {
-        case excelActionTypes.SET_ACTIVE_SELECTORS: {
+        case excelActionTypes.SET_SAVED_SELECTORS: {
             return {
                 ...state,
-                activeSelectors: action.payload,
+                savedSelectors: action.payload,
             }
         }
         default: {

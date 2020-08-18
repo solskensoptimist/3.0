@@ -31,7 +31,7 @@ export const excelHelper = {
                 {val: 'surenamePerson', label: tc.surNamePerson, active: false},
                 {val: 'phone', label: tc.phone, active: false},
                 {val: 'address', label: tc.address, active: false},
-                {val: 'zip', label: tc.zipcode, active: false},
+                {val: 'zip', label: tc.zipCode, active: false},
                 {val: 'zipMuncipality', label: tc.zipMuncipalityAllaBolag, active: false},
                 {val: 'city', label: tc.township, active: false},
                 {val: 'region', label: tc.county, active: false},

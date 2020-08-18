@@ -2,6 +2,10 @@
   &__excel
     &__content
       margin: $paddingBig 0
+      &__lists
+        margin-bottom: $paddingSmall
+        span.list
+          font-weight: 600
       &__selectors
         &__section
           display: flex
@@ -13,11 +17,25 @@
             flex-basis: 100%
             display: flex
             align-items: center
-            cursor: pointer
-            svg
-              width: 18px
-              height: 18px
-              margin-left: $paddingSmall
+            justify-content: space-between
+            &__left
+              display: flex
+              align-items: center
+              svg
+                width: 18px
+                height: 18px
+                margin-left: $paddingSmall
+              cursor: pointer
+            &__right
+              display: flex
+              align-items: center
+              svg
+                width: 16px
+                height: 16px
+                fill: $colorLink
+                cursor: pointer
+                &:hover
+                  fill: $colorLinkHover
           &__item
             flex-basis: calc(50% - #{$paddingMedium})
             display: flex
