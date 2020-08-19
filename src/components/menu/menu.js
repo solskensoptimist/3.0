@@ -7,7 +7,7 @@ import Icon from 'components/icon';
  * Item object types can be: 'button' | 'dropdown' | 'nav'.
  * Type 'nav' can have a children array with items that is rendered in its own sub menu.
  * Type 'nav' needs a unique id property and this type should not show up in its own children array.
- * Possibility exists to provide an icon to item.
+ * Possibility exists to provide an icon to kanban_board_item.
  * Possibility exists to provide a 'disabled' property for buttons that will be shown, but disabled.
  *
  * @param props.items - array - Example: [

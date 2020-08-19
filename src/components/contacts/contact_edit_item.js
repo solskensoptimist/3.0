@@ -6,7 +6,7 @@ import Icon from 'components/icon';
 import Tooltip from 'components/tooltip';
 
 /**
- * Render a footer_contact item in edit mode.
+ * Render a footer_contact kanban_board_item in edit mode.
  *
  * @param props.cancelEdit
  * @param props.footer_contact

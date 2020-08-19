@@ -7,7 +7,7 @@ import Icon from 'components/icon';
 import Tooltip from 'components/tooltip';
 
 /**
- * Render a footer_contact item.
+ * Render a footer_contact kanban_board_item.
  * @param props.footer_contact
  * @param props.editContact
  * @param props.sticky - bool - Non editable.
