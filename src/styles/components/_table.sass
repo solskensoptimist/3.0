@@ -37,9 +37,9 @@
                 align-items: center
                 &:hover
                   .editableCell__icon
-                    display: inline
+                    visibility: visible
                 &__icon
-                  display: none
+                  visibility: hidden
                 &__icons
                   display: flex
                   align-items: center
@@ -55,10 +55,7 @@
                   border: 0
                   background: transparent
                   font-size: $fontSizeStandard-2
-                  &::first-line
-                    background: $amber-200
-                    padding: 4px
-                    color: $colorTextDark
+                  border-bottom: 1px solid $colorLink
               .tableCellIconHolder
                 display: flex
                 align-items: center

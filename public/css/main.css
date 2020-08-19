@@ -2658,9 +2658,9 @@ svg.active {
         justify-content: space-between;
         align-items: center; }
         .tableWrapper__table__content table tbody tr td .editableCell:hover .editableCell__icon {
-          display: inline; }
+          visibility: visible; }
         .tableWrapper__table__content table tbody tr td .editableCell__icon {
-          display: none; }
+          visibility: hidden; }
         .tableWrapper__table__content table tbody tr td .editableCell__icons {
           display: flex;
           align-items: center;
@@ -2675,11 +2675,8 @@ svg.active {
           padding: 0;
           border: 0;
           background: transparent;
-          font-size: 11px; }
-          .tableWrapper__table__content table tbody tr td .editableCell input::first-line {
-            background: #ffe082;
-            padding: 4px;
-            color: #212121; }
+          font-size: 11px;
+          border-bottom: 1px solid #00B4CC; }
       .tableWrapper__table__content table tbody tr td .tableCellIconHolder {
         display: flex;
         align-items: center;

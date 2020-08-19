@@ -2,31 +2,32 @@ import React from 'react';
 import {NavLink, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import carHelper from 'shared_helpers/car_helper';
+import {tc} from 'helpers';
 
 // If you create a new route you need to add it here for breadcrumbs to display it.
 const routes = {
-    affar: 'Affär',
-    aktivitet: 'Aktivitet',
-    analysera: 'Analysera',
-    bearbeta: 'Bearbeta',
-    bestallningar: 'Beställningar',
-    bil: 'Bil',
+    affar: tc.deal,
+    aktivitet: tc.activity,
+    analysera: tc.analyse,
+    bearbeta: tc.agile,
+    bestallningar: tc.orders,
+    bil: tc.car,
     bilprospekt: 'Bilprospekt',
-    foretag: 'Företag',
-    hem: 'Hem',
-    inloggning: 'Inloggning',
-    koncern: 'Koncern',
-    leads: 'Leads',
-    lista: 'Lista',
-    listor: 'Listor',
-    person: 'Person',
-    priser: 'Priser',
-    prospektera: 'Prospektera',
-    resultat: 'Resultat',
-    supertemp: 'Bevakning',
-    sok: 'Sökning',
-    team: 'Team',
-    vagnparksanalys: 'Vagnparksanalys',
+    dashboard: tc.dashboard,
+    foretag: tc.company,
+    inloggning: tc.login,
+    koncern: tc.koncern,
+    leads: tc.leads,
+    lista: tc.list,
+    listor: tc.lists,
+    person: tc.person,
+    priser: tc.prices,
+    prospektera: tc.prospect,
+    resultat: tc.result,
+    supertemp: tc.monitoring,
+    sok: tc.aSearch,
+    team: tc.team,
+    vagnparksanalys: tc.fleetAnalysis,
 };
 
 /**
@@ -43,13 +44,22 @@ const Breadcrumbs = (state) => {
                             // Split paths.
                             let pathnames = location.pathname.split('/').filter(x => x.toLowerCase());
 
-                            // Check if any of the values start with number/underscore or if value is valid reg number.
-                            // If so, we treat is as an ID parameter (for routes such as person/id, affar/id etc.)...
+                            // Check if value start with number/underscore or is valid reg number,
+                            // or if previous path is one where id is expected.
+                            // If so, we treat it as an ID parameter (for routes such as person/:id, affar/:id, supertemp/:id etc.)...
                             // ...which means concat it with the previous value and remove the value itself.
                             pathnames.forEach((value, index) => {
                                 if (Number.isInteger(Number(value.charAt(0)) ||
                                     value.charAt(0) === '_') ||
-                                    carHelper.isValidRegNumber(value)) {
+                                    carHelper.isValidRegNumber(value) ||
+                                    pathnames[index - 1] === 'affar' ||
+                                    pathnames[index - 1] === 'bil' ||
+                                    pathnames[index - 1] === 'foretag' ||
+                                    pathnames[index - 1] === 'koncern' ||
+                                    pathnames[index - 1] === 'list' ||
+                                    pathnames[index - 1] === 'person' ||
+                                    pathnames[index - 1] === 'sok' ||
+                                    pathnames[index - 1] === 'supertemp') {
                                     pathnames[index - 1] = pathnames[index - 1] + '/' + value;
                                     pathnames = pathnames.splice(0, index);
                                 }
@@ -79,7 +89,7 @@ const Breadcrumbs = (state) => {
                                     })}
 
                                     {/* For index routes, when logged in and logged out. */}
-                                    {(pathnames.length === 0 && state.user && state.user.info && state.user.info.id) && <span key='hem'>{routes['hem']}</span>}
+                                    {(pathnames.length === 0 && state.user && state.user.info && state.user.info.id) && <span key='dashboard'>{routes['dashboard']}</span>}
                                     {(pathnames.length === 0 && (!state.user || !state.user.info || !state.user.info.id)) && <span key='bilprospekt'>{routes['bilprospekt']}</span>}
                                 </div>
                             );

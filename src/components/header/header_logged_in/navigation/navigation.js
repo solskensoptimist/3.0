@@ -20,7 +20,7 @@ export default () =>  {
                                 <>
                                     <NavLink className={(pathnames[0] === '') ? 'active' : ''} exact to={'/'}>
                                         <Icon val='home'/>
-                                        {tc.home}
+                                        {tc.dashboard}
                                     </NavLink>
                                     <NavLink className={(pathnames[0] === 'aktivitet') ? 'active' : ''} exact to={'/aktivitet'}>
                                         <Icon val='activity'/>

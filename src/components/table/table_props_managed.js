@@ -29,7 +29,8 @@ const useStyles = makeStyles({
  *
  * Rows can be selectable, if so provide onSelect function and 'id' property for every row.
  * If a row have a 'url' property the row is going to be a navigation link.
- * TODO: make cells editable...
+ *
+ * Cells is not editable in this component.
  *
  * @param props.onSelect - func (optional) - Provide this function when rows are to be selectable, this function receives the selected ids array. Note that every row object must have an 'id' property with a unique value and you have to provide props.selected array.
  * @param props.columns - array - See <Table> for columns example.
