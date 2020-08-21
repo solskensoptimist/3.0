@@ -6,13 +6,13 @@ import uuid from 'uuid/v1';
 import moment from 'moment';
 
 const Agile = () => {
-    const [lists, setLists] = useState([]);
+    const [columns, setColumns] = useState([]);
 
-    // Här ska vi hämta verklig data genom att skapa en getAgile i store/agile/tasks beroende på vilka filter som valts etc.
+    // Här ska vi hämta verklig data...
     useEffect(() => {
         // Mock data.
         const data = {
-            lists: [
+            columns: [
                 {
                     id: 'incoming',
                     title: 'Incoming'
@@ -34,7 +34,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '38',
-                    list: 'incoming',
+                    phase: 'incoming',
                     title: 'Call with sales of HubSpot',
                     desc:
                         'Duis condimentum lacus finibus felis pellentesque, ac auctor nibh fermentum. Duis sed dui ante. Phasellus id eros tincidunt, dictum lorem vitae, pellentesque sem. Aenean eu enim sit amet mauris rhoncus mollis. Sed enim turpis, porta a felis et, luctus faucibus nisi. Phasellus et metus fermentum, ultrices arcu aliquam, facilisis justo. Cras nunc nunc, elementum sed euismod ut, maximus eget nibh. Phasellus condimentum lorem neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce sagittis pharetra eleifend. Suspendisse potenti.',
@@ -51,7 +51,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '37',
-                    list: 'incoming',
+                    phase: 'incoming',
                     title: 'Interview for the Asis. Sales Manager',
                     desc:
                         'We are looking for vue experience and of course node js strong knowledge',
@@ -64,7 +64,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '39',
-                    list: 'incoming',
+                    phase: 'incoming',
                     title: 'Change the height of the top bar because it looks too chunky',
                     desc:
                         'We nede to make it aggresive with pricing because it’s in their interest to acquire us',
@@ -77,7 +77,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '19',
-                    list: 'incoming',
+                    phase: 'incoming',
                     title: 'Integrate Stripe API',
                     desc:
                         'We nede to make it aggresive with pricing because it’s in their interest to acquire us',
@@ -94,7 +94,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '15',
-                    list: 'in_progress',
+                    phase: 'in_progress',
                     title: 'Update the customer API for payments',
                     desc:
                         'We nede to make it aggresive with pricing because it’s in their interest to acquire us',
@@ -107,7 +107,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '10',
-                    list: 'in_progress',
+                    phase: 'in_progress',
                     title: 'Redesign the landing page',
                     desc:
                         'We nede to make it aggresive with pricing because it’s in their interest to acquire us',
@@ -123,7 +123,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '24',
-                    list: 'in_review',
+                    phase: 'in_review',
                     title: 'Change the height of the top bar because it looks too chunky',
                     desc:
                         'We nede to make it aggresive with pricing because it’s in their interest to acquire us',
@@ -140,7 +140,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '21',
-                    list: 'in_review',
+                    phase: 'in_review',
                     title: 'Integrate Stripe API',
                     desc:
                         'We nede to make it aggresive with pricing because it’s in their interest to acquire us',
@@ -158,7 +158,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '17',
-                    list: 'completed',
+                    phase: 'completed',
                     title: 'Design Customer Management Page',
                     desc: 'Change the height of the top bar because it looks too chunky',
                     members: [
@@ -174,7 +174,7 @@ const Agile = () => {
                 {
                     id: uuid(),
                     ref: '23',
-                    list: 'completed',
+                    phase: 'completed',
                     title: 'Integrate Messaging API',
                     desc:
                         'We nede to make it aggresive with pricing because it’s in their interest to acquire us',
@@ -193,31 +193,35 @@ const Agile = () => {
             ]
         };
 
-        // Mappa upp så att tasks hamnar i items array under korrekt lista.
-        const listsFormatted = [];
+        // Mappa upp så att tasks hamnar i items array under korrekt kolumn.
+        const columnsFormatted = [];
 
-        for (const list of data.lists) {
-            listsFormatted.push({ ...list, items: []});
+        for (const column of data.columns) {
+            columnsFormatted.push({ ...column, items: []});
         }
 
         for (const task of data.tasks) {
-            listsFormatted.forEach((list) => {
-                if (list.id === task.list) {
-                    list.items.push(task);
+            columnsFormatted.forEach((column) => {
+                if (column.id === task.phase) {
+                    column.items.push(task);
                 }
             });
         }
 
-        console.log('listsFormatted', listsFormatted);
-
-        setLists(listsFormatted);
+        setColumns(columnsFormatted);
 
     }, []);
-    console.log('lists i agile', lists);
 
     return (
         <div className='agileWrapper'>
-            <KanbanBoard lists={lists} key={uuid()}/>
+            <div className='agileWrapper__agile'>
+                <div className='agileWrapper__agile__header'>
+                    Här ska vi sätta filter mm.
+                </div>
+                <div className='agileWrapper__agile__content'>
+                    <KanbanBoard columns={columns} key={uuid()}/>
+                </div>
+            </div>
         </div>
     );
 };

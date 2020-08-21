@@ -5,26 +5,17 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography, IconButton, Tooltip } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
+// Create classes but handle styling in /styles.
 const useStyles = makeStyles(theme => ({
-    root: {
-        userSelect: 'none',
-        whiteSpace: 'normal',
-        height: '100%',
-        display: 'inline-flex',
-        flexDirection: 'column',
-        verticalAlign: 'top',
-        width: 500,
-        padding: '20px',
-        margin: '20px',
-    },
+    root: {},
     isDraggingOver: {},
     header: {
-        backgroundColor: '#e2e2e2',
-        color: '#757575',
-        padding: '20px',
-        borderRadius: 4,
-        display: 'flex',
-        alignItems: 'center'
+        backgroundColor: 'red',
+        // color: '#757575',
+        // padding: '20px',
+        // borderRadius: 4,
+        // display: 'flex',
+        // alignItems: 'center'
     },
     counter: {
         marginLeft: '20px'

@@ -1,0 +1,26 @@
+.agileWrapper
+  &__agile
+    &__content
+
+// Kanban board component.
+.kanbanBoardWrapper
+  padding-right: $paddingGrid
+  &__kanbanBoard
+    &__content
+      display: flex
+      overflow: auto
+      &__column
+        flex-basis: calc(25% - #{$paddingGrid})
+        flex-shrink: 0
+        margin-left: $paddingGrid
+        background: $grey-200
+        div[class^="makeStyles-root"]
+          flex-direction: column
+          user-select: none
+          white-space: normal
+          height: 100%
+          display: inline-flex
+          vertical-align: top
+          div[class^="makeStyles-header"]
+            background: red
+          div[class^="makeStyles-content"]

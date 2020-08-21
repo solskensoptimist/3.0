@@ -412,6 +412,26 @@ a {
             .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
               margin-left: 0; }
 
+.kanbanBoardWrapper {
+  padding-right: 12px; }
+  .kanbanBoardWrapper__kanbanBoard__content {
+    display: flex;
+    overflow: auto; }
+    .kanbanBoardWrapper__kanbanBoard__content__column {
+      flex-basis: calc(25% - 12px);
+      flex-shrink: 0;
+      margin-left: 12px;
+      background: #eeeeee; }
+      .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] {
+        flex-direction: column;
+        user-select: none;
+        white-space: normal;
+        height: 100%;
+        display: inline-flex;
+        vertical-align: top; }
+        .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-header"] {
+          background: red; }
+
 .commentWrapper__comment__content {
   margin: 22px 0; }
   .commentWrapper__comment__content textarea {

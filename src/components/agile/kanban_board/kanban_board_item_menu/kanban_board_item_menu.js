@@ -5,13 +5,13 @@ import { Modal, Card, CardContent, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        outline: 'none',
-        width: 360,
-        maxWidth: '100%'
+        // position: 'absolute',
+        // top: '50%',
+        // left: '50%',
+        // transform: 'translate(-50%, -50%)',
+        // outline: 'none',
+        // width: 360,
+        // maxWidth: '100%'
     }
 }));
 

@@ -7,39 +7,39 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ChatIcon from '@material-ui/icons/Chat';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        outline: 'none',
-        marginBottom: '20px'
-    },
-    isDragging: {},
-    content: {
-        paddingTop: 0
-    },
-    stats: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    flexGrow: {
-        flexGrow: 1
-    },
-    files: {
-        color: 'red',
-        marginLeft: '20px',
-        display: 'flex',
-        alignItems: 'center'
-    },
-    comments: {
-        color: 'green',
-        marginLeft: '20px',
-        display: 'flex',
-        alignItems: 'center'
-    },
-    date: {
-        marginLeft: '20px'
-    },
-    progress: {
-        marginTop: '20px'
-    }
+    // root: {
+    //     outline: 'none',
+    //     marginBottom: '20px'
+    // },
+    // isDragging: {},
+    // content: {
+    //     paddingTop: 0
+    // },
+    // stats: {
+    //     display: 'flex',
+    //     alignItems: 'center'
+    // },
+    // flexGrow: {
+    //     flexGrow: 1
+    // },
+    // files: {
+    //     color: 'red',
+    //     marginLeft: '20px',
+    //     display: 'flex',
+    //     alignItems: 'center'
+    // },
+    // comments: {
+    //     color: 'green',
+    //     marginLeft: '20px',
+    //     display: 'flex',
+    //     alignItems: 'center'
+    // },
+    // date: {
+    //     marginLeft: '20px'
+    // },
+    // progress: {
+    //     marginTop: '20px'
+    // }
 }));
 
 export default (props) => {
