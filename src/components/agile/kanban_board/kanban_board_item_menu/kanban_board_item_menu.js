@@ -3,17 +3,8 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Modal, Card, CardContent, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        // position: 'absolute',
-        // top: '50%',
-        // left: '50%',
-        // transform: 'translate(-50%, -50%)',
-        // outline: 'none',
-        // width: 360,
-        // maxWidth: '100%'
-    }
-}));
+// This is so classes are created, but handle styling in /styles.
+const useStyles = makeStyles(theme => ({root: {}}));
 
 export default (props) => {
     const { open, onClose, task, className, ...rest } = props;
