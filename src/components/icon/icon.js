@@ -43,6 +43,8 @@ import {
     Mail,
     MergeType,
     Minimize,
+    MoreHoriz,
+    MoreVert,
     NavigateBefore,
     NavigateNext,
     PermContactCalendar,
@@ -139,6 +141,10 @@ export default (props) => {
             return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'did_post':
             return <ContactMail className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'dotsHoriz':
+            return <MoreHoriz className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'dotsVert':
+            return <MoreVert className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'downArrow':
             return <ArrowDropDown className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'download':

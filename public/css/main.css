@@ -89,7 +89,7 @@
 .hidden {
   display: none; }
 
-.iconStyleCircle, .iconStyleCircleClick, .companyWrapper__company__header__right svg, .dealWrapper__deal__header__right svg, .personWrapper__person__header__right svg, .searchMainWrapper__searchMain__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
+.iconStyleCircle, .iconStyleCircleClick, .kanbanBoardItemWrapper__kanbanBoardItem__content__activity svg, .companyWrapper__company__header__right svg, .dealWrapper__deal__header__right svg, .personWrapper__person__header__right svg, .searchMainWrapper__searchMain__header svg, .widgetHeaderWrapper__widgetHeader__left__left svg {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -102,11 +102,11 @@
   width: 38px !important;
   height: 38px !important; }
 
-.iconStyleCircleClick, .companyWrapper__company__header__right svg, .dealWrapper__deal__header__right svg, .personWrapper__person__header__right svg, .searchMainWrapper__searchMain__header svg {
+.iconStyleCircleClick, .kanbanBoardItemWrapper__kanbanBoardItem__content__activity svg, .companyWrapper__company__header__right svg, .dealWrapper__deal__header__right svg, .personWrapper__person__header__right svg, .searchMainWrapper__searchMain__header svg {
   fill: white !important;
   background: #bdbdbd !important;
   cursor: pointer !important; }
-  .iconStyleCircleClick:hover, .companyWrapper__company__header__right svg:hover, .dealWrapper__deal__header__right svg:hover, .personWrapper__person__header__right svg:hover, .searchMainWrapper__searchMain__header svg:hover {
+  .iconStyleCircleClick:hover, .kanbanBoardItemWrapper__kanbanBoardItem__content__activity svg:hover, .companyWrapper__company__header__right svg:hover, .dealWrapper__deal__header__right svg:hover, .personWrapper__person__header__right svg:hover, .searchMainWrapper__searchMain__header svg:hover {
     background: #616161 !important; }
 
 .largeHeader, .companyWrapper__company__header, .dealWrapper__deal__header, .fleetAnalysisWrapper__fleetAnalysis__header, .personWrapper__person__header {
@@ -422,6 +422,33 @@ a {
       flex-shrink: 0;
       margin-left: 12px;
       background: #eeeeee; }
+
+.kanbanBoardItemWrapper__kanbanBoardItem, .kanbanBoardItemWrapper__kanbanBoardItem__isDragging {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 2px;
+  border: 1px solid #e0e0e0;
+  background: white; }
+  .kanbanBoardItemWrapper__kanbanBoardItem__content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; }
+    .kanbanBoardItemWrapper__kanbanBoardItem__content__activity {
+      margin-right: 8px; }
+    .kanbanBoardItemWrapper__kanbanBoardItem__content__main {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; }
+      .kanbanBoardItemWrapper__kanbanBoardItem__content__main__title {
+        flex-grow: 1; }
+      .kanbanBoardItemWrapper__kanbanBoardItem__content__main__menu svg {
+        width: 16px;
+        height: 16px; }
+  .kanbanBoardItemWrapper__kanbanBoardItem__footer {
+    font-size: 11px; }
+  .kanbanBoardItemWrapper__kanbanBoardItem__isDragging {
+    opacity: 0.7; }
 
 .commentWrapper__comment__content {
   margin: 22px 0; }

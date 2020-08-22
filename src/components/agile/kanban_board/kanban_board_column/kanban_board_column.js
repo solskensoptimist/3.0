@@ -34,6 +34,8 @@ export default (props) => {
             {...rest}
             className={clsx(classes.root, className)}
             ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
         >
             <div className={classes.header}>
                 <Typography

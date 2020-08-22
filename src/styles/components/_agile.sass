@@ -59,6 +59,32 @@
 // KanbanBoardItem component.
 .kanbanBoardItemWrapper
   &__kanbanBoardItem
-    &__header
+    margin-top: $paddingSmall
+    padding: $paddingSmall
+    border-radius: 2px
+    border: 1px solid $grey-300
+    background: white
     &__content
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      &__activity
+        margin-right: $paddingSmall
+        svg
+          @extend .iconStyleCircleClick
+      &__main
+        flex-grow: 1
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        &__title
+          flex-grow: 1
+        &__menu
+          svg
+            width: 16px
+            height: 16px
     &__footer
+      font-size: $fontSizeStandard-2
+    &__isDragging
+      @extend .kanbanBoardItemWrapper__kanbanBoardItem
+      opacity: 0.7

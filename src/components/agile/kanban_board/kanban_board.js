@@ -20,7 +20,7 @@ const KanbanBoard = (state) => {
         // Ska såklart hämtas från db....
         const userColumns = [
             {
-                id: tc.prospects,
+                id: 'prospects',
                 title: tc.prospects
             },
             {
@@ -47,20 +47,20 @@ const KanbanBoard = (state) => {
         if (state.agile.data) {
             // If deals, push to correct column items array.
             if (state.agile.data.deals && state.agile.data.deals.length) {
-                state.agile.data.deals.forEach((deal) => {
-                    const col = columnsMapped.find((column) => column.id === deal.phase);
+                state.agile.data.deals.forEach((item) => {
+                    const col = columnsMapped.find((column) => column.id === item.phase);
                     if (col) {
-                        col.items.push(deal);
+                        col.items.push(item);
                     }
                 });
             }
 
             // If prospects, push to 'prospects' column items array.
             if (state.agile.data.prospects && state.agile.data.prospects.length) {
-                state.agile.data.prospects.forEach((deal) => {
+                state.agile.data.prospects.forEach((item) => {
                     const col = columnsMapped.find((column) => column.id === 'prospects');
                     if (col) {
-                        col.items.push(deal);
+                        col.items.push(item);
                     }
                 });
             }
@@ -70,6 +70,10 @@ const KanbanBoard = (state) => {
 
     const handleDragEnd = (event) => {
         console.log('event i handeDragEnd', event);
+
+        // Man ska ej kunna dra TILL kolumnen prospects, bara ifrån prospects.
+        // I kolumnen prospects ska vi endast ha icke-deals.
+
         // Här ska ske ett backend call där vi ändrar phase på en affär/prospekt.
         // Eller ska backend callet också ligga i agile kanske, så vi kör typ props.updatePhase eller så....?
         // Sen ska vi i <Agile> lyssna på store.agile.data (eller så) och utifrån det skicka in nya props.
@@ -110,8 +114,9 @@ const KanbanBoard = (state) => {
 
     console.log('columns i KanbanBoard', columns);
 
-    const handleItemOpen = (item) => {
-        setOpenedItem(item);
+    const handleItemOpen = (id) => {
+        console.log('Öppna id, anropa Preview om vi ska ha en sådan.', id);
+        //setOpenedItem(item);
     };
 
     const handleItemClose = () => {
@@ -138,9 +143,9 @@ const KanbanBoard = (state) => {
                                         >
                                             {column.items.map((item, index) => (
                                                 <Draggable
-                                                    draggableId={item._id ? item._id : item.user_id}
+                                                    draggableId={item._id ? item._id : item.prospectId.toString()}
                                                     index={index}
-                                                    key={item._id ? item._id : item.user_id}
+                                                    key={item._id ? item._id : item.prospectId.toString()}
                                                 >
                                                     {(provided, snapshot) => (
                                                         <KanbanBoardItem
