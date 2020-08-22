@@ -422,37 +422,6 @@ a {
       flex-shrink: 0;
       margin-left: 12px;
       background: #eeeeee; }
-      .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] {
-        flex-direction: column;
-        user-select: none;
-        white-space: normal;
-        height: 100%;
-        vertical-align: top; }
-        .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-header"] {
-          background: red; }
-        .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] {
-          background: blue;
-          flex-grow: 1;
-          overflow-y: hidden; }
-          .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] div[class^="makeStyles-inner"] {
-            background: grey; }
-            .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] div[class^="makeStyles-inner"] .MuiPaper-rounded {
-              border-radius: 0; }
-            .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] div[class^="makeStyles-inner"] .MuiPaper-root {
-              background: pink;
-              margin-top: 8px; }
-              .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] div[class^="makeStyles-inner"] .MuiPaper-root .MuiCardHeader-root .MuiCardHeader-content {
-                background: pink; }
-              .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] div[class^="makeStyles-inner"] .MuiPaper-root .MuiCardHeader-root .MuiCardHeader-action {
-                background: green; }
-              .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] div[class^="makeStyles-inner"] .MuiPaper-root .MuiCardContent-root div[class^="makeStyles-stats"] {
-                display: flex;
-                align-items: center;
-                background: yellow; }
-                .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] div[class^="makeStyles-inner"] .MuiPaper-root .MuiCardContent-root div[class^="makeStyles-stats"] div[class^="makeStyles-files"] {
-                  color: red; }
-                .kanbanBoardWrapper__kanbanBoard__content__column div[class^="makeStyles-root"] div[class^="makeStyles-content"] div[class^="makeStyles-inner"] .MuiPaper-root .MuiCardContent-root div[class^="makeStyles-stats"] div[class^="makeStyles-comments"] {
-                  color: purple; }
 
 .commentWrapper__comment__content {
   margin: 22px 0; }

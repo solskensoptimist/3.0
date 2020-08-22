@@ -7,11 +7,11 @@ import { Modal, Card, CardContent, Typography } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({root: {}}));
 
 export default (props) => {
-    const { open, onClose, task, className, ...rest } = props;
+    const {open, onClose, item, className, ...rest} = props;
 
     const classes = useStyles();
 
-    // const mode = task ? 'edit' : 'create';
+    // const mode = item ? 'edit' : 'create';
 
     if (!open) {
         return null;
@@ -27,8 +27,8 @@ export default (props) => {
                 className={clsx(classes.root, className)}
             >
                 <CardContent>
-                    <Typography variant="h6">{task.title}</Typography>
-                    <Typography variant="body1">{task.desc}</Typography>
+                    <Typography variant="h6">{item.title}</Typography>
+                    <Typography variant="body1">{item.desc}</Typography>
                 </CardContent>
             </Card>
         </Modal>

@@ -1,4 +1,4 @@
-import React, {useState}  from 'react';
+import React, {useEffect, useState}  from 'react';
 // import {tc} from 'helpers';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import uuid from 'uuid/v1';
@@ -6,16 +6,70 @@ import KanbanBoardColumn from './kanban_board_column';
 import KanbanBoardItem from './kanban_board_item';
 import KanbanBoardItemMenu from './kanban_board_item_menu';
 import {connect} from "react-redux";
+import {tc} from "helpers";
 
 
 /**
  * Component that renders a kanban board with draggable deal items wtih connection to agile reducer.
  */
 const KanbanBoard = (state) => {
-    const [columns, setColumns] = useState(state.props.columns); // Ska ändras till state.agile.columns <----- ska ej använda props alls...
-    const [openedTask, setOpenedTask] = useState(null);
+    const [columns, setColumns] = useState([]);
+    const [openedItem, setOpenedItem] = useState(null);
+
+    useEffect(() => {
+        // Ska såklart hämtas från db....
+        const userColumns = [
+            {
+                id: tc.prospects,
+                title: tc.prospects
+            },
+            {
+                id: 'todo',
+                title: 'Todo'
+            },
+            {
+                id: 'contacted',
+                title: 'Contacted'
+            },
+            {
+                id: 'negotiation',
+                title: 'Negotiation'
+            }
+        ];
+
+        const columnsMapped = [];
+
+        // Add items array.
+        for (const column of userColumns) {
+            columnsMapped.push({ ...column, items: []});
+        }
+
+        if (state.agile.data) {
+            // If deals, push to correct column items array.
+            if (state.agile.data.deals && state.agile.data.deals.length) {
+                state.agile.data.deals.forEach((deal) => {
+                    const col = columnsMapped.find((column) => column.id === deal.phase);
+                    if (col) {
+                        col.items.push(deal);
+                    }
+                });
+            }
+
+            // If prospects, push to 'prospects' column items array.
+            if (state.agile.data.prospects && state.agile.data.prospects.length) {
+                state.agile.data.prospects.forEach((deal) => {
+                    const col = columnsMapped.find((column) => column.id === 'prospects');
+                    if (col) {
+                        col.items.push(deal);
+                    }
+                });
+            }
+        }
+        setColumns(columnsMapped);
+    }, [state.agile.data]);
 
     const handleDragEnd = (event) => {
+        console.log('event i handeDragEnd', event);
         // Här ska ske ett backend call där vi ändrar phase på en affär/prospekt.
         // Eller ska backend callet också ligga i agile kanske, så vi kör typ props.updatePhase eller så....?
         // Sen ska vi i <Agile> lyssna på store.agile.data (eller så) och utifrån det skicka in nya props.
@@ -56,12 +110,12 @@ const KanbanBoard = (state) => {
 
     console.log('columns i KanbanBoard', columns);
 
-    const handleTaskOpen = (task) => {
-        setOpenedTask(task);
+    const handleItemOpen = (item) => {
+        setOpenedItem(item);
     };
 
-    const handleTaskClose = () => {
-        setOpenedTask(null);
+    const handleItemClose = () => {
+        setOpenedItem(null);
     };
 
     return (
@@ -82,18 +136,18 @@ const KanbanBoard = (state) => {
                                             title={column.title}
                                             total={column.items.length}
                                         >
-                                            {column.items.map((task, index) => (
+                                            {column.items.map((item, index) => (
                                                 <Draggable
-                                                    draggableId={task.id}
+                                                    draggableId={item._id ? item._id : item.user_id}
                                                     index={index}
-                                                    key={task.id}
+                                                    key={item._id ? item._id : item.user_id}
                                                 >
                                                     {(provided, snapshot) => (
                                                         <KanbanBoardItem
-                                                            onOpen={() => handleTaskOpen(task)}
+                                                            onOpen={() => handleItemOpen(item)}
                                                             provided={provided}
                                                             snapshot={snapshot}
-                                                            task={task}
+                                                            item={item}
                                                         />
                                                     )}
                                                 </Draggable>
@@ -107,9 +161,9 @@ const KanbanBoard = (state) => {
                     </DragDropContext>
                 </div>
                 <KanbanBoardItemMenu
-                    onClose={handleTaskClose}
-                    open={Boolean(openedTask)}
-                    task={openedTask}
+                    onClose={handleItemClose}
+                    open={Boolean(openedItem)}
+                    item={openedItem}
                 />
             </div>
         </div>

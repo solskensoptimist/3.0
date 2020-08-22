@@ -2,10 +2,11 @@
   &__agile
     &__content
 
-// Kanban board component.
+// KanbanBoard component.
 .kanbanBoardWrapper
   padding-right: $paddingGrid
   &__kanbanBoard
+    &__header
     &__content
       display: flex
       overflow: auto
@@ -14,43 +15,50 @@
         flex-shrink: 0
         margin-left: $paddingGrid
         background: $grey-200
-        //Column
-        div[class^="makeStyles-root"]
-          flex-direction: column
-          user-select: none
-          white-space: normal
-          height: 100%
-          vertical-align: top
-          // Column header
-          div[class^="makeStyles-header"]
-            background: red
-            // Column content
-          div[class^="makeStyles-content"]
-            background: blue
-            flex-grow: 1
-            overflow-y: hidden
-            div[class^="makeStyles-inner"]
-              background: grey
-              .MuiPaper-rounded
-                border-radius: 0
-              // Column item
-              .MuiPaper-root
-                background: pink
-                margin-top: $paddingSmall
-                // Column item header
-                .MuiCardHeader-root
-                  .MuiCardHeader-content
-                    background: pink
-                  .MuiCardHeader-action
-                    background: green
-                // Column item content
-                .MuiCardContent-root
-                  div[class^="makeStyles-stats"]
-                    display: flex
-                    align-items: center
-                    background: yellow
-                    div[class^="makeStyles-files"]
-                      color: red
-                    div[class^="makeStyles-comments"]
-                      color: purple
+        ////Column
+        //div[class^="makeStyles-root"]
+        //  flex-direction: column
+        //  user-select: none
+        //  white-space: normal
+        //  height: 100%
+        //  vertical-align: top
+        //  // Column header
+        //  div[class^="makeStyles-header"]
+        //    background: red
+        //    // Column content
+        //  div[class^="makeStyles-content"]
+        //    background: blue
+        //    flex-grow: 1
+        //    overflow-y: hidden
+        //    div[class^="makeStyles-inner"]
+        //      background: grey
+        //      .MuiPaper-rounded
+        //        border-radius: 0
+        //      // Column item
+        //      .MuiPaper-root
+        //        background: pink
+        //        margin-top: $paddingSmall
+        //        // Column item header
+        //        .MuiCardHeader-root
+        //          .MuiCardHeader-content
+        //            background: pink
+        //          .MuiCardHeader-action
+        //            background: green
+        //        // Column item content
+        //        .MuiCardContent-root
+        //          div[class^="makeStyles-stats"]
+        //            display: flex
+        //            align-items: center
+        //            background: yellow
+        //            div[class^="makeStyles-files"]
+        //              color: red
+        //            div[class^="makeStyles-comments"]
+        //              color: purple
+        //
 
+// KanbanBoardItem component.
+.kanbanBoardItemWrapper
+  &__kanbanBoardItem
+    &__header
+    &__content
+    &__footer

@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ChatIcon from '@material-ui/icons/Chat';
+import Icon from 'components/icon';
 
 // This is so classes are created, but handle styling in /styles.
 const useStyles = makeStyles(theme => ({
@@ -40,9 +41,29 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default (props) => {
-    const { task, onOpen, provided, snapshot, className, style, ...rest } = props;
+    console.log('props i item', props);
+    const {item, onOpen, provided, snapshot, className, style, ...rest} = props;
 
     const classes = useStyles();
+
+    // return (
+    //     <div className='kanbanBoardItemWrapper' ref={provided.innerRef}>
+    //         <div className='kanbanBoardItemWrapper__kanbanBoardItem'>
+    //             <div className='kanbanBoardItemWrapper__kanbanBoardItem__header'>
+    //                 {item.title}
+    //             </div>
+    //             <div className='kanbanBoardItemWrapper__kanbanBoardItem__content'>
+    //             </div>
+    //             <div className='kanbanBoardItemWrapper__kanbanBoardItem__footer'>
+    //                 {item.files > 0 && (
+    //                     <div className='kanbanBoardItemWrapper__kanbanBoardItem__footer__file'>
+    //                         <Icon val='file'/>
+    //                     </div>
+    //                 )}
+    //             </div>
+    //         </div>
+    //     </div>
+    // );
 
     return (
         <Card
@@ -61,19 +82,19 @@ export default (props) => {
         >
             <CardHeader
                 action={<div>Mer</div>}
-                subheader={`#${task.ref}`}
+                subheader={`#${item.ref}`}
                 subheaderTypographyProps={{ variant: 'overline' }}
-                title={task.title}
+                title={item.title}
                 titleTypographyProps={{ variant: 'h5', gutterBottom: true }}
             />
             <CardContent className={classes.content}>
                 <div className={classes.stats}>
-                    {task.files > 0 && (
+                    {item.files > 0 && (
                         <div className={classes.files}>
                             <AttachFileIcon />
                         </div>
                     )}
-                    {task.comments > 0 && (
+                    {item.comments > 0 && (
                         <div className={classes.comments}>
                             <ChatIcon />
                         </div>
@@ -84,7 +105,7 @@ export default (props) => {
                         color="textSecondary"
                         variant="body2"
                     >
-                        {moment(task.deadline).format('D MMM')}
+                        {moment(item.deadline).format('D MMM')}
                     </Typography>
                 </div>
             </CardContent>

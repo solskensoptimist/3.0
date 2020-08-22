@@ -1,6 +1,6 @@
-// import {store} from 'store';
+import {store} from 'store';
 import {request, tc} from 'helpers';
-// import {agileActionTypes} from './actions';
+import {agileActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
 
@@ -53,3 +53,38 @@ export const createDeal = async (payload) => {
         return console.error('Error in createDeal:\n' + err);
     }
 };
+
+/**
+ * Get data for agile.
+ * Check on set filters is done backend so no payload required.
+ */
+export const getAgile = async () => {
+    try {
+        const data = await request({
+            method: 'get',
+            url: '/agile/getAgile/',
+        });
+
+        if (data instanceof Error) {
+            console.error('Error in getAgile:\n' + data);
+        }
+
+        const result = {
+            deals: [],
+            prospects: [],
+        };
+
+        if (data.deals && data.deals.length) {
+            result.deals = data.deals;
+        }
+
+        if (data.prospects && data.prospects.data && data.prospects.data.length) {
+            result.prospects = data.prospects.data;
+        }
+
+        await store.dispatch({ type: agileActionTypes.SET_AGILE_DATA, payload: result});
+    } catch(err) {
+        return console.error('Error in getAgile:\n' + err);
+    }
+};
+
