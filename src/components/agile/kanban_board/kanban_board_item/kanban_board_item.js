@@ -18,20 +18,27 @@ export default (props) => {
                         <Icon val='add'/>
                     </div>
                     <div className='kanbanBoardItemWrapper__kanbanBoardItem__content__main'>
-                        <div className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__title'>
-                            {item.name}
+                        <div className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__top'>
+                            <div className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__top__title'>
+                                {item.name}
+                            </div>
+                            <div className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__top__menu'>
+                                <Icon val='dotsVert'/>
+                            </div>
                         </div>
-                        <div className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__menu'>
-                            <Icon val='dotsVert'/>
+                        <div className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__bottom'>
+                            {item.updated ?
+                                <div className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__bottom__updated'>
+                                    <span className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__bottom__updated__label'>
+                                        {tc.changed}:
+                                    </span>
+                                            <span className='kanbanBoardItemWrapper__kanbanBoardItem__content__main__bottom__updated__value'>
+                                        {moment(item.updated).fromNow()}
+                                    </span>
+                                </div> : null
+                            }
                         </div>
                     </div>
-                </div>
-                <div className='kanbanBoardItemWrapper__kanbanBoardItem__footer'>
-                    {item.updated ?
-                        <div className='kanbanBoardItemWrapper__kanbanBoardItem__footer__updated'>
-                            {`${tc.lastUpdate}: ${moment(item.updated).fromNow()}`}
-                        </div> : null
-                    }
                 </div>
             </div>
         );

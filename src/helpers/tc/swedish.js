@@ -80,6 +80,7 @@ export default {
     carsHowTo: 'Sök upp och koppla fordon med hjälp av sökrutan. Ta bort kopplingen till ett fordon genom att klicka på papperskorgen.',
     carYear: 'Fordonsår',
     cashLiquidity: 'Kassalikviditet',
+    changed: 'Ändrad',
     changeOwner: 'Ändra ansvarig',
     changedOwner: 'Ändrad ansvarig',
     changesSaved: 'Ändringar sparade',

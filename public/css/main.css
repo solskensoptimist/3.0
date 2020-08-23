@@ -425,7 +425,7 @@ a {
 
 .kanbanBoardItemWrapper__kanbanBoardItem, .kanbanBoardItemWrapper__kanbanBoardItem__isDragging {
   margin-top: 8px;
-  padding: 8px;
+  padding: 12px;
   border-radius: 2px;
   border: 1px solid #e0e0e0;
   background: white; }
@@ -434,19 +434,31 @@ a {
     align-items: center;
     justify-content: flex-start; }
     .kanbanBoardItemWrapper__kanbanBoardItem__content__activity {
-      margin-right: 8px; }
+      margin-right: 12px; }
     .kanbanBoardItemWrapper__kanbanBoardItem__content__main {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start; }
-      .kanbanBoardItemWrapper__kanbanBoardItem__content__main__title {
-        flex-grow: 1; }
-      .kanbanBoardItemWrapper__kanbanBoardItem__content__main__menu svg {
-        width: 16px;
-        height: 16px; }
-  .kanbanBoardItemWrapper__kanbanBoardItem__footer {
-    font-size: 11px; }
+      flex-grow: 1; }
+      .kanbanBoardItemWrapper__kanbanBoardItem__content__main__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; }
+        .kanbanBoardItemWrapper__kanbanBoardItem__content__main__top__title {
+          flex-grow: 1;
+          font-size: 16px; }
+        .kanbanBoardItemWrapper__kanbanBoardItem__content__main__top__menu svg {
+          width: 16px;
+          height: 16px; }
+      .kanbanBoardItemWrapper__kanbanBoardItem__content__main__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 11px; }
+        .kanbanBoardItemWrapper__kanbanBoardItem__content__main__bottom__updated {
+          flex-grow: 1; }
+          .kanbanBoardItemWrapper__kanbanBoardItem__content__main__bottom__updated__label {
+            font-weight: 400;
+            margin-right: 4px; }
+          .kanbanBoardItemWrapper__kanbanBoardItem__content__main__bottom__updated__value {
+            font-weight: 600; }
   .kanbanBoardItemWrapper__kanbanBoardItem__isDragging {
     opacity: 0.7; }
 
