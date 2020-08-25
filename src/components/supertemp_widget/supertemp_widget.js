@@ -43,7 +43,7 @@ export const SupertempWidget = (state) => {
                     <div className='supertempWidgetWrapper__supertempWidget__content__info'>
                         <div className='supertempWidgetWrapper__supertempWidget__content__info__left'>
                             <h4>{tc.supertempWidgetNew_1}</h4>
-                            <h4 className='supertempWidgetEmphasize'>{data.latestBatch.count.total}</h4>
+                            <h4 className='supertempWidgetEmphasize'>{(data.latestBatch && data.latestBatch.count && data.latestBatch.count.total) ? data.latestBatch.count.total : 0}</h4>
                             <p>{tc.supertempWidgetNew_2}</p>
                         </div>
                         <div className='supertempWidgetWrapper__supertempWidget__content__info__right'>

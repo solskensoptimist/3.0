@@ -3,11 +3,11 @@ import {Dropdown, DropdownItem} from 'components/dropdown';
 import Icon from 'components/icon';
 
 /**
- * Render a menu with items, or a navigational menu with a sub menu that holds items.
+ * Render a item_menu with items, or a navigational item_menu with a sub item_menu that holds items.
  * Item object types can be: 'button' | 'dropdown' | 'nav'.
- * Type 'nav' can have a children array with items that is rendered in its own sub menu.
+ * Type 'nav' can have a children array with items that is rendered in its own sub item_menu.
  * Type 'nav' needs a unique id property and this type should not show up in its own children array.
- * Possibility exists to provide an icon to kanban_board_item.
+ * Possibility exists to provide an icon to item.
  * Possibility exists to provide a 'disabled' property for buttons that will be shown, but disabled.
  *
  * @param props.items - array - Example: [

@@ -20,6 +20,7 @@ import {
     Description,
     Done,
     DoubleArrow,
+    DragIndicator,
     DriveEta,
     Edit,
     ExitToApp,
@@ -149,6 +150,8 @@ export default (props) => {
             return <ArrowDropDown className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'download':
             return <GetApp className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'dragIndicator':
+            return <DragIndicator className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'edit':
             return <Edit className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'events':

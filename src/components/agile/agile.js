@@ -82,7 +82,15 @@ const Agile = (state) => {
         setColumns(columns.concat([column]));
     };
 
-    const _dragEnd= (event) => {
+    const _closeItem = () => {
+        setOpenedItem(null);
+    };
+
+    const _closeMenu = (id) => {
+        console.log('Stäng item_menu för', id);
+    };
+
+    const _dragEnd = (event) => {
         console.log('event i handeDragEnd', event);
 
         // Ska vi förhindra att man drar till kolumnen prospects, eller..?
@@ -92,27 +100,25 @@ const Agile = (state) => {
             return;
         }
 
-        const newColumns = JSON.parse(JSON.stringify(columns)); // Clone lists.
-        const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
-        const destinationColumn = newColumns.find(column => column.id === event.destination.droppableId);
-        const [removedItem] = sourceColumn.items.splice(event.source.index, 1);
-
-        if (event.source.droppableId === event.destination.droppableId) {
-            sourceColumn.items.splice(event.destination.index, 0, removedItem);
-            setColumns(newColumns);
+        if (event.type === 'column') {
+            console.log('Detta är kolumn, hur hanterar vi det?');
         } else {
-            removedItem.column = event.destination.droppableId;
-            destinationColumn.items.splice(event.destination.index, 0, removedItem);
-            setColumns(newColumns);
+            console.log('Detta är item');
+
+            const newColumns = JSON.parse(JSON.stringify(columns)); // Clone lists.
+            const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
+            const destinationColumn = newColumns.find(column => column.id === event.destination.droppableId);
+            const [removedItem] = sourceColumn.items.splice(event.source.index, 1);
+
+            if (event.source.droppableId === event.destination.droppableId) {
+                sourceColumn.items.splice(event.destination.index, 0, removedItem);
+                setColumns(newColumns);
+            } else {
+                removedItem.column = event.destination.droppableId;
+                destinationColumn.items.splice(event.destination.index, 0, removedItem);
+                setColumns(newColumns);
+            }
         }
-    };
-
-    const _closeItem = () => {
-        setOpenedItem(null);
-    };
-
-    const _closeMenu = (id) => {
-        console.log('Stäng menu för', id);
     };
 
     const _openItem = (id) => {
@@ -121,7 +127,7 @@ const Agile = (state) => {
     };
 
     const _openMenu = (id) => {
-        console.log('Öppna menu för', id);
+        console.log('Öppna item_menu för', id);
     };
 
     return (

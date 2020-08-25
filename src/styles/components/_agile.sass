@@ -1,84 +1,106 @@
-// Agile component (main)
 .agileWrapper
   &__agile
     &__header
       margin-bottom: $paddingBig
     &__content
       padding: $paddingGrid $paddingGrid $paddingGrid 0
-
-// KanbanBoard component.
-.kanbanBoardWrapper
-  &__kanbanBoard
-    &__content
-      display: flex
-      overflow: auto
-      &__column
-        flex-basis: calc(25% - #{$paddingGrid})
-        flex-shrink: 0
-        margin-left: $paddingGrid
-
-// KanbanBoardColumn component.
-.kanbanBoardColumnWrapper
-  height: 100%
-  overflow: hidden
-  &__kanbanBoardColumn
-    height: 100%
-    &__header
-      display: flex
-      align-items: center
-      justify-content: space-between
-      padding: 4px 8px
-      font-size: $fontSizeStandard-2
-      color: $colorTextLight
-      &__title
-        flex-grow: 1
-    &__content
-      background: $grey-200
-      height: 100%
-
-// KanbanBoardItem component.
-.kanbanBoardItemWrapper
-  &__kanbanBoardItem
-    margin-top: 4px
-    padding: $paddingMedium
-    border-radius: 2px
-    border: 1px solid $grey-300
-    background: white
-    &:hover
-      background: $grey-100
-    &__content
-      display: flex
-      align-items: center
-      justify-content: flex-start
-      &__activity
-        margin-right: $paddingMedium
-        svg
-          @extend .iconStyleCircleClick
-      &__main
-        flex-grow: 1
-        &__top
-          display: flex
-          align-items: center
-          justify-content: space-between
-          &__title
-            flex-grow: 1
-            font-size: $fontSizeStandard2
-            font-weight: 600
-          &__menu
-            svg
-              width: 16px
-              height: 16px
-        &__bottom
-          display: flex
-          align-items: center
-          justify-content: flex-start
-          font-size: $fontSizeStandard-2
-          &__updated
-            flex-grow: 1
-            &__label
-              color: $colorTextLight-1
-              margin-right: 4px
-
-// When card/column is being dragged
-.isDragging
-  opacity: 0.7
+      .kanbanBoardWrapper
+        &__kanbanBoard
+          &__content
+            &__container
+              display: flex
+              align-items: stretch
+              overflow: auto
+              .columnWrapper
+                flex-basis: calc(25% - #{$paddingGrid})
+                flex-shrink: 0
+                margin-left: $paddingGrid
+                overflow: hidden
+                &__column
+                  height: 100%
+                  &__header
+                    display: flex
+                    align-items: center
+                    justify-content: space-between
+                    padding: 4px 8px
+                    font-size: $fontSizeStandard-2
+                    color: $colorTextLight
+                    &__title
+                      flex-grow: 1
+                      display: flex
+                      align-items: center
+                      svg
+                        margin-right: 4px
+                        width: 14px
+                        height: 14px
+                        fill: $colorLink
+                  &__content
+                    background: $grey-200
+                    height: 100%
+                    .itemsListWrapper
+                      height: 100%
+                      &__itemsList
+                        .itemWrapper
+                          &__item
+                            margin-top: 2px
+                            padding: $paddingMedium
+                            border-radius: 2px
+                            border: 1px solid $grey-300
+                            background: white
+                            &:hover
+                              background: $grey-100
+                            &__content
+                              display: flex
+                              align-items: center
+                              justify-content: flex-start
+                              &__activity
+                                margin-right: $paddingMedium
+                                svg
+                                  @extend .iconStyleCircleClick
+                              &__main
+                                flex-grow: 1
+                                &__top
+                                  display: flex
+                                  align-items: center
+                                  justify-content: space-between
+                                  &__title
+                                    flex-grow: 1
+                                    font-size: $fontSizeStandard2
+                                    font-weight: 600
+                                  &__menu
+                                    svg
+                                      width: 16px
+                                      height: 16px
+                                &__bottom
+                                  display: flex
+                                  align-items: center
+                                  justify-content: flex-start
+                                  font-size: $fontSizeStandard-2
+                                  &__updated
+                                    flex-grow: 1
+                                    &__label
+                                      color: $colorTextLight-1
+                                      margin-right: 4px
+                .isDragging
+                  .itemWrapper__item
+                    background: $colorLink
+                    border-color: $colorLink
+                    color: white
+                    &__content
+                      &__activity
+                        svg
+                          opacity: 1 !important
+                          background: white !important
+                          fill: $colorLink !important
+                      &__main
+                        &__top
+                          &__menu
+                            svg
+                              fill: white !important
+                        &__bottom
+                          &__updated
+                            &__label
+                              opacity: 0.8
+                              color: white
+                .isDraggingOver
+                  background: $colorLink !important
