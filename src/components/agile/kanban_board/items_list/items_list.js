@@ -3,7 +3,7 @@ import {Draggable} from 'react-beautiful-dnd';
 import Item from '../item';
 
 export default (props) => {
-    const {addActivity, items, isDraggingOver, openItem, openMenu, provided} = props;
+    const {addActivity, items, isDraggingOver, openItem, provided} = props;
 
     return (
         <div className={(isDraggingOver) ? 'itemsListWrapper isDraggingOver' : 'itemsListWrapper'} ref={provided.innerRef}>
@@ -20,7 +20,6 @@ export default (props) => {
                                     addActivity={addActivity}
                                     item={item}
                                     openItem={openItem}
-                                    openMenu={openMenu}
                                     provided={dragProvided}
                                     snapshot={dragSnapshot}
                                 />

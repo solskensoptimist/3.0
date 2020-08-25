@@ -86,10 +86,6 @@ const Agile = (state) => {
         setOpenedItem(null);
     };
 
-    const _closeMenu = (id) => {
-        console.log('Stäng item_menu för', id);
-    };
-
     const _dragEnd = (event) => {
         console.log('event i handeDragEnd', event);
 
@@ -126,10 +122,6 @@ const Agile = (state) => {
         //setOpenedItem(item);
     };
 
-    const _openMenu = (id) => {
-        console.log('Öppna item_menu för', id);
-    };
-
     return (
         <div className='agileWrapper'>
             <div className='agileWrapper__agile'>
@@ -163,7 +155,6 @@ const Agile = (state) => {
                         columns={columns}
                         dragEnd={ _dragEnd}
                         openItem={_openItem}
-                        openMenu={_openMenu}
                     />
                 </div>
             </div>

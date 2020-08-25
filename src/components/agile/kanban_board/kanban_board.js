@@ -1,5 +1,6 @@
 import React from 'react';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+import {tc} from 'helpers';
 import Column from './column';
 
 
@@ -8,51 +9,13 @@ import Column from './column';
  * Data and functions is handled through props.
  */
 export default (props) => {
-    const {addActivity, columns, dragEnd, openItem, openMenu} = props;
-
-    // render() {
-    //     const columns: QuoteMap = this.state.columns;
-    //     const ordered: string[] = this.state.ordered;
-    //     const {
-    //         containerHeight,
-    //         useClone,
-    //         isCombineEnabled,
-    //         withScrollableColumns,
-    //     } = this.props;
-    //
-    //     const board = (
-    //         <Droppable
-    //             droppableId="board"
-    //             type="COLUMN"
-    //             direction="horizontal"
-    //             ignoreContainerClipping={Boolean(containerHeight)}
-    //             isCombineEnabled={isCombineEnabled}
-    //         >
-    //             {(provided: DroppableProvided) => (
-    //                 <Container ref={provided.innerRef} {...provided.droppableProps}>
-    //                     {ordered.map((key: string, index: number) => (
-    //                         <Column
-    //                             key={key}
-    //                             index={index}
-    //                             title={key}
-    //                             quotes={columns[key]}
-    //                             isScrollable={withScrollableColumns}
-    //                             isCombineEnabled={isCombineEnabled}
-    //                             useClone={useClone}
-    //                         />
-    //                     ))}
-    //                     {provided.placeholder}
-    //                 </Container>
-    //             )}
-    //         </Droppable>
-    //     );
-
+    const {addActivity, columns, dragEnd, openItem} = props;
 
     return (
         <div className='kanbanBoardWrapper'>
             <div className='kanbanBoardWrapper__kanbanBoard'>
-                <div className='kanbanBoardWrapper__kanbanBoard__content'>
-                    <DragDropContext onDragEnd={dragEnd}>
+                <DragDropContext onDragEnd={dragEnd}>
+                    <div className='kanbanBoardWrapper__kanbanBoard__content'>
                         <Droppable
                             droppableId='board'
                             type='column'
@@ -70,7 +33,6 @@ export default (props) => {
                                             key={column.title}
                                             index={index}
                                             openItem={openItem}
-                                            openMenu={openMenu}
                                             items={column.items}
                                             title={column.title}
                                             total={column.items.length}
@@ -80,47 +42,32 @@ export default (props) => {
                                 </div>
                             )}
                         </Droppable>
-                        {/*{columns.map((column) => (*/}
-                        {/*    <div className='kanbanBoardWrapper__kanbanBoard__content__column' key={column.id}>*/}
-                        {/*        <Droppable droppableId={column.id} type='item' id='column' direction='vertical'>*/}
-                        {/*            {(provided, snapshot) => (*/}
-                        {/*                <KanbanBoardColumn*/}
-                        {/*                    provided={provided}*/}
-                        {/*                    snapshot={snapshot}*/}
-                        {/*                    title={column.title}*/}
-                        {/*                    total={column.items.length}*/}
-                        {/*                >*/}
-                        {/*                    {column.items.map((item, index) => (*/}
-                        {/*                        <Draggable*/}
-                        {/*                            draggableId={item._id ? item._id : item.prospectId.toString()}*/}
-                        {/*                            index={index}*/}
-                        {/*                            key={item._id ? item._id : item.prospectId.toString()}*/}
-                        {/*                        >*/}
-                        {/*                            {(provided, snapshot) => (*/}
-                        {/*                                <KanbanBoardItem*/}
-                        {/*                                    addActivity={addActivity}*/}
-                        {/*                                    openItem={openItem}*/}
-                        {/*                                    openMenu={openMenu}*/}
-                        {/*                                    provided={provided}*/}
-                        {/*                                    snapshot={snapshot}*/}
-                        {/*                                    item={item}*/}
-                        {/*                                />*/}
-                        {/*                            )}*/}
-                        {/*                        </Draggable>*/}
-                        {/*                    ))}*/}
-                        {/*                    {provided.placeholder}*/}
-                        {/*                </KanbanBoardColumn>*/}
-                        {/*            )}*/}
-                        {/*        </Droppable>*/}
-                        {/*    </div>*/}
-                        {/*))}*/}
-                    </DragDropContext>
-                </div>
-                {/*<KanbanBoardItemMenu*/}
-                {/*    onClose={_handleItemClose}*/}
-                {/*    open={Boolean(openedItem)}*/}
-                {/*    item={openedItem}*/}
-                {/*/>*/}
+                    </div>
+                    <div className='kanbanBoardWrapper__kanbanBoard__footer'>
+                        <Droppable
+                            droppableId='lost'
+                            type='action'
+                        >
+                            {(provided) => (
+                                <div className='kanbanBoardWrapper__kanbanBoard__footer__lost'
+                                     ref={provided.innerRef}
+                                     {...provided.droppableProps}
+                                >{tc.lost}</div>
+                            )}
+                        </Droppable>
+                        <Droppable
+                            droppableId='won'
+                            type='action'
+                        >
+                            {(provided) => (
+                                <div className='kanbanBoardWrapper__kanbanBoard__footer__won'
+                                     ref={provided.innerRef}
+                                     {...provided.droppableProps}
+                                >{tc.won}</div>
+                            )}
+                        </Droppable>
+                    </div>
+                </DragDropContext>
             </div>
         </div>
     );

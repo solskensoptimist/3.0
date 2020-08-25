@@ -5,7 +5,7 @@ import Icon from 'components/icon';
 import ItemsList from '../items_list';
 
 export default (props) => {
-    const {addActivity, column, index, items, openItem, openMenu, title, total} = props;
+    const {addActivity, column, index, items, openItem, title, total} = props;
 
     return (
         <Draggable draggableId={title} index={index}>
@@ -34,7 +34,6 @@ export default (props) => {
                                         isDraggingOver={snapshot.isDraggingOver}
                                         items={items}
                                         openItem={openItem}
-                                        openMenu={openMenu}
                                         provided={provided}
                                     />
                                 )}

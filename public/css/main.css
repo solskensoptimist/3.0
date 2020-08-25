@@ -502,6 +502,24 @@ a {
           color: white; }
       .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDraggingOver {
         background: #00B4CC !important; }
+  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__footer {
+    background: yellow;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__footer__lost {
+      flex-basis: 25%;
+      background: red;
+      padding: 22px;
+      margin-right: 5%; }
+    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__footer__won {
+      flex-basis: 25%;
+      background: green;
+      padding: 22px;
+      margin-left: 5%; }
 
 .commentWrapper__comment__content {
   margin: 22px 0; }

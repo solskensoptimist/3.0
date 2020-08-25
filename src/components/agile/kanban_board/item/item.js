@@ -5,7 +5,7 @@ import Icon from 'components/icon';
 // import ItemMenu from '../item_menu';
 
 export default (props) => {
-    const {item, addActivity, openItem, openMenu, provided, snapshot} = props;
+    const {item, addActivity, openItem, provided, snapshot} = props;
 
     const _addActivity = (e) => {
         e.stopPropagation();
@@ -19,7 +19,7 @@ export default (props) => {
 
     const _openMenu = (e) => {
         e.stopPropagation();
-        openMenu(item._id);
+        console.log('Öppna meny för', item._id);
     };
 
     const _renderDealItem = () => {
