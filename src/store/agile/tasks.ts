@@ -87,7 +87,7 @@ export const getAgile = async () => {
             result.prospects = data.prospects.data;
         }
 
-        await store.dispatch({ type: agileActionTypes.SET_AGILE_DATA, payload: result});
+        return store.dispatch({ type: agileActionTypes.SET_AGILE_DATA, payload: result});
     } catch(err) {
         return console.error('Error in getAgile:\n' + err);
     }

@@ -4,6 +4,7 @@ import {getAgile} from 'store/agile/tasks';
 import uuid from 'uuid/v1';
 import {tc} from 'helpers';
 import KanbanBoard from './kanban_board';
+import Loading from 'components/loading';
 import Menu from 'components/menu';
 
 const Agile = (state) => {
@@ -98,8 +99,17 @@ const Agile = (state) => {
 
         if (event.type === 'column') {
             console.log('Detta är kolumn, hur hanterar vi det?');
+            // Vi ska sortera kolumnerna och sätta i state (det är väl det som görs nedan)
+            // Vi ska spara phase för item via backend call
+            // Spara kolumnstrukturen via backend call.
+            // Sen ska vi lyssna på store, och sätta till state. Sätta till state gör vi alltså inte här..?
         } else {
             console.log('Detta är item');
+
+            // Vi ska sortera kolumnerna (det är väl det som görs nedan)
+            // Vi ska spara phase för item via backend call
+            // Vi ska också spara kolumnens ordning via backend call (vi lär väl få ha ett backend call där vi sparar hela kolumnstrukturen)
+            // Sen ska vi lyssna på store, och sätta till state. Sätta till state gör vi alltså inte här..?
 
             const newColumns = JSON.parse(JSON.stringify(columns)); // Clone lists.
             const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
@@ -122,7 +132,11 @@ const Agile = (state) => {
         //setOpenedItem(item);
     };
 
-    return (
+    const _stateCheck = () => {
+        return !!(state && state.agile);
+    };
+
+    return ( _stateCheck() ?
         <div className='agileWrapper'>
             <div className='agileWrapper__agile'>
                 <div className='agileWrapper__agile__header'>
@@ -158,7 +172,8 @@ const Agile = (state) => {
                     />
                 </div>
             </div>
-        </div>
+        </div> :
+        <Loading/>
     );
 };
 

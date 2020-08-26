@@ -1,20 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import {tc} from 'helpers';
 import Column from './column';
-
 
 /**
  * Component that renders a kanban board with draggable items and columns.
  * Data and functions is handled through props.
  */
 export default (props) => {
-    const {addActivity, columns, dragEnd, openItem} = props;
+    const [showFooter, setShowFooter] = useState(false);
+    const {addActivity, columns, dragEnd, isDragging, openItem} = props;
+
+    useEffect(() => {
+        console.log('ISDRAGGING PROPS', isDragging);
+        if (isDragging) {
+            setShowFooter(true);
+        } else {
+            setShowFooter(false);
+        }
+    }, [isDragging]);
 
     return (
         <div className='kanbanBoardWrapper'>
             <div className='kanbanBoardWrapper__kanbanBoard'>
-                <DragDropContext onDragEnd={dragEnd}>
+                <DragDropContext
+                    onDragEnd={(el) => {
+                        setShowFooter(false);
+                        dragEnd(el);
+                    }}
+                    onDragStart={() => {
+                        setShowFooter(true);
+                    }}
+                >
                     <div className='kanbanBoardWrapper__kanbanBoard__content'>
                         <Droppable
                             droppableId='board'
@@ -43,7 +60,10 @@ export default (props) => {
                             )}
                         </Droppable>
                     </div>
-                    <div className='kanbanBoardWrapper__kanbanBoard__footer'>
+                    <div className={showFooter ?
+                            'kanbanBoardWrapper__kanbanBoard__footer' :
+                            'kanbanBoardWrapper__kanbanBoard__hidden'}
+                    >
                         <Droppable
                             droppableId='lost'
                             type='action'
@@ -61,8 +81,8 @@ export default (props) => {
                         >
                             {(provided) => (
                                 <div className='kanbanBoardWrapper__kanbanBoard__footer__won'
-                                     ref={provided.innerRef}
-                                     {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
                                 >{tc.won}</div>
                             )}
                         </Droppable>

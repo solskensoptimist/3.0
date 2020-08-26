@@ -3,7 +3,7 @@
     &__header
       margin-bottom: $paddingBig
     &__content
-      padding: $paddingGrid $paddingGrid $paddingGrid 0
+      padding: 0 $paddingGrid $paddingGrid 0
       .kanbanBoardWrapper
         &__kanbanBoard
           &__content
@@ -11,6 +11,7 @@
               display: flex
               align-items: stretch
               overflow: auto
+              padding-top: $paddingGrid
               .columnWrapper
                 flex-basis: calc(25% - #{$paddingGrid})
                 flex-shrink: 0
@@ -156,6 +157,8 @@
                             &__label
                               opacity: 0.8
                               color: white
+          &__hidden
+            display: none
           &__footer
             background: yellow
             position: fixed
