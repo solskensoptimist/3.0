@@ -3,6 +3,7 @@ import moment from 'moment';
 import {tc} from 'helpers';
 import Icon from 'components/icon';
 // import ItemMenu from '../item_menu';
+import Tooltip from 'components/tooltip';
 
 export default (props) => {
     const {item, addActivity, openItem, provided, snapshot} = props;
@@ -22,13 +23,87 @@ export default (props) => {
         console.log('Öppna meny för', item._id);
     };
 
+    /**
+     * Render event reminder icon based on events.
+     * If no events scheduled, render a default 'add event' icon.
+     */
+    const _renderEvent = () => {
+        let element = null;
+
+        if (item.events && item.events.length) {
+            let date = null;
+            item.events.forEach((event) => {
+                if (!date && event.event_date) {
+                    date = new Date(event.event_date);
+                } else if (event.event_date && new Date(event.event_date) < date) {
+                    date = new Date(event.event_date);
+                }
+            });
+
+            if (date) {
+                const diff = moment(date).diff(new Date(), 'hours');
+
+                if (diff < (7 * 24) && diff > 24) {
+                    element = (
+                        <div className='itemWrapper__item__content__event'>
+                            <div className='itemWrapper__item__content__event__defaultHidden'>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.addAgileActivity}>
+                                    <Icon val='add' onClick={_addActivity}/>
+                                </Tooltip>
+                            </div>
+                            <div className='itemWrapper__item__content__event__withinOneWeek'>
+                                <Icon val='time'/>
+                            </div>
+                        </div>
+                    );
+                } else if (diff < 24 && diff >= 0) {
+                    element = (
+                        <div className='itemWrapper__item__content__event'>
+                            <div className='itemWrapper__item__content__event__defaultHidden'>
+                                <Icon val='add' onClick={_addActivity}/>
+                            </div>
+                            <div className='itemWrapper__item__content__event__withinOneDay'>
+                                <Icon val='time'/>
+                            </div>
+                        </div>
+                    );
+                } else if (diff < 0) {
+                    element = (
+                        <div className='itemWrapper__item__content__event'>
+                            <div className='itemWrapper__item__content__event__defaultHidden'>
+                                <Tooltip horizontalDirection='left' tooltipContent={tc.addAgileActivity}>
+                                    <Icon val='add' onClick={_addActivity}/>
+                                </Tooltip>
+                            </div>
+                            <div className='itemWrapper__item__content__event__passed'>
+                                <Icon val='time'/>
+                            </div>
+                        </div>
+                    );
+                }
+            }
+        }
+
+        if (!element) {
+            element = (
+                <div className='itemWrapper__item__content__event'>
+                    <div className='itemWrapper__item__content__event__defaultVisible'>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.addAgileActivity}>
+                            <Icon val='add' onClick={_addActivity}/>
+                        </Tooltip>
+                    </div>
+                </div>
+            );
+        }
+
+        return element;
+    };
+
     const _renderDealItem = () => {
         return (
             <div className='itemWrapper__item' onClick={_openItem}>
                 <div className='itemWrapper__item__content'>
-                    <div className='itemWrapper__item__content__activity'>
-                        <Icon val='add' onClick={_addActivity}/>
-                    </div>
+                    {_renderEvent()}
                     <div className='itemWrapper__item__content__main'>
                         <div className='itemWrapper__item__content__main__top'>
                             <div className='itemWrapper__item__content__main__top__title'>
@@ -59,8 +134,13 @@ export default (props) => {
     const _renderProspectItem = () => {
         return (
             <div className='itemWrapper__item' onClick={_openItem}>
-                <div className='itemWrapper__item__header'>
-                    {item.name}
+                <div className='itemWrapper__item__content'>
+                    <div className='itemWrapper__item__content__user'>
+                        <Icon val='user'/>
+                    </div>
+                    <div className='itemWrapper__item__content__main'>
+                        {item.name}
+                    </div>
                 </div>
             </div>
         );

@@ -15,7 +15,7 @@
                 flex-basis: calc(25% - #{$paddingGrid})
                 flex-shrink: 0
                 margin-left: $paddingGrid
-                overflow: hidden
+                height: 100%
                 &__column
                   height: 100%
                   &__header
@@ -34,6 +34,8 @@
                         width: 14px
                         height: 14px
                         fill: $colorLink
+                    &__total
+                      font-weight: 600
                   &__content
                     background: $grey-200
                     height: 100%
@@ -48,15 +50,65 @@
                             border: 1px solid $grey-300
                             background: white
                             &:hover
-                              background: $grey-100
+                              background: $colorLink
+                              color: white
+                              .itemWrapper__item
+                                &__content
+                                  &__user
+                                    svg
+                                      fill: white
+                                  &__event
+                                    svg
+                                      background: white !important
+                                      fill: $colorLink !important
+                                  &__main
+                                    &__top
+                                      &__menu
+                                        svg
+                                          fill: white !important
+                                    &__bottom
+                                      &__updated
+                                        &__label
+                                          opacity: 0.8
+                                          color: white
                             &__content
                               display: flex
                               align-items: center
                               justify-content: flex-start
-                              &__activity
+                              &__user
+                                display: flex
+                                align-items: center
+                                svg
+                                  fill: $colorTextLight
+                                  width: 12px
+                                  height: 12px
+                                  margin-right: $paddingSmall
+                              &__event
                                 margin-right: $paddingMedium
+                                &:hover
+                                  .itemWrapper__item__content__event__defaultHidden
+                                    display: block
+                                  .itemWrapper__item__content__event__passed
+                                    display: none
+                                  .itemWrapper__item__content__event__withinOneDay
+                                    display: none
+                                  .itemWrapper__item__content__event__withinOneWeek
+                                    display: none
                                 svg
                                   @extend .iconStyleCircleClick
+                                &__defaultHidden
+                                  display: none
+                                &__defaultVisibile
+                                  display: block
+                                &__passed
+                                  svg
+                                    background: $colorEventPassedDate !important
+                                &__withinOneDay
+                                  svg
+                                    background: $colorEventWithinOneDay !important
+                                &__withinOneWeek
+                                  svg
+                                    background: $colorEventWithinOneWeek !important
                               &__main
                                 flex-grow: 1
                                 &__top
@@ -87,9 +139,11 @@
                     border-color: $colorLink
                     color: white
                     &__content
-                      &__activity
+                      &__user
                         svg
-                          opacity: 1 !important
+                          fill: white
+                      &__event
+                        svg
                           background: white !important
                           fill: $colorLink !important
                       &__main
@@ -102,8 +156,6 @@
                             &__label
                               opacity: 0.8
                               color: white
-                .isDraggingOver
-                  background: $colorLink !important
           &__footer
             background: yellow
             position: fixed

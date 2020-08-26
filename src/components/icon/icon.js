@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    AccessTime,
     Add,
     Apartment,
     ArrowDropDown,
@@ -252,6 +253,8 @@ export default (props) => {
             return <Group className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'testride':
             return <DriveEta className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'time':
+            return <AccessTime className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'toggleComments':
             return <Comment className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'toggleMoved':

@@ -28,10 +28,9 @@ export default (props) => {
                         </div>
                         <div className='columnWrapper__column__content'>
                             <Droppable droppableId={column.id} type='item'>
-                                {(provided, snapshot) => (
+                                {(provided) => (
                                     <ItemsList
                                         addActivity={addActivity}
-                                        isDraggingOver={snapshot.isDraggingOver}
                                         items={items}
                                         openItem={openItem}
                                         provided={provided}

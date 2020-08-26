@@ -890,7 +890,7 @@ const mockData = {
             "comments": null,
             "events": [
                 {
-                    "event_date": "Fri Aug 14 2020 09:00:00 GMT+0200 (Central European Summer Time)",
+                    "event_date": "Wed Aug 27 2020 09:00:00 GMT+0200 (Central European Summer Time)",
                     "action": "valuation",
                     "complete": false,
                     "_id": "74fe6510-dba4-11ea-bbe0-4b4859e3fdc8",
@@ -930,7 +930,7 @@ const mockData = {
             "comments": null,
             "events": [
                 {
-                    "event_date": "Wed Aug 19 2020 09:00:00 GMT+0200 (Central European Summer Time)",
+                    "event_date": "Thu Sep 01 2020 09:00:00 GMT+0200 (Central European Summer Time)",
                     "action": "testride",
                     "complete": false,
                     "_id": "7dd12740-dba4-11ea-bbe0-4b4859e3fdc8",
@@ -970,7 +970,7 @@ const mockData = {
             "comments": null,
             "events": [
                 {
-                    "event_date": "Sun Jul 05 2020 21:00:00 GMT+0200 (Central European Summer Time)",
+                    "event_date": "Fri Sep 04 2020 21:00:00 GMT+0200 (Central European Summer Time)",
                     "action": "valuation",
                     "complete": false,
                     "_id": "8f6e9ba0-ba42-11ea-a92b-f9d012d4de72",

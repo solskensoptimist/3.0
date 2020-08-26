@@ -3,10 +3,10 @@ import {Draggable} from 'react-beautiful-dnd';
 import Item from '../item';
 
 export default (props) => {
-    const {addActivity, items, isDraggingOver, openItem, provided} = props;
+    const {addActivity, items, openItem, provided} = props;
 
     return (
-        <div className={(isDraggingOver) ? 'itemsListWrapper isDraggingOver' : 'itemsListWrapper'} ref={provided.innerRef}>
+        <div className='itemsListWrapper' ref={provided.innerRef}>
             <div className='itemsListWrapper__itemsList'>
                 {items.map((item, i) => {
                     return (

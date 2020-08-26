@@ -10,6 +10,7 @@ export default {
     activitiesComingUp: 'Kommande aktiviteter',
     activity: 'Aktivitet',
     add: 'Lägg till',
+    addAgileActivity: 'Lägg till planerad eller utförd aktivitet',
     addComment: 'Lägg till kommentar',
     addConnectionsToDeal: 'Lägg till kopplingar',
     addDescription: 'Lägg till beskrivning',
