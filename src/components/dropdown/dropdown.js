@@ -46,7 +46,7 @@ export const Dropdown = (props) => {
             <div className='dropdownWrapper__dropdown'>
                 <div className={props.transparent ? 'dropdownWrapper__dropdown__headerTransparent' : 'dropdownWrapper__dropdown__header'}>
                     <p>{props.displayValue}</p>
-                    {showDropdown ? <Icon val='upArrow'/> : <Icon val='downArrow'/>}
+                    {showDropdown ? <Icon val='upArrowRounded'/> : <Icon val='downArrowRounded'/>}
                 </div>
                 {showDropdown &&
                 <div className='dropdownWrapper__dropdown__content'>

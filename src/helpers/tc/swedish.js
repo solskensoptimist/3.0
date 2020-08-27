@@ -311,6 +311,8 @@ export default {
     mostCommonBrandTR: 'Vanligast märke i vagnpark - traktor',
     move: 'Flytta',
     moved: 'Flyttade',
+    moveDealToLost: 'Markera affären som förlorad',
+    moveDealToWon: 'Markera affären som vunnen',
     name: 'Namn',
     nameAndAddress: 'Namn och adress',
     nameAndAddressSubscriptionInfo: 'Köp automatiskt namn och adress för privatpersoner',

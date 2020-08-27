@@ -51,27 +51,7 @@
                             border: 1px solid $grey-300
                             background: white
                             &:hover
-                              background: $colorLink
-                              color: white
-                              .itemWrapper__item
-                                &__content
-                                  &__user
-                                    svg
-                                      fill: white
-                                  &__event
-                                    svg
-                                      background: white !important
-                                      fill: $colorLink !important
-                                  &__main
-                                    &__top
-                                      &__menu
-                                        svg
-                                          fill: white !important
-                                    &__bottom
-                                      &__updated
-                                        &__label
-                                          opacity: 0.8
-                                          color: white
+                              background: $grey-50
                             &__content
                               display: flex
                               align-items: center
@@ -112,69 +92,54 @@
                                     background: $colorEventWithinOneWeek !important
                               &__main
                                 flex-grow: 1
-                                &__top
-                                  display: flex
-                                  align-items: center
-                                  justify-content: space-between
-                                  &__title
-                                    flex-grow: 1
-                                    font-size: $fontSizeStandard2
-                                    font-weight: 600
-                                  &__menu
-                                    svg
-                                      width: 16px
-                                      height: 16px
-                                &__bottom
+                                &__mainTop
+                                  font-size: $fontSizeStandard2
+                                  font-weight: 600
+                                &__mainBottom
                                   display: flex
                                   align-items: center
                                   justify-content: flex-start
                                   font-size: $fontSizeStandard-2
-                                  &__updated
-                                    flex-grow: 1
-                                    &__label
-                                      color: $colorTextLight-1
-                                      margin-right: 4px
+                                  &__label
+                                    color: $colorTextLight-1
+                                    margin-right: 4px
+                              &__toggleActions
+                                display: flex
+                                align-items: flex-end
+                                padding: 4px 0 4px 4px
+                            &__bottom
+                              display: flex
+                              align-items: center
+                              justify-content: center
+                              margin-top: $paddingSmall
+                              padding: $paddingSmall
+                              svg
+                                width: 32px
+                                height: 32px
+                              &__lost
+                                margin-right: 15%
+                                svg
+                                  fill: $colorDealLost
+                              &__won
+                                margin-left: 15%
+                                svg
+                                  fill: $colorDealWon
+                            &__hidden
+                              display: none
                 .isDragging
                   .itemWrapper__item
                     background: $colorLink
                     border-color: $colorLink
                     color: white
+                    svg
+                      fill: white !important
                     &__content
-                      &__user
-                        svg
-                          fill: white
                       &__event
                         svg
                           background: white !important
                           fill: $colorLink !important
                       &__main
-                        &__top
-                          &__menu
-                            svg
-                              fill: white !important
-                        &__bottom
-                          &__updated
-                            &__label
-                              opacity: 0.8
-                              color: white
-          &__hidden
-            display: none
-          &__footer
-            background: yellow
-            position: fixed
-            bottom: 0
-            width: 100%
-            display: flex
-            align-items: center
-            justify-content: center
-            &__lost
-              flex-basis: 25%
-              background: red
-              padding: $paddingBig
-              margin-right: 5%
-            &__won
-              flex-basis: 25%
-              background: green
-              padding: $paddingBig
-              margin-left: 5%
-
+                        &__mainBottom
+                          &__label
+                            opacity: 0.8
+                            color: white

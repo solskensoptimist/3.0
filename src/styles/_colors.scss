@@ -285,6 +285,10 @@ $colorInfoBackground: #fef4e7;
 $colorInfoText: #613e11;
 $colorInfoIcon: #f3a44a;
 
+// Deal actions
+$colorDealLost: $colorLink;
+$colorDealWon: $colorLink;
+
 // Event time limits
 $colorEventPassedDate: $deep-orange-300;
 $colorEventWithinOneDay: $green-300;

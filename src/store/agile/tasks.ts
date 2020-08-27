@@ -96,6 +96,46 @@ export const getAgile = async () => {
 const mockData = {
     "deals": [
         {
+            "_id": "5ea9d1ea79cb6bc116652023",
+            "user_id": 8392,
+            "dealer_id": 5141,
+            "userName": "Peter Persson",
+            "userEmail": "peter.persson@bilvision.se",
+            "phase": "contacted",
+            "name": "Man, 33, LINKÖPING",
+            "maturity": "0",
+            "created": "Wed Apr 29 2020 21:13:46 GMT+0200 (Central European Summer Time)",
+            "updated": "Tue Aug 11 2020 09:29:57 GMT+0200 (Central European Summer Time)",
+            "prospects": [
+                "10979299"
+            ],
+            "cars": [],
+            "meta": {
+                "moved_by": {
+                    "id": 8392,
+                    "name": "Peter Persson"
+                },
+                "moved_from_list": "5f3be7b306e7b01a0d45159c",
+                "moved_from_phase": "todo",
+                "files": [],
+                "include_default_contact": false
+            },
+            "description": null,
+            "potential": null,
+            "comments": null,
+            "events": [
+                {
+                    "event_date": "Wed Aug 28 2020 09:00:00 GMT+0200 (Central European Summer Time)",
+                    "action": "valuation",
+                    "complete": false,
+                    "_id": "74fe6510-dba4-11ea-bbe0-4b4859e3fdc8",
+                    "comment": "En värdering",
+                    "date_created": "2020-08-11T09:29:57+02:00"
+                }
+            ],
+            "belongsToOther": false
+        },
+        {
             "_id": "5ea48344fb9f747c976c5000",
             "user_id": 8392,
             "dealer_id": 5141,
@@ -124,6 +164,62 @@ const mockData = {
             "potential": null,
             "comments": null,
             "events": [],
+            "belongsToOther": false
+        },
+        {
+            "_id": "5eb13b1659640bf6f4799d03",
+            "user_id": 8392,
+            "dealer_id": 5141,
+            "userName": "Peter Persson",
+            "userEmail": "peter.persson@bilvision.se",
+            "phase": "contacted",
+            "name": "Kallskär AB",
+            "maturity": "0",
+            "created": "Tue May 05 2020 12:08:22 GMT+0200 (Central European Summer Time)",
+            "updated": "Wed Aug 19 2020 11:41:56 GMT+0200 (Central European Summer Time)",
+            "prospects": [
+                "5568556020"
+            ],
+            "cars": [
+                "ABC209",
+                "ABC907"
+            ],
+            "meta": {
+                "moved_by": {
+                    "id": 8392,
+                    "name": "Peter Persson"
+                },
+                "moved_from_list": null,
+                "moved_from_phase": "todo",
+                "files": [
+                    {
+                        "s3_filename": "f8485af6-7df5-4e5a-a709-14d84bc5d6fe_logo_ettan.png",
+                        "original_name": "logo_ettan.png"
+                    }
+                ],
+                "include_default_contact": false
+            },
+            "description": null,
+            "potential": null,
+            "comments": "",
+            "events": [
+                {
+                    "event_date": "Wed Jul 08 2020 16:00:00 GMT+0200 (Central European Summer Time)",
+                    "action": "meeting",
+                    "complete": false,
+                    "_id": "94e3f410-ba18-11ea-9e41-fbd68e1cac42",
+                    "comment": "",
+                    "date_created": "2020-06-29T16:55:32+02:00"
+                },
+                {
+                    "event_date": "Mon Aug 24 2020 09:00:00 GMT+0200 (Central European Summer Time)",
+                    "action": "analysis",
+                    "complete": false,
+                    "_id": "d006fda0-dba4-11ea-bbe0-4b4859e3fdc8",
+                    "comment": "Behovsanalys hos Kallskär",
+                    "date_created": "2020-08-11T09:32:29+02:00"
+                }
+            ],
             "belongsToOther": false
         },
         {
@@ -861,46 +957,6 @@ const mockData = {
             "belongsToOther": false
         },
         {
-            "_id": "5ea9d1ea79cb6bc116652023",
-            "user_id": 8392,
-            "dealer_id": 5141,
-            "userName": "Peter Persson",
-            "userEmail": "peter.persson@bilvision.se",
-            "phase": "contacted",
-            "name": "Man, 33, LINKÖPING",
-            "maturity": "0",
-            "created": "Wed Apr 29 2020 21:13:46 GMT+0200 (Central European Summer Time)",
-            "updated": "Tue Aug 11 2020 09:29:57 GMT+0200 (Central European Summer Time)",
-            "prospects": [
-                "10979299"
-            ],
-            "cars": [],
-            "meta": {
-                "moved_by": {
-                    "id": 8392,
-                    "name": "Peter Persson"
-                },
-                "moved_from_list": "5f3be7b306e7b01a0d45159c",
-                "moved_from_phase": "todo",
-                "files": [],
-                "include_default_contact": false
-            },
-            "description": null,
-            "potential": null,
-            "comments": null,
-            "events": [
-                {
-                    "event_date": "Wed Aug 27 2020 09:00:00 GMT+0200 (Central European Summer Time)",
-                    "action": "valuation",
-                    "complete": false,
-                    "_id": "74fe6510-dba4-11ea-bbe0-4b4859e3fdc8",
-                    "comment": "En värdering",
-                    "date_created": "2020-08-11T09:29:57+02:00"
-                }
-            ],
-            "belongsToOther": false
-        },
-        {
             "_id": "5ea9d1f279cb6bc116652025",
             "user_id": 8392,
             "dealer_id": 5141,
@@ -1198,62 +1254,6 @@ const mockData = {
             "potential": null,
             "comments": "",
             "events": [],
-            "belongsToOther": false
-        },
-        {
-            "_id": "5eb13b1659640bf6f4799d03",
-            "user_id": 8392,
-            "dealer_id": 5141,
-            "userName": "Peter Persson",
-            "userEmail": "peter.persson@bilvision.se",
-            "phase": "contacted",
-            "name": "Kallskär AB",
-            "maturity": "0",
-            "created": "Tue May 05 2020 12:08:22 GMT+0200 (Central European Summer Time)",
-            "updated": "Wed Aug 19 2020 11:41:56 GMT+0200 (Central European Summer Time)",
-            "prospects": [
-                "5568556020"
-            ],
-            "cars": [
-                "ABC209",
-                "ABC907"
-            ],
-            "meta": {
-                "moved_by": {
-                    "id": 8392,
-                    "name": "Peter Persson"
-                },
-                "moved_from_list": null,
-                "moved_from_phase": "todo",
-                "files": [
-                    {
-                        "s3_filename": "f8485af6-7df5-4e5a-a709-14d84bc5d6fe_logo_ettan.png",
-                        "original_name": "logo_ettan.png"
-                    }
-                ],
-                "include_default_contact": false
-            },
-            "description": null,
-            "potential": null,
-            "comments": "",
-            "events": [
-                {
-                    "event_date": "Wed Jul 08 2020 16:00:00 GMT+0200 (Central European Summer Time)",
-                    "action": "meeting",
-                    "complete": false,
-                    "_id": "94e3f410-ba18-11ea-9e41-fbd68e1cac42",
-                    "comment": "",
-                    "date_created": "2020-06-29T16:55:32+02:00"
-                },
-                {
-                    "event_date": "Mon Aug 24 2020 09:00:00 GMT+0200 (Central European Summer Time)",
-                    "action": "analysis",
-                    "complete": false,
-                    "_id": "d006fda0-dba4-11ea-bbe0-4b4859e3fdc8",
-                    "comment": "Behovsanalys hos Kallskär",
-                    "date_created": "2020-08-11T09:32:29+02:00"
-                }
-            ],
             "belongsToOther": false
         },
         {

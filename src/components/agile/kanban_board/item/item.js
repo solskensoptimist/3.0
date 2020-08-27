@@ -1,11 +1,11 @@
-import React from 'react';
+import React , {useState}from 'react';
 import moment from 'moment';
 import {tc} from 'helpers';
 import Icon from 'components/icon';
-// import ItemMenu from '../item_menu';
 import Tooltip from 'components/tooltip';
 
 export default (props) => {
+    const [showActions, setShowActions] = useState(false);
     const {item, addActivity, openItem, provided, snapshot} = props;
 
     const _addActivity = (e) => {
@@ -13,14 +13,19 @@ export default (props) => {
         addActivity(item._id);
     };
 
+    const _markDealAsLost = (e) => {
+        e.stopPropagation();
+        console.log('LOST');
+    };
+
+    const _markDealAsWon = (e) => {
+        e.stopPropagation();
+        console.log('WON');
+    };
+
     const _openItem = (e) => {
         e.stopPropagation();
         openItem(item._id);
-    };
-
-    const _openMenu = (e) => {
-        e.stopPropagation();
-        console.log('Öppna meny för', item._id);
     };
 
     /**
@@ -105,26 +110,40 @@ export default (props) => {
                 <div className='itemWrapper__item__content'>
                     {_renderEvent()}
                     <div className='itemWrapper__item__content__main'>
-                        <div className='itemWrapper__item__content__main__top'>
-                            <div className='itemWrapper__item__content__main__top__title'>
-                                {item.name}
-                            </div>
-                            <div className='itemWrapper__item__content__main__top__menu'>
-                                <Icon val='dotsVert' onClick={_openMenu}/>
-                            </div>
+                        <div className='itemWrapper__item__content__main__mainTop'>
+                            {item.name}
                         </div>
-                        <div className='itemWrapper__item__content__main__bottom'>
-                            {item.updated ?
-                                <div className='itemWrapper__item__content__main__bottom__updated'>
-                                    <span className='itemWrapper__item__content__main__bottom__updated__label'>
-                                        {tc.updated}:
-                                    </span>
-                                            <span className='itemWrapper__item__content__main__bottom__updated__value'>
-                                        {moment(new Date(item.updated)).fromNow()}
-                                    </span>
-                                </div> : null
-                            }
-                        </div>
+                        {item.updated ?
+                            <div className='itemWrapper__item__content__main__mainBottom'>
+                                <span className='itemWrapper__item__content__main__mainBottom__label'>
+                                    {tc.updated}:
+                                </span>
+                                <span className='itemWrapper__item__content__main__mainBottom__value'>
+                                    {moment(new Date(item.updated)).fromNow()}
+                                </span>
+                            </div> : null
+                        }
+                    </div>
+                    <div className='itemWrapper__item__content__toggleActions'>
+                        {(showActions) ?
+                            <Icon val='downArrowRounded' onClick={() => {setShowActions(false)}}/>:
+                            <Icon val='upArrowRounded' onClick={() => {setShowActions(true)}}/>
+                        }
+                    </div>
+                </div>
+                <div className={(showActions) ?
+                        'itemWrapper__item__bottom' :
+                        'itemWrapper__item__hidden'}
+                >
+                    <div className='itemWrapper__item__bottom__lost' onClick={_markDealAsLost}>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.moveDealToLost}>
+                            <Icon val='lost'/>
+                        </Tooltip>
+                    </div>
+                    <div className='itemWrapper__item__bottom__won' onClick={_markDealAsWon}>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.moveDealToWon}>
+                            <Icon val='won'/>
+                        </Tooltip>
                     </div>
                 </div>
             </div>

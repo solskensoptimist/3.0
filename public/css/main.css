@@ -459,18 +459,7 @@ a {
               border: 1px solid #e0e0e0;
               background: white; }
               .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item:hover {
-                background: #00B4CC;
-                color: white; }
-                .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item:hover .itemWrapper__item__content__user svg {
-                  fill: white; }
-                .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item:hover .itemWrapper__item__content__event svg {
-                  background: white !important;
-                  fill: #00B4CC !important; }
-                .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item:hover .itemWrapper__item__content__main__top__menu svg {
-                  fill: white !important; }
-                .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item:hover .itemWrapper__item__content__main__bottom__updated__label {
-                  opacity: 0.8;
-                  color: white; }
+                background: #fafafa; }
               .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content {
                 display: flex;
                 align-items: center;
@@ -505,61 +494,52 @@ a {
                     background: #ffc107 !important; }
                 .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main {
                   flex-grow: 1; }
-                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__top {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between; }
-                    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__top__title {
-                      flex-grow: 1;
-                      font-size: 16px;
-                      font-weight: 600; }
-                    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__top__menu svg {
-                      width: 16px;
-                      height: 16px; }
-                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__bottom {
+                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__mainTop {
+                    font-size: 16px;
+                    font-weight: 600; }
+                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__mainBottom {
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
                     font-size: 11px; }
-                    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__bottom__updated {
-                      flex-grow: 1; }
-                      .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__bottom__updated__label {
-                        color: #9e9e9e;
-                        margin-right: 4px; }
+                    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__mainBottom__label {
+                      color: #9e9e9e;
+                      margin-right: 4px; }
+                .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__toggleActions {
+                  display: flex;
+                  align-items: flex-end;
+                  padding: 4px 0 4px 4px; }
+              .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 8px;
+                padding: 8px; }
+                .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom svg {
+                  width: 32px;
+                  height: 32px; }
+                .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__lost {
+                  margin-right: 15%; }
+                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__lost svg {
+                    fill: #00B4CC; }
+                .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__won {
+                  margin-left: 15%; }
+                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__won svg {
+                    fill: #00B4CC; }
+              .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__hidden {
+                display: none; }
       .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item {
         background: #00B4CC;
         border-color: #00B4CC;
         color: white; }
-        .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item__content__user svg {
-          fill: white; }
+        .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item svg {
+          fill: white !important; }
         .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item__content__event svg {
           background: white !important;
           fill: #00B4CC !important; }
-        .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item__content__main__top__menu svg {
-          fill: white !important; }
-        .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item__content__main__bottom__updated__label {
+        .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item__content__main__mainBottom__label {
           opacity: 0.8;
           color: white; }
-  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__hidden {
-    display: none; }
-  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__footer {
-    background: yellow;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__footer__lost {
-      flex-basis: 25%;
-      background: red;
-      padding: 22px;
-      margin-right: 5%; }
-    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__footer__won {
-      flex-basis: 25%;
-      background: green;
-      padding: 22px;
-      margin-left: 5%; }
 
 .commentWrapper__comment__content {
   margin: 22px 0; }
@@ -1514,8 +1494,8 @@ a {
         align-items: center;
         cursor: pointer; }
         .excelWrapper__excel__content__selectors__section__header__left svg {
-          width: 18px;
-          height: 18px;
+          width: 20px;
+          height: 20px;
           margin-left: 8px; }
       .excelWrapper__excel__content__selectors__section__header__right {
         display: flex;

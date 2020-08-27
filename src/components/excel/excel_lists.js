@@ -83,7 +83,7 @@ const Excel = (state) => {
                                         setHiddenSections(hiddenSections.concat([prop]));
                                     }
                                 }}
-                                val={hiddenSections.includes(prop) ? 'rightArrow' : 'downArrow'}s
+                                val={hiddenSections.includes(prop) ? 'rightArrowRounded' : 'downArrowRounded'}
                             />
                         </div>
                         {(!hiddenSections.includes(prop)) ?

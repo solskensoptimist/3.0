@@ -4,9 +4,13 @@ import {
     Add,
     Apartment,
     ArrowDropDown,
+    ArrowDropDownRounded,
     ArrowDropUp,
+    ArrowDropUpRounded,
     ArrowLeft,
+    ArrowLeftRounded,
     ArrowRight,
+    ArrowRightRounded,
     AttachMoney,
     Assignment,
     Autorenew,
@@ -64,6 +68,8 @@ import {
     Share,
     Star,
     SwapHoriz,
+    ThumbDownAltRounded,
+    ThumbUpAltRounded,
     Timeline,
     TrendingUp,
     Today,
@@ -149,6 +155,8 @@ export default (props) => {
             return <MoreVert className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'downArrow':
             return <ArrowDropDown className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'downArrowRounded':
+            return <ArrowDropDownRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'download':
             return <GetApp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'dragIndicator':
@@ -177,6 +185,8 @@ export default (props) => {
             return <Highlight className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'leftArrow':
             return <ArrowLeft className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'leftArrowRounded':
+            return <ArrowLeftRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'link':
             return <Link className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'linkOff':
@@ -191,6 +201,8 @@ export default (props) => {
             return <ExitToApp className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'logout':
             return <ExitToApp className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'lost':
+            return <ThumbDownAltRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'mail':
             return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'maximize':
@@ -229,6 +241,8 @@ export default (props) => {
             return <Tune className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'rightArrow':
             return <ArrowRight className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'rightArrowRounded':
+            return <ArrowRightRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'remove':
             return <Delete className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'reset':
@@ -265,6 +279,8 @@ export default (props) => {
             return <ToggleOn className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'upArrow':
             return <ArrowDropUp className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'upArrowRounded':
+            return <ArrowDropUpRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'user':
             return <Person className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'valuation':
@@ -279,6 +295,8 @@ export default (props) => {
             return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'will_post':
             return <ContactMail className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'won':
+            return <ThumbUpAltRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         default:
             return props.val;
     }
