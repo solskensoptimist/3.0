@@ -1,4 +1,5 @@
 export {activityHelper} from './activity_helper';
+export {agileHelper} from './agile_helper';
 export {chartHelper} from './chart_helper';
 export {dealHelper} from './deal_helper';
 export {excelHelper} from './excel_helper';

@@ -1,73 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {getAgile} from 'store/agile/tasks';
+import {getAgileColumns, getAgileFilters, sortColumns} from 'store/agile/tasks';
 import uuid from 'uuid/v1';
-import {tc} from 'helpers';
+import {agileHelper, tc} from 'helpers';
 import KanbanBoard from './kanban_board';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
 
 const Agile = (state) => {
-    const [columns, setColumns] = useState([]);
+    const [columns, setColumns] = useState(null);
     const [openedItem, setOpenedItem] = useState(null);
-    console.log('columns i agile', columns);
 
-    // Lyssna på när state.agile.filter ändras (och valda listor om de ligger i en annan property), och kör getAgile då.
     useEffect(() => {
-        getAgile();
+        getAgileColumns();
+        getAgileFilters();
     }, []);
 
     useEffect(() => {
-        // Ska såklart hämtas från db....
-        const userColumns = [
-            {
-                id: 'prospects',
-                title: tc.notStarted
-            },
-            {
-                id: 'todo',
-                title: 'Påbörjade'
-            },
-            {
-                id: 'contacted',
-                title: 'Kontaktade'
-            },
-            {
-                id: 'negotiation',
-                title: 'Under förhandling'
-            }
-        ];
+        getAgileColumns();
+    }, [state.agile.filters]);
 
-        const columnsMapped = [];
-
-        // Add items array.
-        for (const column of userColumns) {
-            columnsMapped.push({ ...column, items: []});
+    useEffect(() => {
+        if (state.agile && state.agile.columns && state.agile.columns.length) {
+            setColumns(state.agile.columns);
         }
 
-        if (state.agile.data) {
-            // If deals, push to correct column items array.
-            if (state.agile.data.deals && state.agile.data.deals.length) {
-                state.agile.data.deals.forEach((item) => {
-                    const col = columnsMapped.find((column) => column.id === item.phase);
-                    if (col) {
-                        col.items.push(item);
-                    }
-                });
-            }
-
-            // If prospects, push to 'prospects' column items array.
-            if (state.agile.data.prospects && state.agile.data.prospects.length) {
-                state.agile.data.prospects.forEach((item) => {
-                    const col = columnsMapped.find((column) => column.id === 'prospects');
-                    if (col) {
-                        col.items.push(item);
-                    }
-                });
-            }
-        }
-        setColumns(columnsMapped);
-    }, [state.agile.data]);
+    }, [state.agile.columns]);
 
     const _addActivity = (id) => {
         console.log('Add activity för', id);
@@ -133,7 +91,7 @@ const Agile = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!(state && state.agile);
+        return !!(state && state.agile && columns);
     };
 
     return ( _stateCheck() ?
@@ -145,14 +103,28 @@ const Agile = (state) => {
                             label: tc.filter,
                             items: [
                                 {label: 'Dropdownitem nummer 1', onClick: () => {}},
-                                {label: 'Dropdownitem nummer 2', onClick: () => {}}],
+                                {label: 'Dropdownitem nummer 2', onClick: () => {}}
+                                ],
                             type: 'dropdown'
                         },
                         {
                             label: tc.lists,
                             items: [
                                 {label: 'Dropdownitem nummer 1', onClick: () => {}},
-                                {label: 'Dropdownitem nummer 2', onClick: () => {}}],
+                                {label: 'Dropdownitem nummer 2', onClick: () => {}}
+                                ],
+                            type: 'dropdown'
+                        },
+                        {
+                            label: tc.sort,
+                            items: agileHelper.getColumnSortValues.map((num) => {
+                                    return {
+                                        label: tc[num],
+                                        onClick: () => {
+                                            sortColumns(num);
+                                        }
+                                    };
+                                }),
                             type: 'dropdown'
                         },
                         {

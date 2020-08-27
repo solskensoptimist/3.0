@@ -6,8 +6,9 @@ import Icon from 'components/icon';
  * Dropdown component, should be used with <DropdownItem>.
  *
  * props.children - Should be array of <DropdownItem>.
- * props.displayValue - If we want a value to be displayed at top (such as active value, placeholder etc...)
- * props.transparent - If we want the holder to be transparent.
+ * props.direction - string (optional) - 'left' | 'right - 'If the content is going to be placed right or left, defaults to right.
+ * props.displayValue - string - Value to be displayed at top (such as active value, placeholder etc...)
+ * props.transparent - boolean (optional) - If we want the holder to be transparent.
  */
 export const Dropdown = (props) => {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -49,7 +50,10 @@ export const Dropdown = (props) => {
                     {showDropdown ? <Icon val='upArrowRounded'/> : <Icon val='downArrowRounded'/>}
                 </div>
                 {showDropdown &&
-                <div className='dropdownWrapper__dropdown__content'>
+                <div className={(props.direction === 'left') ?
+                        'dropdownWrapper__dropdown__contentLeft':
+                        'dropdownWrapper__dropdown__contentRight'}
+                >
                     {props.children}
                 </div>
                 }

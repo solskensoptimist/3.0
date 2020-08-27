@@ -47,15 +47,18 @@ export default (props) => {
 
             if (date) {
                 const diff = moment(date).diff(new Date(), 'hours');
+                let addActivity = (
+                    <div className='itemWrapper__item__content__event__defaultHidden'>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.addAgileActivity}>
+                            <Icon val='add' onClick={_addActivity}/>
+                        </Tooltip>
+                    </div>
+                );
 
                 if (diff < (7 * 24) && diff > 24) {
                     element = (
                         <div className='itemWrapper__item__content__event'>
-                            <div className='itemWrapper__item__content__event__defaultHidden'>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.addAgileActivity}>
-                                    <Icon val='add' onClick={_addActivity}/>
-                                </Tooltip>
-                            </div>
+                            {addActivity}
                             <div className='itemWrapper__item__content__event__withinOneWeek'>
                                 <Icon val='time'/>
                             </div>
@@ -64,9 +67,7 @@ export default (props) => {
                 } else if (diff < 24 && diff >= 0) {
                     element = (
                         <div className='itemWrapper__item__content__event'>
-                            <div className='itemWrapper__item__content__event__defaultHidden'>
-                                <Icon val='add' onClick={_addActivity}/>
-                            </div>
+                            {addActivity}
                             <div className='itemWrapper__item__content__event__withinOneDay'>
                                 <Icon val='time'/>
                             </div>
@@ -75,11 +76,7 @@ export default (props) => {
                 } else if (diff < 0) {
                     element = (
                         <div className='itemWrapper__item__content__event'>
-                            <div className='itemWrapper__item__content__event__defaultHidden'>
-                                <Tooltip horizontalDirection='left' tooltipContent={tc.addAgileActivity}>
-                                    <Icon val='add' onClick={_addActivity}/>
-                                </Tooltip>
-                            </div>
+                            {addActivity}
                             <div className='itemWrapper__item__content__event__passed'>
                                 <Icon val='time'/>
                             </div>
@@ -126,8 +123,8 @@ export default (props) => {
                     </div>
                     <div className='itemWrapper__item__content__toggleActions'>
                         {(showActions) ?
-                            <Icon val='downArrowRounded' onClick={() => {setShowActions(false)}}/>:
-                            <Icon val='upArrowRounded' onClick={() => {setShowActions(true)}}/>
+                            <Icon val='upArrowRounded' onClick={() => {setShowActions(false)}}/>:
+                            <Icon val='downArrowRounded' onClick={() => {setShowActions(true)}}/>
                         }
                     </div>
                 </div>
