@@ -517,15 +517,16 @@ a {
                 padding: 8px; }
                 .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom svg {
                   width: 32px;
-                  height: 32px; }
+                  height: 32px;
+                  fill: #e0e0e0; }
                 .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__lost {
                   margin-right: 15%; }
-                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__lost svg {
-                    fill: #00B4CC; }
+                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__lost:hover svg {
+                    fill: #ff8a65; }
                 .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__won {
                   margin-left: 15%; }
-                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__won svg {
-                    fill: #00B4CC; }
+                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__bottom__won:hover svg {
+                    fill: #81c784; }
               .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__hidden {
                 display: none; }
       .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item {

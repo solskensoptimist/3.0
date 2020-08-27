@@ -116,14 +116,18 @@
                               svg
                                 width: 32px
                                 height: 32px
+                                fill: $grey-300
                               &__lost
                                 margin-right: 15%
-                                svg
-                                  fill: $colorDealLost
+                                &:hover
+                                  svg
+                                    fill: $colorDealLost
                               &__won
                                 margin-left: 15%
-                                svg
-                                  fill: $colorDealWon
+                                &:hover
+                                  svg
+                                    fill: $colorDealWon
+
                             &__hidden
                               display: none
                 .isDragging
