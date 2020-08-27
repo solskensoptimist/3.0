@@ -1,9 +1,9 @@
 :export {
-  chartColor1: #ff8a65;
+  chartColor1: #ffb300;
   chartColor2: #ff5722;
   chartColor3: #ffd54f;
-  chartColor4: #ffc107;
-  chartColor5: #b0bec5;
+  chartColor4: #b0bec5;
+  chartColor5: #ff8a65;
   chartColor6: #78909c;
   chartColor7: #546e7a;
   chartColor8: #81c784;
@@ -2956,13 +2956,10 @@ svg.active {
         fill: #616161; }
 
 @media (max-width: 900px) {
+  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper {
+    flex-basis: calc(50% - 12px); } }
+@media (max-width: 900px) {
   .navigationWrapper__navigation {
-    flex-direction: column;
-    width: 15%;
-    position: absolute;
-    left: 0;
-    z-index: 10; }
-    .navigationWrapper__navigation__left {
-      flex-direction: column; } }
+    background: yellow; } }
 
 /*# sourceMappingURL=main.css.map */
