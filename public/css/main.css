@@ -487,11 +487,11 @@ a {
                   .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__event__defaultVisibile {
                     display: block; }
                   .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__event__passed svg {
-                    background: #ff8a65 !important; }
+                    background: #ff8f00 !important; }
                   .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__event__withinOneDay svg {
-                    background: #81c784 !important; }
-                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__event__withinOneWeek svg {
                     background: #ffc107 !important; }
+                  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__event__withinOneWeek svg {
+                    background: #ffd54f !important; }
                 .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main {
                   flex-grow: 1; }
                   .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item__content__main__mainTop {
@@ -1465,13 +1465,13 @@ a {
   margin: 22px 0; }
 
 .passedDate .additionalDate svg {
-  fill: #ff8a65 !important; }
+  fill: #ff8f00 !important; }
 
 .withinADay .additionalDate svg {
-  fill: #81c784 !important; }
+  fill: #ffc107 !important; }
 
 .withinAWeek .additionalDate svg {
-  fill: #ffc107 !important; }
+  fill: #ffd54f !important; }
 
 .excelWrapper__excel__content {
   margin: 22px 0; }

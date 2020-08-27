@@ -281,6 +281,8 @@ $colorLinkHover: $colorTextMain;
 // Informatory colors
 $colorInformatory: $colorSecondary-500;
 $colorInformatoryDark: $colorSecondary-600;
+$colorInformatoryDarker: $colorSecondary-800;
+$colorInformatoryLight: $colorSecondary-300;
 $colorInfoBackground: #fef4e7;
 $colorInfoText: #613e11;
 $colorInfoIcon: #f3a44a;
@@ -290,9 +292,9 @@ $colorDealLost: $deep-orange-300;
 $colorDealWon: $green-300;
 
 // Event time limits
-$colorEventPassedDate: $deep-orange-300;
-$colorEventWithinOneDay: $green-300;
-$colorEventWithinOneWeek: $colorInformatory;
+$colorEventPassedDate: $colorInformatoryDarker;
+$colorEventWithinOneDay: $colorInformatory;
+$colorEventWithinOneWeek: $colorInformatoryLight;
 
 // Backgrounds
 $backgroundSite: radial-gradient(circle at top right, $colorPrimary-500, $colorPrimary-300, $colorPrimary-600);
