@@ -10,6 +10,8 @@ import Icon from 'components/icon';
  * Possibility exists to provide an icon to item.
  * Possibility exists to provide a 'disabled' property for buttons that will be shown, but disabled.
  *
+ * Note that you can display dropdowns with or without checkboxes.
+ *
  * @param props.items - array - Example: [
  *      {
  *          id: 1,
@@ -25,7 +27,7 @@ import Icon from 'components/icon';
  *          id: 2,
  *          children: [
  *              {label: 'My button 1', onClick: func, type: 'button'},
- *              {label: 'My dropdown', items: [{label: 'Dropdownitem 1', onClick: func}, {label: 'Dropdownitem 2', onClick: func}], type: 'dropdown',},
+ *              {label: 'My dropdown', items: [{label: 'Dropdownitem 1', onClick: func}, {label: 'Dropdownitem 2', onClick: func}], type: 'dropdown', checkboxes: true,},
  *          ],
  *          label: 'Menu option 2',
  *          onClick: func,
@@ -109,11 +111,13 @@ export default (props) => {
                             :
                             <>
                                 <span className='listBullet'>&#8226;</span>
-                                <Dropdown displayValue={num.label} positionRight={true}>
+                                <Dropdown displayValue={num.label}>
                                     {num.items.map((item, i) => {
                                         return(
                                             <DropdownItem
+                                                active={item.active}
                                                 key={i}
+                                                hideCheckbox={!num.checkboxes}
                                                 label={item.label}
                                                 onClick={item.onClick}
                                             />

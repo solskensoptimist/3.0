@@ -4,12 +4,14 @@ interface AgileState {
     columns: Array<object>| null,
     columnStructure: Array<object>| null,
     filters: object | null,
+    sort: string | null,
 }
 
 const initialState: AgileState = {
     columns: null,
     columnStructure: null,
     filters: null,
+    sort: null,
 };
 
 export const agileReducer = (state = initialState, action) => {
@@ -30,6 +32,12 @@ export const agileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 filters: action.payload,
+            }
+        }
+        case agileActionTypes.SET_AGILE_SORT: {
+            return {
+                ...state,
+                sort: action.payload,
             }
         }
         default: {

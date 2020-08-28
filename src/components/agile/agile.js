@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {getAgileColumns, getAgileFilters, sortColumns} from 'store/agile/tasks';
+import {getAgileColumns, getAgileFilters, sortColumns, updateAgileFilters} from 'store/agile/tasks';
 import uuid from 'uuid/v1';
+import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
 import KanbanBoard from './kanban_board';
 import Loading from 'components/loading';
@@ -9,6 +10,8 @@ import Menu from 'components/menu';
 
 const Agile = (state) => {
     const [columns, setColumns] = useState(null);
+    const [activeFilters, setActiveFilters] = useState(null);
+    const [activeLists, setActiveLists] = useState(null);
     const [openedItem, setOpenedItem] = useState(null);
 
     useEffect(() => {
@@ -17,11 +20,28 @@ const Agile = (state) => {
     }, []);
 
     useEffect(() => {
+        // Get deals and prospects.
         getAgileColumns();
+
+        // Set active filters.
+        if (state.agile.filters && state.agile.filters.length) {
+            const lists = [];
+            const filters = [];
+            state.agile.filters.forEach((num) => {
+                if (num.meta.type === 'list' && num.active) {
+                    lists.push(num.id);
+                } else if (num.active) {
+                    filters.push(num.id);
+                }
+            });
+
+            setActiveLists(lists);
+            setActiveFilters(filters);
+        }
     }, [state.agile.filters]);
 
     useEffect(() => {
-        if (state.agile && state.agile.columns && state.agile.columns.length) {
+        if (state.agile.columns && state.agile.columns.length) {
             setColumns(state.agile.columns);
         }
 
@@ -91,7 +111,14 @@ const Agile = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!(state && state.agile && columns);
+        return !!(state && state.agile && columns && state.lists && state.lists.lists);
+    };
+
+    const _updateFilters = (payload) => {
+        console.log('payload i _updateFilters', payload);
+        // I payload har vi ilist.name... behöver vi skicka med det, eller hanteras det på backend?
+        // Kolla i 2.0 vad som skickas med.
+        // return updateAgileFilters({});
     };
 
     return ( _stateCheck() ?
@@ -100,25 +127,39 @@ const Agile = (state) => {
                 <div className='agileWrapper__agile__header'>
                     <Menu items={[
                         {
+                            checkboxes: true,
                             label: tc.filter,
-                            items: [
-                                {label: 'Dropdownitem nummer 1', onClick: () => {}},
-                                {label: 'Dropdownitem nummer 2', onClick: () => {}}
-                                ],
+                            items: sharedAgileHelper.getDefaultFilters().map((filter) => {
+                                return {
+                                    active: activeFilters.includes(filter.id),
+                                    label: filter.name,
+                                    onClick: () => {
+                                        _updateFilters({id: filter.id, name: filter.name, type:'default'});
+                                    }
+                                };
+                            }),
                             type: 'dropdown'
                         },
                         {
+                            checkboxes: true,
                             label: tc.lists,
-                            items: [
-                                {label: 'Dropdownitem nummer 1', onClick: () => {}},
-                                {label: 'Dropdownitem nummer 2', onClick: () => {}}
-                                ],
+                            items: state.lists.lists.map((list) => {
+                                return {
+                                    active: activeLists.includes(list._id),
+                                    label: list.name,
+                                    onClick: () => {
+                                        _updateFilters({id: list._id, name: list.name, type:'list'});
+                                    }
+                                }
+                            }),
                             type: 'dropdown'
                         },
                         {
+                            checkboxes: true,
                             label: tc.sort,
                             items: agileHelper.getColumnSortValues.map((num) => {
                                     return {
+                                        active: state.agile.sort === num,
                                         label: tc[num],
                                         onClick: () => {
                                             sortColumns(num);
@@ -152,6 +193,7 @@ const Agile = (state) => {
 const MapStateToProps = (state) => {
     return {
         agile: state.agile,
+        lists: state.lists,
     };
 };
 

@@ -5,7 +5,7 @@ import {showFlashMessage} from 'store/flash_messages/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
 
 /**
- * Create a deal
+ * Create a deal.
  *
  * @param payload.cars
  * @param payload.contacts
@@ -99,7 +99,6 @@ export const getAgileColumns = async () => {
                 } else if (columns.find((num) => num.id === 'phaseMissingColumn')) {
                     // If deal phase doesn't have a corresponding column, we put it into a misc column (should never happen)...
                     const phaseMissingColumn = columns.find((num) => num.id === 'phaseMissingColumn');
-                    console.log('phaseMissingColumn', phaseMissingColumn);
                     phaseMissingColumn.items.push(deal);
                 } else {
                     // ...if misc column doesn't exist, create it.
@@ -110,6 +109,9 @@ export const getAgileColumns = async () => {
                     });
                 }
             });
+
+            // SORTERA BASERAT PÅ SORT VÄRDE, OM DET FINNS...
+            // Behöver bygga om sortFColumns lite för detta...
         }
 
         return store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
@@ -119,7 +121,7 @@ export const getAgileColumns = async () => {
 };
 
 /**
- * Get agile column structure.
+ * Get saved agile column structure and sort value.
  */
 const getAgileColumnStructure = async () => {
     try {
@@ -128,12 +130,12 @@ const getAgileColumnStructure = async () => {
             url: '/agile/getColumnStructure/',
         });
 
-        if (data instanceof Error || !data) {
+        if (data instanceof Error || !data || (data && !data.columns)) {
             console.error('Could not get columns in getAgileColumnStructure:\n' + data);
 
             // Default deal phases/columns for a deal in bilprospekt-2.0.
             // First time a user uses Bearbeta in bilprospekt-3.0 they aren't going to have a column structure in db, so we use this.
-            data = [
+            data.columns = [
                 {
                     id: 'prospects',
                     title: tc.prospects,
@@ -157,8 +159,9 @@ const getAgileColumnStructure = async () => {
             ];
         }
 
-        store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNSTRUCTURE, payload: data});
-        return data;
+        store.dispatch({ type: agileActionTypes.SET_AGILE_SORT, payload: data.sort});
+        store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNSTRUCTURE, payload: data.columns});
+        return data.columns;
     } catch(err) {
         return console.error('Error in getAgileColumnStructure:\n' + err);
     }
@@ -193,7 +196,7 @@ export const getAgileFilters = async () => {
 /**
  * Sort columns.
  */
-export const sortColumns = (sort) => {
+export const sortColumns = async (sort) => {
     let columns = store.getState().agile.columns;
 
     columns.map((column) => {
@@ -261,43 +264,70 @@ export const sortColumns = (sort) => {
         return column;
     });
 
-    return store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
+    store.dispatch({ type: agileActionTypes.SET_AGILE_SORT, payload: sort});
+    store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
+    return await updateAgileColumnStructure({
+        columns: store.getState().agile.columns,
+        sort: store.getState().agile.sort,
+    });
 };
 
 /**
  * Update agile column structure.
- * @param payload
+ *
+ * @param payload.columns
+ * @param payload.sort
  */
 export const updateAgileColumnStructure = async (payload) => {
     try {
-        if (!payload) {
-            return console.error('Missing params in updateColumnStructure');
+        if (!payload || (payload && !payload.columns) || (payload && payload.columns && !payload.columns.length)) {
+            return console.error('Missing params in updateAgileColumnStructure');
         }
 
-        // Kolla att kolumnen prospects finns med... vi ska ha check tidigare så man inte kan radera den, men ändå.
+        // Should never happen but an extra check, user should not be able to remove column 'prospects'.
+        if (!payload.columns.find((num) => num.id === 'prospects')) {
+            return console.error('Missing column prospects in updateAgileColumnStructure');
+        }
 
-        const data = await request({
-            method: 'post',
-            url: '/agile/updateColumnStructure/', // skapa endpoint
+        // If the misc column exists but has no items, remove it. This is a temp column for deals that can't be mapped to the right column.
+        payload.columns = payload.columns.filter((column) => {
+            return !(column.id === 'phaseMissingColumn' && (!column.items || (column.items && !column.items.length)));
         });
 
+        console.log('payload i updateAgileColumnStructure efter filter', payload);
 
-        if (data instanceof Error) {
-            console.error('Error in updateColumnStructure:\n' + data);
-        }
+        // Denna ska anropas varje gång som dragEnd körs och det gäller en kolumn.
+        // Den ska även köras varje gång sort ändras
 
-        console.log('data tillbaka i updateColumnStructure', data);
+        // Kolla att kolumnen prospects finns med... vi ska ha check tidigare så man inte kan radera den, men ändå.
+        // Eller ska vi rensa bort prospects? och skapa den varje gång vi hämtar data...?!
+
+        // Kolla om kolumnen missingPh
+
+        // const data = await request({
+        //     data: {},
+        //     method: 'post',
+        //     url: '/agile/updateColumnStructure/', // skapa endpoint
+        // });
+        //
+        //
+        // if (data instanceof Error) {
+        //     console.error('Error in updateAgileColumnStructure:\n' + data);
+        // }
+
+        // console.log('data tillbaka i updateAgileColumnStructure', data);
 
         // ...
 
 
     } catch(err) {
-        return console.error('Error in updateColumnStructure:\n' + err);
+        return console.error('Error in updateAgileColumnStructure:\n' + err);
     }
 };
 
 /**
  * Update agile filters.
+ *
  * @param payload
  */
 export const updateAgileFilters = async (payload) => {
@@ -307,14 +337,14 @@ export const updateAgileFilters = async (payload) => {
 
         // const data = await request({
         //     method: 'getasdasd',
-        //     url: '/agile/getFilters/asdasdasdasd',
+        //     url: '/agile/getFilters/asdasdasdasd',<--- måste finnas endpoint för detta!
         // });
 
         // if (data instanceof Error) {
         //     return console.error('Error in updateAgileFilters:\n' + data);
         // }
 
-        // return store.dispatch({ type: agileActionTypes.SET_AGILE_FILTERS, payload: data});
+        // return store.dispatch({type: agileActionTypes.SET_AGILE_FILTERS, payload: data});
     } catch(err) {
         return console.error('Error in updateAgileFilter:\n' + err);
     }

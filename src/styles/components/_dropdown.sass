@@ -33,12 +33,8 @@
       background: white
       position: absolute
       top: 100%
-    &__contentLeft
-      @extend .dropdownWrapper__dropdown__content
-      right: 0
-    &__contentRight
-      @extend .dropdownWrapper__dropdown__content
       left: 0
+
 
 .dropdownItemWrapper
   padding: $paddingSmall $paddingMedium
@@ -69,6 +65,11 @@
     color: $colorInformatory
     svg
       fill: $colorInformatory
+
+.dropdownNoCheckboxItemWrapper
+  @extend .dropdownItemWrapper
+  svg
+    display: none
 
 .dropdownItemDelimiterWrapper
   margin-top: $paddingBig
