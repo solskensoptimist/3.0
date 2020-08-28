@@ -1,11 +1,27 @@
 .agileWrapper
   &__agile
-    &__header
-      margin-bottom: $paddingBig
     &__content
       padding: 0 $paddingGrid $paddingGrid 0
       .kanbanBoardWrapper
         &__kanbanBoard
+          &__header
+            display: flex
+            justify-content: flex-end
+            align-items: center
+            min-height: 28px
+            padding: 8px 0 0 0
+            &__indicator
+              display: flex
+              align-items: center
+              color: $colorInformatory
+              svg
+                margin-left: $paddingMedium
+                width: 18px
+                height: 18px
+                -webkit-animation: bounceRight 2s infinite
+                -moz-animation: bounceRight 2s infinite
+                -o-animation: bounceRight 2s infinite
+                animation: bounceRight 2s infinite
           &__content
             &__container
               display: flex

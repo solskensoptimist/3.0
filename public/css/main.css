@@ -20,6 +20,15 @@
     bottom: 0; }
   100% {
     bottom: -100%; } }
+@keyframes bounceRight {
+  0% {
+    transform: translateX(0); }
+  20% {
+    transform: translateX(-6px); }
+  80% {
+    transform: translateX(-6px); }
+  100% {
+    transform: translateX(0); } }
 .activeInputField, .listsPopupWrapper__listsPopup__content input, .splitListWrapper__splitList__content__row input, .saveToListWrapper__saveToList__content__newList input, .searchMainWrapper__searchMain__header input {
   border: 0 !important;
   background: white;
@@ -413,10 +422,26 @@ a {
             .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
               margin-left: 0; }
 
-.agileWrapper__agile__header {
-  margin-bottom: 22px; }
 .agileWrapper__agile__content {
   padding: 0 12px 12px 0; }
+  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 28px;
+    padding: 8px 0 0 0; }
+    .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__header__indicator {
+      display: flex;
+      align-items: center;
+      color: #ffc107; }
+      .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__header__indicator svg {
+        margin-left: 12px;
+        width: 18px;
+        height: 18px;
+        -webkit-animation: bounceRight 2s infinite;
+        -moz-animation: bounceRight 2s infinite;
+        -o-animation: bounceRight 2s infinite;
+        animation: bounceRight 2s infinite; }
   .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container {
     display: flex;
     align-items: stretch;
@@ -2960,6 +2985,8 @@ svg.active {
         fill: #616161; }
 
 @media (max-width: 900px) {
+  .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__header {
+    display: none; }
   .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper {
     flex-basis: calc(50% - 12px); } }
 @media (max-width: 900px) {

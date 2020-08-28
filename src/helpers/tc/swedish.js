@@ -26,6 +26,7 @@ export default {
     address: 'Adress',
     age: 'Ålder',
     agile: 'Bearbeta',
+    agileScrollIndicator: 'Fler kolumner till höger',
     allActivitiesAllIncludingComments: 'Alla händelser och kommentarer',
     amount: 'Antal',
     amountKoncernCompanies: 'Antal koncernbolag',

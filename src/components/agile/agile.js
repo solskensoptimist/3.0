@@ -41,7 +41,7 @@ const Agile = (state) => {
     }, [state.agile.filters]);
 
     useEffect(() => {
-        if (state.agile.columns && state.agile.columns.length) {
+        if (state.agile.columns && Array.isArray(state.agile.columns)) {
             setColumns(state.agile.columns);
         }
 
@@ -59,6 +59,11 @@ const Agile = (state) => {
         };
 
         setColumns(columns.concat([column]));
+
+        // Scroll a bit to the right do display new column.
+        setTimeout(() => {
+            document.querySelector('#kanbanBoardContainer').scroll(5000, 0);
+        }, 1000);
     };
 
     const _closeItem = () => {
@@ -77,10 +82,7 @@ const Agile = (state) => {
 
         if (event.type === 'column') {
             console.log('Detta är kolumn, hur hanterar vi det?');
-            // Vi ska sortera kolumnerna och sätta i state (det är väl det som görs nedan)
-            // Vi ska spara phase för item via backend call
-            // Spara kolumnstrukturen via backend call.
-            // Sen ska vi lyssna på store, och sätta till state. Sätta till state gör vi alltså inte här..?
+            // Endast await updateAgileColumnStructure(); ....?
         } else {
             console.log('Detta är item');
 

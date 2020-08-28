@@ -1,7 +1,7 @@
 import {agileActionTypes} from './actions';
 
 interface AgileState {
-    columns: Array<object>| null,
+    columns: Array<object> | null,
     columnStructure: Array<object>| null,
     filters: object | null,
     sort: string | null,

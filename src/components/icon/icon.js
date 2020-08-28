@@ -7,6 +7,7 @@ import {
     ArrowDropDownRounded,
     ArrowDropUp,
     ArrowDropUpRounded,
+    ArrowForwardRounded,
     ArrowLeft,
     ArrowLeftRounded,
     ArrowRight,
@@ -173,6 +174,8 @@ export default (props) => {
             return <PersonAddDisabled className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'file':
             return <InsertDriveFile className={props.active ? 'active' : null} onClick={onClick}/>;
+        case 'forwardArrowRounded':
+            return <ArrowForwardRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'home':
             return <Home className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'info':
