@@ -23,12 +23,16 @@ export default (props) => {
         return () => document.querySelector('#kanbanBoardContainer').removeEventListener('scroll', _handleScroll);
     }, []);
 
+    const _scrollToRight = () => {
+        document.querySelector('#kanbanBoardContainer').scroll(5000, 0);
+    };
+
     return (
         <div className='kanbanBoardWrapper'>
             <div className='kanbanBoardWrapper__kanbanBoard'>
                 <div className='kanbanBoardWrapper__kanbanBoard__header'>
                     {(props.columns.length > 4 && !hasScrolledRight) ?
-                        <div className='kanbanBoardWrapper__kanbanBoard__header__indicator'>
+                        <div className='kanbanBoardWrapper__kanbanBoard__header__indicator' onClick={_scrollToRight}>
                             {tc.agileScrollIndicator}
                             <Icon val='forwardArrowRounded'/>
                         </div> : null

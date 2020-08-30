@@ -113,7 +113,7 @@ const Agile = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!(state && state.agile && columns && state.lists && state.lists.lists);
+        return !!(state && state.agile && columns && state.lists && state.lists.lists && activeFilters);
     };
 
     const _updateFilters = (payload) => {
@@ -164,7 +164,7 @@ const Agile = (state) => {
                                         active: state.agile.sort === num,
                                         label: tc[num],
                                         onClick: () => {
-                                            sortColumns(num);
+                                            sortColumns({sort: num});
                                         }
                                     };
                                 }),

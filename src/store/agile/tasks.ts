@@ -55,7 +55,8 @@ export const createDeal = async (payload) => {
 };
 
 /**
- * Get column for agile.
+ * Get columns for agile.
+ * If no column structure in store state, get column structure from backend first, and then map deals and prospects accordingly.
  */
 export const getAgileColumns = async () => {
     try {
@@ -110,8 +111,8 @@ export const getAgileColumns = async () => {
                 }
             });
 
-            // SORTERA BASERAT PÅ SORT VÄRDE, OM DET FINNS...
-            // Behöver bygga om sortFColumns lite för detta...
+            // Sort columns.
+            columns = await sortColumns({sort: store.getState().agile.sort, columns: columns, skipUpdateDb: true});
         }
 
         return store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
@@ -195,9 +196,19 @@ export const getAgileFilters = async () => {
 
 /**
  * Sort columns.
+ *
+ * Used in UI sorting menu, if so just provide payload.sort and it saves to store state and db.
+ * Can also be used as a sorting helper without saving to db or store state.
+ *
+ * @param payload.columns - array (optional) - We can provide columns, otherwise retrieve it from store state.
+ * @param payload.sort - string - Should match a value in agileHelper.getColumnSortValues.
+ * @param payload.skipUpdateDb - boolean (optional) - If we want to skip backend call with new sort value and return columns without saving to state.
  */
-export const sortColumns = async (sort) => {
-    let columns = store.getState().agile.columns;
+export const sortColumns = async (payload) => {
+    let columns = payload.columns ? payload.columns : store.getState().agile.columns;
+    let sort = payload.sort;
+
+    console.log('sort columns', payload);
 
     columns.map((column) => {
         if (column.id === 'prospects') {
@@ -250,10 +261,11 @@ export const sortColumns = async (sort) => {
                 });
                 break;
             default:
+                sort = 'updatedDesc';
                 column.items = column.items.sort((a, b) => {
-                    if (new Date(a.created) > new Date(b.created)){
+                    if (new Date(a.updated) > new Date(b.updated)){
                         return -1;
-                    } else if (new Date(a.created) < new Date(b.created)){
+                    } else if (new Date(a.updated) < new Date(b.updated)){
                         return 1;
                     } else {
                         return 0;
@@ -264,25 +276,44 @@ export const sortColumns = async (sort) => {
         return column;
     });
 
-    store.dispatch({ type: agileActionTypes.SET_AGILE_SORT, payload: sort});
-    store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
-    return await updateAgileColumnStructure({
-        columns: store.getState().agile.columns,
-        sort: store.getState().agile.sort,
-    });
+    if (payload.skipUpdateDb) {
+        store.dispatch({type: agileActionTypes.SET_AGILE_SORT, payload: sort});
+        return columns;
+    } else {
+        // Save to state and db.
+        store.dispatch({type: agileActionTypes.SET_AGILE_SORT, payload: sort});
+        store.dispatch({type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
+        return await updateAgileColumnStructure({
+            // columns: store.getState().agile.columns,
+            sort: payload.sort,
+        });
+    }
 };
 
 /**
- * Update agile column structure.
+ * Update agile column structure and/or sort value in db.
  *
- * @param payload.columns
- * @param payload.sort
+ * @param payload.columnStructure - Array
+ * @param payload.sort - String
  */
 export const updateAgileColumnStructure = async (payload) => {
     try {
-        if (!payload || (payload && !payload.columns) || (payload && payload.columns && !payload.columns.length)) {
+        if (!payload ||
+            ((payload && !payload.columns) || (payload && payload.columns && !payload.columns.length)) ||
+            (payload && !payload.sort)) {
+            // Neither column structure or sort to update.
             return console.error('Missing params in updateAgileColumnStructure');
         }
+
+
+        /*
+        Ska vi skicka in columns eller columnStructure?
+        Borde väl kunna skicka in columns, men inte skicka med items till backend bara..?
+         */
+
+        /*
+        Skriv så man kan uppdatera endast sort eller endast columns om man vill.
+         */
 
         // Should never happen but an extra check, user should not be able to remove column 'prospects'.
         if (!payload.columns.find((num) => num.id === 'prospects')) {
@@ -297,7 +328,9 @@ export const updateAgileColumnStructure = async (payload) => {
         console.log('payload i updateAgileColumnStructure efter filter', payload);
 
         // Denna ska anropas varje gång som dragEnd körs och det gäller en kolumn.
-        // Den ska även köras varje gång sort ändras
+        // Den ska även köras varje gång sort ändras (det gör den eftersom den anropas i sortColumns)
+
+        // Antar att vi ska bara plocka ut vad kolumnerna heter
 
         // Kolla att kolumnen prospects finns med... vi ska ha check tidigare så man inte kan radera den, men ändå.
         // Eller ska vi rensa bort prospects? och skapa den varje gång vi hämtar data...?!

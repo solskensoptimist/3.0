@@ -433,7 +433,8 @@ a {
     .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__header__indicator {
       display: flex;
       align-items: center;
-      color: #ffc107; }
+      color: #ffc107;
+      cursor: pointer; }
       .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__header__indicator svg {
         margin-left: 12px;
         width: 18px;
