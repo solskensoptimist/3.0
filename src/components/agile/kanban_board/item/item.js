@@ -4,6 +4,10 @@ import {tc} from 'helpers';
 import Icon from 'components/icon';
 import Tooltip from 'components/tooltip';
 
+/**
+ * Render an item for kanban board.
+ * Different rendering for deal/prospects.
+ */
 export default (props) => {
     const [showActions, setShowActions] = useState(false);
     const {item, addActivity, openItem, provided, snapshot} = props;
@@ -108,7 +112,10 @@ export default (props) => {
                     {_renderEvent()}
                     <div className='itemWrapper__item__content__main'>
                         <div className='itemWrapper__item__content__main__mainTop'>
-                            {item.name}
+                            <div className='itemWrapper__item__content__main__mainTop__dealName'>
+                                <span>{item.name}</span>
+                                {_renderInformationHolder('left')}
+                            </div>
                         </div>
                         {item.updated ?
                             <div className='itemWrapper__item__content__main__mainBottom'>
@@ -147,6 +154,37 @@ export default (props) => {
         );
     };
 
+    const _renderInformationHolder = (direction) => {
+        if (!item.ownActiveDeals && !item.colleagueDeals) {
+            return null;
+        } else {
+            let content = (
+                <div className='itemWrapper__item__content__main__mainTop__informationHolder__hoverBox'>
+                    {(item.ownActiveDeals && item.ownActiveDeals.length) ?
+                        <div className='itemWrapper__item__content__main__mainTop__informationHolder__hoverBox__item'>
+                            <h5>{tc.prospectIsHandledByMe}</h5>
+                            {item.ownActiveDeals.map((num, i) => <p key={i}>{num.listName}</p>)}
+                        </div> : null
+                    }
+                    {(item.colleagueDeals && item.colleagueDeals.length) ?
+                        <div className='itemWrapper__item__content__main__mainTop__informationHolder__hoverBox__item'>
+                            <h5>{tc.prospectIsHandledByColleagues}</h5>
+                            {item.colleagueDeals.map((num, i) => <p key={i}>{num.name}</p>)}
+                        </div> : null
+                    }
+                </div>
+            );
+
+            return (
+                <div className='itemWrapper__item__content__main__mainTop__informationHolder'>
+                    <Tooltip horizontalDirection={direction} verticalDirection='bottom' tooltipContent={content}>
+                        <Icon val='infoOutlined'/>
+                    </Tooltip>
+                </div>
+            );
+        }
+    };
+
     const _renderProspectItem = () => {
         return (
             <div className='itemWrapper__item' onClick={_openItem}>
@@ -155,7 +193,12 @@ export default (props) => {
                         <Icon val='user'/>
                     </div>
                     <div className='itemWrapper__item__content__main'>
-                        {item.name}
+                        <div className='itemWrapper__item__content__main__mainTop'>
+                            <div className='itemWrapper__item__content__main__mainTop__prospectName'>
+                                {item.name}
+                                {_renderInformationHolder('right')}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

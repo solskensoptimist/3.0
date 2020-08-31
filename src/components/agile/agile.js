@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {getAgileColumns, getAgileFilters, sortColumns, updateAgileFilters} from 'store/agile/tasks';
+import {getAgileColumnsData, getAgileFilters, sortColumns, updateAgileFilters} from 'store/agile/tasks';
 import uuid from 'uuid/v1';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
@@ -15,13 +15,13 @@ const Agile = (state) => {
     const [openedItem, setOpenedItem] = useState(null);
 
     useEffect(() => {
-        getAgileColumns();
+        getAgileColumnsData();
         getAgileFilters();
     }, []);
 
     useEffect(() => {
         // Get deals and prospects.
-        getAgileColumns();
+        getAgileColumnsData();
 
         // Set active filters.
         if (state.agile.filters && state.agile.filters.length) {
@@ -131,7 +131,9 @@ const Agile = (state) => {
                         {
                             checkboxes: true,
                             label: tc.filter,
-                            items: sharedAgileHelper.getDefaultFilters().map((filter) => {
+                            items: sharedAgileHelper.getDefaultFilters()
+                                .filter((filter) => filter.id !== 'include_colleagues')
+                                .map((filter) => {
                                 return {
                                     active: activeFilters.includes(filter.id),
                                     label: filter.name,

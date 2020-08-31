@@ -58,7 +58,7 @@ export const createDeal = async (payload) => {
  * Get columns for agile.
  * If no column structure in store state, get column structure from backend first, and then map deals and prospects accordingly.
  */
-export const getAgileColumns = async () => {
+export const getAgileColumnsData = async () => {
     try {
         const data = await request({
             method: 'get',
@@ -66,19 +66,19 @@ export const getAgileColumns = async () => {
         });
 
         if (data instanceof Error) {
-            console.error('Error in getAgileColumns:\n' + data);
+            console.error('Error in getAgileColumnsData:\n' + data);
         }
 
         // Get column structure.
         let columns;
-        if (!store.getState().agile.columnStructure ||
-            (store.getState().agile.columnStructure && !store.getState().agile.columnStructure.length)) {
+        if (!store.getState().agile.columns ||
+            (store.getState().agile.columns && !store.getState().agile.columns.length)) {
             columns = await getAgileColumnStructure();
         } else {
-            columns = store.getState().agile.columnStructure;
+            columns = store.getState().agile.columns;
         }
 
-        // Add items array to each column.
+        // Add/empty items array to each column.
         columns.map((column) => {
             column.items = [];
             return column;
@@ -117,7 +117,7 @@ export const getAgileColumns = async () => {
 
         return store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
     } catch(err) {
-        return console.error('Error in getAgileColumns:\n' + err);
+        return console.error('Error in getAgileColumnsData:\n' + err);
     }
 };
 
@@ -161,7 +161,6 @@ const getAgileColumnStructure = async () => {
         }
 
         store.dispatch({ type: agileActionTypes.SET_AGILE_SORT, payload: data.sort});
-        store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNSTRUCTURE, payload: data.columns});
         return data.columns;
     } catch(err) {
         return console.error('Error in getAgileColumnStructure:\n' + err);
@@ -173,20 +172,21 @@ const getAgileColumnStructure = async () => {
  */
 export const getAgileFilters = async () => {
     try {
-        const data = await request({
+        let data = await request({
             method: 'get',
             url: '/agile/getFilters/',
         });
 
-        if (data instanceof Error) {
+        if (data instanceof Error || !data) {
             console.error('Error in getAgileFilters:\n' + data);
-            let defaultFilters = agileHelper.getDefaultFilters();
-            defaultFilters.map((num) => {
+            data = agileHelper.getDefaultFilters();
+            data.map((num) => {
                 num.active = false;
                 return num;
             });
-            return store.dispatch({ type: agileActionTypes.SET_AGILE_FILTERS, payload: defaultFilters});
         }
+
+        data = data.filter((num) => num.id !== 'include_colleagues'); // We deprecate this filter in 3.0.
 
         return store.dispatch({ type: agileActionTypes.SET_AGILE_FILTERS, payload: data});
     } catch(err) {
@@ -207,8 +207,6 @@ export const getAgileFilters = async () => {
 export const sortColumns = async (payload) => {
     let columns = payload.columns ? payload.columns : store.getState().agile.columns;
     let sort = payload.sort;
-
-    console.log('sort columns', payload);
 
     columns.map((column) => {
         if (column.id === 'prospects') {
@@ -284,7 +282,7 @@ export const sortColumns = async (payload) => {
         store.dispatch({type: agileActionTypes.SET_AGILE_SORT, payload: sort});
         store.dispatch({type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
         return await updateAgileColumnStructure({
-            // columns: store.getState().agile.columns,
+            columns: columns,
             sort: payload.sort,
         });
     }
@@ -293,7 +291,7 @@ export const sortColumns = async (payload) => {
 /**
  * Update agile column structure and/or sort value in db.
  *
- * @param payload.columnStructure - Array
+ * @param payload.columns - Array
  * @param payload.sort - String
  */
 export const updateAgileColumnStructure = async (payload) => {
@@ -307,8 +305,7 @@ export const updateAgileColumnStructure = async (payload) => {
 
 
         /*
-        Ska vi skicka in columns eller columnStructure?
-        Borde väl kunna skicka in columns, men inte skicka med items till backend bara..?
+        Skicka inte med items till backend.
          */
 
         /*
@@ -326,6 +323,10 @@ export const updateAgileColumnStructure = async (payload) => {
         });
 
         console.log('payload i updateAgileColumnStructure efter filter', payload);
+
+        /*
+        När detta är klart ska vi på något vis uppdatera store.agile.columns också...
+         */
 
         // Denna ska anropas varje gång som dragEnd körs och det gäller en kolumn.
         // Den ska även köras varje gång sort ändras (det gör den eftersom den anropas i sortColumns)

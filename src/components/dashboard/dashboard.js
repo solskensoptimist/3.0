@@ -15,22 +15,22 @@ const Dashboard = (state) => {
     }, []);
 
     useEffect(() => {
-        // We dont show pipeline widgets on dashboard anymore.
-        let data = state.settings.dashboard.data.filter((num) => num.type !== 'pipeline');
+        if (state.settings.dashboard && state.settings.dashboard.data && Array.isArray(state.settings.dashboard.data)) {
+            // We dont show pipeline widgets on dashboard anymore.
+            let data = state.settings.dashboard.data.filter((num) => num.type !== 'pipeline');
 
-        data = data.sort((a, b) => {
-            if (a.position < b.position){
-                return -1;
-            } else if (a.position > b.position){
-                return 1;
-            } else {
-                return 0;
-            }
-        });
+            data = data.sort((a, b) => {
+                if (a.position < b.position){
+                    return -1;
+                } else if (a.position > b.position){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
 
-        console.log('data', data);
-
-        setWidgets(data);
+            setWidgets(data);
+        }
     }, [state.settings.dashboard]);
 
     const _renderWidget = (widget, i) => {

@@ -36,7 +36,7 @@
                 margin-left: $paddingGrid
                 min-height: 98px
                 &__column
-                  height: 100%
+                  height: calc(100% - 30px)
                   &__header
                     display: flex
                     align-items: center
@@ -111,8 +111,36 @@
                               &__main
                                 flex-grow: 1
                                 &__mainTop
-                                  font-size: $fontSizeStandard2
-                                  font-weight: 600
+                                  &__dealName
+                                    font-size: $fontSizeStandard2
+                                    font-weight: 600
+                                    //display: flex
+                                    //align-items: center
+                                    //flex-wrap: wrap
+                                  &__prospectName
+                                    font-weight: normal
+                                    font-size: $fontSizeStandard
+                                    display: flex
+                                    align-items: center
+                                    flex-wrap: wrap
+                                  &__informationHolder
+                                    margin-left: $paddingSmall
+                                    display: inline-flex
+                                    svg
+                                      width: 14px
+                                      height: 14px
+                                      cursor: default
+                                    &__hoverBox
+                                      &__item
+                                        margin-top: $paddingMedium
+                                        &:first-of-type
+                                          margin-top: 0
+                                      h5
+                                        margin-bottom: $paddingSmall
+                                        &:first-of-type
+                                          margin-top: 0
+                                      p
+                                        font-size: $fontSizeStandard-2
                                 &__mainBottom
                                   display: flex
                                   align-items: center

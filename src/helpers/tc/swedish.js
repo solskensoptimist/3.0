@@ -409,6 +409,8 @@ export default {
     prices: 'Priser',
     privatePerson: 'Privatperson',
     prospect: 'Prospektera',
+    prospectIsHandledByMe: 'Prospekt i denna affär behandlas i andra listor:',
+    prospectIsHandledByColleagues: 'Prospekt i denna affär behandlas av kollegor:',
     prospects: 'Prospekt',
     prospectsHowTo: 'Sök upp och koppla prospekt med hjälp av sökrutan. Ta bort kopplingen till ett prospekt genom att klicka på papperskorgen som visas när muspekaren förs över en rad.',
     prospectType: 'Typ av prospekt',
