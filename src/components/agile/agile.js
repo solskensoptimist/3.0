@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {getAgileColumnsData, getAgileFilters, sortColumns, updateAgileFilters} from 'store/agile/tasks';
+import {getAgileColumnsData, getAgileFilters, sortColumns, updateAgileFilters, updateAgileColumnStructure} from 'store/agile/tasks';
 import uuid from 'uuid/v1';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
@@ -70,28 +70,27 @@ const Agile = (state) => {
         setOpenedItem(null);
     };
 
-    const _dragEnd = (event) => {
+    const _dragEnd = async (event) => {
         console.log('event i handeDragEnd', event);
-
-        // Ska vi förhindra att man drar till kolumnen prospects, eller..?
-        // Backend call där vi ändrar phase på en affär/prospekt, behövs ny endpoint(?).
 
         if (!event.destination) {
             return;
         }
 
         if (event.type === 'column') {
-            console.log('Detta är kolumn, hur hanterar vi det?');
-            // Endast await updateAgileColumnStructure(); ....?
+            const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
+            [newColumns[event.source.index], newColumns[event.destination.index]] = [newColumns[event.destination.index], newColumns[event.source.index]];
+            setColumns(newColumns);
+            return await updateAgileColumnStructure(newColumns);
         } else {
-            console.log('Detta är item');
+            // Kolla om destination är prospects, isåfall avbryt.
 
-            // Vi ska sortera kolumnerna (det är väl det som görs nedan)
-            // Vi ska spara phase för item via backend call
-            // Vi ska också spara kolumnens ordning via backend call (vi lär väl få ha ett backend call där vi sparar hela kolumnstrukturen)
+            // Vi ska sortera kolumnerna (det är väl det som görs nedan).
+            // Vi ska spara phase för item via backend call.
+            // Vi ska också spara kolumnens ordning via backend call (vi lär väl få ha ett backend call där vi sparar hela kolumnstrukturen).
             // Sen ska vi lyssna på store, och sätta till state. Sätta till state gör vi alltså inte här..?
 
-            const newColumns = JSON.parse(JSON.stringify(columns)); // Clone lists.
+            const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
             const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
             const destinationColumn = newColumns.find(column => column.id === event.destination.droppableId);
             const [removedItem] = sourceColumn.items.splice(event.source.index, 1);

@@ -57,6 +57,10 @@ export const createDeal = async (payload) => {
 /**
  * Get columns for agile.
  * If no column structure in store state, get column structure from backend first, and then map deals and prospects accordingly.
+ *
+ * This is the main function we use to receive data, we also set columns data to store state here.
+ * Basically we collect deals from backend, then we retrieve saved agile column structure, and then we retrieve saved sorting value.
+ * After that we map columns where deal phase match column id. Lastly we sort the columns.
  */
 export const getAgileColumnsData = async () => {
     try {
@@ -73,6 +77,7 @@ export const getAgileColumnsData = async () => {
         let columns;
         if (!store.getState().agile.columns ||
             (store.getState().agile.columns && !store.getState().agile.columns.length)) {
+            // No columns in store state, retrieve from backend.
             columns = await getAgileColumnStructure();
         } else {
             columns = store.getState().agile.columns;
@@ -84,8 +89,7 @@ export const getAgileColumnsData = async () => {
             return column;
         });
 
-        // Place prospects in prospects column.
-        // This column should always exists. Holds prospects that hasn't been turned into deals yet.
+        // Place prospects in prospects column. Holds prospects that hasn't been turned into deals yet.
         if (data.prospects && data.prospects.data && data.prospects.data.length) {
             const prospectColumn = columns.find((num) => num.id === 'prospects');
             prospectColumn.items = data.prospects.data;
@@ -111,8 +115,10 @@ export const getAgileColumnsData = async () => {
                 }
             });
 
+            const sortValue = await getAgileSortValue();
+
             // Sort columns.
-            columns = await sortColumns({sort: store.getState().agile.sort, columns: columns, skipUpdateDb: true});
+            columns = await sortColumns({sort: sortValue, columns: columns, skipUpdateState: true});
         }
 
         return store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
@@ -131,12 +137,13 @@ const getAgileColumnStructure = async () => {
             url: '/agile/getColumnStructure/',
         });
 
-        if (data instanceof Error || !data || (data && !data.columns)) {
+        if (data instanceof Error || !data) {
             console.error('Could not get columns in getAgileColumnStructure:\n' + data);
 
             // Default deal phases/columns for a deal in bilprospekt-2.0.
-            // First time a user uses Bearbeta in bilprospekt-3.0 they aren't going to have a column structure in db, so we use this.
-            data.columns = [
+            // First time a user uses Bearbeta in bilprospekt-3.0 they aren't going to have a column structure in db,
+            // so we use this to make their deal phases match columns.
+            data = [
                 {
                     id: 'prospects',
                     title: tc.prospects,
@@ -160,8 +167,7 @@ const getAgileColumnStructure = async () => {
             ];
         }
 
-        store.dispatch({ type: agileActionTypes.SET_AGILE_SORT, payload: data.sort});
-        return data.columns;
+        return data;
     } catch(err) {
         return console.error('Error in getAgileColumnStructure:\n' + err);
     }
@@ -194,6 +200,23 @@ export const getAgileFilters = async () => {
     }
 };
 
+const getAgileSortValue = async () => {
+    try {
+        let data = await request({
+            method: 'get',
+            url: '/agile/getSortValue/',
+        });
+
+        if (data instanceof Error || !data) {
+            console.error('Could not get columns in getAgileSortValue:\n' + data);
+        }
+
+        return data;
+    } catch(err) {
+        return console.error('Error in getAgileSortValue:\n' + err);
+    }
+};
+
 /**
  * Sort columns.
  *
@@ -202,7 +225,7 @@ export const getAgileFilters = async () => {
  *
  * @param payload.columns - array (optional) - We can provide columns, otherwise retrieve it from store state.
  * @param payload.sort - string - Should match a value in agileHelper.getColumnSortValues.
- * @param payload.skipUpdateDb - boolean (optional) - If we want to skip backend call with new sort value and return columns without saving to state.
+ * @param payload.skipUpdateState - boolean (optional) - If we want to skip backend call with new sort value and return columns without saving to state.
  */
 export const sortColumns = async (payload) => {
     let columns = payload.columns ? payload.columns : store.getState().agile.columns;
@@ -274,86 +297,71 @@ export const sortColumns = async (payload) => {
         return column;
     });
 
-    if (payload.skipUpdateDb) {
+    if (payload.skipUpdateState) {
         store.dispatch({type: agileActionTypes.SET_AGILE_SORT, payload: sort});
         return columns;
     } else {
         // Save to state and db.
         store.dispatch({type: agileActionTypes.SET_AGILE_SORT, payload: sort});
         store.dispatch({type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
-        return await updateAgileColumnStructure({
-            columns: columns,
-            sort: payload.sort,
-        });
+        // return await updateAgileColumnStructure({
+        //     columns: columns,
+        //     sort: payload.sort,
+        // });
+        // HÄR SKA VI UPPDATERA SORT I BACKEND PÅ NÅGOT VIS...... ALLTID ?!? <-----------------------
     }
 };
 
 /**
- * Update agile column structure and/or sort value in db.
+ * Update agile column structure in db.
+ * We remove static prospects column before saving to backend.
  *
- * @param payload.columns - Array
- * @param payload.sort - String
+ * @param columns - Array
  */
-export const updateAgileColumnStructure = async (payload) => {
+export const updateAgileColumnStructure = async (columns) => {
     try {
-        if (!payload ||
-            ((payload && !payload.columns) || (payload && payload.columns && !payload.columns.length)) ||
-            (payload && !payload.sort)) {
-            // Neither column structure or sort to update.
+        if (!columns || (columns && !columns.length)) {
             return console.error('Missing params in updateAgileColumnStructure');
         }
 
+        // Update state.
+        store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
 
-        /*
-        Skicka inte med items till backend.
-         */
+        // Clone.
+        let columnStructure = JSON.parse(JSON.stringify(columns));
 
-        /*
-        Skriv så man kan uppdatera endast sort eller endast columns om man vill.
-         */
+        // Remove items array from columns.
+        columnStructure = columnStructure.map((num) => {
+            delete num.items;
+            return num;
+        });
 
-        // Should never happen but an extra check, user should not be able to remove column 'prospects'.
-        if (!payload.columns.find((num) => num.id === 'prospects')) {
-            return console.error('Missing column prospects in updateAgileColumnStructure');
+        // Extra check, user should never be able to remove this column.
+        if (!columnStructure.find((num) => num.id === 'prospects')) {
+            columnStructure.unshift({
+                id: 'prospects',
+                title: tc.prospects,
+            });
         }
 
-        // If the misc column exists but has no items, remove it. This is a temp column for deals that can't be mapped to the right column.
-        payload.columns = payload.columns.filter((column) => {
+        // If the misc column exists but has no items, remove it. (This column should never exist but an extra check.)
+        columnStructure = columnStructure.filter((column) => {
             return !(column.id === 'phaseMissingColumn' && (!column.items || (column.items && !column.items.length)));
         });
 
-        console.log('payload i updateAgileColumnStructure efter filter', payload);
+        const data = await request({
+            data: {
+                columns: columnStructure,
+            },
+            method: 'put',
+            url: '/agile/updateColumnStructure/',
+        });
 
-        /*
-        När detta är klart ska vi på något vis uppdatera store.agile.columns också...
-         */
+        if (data instanceof Error) {
+            console.error('Error in updateAgileColumnStructure:\n' + data);
+        }
 
-        // Denna ska anropas varje gång som dragEnd körs och det gäller en kolumn.
-        // Den ska även köras varje gång sort ändras (det gör den eftersom den anropas i sortColumns)
-
-        // Antar att vi ska bara plocka ut vad kolumnerna heter
-
-        // Kolla att kolumnen prospects finns med... vi ska ha check tidigare så man inte kan radera den, men ändå.
-        // Eller ska vi rensa bort prospects? och skapa den varje gång vi hämtar data...?!
-
-        // Kolla om kolumnen missingPh
-
-        // const data = await request({
-        //     data: {},
-        //     method: 'post',
-        //     url: '/agile/updateColumnStructure/', // skapa endpoint
-        // });
-        //
-        //
-        // if (data instanceof Error) {
-        //     console.error('Error in updateAgileColumnStructure:\n' + data);
-        // }
-
-        // console.log('data tillbaka i updateAgileColumnStructure', data);
-
-        // ...
-
-
+        // set to store nya columns....
     } catch(err) {
         return console.error('Error in updateAgileColumnStructure:\n' + err);
     }
