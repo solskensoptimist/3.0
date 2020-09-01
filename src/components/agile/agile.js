@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {getAgileColumnsData, getAgileFilters, sortColumns, updateAgileFilters, updateAgileColumnStructure} from 'store/agile/tasks';
-import uuid from 'uuid/v1';
+import {getAgileColumnsData, getAgileFilters, sortColumns, updateAgileFilters, updateAgileColumnStructure, updateAgileSortValue} from 'store/agile/tasks';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
 import KanbanBoard from './kanban_board';
@@ -51,17 +50,40 @@ const Agile = (state) => {
         console.log('Add activity för', id);
     };
 
-    const _addColumn = () => {
-        const column = {
-            id: uuid(),
-            title: 'Ny kolumn ' + (columns.length + 1), // Hämta namn från input...
-            items: [],
+    const _addColumn = async () => {
+        let title = 'Ny kolumn ' + (columns.length + 1); // Hämta namn från input...
+
+        // Check på att title är mer än tre tecken eller så....
+
+        let id = title.replace(/[ÅÄ]/ig, "a")
+                        .replace(/[Ö]/ig, "o")
+                        .replace(/[^A-Z0-9]/ig, "")
+                        .toLowerCase().trim();
+
+        // If id already exists add integer (no long ugly ids please).
+        const _createUniqueId = (str, i) => {
+            if (!columns.find((num) => num.id === str)) {
+                return id = str;
+            } else if (!columns.find((num) => num.id === str + '-' + i)) {
+                return id = str + '-' + i;
+            } else {
+                return _createUniqueId(str, i + 1)
+            }
         };
 
-        setColumns(columns.concat([column]));
+        await _createUniqueId(id, 0);
+
+        const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
+        newColumns.push({
+            id: id,
+            title: title,
+            items: [],
+        });
+
+        await updateAgileColumnStructure(newColumns);
 
         // Scroll a bit to the right do display new column.
-        setTimeout(() => {
+        return setTimeout(() => {
             document.querySelector('#kanbanBoardContainer').scroll(5000, 0);
         }, 1000);
     };

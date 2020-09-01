@@ -55,7 +55,7 @@ export default (props) => {
                                         <Column
                                             addActivity={addActivity}
                                             column={column}
-                                            key={column.title}
+                                            key={column.id}
                                             index={index}
                                             openItem={openItem}
                                             items={column.items}

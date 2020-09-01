@@ -137,34 +137,41 @@ const getAgileColumnStructure = async () => {
             url: '/agile/getColumnStructure/',
         });
 
+        // No columns found in db, probably first time user log into bilprospekt-3.0...
         if (data instanceof Error || !data) {
             console.error('Could not get columns in getAgileColumnStructure:\n' + data);
 
-            // Default deal phases/columns for a deal in bilprospekt-2.0.
-            // First time a user uses Bearbeta in bilprospekt-3.0 they aren't going to have a column structure in db,
-            // so we use this to make their deal phases match columns.
+            // ...set default column structure that correspond to deal phases in bilprospekt-2.0...
             data = [
                 {
                     id: 'prospects',
                     title: tc.prospects,
+                    items: [],
                 },
                 {
                     id: 'idle',
                     title: tc.notStarted,
+                    items: [],
                 },
                 {
                     id: 'todo',
                     title: tc.started,
+                    items: [],
                 },
                 {
                     id: 'contacted',
                     title: tc.contacted,
+                    items: [],
                 },
                 {
                     id: 'negotiation',
                     title: tc.negotiation,
+                    items: [],
                 }
             ];
+
+            // ...and save to db.
+            await updateAgileColumnStructure(data)
         }
 
         return data;
@@ -208,7 +215,7 @@ const getAgileSortValue = async () => {
         });
 
         if (data instanceof Error || !data) {
-            console.error('Could not get columns in getAgileSortValue:\n' + data);
+            console.error('Could not get sort value in getAgileSortValue:\n' + data);
         }
 
         return data;
@@ -304,11 +311,7 @@ export const sortColumns = async (payload) => {
         // Save to state and db.
         store.dispatch({type: agileActionTypes.SET_AGILE_SORT, payload: sort});
         store.dispatch({type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
-        // return await updateAgileColumnStructure({
-        //     columns: columns,
-        //     sort: payload.sort,
-        // });
-        // HÄR SKA VI UPPDATERA SORT I BACKEND PÅ NÅGOT VIS...... ALLTID ?!? <-----------------------
+        return await updateAgileSortValue(payload.sort);
     }
 };
 
@@ -360,8 +363,6 @@ export const updateAgileColumnStructure = async (columns) => {
         if (data instanceof Error) {
             console.error('Error in updateAgileColumnStructure:\n' + data);
         }
-
-        // set to store nya columns....
     } catch(err) {
         return console.error('Error in updateAgileColumnStructure:\n' + err);
     }
@@ -391,4 +392,32 @@ export const updateAgileFilters = async (payload) => {
         return console.error('Error in updateAgileFilter:\n' + err);
     }
 };
+
+/**
+ * Update agile sort value to db.
+ *
+ * @param sort - string
+ */
+export const updateAgileSortValue = async (sort) => {
+    try {
+        if (!sort) {
+            return console.error('Missing params in updateAgileSortValue');
+        }
+
+        const data = await request({
+            data: {
+                sort: sort,
+            },
+            method: 'put',
+            url: '/agile/updateSortValue/',
+        });
+
+        if (data instanceof Error) {
+            console.error('Error in updateAgileSortValue:\n' + data);
+        }
+    } catch(err) {
+        return console.error('Error in updateAgileSortValue:\n' + err);
+    }
+};
+
 
