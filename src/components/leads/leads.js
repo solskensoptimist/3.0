@@ -1,15 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {tc} from 'helpers';
+import LeadsUpload from './leads_upload';
+import Menu from 'components/menu';
+import Popup from 'components/popup';
 
 export default () => {
+    const [showUpload, setShowUpload] = useState(false);
+
     return (
         <div className='leadsWrapper'>
             <div className='leadsWrapper__leads'>
                 <div className='leadsWrapper__leads__header'>
-                    header
+                    <Menu items={[
+                        {
+                            label: tc.uploadLeads,
+                            onClick: () => {
+                                setShowUpload(true);
+                            },
+                            type: 'button',
+                        },
+                    ]}
+                    />
                 </div>
                 <div className='leadsWrapper__leads__content'>
-                    <p>Här ska vi visa en tabell för leads, hämta via: /api/leads/get?limit=0</p>
-                    <p>Sen ska vi ha samma som på 2.0: Excel-uttag, Spara i lista och flytta till bearbeta.</p>
+                    <p>LÖAEEEADS</p>
+                    {showUpload ?
+                        <Popup close={() => {setShowUpload(false)}} size='medium'>
+                            <LeadsUpload/>
+                        </Popup> : null
+                    }
                 </div>
             </div>
         </div>

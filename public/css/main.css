@@ -1801,6 +1801,9 @@ svg.active {
     .infoWrapper__info p:last-child {
       margin-bottom: 0; }
 
+.leadsUploadWrapper__leadsUpload__content {
+  margin-top: 22px; }
+
 .leadsWidgetWrapper__leadsWidget__content {
   margin-top: 22px; }
   .leadsWidgetWrapper__leadsWidget__content__info {

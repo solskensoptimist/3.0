@@ -45,7 +45,22 @@ export default (props) => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        if (props.items.length) {
+        if (props.items && props.items.length) {
+            props.items.map((num) => {
+                if (num.children) {
+                    num.children.sort((a, b) => {
+                        if ( a.label < b.label){
+                            return -1;
+                        } else if ( a.label > b.label ){
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                }
+                return num;
+            });
+
             setItems(props.items.sort((a, b) => {
                 if ( a.label < b.label){
                     return -1;
@@ -56,21 +71,6 @@ export default (props) => {
                 }
             }));
         }
-
-        props.items.map((num) => {
-            if (num.children) {
-                num.children.sort((a, b) => {
-                    if ( a.label < b.label){
-                        return -1;
-                    } else if ( a.label > b.label ){
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                });
-            }
-            return num;
-        });
 
     }, [props.items]);
 

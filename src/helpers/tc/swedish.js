@@ -540,6 +540,7 @@ export default {
     updatedAsc: 'Uppdaterad stigande',
     updatedDesc: 'Uppdated fallande',
     uploadFile: 'Ladda upp fil',
+    uploadLeads: 'Ladda upp leads',
     used: 'Begagnad',
     user: 'Användare',
     users: 'Användare',
