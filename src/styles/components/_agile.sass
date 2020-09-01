@@ -114,9 +114,6 @@
                                   &__dealName
                                     font-size: $fontSizeStandard2
                                     font-weight: 600
-                                    //display: flex
-                                    //align-items: center
-                                    //flex-wrap: wrap
                                   &__prospectName
                                     font-weight: normal
                                     font-size: $fontSizeStandard
@@ -130,6 +127,7 @@
                                       width: 14px
                                       height: 14px
                                       cursor: default
+                                      fill: $colorTextLight
                                     &__hoverBox
                                       &__item
                                         margin-top: $paddingMedium
@@ -157,20 +155,24 @@
                             &__bottom
                               display: flex
                               align-items: center
-                              justify-content: center
+                              justify-content: space-between
                               margin-top: $paddingSmall
-                              padding: $paddingSmall
+                              padding: $paddingMedium
+                              cursor: default
                               svg
-                                width: 32px
-                                height: 32px
+                                width: 28px
+                                height: 28px
                                 fill: $grey-300
+                                cursor: pointer
+                              &__remove
+                                &:hover
+                                  svg
+                                    fill: $colorLinkHover
                               &__lost
-                                margin-right: 15%
                                 &:hover
                                   svg
                                     fill: $colorDealLost
                               &__won
-                                margin-left: 15%
                                 &:hover
                                   svg
                                     fill: $colorDealWon

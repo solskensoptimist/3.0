@@ -429,6 +429,7 @@ export default {
     removeCar: 'Ta bort fordon',
     removeComment: 'Ta bort kommentar',
     removeContact: 'Radera kontakt',
+    removeDeal: 'Ta bort affär',
     removeEnsure: 'Är du säker?',
     removeEntityFromContact: 'Ta bort kontaktens koppling till detta objekt',
     removeEvent: 'Ta bort planerad aktivitet',

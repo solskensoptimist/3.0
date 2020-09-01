@@ -17,19 +17,25 @@ export default (props) => {
         addActivity(item._id);
     };
 
-    const _markDealAsLost = (e) => {
-        e.stopPropagation();
+    const _markDealAsLost = () => {
         console.log('LOST');
+        // Ha check på att det inte är ett prospekt
     };
 
-    const _markDealAsWon = (e) => {
-        e.stopPropagation();
+    const _markDealAsWon = () => {
         console.log('WON');
+        // Ha check på att det inte är ett prospekt
     };
 
     const _openItem = (e) => {
         e.stopPropagation();
         openItem(item._id);
+    };
+
+    const _removeItem = () => {
+        console.log('TA BORT');
+        // Hantera olika beroende på prospects/deal?
+        // Ska vi ens kunna ta bort prospects?
     };
 
     /**
@@ -107,13 +113,13 @@ export default (props) => {
 
     const _renderDealItem = () => {
         return (
-            <div className='itemWrapper__item' onClick={_openItem}>
-                <div className='itemWrapper__item__content'>
+            <div className='itemWrapper__item'>
+                <div className='itemWrapper__item__content' onClick={_openItem}>
                     {_renderEvent()}
                     <div className='itemWrapper__item__content__main'>
                         <div className='itemWrapper__item__content__main__mainTop'>
                             <div className='itemWrapper__item__content__main__mainTop__dealName'>
-                                <span>{item.name}</span>
+                                {item.name}
                                 {_renderInformationHolder('left')}
                             </div>
                         </div>
@@ -139,6 +145,11 @@ export default (props) => {
                         'itemWrapper__item__bottom' :
                         'itemWrapper__item__hidden'}
                 >
+                    <div className='itemWrapper__item__bottom__remove' onClick={_removeItem}>
+                        <Tooltip horizontalDirection='left' tooltipContent={tc.removeDeal}>
+                            <Icon val='remove'/>
+                        </Tooltip>
+                    </div>
                     <div className='itemWrapper__item__bottom__lost' onClick={_markDealAsLost}>
                         <Tooltip horizontalDirection='left' tooltipContent={tc.moveDealToLost}>
                             <Icon val='lost'/>
@@ -187,8 +198,8 @@ export default (props) => {
 
     const _renderProspectItem = () => {
         return (
-            <div className='itemWrapper__item' onClick={_openItem}>
-                <div className='itemWrapper__item__content'>
+            <div className='itemWrapper__item'>
+                <div className='itemWrapper__item__content' onClick={_openItem}>
                     <div className='itemWrapper__item__content__user'>
                         <Icon val='user'/>
                     </div>
