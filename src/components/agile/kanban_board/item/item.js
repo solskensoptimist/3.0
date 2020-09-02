@@ -10,7 +10,7 @@ import Tooltip from 'components/tooltip';
  */
 export default (props) => {
     const [showActions, setShowActions] = useState(false);
-    const {addActivity, columnIndex, item, openItem, provided, snapshot} = props;
+    const {addActivity, item, openItem, provided, snapshot} = props;
 
     const _addActivity = (e) => {
         e.stopPropagation();
@@ -100,7 +100,7 @@ export default (props) => {
             element = (
                 <div className='itemWrapper__item__content__event'>
                     <div className='itemWrapper__item__content__event__defaultVisible'>
-                        <Tooltip horizontalDirection='right' tooltipContent={tc.addAgileActivity}>
+                        <Tooltip horizontalDirection='right'tooltipContent={tc.addAgileActivity}>
                             <Icon val='add' onClick={_addActivity}/>
                         </Tooltip>
                     </div>
@@ -120,7 +120,7 @@ export default (props) => {
                         <div className='itemWrapper__item__content__main__mainTop'>
                             <div className='itemWrapper__item__content__main__mainTop__dealName'>
                                 {item.name}
-                                {_renderInformationHolder('left')}
+                                {_renderInformationHolder()}
                             </div>
                         </div>
                         {item.updated ?
@@ -136,8 +136,14 @@ export default (props) => {
                     </div>
                     <div className='itemWrapper__item__content__toggleActions'>
                         {(showActions) ?
-                            <Icon val='upArrowRounded' onClick={() => {setShowActions(false)}}/>:
-                            <Icon val='downArrowRounded' onClick={() => {setShowActions(true)}}/>
+                            <Icon val='upArrowRounded' onClick={(e) => {
+                                e.stopPropagation();
+                                setShowActions(false);
+                            }}/>:
+                            <Icon val='downArrowRounded' onClick={(e) => {
+                                e.stopPropagation();
+                                setShowActions(true);
+                            }}/>
                         }
                     </div>
                 </div>
@@ -168,29 +174,22 @@ export default (props) => {
     const _renderInformationHolder = () => {
         if (!item.ownActiveDeals && !item.colleagueDeals) {
             return null;
-        } else {
-            let content = (
-                <div className='itemWrapper__item__content__main__mainTop__informationHolder__hoverBox'>
-                    {(item.ownActiveDeals && item.ownActiveDeals.length) ?
-                        <div className='itemWrapper__item__content__main__mainTop__informationHolder__hoverBox__item'>
-                            <h5>{tc.prospectIsHandledByMe}</h5>
-                            {item.ownActiveDeals.map((num, i) => <p key={i}>{num.listName}</p>)}
-                        </div> : null
-                    }
-                    {(item.colleagueDeals && item.colleagueDeals.length) ?
-                        <div className='itemWrapper__item__content__main__mainTop__informationHolder__hoverBox__item'>
-                            <h5>{tc.prospectIsHandledByColleagues}</h5>
-                            {item.colleagueDeals.map((num, i) => <p key={i}>{num.name}</p>)}
-                        </div> : null
-                    }
+        } else if (item.ownActiveDeals && item.colleagueDeals) {
+            return (
+                <div className='itemWrapper__item__content__main__mainTop__informationHolder__red'>
+                    <Icon val='infoOutlined'/>
                 </div>
             );
-
+        } else if (item.ownActiveDeals && !item.colleagueDeals) {
             return (
                 <div className='itemWrapper__item__content__main__mainTop__informationHolder'>
-                    <Tooltip horizontalDirection={(columnIndex === 0 ? 'right' : 'left')} verticalDirection='bottom' tooltipContent={content}>
-                        <Icon val='infoOutlined'/>
-                    </Tooltip>
+                    <Icon val='infoOutlined'/>
+                </div>
+            );
+        } else if (!item.ownActiveDeals && item.colleagueDeals) {
+            return (
+                <div className='itemWrapper__item__content__main__mainTop__informationHolder__red'>
+                    <Icon val='infoOutlined'/>
                 </div>
             );
         }
@@ -207,7 +206,7 @@ export default (props) => {
                         <div className='itemWrapper__item__content__main__mainTop'>
                             <div className='itemWrapper__item__content__main__mainTop__prospectName'>
                                 {item.name}
-                                {_renderInformationHolder()}
+                                {_renderInformationHolder}
                             </div>
                         </div>
                     </div>

@@ -271,13 +271,17 @@ const Agile = (state) => {
                                     </div>
                                     <div className='agileAddColumnWrapper__agileAddColumn__footer'>
                                         {(columns.find((column) => column.id === removeColumn).items.length) ?
-                                            <WidgetFooter save={() => {
+                                            <WidgetFooter
+                                                save={() => {
                                                     setShowRemoveColumn(null);
                                                     setRemoveColumn(null);
                                                 }}
                                                 saveText={tc.ok}
                                             /> :
-                                            <WidgetFooter save={_removeColumn}/>
+                                            <WidgetFooter
+                                                save={_removeColumn}
+                                                saveText={tc.remove}
+                                            />
                                         }
                                     </div>
                                 </div>

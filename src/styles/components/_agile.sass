@@ -138,23 +138,17 @@
                                     flex-wrap: wrap
                                   &__informationHolder
                                     margin-left: $paddingSmall
+                                    font-size: $fontSizeStandard-2
                                     display: inline-flex
                                     svg
-                                      width: 14px
-                                      height: 14px
+                                      width: 12px
+                                      height: 12px
                                       cursor: default
                                       fill: $colorTextLight
-                                    &__hoverBox
-                                      &__item
-                                        margin-top: $paddingMedium
-                                        &:first-of-type
-                                          margin-top: 0
-                                      h5
-                                        margin-bottom: $paddingSmall
-                                        &:first-of-type
-                                          margin-top: 0
-                                      p
-                                        font-size: $fontSizeStandard-2
+                                    &__red
+                                      @extend .itemWrapper__item__content__main__mainTop__informationHolder
+                                      svg
+                                        fill: $colorEventPassedDate
                                 &__mainBottom
                                   display: flex
                                   align-items: center

@@ -21,7 +21,8 @@ export default (props) => {
                     <div className='columnWrapper__column'>
                         <div className='columnWrapper__column__header'>
                             <div className='columnWrapper__column__header__title'>
-                                <Icon val='dragIndicator'/>{title}
+                                <Icon val='dragIndicator'/>
+                                {title}
                             </div>
                             {(column.id !== 'prospects') ?
                                 <>
@@ -49,7 +50,6 @@ export default (props) => {
                                 {(provided) => (
                                     <ItemsList
                                         addActivity={addActivity}
-                                        columnIndex={index}
                                         items={items}
                                         openItem={openItem}
                                         provided={provided}
