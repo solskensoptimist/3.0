@@ -1,4 +1,4 @@
-import React , {useState}from 'react';
+import React , {useState} from 'react';
 import moment from 'moment';
 import {tc} from 'helpers';
 import Icon from 'components/icon';
@@ -29,13 +29,7 @@ export default (props) => {
 
     const _openItem = (e) => {
         e.stopPropagation();
-        openItem(item._id);
-    };
-
-    const _removeItem = () => {
-        console.log('TA BORT');
-        // Hantera olika beroende på prospects/deal?
-        // Ska vi ens kunna ta bort prospects?
+        openItem(item._id ? item._id : item.prospectId);
     };
 
     /**
@@ -151,11 +145,6 @@ export default (props) => {
                         'itemWrapper__item__bottom' :
                         'itemWrapper__item__hidden'}
                 >
-                    <div className='itemWrapper__item__bottom__remove' onClick={_removeItem}>
-                        <Tooltip horizontalDirection='right' tooltipContent={tc.removeDeal}>
-                            <Icon val='remove'/>
-                        </Tooltip>
-                    </div>
                     <div className='itemWrapper__item__bottom__lost' onClick={_markDealAsLost}>
                         <Tooltip horizontalDirection='left' tooltipContent={tc.moveDealToLost}>
                             <Icon val='lost'/>
@@ -206,7 +195,7 @@ export default (props) => {
                         <div className='itemWrapper__item__content__main__mainTop'>
                             <div className='itemWrapper__item__content__main__mainTop__prospectName'>
                                 {item.name}
-                                {_renderInformationHolder}
+                                {_renderInformationHolder()}
                             </div>
                         </div>
                     </div>

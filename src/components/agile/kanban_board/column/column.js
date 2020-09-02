@@ -1,12 +1,27 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {tc} from 'helpers';
 import {Draggable, Droppable} from 'react-beautiful-dnd';
+import {updateAgileColumnTitle} from 'store/agile/tasks';
+import {showFlashMessage} from 'store/flash_messages/tasks';
 import Icon from 'components/icon';
 import ItemsList from '../items_list';
-import Tooltip from 'components/tooltip';
 
 export default (props) => {
     const {addActivity, column, index, items, openItem, removeColumn, title, total} = props;
+    const [editTitle, setEditTitle] = useState(false);
+    const [newTitle, setNewTitle] = useState(null);
+
+    const _saveNewTitle = async () => {
+        if (newTitle.length < 2) {
+            return showFlashMessage(tc.columnNameTooShort);
+        } else {
+            setEditTitle(false);
+            setNewTitle(null);
+            return await updateAgileColumnTitle({
+                id: column.id,
+                title: newTitle});
+        }
+    }
 
     return (
         <Draggable draggableId={title} index={index}>
@@ -22,23 +37,49 @@ export default (props) => {
                         <div className='columnWrapper__column__header'>
                             <div className='columnWrapper__column__header__title'>
                                 <Icon val='dragIndicator'/>
-                                {title}
+                                {(editTitle) ?
+                                    <input onChange={(e) => {setNewTitle(e.target.value)}} type='text' value={(newTitle) ? newTitle : ''}/> :
+                                    <span>{title}</span>
+                                }
                             </div>
                             {(column.id !== 'prospects') ?
                                 <>
-                                    <div className='columnWrapper__column__header__totalHideOnHover'>
-                                        {total} {tc.aPiece.toLowerCase()}
-                                    </div>
-                                    <Tooltip horizontalDirection='left' verticalDirection='bottom' tooltipContent={tc.removeColumn}>
-                                        <div className='columnWrapper__column__header__remove'
-                                             onClick={(e) => {
-                                                 e.stopPropagation();
-                                                 removeColumn(column.id);
-                                             }}
-                                        >
-                                            <Icon val='remove'/>
-                                        </div>
-                                    </Tooltip>
+                                    {!(editTitle) ?
+                                        <div className='columnWrapper__column__header__totalHideOnHover'>
+                                            {total} {tc.aPiece.toLowerCase()}
+                                        </div> : null
+                                    }
+                                    {(editTitle) ?
+                                        <>
+                                            <div className='columnWrapper__column__header__iconAlwaysVisible' onClick={() => {
+                                                setEditTitle(false);
+                                                setNewTitle(null);
+                                            }}
+                                            >
+                                                <Icon val='clear'/>
+                                            </div>
+                                            <div className='columnWrapper__column__header__iconAlwaysVisible' onClick={_saveNewTitle}>
+                                                <Icon val='save'/>
+                                            </div>
+                                        </> :
+                                        <>
+                                            <div className='columnWrapper__column__header__icon' onClick={(e) => {
+                                                e.stopPropagation();
+                                                setNewTitle(title);
+                                                setEditTitle(true);
+                                            }}
+                                            >
+                                                <Icon val='edit'/>
+                                            </div>
+                                            <div className='columnWrapper__column__header__icon' onClick={(e) => {
+                                                e.stopPropagation();
+                                                removeColumn(column.id);
+                                            }}
+                                            >
+                                                <Icon val='remove'/>
+                                            </div>
+                                        </>
+                                    }
                                 </> :
                                 <div className='columnWrapper__column__header__total'>
                                     {total} {tc.aPiece.toLowerCase()}

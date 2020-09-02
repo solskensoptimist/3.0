@@ -9,8 +9,8 @@ const AgilePreview = (state) => {
         if (state.props.id && state.agile.columns && Array.isArray(state.agile.columns)) {
             let found;
             state.agile.columns.forEach((column) => {
-                if (column.id === 'prospects' && column.items.find((num) => num.id === state.props.id)) {
-                     found = column.items.find((num) => num.id === state.props.id);
+                if (column.id === 'prospects' && column.items.find((num) => num.prospectId === state.props.id)) {
+                     found = column.items.find((num) => num.prospectId === state.props.id);
                 } else if (column.items.find((num) => num._id === state.props.id)) {
                     found = column.items.find((num) => num._id === state.props.id);
                 }
@@ -33,14 +33,22 @@ const AgilePreview = (state) => {
                     <div className='agilePreviewWrapper__agilePreview'>
                         <div className='agilePreviewWrapper__agilePreview__content'>
                             <p>{item.name}</p>
-                            <p>rendera deal preview...</p>
+                            <p>Deal preview</p>
+                            <p>Ska innehålla:
+                                ownActiveDeals/colleagueDeals,
+                                rullister där man flyttar till kolumner,
+                                knapp för att ta bort affären,
+                                fleet för prospekt som ingår på något vis,
+                                personuppgifter.</p>
                         </div>
                     </div>
                 </div> :
                 <div className='agilePreviewWrapper'>
                     <div className='agilePreviewWrapper__agilePreview'>
                         <div className='agilePreviewWrapper__agilePreview__content'>
-                            <p>rendera prospekt preview...</p>
+                            <p>Prospekt preview</p>
+                            <p>Ska innehålla:
+                                fleet</p>
                         </div>
                     </div>
                 </div>

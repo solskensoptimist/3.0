@@ -368,6 +368,33 @@ export const updateAgileColumnStructure = async (columns) => {
     }
 };
 
+/**
+ * Update title for a column.
+ *
+ * @param payload.id - string
+ * @param payload.title - string
+ */
+export const updateAgileColumnTitle = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.id) || (payload && !payload.title)) {
+            return console.error('Missing params in updateAgileColumnTitle');
+        }
+
+        let newColumns = store.getState().agile.columns;
+
+        newColumns.map((column) => {
+            if (column.id === payload.id) {
+                column.title = payload.title;
+            }
+            return column;
+        });
+
+        return await updateAgileColumnStructure(newColumns);
+    } catch(err) {
+        return console.error('Error in updateAgileColumnStructure:\n' + err);
+    }
+};
+
 export const updateAgileDealPhase= async (payload) => {
     try {
 

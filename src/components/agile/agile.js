@@ -234,7 +234,7 @@ const Agile = (state) => {
                         </Popup> : null
                     }
                     {(!previewItem && showAddNewColumn) ?
-                        <Popup close={() => {setShowAddNewColumn(false)}} size='medium'>
+                        <Popup close={() => {setShowAddNewColumn(false)}} size='small'>
                             <div className='agilePopupWrapper__agilePopup'>
                                 <div className='agilePopupWrapper__agilePopup'>
                                     <div className='agilePopupWrapper__agilePopup__header'>
@@ -244,7 +244,8 @@ const Agile = (state) => {
                                         />
                                     </div>
                                     <div className='agilePopupWrapper__agilePopup__content'>
-                                        <p>{tc.nameNewColumn}:</p><input onChange={(e) => {setNewColumnName(e.target.value)}} ref={newColumnNameInputRef}/>
+                                        <p>{tc.nameNewColumn}:</p>
+                                        <input onChange={(e) => {setNewColumnName(e.target.value)}} ref={newColumnNameInputRef} type='text'/>
                                     </div>
                                     <div className='agilePopupWrapper__agilePopup__footer'>
                                         <WidgetFooter save={_addColumn}/>

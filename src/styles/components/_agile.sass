@@ -40,7 +40,7 @@
                   &:hover
                     .columnWrapper__column__header__totalHideOnHover
                       display: none
-                    .columnWrapper__column__header__remove
+                    .columnWrapper__column__header__icon
                       display: inline-flex
                   &__header
                     display: flex
@@ -58,12 +58,15 @@
                         width: 14px
                         height: 14px
                         fill: $colorLink
+                      input
+                        @extend .activeInputField
                     &__total
                       font-weight: 600
                     &__totalHideOnHover
                       font-weight: 600
-                    &__remove
+                    &__icon
                       display: none
+                      margin-left: $paddingSmall
                       &:hover
                         svg
                           fill: $colorLink
@@ -71,6 +74,9 @@
                         width: 16px
                         height: 16px
                         fill: $grey-400
+                    &__iconAlwaysVisible
+                      @extend .columnWrapper__column__header__icon
+                      display: inline-flex
                   &__content
                     background: $grey-200
                     height: 100%
@@ -86,6 +92,8 @@
                             background: white
                             &:hover
                               background: $grey-50
+                              .itemWrapper__item__content__toggleActions
+                                visibility: visible
                             &__content
                               display: flex
                               align-items: center
@@ -159,30 +167,29 @@
                                     color: $colorTextLight-1
                                     margin-right: 4px
                               &__toggleActions
+                                visibility: hidden
                                 display: flex
                                 align-items: flex-end
                                 padding: 4px 0 4px 4px
                             &__bottom
                               display: flex
                               align-items: center
-                              justify-content: space-between
+                              justify-content: center
                               margin-top: $paddingSmall
                               padding: $paddingMedium
                               cursor: default
                               svg
-                                width: 28px
-                                height: 28px
+                                width: 32px
+                                height: 32px
                                 fill: $grey-300
                                 cursor: pointer
-                              &__remove
-                                &:hover
-                                  svg
-                                    fill: $colorLinkHover
                               &__lost
+                                margin-right: 15%
                                 &:hover
                                   svg
                                     fill: $colorDealLost
                               &__won
+                                margin-left: 15%
                                 &:hover
                                   svg
                                     fill: $colorDealWon
