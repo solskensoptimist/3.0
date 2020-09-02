@@ -37,6 +37,11 @@
                 min-height: 98px
                 &__column
                   height: calc(100% - 30px)
+                  &:hover
+                    .columnWrapper__column__header__totalHideOnHover
+                      display: none
+                    .columnWrapper__column__header__remove
+                      display: inline-flex
                   &__header
                     display: flex
                     align-items: center
@@ -55,6 +60,17 @@
                         fill: $colorLink
                     &__total
                       font-weight: 600
+                    &__totalHideOnHover
+                      font-weight: 600
+                    &__remove
+                      display: none
+                      &:hover
+                        svg
+                          fill: $colorLink
+                      svg
+                        width: 16px
+                        height: 16px
+                        fill: $grey-400
                   &__content
                     background: $grey-200
                     height: 100%
@@ -196,3 +212,17 @@
                           &__label
                             opacity: 0.8
                             color: white
+
+.agilePopupWrapper
+  &__agilePopup
+    &__content
+      margin: $paddingBig 0
+      display: flex
+      align-items: center
+      p
+        margin-right: $paddingMedium
+        white-space: nowrap
+      input
+        @extend .activeInputField
+        width: 50%
+

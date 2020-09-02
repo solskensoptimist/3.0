@@ -1,17 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
-import {getAgileColumnsData, getAgileFilters, sortColumns, updateAgileFilters, updateAgileColumnStructure, updateAgileSortValue} from 'store/agile/tasks';
+import {showFlashMessage} from 'store/flash_messages/tasks';
+import {getAgileColumnsData, getAgileFilters, sortColumns, updateAgileFilters, updateAgileColumnStructure, updateAgileDealPhase} from 'store/agile/tasks';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
+import AgileAddActivity from './agile_add_activity';
+import AgilePreview from './agile_preview';
 import KanbanBoard from './kanban_board';
 import Loading from 'components/loading';
 import Menu from 'components/menu';
+import Popup from 'components/popup';
+import WidgetFooter from 'components/widget_footer';
+import WidgetHeader from 'components/widget_header';
 
 const Agile = (state) => {
     const [columns, setColumns] = useState(null);
     const [activeFilters, setActiveFilters] = useState(null);
     const [activeLists, setActiveLists] = useState(null);
-    const [openedItem, setOpenedItem] = useState(null);
+    const [addActivityItem, setAddActivityItem] = useState(null);
+    const [newColumnName, setNewColumnName] = useState(null);
+    const [previewItem, setPreviewItem] = useState(null);
+    const [removeColumn, setRemoveColumn] = useState(null);
+    const [showAddNewColumn, setShowAddNewColumn] = useState(false);
+    const [showRemoveColumn, setShowRemoveColumn] = useState(null);
+    const newColumnNameInputRef = useRef(null);
 
     useEffect(() => {
         getAgileColumnsData();
@@ -46,16 +58,20 @@ const Agile = (state) => {
 
     }, [state.agile.columns]);
 
-    const _addActivity = (id) => {
-        console.log('Add activity för', id);
-    };
+    useEffect(() => {
+        if (showAddNewColumn) {
+            newColumnNameInputRef && newColumnNameInputRef.current && newColumnNameInputRef.current.focus();
+        }
+    }, [showAddNewColumn]);
 
     const _addColumn = async () => {
-        let title = 'Ny kolumn ' + (columns.length + 1); // Hämta namn från input...
+        if (!newColumnName || (newColumnName && newColumnName.length < 2)) {
+            return showFlashMessage(tc.columnNameTooShort);
+        }
 
-        // Check på att title är mer än tre tecken eller så....
+        setShowAddNewColumn(false);
 
-        let id = title.replace(/[ÅÄ]/ig, "a")
+        let id = newColumnName.replace(/[ÅÄ]/ig, "a")
                         .replace(/[Ö]/ig, "o")
                         .replace(/[^A-Z0-9]/ig, "")
                         .toLowerCase().trim();
@@ -76,26 +92,22 @@ const Agile = (state) => {
         const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
         newColumns.push({
             id: id,
-            title: title,
+            title: newColumnName,
             items: [],
         });
 
         await updateAgileColumnStructure(newColumns);
 
         // Scroll a bit to the right do display new column.
-        return setTimeout(() => {
+        setTimeout(() => {
             document.querySelector('#kanbanBoardContainer').scroll(5000, 0);
         }, 1000);
-    };
 
-    const _closeItem = () => {
-        setOpenedItem(null);
+        return showFlashMessage(tc.columnHasBeenAdded);
     };
 
     const _dragEnd = async (event) => {
-        console.log('event i handeDragEnd', event);
-
-        if (!event.destination) {
+         if (!event.destination || (event.destination && event.destination.droppableId === 'prospects')) {
             return;
         }
 
@@ -105,12 +117,9 @@ const Agile = (state) => {
             setColumns(newColumns);
             return await updateAgileColumnStructure(newColumns);
         } else {
-            // Kolla om destination är prospects, isåfall avbryt.
-
-            // Vi ska sortera kolumnerna (det är väl det som görs nedan).
-            // Vi ska spara phase för item via backend call.
-            // Vi ska också spara kolumnens ordning via backend call (vi lär väl få ha ett backend call där vi sparar hela kolumnstrukturen).
-            // Sen ska vi lyssna på store, och sätta till state. Sätta till state gör vi alltså inte här..?
+            // Ska vi visa planera/utförd aktivitet...?
+            // Skicka backend anrop att ändra phase på deal.
+            // Ska vi även skicka något till deal actions beroende på ovanstående?
 
             const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
             const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
@@ -128,20 +137,18 @@ const Agile = (state) => {
         }
     };
 
-    const _openItem = (id) => {
-        console.log('Öppna id, anropa Preview om vi ska ha en sådan.', id);
-        //setOpenedItem(item);
+    const _removeColumn = async () => {
+        let newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
+        newColumns = newColumns.filter((column) => column.id !== removeColumn);
+
+        setShowRemoveColumn(false);
+        setRemoveColumn(null);
+        await updateAgileColumnStructure(newColumns);
+        return showFlashMessage(tc.columnHasBeenRemoved);
     };
 
     const _stateCheck = () => {
         return !!(state && state.agile && columns && state.lists && state.lists.lists && activeFilters);
-    };
-
-    const _updateFilters = (payload) => {
-        console.log('payload i _updateFilters', payload);
-        // I payload har vi ilist.name... behöver vi skicka med det, eller hanteras det på backend?
-        // Kolla i 2.0 vad som skickas med.
-        // return updateAgileFilters({});
     };
 
     return ( _stateCheck() ?
@@ -158,8 +165,8 @@ const Agile = (state) => {
                                 return {
                                     active: activeFilters.includes(filter.id),
                                     label: filter.name,
-                                    onClick: () => {
-                                        _updateFilters({id: filter.id, name: filter.name, type:'default'});
+                                    onClick: async () => {
+                                        await updateAgileFilters({id: filter.id, name: filter.name, type:'default'});
                                     }
                                 };
                             }),
@@ -172,8 +179,8 @@ const Agile = (state) => {
                                 return {
                                     active: activeLists.includes(list._id),
                                     label: list.name,
-                                    onClick: () => {
-                                        _updateFilters({id: list._id, name: list.name, type:'list'});
+                                    onClick: async () => {
+                                        await updateAgileFilters({id: list._id, name: list.name, type:'list'});
                                     }
                                 }
                             }),
@@ -195,7 +202,7 @@ const Agile = (state) => {
                         },
                         {
                             label: tc.addColumn,
-                            onClick: _addColumn,
+                            onClick: () => {setShowAddNewColumn(true)},
                             type: 'button'
                         },
                     ]}
@@ -203,11 +210,80 @@ const Agile = (state) => {
                 </div>
                 <div className='agileWrapper__agile__content'>
                     <KanbanBoard
-                        addActivity={_addActivity}
+                        addActivity={(id) => {
+                            setAddActivityItem(id);
+                        }}
                         columns={columns}
                         dragEnd={ _dragEnd}
-                        openItem={_openItem}
+                        openItem={(id) => {
+                            setPreviewItem(id);
+                        }}
+                        removeColumn={(id) => {
+                            setShowRemoveColumn(true);
+                            setRemoveColumn(id);
+                        }}
                     />
+                    {(previewItem) ?
+                        <Popup close={() => {setPreviewItem(null)}} size='big'>
+                            <AgilePreview id={previewItem}/>
+                        </Popup> : null
+                    }
+                    {(!previewItem && addActivityItem) ?
+                        <Popup close={() => {setAddActivityItem(null)}} size='medium'>
+                            <AgileAddActivity id={addActivityItem}/>
+                        </Popup> : null
+                    }
+                    {(!previewItem && showAddNewColumn) ?
+                        <Popup close={() => {setShowAddNewColumn(false)}} size='medium'>
+                            <div className='agilePopupWrapper__agilePopup'>
+                                <div className='agilePopupWrapper__agilePopup'>
+                                    <div className='agilePopupWrapper__agilePopup__header'>
+                                        <WidgetHeader
+                                            iconVal='add'
+                                            headline={tc.addColumn}
+                                        />
+                                    </div>
+                                    <div className='agilePopupWrapper__agilePopup__content'>
+                                        <p>{tc.nameNewColumn}:</p><input onChange={(e) => {setNewColumnName(e.target.value)}} ref={newColumnNameInputRef}/>
+                                    </div>
+                                    <div className='agilePopupWrapper__agilePopup__footer'>
+                                        <WidgetFooter save={_addColumn}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </Popup> : null
+                    }
+                    {(!previewItem && showRemoveColumn && removeColumn) ?
+                        <Popup close={() => {setShowRemoveColumn(false)}} size='medium'>
+                            <div className='agilePopupWrapper'>
+                                <div className='agilePopupWrapper__agilePopup'>
+                                    <div className='agilePopupWrapper__agilePopup__header'>
+                                        <WidgetHeader
+                                            iconVal='remove'
+                                            headline={tc.removeColumn}
+                                        />
+                                    </div>
+                                    <div className='agilePopupWrapper__agilePopup__content'>
+                                        {(columns.find((column) => column.id === removeColumn).items.length) ?
+                                            <p>{tc.columnHaveToBeEmptyToRemove}</p> :
+                                            <p>{tc.removeEnsure}</p>
+                                        }
+                                    </div>
+                                    <div className='agileAddColumnWrapper__agileAddColumn__footer'>
+                                        {(columns.find((column) => column.id === removeColumn).items.length) ?
+                                            <WidgetFooter save={() => {
+                                                    setShowRemoveColumn(null);
+                                                    setRemoveColumn(null);
+                                                }}
+                                                saveText={tc.ok}
+                                            /> :
+                                            <WidgetFooter save={_removeColumn}/>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </Popup> : null
+                    }
                 </div>
             </div>
         </div> :

@@ -9,7 +9,7 @@ import Icon from 'components/icon';
  * Data and functions is handled through props.
  */
 export default (props) => {
-    const {addActivity, columns, dragEnd, openItem} = props;
+    const {addActivity, columns, dragEnd, openItem, removeColumn} = props;
     const [hasScrolledRight, setHasScrolledRight] = useState(false);
 
     useEffect(() => {
@@ -58,6 +58,7 @@ export default (props) => {
                                             key={column.id}
                                             index={index}
                                             openItem={openItem}
+                                            removeColumn={removeColumn}
                                             items={column.items}
                                             title={column.title}
                                             total={column.items.length}

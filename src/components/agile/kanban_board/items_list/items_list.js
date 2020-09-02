@@ -3,7 +3,7 @@ import {Draggable} from 'react-beautiful-dnd';
 import Item from '../item';
 
 export default (props) => {
-    const {addActivity, items, openItem, provided} = props;
+    const {addActivity, columnIndex, items, openItem, provided} = props;
 
     return (
         <div className='itemsListWrapper' ref={provided.innerRef}>
@@ -18,6 +18,7 @@ export default (props) => {
                             {(dragProvided, dragSnapshot) => (
                                 <Item
                                     addActivity={addActivity}
+                                    columnIndex={columnIndex}
                                     item={item}
                                     openItem={openItem}
                                     provided={dragProvided}

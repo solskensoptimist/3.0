@@ -54,6 +54,7 @@ const saveToLocalStorage = (state, action) => {
     try {
         // JSON format state.
         const currentState = JSON.stringify(state);
+
         // Set it as "bilprospekt" in local storage.
         localStorage.setItem('bilprospekt', currentState);
     } catch(error) {

@@ -29,7 +29,7 @@
     transform: translateX(-6px); }
   100% {
     transform: translateX(0); } }
-.activeInputField, .listsPopupWrapper__listsPopup__content input, .splitListWrapper__splitList__content__row input, .saveToListWrapper__saveToList__content__newList input, .searchMainWrapper__searchMain__header input {
+.activeInputField, .agilePopupWrapper__agilePopup__content input, .listsPopupWrapper__listsPopup__content input, .splitListWrapper__splitList__content__row input, .saveToListWrapper__saveToList__content__newList input, .searchMainWrapper__searchMain__header input {
   border: 0 !important;
   background: white;
   border-bottom: 1px solid #00B4CC !important;
@@ -456,6 +456,10 @@ a {
       min-height: 98px; }
       .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column {
         height: calc(100% - 30px); }
+        .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column:hover .columnWrapper__column__header__totalHideOnHover {
+          display: none; }
+        .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column:hover .columnWrapper__column__header__remove {
+          display: inline-flex; }
         .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__header {
           display: flex;
           align-items: center;
@@ -474,6 +478,16 @@ a {
               fill: #00B4CC; }
           .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__header__total {
             font-weight: 600; }
+          .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__header__totalHideOnHover {
+            font-weight: 600; }
+          .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__header__remove {
+            display: none; }
+            .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__header__remove:hover svg {
+              fill: #00B4CC; }
+            .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__header__remove svg {
+              width: 16px;
+              height: 16px;
+              fill: #bdbdbd; }
         .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content {
           background: #eeeeee;
           height: 100%; }
@@ -593,6 +607,16 @@ a {
         .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper .isDragging .itemWrapper__item__content__main__mainBottom__label {
           opacity: 0.8;
           color: white; }
+
+.agilePopupWrapper__agilePopup__content {
+  margin: 22px 0;
+  display: flex;
+  align-items: center; }
+  .agilePopupWrapper__agilePopup__content p {
+    margin-right: 12px;
+    white-space: nowrap; }
+  .agilePopupWrapper__agilePopup__content input {
+    width: 50%; }
 
 .commentWrapper__comment__content {
   margin: 22px 0; }

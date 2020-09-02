@@ -150,12 +150,12 @@ const getAgileColumnStructure = async () => {
                 },
                 {
                     id: 'idle',
-                    title: tc.notStarted,
+                    title: tc.notStartedDeals,
                     items: [],
                 },
                 {
                     id: 'todo',
-                    title: tc.started,
+                    title: tc.inContact,
                     items: [],
                 },
                 {
@@ -368,15 +368,44 @@ export const updateAgileColumnStructure = async (columns) => {
     }
 };
 
-/**
- * Update agile filters.
- *
- * @param payload
- */
-export const updateAgileFilters = async (payload) => {
+export const updateAgileDealPhase= async (payload) => {
     try {
 
-        // Skicka payload till backend, sedan sätt i state.agile.filters.
+        console.log('payliad i updateAgileDealPhase', payload);
+
+        // Gör check någonstans på om vi skickar med utförd/planerad aktivitet.
+
+        // http://localhost:3000/agile/moveDeal
+        // PUT
+        // FÖR DEAL:
+        // id: 5eee294f49ee267820869c35
+        // isDeal: true
+        // source: todo
+        // target: contacted
+        // action: offer
+        // comment:
+        //     prospectIds: 9281859
+        //
+        //
+        //
+        // FRÅN KOLUMNEN PROSPECTS:
+        // id: 5f4f7b695ceeca59a857adf2
+        // isDeal: true
+        // source: idle
+        // target: todo
+        // action: meeting
+        // comment:
+        //     prospectIds:
+        //         listId: 5f3be7b306e7b01a0d45159a
+        //
+        // DETTA SKER FÖRST..?
+        //     /deals
+        //     POST
+        //     name:
+        //     phase: idle
+        // prospects[]: 4280907
+        // listId: 5f3be7b306e7b01a0d45159a
+        // moved: true
 
         // const data = await request({
         //     method: 'getasdasd',
@@ -394,11 +423,58 @@ export const updateAgileFilters = async (payload) => {
 };
 
 /**
- * Update agile sort value to db.
+ * Update agile filters.
  *
- * @param sort - string
+ * @param payload - object - {id: , name: , type: }
  */
-export const updateAgileSortValue = async (sort) => {
+export const updateAgileFilters = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.id) || (payload && !payload.name) || (payload && !payload.type)) {
+            return console.error('Missing params in updateAgileFilters');
+        }
+
+        let filters = store.getState().agile.filters;
+
+        if (store.getState().agile.filters.find((num) => num.id === payload.id)) {
+            filters = filters.filter((num) => num.id !== payload.id);
+        } else {
+            filters.push({
+                active: true,
+                id: payload.id,
+                name: payload.name,
+                meta: {
+                    type: payload.type,
+                }
+            });
+        }
+
+        filters = filters.filter((num) => num.active);
+
+        const data = await request({
+        data: {
+            filter: filters,
+        },
+           method: 'put',
+           url: '/agile/settings',
+        });
+
+        if (data instanceof Error) {
+           return console.error('Error in updateAgileFilters:\n' + data);
+        }
+
+        store.dispatch({type: agileActionTypes.SET_AGILE_FILTERS, payload: filters});
+        return await getAgileColumnsData();
+   } catch(err) {
+        return console.error('Error in updateAgileFilter:\n' + err);
+   }
+};
+
+/**
+* Update agile sort value to db.
+*
+* @param sort - string
+*/
+const updateAgileSortValue = async (sort) => {
     try {
         if (!sort) {
             return console.error('Missing params in updateAgileSortValue');

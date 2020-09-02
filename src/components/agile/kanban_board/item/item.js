@@ -10,7 +10,7 @@ import Tooltip from 'components/tooltip';
  */
 export default (props) => {
     const [showActions, setShowActions] = useState(false);
-    const {item, addActivity, openItem, provided, snapshot} = props;
+    const {addActivity, columnIndex, item, openItem, provided, snapshot} = props;
 
     const _addActivity = (e) => {
         e.stopPropagation();
@@ -59,7 +59,7 @@ export default (props) => {
                 const diff = moment(date).diff(new Date(), 'hours');
                 let addActivity = (
                     <div className='itemWrapper__item__content__event__defaultHidden'>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.addAgileActivity}>
+                        <Tooltip horizontalDirection='right' tooltipContent={tc.addAgileActivity}>
                             <Icon val='add' onClick={_addActivity}/>
                         </Tooltip>
                     </div>
@@ -100,7 +100,7 @@ export default (props) => {
             element = (
                 <div className='itemWrapper__item__content__event'>
                     <div className='itemWrapper__item__content__event__defaultVisible'>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.addAgileActivity}>
+                        <Tooltip horizontalDirection='right' tooltipContent={tc.addAgileActivity}>
                             <Icon val='add' onClick={_addActivity}/>
                         </Tooltip>
                     </div>
@@ -146,7 +146,7 @@ export default (props) => {
                         'itemWrapper__item__hidden'}
                 >
                     <div className='itemWrapper__item__bottom__remove' onClick={_removeItem}>
-                        <Tooltip horizontalDirection='left' tooltipContent={tc.removeDeal}>
+                        <Tooltip horizontalDirection='right' tooltipContent={tc.removeDeal}>
                             <Icon val='remove'/>
                         </Tooltip>
                     </div>
@@ -165,7 +165,7 @@ export default (props) => {
         );
     };
 
-    const _renderInformationHolder = (direction) => {
+    const _renderInformationHolder = () => {
         if (!item.ownActiveDeals && !item.colleagueDeals) {
             return null;
         } else {
@@ -188,7 +188,7 @@ export default (props) => {
 
             return (
                 <div className='itemWrapper__item__content__main__mainTop__informationHolder'>
-                    <Tooltip horizontalDirection={direction} verticalDirection='bottom' tooltipContent={content}>
+                    <Tooltip horizontalDirection={(columnIndex === 0 ? 'right' : 'left')} verticalDirection='bottom' tooltipContent={content}>
                         <Icon val='infoOutlined'/>
                     </Tooltip>
                 </div>
@@ -207,7 +207,7 @@ export default (props) => {
                         <div className='itemWrapper__item__content__main__mainTop'>
                             <div className='itemWrapper__item__content__main__mainTop__prospectName'>
                                 {item.name}
-                                {_renderInformationHolder('right')}
+                                {_renderInformationHolder()}
                             </div>
                         </div>
                     </div>
