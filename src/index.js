@@ -7,6 +7,10 @@ import {Router} from 'react-router-dom';
 import * as serviceWorker from './service_worker';
 import history from './router_history';
 import moment from 'moment';
+import {registerLocale} from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import sv from 'date-fns/locale/sv';
+registerLocale('sv', sv)
 
 
 // Setup moment to use swedish time.

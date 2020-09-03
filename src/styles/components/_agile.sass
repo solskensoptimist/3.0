@@ -151,7 +151,6 @@
                                     svg
                                       width: 12px
                                       height: 12px
-                                      cursor: default
                                       fill: $colorTextLight
                                     &__red
                                       @extend .itemWrapper__item__content__main__mainTop__informationHolder
@@ -226,4 +225,110 @@
       input
         @extend .activeInputField
         width: 50%
+
+.agileAddActivityWrapper
+  &__agileAddActivity
+    &__content
+      margin: ($paddingBig * 1.5) 0
+      color: $colorTextLight
+      &__isPerformed
+        display: flex
+        align-items: center
+        justify-content: center
+        &__choice
+          @extend .agileAddActivityBoxDefault
+          font-size: $fontSizeStandard3
+          margin: 0 (($paddingBig * 1.5) / 2)
+          svg
+            margin-left: $paddingSmall
+      &__selectables
+        margin-top: ($paddingBig * 1.5)
+        h4
+          margin-bottom: $paddingMedium
+        &__actions
+          display: flex
+          align-items: center
+          flex-wrap: wrap
+          margin-bottom: ($paddingBig * 1.5)
+          &__action
+            @extend .agileAddActivityBoxDefault
+            flex-direction: column
+            flex-basis: calc(20% - (#{$paddingSmall} * 4 / 5))
+            margin: 0 $paddingSmall $paddingSmall 0
+            svg
+              margin-bottom: $paddingSmall
+            &:nth-child(5n)
+              margin-right: 0
+        &__dateAndComment
+          display: flex
+          align-items: flex-start
+          &__date
+            input
+              border-color: $grey-200 !important
+              border-radius: 2px
+              cursor: pointer
+              &:hover
+                border-color: $grey-300
+                background: $grey-200
+                color: $grey-500
+          &__dateActive
+            input
+              background: $colorInformatory !important
+              border-color: $colorInformatory !important
+              color: white !important
+              border-radius: 2px
+              cursor: pointer
+              &:hover
+                background: $colorInformatory
+                border-color: $colorInformatory
+                color: white
+          &__comment
+            margin-left: ($paddingBig * 1.5)
+            flex-grow: 1
+            textarea
+              @extend .agileAddActivityBoxDefault
+              width: 100%
+              padding: $paddingSmall !important
+              height: 38px
+              color: $colorTextMain !important
+      .agileAddActivityDisabled
+        border-color: $grey-100 !important
+        color: $grey-300 !important
+        cursor: default !important
+        pointer-events: none
+        .agileAddActivityBoxDefault
+          background: white
+          border-color: $grey-100
+          color: $grey-300
+        .agileAddActivityBoxActive
+          background: white
+          border-color: $grey-100
+          color: $grey-300
+        .react-datepicker-wrapper
+          input
+            background: white
+            border-color: $grey-100
+            color: $grey-300
+      .agileAddActivityBoxDefault
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 2px
+        background: $grey-100
+        border: 1px solid $grey-200
+        color: $grey-400
+        cursor: pointer
+        padding: $paddingBig
+        &:hover
+          background: $grey-200
+          border-color: $grey-300
+          color: $grey-500
+        svg
+          width: 26px
+          height: 26px
+      .agileAddActivityBoxActive
+          background: $colorInformatory !important
+          border-color: $colorInformatory !important
+          color: white !important
+
 

@@ -225,12 +225,12 @@ const Agile = (state) => {
                     />
                     {(previewItem) ?
                         <Popup close={() => {setPreviewItem(null)}} size='big'>
-                            <AgilePreview id={previewItem}/>
+                            <AgilePreview close={() => {setPreviewItem(null)}} id={previewItem}/>
                         </Popup> : null
                     }
                     {(!previewItem && addActivityItem) ?
-                        <Popup close={() => {setAddActivityItem(null)}} size='medium'>
-                            <AgileAddActivity id={addActivityItem}/>
+                        <Popup close={() => {setAddActivityItem(null)}} size='big'>
+                            <AgileAddActivity close={() => {setAddActivityItem(null)}} id={addActivityItem}/>
                         </Popup> : null
                     }
                     {(!previewItem && showAddNewColumn) ?

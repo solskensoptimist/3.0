@@ -64,15 +64,6 @@ export const createDeal = async (payload) => {
  */
 export const getAgileColumnsData = async () => {
     try {
-        const data = await request({
-            method: 'get',
-            url: '/agile/getAgile/',
-        });
-
-        if (data instanceof Error) {
-            console.error('Error in getAgileColumnsData:\n' + data);
-        }
-
         // Get column structure.
         let columns;
         if (!store.getState().agile.columns ||
@@ -81,6 +72,23 @@ export const getAgileColumnsData = async () => {
             columns = await getAgileColumnStructure();
         } else {
             columns = store.getState().agile.columns;
+        }
+
+        const phases = columns.map((column) => {
+            return column.id;
+        });
+
+        // Get deals and prospects.
+        const data = await request({
+            data: {
+                phases: phases,
+            },
+            method: 'get',
+            url: '/agile/getAgile/',
+        });
+
+        if (data instanceof Error) {
+            console.error('Error in getAgileColumnsData:\n' + data);
         }
 
         // Add/empty items array to each column.

@@ -34,3 +34,39 @@ input
     color: $colorTextLight-1
   &::-ms-input-placeholder
     color: $colorTextLight-1
+
+// Some adjustments to datepicker library
+.react-datepicker-wrapper
+  .react-datepicker__input-container
+    input
+      color: $colorTextMain
+      background: $grey-100
+      border: 1px solid $grey-300
+      padding: $paddingSmall
+.react-datepicker-popper
+  .react-datepicker
+    .react-datepicker__navigation
+      &:focus
+        outline: none
+    .react-datepicker__navigation--next--with-time
+      right: 90px
+    .react-datepicker__month-container
+      .react-datepicker__header
+        &:before
+          color: red
+        .react-datepicker__current-month
+          text-transform: capitalize
+      .react-datepicker__month
+        .react-datepicker__week
+          .react-datepicker__day
+            &:focus
+              outline: none
+          .react-datepicker__day--selected
+            background: $colorInformatory
+    .react-datepicker__time-container
+      .react-datepicker__time
+        .react-datepicker__time-box
+          .react-datepicker__time-list
+            .react-datepicker__time-list-item--selected
+              background: $colorInformatory
+
