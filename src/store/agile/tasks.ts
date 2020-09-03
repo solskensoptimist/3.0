@@ -5,6 +5,70 @@ import {showFlashMessage} from 'store/flash_messages/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
 
 /**
+ * Add activity to a deal. Either historic/performed or planned.
+ *
+ * @param payload.action - string
+ * @param payload.comment - string
+ * @param payload.dealId - string
+ * @param payload.event_date - date
+ * @param payload.performed - bool
+ */
+export const addAgileActivity = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.dealId) || (payload && !payload.action) || (payload && !payload.event_date)) {
+            return console.error('Missing params in addAgileActivity', payload);
+        }
+
+        let data = await request({
+            data: {
+                action: payload.action,
+                comment: payload.comment,
+                dealId: payload.dealId,
+                event_date: payload.event_date,
+            },
+            method: 'post',
+            url: (payload.performed) ? '/deals/actions/' : 'deals/events',
+        });
+
+        if (data instanceof Error) {
+            console.error('Could not add activity in addAgileActivity:\n' + data);
+        }
+
+        console.log('data tillbaka', data);
+
+        // Hämta data på nytt..? Eller insert något i state direkt...
+
+        // action: "other"
+        // comment: "Kvinna 68, övrigt"
+        // complete: false
+        // dealsId: "5eb00a632e2335ec2ff9a60e"
+        // event_date: "2020-09-05T22:00:00.000Z"
+        // _id: "b5b1b7a0-ede8-11ea-ae60-fdd0f1e57245"
+        // __proto__: Object
+        // __proto__: Object
+
+// Hitta item i columns, opusha data till events array
+
+        let newColumns = store.getState().agile.columns.map((column) => {
+            if (column.id !== 'prospects' && column.items.find((num) => num._id === payload.dealId)) {
+                column.items.map((num) => {
+                    if (num._id === payload.dealId) {
+                        num.events.push(data);
+                    }
+                    return num;
+                });
+            }
+            return column;
+        });
+
+        showFlashMessage(tc.activityHasBeenSaved);
+        return store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: newColumns});
+    } catch(err) {
+        return console.error('Error in addAgileActivity:\n' + err);
+    }
+};
+
+/**
  * Create a deal.
  *
  * @param payload.cars

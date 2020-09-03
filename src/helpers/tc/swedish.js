@@ -26,6 +26,7 @@ export default {
     address: 'Adress',
     age: 'Ålder',
     agile: 'Bearbeta',
+    activityHasBeenSaved: 'Aktivitet har sparats',
     agileScrollIndicator: 'Fler kolumner till höger',
     allActivitiesAllIncludingComments: 'Alla händelser och kommentarer',
     amount: 'Antal',

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 // import {connect} from 'react-redux';
 import {activityHelper, agileHelper, tc} from 'helpers';
 import DatePicker from 'react-datepicker';
+import {addAgileActivity} from 'store/agile/tasks';
 import Icon from 'components/icon';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
@@ -52,9 +53,15 @@ export default (props) => {
         });
     };
 
-    const _saveActivity = () => {
-        console.log('SPARA');
+    const _saveActivity = async () => {
         props.close();
+        await addAgileActivity({
+            action: action,
+            comment: comment,
+            dealId: props.id,
+            event_date: date,
+            performed: activityIsPerformed,
+        });
     };
 
     return (
