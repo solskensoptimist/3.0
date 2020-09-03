@@ -237,14 +237,15 @@
         justify-content: center
         &__choice
           @extend .agileAddActivityBoxDefault
-          font-size: $fontSizeStandard3
+          font-size: $fontSizeStandard2
           margin: 0 (($paddingBig * 1.5) / 2)
           svg
-            margin-left: $paddingSmall
+            margin-left: $paddingMedium
       &__selectables
         margin-top: ($paddingBig * 1.5)
         h4
           margin-bottom: $paddingMedium
+          text-transform: none
         &__actions
           display: flex
           align-items: center
@@ -253,11 +254,11 @@
           &__action
             @extend .agileAddActivityBoxDefault
             flex-direction: column
-            flex-basis: calc(20% - (#{$paddingSmall} * 4 / 5))
+            flex-basis: calc(33% - (#{$paddingSmall} * 2 / 3))
             margin: 0 $paddingSmall $paddingSmall 0
             svg
               margin-bottom: $paddingSmall
-            &:nth-child(5n)
+            &:nth-child(3n)
               margin-right: 0
         &__dateAndComment
           display: flex
@@ -316,19 +317,27 @@
         border-radius: 2px
         background: $grey-100
         border: 1px solid $grey-200
-        color: $grey-400
+        color: $grey-500
         cursor: pointer
         padding: $paddingBig
         &:hover
           background: $grey-200
           border-color: $grey-300
-          color: $grey-500
+          color: $grey-600
+          svg
+            fill: $grey-500
         svg
-          width: 26px
-          height: 26px
+          width: 24px
+          height: 24px
+          fill: $grey-400
       .agileAddActivityBoxActive
           background: $colorInformatory !important
           border-color: $colorInformatory !important
           color: white !important
+          &:hover
+            svg
+              fill: white
+          svg
+            fill: white
 
 

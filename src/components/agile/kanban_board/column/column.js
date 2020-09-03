@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {tc} from 'helpers';
 import {Draggable, Droppable} from 'react-beautiful-dnd';
 import {updateAgileColumnTitle} from 'store/agile/tasks';

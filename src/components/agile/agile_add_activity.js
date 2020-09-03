@@ -83,7 +83,7 @@ export default (props) => {
                              }}
                         >
                             {tc.performedActivity}
-                            <Icon val={(activityIsPerformed === true) ? 'check' : 'checkbox'}/>
+                            {(activityIsPerformed === true) ? <Icon val='check'/> : null}
                         </div>
                         <div className={(activityIsPerformed === false) ?
                             'agileAddActivityWrapper__agileAddActivity__content__isPerformed__choice agileAddActivityBoxActive' :
@@ -93,7 +93,7 @@ export default (props) => {
                              }}
                         >
                             {tc.plannedActivity}
-                            <Icon val={(activityIsPerformed === false) ? 'check' : 'checkbox'}/>
+                            {(activityIsPerformed === false) ? <Icon val='check'/> : null}
                         </div>
                     </div>
                     <div className={(activityIsPerformed !== null) ?

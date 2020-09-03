@@ -229,7 +229,7 @@ const Agile = (state) => {
                         </Popup> : null
                     }
                     {(!previewItem && addActivityItem) ?
-                        <Popup close={() => {setAddActivityItem(null)}} size='big'>
+                        <Popup close={() => {setAddActivityItem(null)}} size='medium'>
                             <AgileAddActivity close={() => {setAddActivityItem(null)}} id={addActivityItem}/>
                         </Popup> : null
                     }
