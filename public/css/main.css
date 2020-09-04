@@ -661,19 +661,18 @@ a {
     width: 50%; }
 
 .agileAddActivityWrapper__agileAddActivity__content {
-  margin: 33px 0;
+  margin: 22px 0;
   color: #757575; }
   .agileAddActivityWrapper__agileAddActivity__content__isPerformed {
     display: flex;
     align-items: center;
     justify-content: center; }
     .agileAddActivityWrapper__agileAddActivity__content__isPerformed__choice {
-      font-size: 16px;
-      margin: 0 16.5px; }
+      margin: 0 11px; }
       .agileAddActivityWrapper__agileAddActivity__content__isPerformed__choice svg {
         margin-left: 12px; }
   .agileAddActivityWrapper__agileAddActivity__content__selectables {
-    margin-top: 33px; }
+    margin-top: 22px; }
     .agileAddActivityWrapper__agileAddActivity__content__selectables h4 {
       margin-bottom: 12px;
       text-transform: none; }
@@ -681,7 +680,7 @@ a {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      margin-bottom: 33px; }
+      margin-bottom: 22px; }
       .agileAddActivityWrapper__agileAddActivity__content__selectables__actions__action {
         flex-direction: column;
         flex-basis: calc(33% - (8px * 2 / 3));
@@ -712,7 +711,7 @@ a {
           border-color: #ffc107;
           color: white; }
       .agileAddActivityWrapper__agileAddActivity__content__selectables__dateAndComment__comment {
-        margin-left: 33px;
+        margin-left: 22px;
         flex-grow: 1; }
         .agileAddActivityWrapper__agileAddActivity__content__selectables__dateAndComment__comment textarea {
           width: 100%;

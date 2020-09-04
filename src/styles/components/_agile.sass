@@ -229,7 +229,7 @@
 .agileAddActivityWrapper
   &__agileAddActivity
     &__content
-      margin: ($paddingBig * 1.5) 0
+      margin: $paddingBig 0
       color: $colorTextLight
       &__isPerformed
         display: flex
@@ -237,12 +237,12 @@
         justify-content: center
         &__choice
           @extend .agileAddActivityBoxDefault
-          font-size: $fontSizeStandard2
-          margin: 0 (($paddingBig * 1.5) / 2)
+          //font-size: $fontSizeStandard2
+          margin: 0 ($paddingBig / 2)
           svg
             margin-left: $paddingMedium
       &__selectables
-        margin-top: ($paddingBig * 1.5)
+        margin-top: $paddingBig
         h4
           margin-bottom: $paddingMedium
           text-transform: none
@@ -250,7 +250,7 @@
           display: flex
           align-items: center
           flex-wrap: wrap
-          margin-bottom: ($paddingBig * 1.5)
+          margin-bottom: $paddingBig
           &__action
             @extend .agileAddActivityBoxDefault
             flex-direction: column
@@ -284,7 +284,7 @@
                 border-color: $colorInformatory
                 color: white
           &__comment
-            margin-left: ($paddingBig * 1.5)
+            margin-left: $paddingBig
             flex-grow: 1
             textarea
               @extend .agileAddActivityBoxDefault
