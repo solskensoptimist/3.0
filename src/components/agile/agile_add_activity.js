@@ -9,8 +9,9 @@ import WidgetHeader from 'components/widget_header';
  * Render add activity component.
  *
  * @param props.close - func
- * @param props.save - func
- * @param props.moveItem - bool - When we're in the process of moving an item and adding an activity simultaneously. This affects which function to run for save and close.
+ * @param props.addActivity - func
+ * @param props.moveItem- func
+ * @param props.isMoving - bool - When we're in the process of moving an item. Add a 'skip' button with the function to just move the item without adding activity.
  */
 const AgileAddActivity = (props) => {
     const [action, setAction] = useState(null);
@@ -108,22 +109,17 @@ const AgileAddActivity = (props) => {
                     <WidgetFooter
                         disableButtonOne={!isValid}
                         buttonOneFunc={() => {
-                            props.save({
+                            props.addActivity({
                                 action: action,
                                 comment: comment,
                                 event_date: date,
                                 performed: activityIsPerformed,
                             });
                         }}
-                        buttonTwoFunc={(props.moveItem) ? () => {
-                            // If we have a moveDeal object, we should
-                            props.save({
-                                action: action,
-                                comment: comment,
-                                event_date: date,
-                                performed: activityIsPerformed,
-                                skipAddActivity: true,
-                            });
+                        buttonTwoFunc={(props.isMoving) ? () => {
+                            // If we are in the process of moving an item between columns,
+                            // we provide a 'skip' button.
+                            props.moveItem();
                         } : null}
                         buttonTwoText={tc.skip}
                     />

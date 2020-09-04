@@ -67,34 +67,19 @@ const Agile = (state) => {
 
     const _addActivity = async (payload) => {
         console.log('payload i _addActivity', payload);
-        console.log('moveItem i _addActivity', moveItem);
-        /*
-        Kolla om payload.skipAddActivity === true.
-        Isåfall ska vi inte göra någon activity.
 
-        Kolla sedan på om vi har en moveItem i state, isåfall ska vi flytta på itemet.
-
-        moveItem ska se ut såhär {
-            deal: {},
-            target: '',
-            source: '',
-        }
-
-        Har vi allt vi behöver för att gå vidare..?
-
-        Om vi bara skiter i reason alla gånger vi flyttar till en kolumn, även när det är förlorad,
-        så borde det gå bra?
-         */
-
-        // await addActivity({
-        //     action: payload.action,
-        //     comment: payload.comment,
-        //     dealId: addActivityItem,
-        //     event_date: payload.date,
-        //     performed: payload.activityIsPerformed,
-        // });
+        await addActivity({
+            action: payload.action,
+            comment: payload.comment,
+            dealId: addActivityItem,
+            event_date: payload.event_date,
+            performed: payload.performed,
+        });
         setAddActivityItem(null);
-        setMoveItem(null);
+
+        if (moveItem) {
+            _moveItem();
+        }
     };
 
     const _addColumn = async () => {
@@ -140,7 +125,6 @@ const Agile = (state) => {
     };
 
     const _dragEnd = async (event) => {
-        console.log(event);
         if (!event.destination || (event.destination && event.destination.droppableId === 'prospects')) {
             return;
         }
@@ -159,41 +143,56 @@ const Agile = (state) => {
             const [removedItem] = sourceColumn.items.splice(event.source.index, 1);
 
             if (event.source.droppableId === event.destination.droppableId) {
-                // Dragged within same column. (Order is not saved, only save column order in component state until next reload.)
+                // Dragged within same column.
+                // Adjust columns. Note that this order isn't saved anywhere outside component state, will rearrange every reload or when sorting is triggered.
                 sourceColumn.items.splice(event.destination.index, 0, removedItem);
                 setColumns(newColumns);
             } else {
                 // Dragged to another column.
-                // Adjust the columns.
+                // First adjust the columns.
                 removedItem.column = event.destination.droppableId;
                 destinationColumn.items.splice(event.destination.index, 0, removedItem);
                 setColumns(newColumns);
 
-                // Set deal/prospect to move.
-                let move = null;
+                // Set item to move.
+                let moveObject = null;
                 columns.forEach((column) => {
                     if (column.id === 'prospects' && column.items.find((num) => num.prospectId === event.draggableId)) {
-                        move = {
+                        moveObject = {
                             deal: column.items.find((num) => num.prospectId === event.draggableId)
                         };
                     } else if (column.items.find((num) => num._id === event.draggableId)) {
-                        move = {
+                        moveObject = {
                             deal: column.items.find((num) => num._id === event.draggableId)
                         };
                     }
                 });
 
-                // Assign some extra properties to the deal we're moving, used in _addActivity().
-                move = Object.assign(move, {
+                // Assign some extra properties to the item we're moving, used in _moveItem().
+                moveObject = Object.assign(moveObject, {
                     source: event.source.droppableId,
                     target: event.destination.droppableId,
                 });
-                setMoveItem(move);
+                setMoveItem(moveObject);
 
-                // Set item to add activity for.
+                // Set addActivityItem to prompt AgileAddActivity popup.
+                // If adding activity _addActivity() is executed which then executes _moveItem().
+                // If not adding activity, _moveItem() is executed directly.
                 setAddActivityItem(event.draggableId);
             }
         }
+    };
+
+    const _moveItem = () => {
+        console.log('moveItem körs');
+        /*
+        moveItem ska se ut såhär {
+            deal: {},
+            target: '',
+            source: '',
+        }
+         */
+        setMoveItem(null);
     };
 
     const _removeColumn = async () => {
@@ -291,11 +290,24 @@ const Agile = (state) => {
                         </Popup> : null
                     }
                     {(!previewItem && addActivityItem) ?
-                        <Popup close={(!moveItem) ? () => {setAddActivityItem(null)} : null} size='medium'>
+                        <Popup
+                            close={(!moveItem) ?
+                                () => {setAddActivityItem(null)} :
+                                () => {
+                                    setAddActivityItem(null);
+                                    _moveItem();
+                                }
+                            }
+                           size='medium'
+                        >
                             <AgileAddActivity
                                 close={() => {setAddActivityItem(null)}}
-                                moveItem={!!(moveItem)}
-                                save={_addActivity}
+                                isMoving={!!(moveItem)}
+                                moveItem={() => {
+                                    setAddActivityItem(null);
+                                    _moveItem();
+                                }}
+                                addActivity={_addActivity}
                             />
                         </Popup> : null
                     }
