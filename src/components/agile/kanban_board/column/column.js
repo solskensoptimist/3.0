@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {tc} from 'helpers';
 import {Draggable, Droppable} from 'react-beautiful-dnd';
-import {updateAgileColumnTitle} from 'store/agile/tasks';
+import {updateColumnTitle} from 'store/agile/tasks';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import Icon from 'components/icon';
 import ItemsList from '../items_list';
@@ -17,7 +17,7 @@ export default (props) => {
         } else {
             setEditTitle(false);
             setNewTitle(null);
-            return await updateAgileColumnTitle({
+            return await updateColumnTitle({
                 id: column.id,
                 title: newTitle});
         }

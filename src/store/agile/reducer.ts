@@ -14,19 +14,19 @@ const initialState: AgileState = {
 
 export const agileReducer = (state = initialState, action) => {
     switch(action.type) {
-        case agileActionTypes.SET_AGILE_COLUMNS: {
+        case agileActionTypes.SET_COLUMNS: {
             return {
                 ...state,
                 columns: action.payload,
             }
         }
-        case agileActionTypes.SET_AGILE_FILTERS: {
+        case agileActionTypes.SET_FILTERS: {
             return {
                 ...state,
                 filters: action.payload,
             }
         }
-        case agileActionTypes.SET_AGILE_SORT: {
+        case agileActionTypes.SET_SORT: {
             return {
                 ...state,
                 sort: action.payload,

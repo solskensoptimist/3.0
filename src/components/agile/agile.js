@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {showFlashMessage} from 'store/flash_messages/tasks';
-import {getAgileColumnsData, getAgileFilters, sortColumns, updateAgileFilters, updateAgileColumnStructure, updateAgileDealPhase} from 'store/agile/tasks';
+import {getColumnsData, getFilters, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
 import AgileAddActivity from './agile_add_activity';
@@ -26,13 +26,13 @@ const Agile = (state) => {
     const newColumnNameInputRef = useRef(null);
 
     useEffect(() => {
-        getAgileColumnsData();
-        getAgileFilters();
+        getColumnsData();
+        getFilters();
     }, []);
 
     useEffect(() => {
         // Get deals and prospects.
-        getAgileColumnsData();
+        getColumnsData();
 
         // Set active filters.
         if (state.agile.filters && state.agile.filters.length) {
@@ -76,7 +76,7 @@ const Agile = (state) => {
                         .replace(/[^A-Z0-9]/ig, "")
                         .toLowerCase().trim();
 
-        // If id already exists add integer (no long ugly ids please).
+        // If id already exists add integer (no long ugly ids please, this will be value for deal phases).
         const _createUniqueId = (str, i) => {
             if (!columns.find((num) => num.id === str)) {
                 return id = str;
@@ -96,7 +96,7 @@ const Agile = (state) => {
             items: [],
         });
 
-        await updateAgileColumnStructure(newColumns);
+        await updateColumnStructure(newColumns);
 
         // Scroll a bit to the right do display new column.
         setTimeout(() => {
@@ -107,7 +107,7 @@ const Agile = (state) => {
     };
 
     const _dragEnd = async (event) => {
-         if (!event.destination || (event.destination && event.destination.droppableId === 'prospects')) {
+        if (!event.destination || (event.destination && event.destination.droppableId === 'prospects')) {
             return;
         }
 
@@ -115,21 +115,26 @@ const Agile = (state) => {
             const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
             [newColumns[event.source.index], newColumns[event.destination.index]] = [newColumns[event.destination.index], newColumns[event.source.index]];
             setColumns(newColumns);
-            return await updateAgileColumnStructure(newColumns);
+            return await updateColumnStructure(newColumns);
         } else {
-            // Ska vi visa planera/utförd aktivitet...?
-            // Skicka backend anrop att ändra phase på deal.
-            // Ska vi även skicka något till deal actions beroende på ovanstående?
-
             const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
             const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
             const destinationColumn = newColumns.find(column => column.id === event.destination.droppableId);
             const [removedItem] = sourceColumn.items.splice(event.source.index, 1);
 
             if (event.source.droppableId === event.destination.droppableId) {
+                // Dragged within same column. We save column order in component state until next reload.
                 sourceColumn.items.splice(event.destination.index, 0, removedItem);
                 setColumns(newColumns);
             } else {
+                // Dragged to another column.
+                // Skicka till moveDeal, och ange eventuellt action....
+                // Ska vi sätta nya kolumner som nedan, eller bara hämta data från backend..?
+                /*
+                Kanske sätta movingDeal = true, och när vi körs addActivity körs det i agile.js
+                istället för i komponenten. Och om movingDeal är true så skickar vi till moveDeal
+                samtidigt som addActivity.
+                 */
                 removedItem.column = event.destination.droppableId;
                 destinationColumn.items.splice(event.destination.index, 0, removedItem);
                 setColumns(newColumns);
@@ -143,7 +148,7 @@ const Agile = (state) => {
 
         setShowRemoveColumn(false);
         setRemoveColumn(null);
-        await updateAgileColumnStructure(newColumns);
+        await updateColumnStructure(newColumns);
         return showFlashMessage(tc.columnHasBeenRemoved);
     };
 
@@ -166,7 +171,7 @@ const Agile = (state) => {
                                     active: activeFilters.includes(filter.id),
                                     label: filter.name,
                                     onClick: async () => {
-                                        await updateAgileFilters({id: filter.id, name: filter.name, type:'default'});
+                                        await updateFilters({id: filter.id, name: filter.name, type:'default'});
                                     }
                                 };
                             }),
@@ -180,7 +185,7 @@ const Agile = (state) => {
                                     active: activeLists.includes(list._id),
                                     label: list.name,
                                     onClick: async () => {
-                                        await updateAgileFilters({id: list._id, name: list.name, type:'list'});
+                                        await updateFilters({id: list._id, name: list.name, type:'list'});
                                     }
                                 }
                             }),

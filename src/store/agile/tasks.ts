@@ -13,10 +13,10 @@ import {addEntityToContacts} from 'store/contacts/tasks';
  * @param payload.event_date - date
  * @param payload.performed - bool
  */
-export const addAgileActivity = async (payload) => {
+export const addActivity = async (payload) => {
     try {
         if (!payload || (payload && !payload.dealId) || (payload && !payload.action) || (payload && !payload.event_date)) {
-            return console.error('Missing params in addAgileActivity', payload);
+            return console.error('Missing params in addActivity', payload);
         }
 
         let data = await request({
@@ -31,25 +31,12 @@ export const addAgileActivity = async (payload) => {
         });
 
         if (data instanceof Error) {
-            console.error('Could not add activity in addAgileActivity:\n' + data);
+            console.error('Could not add activity in addActivity:\n' + data);
         }
 
-        console.log('data tillbaka', data);
+        let newColumns = JSON.parse(JSON.stringify(store.getState().agile.columns));
 
-        // Hämta data på nytt..? Eller insert något i state direkt...
-
-        // action: "other"
-        // comment: "Kvinna 68, övrigt"
-        // complete: false
-        // dealsId: "5eb00a632e2335ec2ff9a60e"
-        // event_date: "2020-09-05T22:00:00.000Z"
-        // _id: "b5b1b7a0-ede8-11ea-ae60-fdd0f1e57245"
-        // __proto__: Object
-        // __proto__: Object
-
-// Hitta item i columns, opusha data till events array
-
-        let newColumns = store.getState().agile.columns.map((column) => {
+        newColumns.map((column) => {
             if (column.id !== 'prospects' && column.items.find((num) => num._id === payload.dealId)) {
                 column.items.map((num) => {
                     if (num._id === payload.dealId) {
@@ -62,9 +49,10 @@ export const addAgileActivity = async (payload) => {
         });
 
         showFlashMessage(tc.activityHasBeenSaved);
-        return store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: newColumns});
+        // Ska vi köra getAgileColumnsData istället:..?!?!? Detta verkar inte uppdatera komponenterna...
+        return store.dispatch({ type: agileActionTypes.SET_COLUMNS, payload: newColumns});
     } catch(err) {
-        return console.error('Error in addAgileActivity:\n' + err);
+        return console.error('Error in addActivity:\n' + err);
     }
 };
 
@@ -126,16 +114,16 @@ export const createDeal = async (payload) => {
  * Basically we collect deals from backend, then we retrieve saved agile column structure, and then we retrieve saved sorting value.
  * After that we map columns where deal phase match column id. Lastly we sort the columns.
  */
-export const getAgileColumnsData = async () => {
+export const getColumnsData = async () => {
     try {
         // Get column structure.
         let columns;
         if (!store.getState().agile.columns ||
             (store.getState().agile.columns && !store.getState().agile.columns.length)) {
             // No columns in store state, retrieve from backend.
-            columns = await getAgileColumnStructure();
+            columns = await getColumnStructure();
         } else {
-            columns = store.getState().agile.columns;
+            columns = JSON.parse(JSON.stringify(store.getState().agile.columns));
         }
 
         const phases = columns.map((column) => {
@@ -152,7 +140,7 @@ export const getAgileColumnsData = async () => {
         });
 
         if (data instanceof Error) {
-            console.error('Error in getAgileColumnsData:\n' + data);
+            console.error('Error in getColumnsData:\n' + data);
         }
 
         // Add/empty items array to each column.
@@ -187,22 +175,22 @@ export const getAgileColumnsData = async () => {
                 }
             });
 
-            const sortValue = await getAgileSortValue();
+            const sortValue = await getSortValue();
 
             // Sort columns.
             columns = await sortColumns({sort: sortValue, columns: columns, skipUpdateState: true});
         }
 
-        return store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
+        return store.dispatch({ type: agileActionTypes.SET_COLUMNS, payload: columns});
     } catch(err) {
-        return console.error('Error in getAgileColumnsData:\n' + err);
+        return console.error('Error in getColumnsData:\n' + err);
     }
 };
 
 /**
  * Get saved agile column structure and sort value.
  */
-const getAgileColumnStructure = async () => {
+const getColumnStructure = async () => {
     try {
         let data = await request({
             method: 'get',
@@ -211,7 +199,7 @@ const getAgileColumnStructure = async () => {
 
         // No columns found in db, probably first time user log into bilprospekt-3.0...
         if (data instanceof Error || !data) {
-            console.error('Could not get columns in getAgileColumnStructure:\n' + data);
+            console.error('Could not get columns in getColumnStructure:\n' + data);
 
             // ...set default column structure that correspond to deal phases in bilprospekt-2.0...
             data = [
@@ -243,19 +231,19 @@ const getAgileColumnStructure = async () => {
             ];
 
             // ...and save to db.
-            await updateAgileColumnStructure(data)
+            await updateColumnStructure(data)
         }
 
         return data;
     } catch(err) {
-        return console.error('Error in getAgileColumnStructure:\n' + err);
+        return console.error('Error in getColumnStructure:\n' + err);
     }
 };
 
 /**
  * Get agile filters.
  */
-export const getAgileFilters = async () => {
+export const getFilters = async () => {
     try {
         let data = await request({
             method: 'get',
@@ -263,7 +251,7 @@ export const getAgileFilters = async () => {
         });
 
         if (data instanceof Error || !data) {
-            console.error('Error in getAgileFilters:\n' + data);
+            console.error('Error in getFilters:\n' + data);
             data = agileHelper.getDefaultFilters();
             data.map((num) => {
                 num.active = false;
@@ -273,13 +261,13 @@ export const getAgileFilters = async () => {
 
         data = data.filter((num) => num.id !== 'include_colleagues'); // We deprecate this filter in 3.0.
 
-        return store.dispatch({ type: agileActionTypes.SET_AGILE_FILTERS, payload: data});
+        return store.dispatch({ type: agileActionTypes.SET_FILTERS, payload: data});
     } catch(err) {
-        return console.error('Error in getAgileFilter:\n' + err);
+        return console.error('Error in getFilter:\n' + err);
     }
 };
 
-const getAgileSortValue = async () => {
+const getSortValue = async () => {
     try {
         let data = await request({
             method: 'get',
@@ -287,12 +275,64 @@ const getAgileSortValue = async () => {
         });
 
         if (data instanceof Error || !data) {
-            console.error('Could not get sort value in getAgileSortValue:\n' + data);
+            console.error('Could not get sort value in getSortValue:\n' + data);
         }
 
         return data;
     } catch(err) {
-        return console.error('Error in getAgileSortValue:\n' + err);
+        return console.error('Error in getSortValue:\n' + err);
+    }
+};
+
+/**
+ * Move a deal to a new column/phase.
+ *
+ * @param payload.action - string (optional) - If we want to add a deal action simultaneously.
+ * @param payload.comment - string (optional) - Comment belonging to action.
+ * @param payload.id - string
+ * @param payload.isDeal - bool
+ * @param payload.prospectIds - string- String of prospectIds separated by comma.
+ * @param payload.source - string - Previous column/phase
+ * @param payload.target - string - New column/phase
+ */
+export const moveDeal = async (payload) => {
+    try {
+        // if (!payload || (payload && !payload.dealId) || (payload && !payload.action) || (payload && !payload.event_date)) {
+        //     return console.error('Missing params in moveDeal', payload);
+        // }
+        //
+        // let data = await request({
+        //     data: {
+        //         action: payload.action,
+        //         comment: payload.comment,
+        //         dealId: payload.dealId,
+        //         event_date: payload.event_date,
+        //     },
+        //     method: 'post',
+        //     url: (payload.performed) ? '/deals/actions/' : 'deals/events',
+        // });
+        //
+        // if (data instanceof Error) {
+        //     console.error('Could not add activity in moveDeal:\n' + data);
+        // }
+        //
+        // let newColumns = store.getState().agile.columns.map((column) => {
+        //     if (column.id !== 'prospects' && column.items.find((num) => num._id === payload.dealId)) {
+        //         column.items.map((num) => {
+        //             if (num._id === payload.dealId) {
+        //                 num.events.push(data);
+        //             }
+        //             return num;
+        //         });
+        //     }
+        //     return column;
+        // });
+        //
+        // showFlashMessage(tc.activityHasBeenSaved);
+        // // Ska vi köra getAgileColumnsData istället:..?!?!? Detta verkar inte uppdatera komponenterna...
+        // return store.dispatch({ type: agileActionTypes.SET_COLUMNS, payload: newColumns});
+    } catch(err) {
+        return console.error('Error in moveDeal:\n' + err);
     }
 };
 
@@ -307,7 +347,7 @@ const getAgileSortValue = async () => {
  * @param payload.skipUpdateState - boolean (optional) - If we want to skip backend call with new sort value and return columns without saving to state.
  */
 export const sortColumns = async (payload) => {
-    let columns = payload.columns ? payload.columns : store.getState().agile.columns;
+    let columns = payload.columns ? payload.columns : JSON.parse(JSON.stringify(store.getState().agile.columns));
     let sort = payload.sort;
 
     columns.map((column) => {
@@ -377,13 +417,13 @@ export const sortColumns = async (payload) => {
     });
 
     if (payload.skipUpdateState) {
-        store.dispatch({type: agileActionTypes.SET_AGILE_SORT, payload: sort});
+        store.dispatch({type: agileActionTypes.SET_SORT, payload: sort});
         return columns;
     } else {
         // Save to state and db.
-        store.dispatch({type: agileActionTypes.SET_AGILE_SORT, payload: sort});
-        store.dispatch({type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
-        return await updateAgileSortValue(payload.sort);
+        store.dispatch({type: agileActionTypes.SET_SORT, payload: sort});
+        store.dispatch({type: agileActionTypes.SET_COLUMNS, payload: columns});
+        return await updateSortValue(payload.sort);
     }
 };
 
@@ -393,14 +433,14 @@ export const sortColumns = async (payload) => {
  *
  * @param columns - Array
  */
-export const updateAgileColumnStructure = async (columns) => {
+export const updateColumnStructure = async (columns) => {
     try {
         if (!columns || (columns && !columns.length)) {
-            return console.error('Missing params in updateAgileColumnStructure');
+            return console.error('Missing params in updateColumnStructure');
         }
 
         // Update state.
-        store.dispatch({ type: agileActionTypes.SET_AGILE_COLUMNS, payload: columns});
+        store.dispatch({ type: agileActionTypes.SET_COLUMNS, payload: columns});
 
         // Clone.
         let columnStructure = JSON.parse(JSON.stringify(columns));
@@ -433,10 +473,10 @@ export const updateAgileColumnStructure = async (columns) => {
         });
 
         if (data instanceof Error) {
-            console.error('Error in updateAgileColumnStructure:\n' + data);
+            console.error('Error in updateColumnStructure:\n' + data);
         }
     } catch(err) {
-        return console.error('Error in updateAgileColumnStructure:\n' + err);
+        return console.error('Error in updateColumnStructure:\n' + err);
     }
 };
 
@@ -446,13 +486,13 @@ export const updateAgileColumnStructure = async (columns) => {
  * @param payload.id - string
  * @param payload.title - string
  */
-export const updateAgileColumnTitle = async (payload) => {
+export const updateColumnTitle = async (payload) => {
     try {
         if (!payload || (payload && !payload.id) || (payload && !payload.title)) {
-            return console.error('Missing params in updateAgileColumnTitle');
+            return console.error('Missing params in updateColumnTitle');
         }
 
-        let newColumns = store.getState().agile.columns;
+        let newColumns = JSON.parse(JSON.stringify(store.getState().agile.columns));
 
         newColumns.map((column) => {
             if (column.id === payload.id) {
@@ -461,63 +501,9 @@ export const updateAgileColumnTitle = async (payload) => {
             return column;
         });
 
-        return await updateAgileColumnStructure(newColumns);
+        return await updateColumnStructure(newColumns);
     } catch(err) {
-        return console.error('Error in updateAgileColumnStructure:\n' + err);
-    }
-};
-
-export const updateAgileDealPhase= async (payload) => {
-    try {
-
-        console.log('payliad i updateAgileDealPhase', payload);
-
-        // Gör check någonstans på om vi skickar med utförd/planerad aktivitet.
-
-        // http://localhost:3000/agile/moveDeal
-        // PUT
-        // FÖR DEAL:
-        // id: 5eee294f49ee267820869c35
-        // isDeal: true
-        // source: todo
-        // target: contacted
-        // action: offer
-        // comment:
-        //     prospectIds: 9281859
-        //
-        //
-        //
-        // FRÅN KOLUMNEN PROSPECTS:
-        // id: 5f4f7b695ceeca59a857adf2
-        // isDeal: true
-        // source: idle
-        // target: todo
-        // action: meeting
-        // comment:
-        //     prospectIds:
-        //         listId: 5f3be7b306e7b01a0d45159a
-        //
-        // DETTA SKER FÖRST..?
-        //     /deals
-        //     POST
-        //     name:
-        //     phase: idle
-        // prospects[]: 4280907
-        // listId: 5f3be7b306e7b01a0d45159a
-        // moved: true
-
-        // const data = await request({
-        //     method: 'getasdasd',
-        //     url: '/agile/getFilters/asdasdasdasd',<--- måste finnas endpoint för detta!
-        // });
-
-        // if (data instanceof Error) {
-        //     return console.error('Error in updateAgileFilters:\n' + data);
-        // }
-
-        // return store.dispatch({type: agileActionTypes.SET_AGILE_FILTERS, payload: data});
-    } catch(err) {
-        return console.error('Error in updateAgileFilter:\n' + err);
+        return console.error('Error in updateColumnStructure:\n' + err);
     }
 };
 
@@ -526,15 +512,15 @@ export const updateAgileDealPhase= async (payload) => {
  *
  * @param payload - object - {id: , name: , type: }
  */
-export const updateAgileFilters = async (payload) => {
+export const updateFilters = async (payload) => {
     try {
         if (!payload || (payload && !payload.id) || (payload && !payload.name) || (payload && !payload.type)) {
-            return console.error('Missing params in updateAgileFilters');
+            return console.error('Missing params in updateFilters');
         }
 
-        let filters = store.getState().agile.filters;
+        let filters = JSON.parse(JSON.stringify(store.getState().agile.filters));
 
-        if (store.getState().agile.filters.find((num) => num.id === payload.id)) {
+        if (filters.find((num) => num.id === payload.id)) {
             filters = filters.filter((num) => num.id !== payload.id);
         } else {
             filters.push({
@@ -558,13 +544,13 @@ export const updateAgileFilters = async (payload) => {
         });
 
         if (data instanceof Error) {
-           return console.error('Error in updateAgileFilters:\n' + data);
+           return console.error('Error in updateFilters:\n' + data);
         }
 
-        store.dispatch({type: agileActionTypes.SET_AGILE_FILTERS, payload: filters});
-        return await getAgileColumnsData();
+        store.dispatch({type: agileActionTypes.SET_FILTERS, payload: filters});
+        return await getColumnsData();
    } catch(err) {
-        return console.error('Error in updateAgileFilter:\n' + err);
+        return console.error('Error in updateFilter:\n' + err);
    }
 };
 
@@ -573,10 +559,10 @@ export const updateAgileFilters = async (payload) => {
 *
 * @param sort - string
 */
-const updateAgileSortValue = async (sort) => {
+const updateSortValue = async (sort) => {
     try {
         if (!sort) {
-            return console.error('Missing params in updateAgileSortValue');
+            return console.error('Missing params in updateSortValue');
         }
 
         const data = await request({
@@ -588,10 +574,10 @@ const updateAgileSortValue = async (sort) => {
         });
 
         if (data instanceof Error) {
-            console.error('Error in updateAgileSortValue:\n' + data);
+            console.error('Error in updateSortValue:\n' + data);
         }
     } catch(err) {
-        return console.error('Error in updateAgileSortValue:\n' + err);
+        return console.error('Error in updateSortValue:\n' + err);
     }
 };
 

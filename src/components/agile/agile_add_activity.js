@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-// import {connect} from 'react-redux';
 import {activityHelper, agileHelper, tc} from 'helpers';
 import DatePicker from 'react-datepicker';
-import {addAgileActivity} from 'store/agile/tasks';
+import {addActivity} from 'store/agile/tasks';
 import Icon from 'components/icon';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
@@ -13,21 +12,6 @@ export default (props) => {
     const [comment, setComment] = useState('');
     const [date, setDate] = useState(null);
     const [isValid, setIsValid] = useState(false);
-
-    // useEffect(() => {
-    //     if (state.props.id && state.agile.columns && Array.isArray(state.agile.columns)) {
-    //         let found;
-    //         state.agile.columns.forEach((column) => {
-    //             if (column.items.find((num) => num._id === state.props.id)) {
-    //                 found = column.items.find((num) => num._id === state.props.id);
-    //             }
-    //         });
-    //
-    //         if (found) {
-    //             setItem(found);
-    //         }
-    //     }
-    // }, [state.agile.columns, state.props.id]);
 
     useEffect(() => {
         setDate(null);
@@ -55,7 +39,7 @@ export default (props) => {
 
     const _saveActivity = async () => {
         props.close();
-        await addAgileActivity({
+        await addActivity({
             action: action,
             comment: comment,
             dealId: props.id,
@@ -70,7 +54,7 @@ export default (props) => {
                 <div className='agileAddActivityWrapper__agileAddActivity__header'>
                     <WidgetHeader
                         iconVal='events'
-                        headline={tc.addAgileActivity}
+                        headline={tc.addActivity}
                     />
                 </div>
                 <div className='agileAddActivityWrapper__agileAddActivity__content'>
@@ -97,7 +81,7 @@ export default (props) => {
                         </div>
                     </div>
                     <div className='agileAddActivityWrapper__agileAddActivity__content__actions'>
-                        <h4>{tc.chooseAction}</h4>
+                        <h4>{tc.typeOfActivity}</h4>
                         <div className='agileAddActivityWrapper__agileAddActivity__content__actions__holder'>
                             {_renderActions()}
                         </div>
@@ -107,7 +91,7 @@ export default (props) => {
                             'agileAddActivityWrapper__agileAddActivity__content__dateAndComment__date' :
                             'agileAddActivityWrapper__agileAddActivity__content__dateAndComment__dateActive'}
                         >
-                            <h4>{tc.chooseDateAndTime}</h4>
+                            <h4>{tc.dateAndTime}</h4>
                             <DatePicker
                                 dateFormat='Pp'
                                 locale='sv'
@@ -120,13 +104,18 @@ export default (props) => {
                             />
                         </div>
                         <div className='agileAddActivityWrapper__agileAddActivity__content__dateAndComment__comment'>
-                            <h4>{tc.addComment}</h4>
+                            <h4>{tc.comment}</h4>
                             <textarea value={comment} onChange={(e) => {setComment(e.target.value)}}/>
                         </div>
                     </div>
                 </div>
                 <div className='agileAddActivityWrapper__agileAddActivity__footer'>
-                    <WidgetFooter disableSave={!isValid} save={_saveActivity}/>
+                    <WidgetFooter
+                        disableSave={!isValid}
+                        save={_saveActivity}
+                        // remove={() => {props.close()}}
+                        // removeText='Hoppa över'
+                    />
                 </div>
             </div>
         </div>

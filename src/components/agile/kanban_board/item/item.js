@@ -53,7 +53,7 @@ export default (props) => {
                 const diff = moment(date).diff(new Date(), 'hours');
                 let addActivity = (
                     <div className='itemWrapper__item__content__event__defaultHidden'>
-                        <Tooltip horizontalDirection='right' tooltipContent={tc.addAgileActivity}>
+                        <Tooltip horizontalDirection='right' tooltipContent={tc.addActivity}>
                             <Icon val='add' onClick={_addActivity}/>
                         </Tooltip>
                     </div>
@@ -94,7 +94,7 @@ export default (props) => {
             element = (
                 <div className='itemWrapper__item__content__event'>
                     <div className='itemWrapper__item__content__event__defaultVisible'>
-                        <Tooltip horizontalDirection='right'tooltipContent={tc.addAgileActivity}>
+                        <Tooltip horizontalDirection='right'tooltipContent={tc.addActivity}>
                             <Icon val='add' onClick={_addActivity}/>
                         </Tooltip>
                     </div>
