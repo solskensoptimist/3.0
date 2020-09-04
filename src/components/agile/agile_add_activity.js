@@ -1,12 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {activityHelper, agileHelper, tc} from 'helpers';
 import DatePicker from 'react-datepicker';
-import {addActivity} from 'store/agile/tasks';
 import Icon from 'components/icon';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
 
-export default (props) => {
+/**
+ * Render add activity component.
+ *
+ * @param props.close - func
+ * @param props.save - func
+ * @param props.moveItem - bool - When we're in the process of moving an item and adding an activity simultaneously. This affects which function to run for save and close.
+ */
+const AgileAddActivity = (props) => {
     const [action, setAction] = useState(null);
     const [activityIsPerformed, setActivityIsPerformed] = useState(null);
     const [comment, setComment] = useState('');
@@ -34,17 +40,6 @@ export default (props) => {
                     <p>{activityHelper.getReadableActivity(num)}</p>
                 </div>
             );
-        });
-    };
-
-    const _saveActivity = async () => {
-        props.close();
-        await addActivity({
-            action: action,
-            comment: comment,
-            dealId: props.id,
-            event_date: date,
-            performed: activityIsPerformed,
         });
     };
 
@@ -112,12 +107,30 @@ export default (props) => {
                 <div className='agileAddActivityWrapper__agileAddActivity__footer'>
                     <WidgetFooter
                         disableSave={!isValid}
-                        save={_saveActivity}
-                        // remove={() => {props.close()}}
-                        // removeText='Hoppa över'
+                        save={() => {
+                            props.save({
+                                action: action,
+                                comment: comment,
+                                event_date: date,
+                                performed: activityIsPerformed,
+                            });
+                        }}
+                        remove={(props.moveItem) ? () => {
+                            // If we have a moveDeal object, we should
+                            props.save({
+                                action: action,
+                                comment: comment,
+                                event_date: date,
+                                performed: activityIsPerformed,
+                                skipAddActivity: true,
+                            });
+                        } : null}
+                        removeText={tc.skip}
                     />
                 </div>
             </div>
         </div>
     );
 };
+
+export default AgileAddActivity;

@@ -30,8 +30,8 @@ export default (props) => {
     return (
         <div className='widgetFooterWrapper'>
             <div className='widgetFooterWrapper__widgetFooter'>
-                {removeButton}
                 {saveButton}
+                {removeButton}
             </div>
         </div>
     );

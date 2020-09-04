@@ -496,6 +496,7 @@ export default {
     shareLists: 'Dela listor',
     shareWith: 'Dela med',
     showing: 'Visar',
+    skip: 'Hoppa över',
     sold: 'Såld',
     solidity: 'Soliditet',
     sort: 'Sortera',

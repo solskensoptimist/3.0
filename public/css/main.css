@@ -3128,7 +3128,8 @@ svg.active {
   padding-top: 12px;
   border-top: 1px solid #e0e0e0;
   display: flex;
-  justify-content: flex-end; }
+  justify-content: space-between;
+  flex-direction: row-reverse; }
   .widgetFooterWrapper__widgetFooter__disabled {
     background: #f5f5f5 !important;
     color: #e0e0e0 !important;

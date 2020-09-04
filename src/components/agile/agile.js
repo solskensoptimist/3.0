@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {showFlashMessage} from 'store/flash_messages/tasks';
-import {getColumnsData, getFilters, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
+import {addActivity, getColumnsData, getFilters, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
 import AgileAddActivity from './agile_add_activity';
@@ -18,6 +18,7 @@ const Agile = (state) => {
     const [activeFilters, setActiveFilters] = useState(null);
     const [activeLists, setActiveLists] = useState(null);
     const [addActivityItem, setAddActivityItem] = useState(null);
+    const [moveItem, setMoveItem] = useState(null);
     const [newColumnName, setNewColumnName] = useState(null);
     const [previewItem, setPreviewItem] = useState(null);
     const [removeColumn, setRemoveColumn] = useState(null);
@@ -64,6 +65,44 @@ const Agile = (state) => {
         }
     }, [showAddNewColumn]);
 
+    const _addActivity = async (payload) => {
+        // OBS ETT PROBLEM HÄR..... om de klickar utanför rutan så händer ingenting,
+        // dealen flyttas inte heller (bara i komponent state).
+        // Ska vi göra att om vi har moveItem så ska man inte kunna köra props.close
+        // för Popup eller så?
+        // En annan lösning är att vi faktiskt inväntar flyttningen på backend först, sen lägger till action....
+
+        console.log('payload i _addActivity', payload);
+        console.log('moveItem i _addActivity', moveItem);
+        /*
+        Kolla om payload.skipAddActivity === true.
+        Isåfall ska vi inte göra någon activity.
+
+        Kolla sedan på om vi har en moveItem i state, isåfall ska vi flytta på itemet.
+
+        moveItem ska se ut såhär {
+            deal: {},
+            target: '',
+            source: '',
+        }
+
+        Har vi allt vi behöver för att gå vidare..?
+
+        Om vi bara skiter i reason alla gånger vi flyttar till en kolumn, även när det är förlorad,
+        så borde det gå bra?
+         */
+
+        // await addActivity({
+        //     action: payload.action,
+        //     comment: payload.comment,
+        //     dealId: addActivityItem,
+        //     event_date: payload.date,
+        //     performed: payload.activityIsPerformed,
+        // });
+        setAddActivityItem(null);
+        setMoveItem(null);
+    };
+
     const _addColumn = async () => {
         if (!newColumnName || (newColumnName && newColumnName.length < 2)) {
             return showFlashMessage(tc.columnNameTooShort);
@@ -107,37 +146,58 @@ const Agile = (state) => {
     };
 
     const _dragEnd = async (event) => {
+        console.log(event);
         if (!event.destination || (event.destination && event.destination.droppableId === 'prospects')) {
             return;
         }
 
         if (event.type === 'column') {
+            // Moving a column.
             const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
             [newColumns[event.source.index], newColumns[event.destination.index]] = [newColumns[event.destination.index], newColumns[event.source.index]];
             setColumns(newColumns);
             return await updateColumnStructure(newColumns);
         } else {
+            // Moving an item.
             const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
             const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
             const destinationColumn = newColumns.find(column => column.id === event.destination.droppableId);
             const [removedItem] = sourceColumn.items.splice(event.source.index, 1);
 
             if (event.source.droppableId === event.destination.droppableId) {
-                // Dragged within same column. We save column order in component state until next reload.
+                // Dragged within same column. (Order is not saved, only save column order in component state until next reload.)
                 sourceColumn.items.splice(event.destination.index, 0, removedItem);
                 setColumns(newColumns);
             } else {
                 // Dragged to another column.
-                // Skicka till moveDeal, och ange eventuellt action....
-                // Ska vi sätta nya kolumner som nedan, eller bara hämta data från backend..?
-                /*
-                Kanske sätta movingDeal = true, och när vi körs addActivity körs det i agile.js
-                istället för i komponenten. Och om movingDeal är true så skickar vi till moveDeal
-                samtidigt som addActivity.
-                 */
+                // Adjust the columns.
                 removedItem.column = event.destination.droppableId;
                 destinationColumn.items.splice(event.destination.index, 0, removedItem);
                 setColumns(newColumns);
+
+                // Set deal/prospect to move.
+                let move = null;
+                columns.forEach((column) => {
+                    if (column.id === 'prospects' && column.items.find((num) => num.prospectId === event.draggableId)) {
+                        move = {
+                            deal: column.items.find((num) => num.prospectId === event.draggableId)
+                        };
+                    } else if (column.items.find((num) => num._id === event.draggableId)) {
+                        move = {
+                            deal: column.items.find((num) => num._id === event.draggableId)
+                        };
+                    }
+                });
+
+                // Assign some extra properties to the deal we're moving, used in _addActivity().
+                move = Object.assign(move, {
+                    source: event.source.droppableId,
+                    target: event.destination.droppableId,
+                });
+                setMoveItem(move);
+
+                // Set item to add activity for.
+                setAddActivityItem(event.draggableId);
             }
         }
     };
@@ -230,12 +290,19 @@ const Agile = (state) => {
                     />
                     {(previewItem) ?
                         <Popup close={() => {setPreviewItem(null)}} size='big'>
-                            <AgilePreview close={() => {setPreviewItem(null)}} id={previewItem}/>
+                            <AgilePreview
+                                close={() => {setPreviewItem(null)}}
+                                id={previewItem}
+                            />
                         </Popup> : null
                     }
                     {(!previewItem && addActivityItem) ?
                         <Popup close={() => {setAddActivityItem(null)}} size='medium'>
-                            <AgileAddActivity close={() => {setAddActivityItem(null)}} id={addActivityItem}/>
+                            <AgileAddActivity
+                                close={() => {setAddActivityItem(null)}}
+                                moveItem={!!(moveItem)}
+                                save={_addActivity}
+                            />
                         </Popup> : null
                     }
                     {(!previewItem && showAddNewColumn) ?
