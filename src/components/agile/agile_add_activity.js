@@ -41,8 +41,8 @@ export default (props) => {
         return agileHelper.getActionTypes.map((num) => {
             return (
                 <div className={(action === num) ?
-                    'agileAddActivityWrapper__agileAddActivity__content__selectables__actions__action agileAddActivityBoxActive' :
-                    'agileAddActivityWrapper__agileAddActivity__content__selectables__actions__action'}
+                    'agileAddActivityWrapper__agileAddActivity__content__actions__holder__action agileAddActivityBoxActive' :
+                    'agileAddActivityWrapper__agileAddActivity__content__actions__holder__action'}
                      key={num}
                      onClick={() => {setAction(num)}}
                 >
@@ -96,35 +96,32 @@ export default (props) => {
                             <Icon val='time'/>
                         </div>
                     </div>
-                    <div className={(activityIsPerformed !== null) ?
-                        'agileAddActivityWrapper__agileAddActivity__content__selectables' :
-                        'agileAddActivityWrapper__agileAddActivity__content__selectables agileAddActivityDisabled'}
-                    >
+                    <div className='agileAddActivityWrapper__agileAddActivity__content__actions'>
                         <h4>{tc.chooseAction}</h4>
-                        <div className='agileAddActivityWrapper__agileAddActivity__content__selectables__actions'>
+                        <div className='agileAddActivityWrapper__agileAddActivity__content__actions__holder'>
                             {_renderActions()}
                         </div>
-                        <div className='agileAddActivityWrapper__agileAddActivity__content__selectables__dateAndComment'>
-                            <div className={(date === null ) ?
-                                'agileAddActivityWrapper__agileAddActivity__content__selectables__dateAndComment__date' :
-                                'agileAddActivityWrapper__agileAddActivity__content__selectables__dateAndComment__dateActive'}
-                            >
-                                <h4>{tc.chooseDateAndTime}</h4>
-                                <DatePicker
-                                    dateFormat='Pp'
-                                    locale='sv'
-                                    maxDate={(activityIsPerformed) ? new Date() : null}
-                                    minDate={!(activityIsPerformed) ? new Date() : null}
-                                    onChange={(val) => {setDate(val)}}
-                                    selected={date}
-                                    showTimeSelect
-                                    timeCaption={tc.time}
-                                />
-                            </div>
-                            <div className='agileAddActivityWrapper__agileAddActivity__content__selectables__dateAndComment__comment'>
-                                <h4>{tc.addComment}</h4>
-                                <textarea value={comment} onChange={(e) => {setComment(e.target.value)}}/>
-                            </div>
+                    </div>
+                    <div className='agileAddActivityWrapper__agileAddActivity__content__dateAndComment'>
+                        <div className={(date === null ) ?
+                            'agileAddActivityWrapper__agileAddActivity__content__dateAndComment__date' :
+                            'agileAddActivityWrapper__agileAddActivity__content__dateAndComment__dateActive'}
+                        >
+                            <h4>{tc.chooseDateAndTime}</h4>
+                            <DatePicker
+                                dateFormat='Pp'
+                                locale='sv'
+                                maxDate={(activityIsPerformed) ? new Date() : null}
+                                minDate={!(activityIsPerformed) ? new Date() : null}
+                                onChange={(val) => {setDate(val)}}
+                                selected={date}
+                                showTimeSelect
+                                timeCaption={tc.time}
+                            />
+                        </div>
+                        <div className='agileAddActivityWrapper__agileAddActivity__content__dateAndComment__comment'>
+                            <h4>{tc.addComment}</h4>
+                            <textarea value={comment} onChange={(e) => {setComment(e.target.value)}}/>
                         </div>
                     </div>
                 </div>
