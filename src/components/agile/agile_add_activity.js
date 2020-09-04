@@ -106,8 +106,8 @@ const AgileAddActivity = (props) => {
                 </div>
                 <div className='agileAddActivityWrapper__agileAddActivity__footer'>
                     <WidgetFooter
-                        disableSave={!isValid}
-                        save={() => {
+                        disableButtonOne={!isValid}
+                        buttonOneFunc={() => {
                             props.save({
                                 action: action,
                                 comment: comment,
@@ -115,7 +115,7 @@ const AgileAddActivity = (props) => {
                                 performed: activityIsPerformed,
                             });
                         }}
-                        remove={(props.moveItem) ? () => {
+                        buttonTwoFunc={(props.moveItem) ? () => {
                             // If we have a moveDeal object, we should
                             props.save({
                                 action: action,
@@ -125,7 +125,7 @@ const AgileAddActivity = (props) => {
                                 skipAddActivity: true,
                             });
                         } : null}
-                        removeText={tc.skip}
+                        buttonTwoText={tc.skip}
                     />
                 </div>
             </div>

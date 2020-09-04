@@ -37,7 +37,7 @@ export default (props) => {
                         <textarea onChange={_onChange} ref={commentNewTextRef} value={text}/>
                     </div>
                     <div className='commentWrapper__comment__footer'>
-                        <WidgetFooter save={_saveComment}/>
+                        <WidgetFooter buttonOneFunc={_saveComment}/>
                     </div>
                 </div>
             </div>

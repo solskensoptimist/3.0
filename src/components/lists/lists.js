@@ -338,7 +338,7 @@ const Lists = (state) => {
                                         </div>
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__footer'>
-                                        <WidgetFooter save={_createListSubscription} saveText={tc.create}/>
+                                        <WidgetFooter buttonOneFunc={_createListSubscription} buttonOneText={tc.create}/>
                                     </div>
                                 </div>
                             </div>
@@ -361,7 +361,7 @@ const Lists = (state) => {
                                         <p className='noWrap'>{tc.nameNewList}:</p><input onChange={(e) => {setListName(e.target.value)}} ref={mergeListsNameInputRef}/>
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__footer'>
-                                        <WidgetFooter save={_mergeLists}/>
+                                        <WidgetFooter buttonOneFunc={_mergeLists}/>
                                     </div>
                                 </div>
                             </div>
@@ -381,7 +381,7 @@ const Lists = (state) => {
                                         <p>{tc.removeEnsure}</p>
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__footer'>
-                                        <WidgetFooter remove={_removeLists}/>
+                                        <WidgetFooter buttonOneFunc={_removeLists} buttonOneText={tc.remove}/>
                                     </div>
                                 </div>
                             </div>
@@ -401,7 +401,7 @@ const Lists = (state) => {
                                         <p>{tc.removeEnsure}</p>
                                     </div>
                                     <div className='listsPopupWrapper__listsPopup__footer'>
-                                        <WidgetFooter remove={_removeListsSubscriptions}/>
+                                        <WidgetFooter buttonOneFunc={_removeListsSubscriptions} buttonOneText={tc.remove}/>
                                     </div>
                                 </div>
                             </div>

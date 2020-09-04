@@ -303,7 +303,7 @@ export default (props) => {
                 </div>
                 {props.list.total > 1 ?
                     <div className='splitListWrapper__splitList__footer'>
-                        <WidgetFooter save={() => {
+                        <WidgetFooter buttonOneFunc={() => {
                                 if (!info.validated) {
                                     // Should never happen, extra safe catch just in case.
                                     return setInfo({

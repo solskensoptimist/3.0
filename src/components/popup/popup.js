@@ -11,10 +11,10 @@ export default (props) => {
 
     useEffect(() => {
         /**
-         * When clicking outside popup components, close it.
+         * When clicking outside popup components close it, if props.close() is provided.
          */
         const _closePopup = (e) => {
-            if (popupRef && popupRef.current) {
+            if (popupRef && popupRef.current && typeof props.close === 'function') {
                 const node = ReactDOM.findDOMNode(popupRef.current);
                 if (node && !node.contains(e.target)) {
                     props.close();

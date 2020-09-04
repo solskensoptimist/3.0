@@ -343,7 +343,7 @@ const CreateDeal = (state) => {
                         </div>
                     </div>
                     <div className='createDealWrapper__createDeal__footer'>
-                        <WidgetFooter save={_saveDeal}/>
+                        <WidgetFooter buttonOneFunc={_saveDeal}/>
                     </div>
                 </div>
             </div>

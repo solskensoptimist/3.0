@@ -192,7 +192,7 @@ const ShareLists = (state) => {
                     </div>
                 </div>
                 <div className='shareListsWrapper__shareLists__footer'>
-                    <WidgetFooter save={() => {
+                    <WidgetFooter buttonOneFunc={() => {
                         if (users.length && typeof state.props.save === 'function') {
                             return state.props.save(users.map((num) => num.id));
                         }

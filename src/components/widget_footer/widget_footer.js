@@ -4,35 +4,37 @@ import {tc} from 'helpers';
 /**
  * Just a footer.
  *
- * @param props.disableRemove - bool (optional)
- * @param props.disableSave - bool (optional)
- * @param props.remove - func (optional)
- * @param props.removeText - string (optional)
- * @param props.save - func (optional)
- * @param props.saveText - string (optional)
+ * @param props.disableButtonTwo - bool (optional)
+ * @param props.disableButtonOne - bool (optional)
+ * @param props.buttonTwoFunc - func (optional)
+ * @param props.buttonTwoText - string (optional)
+ * @param props.buttonOneFunc - func (optional)
+ * @param props.buttonOneText - string (optional)
  */
-export default (props) => {
-    const removeButton = (props.remove) ?
+const WidgetFooter = (props) => {
+    const buttonTwo = (props.buttonTwoFunc) ?
         <button
-            className={(props.disableRemove) ? 'widgetFooterWrapper__widgetFooter__disabled' : null}
-            onClick={(!props.disableRemove) ? props.remove : null}
+            className={(props.disableButtonTwo) ? 'widgetFooterWrapper__widgetFooter__disabled' : null}
+            onClick={(!props.disableButtonTwo) ? props.buttonTwoFunc : null}
         >
-            {props.removeText ? props.removeText : tc.remove}
+            {props.buttonTwoText ? props.buttonTwoText : tc.remove}
         </button> : null;
-    const saveButton = (props.save) ?
+    const buttonOne = (props.buttonOneFunc) ?
         <button
-            className={(props.disableSave) ? 'widgetFooterWrapper__widgetFooter__disabled' : null}
-            onClick={(!props.disableSave) ? props.save : null}
+            className={(props.disableButtonOne) ? 'widgetFooterWrapper__widgetFooter__disabled' : null}
+            onClick={(!props.disableButtonOne) ? props.buttonOneFunc : null}
         >
-            {props.saveText ? props.saveText : tc.save}
+            {props.buttonOneText ? props.buttonOneText : tc.save}
         </button> : null;
 
     return (
         <div className='widgetFooterWrapper'>
             <div className='widgetFooterWrapper__widgetFooter'>
-                {saveButton}
-                {removeButton}
+                {buttonOne}
+                {buttonTwo}
             </div>
         </div>
     );
-}
+};
+
+export default WidgetFooter;

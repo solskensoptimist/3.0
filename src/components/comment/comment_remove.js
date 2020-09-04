@@ -26,7 +26,7 @@ export default (props) => {
                         {tc.removeEnsure}
                     </div>
                     <div className='commentWrapper__comment__footer'>
-                        <WidgetFooter remove={_removeComment}/>
+                        <WidgetFooter buttonOneFunc={_removeComment} buttonOneText={tc.remove}/>
                     </div>
                 </div>
             </div>

@@ -66,12 +66,6 @@ const Agile = (state) => {
     }, [showAddNewColumn]);
 
     const _addActivity = async (payload) => {
-        // OBS ETT PROBLEM HÄR..... om de klickar utanför rutan så händer ingenting,
-        // dealen flyttas inte heller (bara i komponent state).
-        // Ska vi göra att om vi har moveItem så ska man inte kunna köra props.close
-        // för Popup eller så?
-        // En annan lösning är att vi faktiskt inväntar flyttningen på backend först, sen lägger till action....
-
         console.log('payload i _addActivity', payload);
         console.log('moveItem i _addActivity', moveItem);
         /*
@@ -297,7 +291,7 @@ const Agile = (state) => {
                         </Popup> : null
                     }
                     {(!previewItem && addActivityItem) ?
-                        <Popup close={() => {setAddActivityItem(null)}} size='medium'>
+                        <Popup close={(!moveItem) ? () => {setAddActivityItem(null)} : null} size='medium'>
                             <AgileAddActivity
                                 close={() => {setAddActivityItem(null)}}
                                 moveItem={!!(moveItem)}
@@ -320,7 +314,7 @@ const Agile = (state) => {
                                         <input onChange={(e) => {setNewColumnName(e.target.value)}} ref={newColumnNameInputRef} type='text'/>
                                     </div>
                                     <div className='agilePopupWrapper__agilePopup__footer'>
-                                        <WidgetFooter save={_addColumn}/>
+                                        <WidgetFooter buttonOneFunc={_addColumn}/>
                                     </div>
                                 </div>
                             </div>
@@ -345,15 +339,15 @@ const Agile = (state) => {
                                     <div className='agileAddColumnWrapper__agileAddColumn__footer'>
                                         {(columns.find((column) => column.id === removeColumn).items.length) ?
                                             <WidgetFooter
-                                                save={() => {
+                                                buttonOneFunc={() => {
                                                     setShowRemoveColumn(null);
                                                     setRemoveColumn(null);
                                                 }}
-                                                saveText={tc.ok}
+                                                buttonOneText={tc.ok}
                                             /> :
                                             <WidgetFooter
-                                                save={_removeColumn}
-                                                saveText={tc.remove}
+                                                buttonOneFunc={_removeColumn}
+                                                buttonOneText={tc.remove}
                                             />
                                         }
                                     </div>

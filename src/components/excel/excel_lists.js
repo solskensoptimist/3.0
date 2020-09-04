@@ -175,7 +175,7 @@ const Excel = (state) => {
                         </div>: <Loading/>
                     }
                     <div className='excelWrapper__excel__footer'>
-                        <WidgetFooter save={convertToExcel} saveText={tc.download}/>
+                        <WidgetFooter buttonOneFunc={convertToExcel} buttonOneText={tc.download}/>
                     </div>
                 </div>
             </div>

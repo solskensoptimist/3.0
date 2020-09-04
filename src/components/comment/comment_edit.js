@@ -52,7 +52,7 @@ const CommentEdit = (state) => {
                         <textarea onChange={_onChange} ref={commentEditTextRef} value={text}/>
                     </div>
                     <div className='commentWrapper__comment__footer'>
-                        <WidgetFooter save={_updateComment}/>
+                        <WidgetFooter buttonOneFunc={_updateComment}/>
                     </div>
                 </div>
             </div>

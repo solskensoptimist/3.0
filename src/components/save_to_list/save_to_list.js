@@ -72,7 +72,7 @@ const SaveToList = (state) => {
                         }
                     </div>
                     <div className='saveToListWrapper__saveToList__footer'>
-                        <WidgetFooter save={_saveToList}/>
+                        <WidgetFooter buttonOneFunc={_saveToList}/>
                     </div>
                 </div>
             </div>
