@@ -49,7 +49,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.carType}
                                 options={{
-                                    colors: [colors.chartColor1, colors.chartColor2, colors.chartColor3, colors.chartColor4, colors.chartColor5, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
+                                    colors: [colors.chartColor1, colors.chartColor2, colors.chartColor3],
                                     is3D: true,
                                     title: tc.vehicleTypes,
                                 }}
@@ -61,7 +61,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.new}
                                 options={{
-                                    colors: [colors.chartColor4, colors.chartColor2, colors.chartColor1, colors.chartColor5, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
+                                    colors: [colors.chartColor2, colors.chartColor3, colors.chartColor1],
                                     is3D: true,
                                     title: tc.new,
                                 }}
@@ -73,7 +73,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.finance}
                                 options={{
-                                    colors: [colors.chartColor2, colors.chartColor1, colors.chartColor3, colors.chartColor4, colors.chartColor5, colors.chartColor6, colors.chartColor7, colors.chartColor8, colors.chartColor9, colors.chartColor10],
+                                    colors: [colors.chartColor3, colors.chartColor1, colors.chartColor2],
                                     is3D: true,
                                     title: tc.financedBy,
                                 }}
@@ -85,7 +85,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.brands}
                                 options={{
-                                    colors: [colors.chartColor1],
+                                    colors: [colors.chartColor4],
                                     bars: 'horizontal',
                                     title: tc.brands,
                                     chartArea: {width: '30%' },
@@ -105,7 +105,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.models}
                                 options={{
-                                    colors: [colors.chartColor1],
+                                    colors: [colors.chartColor4],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},
@@ -125,7 +125,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.carYear}
                                 options={{
-                                    colors: [colors.chartColor1],
+                                    colors: [colors.chartColor4],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},
@@ -145,7 +145,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.regYear}
                                 options={{
-                                    colors: [colors.chartColor1],
+                                    colors: [colors.chartColor4],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},
@@ -165,7 +165,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.kaross}
                                 options={{
-                                    colors: [colors.chartColor1],
+                                    colors: [colors.chartColor4],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},
@@ -185,7 +185,7 @@ export default (props) => {
                                 loader={<Loading/>}
                                 data={props.data.boughtPlace}
                                 options={{
-                                    colors: [colors.chartColor1],
+                                    colors: [colors.chartColor4],
                                     bars: 'horizontal',
                                     title: tc.models,
                                     chartArea: {width: '30%'},

@@ -13,6 +13,7 @@
     "history": "^4.10.1",
     "link-module-alias": "^1.2.0",
     "moment": "^2.24.0",
+    "mongodb": "^3.6.1",
     "nls": "git+ssh://git@gitlab.com:bilprospekt/bilp-shared/bilprospekt-nls.git",
     "ramda": "^0.26.1",
     "react": "^16.12.0",

@@ -4,6 +4,7 @@ import {showFlashMessage} from 'store/flash_messages/tasks';
 import {addActivity, getColumnsData, getFilters, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
+import mdb from'mongodb';
 import AgileAddActivity from './agile_add_activity';
 import AgilePreview from './agile_preview';
 import KanbanBoard from './kanban_board';
@@ -90,9 +91,10 @@ const Agile = (state) => {
         setShowAddNewColumn(false);
 
         let id = newColumnName.replace(/[ÅÄ]/ig, "a")
-                        .replace(/[Ö]/ig, "o")
-                        .replace(/[^A-Z0-9]/ig, "")
-                        .toLowerCase().trim();
+                                .replace(/[Ö]/ig, "o")
+                                .replace(/\s/g, '-')
+                                .replace(/[^A-Z0-9-]/ig, "")
+                                .toLowerCase().trim();
 
         // If id already exists add integer (no long ugly ids please, this will be value for deal phases).
         const _createUniqueId = (str, i) => {
@@ -105,7 +107,7 @@ const Agile = (state) => {
             }
         };
 
-        await _createUniqueId(id, 0);
+        _createUniqueId(id, 0);
 
         const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
         newColumns.push({
@@ -146,27 +148,35 @@ const Agile = (state) => {
                 // Dragged within same column.
                 // Adjust columns. Note that this order isn't saved anywhere outside component state, will rearrange every reload or when sorting is triggered.
                 sourceColumn.items.splice(event.destination.index, 0, removedItem);
-                setColumns(newColumns);
+                return setColumns(newColumns);
             } else {
                 // Dragged to another column.
-                // First adjust the columns.
-                removedItem.column = event.destination.droppableId;
-                destinationColumn.items.splice(event.destination.index, 0, removedItem);
-                setColumns(newColumns);
 
                 // Set item to move.
                 let moveObject = null;
                 columns.forEach((column) => {
-                    if (column.id === 'prospects' && column.items.find((num) => num.prospectId === event.draggableId)) {
+                    if (column.id === 'prospects' && column.items.find((num) => num.prospectId.toString() === event.draggableId)) {
                         moveObject = {
-                            deal: column.items.find((num) => num.prospectId === event.draggableId)
+                            item: column.items.find((num) => num.prospectId === event.draggableId)
                         };
                     } else if (column.items.find((num) => num._id === event.draggableId)) {
                         moveObject = {
-                            deal: column.items.find((num) => num._id === event.draggableId)
+                            item: column.items.find((num) => num._id === event.draggableId)
                         };
                     }
                 });
+
+                // Extra guard, should never happen.
+                if (!moveObject) {
+                    return showFlashMessage((mdb.ObjectId.isValid(event.draggableId)) ?
+                        tc.couldNotMoveDeal :
+                        tc.couldNotMoveProspect);
+                }
+
+                // Adjust the columns in component state.
+                removedItem.column = event.destination.droppableId;
+                destinationColumn.items.splice(event.destination.index, 0, removedItem);
+                setColumns(newColumns);
 
                 // Assign some extra properties to the item we're moving, used in _moveItem().
                 moveObject = Object.assign(moveObject, {
@@ -176,9 +186,9 @@ const Agile = (state) => {
                 setMoveItem(moveObject);
 
                 // Set addActivityItem to prompt AgileAddActivity popup.
-                // If adding activity _addActivity() is executed which then executes _moveItem().
-                // If not adding activity, _moveItem() is executed directly.
-                setAddActivityItem(event.draggableId);
+                // (If user adds activity _addActivity() is executed, which then executes _moveItem().
+                // If not adding any activity, _moveItem() is executed directly.)
+                return setAddActivityItem(event.draggableId);
             }
         }
     };
@@ -187,7 +197,7 @@ const Agile = (state) => {
         console.log('moveItem körs');
         /*
         moveItem ska se ut såhär {
-            deal: {},
+            item: {},
             target: '',
             source: '',
         }
@@ -293,10 +303,7 @@ const Agile = (state) => {
                         <Popup
                             close={(!moveItem) ?
                                 () => {setAddActivityItem(null)} :
-                                () => {
-                                    setAddActivityItem(null);
-                                    _moveItem();
-                                }
+                                null
                             }
                            size='medium'
                         >

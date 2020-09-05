@@ -36,7 +36,7 @@ export const dealHelper = {
             case 'trash':
                 return tc.trash;
             default:
-                return phase;
+                return phase.charAt(0).toUpperCase() + phase.slice(1).replace(/[-]/ig, " ");
         }
     },
 };

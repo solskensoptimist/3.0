@@ -3,6 +3,7 @@ import {agileHelper, request, tc} from 'helpers';
 import {agileActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
+import mdb from'mongodb';
 
 /**
  * Add activity to a deal. Either historic/performed or planned.
@@ -188,7 +189,12 @@ export const getColumnsData = async () => {
 };
 
 /**
- * Get saved agile column structure and sort value.
+ * Get saved agile column structure.
+ *
+ * This structure should always contain a 'prospects' and an 'idle' column.
+ * This is because we show all prospects that hasn't been turned into deals yet in 'prospects' columns.
+ * And every time a deal is created without specifying a phase (I.E. whenever a deal is created outside Bearbeta),
+ * it gets the phase 'idle' by default. That's why we always want to show this column.
  */
 const getColumnStructure = async () => {
     try {
@@ -197,41 +203,50 @@ const getColumnStructure = async () => {
             url: '/agile/getColumnStructure/',
         });
 
-        // No columns found in db, probably first time user log into bilprospekt-3.0...
+        // No columns found in db, probably the first time user logging into bilprospekt-3.0...
         if (data instanceof Error || !data) {
             console.error('Could not get columns in getColumnStructure:\n' + data);
 
-            // ...set default column structure that correspond to deal phases in bilprospekt-2.0...
+            // ...so set default column structure that correspond to deal phases in bilprospekt-2.0...
             data = [
                 {
                     id: 'prospects',
                     title: tc.prospects,
-                    items: [],
                 },
                 {
                     id: 'idle',
-                    title: tc.notStartedDeals,
-                    items: [],
+                    title: tc.idleDeals,
                 },
                 {
                     id: 'todo',
                     title: tc.inContact,
-                    items: [],
                 },
                 {
                     id: 'contacted',
                     title: tc.contacted,
-                    items: [],
                 },
                 {
                     id: 'negotiation',
                     title: tc.negotiation,
-                    items: [],
                 }
             ];
 
             // ...and save to db.
             await updateColumnStructure(data)
+        }
+
+        // Extra guard, these two columns should always exist.
+        if (!data.find((column) => column.id === 'prospects')) {
+            data.push({
+                id: 'prospects',
+                title: tc.prospects,
+            });
+        }
+        if (!data.find((column) => column.id === 'idle')) {
+            data.push({
+                id: 'idle',
+                title: tc.idleDeals,
+            });
         }
 
         return data;
@@ -267,6 +282,9 @@ export const getFilters = async () => {
     }
 };
 
+/**
+ * Get saved value for sorting columns.
+ */
 const getSortValue = async () => {
     try {
         let data = await request({
@@ -285,18 +303,24 @@ const getSortValue = async () => {
 };
 
 /**
- * Move a deal to a new column/phase.
+ * Move a deal or prospect to a new column/phase.
+ * If its a prospect - create deal first, then move it.
  *
  * @param payload.action - string (optional) - If we want to add a deal action simultaneously.
  * @param payload.comment - string (optional) - Comment belonging to action.
  * @param payload.id - string
- * @param payload.isDeal - bool
  * @param payload.prospectIds - string- String of prospectIds separated by comma.
  * @param payload.source - string - Previous column/phase
  * @param payload.target - string - New column/phase
  */
-export const moveDeal = async (payload) => {
+export const moveItem = async (payload) => {
     try {
+
+        // Om nedanstående är false, skapa deal först.
+        //mdb.ObjectId.isValid(payload.id);
+
+        // Om target är 'idle', så behöver vi inte flytta affären (den får fas idle per automatik).
+
         // if (!payload || (payload && !payload.dealId) || (payload && !payload.action) || (payload && !payload.event_date)) {
         //     return console.error('Missing params in moveDeal', payload);
         // }

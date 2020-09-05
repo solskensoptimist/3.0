@@ -6,6 +6,11 @@ import {showFlashMessage} from 'store/flash_messages/tasks';
 import Icon from 'components/icon';
 import ItemsList from '../items_list';
 
+/**
+ * Render Column component.
+ * Should be able to remove or edit title of all columns except 'prospects'.
+ * Should be able to edit title but not remove column 'idle'.
+ */
 export default (props) => {
     const {addActivity, column, index, items, openItem, removeColumn, title, total} = props;
     const [editTitle, setEditTitle] = useState(false);
@@ -42,7 +47,7 @@ export default (props) => {
                                     <span>{title}</span>
                                 }
                             </div>
-                            {(column.id !== 'prospects') ?
+                            {(column.id !== 'prospects' || column.id !== 'idle') ?
                                 <>
                                     {!(editTitle) ?
                                         <div className='columnWrapper__column__header__totalHideOnHover'>

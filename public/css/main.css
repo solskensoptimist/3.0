@@ -1,14 +1,8 @@
 :export {
-  chartColor1: #ffb300;
-  chartColor2: #ff5722;
-  chartColor3: #ffd54f;
-  chartColor4: #b0bec5;
-  chartColor5: #ff8a65;
-  chartColor6: #78909c;
-  chartColor7: #546e7a;
-  chartColor8: #81c784;
-  chartColor9: #4caf50;
-  chartColor10: #388e3c;
+  chartColor1: #607d8b;
+  chartColor2: #90a4ae;
+  chartColor3: #455a64;
+  chartColor4: #ff7043;
   informatory: #ffc107; }
 
 @keyframes slideFromBottom {
