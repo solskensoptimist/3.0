@@ -12,7 +12,7 @@ import ItemsList from '../items_list';
  * Should be able to edit title but not remove column 'idle'.
  */
 export default (props) => {
-    const {addActivity, column, index, items, openItem, removeColumn, title, total} = props;
+    const {addActivity, allProspectsReceived, column, index, items, openItem, removeColumn, title, total} = props;
     const [editTitle, setEditTitle] = useState(false);
     const [newTitle, setNewTitle] = useState(null);
 
@@ -47,7 +47,10 @@ export default (props) => {
                                     <span>{title}</span>
                                 }
                             </div>
-                            {(column.id !== 'prospects' || column.id !== 'idle') ?
+                            {(column.id === 'prospects' || column.id === 'idle') ?
+                                <div className='columnWrapper__column__header__total'>
+                                    {total} {tc.aPiece.toLowerCase()}
+                                </div> :
                                 <>
                                     {!(editTitle) ?
                                         <div className='columnWrapper__column__header__totalHideOnHover'>
@@ -85,10 +88,7 @@ export default (props) => {
                                             </div>
                                         </>
                                     }
-                                </> :
-                                <div className='columnWrapper__column__header__total'>
-                                    {total} {tc.aPiece.toLowerCase()}
-                                </div>
+                                </>
                             }
                         </div>
                         <div className='columnWrapper__column__content'>
@@ -96,6 +96,7 @@ export default (props) => {
                                 {(provided) => (
                                     <ItemsList
                                         addActivity={addActivity}
+                                        columnId={column.id}
                                         items={items}
                                         openItem={openItem}
                                         provided={provided}

@@ -281,6 +281,7 @@ const Agile = (state) => {
                         addActivity={(id) => {
                             setAddActivityItem(id);
                         }}
+                        allProspectsReceived={state.agile.allProspectsReceived}
                         columns={columns}
                         dragEnd={ _dragEnd}
                         openItem={(id) => {

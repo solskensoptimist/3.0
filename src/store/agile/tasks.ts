@@ -144,6 +144,8 @@ export const getColumnsData = async () => {
             console.error('Error in getColumnsData:\n' + data);
         }
 
+        store.dispatch({type: agileActionTypes.SET_ALL_PROSPECTS_RECEIVED, payload: !data.prospects.more});
+
         // Add/empty items array to each column.
         columns.map((column) => {
             column.items = [];
@@ -182,7 +184,7 @@ export const getColumnsData = async () => {
             columns = await sortColumns({sort: sortValue, columns: columns, skipUpdateState: true});
         }
 
-        return store.dispatch({ type: agileActionTypes.SET_COLUMNS, payload: columns});
+        return store.dispatch({type: agileActionTypes.SET_COLUMNS, payload: columns});
     } catch(err) {
         return console.error('Error in getColumnsData:\n' + err);
     }
@@ -283,6 +285,41 @@ export const getFilters = async () => {
 };
 
 /**
+ * We only receive 100 prospects when collecting agile data from backend.
+ * Use this to receive 100 more, exclude existing prospects.
+ */
+export const getPagedProspects = async () => {
+    try {
+        let columnsCloned = JSON.parse(JSON.stringify(store.getState().agile.columns));
+        const prospects = columnsCloned.find((column) => column.id === 'prospects');
+
+        let data = await request({
+            data: {
+                excludeProspects : JSON.stringify(prospects.items.map((num) => num.prospectId)),
+                search : '',
+            },
+            method: 'post',
+            url: '/agile/getAgilePagedProspects/',
+        });
+
+        if (data instanceof Error || !data) {
+            return console.error('Could not get data in getPagedProspects:\n' + data);
+        }
+
+        columnsCloned.map((column) => {
+            if (column.id === 'prospects') {
+                column.items = column.items.concat(data.data);
+            }
+        });
+
+        store.dispatch({type: agileActionTypes.SET_ALL_PROSPECTS_RECEIVED, payload: !data.more});
+        return store.dispatch({type: agileActionTypes.SET_COLUMNS, payload: columnsCloned});
+    } catch(err) {
+        return console.error('Error in getPagedProspects:\n' + err);
+    }
+};
+
+/**
  * Get saved value for sorting columns.
  */
 const getSortValue = async () => {
@@ -293,7 +330,7 @@ const getSortValue = async () => {
         });
 
         if (data instanceof Error || !data) {
-            console.error('Could not get sort value in getSortValue:\n' + data);
+            return console.error('Could not get sort value in getSortValue:\n' + data);
         }
 
         return data;

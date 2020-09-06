@@ -1,12 +1,14 @@
 import {agileActionTypes} from './actions';
 
 interface AgileState {
+    allProspectsReceived: boolean,
     columns: Array<object> | null,
     filters: object | null,
     sort: string | null,
 }
 
 const initialState: AgileState = {
+    allProspectsReceived: true,
     columns: null,
     filters: null,
     sort: null,
@@ -14,6 +16,12 @@ const initialState: AgileState = {
 
 export const agileReducer = (state = initialState, action) => {
     switch(action.type) {
+        case agileActionTypes.SET_ALL_PROSPECTS_RECEIVED: {
+            return {
+                ...state,
+                allProspectsReceived: action.payload,
+            }
+        }
         case agileActionTypes.SET_COLUMNS: {
             return {
                 ...state,

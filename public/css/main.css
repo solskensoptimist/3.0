@@ -532,6 +532,18 @@ a {
           height: 100%; }
           .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper {
             height: 100%; }
+            .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList__getMore {
+              margin-top: 2px;
+              padding: 12px;
+              border-radius: 2px;
+              background: #00B4CC;
+              color: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 600; }
+              .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList__getMore:hover {
+                background: #616161; }
             .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__content__container .columnWrapper__column__content .itemsListWrapper__itemsList .itemWrapper__item {
               margin-top: 2px;
               padding: 12px;

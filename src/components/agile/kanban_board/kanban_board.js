@@ -9,7 +9,7 @@ import Icon from 'components/icon';
  * Data and functions is handled through props.
  */
 export default (props) => {
-    const {addActivity, columns, dragEnd, openItem, removeColumn} = props;
+    const {addActivity, allProspectsReceived, columns, dragEnd, openItem, removeColumn} = props;
     const [hasScrolledRight, setHasScrolledRight] = useState(false);
 
     useEffect(() => {
@@ -54,6 +54,7 @@ export default (props) => {
                                     {columns.map((column, index) => (
                                         <Column
                                             addActivity={addActivity}
+                                            allProspectsReceived={allProspectsReceived}
                                             column={column}
                                             key={column.id}
                                             index={index}

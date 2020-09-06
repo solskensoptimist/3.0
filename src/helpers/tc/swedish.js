@@ -226,6 +226,7 @@ export default {
     gdprConsentInfo: 'Finns samtycke från denna brukare att spara personuppgifter',
     gender: 'Kön',
     genderNotProvided: 'Kön ej angivet',
+    getMore: 'Hämta fler',
     handleCars: 'Hantera fordon som är kopplade till affären',
     handleContacts: 'Hantera kopplade kontaktpersoner',
     handleFiles: 'Hantera uppladdade filer',

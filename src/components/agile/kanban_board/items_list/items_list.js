@@ -1,9 +1,11 @@
 import React from 'react';
 import {Draggable} from 'react-beautiful-dnd';
+import {getPagedProspects} from 'store/agile/tasks';
+import {tc} from 'helpers';
 import Item from '../item';
 
 export default (props) => {
-    const {addActivity, items, openItem, provided} = props;
+    const {addActivity, allProspectsReceived, columnId, items, openItem, provided} = props;
 
     return (
         <div className='itemsListWrapper' ref={provided.innerRef}>
@@ -27,6 +29,11 @@ export default (props) => {
                         </Draggable>
                     );
                 })}
+                {(columnId === 'prospects' && !allProspectsReceived) ?
+                    <div className='itemsListWrapper__itemsList__getMore' onClick={getPagedProspects}>
+                        {tc.getMore}
+                    </div> : null
+                }
                 {provided.placeholder}
             </div>
         </div>
