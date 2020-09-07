@@ -5,7 +5,7 @@ import {tc} from 'helpers';
 import Item from '../item';
 
 export default (props) => {
-    const {addActivity, allProspectsReceived, columnId, items, openItem, provided} = props;
+    const {addActivity, allProspectsReceived, columnId, items, provided} = props;
 
     return (
         <div className='itemsListWrapper' ref={provided.innerRef}>
@@ -21,7 +21,6 @@ export default (props) => {
                                 <Item
                                     addActivity={addActivity}
                                     item={item}
-                                    openItem={openItem}
                                     provided={dragProvided}
                                     snapshot={dragSnapshot}
                                 />

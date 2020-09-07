@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal, updateDeal} from 'store/deal/tasks';
+import {setPreviewItem} from 'store/agile/tasks';
 import colors from '../../styles/_colors.scss';
 import {RoughNotation} from "react-rough-notation";
 import {dealHelper, tc} from 'helpers';
@@ -14,6 +15,7 @@ import DealCars from './deal_cars';
 import DealFiles from './deal_files';
 import DealProspects from './deal_prospects';
 import {Dropdown, DropdownItem} from 'components/dropdown';
+import history from '../../router_history';
 import Events from 'components/events';
 import Loading from 'components/loading';
 import Icon from 'components/icon';
@@ -22,7 +24,7 @@ import Tooltip from 'components/tooltip';
 /**
  * Render a deal view.
  */
-const Deal = (state) => {
+const Deal = (state) => {
     const {id} = useParams();
     const [dataIsCollected, setDataIsCollected] = useState(false);
     const [editDeal, setEditDeal] = useState(false);
@@ -67,6 +69,8 @@ const Deal = (state) => {
 
     const _openInAgile = () => {
         console.log('Öppna i Bearbeta');
+        setPreviewItem(id);
+        history.push('/bearbeta')
     };
 
     const _renderMaturityList = () => {

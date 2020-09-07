@@ -12,7 +12,7 @@ import ItemsList from '../items_list';
  * Should be able to edit title but not remove column 'idle'.
  */
 export default (props) => {
-    const {addActivity, allProspectsReceived, column, index, items, openItem, removeColumn, title, total} = props;
+    const {addActivity, allProspectsReceived, column, index, items, removeColumn, title, total} = props;
     const [editTitle, setEditTitle] = useState(false);
     const [newTitle, setNewTitle] = useState(null);
 
@@ -96,9 +96,9 @@ export default (props) => {
                                 {(provided) => (
                                     <ItemsList
                                         addActivity={addActivity}
+                                        allProspectsReceived={allProspectsReceived}
                                         columnId={column.id}
                                         items={items}
-                                        openItem={openItem}
                                         provided={provided}
                                     />
                                 )}

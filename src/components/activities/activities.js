@@ -96,7 +96,7 @@ const Activities = (state) => {
             let action;
             // When target is the same as the activity target, we don't need to add a link to target.
             if (state.props.type === 'target' && (activity.deal_id && state.props.target === activity.deal_id)
-                && activity.target && state.props.target === activity.target) {
+                || (activity.target && state.props.target === activity.target)) {
                 if (activity.action && activity.action === 'move') {
                     action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>;
                 } else if (activity.action) {

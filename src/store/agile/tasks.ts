@@ -3,7 +3,7 @@ import {agileHelper, request, tc} from 'helpers';
 import {agileActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
-import mdb from'mongodb';
+// import mdb from'mongodb';
 
 /**
  * Add activity to a deal. Either historic/performed or planned.
@@ -40,8 +40,8 @@ export const addActivity = async (payload) => {
         newColumns.map((column) => {
             if (column.id !== 'prospects' && column.items.find((num) => num._id === payload.dealId)) {
                 column.items.map((num) => {
-                    if (num._id === payload.dealId) {
-                        num.events.push(data);
+                    if (num._id === payload.dealId && data.event) {
+                        num.events.push(data.event);
                     }
                     return num;
                 });
@@ -50,7 +50,6 @@ export const addActivity = async (payload) => {
         });
 
         showFlashMessage(tc.activityHasBeenSaved);
-        // Ska vi köra getAgileColumnsData istället:..?!?!? Detta verkar inte uppdatera komponenterna...
         return store.dispatch({ type: agileActionTypes.SET_COLUMNS, payload: newColumns});
     } catch(err) {
         return console.error('Error in addActivity:\n' + err);
@@ -144,7 +143,7 @@ export const getColumnsData = async () => {
             console.error('Error in getColumnsData:\n' + data);
         }
 
-        store.dispatch({type: agileActionTypes.SET_ALL_PROSPECTS_RECEIVED, payload: !data.prospects.more});
+        store.dispatch({type: agileActionTypes.SET_ALL_PROSPECTS_RECEIVED, payload: !(data.prospects.more && data.prospects.data.length === 100)});
 
         // Add/empty items array to each column.
         columns.map((column) => {
@@ -397,6 +396,11 @@ export const moveItem = async (payload) => {
     }
 };
 
+export const setPreviewItem = (id) => {
+    return store.dispatch({type: agileActionTypes.SET_PREVIEW_ITEM, payload: id});
+};
+
+
 /**
  * Sort columns.
  *
@@ -571,7 +575,7 @@ export const updateColumnTitle = async (payload) => {
 /**
  * Update agile filters.
  *
- * @param payload - object - {id: , name: , type: }
+ * @param payload - object - {id: '', name: '', type: ''}
  */
 export const updateFilters = async (payload) => {
     try {

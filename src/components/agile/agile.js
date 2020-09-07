@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {showFlashMessage} from 'store/flash_messages/tasks';
-import {addActivity, getColumnsData, getFilters, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
+import {addActivity, getColumnsData, getFilters, setPreviewItem, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
 import mdb from'mongodb';
@@ -21,7 +21,7 @@ const Agile = (state) => {
     const [addActivityItem, setAddActivityItem] = useState(null);
     const [moveItem, setMoveItem] = useState(null);
     const [newColumnName, setNewColumnName] = useState(null);
-    const [previewItem, setPreviewItem] = useState(null);
+    const [itemOpenInPreview, setItemOpenInPreview] = useState(null);
     const [removeColumn, setRemoveColumn] = useState(null);
     const [showAddNewColumn, setShowAddNewColumn] = useState(false);
     const [showRemoveColumn, setShowRemoveColumn] = useState(null);
@@ -37,7 +37,7 @@ const Agile = (state) => {
         getColumnsData();
 
         // Set active filters.
-        if (state.agile.filters && state.agile.filters.length) {
+        if (state.agile.filters && Array.isArray(state.agile.filters)) {
             const lists = [];
             const filters = [];
             state.agile.filters.forEach((num) => {
@@ -66,9 +66,11 @@ const Agile = (state) => {
         }
     }, [showAddNewColumn]);
 
-    const _addActivity = async (payload) => {
-        console.log('payload i _addActivity', payload);
+    useEffect(() => {
+        setItemOpenInPreview(state.agile.previewItem);
+    }, [state.agile.previewItem]);
 
+    const _addActivity = async (payload) => {
         await addActivity({
             action: payload.action,
             comment: payload.comment,
@@ -284,23 +286,20 @@ const Agile = (state) => {
                         allProspectsReceived={state.agile.allProspectsReceived}
                         columns={columns}
                         dragEnd={ _dragEnd}
-                        openItem={(id) => {
-                            setPreviewItem(id);
-                        }}
                         removeColumn={(id) => {
                             setShowRemoveColumn(true);
                             setRemoveColumn(id);
                         }}
                     />
-                    {(previewItem) ?
+                    {(itemOpenInPreview) ?
                         <Popup close={() => {setPreviewItem(null)}} size='big'>
                             <AgilePreview
                                 close={() => {setPreviewItem(null)}}
-                                id={previewItem}
+                                id={itemOpenInPreview}
                             />
                         </Popup> : null
                     }
-                    {(!previewItem && addActivityItem) ?
+                    {(!itemOpenInPreview && addActivityItem) ?
                         <Popup
                             close={(!moveItem) ?
                                 () => {setAddActivityItem(null)} :
@@ -319,7 +318,7 @@ const Agile = (state) => {
                             />
                         </Popup> : null
                     }
-                    {(!previewItem && showAddNewColumn) ?
+                    {(!itemOpenInPreview && showAddNewColumn) ?
                         <Popup close={() => {setShowAddNewColumn(false)}} size='small'>
                             <div className='agilePopupWrapper__agilePopup'>
                                 <div className='agilePopupWrapper__agilePopup'>
@@ -340,7 +339,7 @@ const Agile = (state) => {
                             </div>
                         </Popup> : null
                     }
-                    {(!previewItem && showRemoveColumn && removeColumn) ?
+                    {(!itemOpenInPreview && showRemoveColumn && removeColumn) ?
                         <Popup close={() => {setShowRemoveColumn(false)}} size='medium'>
                             <div className='agilePopupWrapper'>
                                 <div className='agilePopupWrapper__agilePopup'>

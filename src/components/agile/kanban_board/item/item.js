@@ -1,6 +1,7 @@
-import React , {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 import {tc} from 'helpers';
+import {setPreviewItem} from 'store/agile/tasks';
 import Icon from 'components/icon';
 import Tooltip from 'components/tooltip';
 
@@ -10,7 +11,7 @@ import Tooltip from 'components/tooltip';
  */
 export default (props) => {
     const [showActions, setShowActions] = useState(false);
-    const {addActivity, item, openItem, provided, snapshot} = props;
+    const {addActivity, item, provided, snapshot} = props;
 
     const _addActivity = (e) => {
         e.stopPropagation();
@@ -29,7 +30,7 @@ export default (props) => {
 
     const _openItem = (e) => {
         e.stopPropagation();
-        openItem(item._id ? item._id : item.prospectId);
+        setPreviewItem(item._id ? item._id : item.prospectId);
     };
 
     /**

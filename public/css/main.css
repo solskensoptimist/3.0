@@ -736,9 +736,9 @@ a {
     .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityBoxDefault:hover, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__isPerformed__choice:hover, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__actions__holder__action:hover, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__dateAndComment__comment textarea:hover, .agileAddActivityWrapper__agileAddActivity__content__dateAndComment__comment .agileAddActivityWrapper__agileAddActivity__content textarea:hover {
       background: #eeeeee;
       border-color: #e0e0e0;
-      color: #757575; }
+      color: #616161; }
       .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityBoxDefault:hover svg, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__isPerformed__choice:hover svg, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__actions__holder__action:hover svg, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__dateAndComment__comment textarea:hover svg, .agileAddActivityWrapper__agileAddActivity__content__dateAndComment__comment .agileAddActivityWrapper__agileAddActivity__content textarea:hover svg {
-        fill: #9e9e9e; }
+        fill: #757575; }
     .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityBoxDefault svg, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__isPerformed__choice svg, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__actions__holder__action svg, .agileAddActivityWrapper__agileAddActivity__content .agileAddActivityWrapper__agileAddActivity__content__dateAndComment__comment textarea svg, .agileAddActivityWrapper__agileAddActivity__content__dateAndComment__comment .agileAddActivityWrapper__agileAddActivity__content textarea svg {
       width: 24px;
       height: 24px;
