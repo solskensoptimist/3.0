@@ -4,7 +4,7 @@ import {eventsActionTypes} from './actions';
 import {getActivity} from 'store/activity/tasks'
 import _ from 'underscore';
 import moment from 'moment';
-import mdb from'mongodb';
+import id from'valid-objectid';
 
 /**
  * Complete an event.
@@ -171,7 +171,7 @@ const getEventsByTarget = async (payload) => {
         let dealId = '';
         let prospectId;
 
-        if (mdb.ObjectId.isValid(payload.target)) {
+        if (id.isValid(payload.target)) {
             dealId = payload.target;
         } else {
             prospectId = payload.target;

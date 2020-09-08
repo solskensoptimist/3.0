@@ -20,6 +20,9 @@ export const dealHelper = {
         }
     },
     getReadablePhase: (phase) => {
+        if (!phase) {
+            return '';
+        }
         switch (phase) {
             case 'idle':
                 return tc.idle;

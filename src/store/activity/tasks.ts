@@ -2,7 +2,7 @@ import {store} from 'store';
 import {request} from 'helpers';
 import {activityActionTypes} from './actions';
 import {eventsActionTypes} from 'store/events/actions';
-import mdb from'mongodb';
+import id from 'valid-objectid';
 
 /**
  * Get activity main func.
@@ -90,7 +90,7 @@ const getActivityByTarget = async (payload) => {
         }
 
         // Different endpoint for deals than prospects.
-        const url = (mdb.ObjectId.isValid(payload.target)) ? '/activity/deal/' + payload.target : '/comments/' + payload.target;
+        const url = (id.isValid(payload.target)) ? '/activity/deal/' + payload.target : '/comments/' + payload.target;
 
         const data = await request({
             method: 'get',

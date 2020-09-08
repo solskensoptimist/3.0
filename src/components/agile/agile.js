@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {showFlashMessage} from 'store/flash_messages/tasks';
-import {addActivity, getColumnsData, getFilters, setPreviewItem, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
+import {addActivity, getColumnsData, getFilters, moveItem, setPreviewItem, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
-import mdb from'mongodb';
+import id from'valid-objectid';
 import AgileAddActivity from './agile_add_activity';
 import AgilePreview from './agile_preview';
 import KanbanBoard from './kanban_board';
@@ -19,7 +19,7 @@ const Agile = (state) => {
     const [activeFilters, setActiveFilters] = useState(null);
     const [activeLists, setActiveLists] = useState(null);
     const [addActivityItem, setAddActivityItem] = useState(null);
-    const [moveItem, setMoveItem] = useState(null);
+    const [itemToMove, setItemToMove] = useState(null);
     const [newColumnName, setNewColumnName] = useState(null);
     const [itemOpenInPreview, setItemOpenInPreview] = useState(null);
     const [removeColumn, setRemoveColumn] = useState(null);
@@ -70,19 +70,24 @@ const Agile = (state) => {
         setItemOpenInPreview(state.agile.previewItem);
     }, [state.agile.previewItem]);
 
+    /**
+     * Can be executed from <AgileAddActivity/> or from _moveItem(), depending on if we are simultaneously moving an item and adding an activity.
+     * @param payload.action
+     * @param payload.comment
+     * @param payload.dealId - string (optional) - When executed from _moveItem().
+     * @param payload.event_date
+     * @param payload.performed - bool - Historic/performed or planned activity.
+     */
     const _addActivity = async (payload) => {
         await addActivity({
             action: payload.action,
             comment: payload.comment,
-            dealId: addActivityItem,
+            dealId: payload.dealId ? payload.dealId : addActivityItem,
             event_date: payload.event_date,
             performed: payload.performed,
         });
-        setAddActivityItem(null);
 
-        if (moveItem) {
-            _moveItem();
-        }
+        return setAddActivityItem(null);
     };
 
     const _addColumn = async () => {
@@ -92,13 +97,15 @@ const Agile = (state) => {
 
         setShowAddNewColumn(false);
 
+        // Build an id. We rebuild these to text in Activity component, so no long unreadable ids please.
+        // Replace spaces with dashes, rplace åäö etc...
         let id = newColumnName.replace(/[ÅÄ]/ig, "a")
                                 .replace(/[Ö]/ig, "o")
                                 .replace(/\s/g, '-')
                                 .replace(/[^A-Z0-9-]/ig, "")
                                 .toLowerCase().trim();
 
-        // If id already exists add integer (no long ugly ids please, this will be value for deal phases).
+        // If id already exists add integer.
         const _createUniqueId = (str, i) => {
             if (!columns.find((num) => num.id === str)) {
                 return id = str;
@@ -111,7 +118,7 @@ const Agile = (state) => {
 
         _createUniqueId(id, 0);
 
-        const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
+        const newColumns = JSON.parse(JSON.stringify(columns));
         newColumns.push({
             id: id,
             title: newColumnName,
@@ -128,6 +135,14 @@ const Agile = (state) => {
         return showFlashMessage(tc.columnHasBeenAdded);
     };
 
+    /**
+     * Handles when we drag something, both columns and items.
+     *
+     * First adjust columns in component state.
+     * Then most of the times what happends here is we move an item to a new column, so we prompt <AgileAddActivity/> by setting addActivityItem.
+     * In <AgileAddActivity/> we execute _moveItem() which makes backend call to adjust deal phase.
+     * If we simultaneously move an item and adding an activity, then _moveItem() executes _addActivity() when its finished.
+     */
     const _dragEnd = async (event) => {
         if (!event.destination || (event.destination && event.destination.droppableId === 'prospects')) {
             return;
@@ -153,13 +168,12 @@ const Agile = (state) => {
                 return setColumns(newColumns);
             } else {
                 // Dragged to another column.
-
                 // Set item to move.
-                let moveObject = null;
+                let moveObject = {};
                 columns.forEach((column) => {
                     if (column.id === 'prospects' && column.items.find((num) => num.prospectId.toString() === event.draggableId)) {
                         moveObject = {
-                            item: column.items.find((num) => num.prospectId === event.draggableId)
+                            item: column.items.find((num) => num.prospectId.toString() === event.draggableId)
                         };
                     } else if (column.items.find((num) => num._id === event.draggableId)) {
                         moveObject = {
@@ -169,8 +183,8 @@ const Agile = (state) => {
                 });
 
                 // Extra guard, should never happen.
-                if (!moveObject) {
-                    return showFlashMessage((mdb.ObjectId.isValid(event.draggableId)) ?
+                if (!moveObject.hasOwnProperty('item')) {
+                    return showFlashMessage((id.isValid(event.draggableId)) ?
                         tc.couldNotMoveDeal :
                         tc.couldNotMoveProspect);
                 }
@@ -185,26 +199,51 @@ const Agile = (state) => {
                     source: event.source.droppableId,
                     target: event.destination.droppableId,
                 });
-                setMoveItem(moveObject);
+                setItemToMove(moveObject);
 
                 // Set addActivityItem to prompt AgileAddActivity popup.
-                // (If user adds activity _addActivity() is executed, which then executes _moveItem().
-                // If not adding any activity, _moveItem() is executed directly.)
                 return setAddActivityItem(event.draggableId);
             }
         }
     };
 
-    const _moveItem = () => {
-        console.log('moveItem körs');
-        /*
-        moveItem ska se ut såhär {
-            item: {},
-            target: '',
-            source: '',
+    /**
+     * Update the phase of a deal.
+     * Executed from <AgileAddActivity/>.
+     *
+     * @param payload.addActivity - bool - Set to true when also adding activity after move.
+     * @param payload.addActivityObject - object - Sent forward to _addActivity() if addActivity is true.
+     */
+    const _moveItem = async (payload) => {
+        let listId = null;
+        if (itemToMove.item.listId) {
+            listId = itemToMove.item.listId;
         }
-         */
-        setMoveItem(null);
+        if (itemToMove.item.meta && itemToMove.item.meta.moved_from_list) {
+            listId = itemToMove.item.meta.moved_from_list;
+        }
+
+        let prospectIds;
+        if (itemToMove.item.prospects && Array.isArray(itemToMove.item.prospects)) {
+            prospectIds = itemToMove.item.prospects.join(',');
+        }
+
+        const dealId = await moveItem({
+            id: itemToMove.item._id ? itemToMove.item._id : itemToMove.item.prospectId.toString(),
+            listId: listId,
+            prospectIds: prospectIds,
+            target: itemToMove.target,
+            source: itemToMove.source,
+        });
+
+        if (payload.addActivity) {
+            payload.addActivityObject.dealId = dealId; // If a prospect was moved, a deal has been created with a new id.
+            await _addActivity(payload.addActivityObject);
+        } else {
+            setAddActivityItem(null);
+        }
+
+        return setItemToMove(null);
     };
 
     const _removeColumn = async () => {
@@ -301,20 +340,17 @@ const Agile = (state) => {
                     }
                     {(!itemOpenInPreview && addActivityItem) ?
                         <Popup
-                            close={(!moveItem) ?
+                            close={(!itemToMove) ?
                                 () => {setAddActivityItem(null)} :
                                 null
                             }
                            size='medium'
                         >
                             <AgileAddActivity
-                                close={() => {setAddActivityItem(null)}}
-                                isMoving={!!(moveItem)}
-                                moveItem={() => {
-                                    setAddActivityItem(null);
-                                    _moveItem();
-                                }}
                                 addActivity={_addActivity}
+                                close={() => {setAddActivityItem(null)}}
+                                isMoving={!!(itemToMove)}
+                                moveItem={_moveItem}
                             />
                         </Popup> : null
                     }

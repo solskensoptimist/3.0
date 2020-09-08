@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import moment from 'moment';
 import {tc} from 'helpers';
 import {setPreviewItem} from 'store/agile/tasks';

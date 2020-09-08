@@ -108,19 +108,36 @@ const AgileAddActivity = (props) => {
                 <div className='agileAddActivityWrapper__agileAddActivity__footer'>
                     <WidgetFooter
                         disableButtonOne={!isValid}
-                        buttonOneFunc={() => {
-                            props.addActivity({
-                                action: action,
-                                comment: comment,
-                                event_date: date,
-                                performed: activityIsPerformed,
-                            });
-                        }}
-                        buttonTwoFunc={(props.isMoving) ? () => {
-                            // If we are in the process of moving an item between columns,
-                            // we provide a 'skip' button.
-                            props.moveItem();
-                        } : null}
+                        buttonOneFunc={(props.isMoving) ?
+                            () => {
+                                props.moveItem({
+                                    addActivity: true,
+                                    addActivityObject: {
+                                        action: action,
+                                        comment: comment,
+                                        event_date: date,
+                                        performed: activityIsPerformed,
+                                    },
+                                });
+                            } :
+                            () => {
+                                props.addActivity({
+                                    action: action,
+                                    comment: comment,
+                                    event_date: date,
+                                    performed: activityIsPerformed,
+                                });
+                            }
+                        }
+                        buttonTwoFunc={(props.isMoving) ?
+                            () => {
+                                // If we are in the process of moving an item between columns we provide a 'skip' button.
+                                props.moveItem({
+                                    addActivity: false,
+                                });
+                            } :
+                            null
+                        }
                         buttonTwoText={tc.skip}
                     />
                 </div>

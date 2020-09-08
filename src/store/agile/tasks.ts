@@ -3,7 +3,7 @@ import {agileHelper, request, tc} from 'helpers';
 import {agileActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
-// import mdb from'mongodb';
+import id from 'valid-objectid';
 
 /**
  * Add activity to a deal. Either historic/performed or planned.
@@ -59,13 +59,12 @@ export const addActivity = async (payload) => {
 /**
  * Create a deal.
  *
- * @param payload.cars
- * @param payload.contacts
- * @param payload.description
- * @param payload.files
- * @param payload.maturity
- * @param payload.prospects
- * @param payload.user_id
+ * @param payload.cars - array (optional)
+ * @param payload.description - string (optional)
+ * @param payload.files - array (optional)
+ * @param payload.maturity - number (optional)
+ * @param payload.prospects - array (optional) - A value here or a value in cars array is strongly recommended, otherwise we are creating an empty deal (which is useless).
+ * @param payload.responsible - number (optional) - Defaults to the user that is logged in.
  */
 export const createDeal = async (payload) => {
     try {
@@ -100,7 +99,8 @@ export const createDeal = async (payload) => {
             })
         }
 
-        return showFlashMessage(tc.dealWasCreated);
+        showFlashMessage(tc.dealWasCreated);
+        return data;
     } catch(err) {
         return console.error('Error in createDeal:\n' + err);
     }
@@ -150,6 +150,8 @@ export const getColumnsData = async () => {
             column.items = [];
             return column;
         });
+
+        data.prospects.data = data.prospects.data.filter((num) => num.prospectId);
 
         // Place prospects in prospects column. Holds prospects that hasn't been turned into deals yet.
         if (data.prospects && data.prospects.data && data.prospects.data.length) {
@@ -309,6 +311,7 @@ export const getPagedProspects = async () => {
             if (column.id === 'prospects') {
                 column.items = column.items.concat(data.data);
             }
+            return column;
         });
 
         store.dispatch({type: agileActionTypes.SET_ALL_PROSPECTS_RECEIVED, payload: !data.more});
@@ -341,56 +344,92 @@ const getSortValue = async () => {
 /**
  * Move a deal or prospect to a new column/phase.
  * If its a prospect - create deal first, then move it.
+ * Should return deal _id.
  *
- * @param payload.action - string (optional) - If we want to add a deal action simultaneously.
- * @param payload.comment - string (optional) - Comment belonging to action.
- * @param payload.id - string
- * @param payload.prospectIds - string- String of prospectIds separated by comma.
+ * @param payload.id - string - Deal id or prospect id. (Only prospect id when a prospect is moved directly to trash.)
+ * @param payload.listId - string
+ * @param payload.prospectIds - string - String of prospectIds separated by comma.
  * @param payload.source - string - Previous column/phase
  * @param payload.target - string - New column/phase
  */
 export const moveItem = async (payload) => {
     try {
+        if (!payload.id || !payload.source || !payload.target) {
+            return console.error('Missing params in moveItem', payload);
+        }
+        console.log('payload i moveItem', payload);
 
-        // Om nedanstående är false, skapa deal först.
-        //mdb.ObjectId.isValid(payload.id);
+        let deal;
+        let params;
+        if (!id.isValid(payload.id)) {
+            console.log('1');
+            // This is a prospect, not a deal.
+            if (payload.target === 'trash') {
+                // Remove prospect from list, no need to create deal first.
+                if (!payload.listId) {
+                    return console.error('Missing params in moveItem', payload);
+                }
 
-        // Om target är 'idle', så behöver vi inte flytta affären (den får fas idle per automatik).
+                params = {
+                    id: payload.id,
+                    isDeal: false,
+                    listId: payload.listId,
+                    prospectIds: '',
+                    source: 'idle',
+                    target: 'trash',
+                }
+            } else {
+                // First create deal.
+                let data = await createDeal({
+                    prospects: [payload.id]
+                });
 
-        // if (!payload || (payload && !payload.dealId) || (payload && !payload.action) || (payload && !payload.event_date)) {
-        //     return console.error('Missing params in moveDeal', payload);
-        // }
-        //
-        // let data = await request({
-        //     data: {
-        //         action: payload.action,
-        //         comment: payload.comment,
-        //         dealId: payload.dealId,
-        //         event_date: payload.event_date,
-        //     },
-        //     method: 'post',
-        //     url: (payload.performed) ? '/deals/actions/' : 'deals/events',
-        // });
-        //
-        // if (data instanceof Error) {
-        //     console.error('Could not add activity in moveDeal:\n' + data);
-        // }
-        //
-        // let newColumns = store.getState().agile.columns.map((column) => {
-        //     if (column.id !== 'prospects' && column.items.find((num) => num._id === payload.dealId)) {
-        //         column.items.map((num) => {
-        //             if (num._id === payload.dealId) {
-        //                 num.events.push(data);
-        //             }
-        //             return num;
-        //         });
-        //     }
-        //     return column;
-        // });
-        //
-        // showFlashMessage(tc.activityHasBeenSaved);
-        // // Ska vi köra getAgileColumnsData istället:..?!?!? Detta verkar inte uppdatera komponenterna...
-        // return store.dispatch({ type: agileActionTypes.SET_COLUMNS, payload: newColumns});
+                if (payload.target === 'idle') {
+                    deal = data;
+                }
+
+                // Set params for deal movement call.
+                params = {
+                    id: data._id,
+                    isDeal: true,
+                    listId: payload.listId,
+                    prospectIds: payload.prospectIds,
+                    source: data.phase,
+                    target: payload.target,
+                }
+            }
+        } else {
+            // This is a deal, so set params directly.
+            params = {
+                id: payload.id,
+                isDeal: true,
+                listId: payload.listId,
+                prospectIds: payload.prospectIds,
+                source: payload.source,
+                target: payload.target,
+            }
+        }
+
+        console.log('params', params);
+
+        // If its a prospect and target is 'idle' column we already have a deal with phase 'idle', so no movement need.
+        if (!deal) {
+            const data = await request({
+                data: params,
+                method: 'put',
+                url: '/agile/new/moveDeal/',
+            });
+
+            if (data instanceof Error) {
+                console.error('Could not move deal in moveDeal:\n' + data);
+                return showFlashMessage(tc.couldNotMoveDeal);
+            }
+
+            deal = data;
+        }
+
+        await getColumnsData();
+        return (deal._id)
     } catch(err) {
         return console.error('Error in moveDeal:\n' + err);
     }

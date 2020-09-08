@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {activityHelper, dealHelper, tc} from 'helpers';
 import companyHelper from 'shared_helpers/company_helper';
 import moment from 'moment';
-import mdb from'mongodb';
+import Id from'valid-objectid';
 import {getActivity} from 'store/activity/tasks';
 import {NavLink} from 'react-router-dom';
 import ActivityItem from './activity_item';
@@ -95,8 +95,8 @@ const Activities = (state) => {
             // Action. (This cluster of an if statement is just to make the action look nice, with some added text and link to prospect/deal.)
             let action;
             // When target is the same as the activity target, we don't need to add a link to target.
-            if (state.props.type === 'target' && (activity.deal_id && state.props.target === activity.deal_id)
-                || (activity.target && state.props.target === activity.target)) {
+            if (state.props.type === 'target' && ((activity.deal_id && state.props.target === activity.deal_id)
+                || (activity.target && state.props.target === activity.target))) {
                 if (activity.action && activity.action === 'move') {
                     action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>;
                 } else if (activity.action) {
@@ -118,14 +118,14 @@ const Activities = (state) => {
                     if (activity.deal && activity.deal.name) {
                         // Add deal link to deal.
                         action = <div>{activityHelper.getReadableActivity('comment')} {tc.onDeal.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>;
-                    } else if (!activity.deal && activity.target && !mdb.ObjectId.isValid(activity.target)) {
+                    } else if (!activity.deal && activity.target && !Id.isValid(activity.target)) {
                         // No deal, add prospect link.
                         if (companyHelper.isValidOrgNr(activity.target)) {
                             action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/foretag/' + activity.target} key='foretag'>{tc.oneProspect.toLowerCase()}</NavLink></div>;
                         } else {
                             action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/person/' + activity.target} key='person'>{tc.oneProspect.toLowerCase()}</NavLink></div>;
                         }
-                    } else if (!activity.deal && activity.target && mdb.ObjectId.isValid(activity.target)) {
+                    } else if (!activity.deal && activity.target && Id.isValid(activity.target)) {
                         // Target is deal, but we don't have deal name.
                         action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/affar/' + activity.target} key='affar'>{tc.deal.toLowerCase()}</NavLink></div>;
                     } else {
