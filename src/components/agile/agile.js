@@ -156,18 +156,13 @@ const Agile = (state) => {
             return await updateColumnStructure(newColumns);
         } else {
             // Moving an item.
-            const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
-            const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
-            const destinationColumn = newColumns.find(column => column.id === event.destination.droppableId);
-            const [removedItem] = sourceColumn.items.splice(event.source.index, 1);
+            // const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
+            // const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
+            // const destinationColumn = newColumns.find(column => column.id === event.destination.droppableId);
+            // const [removedItem] = sourceColumn.items.splice(event.source.index, 1);
 
-            if (event.source.droppableId === event.destination.droppableId) {
-                // Dragged within same column.
-                // Adjust columns. Note that this order isn't saved anywhere outside component state, will rearrange every reload or when sorting is triggered.
-                sourceColumn.items.splice(event.destination.index, 0, removedItem);
-                return setColumns(newColumns);
-            } else {
-                // Dragged to another column.
+            // Only possible to drag to another column. To rearrange columns we use sort.
+            if (event.source.droppableId !== event.destination.droppableId) {
                 // Set item to move.
                 let moveObject = {};
                 columns.forEach((column) => {
@@ -188,11 +183,6 @@ const Agile = (state) => {
                         tc.couldNotMoveDeal :
                         tc.couldNotMoveProspect);
                 }
-
-                // Adjust the columns in component state.
-                removedItem.column = event.destination.droppableId;
-                destinationColumn.items.splice(event.destination.index, 0, removedItem);
-                setColumns(newColumns);
 
                 // Assign some extra properties to the item we're moving, used in _moveItem().
                 moveObject = Object.assign(moveObject, {
@@ -340,15 +330,18 @@ const Agile = (state) => {
                     }
                     {(!itemOpenInPreview && addActivityItem) ?
                         <Popup
-                            close={(!itemToMove) ?
-                                () => {setAddActivityItem(null)} :
-                                null
-                            }
+                            close={() => {
+                                setAddActivityItem(null);
+                                setItemToMove(null);
+                            }}
                            size='medium'
                         >
                             <AgileAddActivity
                                 addActivity={_addActivity}
-                                close={() => {setAddActivityItem(null)}}
+                                close={() => {
+                                    setAddActivityItem(null);
+                                    setItemToMove(null);
+                                }}
                                 isMoving={!!(itemToMove)}
                                 moveItem={_moveItem}
                             />

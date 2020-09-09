@@ -473,8 +473,8 @@ a {
       cursor: pointer; }
       .agileWrapper__agile__content .kanbanBoardWrapper__kanbanBoard__header__indicator svg {
         margin-left: 12px;
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
         -webkit-animation: bounceRight 2s infinite;
         -moz-animation: bounceRight 2s infinite;
         -o-animation: bounceRight 2s infinite;
