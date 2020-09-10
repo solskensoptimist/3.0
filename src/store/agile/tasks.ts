@@ -357,7 +357,6 @@ export const moveItem = async (payload) => {
         if (!payload.id || !payload.source || !payload.target) {
             return console.error('Missing params in moveItem', payload);
         }
-        console.log('payload i moveItem', payload);
 
         let deal;
         let params;
@@ -410,8 +409,6 @@ export const moveItem = async (payload) => {
             }
         }
 
-        console.log('params', params);
-
         // If its a prospect and target is 'idle' column we already have a deal with phase 'idle', so no movement need.
         if (!deal) {
             const data = await request({
@@ -429,7 +426,7 @@ export const moveItem = async (payload) => {
         }
 
         await getColumnsData();
-        return (deal._id)
+        return (deal._id); // Return id so we can update addActivityItem in <Agile/>.
     } catch(err) {
         return console.error('Error in moveDeal:\n' + err);
     }

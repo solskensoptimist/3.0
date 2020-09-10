@@ -31,7 +31,7 @@ export default (props) => {
         <div className='kanbanBoardWrapper'>
             <div className='kanbanBoardWrapper__kanbanBoard'>
                 <div className='kanbanBoardWrapper__kanbanBoard__header'>
-                    {(props.columns.length > 4 && !hasScrolledRight) ?
+                    {(props.columns.length > 5 && !hasScrolledRight) ?
                         <div className='kanbanBoardWrapper__kanbanBoard__header__indicator' onClick={_scrollToRight}>
                             {tc.agileScrollIndicator}
                             <Icon val='forwardArrowRounded'/>

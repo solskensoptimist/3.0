@@ -156,12 +156,7 @@ const Agile = (state) => {
             return await updateColumnStructure(newColumns);
         } else {
             // Moving an item.
-            // const newColumns = JSON.parse(JSON.stringify(columns)); // Clone columns.
-            // const sourceColumn = newColumns.find(column => column.id === event.source.droppableId);
-            // const destinationColumn = newColumns.find(column => column.id === event.destination.droppableId);
-            // const [removedItem] = sourceColumn.items.splice(event.source.index, 1);
-
-            // Only possible to drag to another column. To rearrange columns we use sort.
+            // Only possible to drag to another column. To rearrange columns internally we use sort.
             if (event.source.droppableId !== event.destination.droppableId) {
                 // Set item to move.
                 let moveObject = {};
@@ -321,7 +316,7 @@ const Agile = (state) => {
                         }}
                     />
                     {(itemOpenInPreview) ?
-                        <Popup close={() => {setPreviewItem(null)}} size='big'>
+                        <Popup close={() => {setPreviewItem(null)}} size='medium'>
                             <AgilePreview
                                 close={() => {setPreviewItem(null)}}
                                 id={itemOpenInPreview}

@@ -29,6 +29,9 @@ export default () => {
                 </div>
                 <div className='activityWrapper__activity__content'>
                     <div className='activityWrapper__activity__content__item'>
+                        För att sätta filter: Använd samma datumwidget som i AgileAddActivity. Bygg en pipeline som funkar med dynamiska kolumner, använd eventuellt samma charts som används i FleetAnalysis.
+                    </div>
+                    <div className='activityWrapper__activity__content__item'>
                         <Events type='filter' view='flow' />
                     </div>
                     <div className='activityWrapper__activity__content__item'>

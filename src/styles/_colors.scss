@@ -249,7 +249,7 @@ $colorSecondary-500: $amber-500;
 $colorSecondary-600: $amber-600;
 $colorSecondary-700: $amber-700;
 $colorSecondary-800: $amber-800;
-$colorSecondary-900: $amber-900;
+$colorSecondary-1000: $amber-900;
 $colorSecondary-A100: $amber-A100;
 $colorSecondary-A200: $amber-A200;
 $colorSecondary-A400: $amber-A400;
@@ -282,10 +282,10 @@ $colorLinkHover: $colorTextMain;
 $colorInformatory: $colorSecondary-500;
 $colorInformatoryDark: $colorSecondary-600;
 $colorInformatoryDarker: $colorSecondary-800;
-$colorInformatoryLight: $colorSecondary-300;
+$colorInformatoryLight: $colorSecondary-200;
 $colorInfoBackground: #fef4e7;
-$colorInfoText: #613e11;
-$colorInfoIcon: #f3a44a;
+$colorInfoBoxText: #613e11;
+$colorInfoBoxIcon: #f3a44a;
 
 // Deal actions
 $colorDealLost: $deep-orange-300;
@@ -293,8 +293,8 @@ $colorDealWon: $green-300;
 
 // Event time limits
 $colorEventPassedDate: $colorInformatoryDarker;
-$colorEventWithinOneDay: $colorInformatory;
-$colorEventWithinOneWeek: $colorInformatoryLight;
+$colorEventWithinOneDay: $colorTertiary-400;
+$colorEventWithinOneWeek: $colorInformatory;
 
 // Backgrounds
 $backgroundSite: radial-gradient(circle at top right, $colorPrimary-500, $colorPrimary-300, $colorPrimary-600);

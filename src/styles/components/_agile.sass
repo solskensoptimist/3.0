@@ -31,7 +31,7 @@
               overflow-y: hidden
               padding-top: $paddingGrid
               .columnWrapper
-                flex-basis: calc(25% - #{$paddingGrid})
+                flex-basis: calc(20% - #{$paddingGrid})
                 flex-shrink: 0
                 margin-left: $paddingGrid
                 min-height: 98px
@@ -237,6 +237,96 @@
       input
         @extend .activeInputField
         width: 50%
+
+.agilePreviewWrapper
+  &__agilePreview
+    &__header
+      &__main
+        display: flex
+        justify-content: center
+        align-items: center
+        background: $grey-100
+        padding: $paddingBig
+        font-size: $fontSizeStandard3
+        font-weight: 600
+        cursor: pointer
+      &__sub
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-top: -2%
+        &__sub
+          border-radius: 50%
+          background: $colorInformatory
+          color: white
+          padding: $paddingMedium
+          display: flex
+          align-items: center
+          justify-content: center
+          svg
+            width: 28px
+            height: 28px
+    &__content
+      margin-top: $paddingBig
+      &__section
+        margin-top: ($paddingBig * 1.5)
+        &:first-of-type
+          margin-top: 0
+        h5
+          color: $colorTextLight-2
+        &__item
+          border-bottom: 1px solid $grey-200
+          padding: $paddingSmall
+          margin-top: $paddingSmall
+          display: flex
+          align-items: center
+          &:first-of-type
+            margin-top: 0
+          svg
+            width: 14px
+            height: 14px
+          &__left
+            flex-grow: 1
+            display: flex
+            &__icon
+              display: flex
+              align-items: center
+              margin-right: $paddingSmall
+              &.passedDate
+                svg
+                  fill: $colorEventPassedDate
+              &.withinOneDay
+                svg
+                  fill: $colorEventWithinOneDay
+              &.withinOneWeek
+                svg
+                  fill: $colorEventWithinOneWeek
+            &__text
+              &.previewMarginRight
+                margin-right: 4px
+            &__highlight
+              font-weight: 600
+              &.previewMarginRight
+                margin-right: 4px
+            &__capitalize
+              text-transform: capitalize
+          &__right
+            display: flex
+            &__icon
+              cursor: pointer
+              background: $grey-100
+              border-radius: 50%
+              padding: 8px
+              margin-left: $paddingSmall
+              display: flex
+              align-items: center
+              &:hover
+                svg
+                  fill: $colorLinkHover
+              svg
+                fill: $grey-500
+
+
 
 .agileAddActivityWrapper
   &__agileAddActivity

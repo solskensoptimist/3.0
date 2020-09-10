@@ -49,7 +49,6 @@ import {
     List,
     Mail,
     MergeType,
-    Minimize,
     MoreHoriz,
     MoreVert,
     NavigateBefore,
@@ -79,7 +78,6 @@ import {
     Tune,
     Visibility,
     Work,
-    ZoomOutMap,
 } from '@material-ui/icons';
 
 
@@ -209,13 +207,13 @@ export default (props) => {
         case 'mail':
             return <Mail className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'maximize':
-            return <ZoomOutMap className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <ArrowDropDownRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'meeting':
             return <FreeBreakfast className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'merge':
             return <MergeType className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'minimize':
-            return <Minimize className={props.active ? 'active' : null} onClick={onClick}/>;
+            return <ArrowDropUpRounded className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'move':
             return <SwapHoriz className={props.active ? 'active' : null} onClick={onClick}/>;
         case 'navigate':
