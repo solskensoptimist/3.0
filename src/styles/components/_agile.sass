@@ -246,17 +246,31 @@
         justify-content: center
         align-items: center
         background: $grey-100
-        padding: $paddingBig
+        padding: $paddingBig $paddingBig $paddingBig ($paddingBig + $paddingSmall + 14)
+        cursor: pointer
         font-size: $fontSizeStandard3
         font-weight: 600
-        cursor: pointer
+        &:hover
+          color: $colorLink
+          .agilePreviewWrapper__agilePreview__header__main__navigate
+            visibility: visible
+        &__navigate
+          visibility: hidden
+          margin-left: $paddingSmall
+          display: flex
+          align-items: center
+          svg
+            fill: $colorLink
+            width: 16px
+            height: 16px
       &__sub
         display: flex
         align-items: center
         justify-content: center
-        margin-top: -2%
+        margin-top: -2.4%
         &__sub
           border-radius: 50%
+          border: 2px solid white
           background: $colorInformatory
           color: white
           padding: $paddingMedium
@@ -267,64 +281,104 @@
             width: 28px
             height: 28px
     &__content
-      margin-top: $paddingBig
-      &__section
-        margin-top: ($paddingBig * 1.5)
-        &:first-of-type
-          margin-top: 0
-        h5
-          color: $colorTextLight-2
-        &__item
-          border-bottom: 1px solid $grey-200
-          padding: $paddingSmall
-          margin-top: $paddingSmall
+      margin-top: $paddingGreat
+      &__block
+        border-top: 1px solid $grey-300
+        padding-top: $paddingBig
+        position: relative
+        svg
+          width: 16px
+          height: 16px
+        &__title
+          background: white
+          cursor: pointer
+          color: $grey-400
           display: flex
           align-items: center
-          &:first-of-type
-            margin-top: 0
+          padding: $paddingSmall $paddingSmall $paddingSmall 2px
+          position: absolute
+          right: 12px
+          top: -20px
+          &:hover
+            color: $colorLink
           svg
-            width: 14px
-            height: 14px
-          &__left
-            flex-grow: 1
+            width: 22px
+            height: 22px
+        &__content
+          margin-bottom: $paddingGreat
+          &__row
+            padding: $paddingMedium
             display: flex
-            &__icon
-              display: flex
-              align-items: center
-              margin-right: $paddingSmall
-              &.passedDate
-                svg
-                  fill: $colorEventPassedDate
-              &.withinOneDay
-                svg
-                  fill: $colorEventWithinOneDay
-              &.withinOneWeek
-                svg
-                  fill: $colorEventWithinOneWeek
-            &__text
-              &.previewMarginRight
-                margin-right: 4px
-            &__highlight
-              font-weight: 600
-              &.previewMarginRight
-                margin-right: 4px
-            &__capitalize
-              text-transform: capitalize
-          &__right
-            display: flex
-            &__icon
-              cursor: pointer
-              background: $grey-100
-              border-radius: 50%
-              padding: 8px
-              margin-left: $paddingSmall
-              display: flex
-              align-items: center
-              &:hover
-                svg
-                  fill: $colorLinkHover
+            align-items: center
+            &:nth-child(even)
+              background: $grey-50
+            &__left
+              flex-grow: 1
               svg
                 fill: $grey-500
+                position: relative
+                top: 4px
+              .lightAndItalic
+                font-style: italic
+                color: $colorTextLight-1
+              .highlight
+                font-weight: 600
+                display: inline-flex
+                align-items: center
+                svg
+                  fill: $colorEventPassedDate
+              .withinOneDay
+                svg
+                  fill: $colorEventWithinOneDay
+              .withinOneWeek
+                svg
+                  fill: $colorEventWithinOneWeek
+              .passedDate
+                svg
+                  fill: $colorEventPassedDate
+              .marginLeft
+                margin-left: 4px
+              .marginRight
+                margin-right: 4px
+              .extraMarginRight
+                margin-right: $paddingSmall
+              &__additionalLine
+                display: block
+                margin-left: ($paddingSmall + 16px)
+            &__right
+              display: flex
+              &__icon
+                cursor: pointer
+                background: rgba(0,0,0,0.05)
+                border-radius: 50%
+                padding: 6px
+                margin-left: $paddingSmall
+                display: flex
+                align-items: center
+                &:hover
+                  background: $colorLink
+                  svg
+                    fill: white
+                svg
+                  fill: $grey-500
+          &__infoBoxHolder
+            display: flex
+            flex-wrap: wrap
+            &__infoBox
+              flex-basis: calc(50% - #{$paddingBig})
+              &:first-child
+                margin-right: ($paddingBig / 2)
+              &:last-child
+                margin-left: ($paddingBig / 2)
+              &__row
+                display: flex
+                align-items: flex-start
+                margin-top: $paddingSmall
+                &:first-child
+                  margin-top: 0
+                &__left
+                  color: $colorTextLight-1
+                  margin-right: $paddingSmall
 
 
 

@@ -96,12 +96,11 @@ export const getContacts = async (payload) => {
             url: '/contacts/',
         });
 
-        // Make sure to clear out faulty values.
-        contacts = contacts.filter((num) => num);
-
         if (!contacts || contacts instanceof Error) {
             return store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: []});
         } else {
+            // Make sure to clear out faulty values.
+            contacts = contacts.filter((num) => num);
             return store.dispatch({type: contactsActionTypes.SET_CONTACTS, payload: contacts});
         }
     } catch (err) {

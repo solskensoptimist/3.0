@@ -164,7 +164,7 @@ export default (props) => {
     const _renderInformationHolder = () => {
         if (!item.ownActiveDeals && !item.colleagueDeals) {
             return null;
-        } else if (item.ownActiveDeals && item.colleagueDeals) {
+        } else if (item.colleagueDeals) {
             return (
                 <div className='itemWrapper__item__content__main__mainTop__informationHolder__red'>
                     <Icon val='infoOutlined'/>
@@ -173,12 +173,6 @@ export default (props) => {
         } else if (item.ownActiveDeals && !item.colleagueDeals) {
             return (
                 <div className='itemWrapper__item__content__main__mainTop__informationHolder'>
-                    <Icon val='infoOutlined'/>
-                </div>
-            );
-        } else if (!item.ownActiveDeals && item.colleagueDeals) {
-            return (
-                <div className='itemWrapper__item__content__main__mainTop__informationHolder__red'>
                     <Icon val='infoOutlined'/>
                 </div>
             );
