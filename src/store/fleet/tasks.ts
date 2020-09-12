@@ -1,7 +1,7 @@
 import {store} from 'store';
 import {request} from 'helpers';
 import {fleetActionTypes} from './actions';
-import {debounce }from 'debounce';
+import {debounce} from 'debounce';
 
 /**
  * Fetch fleet.
@@ -73,3 +73,31 @@ export const getFleet = async (payload) => {
 
 // Debounced (used for table search function in Fleet).
 export const getFleetDebounced = debounce(getFleet, 500);
+
+/**
+ * Return a fleet summary. Do not save to state.
+ *
+ * @param payload.historic - bool
+ * @param payload.prospectId - string
+ */
+export const getFleetSummary = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.prospectId)) {
+            return console.error('Missing params in getFleetSummary:\n' + payload);
+        }
+
+        const historic = (payload.historic) ? '/history' : '';
+        const data = await request({
+            method: 'get',
+            url: '/fleet/summary/' + payload.prospectId + historic,
+        });
+
+        if (data instanceof Error) {
+            console.error('Error in getFleetSummary', data);
+        }
+
+        return data;
+    } catch (err) {
+        return console.error('Error in getFleetSummary:\n' + err);
+    }
+};

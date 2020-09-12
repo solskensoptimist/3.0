@@ -8,7 +8,7 @@ import id from 'valid-objectid';
  * Get activity main func.
  *
  * @param payload.type - string - Can be 'filter' | 'last' | 'target'.
- * @pparam ayload.target  - string - Only required/working when type === 'target'. Can be prospect id or deal id.
+ * @pparam payload.target  - string - Only required/working when type === 'target'. Can be prospect id or deal id.
  */
 export const getActivity = async (payload) => {
     if (payload.type !== 'last') {
@@ -111,7 +111,8 @@ const getActivityByTarget = async (payload) => {
             return (new Date(a.date_created) < new Date(b.date_created)) ? 1 : -1;
         });
 
-        return store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: activities});
+        store.dispatch({type: activityActionTypes.SET_ACTIVITY_BY_TARGET, payload: activities});
+        return activities;
     } catch (err) {
         return console.error('Error in getActivityByTarget:\n' + err);
     }

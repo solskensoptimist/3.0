@@ -65,9 +65,9 @@ export const getDeal = async (payload, prospectInfo = true) => {
  * Get prospect data for a list of ids, both persons and companies.
  * Returns a list with objects mapped for component rendering.
  *
- * @param payload.ids
+ * @param payload.ids - array
  */
-const getProspectInfo = async (payload) => {
+export const getProspectInfo = async (payload) => {
     try {
         if (!payload || (payload && !payload.ids) || (payload && payload.ids && payload.ids.length === 0)) {
             return [];

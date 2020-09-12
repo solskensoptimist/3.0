@@ -2,6 +2,9 @@ import {store} from 'store';
 import {agileHelper, request, tc} from 'helpers';
 import {agileActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
+import {getActivity} from 'store/activity/tasks';
+import {getProspectInfo} from 'store/deal/tasks';
+import {getFleetSummary} from 'store/fleet/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
 import id from 'valid-objectid';
 
@@ -322,43 +325,111 @@ export const getPagedProspects = async () => {
 };
 
 /**
- * Get data for preview.
+ * Get preview data for an item that exists in agile columns.
+ * Either for a deal or for a prospect.
  *
- * @param payload.deal - string - 'false' / 'true'
- * @param payload.id - string - If deal === true this i deal id, else prospect id.
- * @param payload.listId - string - If deal === false, this should be provided.
- * @param payload.prospectId - string / array - Prospect ids.
+ * (Note that we have a preview router in the backend. But we do not use this because it's slow,
+ * overkill and cannot handle deals with multiple prospects.
+ * Deals can contain multiple prospects and/or cars. But some of the backend routes cannot handle this.)
+ *
+ * @param payload.id - string - Deal id or prospect id.
  */
 export const getPreviewData = async (payload) => {
     try {
-        if (!payload || (payload && !payload.id) || (payload && !payload.prospectId) ||
-            (payload && payload.deal === 'false' && !payload.listId)) {
+        if (!payload || (payload && !payload.id)) {
             return console.error('Missing params in getPreviewData', payload);
         }
 
         store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: null});
 
-        let params : any = {
-            deal: payload.deal,
-            id: payload.id,
-            prospectId: payload.prospectId,
-        }
+        let columns = JSON.parse(JSON.stringify(store.getState().agile.columns));
+        let previewData : any = {};
+        let item : any = {};
 
-        if (payload.deal === 'false') {
-            params.listId = payload.listId;
-        }
-
-        const data = await request({
-            data: params,
-            method: 'post',
-            url: '/preview/getPreview/',
+        // Get item data directly from agile columns.
+        columns.forEach((column) => {
+            if (column.id === 'prospects' && column.items.find((num) => num.prospectId === payload.id)) {
+                item = column.items.find((num) => num.prospectId === payload.id);
+                item.type = 'prospect';
+            }
+        });
+        columns.forEach((column) => {
+            if (column.id !== 'prospects' && column.items.find((num) => num._id === payload.id)) {
+                item = column.items.find((num) => num._id === payload.id);
+                item.type = 'deal';
+            }
         });
 
-        if (data instanceof Error) {
-            return console.error('Error in getPreviewData:\n' + data);
+        if (!Object.keys(item).length) {
+            return console.error('Could not find item i getPreviewData');
         }
 
-        return store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: data});
+        // Get list name.
+        if (item.type === 'deal' && item.meta && item.meta.moved_from_list) {
+            const list = await request({
+                method: 'get',
+                url: '/lists/getList/' + item.meta.moved_from_list,
+            });
+            item.listName = (list && !(list instanceof Error)) ? list.name : '';
+        } else if (item.listId) {
+            const list = await request({
+                method: 'get',
+                url: '/lists/getList/' + item.listId,
+            });
+            item.listName = (list && !(list instanceof Error)) ? list.name : '';
+        } else {
+            item.listName = '';
+        }
+
+        previewData.item = item;
+
+        // Save to state to let component start rendering.
+        store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: previewData});
+
+        // Get prospect information.
+        const prospectInformation = await getProspectInfo({
+            ids: (item.type === 'deal') ? item.prospects : [item.prospectId.toString()],
+        });
+
+        previewData.prospectInformation = (prospectInformation && !(prospectInformation instanceof Error)) ? prospectInformation : [];
+
+        // Get fleet summary for each prospect.
+        let fleetPromises;
+        if (previewData.item.type === 'deal') {
+            fleetPromises = await previewData.item.prospects.map(async (id) => {
+                return await getFleetSummary({prospectId: id});
+            });
+        } else {
+            fleetPromises = [await getFleetSummary({prospectId: id})]
+        }
+
+        let fleet = await Promise.all(fleetPromises);
+
+        if (fleet instanceof Error) {
+            console.error('Error when getting fleet in getPreviewData', fleet);
+            previewData.prospectInformation.map((num, i) => {
+                num.fleet = [];
+            });
+        } else {
+            previewData.prospectInformation.map((num, i) => {
+                num.fleet = fleet[i];
+            });
+        }
+
+        // Save to state to let component render even more.
+        store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: previewData});
+
+        // Get activity.
+        const activity = await getActivity({target: payload.id, type: 'target'});
+
+        if (activity instanceof Error) {
+            console.error('Could not get activity in getPreviewData', activity);
+            previewData.activity = [];
+        } else {
+            previewData.activity = activity;
+        }
+
+        return store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: previewData});
     } catch(err) {
         return console.error('Error in getPreviewData:\n' + err);
     }

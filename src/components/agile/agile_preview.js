@@ -19,34 +19,14 @@ import Tooltip from '../tooltip/tooltip';
  * @param state.props.id - string/ number - Deal id or prospect id.
  */
 const AgilePreview = (state) => {
-    const [item, setItem] = useState(null);
     const [hideBlocks, setHideBlocks] = useState([]);
     const [previewData, setPreviewData] = useState(null);
-    const [type, setType] = useState('');
 
     useEffect(() => {
-        if (state.props.id && state.agile.columns && Array.isArray(state.agile.columns)) {
-            let found;
-            state.agile.columns.forEach((column) => {
-                if (column.id === 'prospects' && column.items.find((num) => num.prospectId === state.props.id)) {
-                     found = column.items.find((num) => num.prospectId === state.props.id);
-                } else if (column.items.find((num) => num._id === state.props.id)) {
-                    found = column.items.find((num) => num._id === state.props.id);
-                }
-            });
-
-            if (found) {
-                setItem(found);
-                setType((found._id ? 'deal' : 'prospect'))
-                getPreviewData({
-                    deal: (found._id) ? 'true' : 'false',
-                    id: (found._id) ? found._id : found.prospectId,
-                    prospectId: (found._id) ? found.prospects : found.prospectId,
-                    listId: (found._id) ? null : found.listId,
-                });
-            }
-        }
-    }, [state.agile.columns, state.props.id]);
+        getPreviewData({
+            id: state.props.id,
+        });
+    }, [state.props.id]);
 
     useEffect(() => {
         setPreviewData(state.agile.previewData);
@@ -55,7 +35,7 @@ const AgilePreview = (state) => {
     const _renderColleagueDealRows = () => {
         return (
             <>
-                {item.colleagueDeals.map((num, i) => {
+                {previewData.item.colleagueDeals.map((num, i) => {
                     return (
                         <div className='agilePreviewWrapper__agilePreview__content__block__content__row' key={i}>
                             <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left'>
@@ -73,7 +53,7 @@ const AgilePreview = (state) => {
     };
 
     const _renderDealInfoBlock = () => {
-        if (type === 'deal') {
+        if (previewData.item.type === 'deal') {
             return (
                 <div className='agilePreviewWrapper__agilePreview__content__block'>
                     <div className='agilePreviewWrapper__agilePreview__content__block__title'
@@ -97,26 +77,26 @@ const AgilePreview = (state) => {
                                             {tc.owner}:
                                         </div>
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                            {item.userName}
+                                            {previewData.item.userName}
                                         </div>
                                     </div>
-                                    {(item.description && item.description.length) ?
+                                    {(previewData.item.description && previewData.item.description.length) ?
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
                                             <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
                                                 {tc.description}:
                                             </div>
                                             <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                                {item.description}
+                                                {previewData.item.description}
                                             </div>
                                         </div> : null
                                     }
-                                    {(item.potential && item.potential.length) ?
+                                    {(previewData.item.potential && previewData.item.potential.length) ?
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
                                             <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
                                                 {tc.potential}:
                                             </div>
                                             <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                                {item.potential}
+                                                {previewData.item.potential}
                                             </div>
                                         </div> : null
                                     }
@@ -125,19 +105,19 @@ const AgilePreview = (state) => {
                                             {tc.belongsToList}:
                                         </div>
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                            {(previewData && previewData.dealData && previewData.dealData.meta && previewData.dealData.meta.moved_from_list_name) ?
-                                                previewData.dealData.meta.moved_from_list_name :
+                                            {(previewData && previewData.item && previewData.item.hasOwnProperty('listName')) ?
+                                                previewData.item.listName :
                                                 <Loading small={true}/>
                                             }
                                         </div>
                                     </div>
-                                    {(item.maturity && item.maturity.length) ?
+                                    {(previewData.item.maturity && previewData.item.maturity.length) ?
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
                                             <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
                                                 {tc.maturity}:
                                             </div>
                                             <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                                {dealHelper.getMaturityName(item.maturity)}
+                                                {dealHelper.getMaturityName(previewData.item.maturity)}
                                             </div>
                                         </div> : null
                                     }
@@ -148,7 +128,7 @@ const AgilePreview = (state) => {
                                             {tc.phase}:
                                         </div>
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                            {dealHelper.getReadablePhase(item.phase)}
+                                            {dealHelper.getReadablePhase(previewData.item.phase)}
                                         </div>
                                     </div>
                                     <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
@@ -156,15 +136,15 @@ const AgilePreview = (state) => {
                                             {tc.created}:
                                         </div>
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                            {moment(new Date(item.created)).format('LL HH:mm')}
+                                            {moment(new Date(previewData.item.created)).format('LL HH:mm')}
                                         </div>
                                     </div>
                                     <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
-                                            {tc.lastUpdate}:
+                                            {tc.updated}:
                                         </div>
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                            {moment(new Date(item.updated)).format('LL HH:mm')}
+                                            {moment(new Date(previewData.item.updated)).format('LL HH:mm')}
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +161,7 @@ const AgilePreview = (state) => {
     const _renderEventRows = () => {
         return (
             <>
-            {item.events.map((event) => {
+            {previewData.item.events.map((event) => {
                 const diff = moment(event.event_date).diff(new Date(), 'hours');
                 let extraClass = false;
 
@@ -219,7 +199,7 @@ const AgilePreview = (state) => {
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.removeEvent}>
                                     <div className='agilePreviewWrapper__agilePreview__content__block__content__row__right__icon'
                                          onClick={async () => {
-                                             await removeEvent({dealId: item._id, eventId: event._id});
+                                             await removeEvent({dealId: previewData.item._id, eventId: event._id});
                                          }}
                                     >
                                         <Icon val='remove'/>
@@ -235,7 +215,7 @@ const AgilePreview = (state) => {
     };
 
     const _renderNotificationsBlock = () => {
-        if ((item.events && item.events.length) || item.colleagueDeals || item.ownActiveDeals) {
+        if ((previewData.item.events && previewData.item.events.length) || previewData.item.colleagueDeals || previewData.item.ownActiveDeals) {
             return (
                 <div className='agilePreviewWrapper__agilePreview__content__block'>
                     <div className='agilePreviewWrapper__agilePreview__content__block__title'
@@ -252,9 +232,9 @@ const AgilePreview = (state) => {
                     </div>
                     {(!hideBlocks.includes('notifications')) ?
                         <div className='agilePreviewWrapper__agilePreview__content__block__content'>
-                            {(type === 'deal' && item.events && item.events.length) ? _renderEventRows() : null}
-                            {(item.colleagueDeals && Array.isArray(item.colleagueDeals)) ? _renderColleagueDealRows() : null}
-                            {(item.ownActiveDeals && Array.isArray(item.ownActiveDeals)) ? _renderOwnActiveDealRows() : null}
+                            {(previewData.item.type === 'deal' && previewData.item.events && previewData.item.events.length) ? _renderEventRows() : null}
+                            {(previewData.item.colleagueDeals && Array.isArray(previewData.item.colleagueDeals)) ? _renderColleagueDealRows() : null}
+                            {(previewData.item.ownActiveDeals && Array.isArray(previewData.item.ownActiveDeals)) ? _renderOwnActiveDealRows() : null}
                         </div> : null
                     }
                 </div>
@@ -267,7 +247,7 @@ const AgilePreview = (state) => {
     const _renderOwnActiveDealRows = () => {
         return (
             <>
-                {item.ownActiveDeals.map((num, i) => {
+                {previewData.item.ownActiveDeals.map((num, i) => {
                     return (
                         <div className='agilePreviewWrapper__agilePreview__content__block__content__row' key={i}>
                             <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left'>
@@ -285,8 +265,6 @@ const AgilePreview = (state) => {
     };
 
     const _renderProspectInfoBlock = () => {
-        // Om prospekt, rendera bara prospektet.
-        // Om deal, rendera det som vi hämtar till dealProspectInfo, eller vad får vi i /getPreview...?
         return (
             <div className='agilePreviewWrapper__agilePreview__content__block'>
                 <div className='agilePreviewWrapper__agilePreview__content__block__title'
@@ -311,7 +289,7 @@ const AgilePreview = (state) => {
     };
 
     const _stateCheck = () => {
-        return !!(item && type.length);
+        return !!(previewData && previewData.item);
     };
 
     /*
@@ -326,7 +304,7 @@ const AgilePreview = (state) => {
                     <div className='agilePreviewWrapper__agilePreview__header'>
                         <div className='agilePreviewWrapper__agilePreview__header__main'
                             onClick={() => {
-                                if (type === 'deal') {
+                                if (previewData.item.type === 'deal') {
                                     history.push('/affar/' + state.props.id);
                                 } else if (companyHelper.isValidOrgNr(state.props.id)) {
                                     history.push('/foretag/' + state.props.id);
@@ -335,7 +313,7 @@ const AgilePreview = (state) => {
                                 }
                             }}
                          >
-                            {item.name}
+                            {previewData.item.name}
                             <div className='agilePreviewWrapper__agilePreview__header__main__navigate'>
                                 <Icon val='navigate'/>
                             </div>
