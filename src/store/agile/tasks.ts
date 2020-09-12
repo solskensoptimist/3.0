@@ -329,8 +329,7 @@ export const getPagedProspects = async () => {
  * Either for a deal or for a prospect.
  *
  * (Note that we have a preview router in the backend. But we do not use this because it's slow,
- * overkill and cannot handle deals with multiple prospects.
- * Deals can contain multiple prospects and/or cars. But some of the backend routes cannot handle this.)
+ * overkill and cannot properly handle deals with multiple prospects.)
  *
  * @param payload.id - string - Deal id or prospect id.
  */
