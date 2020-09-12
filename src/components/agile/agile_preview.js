@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {dealHelper, tc} from 'helpers';
 import moment from 'moment';
+import {getPreviewData} from 'store/agile/tasks';
 import {completeEvent, removeEvent} from 'store/events/tasks';
 import history from '../../router_history';
 import companyHelper from 'shared_helpers/company_helper';
@@ -9,9 +10,18 @@ import Icon from 'components/icon';
 import Loading from 'components/loading';
 import Tooltip from '../tooltip/tooltip';
 
+/**
+ * Render preview for a deal or a prospect.
+ *
+ * Note that we immediately start to render with data we have in state.agile.columns,
+ * and later on when we get data from state.agile.previewData we render that as well.
+ *
+ * @param state.props.id - string/ number - Deal id or prospect id.
+ */
 const AgilePreview = (state) => {
     const [item, setItem] = useState(null);
     const [hideBlocks, setHideBlocks] = useState([]);
+    const [previewData, setPreviewData] = useState(null);
     const [type, setType] = useState('');
 
     useEffect(() => {
@@ -28,9 +38,19 @@ const AgilePreview = (state) => {
             if (found) {
                 setItem(found);
                 setType((found._id ? 'deal' : 'prospect'))
+                getPreviewData({
+                    deal: (found._id) ? 'true' : 'false',
+                    id: (found._id) ? found._id : found.prospectId,
+                    prospectId: (found._id) ? found.prospects : found.prospectId,
+                    listId: (found._id) ? null : found.listId,
+                });
             }
         }
     }, [state.agile.columns, state.props.id]);
+
+    useEffect(() => {
+        setPreviewData(state.agile.previewData);
+    }, [state.agile.previewData]);
 
     const _renderColleagueDealRows = () => {
         return (
@@ -54,15 +74,6 @@ const AgilePreview = (state) => {
 
     const _renderDealInfoBlock = () => {
         if (type === 'deal') {
-            /*
-            ANVÄND /getPreview eller vad det nu är vi har...?!?!?
-            Eller bygg en ny route för detta.
-            Ha en preview reducer...?
-            Kan ju börja visa notifikationer ändå.
-            Använd useEffect, och sätt en flagga: previewDataIsCollected.
-            Rendera det block som går utan att vänta på denna flagga.
-             */
-
             return (
                 <div className='agilePreviewWrapper__agilePreview__content__block'>
                     <div className='agilePreviewWrapper__agilePreview__content__block__title'
@@ -114,7 +125,10 @@ const AgilePreview = (state) => {
                                             {tc.belongsToList}:
                                         </div>
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                            Hämta listnamn här...
+                                            {(previewData && previewData.dealData && previewData.dealData.meta && previewData.dealData.meta.moved_from_list_name) ?
+                                                previewData.dealData.meta.moved_from_list_name :
+                                                <Loading small={true}/>
+                                            }
                                         </div>
                                     </div>
                                     {(item.maturity && item.maturity.length) ?

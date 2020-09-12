@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {showFlashMessage} from 'store/flash_messages/tasks';
-import {addActivity, getColumnsData, getFilters, moveItem, setPreviewItem, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
+import {addActivity, getColumnsData, getFilters, moveItem, setPreviewId, sortColumns, updateFilters, updateColumnStructure} from 'store/agile/tasks';
 import sharedAgileHelper from 'shared_helpers/agile_helper';
 import {agileHelper, tc} from 'helpers';
 import id from'valid-objectid';
@@ -67,8 +67,8 @@ const Agile = (state) => {
     }, [showAddNewColumn]);
 
     useEffect(() => {
-        setItemOpenInPreview(state.agile.previewItem);
-    }, [state.agile.previewItem]);
+        setItemOpenInPreview(state.agile.previewId);
+    }, [state.agile.previewId]);
 
     /**
      * Can be executed from <AgileAddActivity/> or from _moveItem(), depending on if we are simultaneously moving an item and adding an activity.
@@ -316,9 +316,9 @@ const Agile = (state) => {
                         }}
                     />
                     {(itemOpenInPreview) ?
-                        <Popup close={() => {setPreviewItem(null)}} size='medium'>
+                        <Popup close={() => {setPreviewId(null)}} size='medium'>
                             <AgilePreview
-                                close={() => {setPreviewItem(null)}}
+                                close={() => {setPreviewId(null)}}
                                 id={itemOpenInPreview}
                             />
                         </Popup> : null

@@ -420,7 +420,7 @@ const Lists = (state) => {
                 </div>
             </div>
         </div> :
-        <Loading />
+        <Loading/>
     );
 };
 

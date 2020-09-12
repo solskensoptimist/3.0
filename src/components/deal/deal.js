@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getDeal, updateDeal} from 'store/deal/tasks';
-import {setPreviewItem} from 'store/agile/tasks';
+import {setPreviewId} from 'store/agile/tasks';
 import colors from '../../styles/_colors.scss';
 import {RoughNotation} from "react-rough-notation";
 import {dealHelper, tc} from 'helpers';
@@ -68,8 +68,7 @@ const Deal = (state) => {
     };
 
     const _openInAgile = () => {
-        console.log('Öppna i Bearbeta');
-        setPreviewItem(id);
+        setPreviewId(id);
         history.push('/bearbeta')
     };
 

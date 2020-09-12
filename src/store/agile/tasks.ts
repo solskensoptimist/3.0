@@ -322,6 +322,50 @@ export const getPagedProspects = async () => {
 };
 
 /**
+ * Get data for preview.
+ *
+ * @param payload.deal - string - 'false' / 'true'
+ * @param payload.id - string - If deal === true this i deal id, else prospect id.
+ * @param payload.listId - string - If deal === false, this should be provided.
+ * @param payload.prospectId - string / array - Prospect ids.
+ */
+export const getPreviewData = async (payload) => {
+    try {
+        if (!payload || (payload && !payload.id) || (payload && !payload.prospectId) ||
+            (payload && payload.deal === 'false' && !payload.listId)) {
+            return console.error('Missing params in getPreviewData', payload);
+        }
+
+        store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: null});
+
+        let params : any = {
+            deal: payload.deal,
+            id: payload.id,
+            prospectId: payload.prospectId,
+        }
+
+        if (payload.deal === 'false') {
+            params.listId = payload.listId;
+        }
+
+        const data = await request({
+            data: params,
+            method: 'post',
+            url: '/preview/getPreview/',
+        });
+
+        if (data instanceof Error) {
+            return console.error('Error in getPreviewData:\n' + data);
+        }
+
+        return store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: data});
+    } catch(err) {
+        return console.error('Error in getPreviewData:\n' + err);
+    }
+};
+
+
+/**
  * Get saved value for sorting columns.
  */
 const getSortValue = async () => {
@@ -432,8 +476,8 @@ export const moveItem = async (payload) => {
     }
 };
 
-export const setPreviewItem = (id) => {
-    return store.dispatch({type: agileActionTypes.SET_PREVIEW_ITEM, payload: id});
+export const setPreviewId = (id) => {
+    return store.dispatch({type: agileActionTypes.SET_PREVIEW_ID, payload: id});
 };
 
 

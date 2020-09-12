@@ -114,9 +114,44 @@
         40%
             opacity: 1
 
-.loadingWrapperFull
-    @extend .loadingWrapper
-    position: fixed
-    top: 0
-    left: 0
-    background: rgba(0, 0, 0, 0.2)
+.loadingWrapperSmall
+    .moving-ellipsis
+        display: inline-block
+        position: relative
+        top: 2px
+        width: 18px
+        height: 4px
+        & > div
+            position: absolute
+            top: 0
+            width: 2px
+            height: 2px
+            border-radius: 50%
+            background: $colorLink
+            &:nth-child(1)
+                left: 2px
+                animation: moving-ellipsis1 1s infinite
+            &:nth-child(2)
+                left: 2px
+                animation: moving-ellipsis2 1s infinite
+            &:nth-child(3)
+                left: 8px
+                animation: moving-ellipsis2 1s infinite
+            &:nth-child(4)
+                left: 14px
+                animation: moving-ellipsis3 1s infinite
+        @-webkit-keyframes moving-ellipsis1
+            0%
+                transform: scale(0)
+            100%
+                transform: scale(1)
+        @-webkit-keyframes moving-ellipsis2
+            0%
+                transform: translate(0, 0)
+            100%
+                transform: translate(6px, 0)
+        @-webkit-keyframes moving-ellipsis3
+            0%
+                transform: scale(1)
+            100%
+                transform: scale(0)

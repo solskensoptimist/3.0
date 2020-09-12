@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import moment from 'moment';
 import {tc} from 'helpers';
-import {setPreviewItem} from 'store/agile/tasks';
+import {setPreviewId} from 'store/agile/tasks';
 import Icon from 'components/icon';
 import Tooltip from 'components/tooltip';
 
@@ -30,7 +30,7 @@ export default (props) => {
 
     const _openItem = (e) => {
         e.stopPropagation();
-        setPreviewItem(item._id ? item._id : item.prospectId);
+        setPreviewId(item._id ? item._id : item.prospectId);
     };
 
     /**

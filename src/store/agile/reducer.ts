@@ -4,7 +4,8 @@ interface AgileState {
     allProspectsReceived: boolean,
     columns: Array<object> | null,
     filters: object | null,
-    previewItem: string | null,
+    previewData: object | null,
+    previewId: string | null,
     sort: string | null,
 }
 
@@ -12,7 +13,8 @@ const initialState: AgileState = {
     allProspectsReceived: true,
     columns: null,
     filters: null,
-    previewItem: null,
+    previewData: null,
+    previewId: null,
     sort: null,
 };
 
@@ -36,10 +38,16 @@ export const agileReducer = (state = initialState, action) => {
                 filters: action.payload,
             }
         }
-        case agileActionTypes.SET_PREVIEW_ITEM: {
+        case agileActionTypes.SET_PREVIEW_DATA: {
             return {
                 ...state,
-                previewItem: action.payload,
+                previewData: action.payload,
+            }
+        }
+        case agileActionTypes.SET_PREVIEW_ID: {
+            return {
+                ...state,
+                previewId: action.payload,
             }
         }
         case agileActionTypes.SET_SORT: {
