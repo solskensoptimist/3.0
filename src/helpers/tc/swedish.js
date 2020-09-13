@@ -415,6 +415,7 @@ export default {
     performedActivity: 'Utförd aktivitet',
     phase: 'Status',
     phone: 'Telefon',
+    phoneNumber: 'Telefonnummer',
     phoneNumbers: 'Telefonnummer',
     phoneNumbersSubscriptionInfo: 'Köp automatiskt telefonnummer för privatpersoner',
     placeholderSearchAll: 'Sök person, företag eller registreringsnummer',

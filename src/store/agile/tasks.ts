@@ -1,12 +1,12 @@
 import {store} from 'store';
-import {agileHelper, request, tc} from 'helpers';
+import {agileHelper, personHelper, request, tc} from 'helpers';
 import {agileActionTypes} from './actions';
 import {showFlashMessage} from 'store/flash_messages/tasks';
 import {getActivity} from 'store/activity/tasks';
-import {getProspectInfo} from 'store/deal/tasks';
 import {getFleetSummary} from 'store/fleet/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
 import id from 'valid-objectid';
+import companyHelper from 'shared_helpers/company_helper';
 
 /**
  * Add activity to a deal. Either historic/performed or planned.
@@ -377,7 +377,7 @@ export const getPreviewData = async (payload) => {
             });
             item.listName = (list && !(list instanceof Error)) ? list.name : '';
         } else {
-            item.listName = '';
+            item.listName = null;
         }
 
         previewData.item = item;
@@ -386,11 +386,57 @@ export const getPreviewData = async (payload) => {
         store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: previewData});
 
         // Get prospect information.
-        const prospectInformation = await getProspectInfo({
-            ids: (item.type === 'deal') ? item.prospects : [item.prospectId.toString()],
-        });
+        let prospectPromises;
+        if (item.type === 'deal') {
+            prospectPromises = await previewData.item.prospects.map(async (id) => {
+                if (companyHelper.isValidOrgNr(id)) {
+                    return await request({
+                        method: 'get',
+                        url: '/company/' + id,
+                    });
+                } else {
+                    return await request({
+                        method: 'get',
+                        url: '/privatePerson/' + id,
+                    });
+                }
+            });
+        } else {
+            if (companyHelper.isValidOrgNr(item.prospectId)) {
+                prospectPromises = [await request({
+                    method: 'get',
+                    url: '/company/' + item.prospectId,
+                })];
+            } else {
+                prospectPromises = [await request({
+                    method: 'get',
+                    url: '/privatePerson/' + item.prospectId,
+                })];
+            }
+        }
 
-        previewData.prospectInformation = (prospectInformation && !(prospectInformation instanceof Error)) ? prospectInformation : [];
+        const prospectData = await Promise.all(prospectPromises);
+
+        if (prospectData instanceof Error) {
+            previewData.prospectInformation = [];
+        } else {
+            const prospectInformation = prospectData.map((num: any) => {
+                if (num.company) {
+                    num.company.type = 'company';
+                    return num.company;
+                } else if (num.person && Array.isArray(num.person)) {
+                    let person = num.person[0].person;
+                    person.type = 'person';
+                    if (!person.name || person.name === '') {
+                        person.name = personHelper.buildPersonDefaultName(person.gender, person.birthYear, person.zipMuncipality);
+                    }
+                    return person;
+                } else {
+                    return null;
+                }
+            });
+            previewData.prospectInformation = prospectInformation.filter((num) => num);
+        }
 
         // Get fleet summary for each prospect.
         let fleetPromises;
@@ -408,10 +454,12 @@ export const getPreviewData = async (payload) => {
             console.error('Error when getting fleet in getPreviewData', fleet);
             previewData.prospectInformation.map((num, i) => {
                 num.fleet = [];
+                return num;
             });
         } else {
             previewData.prospectInformation.map((num, i) => {
                 num.fleet = fleet[i];
+                return num;
             });
         }
 

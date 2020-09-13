@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {dealHelper, tc} from 'helpers';
+import {dealHelper, personHelper, tc} from 'helpers';
 import moment from 'moment';
 import {getPreviewData} from 'store/agile/tasks';
 import {completeEvent, removeEvent} from 'store/events/tasks';
@@ -26,7 +26,7 @@ const AgilePreview = (state) => {
         getPreviewData({
             id: state.props.id,
         });
-    }, [state.props.id]);
+    }, [state.props.id, state.agile.columns]);
 
     useEffect(() => {
         setPreviewData(state.agile.previewData);
@@ -52,7 +52,7 @@ const AgilePreview = (state) => {
         );
     };
 
-    const _renderDealInfoBlock = () => {
+    const _renderInfoBlock = () => {
         if (previewData.item.type === 'deal') {
             return (
                 <div className='agilePreviewWrapper__agilePreview__content__block'>
@@ -100,18 +100,17 @@ const AgilePreview = (state) => {
                                             </div>
                                         </div> : null
                                     }
-                                    <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
-                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
-                                            {tc.belongsToList}:
-                                        </div>
-                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
-                                            {(previewData && previewData.item && previewData.item.hasOwnProperty('listName')) ?
-                                                previewData.item.listName :
-                                                <Loading small={true}/>
-                                            }
-                                        </div>
-                                    </div>
-                                    {(previewData.item.maturity && previewData.item.maturity.length) ?
+                                    {(previewData.item.listName) ?
+                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
+                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
+                                                {tc.belongsToList}:
+                                            </div>
+                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
+                                                {previewData.item.listName}
+                                            </div>
+                                        </div> : null
+                                    }
+                                    {(previewData.item.maturity) ?
                                         <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
                                             <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
                                                 {tc.maturity}:
@@ -154,7 +153,7 @@ const AgilePreview = (state) => {
                 </div>
             );
         } else {
-            return null;
+            return <div>Information om prospekt, listnman mm....</div>
         }
     };
 
@@ -281,7 +280,84 @@ const AgilePreview = (state) => {
                 </div>
                 {(!hideBlocks.includes('prospectInfo')) ?
                     <div className='agilePreviewWrapper__agilePreview__content__block__content'>
-                        Prospektinformation
+                        {(previewData.prospectInformation) ?
+                            previewData.prospectInformation.map((prospect) => {
+                                return (
+                                    <div className='agilePreviewWrapper__agilePreview__content__block__content__prospectBox' key={prospect.user_id}>
+                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__prospectBox__header'>
+                                            {(prospect.type === 'company') ? <Icon val='company'/> : <Icon val='person'/>}
+                                            <h5>{prospect.name}</h5>
+                                        </div>
+                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__prospectBox__content'>
+                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder'>
+                                                <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox'>
+                                                    {(prospect.type === 'company') ?
+                                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
+                                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
+                                                                {tc.lineOfBusiness}:
+                                                            </div>
+                                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
+                                                                {prospect.finance.abv_hgrupp}
+                                                            </div>
+                                                        </div> :
+                                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
+                                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
+                                                                {tc.age}:
+                                                            </div>
+                                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
+                                                                {personHelper.getAgeString(prospect.birthYear)}
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    {(prospect.emails && Array.isArray(prospect.emails) && prospect.emails.length) ?
+                                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
+                                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
+                                                                {tc.email}:
+                                                            </div>
+                                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
+                                                                {prospect.emails.map((num, i) => {
+                                                                    if (i === prospect.emails.length - 1) {
+                                                                        return <span key={num.id}>{num.value}</span>;
+                                                                    } else {
+                                                                        return <span key={num.id}>{num.value}, </span>;
+                                                                    }
+                                                                })}
+                                                            </div>
+                                                        </div> : null
+                                                    }
+                                                </div>
+                                                <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox'>
+                                                    <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
+                                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
+                                                            {tc.address}:
+                                                        </div>
+                                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right capitalize'>
+                                                            {`${prospect.address.toLowerCase()}, ${prospect.zip},  ${prospect.zipMuncipality.toLowerCase()}`}
+                                                        </div>
+                                                    </div>
+                                                    {(prospect.phoneNumbers && Array.isArray(prospect.phoneNumbers) && prospect.phoneNumbers.length) ?
+                                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row'>
+                                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left'>
+                                                                {tc.phoneNumber}:
+                                                            </div>
+                                                            <div className='agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__right'>
+                                                                {prospect.phoneNumbers.map((num, i) => {
+                                                                    if (i === prospect.phoneNumbers.length - 1) {
+                                                                        return <span key={num.id}>{num.value}</span>;
+                                                                    } else {
+                                                                        return <span key={num.id}>{num.value}, </span>;
+                                                                    }
+                                                                })}
+                                                            </div>
+                                                        </div> : null
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            }) : <Loading/>
+                        }
                     </div> : null
                 }
             </div>
@@ -326,7 +402,7 @@ const AgilePreview = (state) => {
                     </div>
                     <div className='agilePreviewWrapper__agilePreview__content'>
                         {_renderNotificationsBlock()}
-                        {_renderDealInfoBlock()}
+                        {_renderInfoBlock()}
                         {_renderProspectInfoBlock()}
                     </div>
                 </div>
