@@ -37,11 +37,6 @@
                 min-height: 98px
                 &__column
                   height: calc(100% - 30px)
-                  &:hover
-                    .columnWrapper__column__header__totalHideOnHover
-                      display: none
-                    .columnWrapper__column__header__icon
-                      display: inline-flex
                   &__header
                     display: flex
                     align-items: center
@@ -49,6 +44,11 @@
                     padding: 4px 8px
                     font-size: $fontSizeStandard-2
                     color: $colorTextLight
+                    &:hover
+                      .columnWrapper__column__header__totalHideOnHover
+                        display: none
+                      .columnWrapper__column__header__icon
+                        display: inline-flex
                     &__title
                       flex-grow: 1
                       display: flex
@@ -69,11 +69,11 @@
                       margin-left: $paddingSmall
                       &:hover
                         svg
-                          fill: $colorLink
+                          fill: $colorLinkHover
                       svg
                         width: 16px
                         height: 16px
-                        fill: $grey-400
+                        fill: $colorLink
                     &__iconAlwaysVisible
                       @extend .columnWrapper__column__header__icon
                       display: inline-flex
@@ -198,12 +198,12 @@
                                 margin-right: 15%
                                 &:hover
                                   svg
-                                    fill: $colorDealLost
+                                    fill: $colorLinkHover
                               &__won
                                 margin-left: 15%
                                 &:hover
                                   svg
-                                    fill: $colorDealWon
+                                    fill: $colorLinkHover
 
                             &__hidden
                               display: none
@@ -295,11 +295,11 @@
       height: calc(100% - 68px)
       @extend .scrollbarRegular
       padding: $paddingBig
+      svg
+        width: 14px
+        height: 14px
       &__block
         margin-top: $paddingGreat
-        svg
-          width: 18px
-          height: 18px
         &__header
           cursor: pointer
           position: relative
@@ -315,6 +315,9 @@
             right: $paddingMedium
             padding: 4px
             background: white
+            svg
+              width: 18px
+              height: 18px
         &__content
           display: flex
           flex-wrap: wrap
@@ -323,44 +326,48 @@
             padding: $paddingMedium
             display: flex
             align-items: center
+            justify-content: space-between
             flex-basis: 100%
             &:nth-child(even)
-              background: $grey-100
+              background: $grey-50
             &__left
-              flex-grow: 1
-              svg
-                fill: $grey-400
-                position: relative
-                top: 4px
-                width: 16px
-                height: 16px
-              .lightAndItalic
-                font-style: italic
-                color: $colorTextLight-1
-              .highlight
-                font-weight: 600
-                display: inline-flex
+              display: flex
+              align-items: center
+              &__icon
+                display: flex
                 align-items: center
+                justify-content: center
                 svg
-                  fill: $colorEventPassedDate
-              .withinOneDay
-                svg
-                  fill: $colorEventWithinOneDay
-              .withinOneWeek
-                svg
-                  fill: $colorEventWithinOneWeek
-              .passedDate
-                svg
-                  fill: $colorEventPassedDate
-              .marginLeft
-                margin-left: 4px
-              .marginRight
-                margin-right: 4px
-              .extraMarginRight
-                margin-right: $paddingSmall
-              &__additionalLine
-                display: block
-                margin-left: ($paddingSmall + 16px)
+                  fill: $colorInformatory
+                &.withinOneDay
+                  svg
+                    fill: $colorEventWithinOneDay
+                &.withinOneWeek
+                  svg
+                    fill: $colorEventWithinOneWeek
+                &.passedDate
+                  svg
+                    fill: $colorEventPassedDate
+              &__content
+                margin: 0 $paddingMedium
+                .lightAndItalic
+                  font-style: italic
+                  color: $colorTextLight-1
+                .highlight
+                  font-weight: 600
+                  display: inline-flex
+                  align-items: center
+                  svg
+                    fill: $colorEventPassedDate
+                .marginLeft
+                  margin-left: 4px
+                .marginRight
+                  margin-right: 4px
+                .extraMarginRight
+                  margin-right: $paddingSmall
+                &__additionalLine
+                  display: block
+                  margin-left: ($paddingSmall + 16px)
             &__right
               display: flex
               &__icon
@@ -377,11 +384,10 @@
                     fill: white
                 svg
                   fill: $grey-500
-                  width: 16px
-                  height: 16px
           &__halfRow
             display: flex
             flex-basis: calc(50% - (#{$paddingMedium} * 3))
+            margin-bottom: 4px
             &:nth-child(odd)
               margin-right: ($paddingMedium / 2)
               margin-left: $paddingMedium
@@ -395,8 +401,8 @@
           &__prospects
             margin-top: $paddingBig
             flex-basis: 100%
-            border: 1px solid $grey-300
-            background: $grey-100
+            border: 1px solid $grey-200
+            background: $grey-50
             &:first-of-type
               margin-top: 0
             &__header
@@ -410,8 +416,8 @@
               &__left
                 display: flex
                 align-items: center
-                h5
-                  font-size: $fontSizeStandard1
+                p
+                  font-weight: 600
                 svg
                   fill: $colorInformatory
                   margin-right: $paddingMedium
@@ -423,12 +429,12 @@
                     fill: $colorLinkHover
                 svg
                   fill: $colorLink
-                  width: 14px
-                  height: 14px
             &__content
               display: flex
               flex-wrap: wrap
-              padding-bottom: $paddingMedium
+              padding: $paddingMedium 0
+              background: white
+              border-top: 1px solid $grey-200
               &__fleetHolder
                 padding: $paddingMedium $paddingMedium 0 $paddingMedium
                 flex-basis: 100%
@@ -456,14 +462,12 @@
                         .highlight
                           font-weight: 600
                         .marginRight
-                          margin-right: $paddingSmall
+                          margin-right: $paddingMedium
                       &__right
                         visibility: hidden
-                        margin-left: $paddingSmall
+                        margin-left: $paddingMedium
                         cursor: pointer
                         svg
-                          width: 14px
-                          height: 14px
                           fill: $colorLink
                     &__info
                       color: $colorTextLight

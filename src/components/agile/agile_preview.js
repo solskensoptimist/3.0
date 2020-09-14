@@ -82,9 +82,7 @@ const AgilePreview = (state) => {
                                     // User
                                     const user = (activity.user && activity.user !== '') ? activity.user : tc.unknown;
 
-                                    return (
-                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__activities__item' key={id}>
-                                            <ActivityItem
+                                    return  <ActivityItem
                                                     action={actionObj.action}
                                                     comment={comment}
                                                     date={date}
@@ -93,9 +91,7 @@ const AgilePreview = (state) => {
                                                     isEditable={false}
                                                     standAlone={true}
                                                     user={user}
-                                                />
-                                        </div>
-                                    );
+                                                />;
                                 }) : <Loading/>
                             }
                             <Comment target={state.props.id} type='newInline'/>
@@ -113,11 +109,15 @@ const AgilePreview = (state) => {
                     return (
                         <div className='agilePreviewWrapper__agilePreview__content__block__content__row' key={i}>
                             <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left'>
-                                <span className='highlight extraMarginRight'><Icon val='infoOutlined'/></span>
-                                {`${tc.appearsWith} ${tc.colleague.toLowerCase()}`}
-                                <span className='highlight marginLeft marginRight'>{num.name}</span>
-                                {`${tc.with.toLowerCase()} ${tc.phase.toLowerCase()}`}
-                                <span className='highlight marginLeft'>{dealHelper.getReadablePhase(num.phase)}</span>
+                                <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left__icon passedDate'>
+                                    <Icon val='infoOutlined'/>
+                                </div>
+                                <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left__content'>
+                                    {`${tc.appearsWith} ${tc.colleague.toLowerCase()}`}
+                                    <span className='highlight marginLeft marginRight'>{num.name}</span>
+                                    {`${tc.with.toLowerCase()} ${tc.phase.toLowerCase()}`}
+                                    <span className='highlight marginLeft'>{dealHelper.getReadablePhase(num.phase)}</span>
+                                </div>
                             </div>
                         </div>
                     );
@@ -145,14 +145,18 @@ const AgilePreview = (state) => {
                     <React.Fragment key={event._id}>
                         <div className='agilePreviewWrapper__agilePreview__content__block__content__row'>
                             <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left'>
-                                <span className={'extraMarginRight ' + extraClass}><Icon val={event.action}/></span>
-                                <span className='highlight marginRight'>{tc[event.action]}</span>
-                                {`${moment(new Date(event.event_date)).format(' dddd D MMM HH:mm')}`}
-                                {(event.comment) ?
-                                    <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left__additionalLine'>
-                                        <span className='lightAndItalic'>{event.comment}</span>
-                                    </div> : null
-                                }
+                                <div className={'agilePreviewWrapper__agilePreview__content__block__content__row__left__icon ' + extraClass}>
+                                    <Icon val={event.action}/>
+                                </div>
+                                <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left__content'>
+                                    <span className='highlight marginRight'>{tc[event.action]}</span>
+                                    {`${moment(new Date(event.event_date)).format(' dddd D MMM HH:mm')}`}
+                                    {(event.comment) ?
+                                        <div className='agilePreviewWrapper__agilePreview__content__block__content__row__center__additionalLine'>
+                                            <span className='lightAndItalic'>{event.comment}</span>
+                                        </div> : null
+                                    }
+                                </div>
                             </div>
                             <div className='agilePreviewWrapper__agilePreview__content__block__content__row__right'>
                                 <Tooltip horizontalDirection='left' tooltipContent={tc.completeEvent}>
@@ -397,11 +401,15 @@ const AgilePreview = (state) => {
                     return (
                         <div className='agilePreviewWrapper__agilePreview__content__block__content__row' key={i}>
                             <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left'>
-                                <span className='extraMarginRight'><Icon val='list'/></span>
-                                {`${tc.appearsIn} ${tc.list.toLowerCase()}`}
-                                <span className='highlight marginLeft marginRight'>{num.listName}</span>
-                                {`${tc.with.toLowerCase()} ${tc.phase.toLowerCase()}`}
-                                <span className='highlight marginLeft'>{dealHelper.getReadablePhase(num.phase)}</span>
+                                <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left__icon'>
+                                    <Icon val='list'/>
+                                </div>
+                                <div className='agilePreviewWrapper__agilePreview__content__block__content__row__left__content'>
+                                    {`${tc.appearsIn} ${tc.list.toLowerCase()}`}
+                                    <span className='highlight marginLeft marginRight'>{num.listName}</span>
+                                    {`${tc.with.toLowerCase()} ${tc.phase.toLowerCase()}`}
+                                    <span className='highlight marginLeft'>{dealHelper.getReadablePhase(num.phase)}</span>
+                                </div>
                             </div>
                         </div>
                     );
