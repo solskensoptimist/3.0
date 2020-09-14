@@ -73,3 +73,38 @@
                   fill: $colorLinkHover
                 &:first-of-type
                   margin-left: 0
+
+// When used as stand alone.
+.activityItemWrapper
+  border-top: 1px solid $grey-300
+  border-right: 1px solid $grey-300
+  border-left: 1px solid $grey-300
+  &__activityItem
+    display: flex
+    align-items: center
+    &__left
+      display: flex
+      align-items: center
+      padding: $paddingMedium
+      svg
+        width: 14px
+        height: 14px
+        fill: $colorInformatory
+    &__right
+      padding: $paddingMedium
+      border-left: 1px solid $grey-300
+      &__top
+        display: flex
+        align-items: center
+        flex-wrap: wrap
+        color: $colorTextLight-1
+      &__bottom
+        &__action
+          font-weight: 600
+          > div
+            font-weight: 600
+            > strong
+              font-weight: 600
+        &__comment
+          font-style: italic
+          color: $colorTextLight

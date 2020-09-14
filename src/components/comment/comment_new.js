@@ -5,7 +5,7 @@ import Popup from 'components/popup';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
 
-export default (props) => {
+const CommentNew = (props) => {
     const [text, setText] = useState('');
     const commentNewTextRef = useRef(null);
 
@@ -37,10 +37,12 @@ export default (props) => {
                         <textarea onChange={_onChange} ref={commentNewTextRef} value={text}/>
                     </div>
                     <div className='commentWrapper__comment__footer'>
-                        <WidgetFooter buttonOneFunc={_saveComment}/>
+                        <WidgetFooter buttonOneFunc={_saveComment} buttonOneText={tc.saveComment}/>
                     </div>
                 </div>
             </div>
         </Popup>
     );
 };
+
+export default CommentNew;

@@ -18,11 +18,39 @@
     padding: $paddingBig
     background: white
     @extend .scrollbarRegular
+    &.noPadding
+      padding: 0
+    &.bigPopup
+      width: $widthPopupBig !important
+    &.mediumPopup
+      width: $widthPopupMedium !important
+    &.smallPopup
+      width: $widthPopupSmall !important
 
-.popupWrapper
-  .bigPopup
-    width: $widthPopupBig !important
-  .mediumPopup
-    width: $widthPopupMedium !important
-  .smallPopup
-    width: $widthPopupSmall !important
+.popupNoScrollWrapper
+  background: rgba(0, 0, 0, 0.2)
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 888
+  display: flex
+  align-items: flex-start
+  justify-content: center
+  padding: 3% 0
+  &__popupNoScroll
+    overflow: hidden
+    height: 100%
+    width: $widthPopupMedium
+    z-index: 888
+    padding: $paddingBig
+    background: white
+    &.noPadding
+      padding: 0
+    &.bigPopup
+      width: $widthPopupBig !important
+    &.mediumPopup
+      width: $widthPopupMedium !important
+    &.smallPopup
+      width: $widthPopupSmall !important

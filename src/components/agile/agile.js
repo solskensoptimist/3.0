@@ -316,7 +316,7 @@ const Agile = (state) => {
                         }}
                     />
                     {(itemOpenInPreview) ?
-                        <Popup close={() => {setPreviewId(null)}} size='medium'>
+                        <Popup close={() => {setPreviewId(null)}} noPadding={true} noScroll={true} size='medium'>
                             <AgilePreview
                                 close={() => {setPreviewId(null)}}
                                 id={itemOpenInPreview}

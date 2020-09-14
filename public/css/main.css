@@ -47,7 +47,7 @@
     border-color: #616161;
     color: white; }
 
-.buttonSave, .searchSelectWrapper__searchSelect__content__save, .settingsWrapper__settings__content__item__button, .widgetFooterWrapper__widgetFooter button {
+.buttonSave, .commentInlineWrapper__commentInline__footer__save, .searchSelectWrapper__searchSelect__content__save, .settingsWrapper__settings__content__item__button, .widgetFooterWrapper__widgetFooter button {
   background: #00B4CC;
   color: white;
   display: flex;
@@ -60,7 +60,7 @@
   border: 0;
   white-space: nowrap;
   border-radius: 2px; }
-  .buttonSave:hover, .searchSelectWrapper__searchSelect__content__save:hover, .settingsWrapper__settings__content__item__button:hover, .widgetFooterWrapper__widgetFooter button:hover {
+  .buttonSave:hover, .commentInlineWrapper__commentInline__footer__save:hover, .searchSelectWrapper__searchSelect__content__save:hover, .settingsWrapper__settings__content__item__button:hover, .widgetFooterWrapper__widgetFooter button:hover {
     background: #616161; }
 
 .capitalize {
@@ -201,16 +201,16 @@
     background: #f5f5f5;
     border-radius: 6px; }
 
-.scrollbarRegular, .dropdownWrapper__dropdown__content, .popupWrapper__popup {
+.scrollbarRegular, .agilePreviewWrapper__agilePreview__content, .dropdownWrapper__dropdown__content, .popupWrapper__popup {
   overflow-y: auto;
   padding-right: 4px;
   scrollbar-width: thin;
   scrollbar-color: #bdbdbd transparent; }
-  .scrollbarRegular::-webkit-scrollbar, .dropdownWrapper__dropdown__content::-webkit-scrollbar, .popupWrapper__popup::-webkit-scrollbar {
+  .scrollbarRegular::-webkit-scrollbar, .agilePreviewWrapper__agilePreview__content::-webkit-scrollbar, .dropdownWrapper__dropdown__content::-webkit-scrollbar, .popupWrapper__popup::-webkit-scrollbar {
     width: 7px; }
-  .scrollbarRegular::-webkit-scrollbar-track, .dropdownWrapper__dropdown__content::-webkit-scrollbar-track, .popupWrapper__popup::-webkit-scrollbar-track {
+  .scrollbarRegular::-webkit-scrollbar-track, .agilePreviewWrapper__agilePreview__content::-webkit-scrollbar-track, .dropdownWrapper__dropdown__content::-webkit-scrollbar-track, .popupWrapper__popup::-webkit-scrollbar-track {
     background: transparent; }
-  .scrollbarRegular::-webkit-scrollbar-thumb, .dropdownWrapper__dropdown__content::-webkit-scrollbar-thumb, .popupWrapper__popup::-webkit-scrollbar-thumb {
+  .scrollbarRegular::-webkit-scrollbar-thumb, .agilePreviewWrapper__agilePreview__content::-webkit-scrollbar-thumb, .dropdownWrapper__dropdown__content::-webkit-scrollbar-thumb, .popupWrapper__popup::-webkit-scrollbar-thumb {
     background: #bdbdbd;
     border-radius: 6px; }
 
@@ -281,6 +281,12 @@ textarea {
   color: #616161; }
   textarea:focus {
     outline: none; }
+  textarea::placeholder {
+    color: #9e9e9e; }
+  textarea:-ms-input-placeholder {
+    color: #9e9e9e; }
+  textarea::-ms-input-placeholder {
+    color: #9e9e9e; }
 
 input {
   color: #616161;
@@ -339,6 +345,12 @@ textarea {
   color: #616161; }
   textarea:focus {
     outline: none; }
+  textarea::placeholder {
+    color: #9e9e9e; }
+  textarea:-ms-input-placeholder {
+    color: #9e9e9e; }
+  textarea::-ms-input-placeholder {
+    color: #9e9e9e; }
 
 input {
   color: #616161;
@@ -460,6 +472,39 @@ a {
               fill: #616161; }
             .activitiesWrapper__activities__content__itemWrapper__item__edit .tooltipWrapper svg:first-of-type {
               margin-left: 0; }
+
+.activityItemWrapper {
+  border-top: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0; }
+  .activityItemWrapper__activityItem {
+    display: flex;
+    align-items: center; }
+    .activityItemWrapper__activityItem__left {
+      display: flex;
+      align-items: center;
+      padding: 12px; }
+      .activityItemWrapper__activityItem__left svg {
+        width: 14px;
+        height: 14px;
+        fill: #ffc107; }
+    .activityItemWrapper__activityItem__right {
+      padding: 12px;
+      border-left: 1px solid #e0e0e0; }
+      .activityItemWrapper__activityItem__right__top {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        color: #9e9e9e; }
+      .activityItemWrapper__activityItem__right__bottom__action {
+        font-weight: 600; }
+        .activityItemWrapper__activityItem__right__bottom__action > div {
+          font-weight: 600; }
+          .activityItemWrapper__activityItem__right__bottom__action > div > strong {
+            font-weight: 600; }
+      .activityItemWrapper__activityItem__right__bottom__comment {
+        font-style: italic;
+        color: #757575; }
 
 .agileWrapper__agile__content {
   padding: 0 12px 12px 0; }
@@ -669,155 +714,232 @@ a {
   .agilePopupWrapper__agilePopup__content input {
     width: 50%; }
 
-.agilePreviewWrapper__agilePreview__header__main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f5f5f5;
-  padding: 22px 22px 22px 44px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 600; }
-  .agilePreviewWrapper__agilePreview__header__main:hover {
-    color: #00B4CC; }
-    .agilePreviewWrapper__agilePreview__header__main:hover .agilePreviewWrapper__agilePreview__header__main__navigate {
-      visibility: visible; }
-  .agilePreviewWrapper__agilePreview__header__main__navigate {
-    visibility: hidden;
-    margin-left: 8px;
-    display: flex;
-    align-items: center; }
-    .agilePreviewWrapper__agilePreview__header__main__navigate svg {
-      fill: #00B4CC;
-      width: 16px;
-      height: 16px; }
-.agilePreviewWrapper__agilePreview__header__sub {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -2.4%; }
-  .agilePreviewWrapper__agilePreview__header__sub__sub {
-    border-radius: 50%;
-    border: 2px solid white;
-    background: #ffc107;
-    color: white;
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-    .agilePreviewWrapper__agilePreview__header__sub__sub svg {
-      width: 28px;
-      height: 28px; }
-.agilePreviewWrapper__agilePreview__content {
-  margin-top: 44px; }
-  .agilePreviewWrapper__agilePreview__content__block {
-    border-top: 1px solid #e0e0e0;
-    padding-top: 22px;
-    position: relative; }
-    .agilePreviewWrapper__agilePreview__content__block svg {
-      width: 16px;
-      height: 16px; }
-    .agilePreviewWrapper__agilePreview__content__block__title {
-      background: white;
-      cursor: pointer;
-      color: #bdbdbd;
-      display: flex;
-      align-items: center;
-      padding: 8px 8px 8px 2px;
-      position: absolute;
-      right: 12px;
-      top: -20px; }
-      .agilePreviewWrapper__agilePreview__content__block__title:hover {
-        color: #00B4CC; }
-      .agilePreviewWrapper__agilePreview__content__block__title svg {
-        width: 22px;
-        height: 22px; }
-    .agilePreviewWrapper__agilePreview__content__block__content {
-      margin-bottom: 44px; }
-      .agilePreviewWrapper__agilePreview__content__block__content__row {
-        padding: 12px;
+.agilePreviewWrapper {
+  height: 100%; }
+  .agilePreviewWrapper__agilePreview {
+    height: 100%; }
+    .agilePreviewWrapper__agilePreview__header {
+      height: 68px;
+      background: #ffc107;
+      position: relative;
+      margin-bottom: 2px;
+      color: white; }
+      .agilePreviewWrapper__agilePreview__header__main {
         display: flex;
-        align-items: center; }
-        .agilePreviewWrapper__agilePreview__content__block__content__row:nth-child(even) {
-          background: #f5f5f5; }
-        .agilePreviewWrapper__agilePreview__content__block__content__row__left {
-          flex-grow: 1; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left svg {
-            fill: #9e9e9e;
-            position: relative;
-            top: 4px; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left .lightAndItalic {
-            font-style: italic;
-            color: #9e9e9e; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left .highlight {
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center; }
-            .agilePreviewWrapper__agilePreview__content__block__content__row__left .highlight svg {
-              fill: #ff8f00; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left .withinOneDay svg {
-            fill: #9ccc65; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left .withinOneWeek svg {
-            fill: #ffc107; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left .passedDate svg {
-            fill: #ff8f00; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left .marginLeft {
-            margin-left: 4px; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left .marginRight {
-            margin-right: 4px; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left .extraMarginRight {
-            margin-right: 8px; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__left__additionalLine {
-            display: block;
-            margin-left: 24px; }
-        .agilePreviewWrapper__agilePreview__content__block__content__row__right {
-          display: flex; }
-          .agilePreviewWrapper__agilePreview__content__block__content__row__right__icon {
-            cursor: pointer;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 50%;
-            padding: 6px;
-            margin-left: 8px;
-            display: flex;
-            align-items: center; }
-            .agilePreviewWrapper__agilePreview__content__block__content__row__right__icon:hover {
-              background: #00B4CC; }
-              .agilePreviewWrapper__agilePreview__content__block__content__row__right__icon:hover svg {
-                fill: white; }
-            .agilePreviewWrapper__agilePreview__content__block__content__row__right__icon svg {
-              fill: #9e9e9e; }
-      .agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder {
+        justify-content: center;
+        align-items: center;
+        padding-left: 22px;
+        height: 100%;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600; }
+        .agilePreviewWrapper__agilePreview__header__main:hover {
+          color: #616161; }
+          .agilePreviewWrapper__agilePreview__header__main:hover .agilePreviewWrapper__agilePreview__header__main__navigate {
+            visibility: visible; }
+        .agilePreviewWrapper__agilePreview__header__main__navigate {
+          visibility: hidden;
+          margin-left: 8px;
+          display: flex;
+          align-items: center; }
+          .agilePreviewWrapper__agilePreview__header__main__navigate svg {
+            width: 16px;
+            height: 16px; }
+      .agilePreviewWrapper__agilePreview__header__sub {
         display: flex;
-        flex-wrap: wrap; }
-        .agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox {
-          flex-basis: calc(50% - 22px); }
-          .agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox:first-child {
-            margin-right: 11px; }
-          .agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox:last-child {
-            margin-left: 11px; }
-          .agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row {
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: -26%;
+        z-index: 5;
+        width: 100%; }
+        .agilePreviewWrapper__agilePreview__header__sub__sub {
+          border-radius: 50%;
+          border: 2px solid white;
+          background: #ffc107;
+          color: white;
+          padding: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center; }
+          .agilePreviewWrapper__agilePreview__header__sub__sub svg {
+            width: 28px;
+            height: 28px; }
+    .agilePreviewWrapper__agilePreview__content {
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: calc(100% - 68px);
+      padding: 22px; }
+      .agilePreviewWrapper__agilePreview__content__block {
+        margin-top: 44px; }
+        .agilePreviewWrapper__agilePreview__content__block svg {
+          width: 18px;
+          height: 18px; }
+        .agilePreviewWrapper__agilePreview__content__block__header {
+          cursor: pointer;
+          position: relative;
+          border-top: 1px solid #e0e0e0;
+          color: #9e9e9e; }
+          .agilePreviewWrapper__agilePreview__content__block__header:hover {
+            color: #00B4CC; }
+          .agilePreviewWrapper__agilePreview__content__block__header__title {
             display: flex;
-            align-items: flex-start;
-            margin-top: 8px; }
-            .agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row:first-child {
-              margin-top: 0; }
-            .agilePreviewWrapper__agilePreview__content__block__content__infoBoxHolder__infoBox__row__left {
+            align-items: center;
+            position: absolute;
+            top: -14px;
+            right: 12px;
+            padding: 4px;
+            background: white; }
+        .agilePreviewWrapper__agilePreview__content__block__content {
+          display: flex;
+          flex-wrap: wrap;
+          margin-top: 22px; }
+          .agilePreviewWrapper__agilePreview__content__block__content__row {
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            flex-basis: 100%; }
+            .agilePreviewWrapper__agilePreview__content__block__content__row:nth-child(even) {
+              background: #f5f5f5; }
+            .agilePreviewWrapper__agilePreview__content__block__content__row__left {
+              flex-grow: 1; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left svg {
+                fill: #bdbdbd;
+                position: relative;
+                top: 4px;
+                width: 16px;
+                height: 16px; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left .lightAndItalic {
+                font-style: italic;
+                color: #9e9e9e; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left .highlight {
+                font-weight: 600;
+                display: inline-flex;
+                align-items: center; }
+                .agilePreviewWrapper__agilePreview__content__block__content__row__left .highlight svg {
+                  fill: #ff8f00; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left .withinOneDay svg {
+                fill: #9ccc65; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left .withinOneWeek svg {
+                fill: #ffc107; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left .passedDate svg {
+                fill: #ff8f00; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left .marginLeft {
+                margin-left: 4px; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left .marginRight {
+                margin-right: 4px; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left .extraMarginRight {
+                margin-right: 8px; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__left__additionalLine {
+                display: block;
+                margin-left: 24px; }
+            .agilePreviewWrapper__agilePreview__content__block__content__row__right {
+              display: flex; }
+              .agilePreviewWrapper__agilePreview__content__block__content__row__right__icon {
+                cursor: pointer;
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 50%;
+                padding: 6px;
+                margin-left: 8px;
+                display: flex;
+                align-items: center; }
+                .agilePreviewWrapper__agilePreview__content__block__content__row__right__icon:hover {
+                  background: #00B4CC; }
+                  .agilePreviewWrapper__agilePreview__content__block__content__row__right__icon:hover svg {
+                    fill: white; }
+                .agilePreviewWrapper__agilePreview__content__block__content__row__right__icon svg {
+                  fill: #9e9e9e;
+                  width: 16px;
+                  height: 16px; }
+          .agilePreviewWrapper__agilePreview__content__block__content__halfRow {
+            display: flex;
+            flex-basis: calc(50% - (12px * 3)); }
+            .agilePreviewWrapper__agilePreview__content__block__content__halfRow:nth-child(odd) {
+              margin-right: 6px;
+              margin-left: 12px; }
+            .agilePreviewWrapper__agilePreview__content__block__content__halfRow:nth-child(even) {
+              margin-left: 6px;
+              margin-right: 12px; }
+            .agilePreviewWrapper__agilePreview__content__block__content__halfRow__left {
               color: #9e9e9e;
               margin-right: 8px;
               white-space: nowrap; }
-      .agilePreviewWrapper__agilePreview__content__block__content__prospectBox {
-        margin-top: 22px; }
-        .agilePreviewWrapper__agilePreview__content__block__content__prospectBox:first-of-type {
-          margin-top: 0; }
-        .agilePreviewWrapper__agilePreview__content__block__content__prospectBox__header {
-          display: flex;
-          align-items: center;
-          margin-bottom: 12px; }
-          .agilePreviewWrapper__agilePreview__content__block__content__prospectBox__header svg {
-            width: 14px;
-            height: 14px;
-            fill: #ffc107;
-            margin-right: 12px; }
+          .agilePreviewWrapper__agilePreview__content__block__content__prospects {
+            margin-top: 22px;
+            flex-basis: 100%;
+            border: 1px solid #e0e0e0;
+            background: #f5f5f5; }
+            .agilePreviewWrapper__agilePreview__content__block__content__prospects:first-of-type {
+              margin-top: 0; }
+            .agilePreviewWrapper__agilePreview__content__block__content__prospects__header {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin: 12px; }
+              .agilePreviewWrapper__agilePreview__content__block__content__prospects__header:hover .agilePreviewWrapper__agilePreview__content__block__content__prospects__header__right {
+                visibility: visible; }
+              .agilePreviewWrapper__agilePreview__content__block__content__prospects__header__left {
+                display: flex;
+                align-items: center; }
+                .agilePreviewWrapper__agilePreview__content__block__content__prospects__header__left h5 {
+                  font-size: 14px; }
+                .agilePreviewWrapper__agilePreview__content__block__content__prospects__header__left svg {
+                  fill: #ffc107;
+                  margin-right: 12px; }
+              .agilePreviewWrapper__agilePreview__content__block__content__prospects__header__right {
+                visibility: hidden;
+                cursor: pointer; }
+                .agilePreviewWrapper__agilePreview__content__block__content__prospects__header__right:hover svg {
+                  fill: #616161; }
+                .agilePreviewWrapper__agilePreview__content__block__content__prospects__header__right svg {
+                  fill: #00B4CC;
+                  width: 14px;
+                  height: 14px; }
+            .agilePreviewWrapper__agilePreview__content__block__content__prospects__content {
+              display: flex;
+              flex-wrap: wrap;
+              padding-bottom: 12px; }
+              .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder {
+                padding: 12px 12px 0 12px;
+                flex-basis: 100%; }
+                .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__header {
+                  display: flex;
+                  align-items: center;
+                  margin-top: 12px;
+                  color: #757575; }
+                  .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__header p {
+                    margin-left: 8px; }
+                .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin: 4px 12px; }
+                  .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle:hover .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle__right {
+                    visibility: visible; }
+                  .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle__left {
+                    display: flex;
+                    align-items: center;
+                    font-size: 12px; }
+                    .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle__left .highlight {
+                      font-weight: 600; }
+                    .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle__left .marginRight {
+                      margin-right: 8px; }
+                  .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle__right {
+                    visibility: hidden;
+                    margin-left: 8px;
+                    cursor: pointer; }
+                    .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle__right svg {
+                      width: 14px;
+                      height: 14px;
+                      fill: #00B4CC; }
+                .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__info {
+                  color: #757575;
+                  font-style: italic;
+                  margin: 0 12px; }
+          .agilePreviewWrapper__agilePreview__content__block__content__activities {
+            flex-basis: 100%; }
+            .agilePreviewWrapper__agilePreview__content__block__content__activities__item {
+              background: #f5f5f5; }
 
 .agileAddActivityWrapper__agileAddActivity__content {
   margin: 22px 0;
@@ -915,6 +1037,13 @@ a {
     width: 100%;
     max-width: 100%;
     font-size: 14px; }
+
+.commentInlineWrapper__commentInline__content textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e0e0e0; }
+.commentInlineWrapper__commentInline__footer__save {
+  width: 100%; }
 
 .companyWrapper__company {
   padding: 12px; }
@@ -2824,13 +2953,42 @@ svg.active {
     z-index: 888;
     padding: 22px;
     background: white; }
+    .popupWrapper__popup.noPadding {
+      padding: 0; }
+    .popupWrapper__popup.bigPopup {
+      width: 70% !important; }
+    .popupWrapper__popup.mediumPopup {
+      width: 48% !important; }
+    .popupWrapper__popup.smallPopup {
+      width: 36% !important; }
 
-.popupWrapper .bigPopup {
-  width: 70% !important; }
-.popupWrapper .mediumPopup {
-  width: 48% !important; }
-.popupWrapper .smallPopup {
-  width: 36% !important; }
+.popupNoScrollWrapper {
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 888;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3% 0; }
+  .popupNoScrollWrapper__popupNoScroll {
+    overflow: hidden;
+    height: 100%;
+    width: 48%;
+    z-index: 888;
+    padding: 22px;
+    background: white; }
+    .popupNoScrollWrapper__popupNoScroll.noPadding {
+      padding: 0; }
+    .popupNoScrollWrapper__popupNoScroll.bigPopup {
+      width: 70% !important; }
+    .popupNoScrollWrapper__popupNoScroll.mediumPopup {
+      width: 48% !important; }
+    .popupNoScrollWrapper__popupNoScroll.smallPopup {
+      width: 36% !important; }
 
 .saveToListWrapper__saveToList__content {
   margin-top: 22px; }

@@ -10,3 +10,15 @@
         width: 100%
         max-width: 100%
         font-size: $fontSizeStandard1
+
+.commentInlineWrapper
+  &__commentInline
+    &__content
+      textarea
+        width: 100%
+        padding: $paddingSmall
+        border: 1px solid $grey-300
+    &__footer
+      &__save
+        width: 100%
+        @extend .buttonSave

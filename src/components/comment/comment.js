@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentEdit from './comment_edit';
 import CommentNew from './comment_new';
+import CommentNewInline from './comment_new_inline';
 import CommentRemove from './comment_remove';
 
 /**
@@ -11,11 +12,17 @@ import CommentRemove from './comment_remove';
  * @param props.id - number - When edit or remove.
  * @param props.target - number - When new.
  */
-export default (props) => {
+const Comment = (props) => {
     switch (props.type) {
         case 'new':
             if (props.target) {
                 return <CommentNew close={props.close} headline={props.headline} target={props.target}/>;
+            } else {
+                return console.error('Missing props.target for Comment');
+            }
+        case 'newInline':
+            if (props.target) {
+                return <CommentNewInline headline={props.headline} target={props.target}/>;
             } else {
                 return console.error('Missing props.target for Comment');
             }
@@ -39,3 +46,5 @@ export default (props) => {
             }
     }
 }
+
+export default Comment;

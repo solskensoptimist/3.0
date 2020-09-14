@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {activityHelper, dealHelper, tc} from 'helpers';
-import companyHelper from 'shared_helpers/company_helper';
+import {activityHelper, tc} from 'helpers';
 import moment from 'moment';
-import Id from'valid-objectid';
 import {getActivity} from 'store/activity/tasks';
-import {NavLink} from 'react-router-dom';
 import ActivityItem from './activity_item';
 import Icon from 'components/icon';
 import Info from 'components/info';
@@ -90,57 +87,8 @@ const Activities = (state) => {
          * Return one activity row.
          */
         const _renderActivityItem = (activity) => {
-            let isEditable = false;
-
-            // Action. (This cluster of an if statement is just to make the action look nice, with some added text and link to prospect/deal.)
-            let action;
-            // When target is the same as the activity target, we don't need to add a link to target.
-            if (state.props.type === 'target' && ((activity.deal_id && state.props.target === activity.deal_id)
-                || (activity.target && state.props.target === activity.target))) {
-                if (activity.action && activity.action === 'move') {
-                    action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>;
-                } else if (activity.action) {
-                    action = <div>{activityHelper.getReadableActivity(activity.action)}</div>;
-                } else if (!activity.action && activity.id && activity.comment && activity.comment !== '') {
-                    isEditable = (state.user.info.id === activity.user_id); // Can be edited, but only when created by the user.
-                    action = <div>{activityHelper.getReadableActivity('comment')}</div>;
-                }
-            } else {
-                if (activity.action && activity.action === 'move' && activity.phase && activity.target) {
-                    // For move action we add phases.
-                    action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.theDeal.toLowerCase()} {tc.from.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.phase)}</strong> {tc.to.toLowerCase()} <strong>{dealHelper.getReadablePhase(activity.target)}</strong></div>
-                } else if (activity.action && activity.deal && activity.deal.name) {
-                    // For these we add a link to deal.
-                    action = <div>{activityHelper.getReadableActivity(activity.action)} {activityHelper.getPreposition(activity.action).toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>
-                } else if (!activity.action && activity.comment && activity.comment !== '') {
-                    // No action, this is a comment.
-                    isEditable = (state.user.info.id === activity.user_id); // Can be edited, but only when created by the user.
-                    if (activity.deal && activity.deal.name) {
-                        // Add deal link to deal.
-                        action = <div>{activityHelper.getReadableActivity('comment')} {tc.onDeal.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal._id} key='affar'>{activity.deal.name}</NavLink></div>;
-                    } else if (!activity.deal && activity.target && !Id.isValid(activity.target)) {
-                        // No deal, add prospect link.
-                        if (companyHelper.isValidOrgNr(activity.target)) {
-                            action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/foretag/' + activity.target} key='foretag'>{tc.oneProspect.toLowerCase()}</NavLink></div>;
-                        } else {
-                            action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/person/' + activity.target} key='person'>{tc.oneProspect.toLowerCase()}</NavLink></div>;
-                        }
-                    } else if (!activity.deal && activity.target && Id.isValid(activity.target)) {
-                        // Target is deal, but we don't have deal name.
-                        action = <div>{activityHelper.getReadableActivity('comment')} {tc.on.toLowerCase()} <NavLink exact to={'/affar/' + activity.target} key='affar'>{tc.deal.toLowerCase()}</NavLink></div>;
-                    } else {
-                        // Catch comments without deal link or prospect link.
-                        action = <div>{activityHelper.getReadableActivity('comment')}</div>;
-                    }
-                } else if (activity.action) {
-                    // Action without deal name.
-                    if (activity.action === 'owner' && activity.deal_id) {
-                        action = <div>{activityHelper.getReadableActivity(activity.action)} {tc.on.toLowerCase()} <NavLink exact to={'/affar/' + activity.deal_id} key='deal'>{tc.deal.toLowerCase()}</NavLink></div>;
-                    } else {
-                        action = <div>{activityHelper.getReadableActivity(activity.action)}</div>;
-                    }
-                }
-            }
+            // Action
+            const actionObj = activityHelper.getActionElement(state.props.target, state.props.type, activity, state.user);
 
             // Comment
             const comment = (activity.comment) ? activity.comment : null;
@@ -167,7 +115,16 @@ const Activities = (state) => {
             // User
             const user = (activity.user && activity.user !== '') ? activity.user : tc.unknown;
 
-            return <ActivityItem action={action} comment={comment} date={date} id={id} icon={icon} isEditable={isEditable} user={user}/>;
+            return <ActivityItem
+                        action={actionObj.action}
+                        comment={comment}
+                        date={date}
+                        id={id}
+                        icon={icon}
+                        standAlone={false}
+                        isEditable={actionObj.isEditable}
+                        user={user}
+                    />;
         };
 
         _renderActivities();

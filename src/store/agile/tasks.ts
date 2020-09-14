@@ -7,6 +7,7 @@ import {getFleetSummary} from 'store/fleet/tasks';
 import {addEntityToContacts} from 'store/contacts/tasks';
 import id from 'valid-objectid';
 import companyHelper from 'shared_helpers/company_helper';
+import _ from 'underscore';
 
 /**
  * Add activity to a deal. Either historic/performed or planned.
@@ -392,7 +393,7 @@ export const getPreviewData = async (payload) => {
                 if (companyHelper.isValidOrgNr(id)) {
                     return await request({
                         method: 'get',
-                        url: '/company/' + id,
+                        url: '/company/companyBasicInfo/' + id,
                     });
                 } else {
                     return await request({
@@ -405,7 +406,7 @@ export const getPreviewData = async (payload) => {
             if (companyHelper.isValidOrgNr(item.prospectId)) {
                 prospectPromises = [await request({
                     method: 'get',
-                    url: '/company/' + item.prospectId,
+                    url: '/company/companyBasicInfo/' + item.prospectId,
                 })];
             } else {
                 prospectPromises = [await request({
@@ -421,16 +422,16 @@ export const getPreviewData = async (payload) => {
             previewData.prospectInformation = [];
         } else {
             const prospectInformation = prospectData.map((num: any) => {
-                if (num.company) {
-                    num.company.type = 'company';
-                    return num.company;
-                } else if (num.person && Array.isArray(num.person)) {
+                if (num.person && Array.isArray(num.person)) {
                     let person = num.person[0].person;
                     person.type = 'person';
                     if (!person.name || person.name === '') {
                         person.name = personHelper.buildPersonDefaultName(person.gender, person.birthYear, person.zipMuncipality);
                     }
                     return person;
+                } else if (num) {
+                    num.type = 'company';
+                    return num;
                 } else {
                     return null;
                 }
@@ -438,7 +439,7 @@ export const getPreviewData = async (payload) => {
             previewData.prospectInformation = prospectInformation.filter((num) => num);
         }
 
-        // Get fleet summary for each prospect.
+        // Get fleet for each prospect.
         let fleetPromises;
         if (previewData.item.type === 'deal') {
             fleetPromises = await previewData.item.prospects.map(async (id) => {
@@ -448,32 +449,50 @@ export const getPreviewData = async (payload) => {
             fleetPromises = [await getFleetSummary({prospectId: id})]
         }
 
-        let fleet = await Promise.all(fleetPromises);
+        let fleet : any = await Promise.all(fleetPromises);
 
         if (fleet instanceof Error) {
             console.error('Error when getting fleet in getPreviewData', fleet);
-            previewData.prospectInformation.map((num, i) => {
-                num.fleet = [];
-                return num;
+            previewData.prospectInformation.map((prospect) => {
+                prospect.fleet = {};
+                return prospect;
+            });
+        } else if (!fleet || (fleet && !fleet.length)) {
+            previewData.prospectInformation.map((prospect) => {
+                prospect.fleet = {};
+                return prospect;
             });
         } else {
-            previewData.prospectInformation.map((num, i) => {
-                num.fleet = fleet[i];
-                return num;
+            previewData.prospectInformation.map((prospect, i) => {
+                // Add fleet to prospect, grouped by types, sorted by acquired date.
+                let grouped = _.groupBy(fleet[i].list, 'type');
+                for (const prop in grouped) {
+                    grouped[prop] = grouped[prop].sort((a, b) => {
+                        if (a.acquired_date < b.acquired_date){
+                            return -1;
+                        } else if (a.acquired_date > b.acquired_date){
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                }
+                prospect.fleet = grouped;
+                return prospect;
             });
         }
 
         // Save to state to let component render even more.
         store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: previewData});
 
-        // Get activity.
-        const activity = await getActivity({target: payload.id, type: 'target'});
+        // Get activities.
+        const activities = await getActivity({target: payload.id, type: 'target'});
 
-        if (activity instanceof Error) {
-            console.error('Could not get activity in getPreviewData', activity);
-            previewData.activity = [];
+        if (activities instanceof Error) {
+            console.error('Could not get activity in getPreviewData', activities);
+            previewData.activities = [];
         } else {
-            previewData.activity = activity;
+            previewData.activities = activities;
         }
 
         return store.dispatch({type: agileActionTypes.SET_PREVIEW_DATA, payload: previewData});

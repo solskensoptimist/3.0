@@ -239,19 +239,26 @@
         width: 50%
 
 .agilePreviewWrapper
+  height: 100%
   &__agilePreview
+    height: 100%
     &__header
+      height: 68px
+      background: $colorInformatory
+      position: relative
+      margin-bottom: 2px
+      color: white
       &__main
         display: flex
         justify-content: center
         align-items: center
-        background: $grey-100
-        padding: $paddingBig $paddingBig $paddingBig ($paddingBig + $paddingSmall + 14)
+        padding-left: ($paddingSmall + 14px)
+        height: 100%
         cursor: pointer
         font-size: $fontSizeStandard3
         font-weight: 600
         &:hover
-          color: $colorLink
+          color: $colorLinkHover
           .agilePreviewWrapper__agilePreview__header__main__navigate
             visibility: visible
         &__navigate
@@ -260,14 +267,16 @@
           display: flex
           align-items: center
           svg
-            fill: $colorLink
             width: 16px
             height: 16px
       &__sub
         display: flex
         align-items: center
         justify-content: center
-        margin-top: -2.4%
+        position: relative
+        top: -26%
+        z-index: 5
+        width: 100%
         &__sub
           border-radius: 50%
           border: 2px solid white
@@ -281,43 +290,50 @@
             width: 28px
             height: 28px
     &__content
-      margin-top: $paddingGreat
+      overflow-y: auto
+      overflow-x: hidden
+      height: calc(100% - 68px)
+      @extend .scrollbarRegular
+      padding: $paddingBig
       &__block
-        border-top: 1px solid $grey-300
-        padding-top: $paddingBig
-        position: relative
+        margin-top: $paddingGreat
         svg
-          width: 16px
-          height: 16px
-        &__title
-          background: white
+          width: 18px
+          height: 18px
+        &__header
           cursor: pointer
-          color: $grey-400
-          display: flex
-          align-items: center
-          padding: $paddingSmall $paddingSmall $paddingSmall 2px
-          position: absolute
-          right: 12px
-          top: -20px
+          position: relative
+          border-top: 1px solid $grey-300
+          color: $colorTextLight-1
           &:hover
             color: $colorLink
-          svg
-            width: 22px
-            height: 22px
+          &__title
+            display: flex
+            align-items: center
+            position: absolute
+            top: -14px
+            right: $paddingMedium
+            padding: 4px
+            background: white
         &__content
-          margin-bottom: $paddingGreat
+          display: flex
+          flex-wrap: wrap
+          margin-top: $paddingBig
           &__row
             padding: $paddingMedium
             display: flex
             align-items: center
+            flex-basis: 100%
             &:nth-child(even)
               background: $grey-100
             &__left
               flex-grow: 1
               svg
-                fill: $grey-500
+                fill: $grey-400
                 position: relative
                 top: 4px
+                width: 16px
+                height: 16px
               .lightAndItalic
                 font-style: italic
                 color: $colorTextLight-1
@@ -361,39 +377,102 @@
                     fill: white
                 svg
                   fill: $grey-500
-          &__infoBoxHolder
+                  width: 16px
+                  height: 16px
+          &__halfRow
             display: flex
-            flex-wrap: wrap
-            &__infoBox
-              flex-basis: calc(50% - #{$paddingBig})
-              &:first-child
-                margin-right: ($paddingBig / 2)
-              &:last-child
-                margin-left: ($paddingBig / 2)
-              &__row
-                display: flex
-                align-items: flex-start
-                margin-top: $paddingSmall
-                &:first-child
-                  margin-top: 0
-                &__left
-                  color: $colorTextLight-1
-                  margin-right: $paddingSmall
-                  white-space: nowrap
-          &__prospectBox
+            flex-basis: calc(50% - (#{$paddingMedium} * 3))
+            &:nth-child(odd)
+              margin-right: ($paddingMedium / 2)
+              margin-left: $paddingMedium
+            &:nth-child(even)
+              margin-left: ($paddingMedium / 2)
+              margin-right: $paddingMedium
+            &__left
+              color: $colorTextLight-1
+              margin-right: $paddingSmall
+              white-space: nowrap
+          &__prospects
             margin-top: $paddingBig
+            flex-basis: 100%
+            border: 1px solid $grey-300
+            background: $grey-100
             &:first-of-type
               margin-top: 0
             &__header
               display: flex
               align-items: center
-              margin-bottom: $paddingMedium
-              svg
-                width: 14px
-                height: 14px
-                fill: $colorInformatory
-                margin-right: $paddingMedium
+              justify-content: space-between
+              margin: $paddingMedium
+              &:hover
+                .agilePreviewWrapper__agilePreview__content__block__content__prospects__header__right
+                  visibility: visible
+              &__left
+                display: flex
+                align-items: center
+                h5
+                  font-size: $fontSizeStandard1
+                svg
+                  fill: $colorInformatory
+                  margin-right: $paddingMedium
+              &__right
+                visibility: hidden
+                cursor: pointer
+                &:hover
+                  svg
+                    fill: $colorLinkHover
+                svg
+                  fill: $colorLink
+                  width: 14px
+                  height: 14px
             &__content
+              display: flex
+              flex-wrap: wrap
+              padding-bottom: $paddingMedium
+              &__fleetHolder
+                padding: $paddingMedium $paddingMedium 0 $paddingMedium
+                flex-basis: 100%
+                &__type
+                  &__header
+                    display: flex
+                    align-items: center
+                    margin-top: $paddingMedium
+                    color: $colorTextLight
+                    p
+                      margin-left: $paddingSmall
+                  &__content
+                    &__vehicle
+                      display: flex
+                      align-items: center
+                      justify-content: space-between
+                      margin: 4px $paddingMedium
+                      &:hover
+                        .agilePreviewWrapper__agilePreview__content__block__content__prospects__content__fleetHolder__type__content__vehicle__right
+                          visibility: visible
+                      &__left
+                        display: flex
+                        align-items: center
+                        font-size: $fontSizeStandard-1
+                        .highlight
+                          font-weight: 600
+                        .marginRight
+                          margin-right: $paddingSmall
+                      &__right
+                        visibility: hidden
+                        margin-left: $paddingSmall
+                        cursor: pointer
+                        svg
+                          width: 14px
+                          height: 14px
+                          fill: $colorLink
+                    &__info
+                      color: $colorTextLight
+                      font-style: italic
+                      margin: 0 $paddingMedium
+          &__activities
+            flex-basis: 100%
+            &__item
+              background: $grey-100
 
 
 

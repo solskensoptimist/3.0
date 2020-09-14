@@ -5,7 +5,7 @@ import Popup from 'components/popup';
 import WidgetFooter from 'components/widget_footer';
 import WidgetHeader from 'components/widget_header';
 
-export default (props) => {
+const CommentRemove = (props) => {
     const _removeComment = async () => {
         props.close();
         await removeComment({id: props.id});
@@ -33,3 +33,5 @@ export default (props) => {
         </Popup>
     );
 };
+
+export default CommentRemove;
